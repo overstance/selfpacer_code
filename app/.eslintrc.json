@@ -31,7 +31,7 @@
         ],
         "quotes": [
             "error",
-            "double"
+            "single"
         ],
         "semi": [
             "error",
@@ -40,8 +40,9 @@
         "prettier/prettier": [
             "error",
             {
-                "trailingComma": "all",
-                "bracketSpacing": false,
+                "singleQuote": true,
+                "trailingComma": "none",
+                "bracketSpacing": true,
                 "jsxBracketSameLine": true,
                 "parser": "flow"
             }
