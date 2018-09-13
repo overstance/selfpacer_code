@@ -1,6 +1,10 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mongoose = require('mongoose');
+
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
+const passportLocalMongoose = require('passport-local-mongoose');
+
 const keys = require('../config/keys');
 
 const User = mongoose.model('users');
@@ -14,6 +18,8 @@ passport.deserializeUser(async (id, done) => {
 
   done(null, user);
 });
+
+passport.use(new LocalStrategy(User.authenticate()));
 
 passport.use(
   new GoogleStrategy(
@@ -32,9 +38,9 @@ passport.use(
 
       const user = await new User({
         googleId: profile.id,
-        firstName: profile.name.givenName,
-        lastName: profile.name.familyName,
-        userName: profile.displayName,
+        firstname: profile.name.givenName,
+        lastname: profile.name.familyName,
+        username: profile.displayName,
         email: profile.emails[0].value
       }).save();
 

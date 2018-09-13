@@ -16,6 +16,10 @@ mongoose.connect(
 
 const app = express();
 
+app.set('view engine', 'ejs');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000, //30 days in milliseconds
