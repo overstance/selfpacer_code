@@ -9,16 +9,19 @@ require('./services/passport');
 
 const authRoutes = require('./routes/authRoutes');
 
+//mongoose.Promise = global.Promise;
 mongoose.connect(
   keys.mongoURI,
-  { useNewUrlParser: true }
+  {
+    useNewUrlParser: true
+  }
 );
 
 const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
   cookieSession({
