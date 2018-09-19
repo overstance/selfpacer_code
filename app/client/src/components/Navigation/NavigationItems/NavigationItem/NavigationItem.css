@@ -11,6 +11,7 @@
     width: 100%;
     box-sizing: border-box;
     display: block;
+    font-weight: normal;
 }
 
 .NavigationItem a:hover,
@@ -19,7 +20,7 @@
     color: #ff4433;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 768px) {
     .NavigationItem {
         margin: 0;
         display: flex;

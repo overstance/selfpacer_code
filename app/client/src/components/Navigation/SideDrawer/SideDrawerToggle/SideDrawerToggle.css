@@ -13,11 +13,11 @@
 
 .SideDrawerToggle div {
     width: 90%;
-    height: 2px;
+    height: 3px;
     background-color: #66cc00;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 768px) {
     .SideDrawerToggle {
         display: none;
     }

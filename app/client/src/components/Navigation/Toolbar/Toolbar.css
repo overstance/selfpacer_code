@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #000033;
+    background-color: #0b0f33;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,11 +21,14 @@
     height: 60%;
 }
 
-.Logo :hover {
-    background-color: rgba(0, 0, 0, 0.1);
+.SearchBar{
+    height: 100%;
+    width: 30%;
+    position: relative;
 }
 
-@media (max-width: 499px) {
+
+@media (max-width: 768px) {
     .DesktopOnly {
         display: none;
     }

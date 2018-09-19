@@ -13,7 +13,15 @@ module.exports = app => {
     })
   );
 
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  app.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
+
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+      res.redirect('/api/current_user');
+    }
+  );
 
   app.get('/api/register', (req, res) => {
     res.render('register');
@@ -21,7 +29,7 @@ module.exports = app => {
 
   app.get('/api/logout', (req, res) => {
     req.logout();
-    res.send(req.user);
+    res.redirect('/');
   });
 
   app.get('/api/login', (req, res) => {

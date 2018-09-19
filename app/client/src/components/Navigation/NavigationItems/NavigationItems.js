@@ -2,12 +2,18 @@ import React from 'react';
 
 import classes from './NavigationItems.css';
 import NavigationItem from './NavigationItem/NavigationItem';
+import SearchBar from '../../SearchBar/SearchBar';
 
 
-const navigationItems = () => (
+const navigationItems = (props) => (
     <ul className={classes.NavigationItems}>
-        <NavigationItem link="/api/login">Log in</NavigationItem>
-        <NavigationItem link="/api/register">Sign Up</NavigationItem>
+        <div className={classes.SearchBarWrap}>
+            <SearchBar />
+        </div>
+        {props.isAuthenticated ? <NavigationItem link="/api/logout">Log out</NavigationItem> : <NavigationItem link="/api/login">Log in</NavigationItem>}
+        {!props.isAuthenticated ? <NavigationItem link="/api/register">Sign Up</NavigationItem> : null}
+        {props.isAuthenticated ? <NavigationItem link="#">custompage</NavigationItem> : null}
+        <NavigationItem link="#">Explore</NavigationItem>
     </ul>
 );
 

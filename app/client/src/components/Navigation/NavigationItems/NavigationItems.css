@@ -8,8 +8,28 @@
     height: 100%;
 }
 
-@media (min-width: 500px) {
+.SearchBarWrap {
+    position: relative;
+    width: 100%;
+    margin-top: 7px;
+    margin-bottom: 10%;
+}
+
+@media (min-width: 768px) {
     .NavigationItems {
-        flex-flow: row;
+        flex-flow: row-reverse;
+    }
+}
+
+@media (min-width: 768px) {
+    .SearchBarWrap {
+        width: 48%;
+        position: absolute;
+        top: 50%;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        left: 46%;
+        right: 50%;
+        transform: translate(-50%, -50%);
     }
 }

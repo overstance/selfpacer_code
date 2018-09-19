@@ -1,0 +1,21 @@
+.BackdropCloser {
+    position: absolute;
+    right: 18px;
+    top: 14px;
+    z-index: 300;
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 5%;
+    cursor: pointer;
+    background-color: black;
+    cursor: pointer;
+    display: block;
+}
+
+
+@media (min-width: 768px) {
+    .BackdropCloser {
+        display: none;
+    }
+}
