@@ -1,0 +1,33 @@
+.InputElement {
+    display: block;
+    width: 93%;
+    margin: auto;
+    padding: 13px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.151);
+    font-size: 15px;
+    font-weight: 700;
+    border-style: none
+}
+
+.InputElement:focus {
+    outline: none;
+    background-color: #ccc;
+}
+
+.Label {
+    display: block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.Label span {
+    color:  #ff4433;
+}
+
+.Invalid {
+ border: 1px solid #ff4433;
+}

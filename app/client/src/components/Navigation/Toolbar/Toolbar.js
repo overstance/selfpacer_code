@@ -9,11 +9,13 @@ import { Link } from 'react-router-dom';
 const toolbar = (props) => (
     <header className={classes.Toolbar}>
         <div className={classes.Logo}>
-            <Link to={props.isAuth ? "/api/current_user" : "/"}><Logo /></Link>
+            <Link to={props.isAuth ? "/home" : "/"}><Logo /></Link>
         </div>
         <SideDrawerToggle clicked={props.sideDrawerToggleClicked} />
         <nav className={classes.DesktopOnly}>
-            <NavigationItems isAuthenticated={props.isAuth} />
+            <NavigationItems
+                isAuthenticated={props.isAuth}
+            />
         </nav>
     </header>
 

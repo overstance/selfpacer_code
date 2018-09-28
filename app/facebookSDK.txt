@@ -119,3 +119,11 @@ dbe2357251566edc2c97e962c8ec7e1f
 }
 
 //
+/*"proxy": {
+    "/auth/google": {
+      "target": "http://localhost:5000"
+    },
+    "/api/*": {
+      "target": "http://localhost:5000"
+    }
+  },*/

@@ -4,6 +4,7 @@ import Toolbar from '../Navigation/Toolbar/Toolbar';
 import classes from './Layout.css';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
+//import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
     state = {
@@ -20,13 +21,18 @@ class Layout extends Component {
         });
     }
 
+    logoutHandler = () => {
+        this.props.onLogout();
+    }
+
     render() {
         console.log(this.props);
         return (
             <Aux>
                 <Toolbar
                     isAuth={this.props.isAuthenticated}
-                    sideDrawerToggleClicked={this.sideDrawertoggleHandler} />
+                    sideDrawerToggleClicked={this.sideDrawertoggleHandler}
+                />
                 <SideDrawer
                     isAuth={this.props.isAuthenticated}
                     open={this.state.showSideDrawer}
@@ -41,8 +47,16 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth !== false
+        //isAuthenticated: state.auth !== false
+        isAuthenticated: state.auth.isAuthenticated,
+        //onLogout: state.auth.onLogout
     }
 };
 
+/*const mapDispatchToProps = dispatch => {
+    return {
+        onLogout: () => dispatch(actions.logout())
+        //onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/home'))
+    };
+};*/
 export default connect(mapStateToProps)(Layout);

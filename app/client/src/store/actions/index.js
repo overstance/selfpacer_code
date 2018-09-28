@@ -1,3 +1,10 @@
 export {
     fetchUser,
-} from './auth'
+    loginUser,
+    registerUser,
+    setAuthRedirectPath,
+    clearErrors,
+    logout,
+} from './auth';
+
+

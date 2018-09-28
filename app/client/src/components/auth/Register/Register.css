@@ -1,0 +1,97 @@
+.Register {
+    position: absolute;
+    padding: 5% 13%;
+    width: 74%;
+    right:0px;
+  }
+
+.content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1000px;
+    background: rgb(8, 8, 8);
+    z-index: 300;
+  }
+
+.ValidationErrors {
+    position: relative;
+    margin-top: 0px; 
+}
+
+.ValidationErrors p {
+    color: #ff4433;
+    font-size: 13px;
+    font-weight: 500
+}
+
+.Error {
+    color: #ff4433;
+    font-size: 13px;
+    font-weight: 500
+}
+
+.HeaderItem {
+    display: inline;
+    margin: 20px;
+    color: #ff4433;
+    padding-bottom: 3px;
+    border-bottom: 3px solid #8ee630;
+    cursor: pointer;
+  }
+
+.container {
+      display: block;
+      position: relative;
+      width: 530px;
+      height: 810px;
+      margin: auto;
+      margin-top: 20px; 
+      box-shadow: 0px 0px 0px 1px #333;
+      overflow:hidden;
+      background-color: #0b0f33;
+    }
+
+.Logo {
+        position: relative;
+        height: 10%;
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+   
+    
+.Menu {
+      position: relative;
+      padding: 5% 13% 0 13%;
+    }
+   
+.Form div p{
+       display: inline;
+       font-weight: 700;
+       color: #fff;
+   }
+   
+.Form a{
+       text-decoration: none;
+       cursor: pointer;
+       
+   }
+   
+.Google{
+       height: 50px;
+       position: relative;
+       top: 15px;
+       margin-left: 5px;
+       margin-right: 5px;
+   }
+   
+.Facebook{
+       height: 40px;
+       position: relative;
+       top: 10px;
+       margin-left: 10px;
+   }

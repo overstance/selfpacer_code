@@ -2,6 +2,8 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const LocalStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
+const validateRegisterInput = require('../validation/register');
+const validateLoginInput = require('../validation/login');
 
 const User = mongoose.model('users');
 
@@ -19,54 +21,78 @@ module.exports = app => {
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      res.redirect('/api/current_user');
+      res.redirect('/home');
     }
   );
 
-  app.get('/api/register', (req, res) => {
+  /*app.get('/api/register', (req, res) => {
     res.render('register');
-  });
+  });*/
 
   app.get('/api/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.send(req.user);
   });
 
-  app.get('/api/login', (req, res) => {
+  /*app.get('/api/login', (req, res) => {
     res.render('login');
-  });
+  });*/
 
   app.get('/api/current_user', (req, res) => {
     res.send(req.user);
   });
 
   app.post('/api/register', (req, res) => {
+    const { errors, isValid } = validateRegisterInput(req.body);
+
+    if (!isValid) {
+      return res.json(errors);
+    }
+
     User.register(
       new User({
+        name: req.body.name,
         username: req.body.username,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
         email: req.body.email
       }),
       req.body.password,
       (err, user) => {
         if (err) {
           console.log(err);
-          return res.render('register');
+          return res.send(err);
         }
         passport.authenticate('local')(req, res, () => {
-          res.redirect('/api/current_user');
+          return res.json(req.user);
         });
       }
     );
   });
 
-  app.post(
+  /*app.post(
     '/api/login',
     passport.authenticate('local', {
-      successRedirect: '/api/current_user',
-      failureRedirect: '/api/login'
+      //successRedirect: '/api/current_user',
+      //failureRedirect: '/api/login'
+      successRedirect: '/home',
+      failureRedirect: '/login'
     }),
-    (req, res) => {}
-  );
+    (res, req) => {
+      res.send(requestAnimationFrame.user);
+    }
+  );*/
+
+  app.post('/api/login', (req, res) => {
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    if (!isValid) {
+      return res.json(errors);
+    }
+
+    passport.authenticate('local')(req, res, err => {
+      if (err) {
+        res.send(err);
+      }
+      res.send(req.user);
+    });
+  });
 };
