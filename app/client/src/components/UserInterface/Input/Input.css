@@ -3,11 +3,13 @@
     width: 93%;
     margin: auto;
     padding: 13px;
-    border-radius: 20px;
+    border-radius: 30px;
     background: rgba(255, 255, 255, 0.151);
     font-size: 15px;
     font-weight: 700;
-    border-style: none
+    border-style: none;
+    color: black;
+    font-family: inherit;
 }
 
 .InputElement:focus {
@@ -30,4 +32,10 @@
 
 .Invalid {
  border: 1px solid #ff4433;
+}
+
+.ValidationErrors {
+    color: #ff4433;
+    font-size: 13px;
+    font-weight: 500
 }

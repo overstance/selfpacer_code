@@ -55,12 +55,13 @@ export const clearErrors = () => {
     };
 }
 
-export const registerUser = (name, username, email, password, password2, history) => {
+
+export const registerUser = (name, email, password, password2, history) => {
     return dispatch => {
         dispatch(authStart());
         const newUser = {
             name: name,
-            username: username,
+            username: email,
             email: email,
             password: password,
             password2: password2
@@ -89,11 +90,11 @@ export const registerUser = (name, username, email, password, password2, history
     }
 };
 
-export const loginUser = (username, password, history) => {
+export const loginUser = (email, password, history) => {
     return dispatch => {
         dispatch(authStart());
         const user = {
-            username: username,
+            username: email,
             password: password,
         };
 

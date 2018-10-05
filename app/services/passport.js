@@ -2,6 +2,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const passportLocalMongoose = require('passport-local-mongoose');
 
@@ -40,6 +41,33 @@ passport.use(
         googleId: profile.id,
         name: profile.displayName,
         email: profile.emails[0].value
+      }).save();
+
+      done(null, user);
+    }
+  )
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: keys.facebookAppID,
+      clientSecret: keys.facebookAppSecret,
+      callbackURL: '/auth/facebook/callback',
+      profileFields: ['id', 'displayName', 'email'],
+      proxy: true
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+      const existingUser = await User.findOne({ facebookId: profile.id });
+
+      if (existingUser) {
+        return done(null, existingUser);
+      }
+
+      const user = await new User({
+        facebookId: profile.id,
+        name: profile.displayName
       }).save();
 
       done(null, user);

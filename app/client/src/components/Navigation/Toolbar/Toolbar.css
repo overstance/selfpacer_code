@@ -13,6 +13,13 @@
     z-index: 90;
 }
 
+.Widgets {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .Toolbar nav {
     height: 100%;
 }

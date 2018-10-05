@@ -1,4 +1,4 @@
-.Search {
+/*.Search {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-flow: row wrap;
@@ -36,6 +36,59 @@
     color: #fff;
     border-radius: 18px;
     cursor: pointer;
+  }*/
+
+  .Wrapper {
+    text-align: center;
+    position: relative;
+    height: 100%;
+    font-size: 0;
   }
   
+  .Search {
+    padding: 0 20px;
+    font-size: 18px;
+    width: 85%;
+    height: 39px;
+    border: 1px solid #66cc00;
+    border-radius: 20px 0 0 20px;
+  }
+
+  .Search:focus {
+    outline: none;
+  }
   
+  .Submit {
+    cursor: pointer;
+    border: none;
+    background-color: #66cc00;
+    border-radius: 0 20px 20px 0;
+    padding: 14px 25px;
+    display: inline-block;
+    width: 40px;
+    height: 39px;
+    text-align: center;
+    background-image: url('../../assets/images/baseline-near_me-24px.svg');
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position-x: center;
+    background-position-y: center;
+  }
+
+@media (min-width: 768px) {
+  .Search {
+    width: 80%;
+    max-width: 400px;
+  }    
+}
+
+@media (max-width: 500px) {
+  .Search {
+    width: 80%;
+  }    
+}
+
+  /*
+ top: 50%;
+ transform: translateY(-50%);
+  */

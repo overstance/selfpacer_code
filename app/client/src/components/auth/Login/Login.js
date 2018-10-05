@@ -15,18 +15,22 @@ import * as actions from '../../../store/actions/index';
 
 class Login extends Component {
     state = {
-        errors: this.props.validationErrors,
         controls: {
-            username: {
+            email: {
                 elementType: 'input',
                 elementConfig: {
-                    type: 'text',
-                    label: 'USERNAME'
+                    type: 'email',
+                    label: 'EMAIL',
+                    name: 'username'
                 },
                 value: '',
-                validation: {},
+                validation: {
+                    required: true,
+                    isEmail: true
+                },
                 valid: false,
-                touched: false
+                touched: false,
+                errorMessage: null
             },
             password: {
                 elementType: 'input',
@@ -93,10 +97,24 @@ class Login extends Component {
         this.setState({ controls: updatedControls });
     }
 
+    onValidationError = (name) => {
+        if (name === 'email' && this.props.errors) {
+            return this.props.errors.username;
+        }
+
+        if (name === 'password' && this.props.errors) {
+            return this.props.errors.password;
+        }
+
+        if (!this.props.errors) {
+            return null;
+        }
+    };
+
     submitHandler = (event) => {
         event.preventDefault();
         this.props.onClearErrors();
-        this.props.onLoginUser(this.state.controls.username.value, this.state.controls.password.value, this.props.history);
+        this.props.onLoginUser(this.state.controls.email.value, this.state.controls.password.value, this.props.history);
     }
 
     render() {
@@ -110,6 +128,7 @@ class Login extends Component {
 
 
         let form = formElementsArray.map(formElement => (
+
             <Input
                 key={formElement.id}
                 elementType={formElement.config.elementType}
@@ -119,12 +138,15 @@ class Login extends Component {
                 shouldValidate={formElement.config.validation}
                 touched={formElement.config.touched}
                 label={formElement.config.elementConfig.label}
-                changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                changed={(event) => this.inputChangedHandler(event, formElement.id)}
+                errorMessage={this.onValidationError(formElement.id)}
+            />
+
         ));
 
 
         if (this.props.loading) {
-            form = <Spinner />
+            form = <div className={classes.SpinnerContainer}><Spinner /></div>
         }
 
         let errorMessage = null;
@@ -142,17 +164,9 @@ class Login extends Component {
             }
         }
 
-        let validationError = null;
-        if (this.props.errors) {
-            validationError = (
-                <div className={classes.ValidationErrors}>
-                    <p>{this.props.errors.username}</p>
-                    <p>{this.props.errors.password}</p>
-                </div>
-            );
-        }
 
         return (
+
             <div className={classes.content}>
                 <div className={classes.Logo}>
                     <a href="/"><Logo /></a>
@@ -163,7 +177,7 @@ class Login extends Component {
                     </div>
                     <div className={classes.Login}>
                         {errorMessage}
-                        {validationError}
+
                         <form className={classes.Form} onSubmit={this.submitHandler}>
                             {form}
                             <Button btnType='Success'>LOG IN</Button>
@@ -173,7 +187,7 @@ class Login extends Component {
                                     <img className={classes.Google} src={googleLogo} alt='google logo' />
                                 </a>
                                 <p>or</p>
-                                <a href="/">
+                                <a href="/auth/facebook">
                                     <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
                                 </a>
                             </div>
@@ -181,6 +195,7 @@ class Login extends Component {
                     </div>
                 </div>
             </div>
+
         )
     }
 };
@@ -195,8 +210,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLoginUser: (username, password, history) => dispatch(actions.loginUser(username, password, history)),
-        onClearErrors: () => dispatch(actions.clearErrors()),
+        onLoginUser: (email, password, history) => dispatch(actions.loginUser(email, password, history)),
+        onClearErrors: () => dispatch(actions.clearErrors())
     };
 };
 

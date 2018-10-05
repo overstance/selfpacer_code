@@ -7,6 +7,7 @@ import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Logout from './components/auth/Logout/Logout';
 
+
 const Landing = () => <h2>
   Landing page component
 </h2>
@@ -63,4 +64,4 @@ const mapDispatchToProps = dispatch => {
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 
-
+//<Redirect to="/" />

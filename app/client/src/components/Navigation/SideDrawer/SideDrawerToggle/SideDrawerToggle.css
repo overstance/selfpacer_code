@@ -1,4 +1,23 @@
 .SideDrawerToggle {
+    width: 50px;
+    cursor: pointer;
+}
+
+.SideDrawerToggle div {
+    height: 3px;
+    margin: 10px;
+    background-color: #66cc00;
+}
+
+@media (min-width: 768px) {
+    .SideDrawerToggle {
+        display: none;
+    }
+}
+
+
+/*
+.SideDrawerToggle {
     width: 35px;
     height: 45%;
     display: flex;
@@ -10,15 +29,9 @@
     border-radius: 5%;
     cursor: pointer;
 }
-
 .SideDrawerToggle div {
     width: 90%;
     height: 3px;
     background-color: #66cc00;
 }
-
-@media (min-width: 768px) {
-    .SideDrawerToggle {
-        display: none;
-    }
-}
+*/

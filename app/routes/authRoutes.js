@@ -15,7 +15,12 @@ module.exports = app => {
     })
   );
 
-  app.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
+  app.get(
+    '/auth/facebook',
+    passport.authenticate('facebook', {
+      scope: ['email']
+    })
+  );
 
   app.get(
     '/auth/google/callback',
@@ -25,9 +30,13 @@ module.exports = app => {
     }
   );
 
-  /*app.get('/api/register', (req, res) => {
-    res.render('register');
-  });*/
+  app.get(
+    '/auth/facebook/callback',
+    passport.authenticate('facebook'),
+    (req, res) => {
+      res.redirect('/home');
+    }
+  );
 
   app.get('/api/logout', (req, res) => {
     req.logout();
@@ -52,7 +61,7 @@ module.exports = app => {
     User.register(
       new User({
         name: req.body.name,
-        username: req.body.username,
+        username: req.body.email,
         email: req.body.email
       }),
       req.body.password,
@@ -79,7 +88,25 @@ module.exports = app => {
     (res, req) => {
       res.send(requestAnimationFrame.user);
     }
-  );*/
+  );
+  User.register(
+      new User({
+        name: req.body.name,
+        username: req.body.username,
+        email: req.body.email
+      }),
+      req.body.password,
+      (err, user) => {
+        if (err) {
+          console.log(err);
+          return res.send(err);
+        }
+        passport.authenticate('local')(req, res, () => {
+          return res.json(req.user);
+        });
+      }
+    );
+  */
 
   app.post('/api/login', (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);

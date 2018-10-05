@@ -52,6 +52,7 @@ const input = (props) => {
         <div className={classes.Input}>
             <label className={classes.Label}>{props.label}<span>*</span></label>
             {inputElement}
+            <div className={classes.ValidationErrors}>{props.errorMessage}</div>
         </div>
     );
 

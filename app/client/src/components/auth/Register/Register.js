@@ -32,21 +32,6 @@ class Register extends Component {
                 valid: false,
                 touched: false
             },
-            username: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    label: 'USERNAME'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 2,
-                    maxLength: 30
-                },
-                valid: false,
-                touched: false
-            },
             email: {
                 elementType: 'input',
                 elementConfig: {
@@ -148,8 +133,30 @@ class Register extends Component {
     submitHandler = (event) => {
         event.preventDefault();
         this.props.onClearErrors();
-        this.props.onRegisterUser(this.state.controls.name.value, this.state.controls.username.value, this.state.controls.email.value, this.state.controls.password.value, this.state.controls.password2.value, this.props.history);
+        this.props.onRegisterUser(this.state.controls.name.value, this.state.controls.email.value, this.state.controls.password.value, this.state.controls.password2.value, this.props.history);
     }
+
+    onValidationError = (name) => {
+        if (name === 'name' && this.props.errors) {
+            return this.props.errors.name;
+        }
+
+        if (name === 'email' && this.props.errors) {
+            return this.props.errors.email;
+        }
+
+        if (name === 'password' && this.props.errors) {
+            return this.props.errors.password;
+        }
+
+        if (name === 'password2' && this.props.errors) {
+            return this.props.errors.password2;
+        }
+
+        if (!this.props.errors) {
+            return null;
+        }
+    };
 
     googleHandler = () => {
         this.props.onGoogleAuth();
@@ -175,31 +182,20 @@ class Register extends Component {
                 shouldValidate={formElement.config.validation}
                 touched={formElement.config.touched}
                 label={formElement.config.elementConfig.label}
-                changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                changed={(event) => this.inputChangedHandler(event, formElement.id)}
+                errorMessage={this.onValidationError(formElement.id)}
+            />
         ));
 
 
         if (this.props.loading) {
-            form = <Spinner />
+            form = <div className={classes.SpinnerContainer}><Spinner /></div>
         }
 
         let errorMessage = null;
         if (this.props.error) {
             errorMessage = (
                 <p className={classes.Error}>{this.props.error.message}</p>
-            );
-        }
-
-        let validationError = null;
-        if (this.props.errors) {
-            validationError = (
-                <div className={classes.ValidationErrors}>
-                    <p>{this.props.errors.name}</p>
-                    <p>{this.props.errors.username}</p>
-                    <p>{this.props.errors.email}</p>
-                    <p>{this.props.errors.password}</p>
-                    <p>{this.props.errors.password2}</p>
-                </div>
             );
         }
 
@@ -220,7 +216,6 @@ class Register extends Component {
                     </div>
                     <div className={classes.Register}>
                         {errorMessage}
-                        {validationError}
                         <form className={classes.Form} onSubmit={this.submitHandler}>
                             {form}
                             <Button btnType='Success'>SIGN UP</Button>
@@ -230,7 +225,7 @@ class Register extends Component {
                                     <img className={classes.Google} src={googleLogo} alt='google logo' />
                                 </a>
                                 <p>or</p>
-                                <a href="/">
+                                <a href="/auth/facebook">
                                     <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
                                 </a>
                             </div>
@@ -253,7 +248,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRegisterUser: (name, username, email, password, password2, history) => dispatch(actions.registerUser(name, username, email, password, password2, history)),
+        onRegisterUser: (name, email, password, password2, history) => dispatch(actions.registerUser(name, email, password, password2, history)),
         onClearErrors: () => dispatch(actions.clearErrors()),
         //onGoogleAuth: () => dispatch(actions.googleAuth())
         //onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/home'))

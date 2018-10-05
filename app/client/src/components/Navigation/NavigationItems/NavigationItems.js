@@ -2,16 +2,17 @@ import React from 'react';
 //import { Link } from 'react-router-dom';
 import classes from './NavigationItems.css';
 import NavigationItem from './NavigationItem/NavigationItem';
+//import searchBar from '../../SearchBar/SearchBar';
 import SearchBar from '../../SearchBar/SearchBar';
 
 
 const navigationItems = (props) => (
     <ul className={classes.NavigationItems}>
+
         <li className={classes.SearchBarWrap}>
             <SearchBar />
         </li>
-
-        {props.isAuthenticated ? <NavigationItem link="/logout">Log out</NavigationItem> : <NavigationItem link="/login">Log in</NavigationItem>}
+        {props.isAuthenticated ? <NavigationItem link="/logout" isAuthenticating={props.closeSideDrawer}>Log out</NavigationItem> : <NavigationItem link="/login" isAuthenticating={props.closeSideDrawer}>Log in</NavigationItem>}
         {!props.isAuthenticated ? <NavigationItem link="/register">Sign Up</NavigationItem> : null}
         {props.isAuthenticated ? <NavigationItem link="/home" >custompage</NavigationItem> : null}
         <NavigationItem link="/" >Explore</NavigationItem>

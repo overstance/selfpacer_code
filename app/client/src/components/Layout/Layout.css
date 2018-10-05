@@ -1,3 +1,21 @@
 .Content {
-    margin-top: 86px
+    margin-top: 70px;
+    flex: 1 0 auto;
+}
+
+.Site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.Searchbar {
+    background-color: #0b0f33;
+    padding-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+    .Searchbar {
+        display: none;
+    }
 }

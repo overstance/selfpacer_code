@@ -14,13 +14,17 @@ const sideDrawer = (props) => {
         attachedClasses = [classes.SideDrawer, classes.Open];
     }
 
+    if (props.onAuth === true) {
+        attachedClasses = [classes.SideDrawer, classes.Open];
+    }
+
     return (
         <Aux>
             <BackdropCloser show={props.open} clicked={props.closed} />
             <Backdrop show={props.open} clicked={props.closed} />
             <div className={attachedClasses.join(' ')}>
                 <nav>
-                    <NavigationItems isAuthenticated={props.isAuth} />
+                    <NavigationItems isAuthenticated={props.isAuth} closeSideDrawer={props.onAuth} />
                 </nav>
             </div>
         </Aux>
