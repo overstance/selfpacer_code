@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Logo from '../../Logo/Logo';
+import logoImage from '../../../assets/images/selfpacer0147.png';
+//import Logo from '../../Logo/Logo';
 import classes from './Register.css';
-//import { Link } from 'react-router-dom';
-//import { withRouter } from 'react-router-dom'
+import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
 import { connect } from 'react-redux';
 import Spinner from '../../UserInterface/Spinner/Spinner';
 import facebookLogo from '../../../assets/images/Facebook-2-512.png';
@@ -199,16 +199,12 @@ class Register extends Component {
             );
         }
 
-        /*let authRedirect = null;
-        if (this.props.isAuthenticated) {
-            authRedirect = <Redirect to={this.props.authRedirectPath} />
-        }*/
-
 
         return (
-            <div className={classes.content}>
+            <AuthBackdrop show>
+
                 <div className={classes.Logo}>
-                    <a href="/"><Logo /></a>
+                    <a href="/"><img src={logoImage} alt='logo' /></a>
                 </div>
                 <div className={classes.container}>
                     <div className={classes.Menu}>
@@ -232,7 +228,8 @@ class Register extends Component {
                         </form>
                     </div>
                 </div>
-            </div>
+
+            </AuthBackdrop>
         )
     }
 };
@@ -243,19 +240,15 @@ const mapStateToProps = state => ({
     error: state.auth.error,
     errors: state.auth.errors,
     isAuthenticated: state.auth.isAuthenticated,
-    //authRedirectPath: state.auth.authRedirectPath
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         onRegisterUser: (name, email, password, password2, history) => dispatch(actions.registerUser(name, email, password, password2, history)),
         onClearErrors: () => dispatch(actions.clearErrors()),
-        //onGoogleAuth: () => dispatch(actions.googleAuth())
-        //onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/home'))
     };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
 
-//export default connect(mapStateToProps, { registerUser })(RegisterForm);
 

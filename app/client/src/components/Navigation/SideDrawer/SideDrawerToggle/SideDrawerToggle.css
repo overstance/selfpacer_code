@@ -9,29 +9,10 @@
     background-color: #66cc00;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 760px) {
     .SideDrawerToggle {
         display: none;
     }
 }
 
 
-/*
-.SideDrawerToggle {
-    width: 35px;
-    height: 45%;
-    display: flex;
-    flex-flow: column;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0;
-    box-sizing: border-box;
-    border-radius: 5%;
-    cursor: pointer;
-}
-.SideDrawerToggle div {
-    width: 90%;
-    height: 3px;
-    background-color: #66cc00;
-}
-*/

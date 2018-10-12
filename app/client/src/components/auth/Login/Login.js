@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-//import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop/AuthBackdrop';
+import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
+import logoImage from '../../../assets/images/selfpacer0147.png';
 import classes from './Login.css';
-import Logo from '../../Logo/Logo';
-//import { withRouter } from 'react-router-dom'
-//import { Link } from 'react-router-dom';
 import facebookLogo from '../../../assets/images/Facebook-2-512.png';
 import googleLogo from '../../../assets/images/google_PNG19635.png';
 import { connect } from 'react-redux';
@@ -167,9 +165,9 @@ class Login extends Component {
 
         return (
 
-            <div className={classes.content}>
+            <AuthBackdrop show>
                 <div className={classes.Logo}>
-                    <a href="/"><Logo /></a>
+                    <a href="/"><img src={logoImage} alt='logo' /></a>
                 </div>
                 <div className={classes.container}>
                     <div className={classes.Menu}>
@@ -194,8 +192,7 @@ class Login extends Component {
                         </form>
                     </div>
                 </div>
-            </div>
-
+            </AuthBackdrop>
         )
     }
 };

@@ -5,18 +5,6 @@
     left:0px;
 }
 
-.content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 680px;
-    background: rgb(8, 8, 8);
-    z-index: 300;
-  }
-
 .ValidationErrors {
     position: relative;
     margin-top: 0px; 
@@ -55,14 +43,17 @@
       background-color: #0b0f33;
     }
 
-.Logo {
+    .Logo {
         position: relative;
-        height: 10%;
         text-align: center;
-        margin-top: 20px;
-    }
-    
-   
+        width: fit-content;
+        margin: auto;
+        }
+        
+        .Logo img {
+            height: 100px;
+            margin-top: 20px;
+        }    
     
 .Menu {
       position: relative;
@@ -125,16 +116,12 @@
     }
 
     .Logo {
-        height: 7%;
-    }
+        height: 80px;
+        padding-bottom: 20px;
+    }  
+
+    .Logo img {
+        height: 80px;
+    }  
 
 }
-
-/*
-height: 550px;
-        margin: auto;
-        margin-top: 20px; 
-        box-shadow: 0px 0px 0px 1px #333;
-        overflow:hidden;
-        background-color: #0b0f33;
-*/

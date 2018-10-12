@@ -6,6 +6,7 @@ import * as actions from './store/actions/index';
 import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Logout from './components/auth/Logout/Logout';
+import Explore from './containers/explore/Explore';
 
 
 const Landing = () => <h2>
@@ -25,6 +26,7 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
+        <Route path="/explore" component={Explore} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/" exact component={Landing} />

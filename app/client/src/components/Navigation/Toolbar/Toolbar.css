@@ -1,9 +1,13 @@
-.Toolbar {
-    height: 70px;
-    width: 100%;
+.Container {
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%; 
+}
+
+.Toolbar {
+    height: 70px;
+    width: 100%;
     background-color: #0b0f33;
     display: flex;
     justify-content: space-between;
@@ -29,16 +33,33 @@
 }
 
 .SearchBar{
-    height: 100%;
-    width: 30%;
+    width: 45%;
     position: relative;
 }
 
+.MobileSearchBar {
+   
+    background-color: #0b0f33;
+    border-bottom: solid 1px #66cc00; 
+}
 
-@media (max-width: 768px) {
+@media (min-width: 760px) {
+    .MobileSearchBar {
+        display: none;
+        padding: 0;
+    }
+
+    .Toolbar {
+        border-bottom: 1px solid #8ee630;
+    }
+}
+
+
+@media (max-width: 760px) {
     .DesktopOnly {
         display: none;
     }
+
 }
 
 

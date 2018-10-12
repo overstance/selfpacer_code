@@ -1,0 +1,12 @@
+.Backdrop {
+    width: 100%;
+    display: block;
+    overflow: auto;
+    position: absolute;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.98);
+    min-height: 100%;
+}
+

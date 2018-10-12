@@ -13,9 +13,9 @@ const navigationItems = (props) => (
             <SearchBar />
         </li>
         {props.isAuthenticated ? <NavigationItem link="/logout" isAuthenticating={props.closeSideDrawer}>Log out</NavigationItem> : <NavigationItem link="/login" isAuthenticating={props.closeSideDrawer}>Log in</NavigationItem>}
-        {!props.isAuthenticated ? <NavigationItem link="/register">Sign Up</NavigationItem> : null}
+        {!props.isAuthenticated ? <NavigationItem link="/register" isAuthenticating={props.closeSideDrawer}>Sign Up</NavigationItem> : null}
         {props.isAuthenticated ? <NavigationItem link="/home" >custompage</NavigationItem> : null}
-        <NavigationItem link="/" >Explore</NavigationItem>
+        <NavigationItem link="/explore" isAuthenticating={props.closeSideDrawer} >Explore</NavigationItem>
     </ul>
 );
 

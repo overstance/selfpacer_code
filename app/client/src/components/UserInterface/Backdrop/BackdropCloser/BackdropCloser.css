@@ -13,7 +13,7 @@
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 760px) {
     .BackdropCloser {
         display: none;
     }

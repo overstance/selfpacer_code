@@ -5,7 +5,7 @@ import classes from './Layout.css';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
 import Footer from '../Navigation/Footer/Footer';
-import Searchbar from '../SearchBar/SearchBar';
+//import Searchbar from '../SearchBar/SearchBar';
 //import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
@@ -47,10 +47,8 @@ class Layout extends Component {
                         isAuth={this.props.isAuthenticated}
                         sideDrawerToggleClicked={this.sideDrawertoggleHandler}
                         searchbarToggleClicked={this.searchbarToggleHandler}
+                        showSearchbar={this.state.showSearchbar}
                     />
-                    {this.state.showSearchbar ? <div className={classes.Searchbar}>
-                        <Searchbar />
-                    </div> : null}
                     <SideDrawer
                         isAuth={this.props.isAuthenticated}
                         open={this.state.showSideDrawer}
@@ -76,3 +74,10 @@ const mapStateToProps = state => {
 
 
 export default connect(mapStateToProps)(Layout);
+
+
+/*
+{this.state.showSearchbar ? <div className={classes.Searchbar}>
+    <Searchbar />
+</div> : null} 
+*/

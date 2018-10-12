@@ -15,13 +15,13 @@
     margin-bottom: 10%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 760px) {
     .NavigationItems {
         flex-flow: row-reverse;
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 760px) {
     .SearchBarWrap {
         width: 40%;
         position: absolute;
@@ -34,7 +34,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 760px) {
     .SearchBarWrap {
         display: none;
     }
@@ -62,7 +62,7 @@
     color: #ff4433;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 760px) {
     .NavigationItem {
         margin: 0;
         display: flex;

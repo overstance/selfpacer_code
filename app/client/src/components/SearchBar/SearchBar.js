@@ -12,18 +12,22 @@ import classes from './SearchBar.css';
     </form>
 );*/
 
-const searchBar = () => (
-    <form role="search">
-        <div className={classes.Wrapper}>
-            <input type="search"
-                className={classes.Search}
-                placeholder="Enter a skill. Go!"
-                aria-label="Search through site content"
-            />
-            <button type="submit" className={classes.Submit} />
+const searchBar = (props) => (
+    props.show ?
+        <div >
+            <form role="search">
+                <div className={classes.Wrapper}>
+                    <input type="search"
+                        className={classes.Search}
+                        placeholder="Enter a skill. Go!"
+                        aria-label="Search through site content"
+                    />
+                    <button type="submit" className={classes.Submit} />
+                </div>
+            </form>
         </div>
-    </form>
-
+        :
+        null
 );
 
 
