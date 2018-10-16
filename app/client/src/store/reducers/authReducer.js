@@ -12,12 +12,10 @@ const initialState = {
 };
 
 const fetchUser = (state, action) => {
-    console.log(action.payload);
     return updateObject(state, { user: action.payload, isAuthenticated: !isEmpty(action.payload) });
 };
 
 const authLogout = (state, action) => {
-    console.log(action.payload);
     return updateObject(state, { user: action.payload, userId: null, isAuthenticated: false });
 };
 

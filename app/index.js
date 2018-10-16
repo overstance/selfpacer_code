@@ -4,10 +4,12 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys');
+const seedDB = require('./seed');
 require('./models/User');
 require('./services/passport');
 
 const authRoutes = require('./routes/authRoutes');
+const subjectRoutes = require('./routes/subjectRoutes');
 
 //mongoose.Promise = global.Promise;
 mongoose.connect(
@@ -19,10 +21,10 @@ mongoose.connect(
 
 const app = express();
 
-//app.set('view engine', 'ejs');
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//seedDB();
 
 app.use(
   cookieSession({
@@ -36,6 +38,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 authRoutes(app);
+subjectRoutes(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

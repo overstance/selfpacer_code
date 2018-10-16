@@ -1,12 +1,12 @@
 .SideDrawer {
     position: fixed;
     width: 380px;
-    max-width: 80%;
+    max-width: 70%;
     height: 100%;
     left: 0;
     top: 0;
     z-index: 200;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: #0b0f33;
     padding: 8px 20px;
     box-sizing: border-box;
     transition: transform 0.1s ease-out;

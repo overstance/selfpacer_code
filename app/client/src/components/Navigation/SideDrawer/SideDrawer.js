@@ -3,7 +3,7 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 import classes from './SideDrawer.css';
 import Backdrop from '../../UserInterface/Backdrop/Backdrop';
 import Aux from '../../../hoc/Auxiliary';
-import BackdropCloser from '../../UserInterface/Backdrop/BackdropCloser/BackdropCloser';
+//import BackdropCloser from '../../UserInterface/Backdrop/BackdropCloser/BackdropCloser';
 
 
 
@@ -20,7 +20,6 @@ const sideDrawer = (props) => {
 
     return (
         <Aux>
-            <BackdropCloser show={props.open} clicked={props.closed} />
             <Backdrop show={props.open} clicked={props.closed} />
             <div className={attachedClasses.join(' ')}>
                 <nav>
@@ -32,3 +31,5 @@ const sideDrawer = (props) => {
 };
 
 export default sideDrawer;
+
+//<BackdropCloser show={props.open} clicked={props.closed} />

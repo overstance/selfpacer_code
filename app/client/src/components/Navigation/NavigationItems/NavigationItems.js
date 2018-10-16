@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import classes from './NavigationItems.css';
 import NavigationItem from './NavigationItem/NavigationItem';
@@ -6,19 +6,31 @@ import NavigationItem from './NavigationItem/NavigationItem';
 import SearchBar from '../../SearchBar/SearchBar';
 
 
-const navigationItems = (props) => (
-    <ul className={classes.NavigationItems}>
+class NavigationItems extends Component {
 
-        <li className={classes.SearchBarWrap}>
-            <SearchBar />
-        </li>
-        {props.isAuthenticated ? <NavigationItem link="/logout" isAuthenticating={props.closeSideDrawer}>Log out</NavigationItem> : <NavigationItem link="/login" isAuthenticating={props.closeSideDrawer}>Log in</NavigationItem>}
-        {!props.isAuthenticated ? <NavigationItem link="/register" isAuthenticating={props.closeSideDrawer}>Sign Up</NavigationItem> : null}
-        {props.isAuthenticated ? <NavigationItem link="/home" >custompage</NavigationItem> : null}
-        <NavigationItem link="/explore" isAuthenticating={props.closeSideDrawer} >Explore</NavigationItem>
-    </ul>
-);
 
-export default navigationItems;
+    render() {
+        return(
+            <ul className={classes.NavigationItems}>
 
-//{props.isAuthenticated ? <li className={classes.NavigationItem} ><a href="/api/logout">Log out</a></li> : <NavigationItem link="/login">Log in</NavigationItem>}
+                <li className={classes.SearchBarWrap}>
+                    <SearchBar />
+                </li>
+                {this.props.isAuthenticated ? <NavigationItem link="/logout" isAuthenticating={this.props.closeSideDrawer}>Log out</NavigationItem> : <NavigationItem link="/login" isAuthenticating={this.props.closeSideDrawer}>Log in</NavigationItem>}
+                {!this.props.isAuthenticated ? <NavigationItem link="/register" isAuthenticating={this.props.closeSideDrawer}>Sign Up</NavigationItem> : null}
+                {this.props.isAuthenticated ? <NavigationItem link="/home" >custompage</NavigationItem> : null}
+                <NavigationItem 
+                    link="/explore"
+                    isAuthenticating={this.props.closeSideDrawer}
+                >
+                    Explore
+                </NavigationItem>
+            </ul> 
+        );
+    }
+};
+   
+
+export default NavigationItems;
+
+//{this.props.isAuthenticated ? <li className={classes.NavigationItem} ><a href="/api/logout">Log out</a></li> : <NavigationItem link="/login">Log in</NavigationItem>}

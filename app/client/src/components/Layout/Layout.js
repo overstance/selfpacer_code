@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-//import Aux from '../../hoc/Auxiliary';
+import PropTypes from 'prop-types';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import classes from './Layout.css';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
 import Footer from '../Navigation/Footer/Footer';
-//import Searchbar from '../SearchBar/SearchBar';
-//import * as actions from '../../store/actions/index';
+
 
 class Layout extends Component {
     state = {
@@ -34,12 +33,8 @@ class Layout extends Component {
         });
     }
 
-    logoutHandler = () => {
-        this.props.onLogout();
-    }
 
     render() {
-        console.log(this.props);
         return (
             <div className={classes.Site}>
                 <div className={classes.Content}>
@@ -48,6 +43,7 @@ class Layout extends Component {
                         sideDrawerToggleClicked={this.sideDrawertoggleHandler}
                         searchbarToggleClicked={this.searchbarToggleHandler}
                         showSearchbar={this.state.showSearchbar}
+                        exploreRefresh={this.onExploreRefresh}
                     />
                     <SideDrawer
                         isAuth={this.props.isAuthenticated}
@@ -65,19 +61,17 @@ class Layout extends Component {
     }
 };
 
+Layout.propTypes= {
+    isAuthenticated: PropTypes.bool.isRequired
+}
+
 const mapStateToProps = state => {
     return {
-        //isAuthenticated: state.auth !== false
         isAuthenticated: state.auth.isAuthenticated,
     }
 };
 
 
+
 export default connect(mapStateToProps)(Layout);
 
-
-/*
-{this.state.showSearchbar ? <div className={classes.Searchbar}>
-    <Searchbar />
-</div> : null} 
-*/

@@ -77,37 +77,6 @@ module.exports = app => {
     );
   });
 
-  /*app.post(
-    '/api/login',
-    passport.authenticate('local', {
-      //successRedirect: '/api/current_user',
-      //failureRedirect: '/api/login'
-      successRedirect: '/home',
-      failureRedirect: '/login'
-    }),
-    (res, req) => {
-      res.send(requestAnimationFrame.user);
-    }
-  );
-  User.register(
-      new User({
-        name: req.body.name,
-        username: req.body.username,
-        email: req.body.email
-      }),
-      req.body.password,
-      (err, user) => {
-        if (err) {
-          console.log(err);
-          return res.send(err);
-        }
-        passport.authenticate('local')(req, res, () => {
-          return res.json(req.user);
-        });
-      }
-    );
-  */
-
   app.post('/api/login', (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
 

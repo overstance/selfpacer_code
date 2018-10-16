@@ -17,6 +17,10 @@ const Home = () => <h2>
   User Home. Welcome!
 </h2>
 
+const graphicDesign = () => <h2>
+ subject explore
+</h2>
+
 class App extends Component {
 
   componentDidMount() {
@@ -26,23 +30,32 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/explore" component={Explore} />
+        <Route path="/explore/graphic-design" component={graphicDesign} />                
+        <Route path="/explore" component={ (props) => (
+            <Explore timestamp={new Date().toString()} {...props} />
+            )}  
+        />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/" exact component={Landing} />
-        <Redirect to="/" />
+        <Redirect to="/" />       
       </Switch>
     );
 
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
+          <Route path="/explore" component={ (props) => (
+            <Explore timestamp={new Date().toString()} {...props} />
+            )} 
+          />
           <Route path="/logout" component={Logout} />
           <Route path="/home" component={Home} />
           <Redirect to="/home" />
         </Switch>
       );
     }
+
 
     return (
       <Layout>

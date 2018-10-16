@@ -81,7 +81,6 @@ export const registerUser = (name, email, password, password2, history) => {
                     return
                 }
                 dispatch(ValidationErrors(res.data));
-                console.log(res.data);
                 return;
             })
             .catch(error => dispatch(authFail(error))
@@ -108,7 +107,6 @@ export const loginUser = (email, password, history) => {
 
                 if (res.data.username || res.data.password) {
                     dispatch(ValidationErrors(res.data));
-                    console.log(res.data);
                     return;
                 }
             })

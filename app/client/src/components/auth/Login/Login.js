@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
 import logoImage from '../../../assets/images/selfpacer0147.png';
 import classes from './Login.css';
@@ -196,6 +197,14 @@ class Login extends Component {
         )
     }
 };
+
+Login.propTypes = {
+    onLoginUser: PropTypes.func.isRequired,
+    onClearErrors: PropTypes.func,
+    isAuthenticated: PropTypes.bool.isRequired,
+    errors: PropTypes.object,
+    error: PropTypes.object
+  };
 
 
 const mapStateToProps = state => ({

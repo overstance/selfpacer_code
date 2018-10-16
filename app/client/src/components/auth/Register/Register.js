@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import logoImage from '../../../assets/images/selfpacer0147.png';
 //import Logo from '../../Logo/Logo';
 import classes from './Register.css';
@@ -233,6 +234,14 @@ class Register extends Component {
         )
     }
 };
+
+Register.propTypes = {
+    onRegisterUser: PropTypes.func.isRequired,
+    onClearErrors: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    errors: PropTypes.object,
+    error: PropTypes.object
+  };
 
 
 const mapStateToProps = state => ({

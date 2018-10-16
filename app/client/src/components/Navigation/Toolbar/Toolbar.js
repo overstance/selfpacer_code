@@ -6,7 +6,6 @@ import SideDrawerToggle from '../SideDrawer/SideDrawerToggle/SideDrawerToggle';
 import SearchbarToggle from '../../SearchBar/SearchbarToggle/SearchbarToggle';
 import Searchbar from '../../SearchBar/SearchBar';
 import { Link } from 'react-router-dom';
-//import Auxilliary from '../../../hoc/Auxiliary';
 
 
 const toolbar = (props) => (
