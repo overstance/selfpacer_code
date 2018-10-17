@@ -6,6 +6,9 @@ const subjectSchema = new Schema({
   category: String,
   src: String,
   alt: String,
+  to: String,
+  paths: Array,
+  curriculum: Array,
   views: {
     type: Number,
     default: 0

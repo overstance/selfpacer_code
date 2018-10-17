@@ -7,42 +7,237 @@ const data = [
     category: 'Creative',
     src: '/images/utensils.svg',
     alt: 'food icon',
-    views: 0
+    views: 0,
+    to: '/explore/food',
+    paths: [
+      'Baking and Pastry',
+      'Indian Cooking',
+      'Wine Making',
+      'Japanese Cooking',
+      'Chinese Cooking',
+      'Vegan Cooking',
+      'Italian Cooking',
+      'African Cooking'
+    ],
+    curriculum: [
+      'Food Safety',
+      'Culinary Fundamentals',
+      'Meat Identification, Fabrication, and Utilization',
+      'Seafood Identification and Fabrication',
+      'Modern Banquet Cookery',
+      'Introduction to À La Carte Cooking',
+      'High-Volume Production Cookery',
+      'Garde Manger',
+      'Cuisines and Cultures',
+      'Wine Studies',
+      'Introduction to Hospitality and Customer Service',
+      'Restaurant Cooking',
+      'Contemporary Hospitality and Service',
+      'Baking and Pastry Techniques',
+      'Baking Ingredients and Equipment Technology',
+      'Principles of Design',
+      'Café Savory Foods Production',
+      'Basic and Classical Cakes',
+      'Hearth Breads and Rolls',
+      'Confectionery Art and Special Occasion Cakes',
+      'Chocolate and Confectionery Technology and Techniques',
+      'Contemporary Cakes and Desserts',
+      'Specialty Breads',
+      'Advanced Baking Principles',
+      'Café Operations',
+      'Beverages and Customer Service',
+      'Restaurant and Production Desserts',
+      'Restaurant Operations'
+    ]
   },
   {
     title: 'Beauty',
     category: 'Creative',
     src: '/images/spa.svg',
     alt: 'Spa icon',
-    views: 0
+    views: 0,
+    to: '/explore/beauty',
+    paths: [
+      'Makeup Artistry',
+      'Nail Art',
+      'Skincare',
+      'Hair Styling',
+      'Body and Facial Massage'
+    ],
+    curriculum: [
+      'Hair Design',
+      'Client consultation and safety',
+      'Basic and dimensional color',
+      'Texture services',
+      'Skincare and facials',
+      'Manicures and pedicures',
+      'Special occasion styling',
+      'Wax for the face and body',
+      'Makeup application',
+      'Skin analysis and skin types',
+      'Cosmetic chemistry and the pH scale',
+      'Chemical peels and exfoliation',
+      'Makeup application',
+      'Waxing for the face and body',
+      'Nails',
+      'Acrylic Nails',
+      'Nail disorders and diseases',
+      'Anatomy and Physiology',
+      'Nail Art'
+    ]
   },
   {
     title: 'Painting',
     category: 'Creative',
     src: '/images/paint-brush.svg',
     alt: 'painting icon',
-    views: 0
+    views: 0,
+    to: '/explore/painting',
+    paths: ['Digital Painting', 'Traditional painting'],
+    curriculum: [
+      'Art History',
+      'Painting beyond Observation',
+      'Painting after the Photograph',
+      'Image & Form',
+      'Reproducibility: 2D or 3D',
+      'Aesthetics, Style, and Content',
+      'The Role of Artist as Producer',
+      'Digital Color',
+      'Material Color',
+      'Principals of Design',
+      'Drawing Fundamentals'
+    ]
   },
   {
     title: 'Drawing',
     category: 'Creative',
     src: '/images/drafting-compass.svg',
     alt: 'drawing icon',
-    views: 0
+    views: 0,
+    to: '/explore/drawing',
+    paths: [
+      'General drawing',
+      'Figure drawing',
+      'Comic drawing',
+      'Technical drawing'
+    ],
+    curriculum: [
+      'Art History',
+      'Drawings Fundamentals',
+      'Drawing beyond Observation',
+      'Comics',
+      'Figure drawing and anatomy',
+      'Image & Form',
+      'Representation and abstraction',
+      'Reproducibility: 2D OR 3D',
+      'Aesthetics, Style & Content',
+      'Drawing Materials and Techniques',
+      'Hybrid Approaches to Drawing: Mixed and Digital Media',
+      'The Role of the Artist as Producer'
+    ]
   },
   {
     title: 'Photography',
     category: 'Creative',
     src: '/images/camera-retro.svg',
     alt: 'Photography icon',
-    views: 0
+    views: 0,
+    to: '/explore/photograpghy',
+    paths: [
+      'Potrait photograhpy',
+      'Street photography',
+      'Event photography',
+      'Nature photography',
+      'Product photography',
+      'Drone photography',
+      'Architecture photography',
+      'Food Photography',
+      'Underwater photograph'
+    ],
+    curriculum: [
+      'History of Photography',
+      'Introduction to Photography',
+      'Digital Photo Imaging',
+      'Lighting fundamentals',
+      'Color Concepts and Post-Production',
+      'Visual Thinking'
+    ]
   },
   {
-    title: 'Communication',
+    title: 'Video',
+    category: 'Creative',
+    src: '/images/video.svg',
+    alt: 'video icon',
+    views: 0,
+    to: '/explore/video',
+    paths: [
+      'Cinematography',
+      'Videography',
+      'Video editing',
+      'Visual effects',
+      'Sound design'
+    ],
+    curriculum: [
+      'Introduction to Photography',
+      'Digital Photo Imaging',
+      'Moving Image',
+      'Lighting fundamentals',
+      'Color Concepts and Post-Production',
+      'Visual Thinking',
+      'Introduction to Sound',
+      'Cinematic Sound',
+      'Lighting and Cinematography',
+      'Directing Actors for Film and Video'
+    ]
+  },
+  {
+    title: 'Creative Writing',
     category: 'Creative',
     src: '/images/edit.svg',
+    alt: 'Writing icon',
+    views: 0,
+    to: '/explore/creative-writing',
+    paths: [
+      'Copywriting',
+      'Blogging',
+      'Fiction writing',
+      'Screenwriting',
+      'Podcasting',
+      'Journalism'
+    ],
+    curriculum: [
+      'Media law and ethics',
+      'Online journalism',
+      'Introduction to reporting',
+      'Screen language',
+      'Storytelling for film & television'
+    ]
+  },
+  {
+    title: 'Communications',
+    category: 'Creative',
+    src: '/images/micropphone-alt.svg',
     alt: 'Communication icon',
-    views: 0
+    views: 0,
+    to: '/explore/communications',
+    paths: ['Public speaking', 'Public relations'],
+    curriculum: [
+      'Foundations of human communication',
+      'Introduction to communication writing',
+      'Understanding media',
+      'Mass communication research',
+      'Principles and practice of public relation',
+      'Media relations',
+      'Professional presentation',
+      'Corporate communication',
+      'Public relations in non-profit settings',
+      'Law of communication',
+      'Investor relations',
+      'Interactive marketing communication',
+      'Managing corporate crises and issues',
+      'Public relations ethics',
+      'Writing for multimedia'
+    ]
   },
   {
     title: 'Music',
@@ -108,10 +303,10 @@ const data = [
     views: 0
   },
   {
-    title: 'Motion graphics and vfx',
+    title: 'Motion graphics',
     category: 'Creative',
     src: '/images/blur.svg',
-    alt: 'Motion graphics and vfx icon',
+    alt: 'Motion graphics icon',
     views: 0
   },
   {
