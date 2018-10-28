@@ -4,11 +4,12 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import PropTypes from 'prop-types';
 import classes from './Explore.css';
 import ExploreHeaderNav from './ExploreHeaderNav/ExploreHeaderNav';
-import filterIcon from '../../assets/images/angle-down.svg';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Subject from './Subject/Subject';
 import * as actions from '../../store/actions/index';
 import {connect} from 'react-redux';
+import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
+import Grid from '../../components/UserInterface/Grid/Grid';
 
 
 function shuffleArray(array) {
@@ -84,7 +85,6 @@ class Explore extends Component {
     }
 
     viewsIncreasedHandler = (id, views) => {
-        //console.log(id, views);
         this.props.onViewsIncrease(id, views);
     }
 
@@ -94,51 +94,42 @@ class Explore extends Component {
             const shuffledSubjects = shuffleArray(this.props.subjects);
             explorer = shuffledSubjects.map( subject => (
                     <Subject
-                        to="/explore/graphic-design"
+                        to={subject.to}
                         key={subject._id}
                         src={subject.src}
                         alt={subject.alt}
                         views={subject.views}
                         title={subject.title}
-                        clicked={() => this.viewsIncreasedHandler( subject._id, subject.views)}
+                        clicked={() => this.viewsIncreasedHandler( subject._id, subject.views, subject.path, subject.curriculum )}
                     />
+                    
             ) )
         }
 
-        const filterIconClasses = [classes.FilterIcon];
-
-        if (this.state.filterIconRotate) {
-            filterIconClasses.push(classes.Rotate180);
-        }
-
         return (
-            <div className={classes.wrapper}>
-                <div className={classes.header}>
-                    Header
-                </div>
-                <div className={classes.main}>
-                    <div>
-                        <div className={classes.NavContainer}>
-                            <h3>Filter<span onClick={this.filterToggleHandler} className={classes.FilterSpan}><img className={filterIconClasses.join(' ')} src={filterIcon} alt="filter icon" /></span></h3>
-                            <ExploreHeaderNav
-                                show={this.state.showFilter}
-                                creativeClicked={this.creativeNavHandler}
-                                businessClicked={this.businessNavHandler}
-                                technologyClicked={this.technologyNavHandler}
-                                lifeStyleClicked={this.lifeStyleNavHandler}
-                            />
-                        </div>
-                        <div className={classes.ContainerFluid}>
-                            <ul className={classes.Row}>
+            <Grid>
+                <div>
+                    <div className={classes.NavContainer}>
+                        <SubHeader 
+                            filterIconRotate={this.state.filterIconRotate} 
+                            subheadTitle="FILTER"
+                            filterToggleHandler={this.filterToggleHandler}
+                        />
+                        <ExploreHeaderNav
+                            show={this.state.showFilter}
+                            creativeClicked={this.creativeNavHandler}
+                            businessClicked={this.businessNavHandler}
+                            technologyClicked={this.technologyNavHandler}
+                            lifeStyleClicked={this.lifeStyleNavHandler}
+                        />
+                    </div>
+                    <div className={classes.Explorer}>
+                        <ul className={classes.Row}>
                                {explorer}
-                            </ul>
-                        </div>
+                        </ul>
                     </div>
                 </div>
-                <div className={classes.aside1 + ' ' + classes.aside}>Aside 1</div>
-                <div className={classes.aside2 + ' ' + classes.aside}>Aside 2</div>
-                <div className={classes.footer}>Footer</div>
-            </div>
+            </Grid>
         )
     }
 };
@@ -167,13 +158,28 @@ const mapDispatchToProps = dispatch => {
         onBusinessNav : () => dispatch( actions.fetchBusinessSubjects()),
         onTechnologyNav : () => dispatch( actions.fetchTechnologySubjects()),
         onLifeStyleNav : () => dispatch( actions.fetchLifeStyleSubjects()),
-        onViewsIncrease: ( id, views ) => dispatch( actions.increaseViews( id, views) )
+        onViewsIncrease: ( id, views, path, curriculum ) => dispatch( actions.increaseViews( id, views, path, curriculum ) )
     };
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( withErrorHandler( Explore, axios )  );
 
 
+/*
+        let explorer = <div className={classes.SpinnerContainer}> <Spinner /> </div>;
+        if ( !this.props.loading ) {
+            const shuffledSubjects = shuffleArray(this.props.subjects);
+            explorer = shuffledSubjects.map( subject => (
+                    <Subject
+                        to={subject.to}
+                        key={subject._id}
+                        src={subject.src}
+                        alt={subject.alt}
+                        views={subject.views}
+                        title={subject.title}
+                        clicked={() => this.viewsIncreasedHandler( subject._id, subject.views)}
+                    />
+            ) )
+        }
 
-
-
+*/

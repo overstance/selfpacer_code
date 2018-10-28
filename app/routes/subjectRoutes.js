@@ -59,6 +59,16 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/accounting', (req, res) => {
+    Subject.find({ title: 'Accounting' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
   app.post('/api/subjectviews', (req, res) => {
     //console.log(req.body);
 

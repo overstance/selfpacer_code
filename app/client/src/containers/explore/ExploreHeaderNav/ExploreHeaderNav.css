@@ -24,7 +24,7 @@
     background: #0b0f33;
     border-radius: 20px;
     margin: 5px 5px;
-    border: 1px solid #74be23;
+    /*border: 1px solid #74be23;*/
   }
   
   .navigation li:hover {

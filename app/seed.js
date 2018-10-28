@@ -205,13 +205,17 @@ const data = [
       'Introduction to Reporting',
       'Screen Language',
       'Storytelling for Film & Television',
+      'The Art of Visual Storytelling',
+      'Script Analysis and Criticism',
+      'Episodic and Serial Writing',
+      'Writing for Games',
       'Technical Writing'
     ]
   },
   {
     title: 'Communications',
     category: 'Creative',
-    src: '/images/micropphone-alt.svg',
+    src: '/images/microphone-alt.svg',
     alt: 'Communication icon',
     views: 0,
     to: '/explore/communications',
@@ -315,11 +319,17 @@ const data = [
       'Visual Communication',
       'Illustration',
       'Visual Design Principles and Elements',
+      'Color Theory',
       'Design Thinking',
-      'Typography',
+      'Typography and Page Layout',
       'Package Design',
-      'Electronic Publishing',
-      'Printing'
+      'Logos and Symbols',
+      'Interactive Media Design and Usability',
+      'Digital Publishing',
+      'Printing',
+      'Art History',
+      'Fundamentals of Physical Science',
+      'Concepts in Advertising'
     ]
   },
   {
@@ -379,7 +389,6 @@ const data = [
       'Visual Communication',
       'Visual Design Principles and Elements',
       'Design Thinking',
-      'Typography',
       'Digital Imaging',
       'Life Drawing',
       'Drawing & Anatomy',
@@ -390,8 +399,9 @@ const data = [
       'Material & Lighting',
       'Principles of Animation',
       'Introduction to Computer Animation',
+      'Fundamentals of Physical Science',
       'Stop-Motion Animation',
-      'Animation Pre-Production',
+      'Animation Production',
       'Digital Tools for Animation',
       '2D Character Animation',
       '3D Character Animation',
@@ -545,7 +555,7 @@ const data = [
     src: '/images/briefcase.svg',
     alt: 'Management icon',
     views: 0,
-    to: '/explore/accounting',
+    to: '/explore/management',
     paths: [
       'Business Management',
       'Project Management',
@@ -584,7 +594,7 @@ const data = [
     src: '/images/city.svg',
     alt: 'Real estate icon',
     views: 0,
-    to: '/explore/accounting',
+    to: '/explore/real-estate',
     paths: ['Real Estate'],
     curriculum: [
       'Introduction to Business',
@@ -593,7 +603,7 @@ const data = [
       'Principles of Marketing',
       'Financial Economic Concepts and Tools for Real Estate',
       'Real Estate System and the Space Market',
-      'Property Valuation  and Investment Analysis',
+      'Property Valuation and Investment Analysis',
       'Real Estate Leveraging and Financing',
       'Strategic Tools for Portfolio Management',
       'Investment Analysis of Real Estate Development Projects'
@@ -605,12 +615,13 @@ const data = [
     src: '/images/headset.svg',
     alt: 'Customer service icon',
     views: 0,
-    to: '/explore/accounting',
+    to: '/explore/customer-service',
     paths: ['Customer Service'],
     curriculum: [
       'Interpersonal Communication',
       'Quality Customer Servicing',
       'Business Communication',
+      'Professional Development',
       'Teamwork Dynamics',
       'Elements of Intercultural Communication',
       'Business Organization and Management',
@@ -620,137 +631,400 @@ const data = [
     ]
   },
   {
-    title: 'Cloud Computing',
-    category: 'Technology',
-    src: '/images/cloud.svg',
-    alt: 'Cloud computing icon',
-    views: 0
-  },
-  {
     title: 'Data Science',
     category: 'Technology',
     src: '/images/chart-area.svg',
     alt: 'Data science icon',
-    views: 0
+    views: 0,
+    to: '/explore/data-science',
+    paths: ['Data Science'],
+    curriculum: [
+      'Introductionduction to Computer Science',
+      'Programming Fundamentals',
+      'Cloud Computing',
+      'Introduction to Data Science',
+      'Mathematics for Data Science',
+      'Computational Thinking',
+      'Algorithms and Software Concepts',
+      'Databases and Data Management',
+      'Introduction to Statistical Models',
+      'Statistical and Machine Learning',
+      'Algorithms and Software Foundation',
+      'Data Curation'
+    ]
   },
   {
     title: 'Database',
     category: 'Technology',
     src: '/images/database.svg',
     alt: 'Database icon',
-    views: 0
+    views: 0,
+    to: '/explore/database',
+    paths: ['Database Management'],
+    curriculum: [
+      'Introductionduction to Computer Science',
+      'Programming Fundamentals',
+      'Data Structures',
+      'Introduction to Modern Database Systems',
+      'Database Architecture',
+      'History of Databases',
+      'Entity-Relationship Model',
+      'Relational Database Model',
+      'Relational Algebra',
+      'Introduction to Data Normalization'
+    ]
   },
   {
     title: 'Hardware',
     category: 'Technology',
     src: '/images/microchip.svg',
     alt: 'Hardware icon',
-    views: 0
-  },
-  {
-    title: 'IT Support',
-    category: 'Technology',
-    src: '/images/headphones.svg',
-    alt: 'IT support icon',
-    views: 0
+    views: 0,
+    to: '/explore/hardware',
+    paths: ['Computer Hardware Engineering'],
+    curriculum: [
+      'Introductionduction to Computer Science',
+      'Introduction to Computer Technology',
+      'Instructions: Hardware Language',
+      'Fundamentals of Digital Logic Design',
+      'Computer Arithmetic',
+      'Computer Processor',
+      'The Memory Hierarchy',
+      'Storage and I/O',
+      'Parallel Processing',
+      'Introduction to Embedded Systems'
+    ]
   },
   {
     title: 'Mobile Development',
     category: 'Technology',
     src: '/images/android.svg',
     alt: 'Mobile development icon',
-    views: 0
+    views: 0,
+    to: '/explore/mobile-development',
+    paths: ['Android', 'IOS'],
+    curriculum: [
+      'Introductionduction to Computer Science',
+      'Data Structures',
+      'Statistics',
+      'Networks',
+      'Discrete Mathematics',
+      'Psychology of Play',
+      'Mobile User Experience',
+      'Interface Design',
+      'Mobile Development Frameworks',
+      'Swift Programming Language',
+      'Java Programming Language'
+    ]
   },
   {
-    title: 'Network and Systems',
+    title: 'Game Development',
+    category: 'Technology',
+    src: '/images/dice.svg',
+    alt: 'dice icon',
+    views: 0,
+    to: '/explore/game-development',
+    paths: ['Game Development'],
+    curriculum: [
+      'Introductionduction to Computer Science',
+      'Data Structures and Algorithms',
+      'Psychology of Play',
+      'Statistics',
+      'Discrete Mathematics',
+      'Systems Programming',
+      'Linear Algebra',
+      'Software Engineering',
+      'Applied Human-Computer Interaction',
+      'Digital Logic',
+      'Operating Systems',
+      'Computer Organization and Architecture',
+      'Computer Graphics',
+      'Information and Database Systems',
+      '3-D Content Creation',
+      'Probability',
+      'Networks',
+      'Engine Development',
+      'Artificial Intelligence',
+      'Game Architecture'
+    ]
+  },
+  {
+    title: 'Networks and Systems',
     category: 'Technology',
     src: '/images/router.svg',
     alt: 'Network and systems icon',
-    views: 0
+    views: 0,
+    to: '/explore/networks-and-systems',
+    paths: ['Network Administration', 'Security'],
+    curriculum: [
+      'Introductionduction to Computer Science',
+      'Programming Fundamentals',
+      'Data Structures',
+      'Information Technology Fundamentals',
+      'Networking Fundamentals',
+      'Network and Security',
+      'Operating Systems',
+      'Data Management',
+      'Network Design and Management'
+    ]
   },
   {
-    title: 'Security',
+    title: 'Cloud Computing',
     category: 'Technology',
-    src: '/images/shield-alt.svg',
-    alt: 'Security icon',
-    views: 0
+    src: '/images/cloud.svg',
+    alt: 'Cloud icon',
+    views: 0,
+    to: '/explore/cloud-computing',
+    paths: ['Cloud Computing'],
+    curriculum: [
+      'Introductionduction to Computer Science',
+      'Programming Fundamentals',
+      'Data Structures',
+      'Introduction to Modern Database Systems',
+      'Virtual Computing',
+      'Networking Technologies',
+      'Introduction to Information Security',
+      'Introduction to Application Servers',
+      'Cloud Networking',
+      'Configuration Management Programming',
+      'Systems Performance and Capacity Management',
+      'Data Storage Systems',
+      'Software-Driven Data Centers'
+    ]
   },
   {
-    title: 'Software Engineering',
+    title: 'Software Development',
     category: 'Technology',
     src: '/images/file-code.svg',
-    alt: 'Software Engineering icon',
-    views: 0
+    alt: 'Software icon',
+    views: 0,
+    to: '/explore/software-development',
+    paths: ['Software Development'],
+    curriculum: [
+      'Introductionduction to Computer Science',
+      'Programming',
+      'Systems Programming',
+      'Data Structures and Algorithms',
+      'Psychology of Play',
+      'Statistics',
+      'Discrete Mathematics',
+      'Systems Programming',
+      'Linear Algebra',
+      'Software Engineering',
+      'Applied Human-Computer Interaction',
+      'Digital Logic',
+      'Operating Systems',
+      'Computer Organization and Architecture',
+      'Data Visualization and Modeling',
+      'Information and Database Systems',
+      'Computer Organization and Architecture',
+      'Probability',
+      'Computer Networks and Networking',
+      'Machine Intelligence Systems',
+      'Artificial Intelligence',
+      'Digital Logic'
+    ]
   },
   {
     title: 'Web Development',
     category: 'Technology',
     src: '/images/http.svg',
     alt: 'Web development',
-    views: 0
+    views: 0,
+    to: '/explore/web-development',
+    paths: ['Web Development'],
+    curriculum: [
+      'Introductionduction to Computer Science',
+      'Data Structures',
+      'Psychology of Play',
+      'Networks',
+      'Statistics',
+      'Discrete Mathematics',
+      'Interfaces and Usability',
+      'Programming for Web Applications',
+      'Server-Side Languages',
+      'Front-End Frameworks',
+      'Web Application Deployment'
+    ]
   },
   {
     title: 'Personal Development',
     category: 'Life-style',
     src: '/images/dove.svg',
     alt: 'Personal development icon',
-    views: 0
+    views: 0,
+    to: '/explore/personal-development',
+    paths: ['Personal Development'],
+    curriculum: [
+      'Life Coaching',
+      'Meditation',
+      'Time and Stress Management',
+      'Focus Strategies',
+      'Motivation',
+      'Emotional Intelligence',
+      'Happiness',
+      'Communication Skills',
+      'Public Speaking',
+      'Conflict Management',
+      'Presentation Skills',
+      'Negotiation',
+      'Personal Finance',
+      'Persuasion',
+      'Social Intelligence',
+      'Planning and Goal Setting',
+      'Personal integrity'
+    ]
   },
   {
-    title: 'Career Development',
+    title: 'Professional Development',
     category: 'Life-style',
     src: '/images/certificate.svg',
     alt: 'Career development icon',
-    views: 0
+    views: 0,
+    to: '/explore/professional-development',
+    paths: ['Professional Development'],
+    curriculum: [
+      'Business Communications',
+      'Customer Servicing',
+      'Professional Writing',
+      'Office Tools( Microsoft and mac ) and Productivity',
+      'Time and Stress Management',
+      'Resume Writing',
+      'Interviewing Skills',
+      'Professional Etiquette',
+      'Crisis Communication',
+      'Public Speaking'
+    ]
   },
   {
     title: 'Study Skills',
     category: 'Life-style',
     src: '/images/brain.svg',
     alt: 'Study skills icon',
-    views: 0
+    views: 0,
+    to: '/explore/study-skills',
+    paths: ['Study Skills'],
+    curriculum: [
+      'Learning Strategies',
+      'Memory',
+      'Speed Reading',
+      'Mind Mapping',
+      'Focus Strategies',
+      'Mental Math',
+      'Concentration',
+      'Performance Optimization',
+      'Digital Learning'
+    ]
   },
   {
     title: 'Health and Fitness',
     category: 'Life-style',
     src: '/images/heartbeat.svg',
     alt: 'Health and fitness icon',
-    views: 0
+    views: 0,
+    to: '/explore/health-and-Fitness',
+    paths: ['Health and Fitness'],
+    curriculum: [
+      'Muscle Building',
+      'Home Workout',
+      'Pilates',
+      'Weight Loss',
+      'Posture',
+      'Herbalism',
+      'Massage Therapy',
+      'Aromatherapy',
+      'Acupressure',
+      'Tennis',
+      'Sports Management',
+      'Soccer',
+      'Golf',
+      'Swimming',
+      'Eating Disorder Therapy',
+      'Essential Oil',
+      'Yoga',
+      'Safety & First Aid',
+      'Dance'
+    ]
   },
   {
-    title: 'Teaching Training',
+    title: 'Teaching Skills',
     category: 'Life-style',
     src: '/images/chalkboard-teacher.svg',
     alt: 'Teaching training icon',
-    views: 0
+    views: 0,
+    to: '/explore/teaching-skills',
+    paths: ['Teaching Skills'],
+    curriculum: [
+      'Learning Theory and Implications',
+      'Curriculum Design and Instructional Decision Making',
+      'Understanding Barriers to Learning',
+      'Assessment and Evaluation',
+      'History, Philosophy and Sociology of Education',
+      'Research in Education',
+      'Applied Professional Inquiry',
+      'Online Course Creation'
+    ]
   },
   {
     title: 'Travel',
     category: 'Life-style',
     src: '/images/map-marked-alt.svg',
     alt: 'Travel icon',
-    views: 0
+    views: 0,
+    to: '/explore/travel',
+    paths: ['Travel'],
+    curriculum: [
+      'Travel Hacking',
+      'Travel Writing',
+      'Airbnb Hosting',
+      'Digital Nomad',
+      'Travel Tips'
+    ]
   },
   {
     title: 'Gaming',
     category: 'Life-style',
     src: '/images/gamepad.svg',
     alt: 'Gaming icon',
-    views: 0
+    views: 0,
+    to: '/explore/gaming',
+    paths: ['Gaming'],
+    curriculum: ['Gaming Content Creation']
   },
   {
     title: 'Home Improvement',
     category: 'Life-style',
     src: '/images/home.svg',
-    alt: 'Home improvement icon',
-    views: 0
+    alt: 'Home icon',
+    views: 0,
+    to: '/explore/home-improvement',
+    paths: ['Home Improvement'],
+    curriculum: [
+      'Gardening',
+      'Electricity',
+      'Aquaculture',
+      'Home Farming',
+      'Lighting Design',
+      'Decluttering',
+      'Irrigation'
+    ]
   },
   {
     title: 'Pet Care',
     category: 'Life-style',
     src: '/images/paw.svg',
-    alt: 'Pet care icon',
-    views: 0
+    alt: 'Pet icon',
+    views: 0,
+    to: '/explore/pet-care',
+    paths: ['Pet Care'],
+    curriculum: [
+      'Dog Training',
+      'Dog Care',
+      'Pet Training',
+      'Cat Behavior',
+      'Dog Walking',
+      'First Aid for Pets'
+    ]
   }
 ];
 

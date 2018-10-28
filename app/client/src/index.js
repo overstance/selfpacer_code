@@ -11,12 +11,14 @@ import { unregister } from './registerServiceWorker';
 
 import authReducer from './store/reducers/authReducer';
 import exploreReducer from './store/reducers/exploreReducer';
+import clickedSubjectReducer from './store/reducers/clickedSubjectReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    explore: exploreReducer
+    explore: exploreReducer,
+    clickedSubject: clickedSubjectReducer
 });
 
 

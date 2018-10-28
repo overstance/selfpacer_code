@@ -7,6 +7,7 @@ import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Logout from './components/auth/Logout/Logout';
 import Explore from './containers/explore/Explore';
+import Accounting from './containers/Accounting/Accounting';
 
 
 const Landing = () => <h2>
@@ -30,6 +31,7 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
+        <Route path="/explore/accounting" component={Accounting} />
         <Route path="/explore/graphic-design" component={graphicDesign} />                
         <Route path="/explore" component={ (props) => (
             <Explore timestamp={new Date().toString()} {...props} />

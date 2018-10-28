@@ -1,0 +1,57 @@
+
+.FlexContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /*background: deepskyblue;*/
+}
+
+
+.FlexContainer h5 {
+    margin: 0px;
+    /*background-color: #74be23;*/
+    padding: 15px 0px;
+    text-align: center;
+    color: #0b0f33;
+}
+  
+.YoutubeColumn {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    background: #ff4433;
+}
+
+.ELearningColumn {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    background: #303563;
+}
+
+.WebColumn {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    background: #74be23;
+}
+
+.BookColumn {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    background: deepskyblue;
+}

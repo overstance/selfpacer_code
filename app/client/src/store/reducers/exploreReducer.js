@@ -4,7 +4,8 @@ import { updateObject } from '../utility';
 const initialState = {
     subjects: [],
     loading: false,
-    error: null
+    error: null,
+    clickedSubjectId: null
 };
 
 const fetchSubjectsStart = ( state, action ) => {
@@ -22,11 +23,16 @@ const fetchSubjectsFail = ( state, action ) => {
     return updateObject( state, { loading: false, error: action.error } );
 };
 
+const updateClickedSubject = ( state, action ) => {
+    return updateObject( state, { clickedSubjectId: action.subjectId } );
+};
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.FETCH_SUBJECTS_START: return fetchSubjectsStart( state, action );
         case actionTypes.FETCH_SUBJECTS_SUCCESS: return fetchSubjectsSuccess( state, action );
         case actionTypes.FETCH_SUBJECTS_FAIL: return fetchSubjectsFail( state, action );
+        case actionTypes.UPDATE_CLICKED_SUBJECT: return updateClickedSubject( state, action );
         default: return state;
     }
 };

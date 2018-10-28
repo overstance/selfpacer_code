@@ -1,0 +1,55 @@
+.Subhead {
+    background: #8ee630;
+    /*padding-bottom : 10px;*/
+}
+
+
+.FlexContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background: deepskyblue;
+}
+
+
+.TitleColumn h5 {
+    margin: 0px;
+    background-color: #74be23;
+    padding: 15px 40px;
+    text-align: left;
+    color: #0b0f33;
+    font-weight: 700;
+}
+  
+.TitleColumn {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+  
+.IconColumn {
+    width: 70px;
+    text-align: center;
+    margin: auto;
+    /*padding: 7px 0px;*/
+}
+
+.IconColumn:hover {  
+    /*background: rgb(56, 197, 245);*/
+    cursor: pointer;  
+}
+
+.FilterIcon {
+    height: 30px;
+    vertical-align: top;
+}
+
+
+.Rotate180 {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg); 
+}

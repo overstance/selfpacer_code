@@ -14,5 +14,8 @@ export {
     fetchLifeStyleSubjects,
     increaseViews
 } from './explore';
+export {
+    fetchAccounting
+} from './clickedSubject';
 
 

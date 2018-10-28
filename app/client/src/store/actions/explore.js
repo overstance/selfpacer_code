@@ -22,6 +22,13 @@ export const fetchSubjectsStart = () => {
     };
 };
 
+export const updateClickedSubject = ( id ) => {
+    return {
+        type: actionTypes.UPDATE_CLICKED_SUBJECT,
+        subjectId: id,
+    };
+};
+
 export const fetchCreativeSubjects = ( history ) => {
 
     return dispatch => {
@@ -115,7 +122,42 @@ export const fetchSubjects = () => {
     };
 };
 
+/*
+ return dispatch => {
+export const registerUser = (name, email, password, password2, history) => {
+    return dispatch => {
+        dispatch(authStart());
+        const newUser = {
+            name: name,
+            username: email,
+            email: email,
+            password: password,
+            password2: password2
+        };
+    }
+};
+*/
 
+export const increaseViews = ( id, views ) => {
+    return dispatch => {
+        dispatch(updateClickedSubject( id ));
+        const subject = {
+            subjectId: id,
+            subjectViews: views + 1
+        };
+
+        //console.log(subject);
+
+        axios.post('/api/subjectviews', subject)
+        .then(res => {
+            //console.log(res.data);
+        })
+        .catch(error => {console.log(error)}
+        );
+    }
+};
+
+/*
 export const increaseViews = (id, views) => {
     return () => {
         const subject = {
@@ -132,4 +174,4 @@ export const increaseViews = (id, views) => {
         .catch(error => {console.log(error)}
         );
     }
-};
+};*/

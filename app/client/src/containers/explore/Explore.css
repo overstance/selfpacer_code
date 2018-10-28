@@ -1,19 +1,4 @@
-.wrapper {
-    display: flex;  
-    flex-flow: row wrap;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  /*.ContainerFluid {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-  }*/
-
-  .Row {
+.Row {
     list-style: none;
     display: -ms-flexbox;
     display: flex;
@@ -21,111 +6,19 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 0px;
-  }
-
- 
-  
-  .wrapper > * {
-    /*padding: 10px;*/
-    flex: 1 100%;
-  }
-  
-  .header {
-    background: white;
-    padding: 50px
-  }
-
-  
-  .footer {
-    background: white;
-    padding: 50px;
-  }
-  
-  .NavContainer {
-    background: #8ee630;
-    /*padding-bottom : 10px;*/
-  }
-
-
-.NavContainer h3 {
-    margin: 0px;
-    /*margin-bottom: 10px;*/
-    background-color: #74be23;
-    padding: 10px 0px;
-    text-align: center;
-    color: #0b0f33;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
 }
-  .main {
-    text-align: left;
-    background: #0b0f33;
-    min-height: 500px;
-    /*overflow: auto;*/
-  }
 
-  .main p {
-      color: #8ee630;
-      padding: 10px;
-  }
-  
-  .aside1 {
-    background: white;
-    width: 50px;
-  }
-  
-  .aside2 {
-    background: white;
-    width: 50px;
-  }
-  
-  /*@media all and (min-width: 600px) {
-    .aside { flex: 1 auto; }
-  }*/
-
-  @media all and (min-width: 600px) {
-    .aside { flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-        }
-    }
-  @media all and (min-width: 1000px) {
-    /*.main    { flex: 3 0px; }*/
-    .main  { flex: 0 0 60%; 
-        max-width: 60%;
-    }
-    .aside1 { order: 1; } 
-    .main    { order: 2; }
-    .aside2 { order: 3; }
-    .footer  { order: 4; }
-  }
-
-  @media all and (max-width: 1000px) {
-    .aside { display: none; }
-  }
-
-
-  .FilterIcon {
-    height: 30px;
-    vertical-align: top;
-  }
-
-  .FilterSpan {
-    margin: 0px 15px;
-    padding: 2px 15px;
-    background: #0b0f33;
-    vertical-align: middle;
-    border-radius: .75rem;
-    cursor: pointer;
-  }
-
-  .Rotate180 {
-    -webkit-transform: rotate(180deg);
-            transform: rotate(180deg); 
-  }
-
-  .FilterSpan:hover {  
-    background: deepskyblue;  
-  }
-
-  .SpinnerContainer {
+.SpinnerContainer {
     padding-top: 10rem;
-  }
+}
+
+.NavContainer {
+  background: #8ee630;
+}
+
+.Explorer {
+    background: #0b0f33;
+    min-height: 500px; 
+}
