@@ -58,7 +58,7 @@ passport.use(
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
+      // console.log(profile);
       const existingUser = await User.findOne({ facebookId: profile.id });
 
       if (existingUser) {
@@ -67,7 +67,8 @@ passport.use(
 
       const user = await new User({
         facebookId: profile.id,
-        name: profile.displayName
+        name: profile.displayName,
+        email: profile._json.email
       }).save();
 
       done(null, user);

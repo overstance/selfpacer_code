@@ -8,21 +8,31 @@
     padding: 0px;
 }
 
-.SpinnerContainer {
+/*.SpinnerContainer {
     padding-top: 10rem;
-}
+}*/
+
+
+/*.SpinnerContainer {
+    display: flex;  
+    flex-flow: row wrap;
+    font-weight: bold;
+    text-align: center;
+}*/
+
 
 .Platform {
     margin: 5px 0;
 }
 
 .Resources {
-    background: whitesmoke;
+    /* background: whitesmoke; */
     min-height: 500px; 
+    padding: 0 10px;
 }
 
 .Subheader {
-    border-bottom: 1px solid #8ee630;
+    border-bottom: 1px solid #0b0f33;
 }
 
 .Items {

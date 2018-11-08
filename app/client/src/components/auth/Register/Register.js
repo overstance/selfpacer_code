@@ -172,8 +172,8 @@ class Register extends Component {
             });
         }
 
-
-        let form = formElementsArray.map(formElement => (
+        let formAll = null;
+        let RegisterInput = formElementsArray.map(formElement => (
             <Input
                 key={formElement.id}
                 elementType={formElement.config.elementType}
@@ -188,11 +188,6 @@ class Register extends Component {
             />
         ));
 
-
-        if (this.props.loading) {
-            form = <div className={classes.SpinnerContainer}><Spinner /></div>
-        }
-
         let errorMessage = null;
         if (this.props.error) {
             errorMessage = (
@@ -200,10 +195,31 @@ class Register extends Component {
             );
         }
 
+        formAll = 
+        <div className={classes.Register}>
+            {errorMessage}
+            <form className={classes.Form} onSubmit={this.submitHandler}>
+                {RegisterInput}
+                <Button btnType='Success'>SignUp</Button>
+                <div>
+                    <p>Sign-up  with</p>
+                    <a href="/auth/google">
+                        <img className={classes.Google} src={googleLogo} alt='google logo' />
+                    </a>
+                    <p>or</p>
+                    <a href="/auth/facebook">
+                        <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        if (this.props.loading) {
+            formAll = <div className={classes.Spinner}><Spinner /></div>
+        }
 
         return (
             <AuthBackdrop show>
-
                 <div className={classes.Logo}>
                     <a href="/"><img src={logoImage} alt='logo' /></a>
                 </div>
@@ -211,25 +227,8 @@ class Register extends Component {
                     <div className={classes.Menu}>
                         <h2 className={classes.HeaderItem}> SIGN UP</h2>
                     </div>
-                    <div className={classes.Register}>
-                        {errorMessage}
-                        <form className={classes.Form} onSubmit={this.submitHandler}>
-                            {form}
-                            <Button btnType='Success'>SIGN UP</Button>
-                            <div>
-                                <p>Sign-up  with</p>
-                                <a href="/auth/google">
-                                    <img className={classes.Google} src={googleLogo} alt='google logo' />
-                                </a>
-                                <p>or</p>
-                                <a href="/auth/facebook">
-                                    <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
-                                </a>
-                            </div>
-                        </form>
-                    </div>
+                    {formAll}
                 </div>
-
             </AuthBackdrop>
         )
     }
@@ -261,3 +260,36 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
 
 
+/*      return (
+            <AuthBackdrop show>
+
+                <div className={classes.Logo}>
+                    <a href="/"><img src={logoImage} alt='logo' /></a>
+                </div>
+                <div className={classes.container}>
+                    <div className={classes.Menu}>
+                        <h2 className={classes.HeaderItem}> SIGN UP</h2>
+                    </div>
+                    <div className={classes.Register}>
+                        {errorMessage}
+                        <form className={classes.Form} onSubmit={this.submitHandler}>
+
+                            {RegisterInput}
+                            <Button btnType='Success'>SIGN UP</Button>
+                            <div>
+                                <p>Sign-up  with</p>
+                                <a href="/auth/google">
+                                    <img className={classes.Google} src={googleLogo} alt='google logo' />
+                                </a>
+                                <p>or</p>
+                                <a href="/auth/facebook">
+                                    <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </AuthBackdrop>
+        )
+ */

@@ -15,13 +15,26 @@
     margin-bottom: 10%;
 }
 
-@media (min-width: 760px) {
+.User {
+    height: 30px;
+    width: 30px;
+    background-image: url('../../../assets/images/user-circle.svg');
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+
+.User:hover {
+    background-image: url('../../../assets/images/user-circle-focus.svg');
+}
+
+@media (min-width: 780px) {
     .NavigationItems {
         flex-flow: row-reverse;
     }
 }
 
-@media (min-width: 760px) {
+@media (min-width: 780px) {
     .SearchBarWrap {
         width: 40%;
         position: absolute;
@@ -34,7 +47,7 @@
     }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 780px) {
     .SearchBarWrap {
         display: none;
     }
@@ -62,7 +75,7 @@
     color: #ff4433;
 }
 
-@media (min-width: 760px) {
+@media (min-width: 780px) {
     .NavigationItem {
         margin: 0;
         display: flex;

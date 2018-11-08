@@ -5,6 +5,7 @@ import isEmpty from './validation/isEmpty';
 
 const initialState = {
     isAuthenticated: false,
+    isAdmin: false,
     user: {},
     error: null,
     loading: false,
@@ -12,11 +13,11 @@ const initialState = {
 };
 
 const fetchUser = (state, action) => {
-    return updateObject(state, { user: action.payload, isAuthenticated: !isEmpty(action.payload) });
+    return updateObject(state, { user: action.payload, isAuthenticated: !isEmpty(action.payload), isAdmin: action.payload.isAdmin });
 };
 
 const authLogout = (state, action) => {
-    return updateObject(state, { user: action.payload, userId: null, isAuthenticated: false });
+    return updateObject(state, { user: action.payload, userId: null, isAuthenticated: false, isAdmin: false });
 };
 
 const authStart = (state, action) => {

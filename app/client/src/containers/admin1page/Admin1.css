@@ -1,0 +1,60 @@
+.AddFeedbackInfo {
+    color: #0b0f33;
+    padding: 5px;
+    font-size: small;
+    display: inline;
+}
+
+.ErrorFeedbackInfo {
+    color: #ff4433;
+    padding: 5px;
+    font-size: small;
+    display: inline;
+}
+
+.ContentItems {
+    display: flex;
+    justify-content: space-around;  
+    flex-flow: row wrap;
+    text-align: center;
+    padding: 10px;
+    /* background: lightgray;  */
+}
+
+.ContainerItem {
+    padding: 5px;
+}
+
+.ContainerItem span {
+    display: none;
+}
+
+.ContainerItem button {
+ font-size: small;
+}
+
+.AdminAction {
+    color: #0b0f33;
+    font-size: x-small;
+    font-weight: 700;
+}
+
+.Form {
+    background: #5c6296;
+    padding: 20px;
+    margin: 10px;
+}
+
+.Form label {
+    margin-top: 0px;
+    font-weight: 400;
+    font-size: small;
+}
+
+.Form select {
+    font-weight: 400;
+}
+
+.Form input {
+    font-weight: 400;
+}

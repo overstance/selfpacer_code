@@ -125,9 +125,8 @@ class Login extends Component {
             });
         }
 
-
-        let form = formElementsArray.map(formElement => (
-
+        let formAll = null;
+        let LoginInput = formElementsArray.map(formElement => (
             <Input
                 key={formElement.id}
                 elementType={formElement.config.elementType}
@@ -142,11 +141,6 @@ class Login extends Component {
             />
 
         ));
-
-
-        if (this.props.loading) {
-            form = <div className={classes.SpinnerContainer}><Spinner /></div>
-        }
 
         let errorMessage = null;
         if (this.props.error) {
@@ -163,6 +157,28 @@ class Login extends Component {
             }
         }
 
+        formAll =
+        <div className={classes.Login}>
+            {errorMessage}
+            <form className={classes.Form} onSubmit={this.submitHandler}>
+                {LoginInput}
+                <Button btnType='Success'>LOG IN</Button>
+                <div>
+                    <p>Login with</p>
+                    <a href='/auth/google'>
+                        <img className={classes.Google} src={googleLogo} alt='google logo' />
+                    </a>
+                    <p>or</p>
+                    <a href="/auth/facebook">
+                        <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        if (this.props.loading) {
+            formAll = <div className={classes.Spinner}><Spinner /></div>
+        }
 
         return (
 
@@ -174,24 +190,7 @@ class Login extends Component {
                     <div className={classes.Menu}>
                         <h2 className={classes.HeaderItem}>LOG IN</h2>
                     </div>
-                    <div className={classes.Login}>
-                        {errorMessage}
-
-                        <form className={classes.Form} onSubmit={this.submitHandler}>
-                            {form}
-                            <Button btnType='Success'>LOG IN</Button>
-                            <div>
-                                <p>Login with</p>
-                                <a href='/auth/google'>
-                                    <img className={classes.Google} src={googleLogo} alt='google logo' />
-                                </a>
-                                <p>or</p>
-                                <a href="/auth/facebook">
-                                    <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
-                                </a>
-                            </div>
-                        </form>
-                    </div>
+                    {formAll}   
                 </div>
             </AuthBackdrop>
         )

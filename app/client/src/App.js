@@ -7,16 +7,18 @@ import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Logout from './components/auth/Logout/Logout';
 import Explore from './containers/explore/Explore';
-import Accounting from './containers/Accounting/Accounting';
+import Accounting from './containers/Subjects/Accounting/Accounting';
+import Profile from './containers/profile/Profile';
+import Admin1Dev from './containers/admin1page/Admin1';
 
 
-const Landing = () => <h2>
+/* const Landing = () => <h2>
   Landing page component
-</h2>
+</h2> */
 
-const Home = () => <h2>
+/* const Home = () => <h2>
   User Home. Welcome!
-</h2>
+</h2> */
 
 const graphicDesign = () => <h2>
  subject explore
@@ -39,7 +41,7 @@ class App extends Component {
         />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/" exact component={Landing} />
+        <Route path="/" exact component={Admin1Dev} />
         <Redirect to="/" />       
       </Switch>
     );
@@ -47,13 +49,15 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
+          <Route path="/explore/accounting" component={Accounting} />
           <Route path="/explore" component={ (props) => (
             <Explore timestamp={new Date().toString()} {...props} />
             )} 
           />
+          
           <Route path="/logout" component={Logout} />
-          <Route path="/home" component={Home} />
-          <Redirect to="/home" />
+          <Route path="/profile" exact component={Profile} />
+          <Redirect to="/profile" />
         </Switch>
       );
     }

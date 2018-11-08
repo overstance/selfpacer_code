@@ -16,9 +16,10 @@ class NavigationItems extends Component {
                 <li className={classes.SearchBarWrap}>
                     <SearchBar />
                 </li>
-                {this.props.isAuthenticated ? <NavigationItem link="/logout" isAuthenticating={this.props.closeSideDrawer}>Log out</NavigationItem> : <NavigationItem link="/login" isAuthenticating={this.props.closeSideDrawer}>Log in</NavigationItem>}
-                {!this.props.isAuthenticated ? <NavigationItem link="/register" isAuthenticating={this.props.closeSideDrawer}>Sign Up</NavigationItem> : null}
-                {this.props.isAuthenticated ? <NavigationItem link="/home" >custompage</NavigationItem> : null}
+                {this.props.isAuthenticated ? <NavigationItem link="/profile" isAuthenticating={this.props.closeSideDrawer}><div className={classes.User}></div></NavigationItem> : null}
+                {this.props.isAuthenticated ? <NavigationItem link="/logout" isAuthenticating={this.props.closeSideDrawer}>LogOut</NavigationItem> : <NavigationItem link="/login" isAuthenticating={this.props.closeSideDrawer}>LogIn</NavigationItem>}
+                {!this.props.isAuthenticated ? <NavigationItem link="/register" isAuthenticating={this.props.closeSideDrawer}>SignUp</NavigationItem> : null}
+                <NavigationItem link="/blogs" isAuthenticating={this.props.closeSideDrawer}>Blogs</NavigationItem>
                 <NavigationItem 
                     link="/explore"
                     isAuthenticating={this.props.closeSideDrawer}

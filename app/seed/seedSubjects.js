@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Subject = require('./models/Subject');
+const Subject = require('../models/Subject');
 
 const data = [
   {

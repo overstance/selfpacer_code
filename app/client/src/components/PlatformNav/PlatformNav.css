@@ -13,45 +13,103 @@
     /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: #0b0f33;
+    color: deepskyblue;
 }
   
-.YoutubeColumn {
+.Youtube {
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
     -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
-    background: #ff4433;
+    /*background: #ff4433;*/
+    background: #0b0f33;
+    border-right: 1px solid #303563;
+    margin: 0px;
+    /*background-color: #74be23;*/
+    padding: 15px 0px;
+    text-align: center;
+    color: deepskyblue;
+    font-size: small;
 }
 
-.ELearningColumn {
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-    text-align: center;
-    background: #303563;
+.Active {
+    border-bottom: 4px solid #ff4433;
 }
 
-.WebColumn {
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-    text-align: center;
-    background: #74be23;
+.Youtube:hover {
+    cursor: pointer;
+    color: #ff4433;
 }
 
-.BookColumn {
+.Mooc {
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
     -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
-    background: deepskyblue;
+    /*background: #828efc;*/
+    background: #0b0f33;
+    border-right: 1px solid #303563;
+    margin: 0px;
+    /*background-color: #74be23;*/
+    padding: 15px 0px;
+    text-align: center;
+    color: deepskyblue;
+    font-size: small;
+
+}
+
+.Mooc:hover {
+    cursor: pointer;
+    color: #ff4433;
+}
+
+.Web {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    /*background: #74be23;*/
+    background: #0b0f33;
+    border-right: 1px solid #303563;
+    margin: 0px;
+    /*background-color: #74be23;*/
+    padding: 15px 0px;
+    text-align: center;
+    color: deepskyblue;
+    font-size: small;
+
+}
+
+.Web:hover {
+    cursor: pointer;
+    color: #ff4433;
+}
+
+.Book {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    /*background: deepskyblue;*/
+    background: #0b0f33;
+    margin: 0px;
+    /*background-color: #74be23;*/
+    padding: 15px 0px;
+    text-align: center;
+    color: deepskyblue;
+    font-size: small;
+
+}
+
+.Book:hover {
+    cursor: pointer;
+    color: #ff4433;
 }

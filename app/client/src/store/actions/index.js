@@ -17,5 +17,13 @@ export {
 export {
     fetchAccounting
 } from './clickedSubject';
+export {
+    fetchYoutubeAccounting
+} from './accounting';
+export {
+    addAdminUser,
+    addYoutubePlaylist,
+    addYoutubeVideo
+} from './profile';
 
 

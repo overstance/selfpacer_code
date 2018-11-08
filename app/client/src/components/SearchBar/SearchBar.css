@@ -37,7 +37,7 @@
     vertical-align: top;
   }
 
-@media (min-width: 760px) {
+@media (min-width: 780px) {
   .Search {
     width: 80%;
     max-width: 400px;

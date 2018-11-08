@@ -8,7 +8,7 @@
 .NavigationItem a {
     color: #66cc00;
     text-decoration: none;
-    width: 100%;
+    /* width: 100%; */
     box-sizing: border-box;
     display: block;
 }
@@ -19,7 +19,7 @@
     color: #ff4433;
 }
 
-@media (min-width: 760px) {
+@media (min-width: 780px) {
     .NavigationItem {
         margin: 0;
         display: flex;
@@ -29,8 +29,9 @@
     }
     
     .NavigationItem a {
-        height: 100%;
-        padding: 22px 10px;
+        /* height: 100%; */
+        /* padding: 22px 10px; */
+        padding-left: 15px;
     }
     
 }

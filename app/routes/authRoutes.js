@@ -77,6 +77,24 @@ module.exports = app => {
     );
   });
 
+  app.post('/api/admin_user', (req, res) => {
+    //console.log(req.body);
+
+    // let id = req.body.userId;
+
+    User.findOneAndUpdate({ _id: req.body.userId }, { isAdmin: true }, function(
+      err,
+      updatedUser
+    ) {
+      if (err) {
+        // console.log(err.name);
+        res.send(err.name);
+      } else {
+        res.send({ updatedUser: updatedUser });
+      }
+    });
+  });
+
   app.post('/api/login', (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
 

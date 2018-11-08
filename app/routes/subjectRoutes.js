@@ -1,5 +1,14 @@
-const passport = require('passport');
-const mongoose = require('mongoose');
+/* const passport = require('passport');
+const mongoose = require('mongoose'); */
+const keys = require('../config/keys');
+const { google } = require('googleapis');
+const youtube = google.youtube({
+  version: 'v3',
+  auth: keys.youtubeAPI
+});
+
+/*const googleapis = require('googleapis');
+googleapis.client.setApiKey(keys.youtubeAPI);*/
 
 const Subject = require('../models/Subject');
 
@@ -69,13 +78,81 @@ module.exports = app => {
     });
   });
 
+  /*  async function runSample() {
+    const res = await youtube.search.list({
+      part: 'full',
+      q: 'accounting full course',
+      maxResults: 10
+    });
+    console.log(res.data);
+  }
+
+  runSample();*/
+
+  app.get('/api/accounting_youtube', async (err, res) => {
+    /*     const response = await youtube.search.list({
+      part: 'snippet',
+      q: 'accounting full course',
+      maxResults: 2
+    }); */
+
+    const response = await youtube.videos.list({
+      id:
+        'YjkRSlTxsZM,kNaxTNSAtLk,BdwiXi9cbRc,suzs0sCeWLc,5eGRi66iUfU,OowV6lQn6qI,v=sXaemwHoDDY',
+      part: 'snippet,statistics'
+    });
+
+    if (err) {
+      console.log(err);
+    }
+
+    /* res.send(response.data); */
+
+    const responseData = response.data.items;
+
+    /* console.log(responseData[0].snippet.title); */
+
+    /*     const seedData = responseData.map(seed => {
+      let rObj = {};
+
+      rObj[title] = seed.snippet.title;
+      rObj[img] = seed.snippet.thumbnails.default.url;
+      rObj[link] = 'https://www.youtube.com/results?search_query=' + seed.id;
+      rObj[likes] = 0;
+      rObj[dislikes] = 0;
+      rObj[source] = 'youtube.com';
+      rObj[type] = seed.kind;
+      rObj[youtubeviews] = seed.statistics.viewCount;
+
+      return rObj;
+    });
+
+    res.send(seedData); */
+
+    const seedData = responseData.map(seed => {
+      return {
+        title: seed.snippet.title,
+        img: seed.snippet.thumbnails.default.url,
+        link: 'https://www.youtube.com/results?search_query=' + seed.id,
+        like: 0,
+        dislikes: 0,
+        source: 'youtube.com',
+        type: seed.kind,
+        youtubeviews: seed.statistics.viewCount,
+        youtubelikes: seed.statistics.likeCount
+      };
+    });
+
+    res.send(seedData);
+  });
+
   app.post('/api/subjectviews', (req, res) => {
     //console.log(req.body);
 
     let id = req.body.subjectId;
     let views = req.body.subjectViews;
 
-    Subject.findByIdAndUpdate(id, { views: views }, function(
+    Subject.findOneAndUpdate({ _id: id }, { views: views }, function(
       err,
       updatedSubject
     ) {

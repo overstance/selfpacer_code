@@ -101,7 +101,7 @@ export const loginUser = (email, password, history) => {
             .then(res => {
                 if (res.data._id) {
                     dispatch(authSuccess(res.data));
-                    history.push('/home');
+                    history.push('/profile');
                     return;
                 }
 

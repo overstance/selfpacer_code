@@ -1,0 +1,236 @@
+.Resource {
+    margin: 10px 0;
+    outline: none;
+}
+
+.MainContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background: lightgray;
+    text-decoration: none;
+}
+
+.InfoContainer {
+    display: -ms-flexbox;
+    display: flex;
+    flex-flow: column;
+    /* background: whitesmoke; */
+}
+
+.TitleRow {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+
+.Hr {
+height: 1px;
+background: lightgray;
+}
+
+.HrContainer {
+    padding: 3px 0px;
+    background: whitesmoke;
+}
+
+
+.Title {
+    margin: 0px;
+    background-color: whitesmoke;
+    padding: 15px 40px;
+    text-align: left;
+    color: #0b0f33;
+    font-weight: 400;
+}
+
+.Source {
+    color: #0b0f33;
+    font-weight: 700;
+    padding-left: 40px;
+    font-size: x-small;
+    text-align: left;
+    background: whitesmoke;
+}
+
+.DetailsContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 5px 0;
+    background: whitesmoke;
+}
+
+.DetailsColumnFlex {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+
+
+.Type {
+    color: #0b0f33;
+    font-weight: 700;
+    font-size: x-small;
+    text-align: left;
+    background: whitesmoke;    
+}
+
+.Type span {
+    color: #ff4433;
+    padding: 0 10px;
+
+}
+
+.Source span {
+    color: #ff4433;
+    padding: 0 10px;
+
+}
+  
+.FeedbackRow {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+
+.FeedbackContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* padding: 5px 0; */
+    background: whitesmoke;
+    border-bottom: 1px solid lightgrey;
+}
+
+.FeedbackIcons {
+    width: 20px;
+    vertical-align: bottom;
+}
+
+.FeedBackIconDislike {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+    background-image: url('../../assets/images/thumbs-down.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 60%;
+}
+
+.FeedBackIconDislike:hover {
+    background-image: url('../../assets/images/thumbs-down-focus.svg');
+}
+
+
+
+.FeedBackIconLike {
+ /*    padding: 5px; */
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+    background-image: url('../../assets/images/thumbs-up.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 60%;
+}
+
+.FeedBackIconLike:hover {
+    /* background-color: #ff4433; */
+    background-image: url('../../assets/images/thumbs-up-focus.svg');
+}
+
+.FeedBackIconCollect {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+    background-image: url('../../assets/images/file-import.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 60%;
+}
+
+.FeedBackIconCollect:hover {
+    background-image: url('../../assets/images/file-import-focus.svg');
+}
+
+.FeedbackText {
+    font-size: small;
+    color: #0b0f33;
+}
+
+
+.InfoColumn {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+
+.ImgColumn {
+    width: 70px;
+    text-align: center;
+    margin: auto; 
+}
+
+.ResourceImg {
+    width: 70px;
+    vertical-align: top;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+/* .FeedbackIcons {
+    width: 20px;
+    vertical-align: bottom;
+} */
+
+.Options {
+    text-align: right;
+    padding: 5px 10px;
+    background: whitesmoke;
+}
+
+@media all and (max-width: 480px) {
+    .Type {
+        padding-left: 40px;    
+    }
+}
+
+@media all and (max-width: 292px) {
+    .Options {
+        padding: 0px;
+    }
+}

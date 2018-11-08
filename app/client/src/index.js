@@ -10,15 +10,20 @@ import App from './App';
 import { unregister } from './registerServiceWorker';
 
 import authReducer from './store/reducers/authReducer';
+import profileReducer from './store/reducers/profileReducer';
 import exploreReducer from './store/reducers/exploreReducer';
 import clickedSubjectReducer from './store/reducers/clickedSubjectReducer';
+import accountingReducer from './store/reducers/accountingReducer';
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
     explore: exploreReducer,
-    clickedSubject: clickedSubjectReducer
+    clickedSubject: clickedSubjectReducer,
+    accounting: accountingReducer,
+    profile: profileReducer
 });
 
 

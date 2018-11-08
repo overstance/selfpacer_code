@@ -24,6 +24,21 @@
 
   .Container {
     margin: 0 auto;
+  }
+
+  .Container a {
+    text-decoration: none;
+    color: #66cc00;
+   } 
+
+  .Container a span {
+    text-decoration-line: underline;
+    color: #5c6296;
+    padding-left: 5px;
+   } 
+
+/*   .Container {
+    margin: 0 auto;
     max-width: 1280px;
     width: 90%;
   }
@@ -48,7 +63,7 @@
     .Container {
       width: 70%;
     }
-  }
+  } */
 
   @media only screen and (min-width: 550px) {
     .SocialLinks {
@@ -60,6 +75,7 @@
   text-align: center;
   display: block;
   float: none;
+  color: #5c6296;
 }
 
 @media (max-width: 550px) {
