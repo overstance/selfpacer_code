@@ -6,7 +6,7 @@
     left: 0;
     top: 0;
     z-index: 200;
-    background-color: #0b0f33;
+    background-color: var(--darkBlue);
     padding: 8px 20px;
     box-sizing: border-box;
     transition: transform 0.1s ease-out;

@@ -4,13 +4,24 @@
     left: 0;
     width: 100%;
     z-index: 90;
-    background-color: #0b0f33; 
+    /* background-color: #070a2b;  */
+    background-color: var(--darkestBlue);
 }
+
+.NewSearchContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+  }
 
 .Toolbar {
     height: 70px;
     width: 100%;
-    background-color: #0b0f33;
+    /* background-color: #0b0f33; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -30,7 +41,11 @@
 }
 
 .Logo {
-    height: 60%;
+    margin-right: 10px;
+}
+
+.Logo a {
+    display: block;
 }
 
 .SearchBar{
@@ -39,19 +54,28 @@
 }
 
 .MobileSearchBar {
-    background-color: #0b0f33;
+    margin-bottom: 6px
     /* border-bottom: solid 1px #66cc00; */ 
 }
 
-@media (min-width: 780px) {
+@media (min-width: 550px) {
     .MobileSearchBar {
         display: none;
         padding: 0;
     }
 
-/*     .Toolbar {
-        border-bottom: 1px solid #8ee630;
-    } */
+}
+
+@media (max-width: 550px) {
+    .DesktopOnlySearchbar {
+        display: none;
+    }
+
+    .Toolbar {
+        height: 50px;
+        padding-top: 5px;
+    }
+
 }
 
 

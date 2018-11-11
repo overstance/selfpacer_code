@@ -9,12 +9,12 @@ import Logout from './components/auth/Logout/Logout';
 import Explore from './containers/explore/Explore';
 import Accounting from './containers/Subjects/Accounting/Accounting';
 import Profile from './containers/profile/Profile';
-import Admin1Dev from './containers/admin1page/Admin1';
+//import Admin1Dev from './containers/admin1page/Admin1';
 
 
-/* const Landing = () => <h2>
+const Landing = () => <h2>
   Landing page component
-</h2> */
+</h2>
 
 /* const Home = () => <h2>
   User Home. Welcome!
@@ -41,7 +41,7 @@ class App extends Component {
         />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/" exact component={Admin1Dev} />
+        <Route path="/" exact component={Landing} />
         <Redirect to="/" />       
       </Switch>
     );

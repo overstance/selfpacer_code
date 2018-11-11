@@ -14,13 +14,11 @@ export const addAdminUser = (user_id) => {
             .then(res => {
 
                 if (res.data.updatedUser) {
-                    console.log(res.data.updatedUser);
                     dispatch(adminUserAdded(res.data.updatedUser));
                     // history.push('/profile');
                     // return;
                 } else {
                     dispatch(adminAddFailed(res.data));
-                    // console.log(res.data);
                 }
             })
             .catch(err => 
@@ -53,19 +51,20 @@ export const adminAddFailed = ( error ) => {
 
 //Youtube Playlist
 
-export const addYoutubePlaylist = (playlistId, subject) => {
+export const addYoutubePlaylist = (playlistId, subject, user) => {
     return dispatch => {
         dispatch (youtubePlaylistAddStart());
         
 
         if (subject === 'Accounting') {
-            const id = {
-                id: playlistId
+            const asset = {
+                id: playlistId,
+                user: user
             };
-            console.log(id);
-            axios.post('/api/youtube_accounting_playlist', id)
+          
+            axios.post('/api/youtube_accounting_playlist', asset)
             .then( res => {
-                console.log(res.data);
+             
                 if (res.data.length >= 1) {
                     dispatch(youtubePlaylistAdded(res.data, res.data.length));
                 } else {
@@ -103,19 +102,18 @@ export const youtubePlaylistAddFailed = ( error ) => {
 
 //onAddYoutubeVideo: (videoId, subject) => dispatch( actions.addYoutubePlaylist(videoId, subject) )
 
-export const addYoutubeVideo = (videoId, subject) => {
+export const addYoutubeVideo = (videoId, subject, user) => {
     return dispatch => {
         dispatch (youtubeVideoAddStart());
         
 
         if (subject === 'Accounting') {
-            const id = {
-                id: videoId
+            const asset = {
+                id: videoId,
+                user: user
             };
-            console.log(id);
-            axios.post('/api/youtube_accounting_video', id)
+            axios.post('/api/youtube_accounting_video', asset)
             .then( res => {
-                console.log(res.data);
                 if (res.data.length >= 1) {
                     dispatch(youtubeVideoAdded(res.data, res.data.length));
                 } else {

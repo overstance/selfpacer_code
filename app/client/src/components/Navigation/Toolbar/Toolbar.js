@@ -1,12 +1,14 @@
 import React from 'react';
 import classes from './Toolbar.css';
-import Logo from '../../Logo/Logo';
+//import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import SideDrawerToggle from '../SideDrawer/SideDrawerToggle/SideDrawerToggle';
-import SearchbarToggle from '../../SearchBar/SearchbarToggle/SearchbarToggle';
+//import SearchbarToggle from '../../SearchBar/SearchbarToggle/SearchbarToggle';
 import Searchbar from '../../SearchBar/SearchBar';
 import { Link } from 'react-router-dom';
 import Container from '../../UserInterface/Container/Container';
+import LogoGreen from '../../../assets/images/logo-green.png';
+//import LogoOrange from '../../../assets/images/logo-orange.png';
 
 
 const toolbar = (props) => (
@@ -14,13 +16,16 @@ const toolbar = (props) => (
         <Container>
             <header className={classes.Toolbar}>
                 <div className={classes.Logo}>
-                    <Link to={props.isAuth ? "/home" : "/"}><Logo /></Link>
+                    <Link to={props.isAuth ? "/home" : "/"}><img src={LogoGreen} alt='logo' style={{'height': '45px'}} /></Link>
                 </div>
-                <div className={classes.SearchBar + ' ' + classes.DesktopOnly}>
+                <div className={classes.NewSearchContainer + ' ' + classes.DesktopOnlySearchbar}>
                     <Searchbar show />
                 </div>
+                {/* <div className={classes.SearchBar + ' ' + classes.DesktopOnly}>
+                    <Searchbar show />
+                </div> */}
                 <div className={classes.Widgets}>
-                    <SearchbarToggle clicked={props.searchbarToggleClicked} />
+                    {/* <SearchbarToggle clicked={props.searchbarToggleClicked} /> */}
                     <SideDrawerToggle clicked={props.sideDrawerToggleClicked} />
                 </div>
                 <nav className={classes.DesktopOnly}>
@@ -29,8 +34,9 @@ const toolbar = (props) => (
                     />
                 </nav>
             </header>
-            <div className={classes.MobileSearchBar}>
-                <Searchbar show={props.showSearchbar} />
+            <div className={classes.NewSearchContainer + ' ' + classes.MobileSearchBar}>
+                {/* <Searchbar show={props.showSearchbar} /> */}
+                <Searchbar show />
             </div>
         </Container>
     </div>

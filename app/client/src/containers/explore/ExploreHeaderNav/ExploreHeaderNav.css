@@ -20,15 +20,16 @@
     text-decoration: none;
     display: block;
     padding: .5em 1em;
-    color: lightgray;
-    background: #0b0f33;
+    color: var(--white);
+    font-weight: 400;
+    background: var(--darkBlue);
     border-radius: 20px;
     margin: 5px 5px;
     /*border: 1px solid #74be23;*/
   }
   
   .navigation li:hover {
-    background-color: deepskyblue;
+    background-color: var(--skyBlue);
     /*background-color: #303563;*/
     cursor: pointer;
   }

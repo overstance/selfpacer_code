@@ -1,13 +1,13 @@
 .TopBoard {
     height: 50px;
     width: 100%;
-    background: whitesmoke;
+    background: var(--lightestGray);
 }
 
 .Main {
     display: flex;  
     flex-flow: column wrap;
-    font-weight: bold;
+    /* font-weight: bold; */
     text-align: center;
     min-height: 300px;
 }
@@ -21,7 +21,7 @@
     /* flex-flow: row; */
     flex-wrap: wrap;
     text-align: center;
-    background: lightgray;
+    background: var(--lightGray);
 }
 
 .MenuItem {
@@ -34,16 +34,16 @@
     max-width: 100%;
     text-align: center;
     padding: 15px 0;
-    border-left: 1px solid #303563;
+    border-left: 1px solid var(--blue);
     box-sizing: border-box;
-    background: #0b0f33;
-    color: #5c6296;
+    background: var(--darkBlue);
+    color: var(--lightBlue);
     font-size: x-small;
     cursor: pointer;
 }
 
 .MenuItem:hover {
-    color: #ff4433;
+    color: var(--red);
 }
 
 .MenuItem:first-of-type{
@@ -51,7 +51,7 @@
 }
 
 .Content {
-    background: wheat;
+    background: var(--lightestBlue);
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
     -ms-flex-positive: 1;

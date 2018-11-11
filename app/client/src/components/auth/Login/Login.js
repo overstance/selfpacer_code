@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
-import logoImage from '../../../assets/images/selfpacer0147.png';
+import logoImage from '../../../assets/images/logo-green.png';
 import classes from './Login.css';
 import facebookLogo from '../../../assets/images/Facebook-2-512.png';
 import googleLogo from '../../../assets/images/google_PNG19635.png';
@@ -162,7 +162,7 @@ class Login extends Component {
             {errorMessage}
             <form className={classes.Form} onSubmit={this.submitHandler}>
                 {LoginInput}
-                <Button btnType='Success'>LOG IN</Button>
+                <Button btnType='Success'>LogIn</Button>
                 <div>
                     <p>Login with</p>
                     <a href='/auth/google'>

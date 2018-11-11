@@ -15,10 +15,10 @@
 }
 
 .NavContainer {
-  background: #8ee630;
+  background: var(--green);
 }
 
 .Explorer {
-    background: #0b0f33;
+    background: var(--darkBlue);
     min-height: 500px; 
 }

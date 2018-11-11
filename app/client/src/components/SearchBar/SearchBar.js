@@ -14,18 +14,13 @@ import classes from './SearchBar.css';
 
 const searchBar = (props) => (
     props.show ?
-        <div >
-            <form role="search">
-                <div className={classes.Wrapper}>
-                    <input type="search"
-                        className={classes.Search}
-                        placeholder="Enter a skill. Go!"
-                        aria-label="Search through site content"
-                    />
-                    <button type="submit" className={classes.Submit} />
-                </div>
-            </form>
-        </div>
+            <div className={classes.SearchWrapper}> 
+                <div className={classes.SearchIcon}></div>
+                <form className={classes.SearchForm}>
+                    <input placeholder='Enter an Interest' className={classes.SearchInput} />
+                    <button className={classes.SearchButton} >GO</button>
+                </form>
+            </div>
         :
         null
 );
@@ -42,6 +37,19 @@ const searchBar = (props) => (
 
      <img src={searchIcon} alt='search icon' />
             </button>
+
+      <div >
+            <form role="search">
+                <div className={classes.Wrapper}>
+                    <input type="search"
+                        className={classes.Search}
+                        placeholder="Enter a skill. Go!"
+                        aria-label="Search through site content"
+                    />
+                    <button type="submit" className={classes.Submit} />
+                </div>
+            </form>
+        </div>
 */
 
 export default searchBar;

@@ -1,3 +1,23 @@
+:root {
+    --darkestBlue: #00021e;
+    --darkBlue: #0b0f33;
+    --blue: #3a3962;
+    --lightBlue: #6b6895;
+    --lightestBlue: #d7d1ff;
+    --green: #8ee630;
+    --darkGreen: #70ca00;
+    --skyBlue: #00bfff;
+    --red: #ff4433;
+    --orange: #ffcc33;
+    --white: white;
+    --lightestGray: whitesmoke;
+    --lightGray: lightgray;
+    --gray: gray;
+    --darkGray: rgb(68, 68, 68);
+    --black: black;      
+}
+
+
 body {
     margin: 0;
     padding: 0;

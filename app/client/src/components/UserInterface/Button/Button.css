@@ -1,57 +1,42 @@
-/* .Button {
-    border-style: none;
-    width: 100%;
-    padding: 13px;
-    margin-top: 10%;
-    font-size: small;
-    font-weight: 700;
-    color: #0b0f33;
-    cursor: pointer;
-    opacity: 1;
-    border-radius: 30px;
-} */
 
 .Button {
     border-style: none;
-    width: 51%;
+    width: 150px;
+    height: 50px;
     cursor: pointer;
     margin-top: 10%;
-    /* background-color: #002878;
-     background-image: linear-gradient(45deg, #33d9de 0%, #33d9de 55%, #243f81 90%);
-    background-position: 100% 0;
-    background-size: 200% 200%;
-    color: white; */
-    border-radius: 51px;
-    padding: 16px 4px;
+    border-radius: 25px;
+    /* padding: 16px 4px; */
     font-size: large;
     font-weight: 700;
     text-decoration: none;
-    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+    box-shadow: 0 8px 32px 4px rgba(0, 40, 120, .35);
     transition: all 0.5s ease;
   }
   
   .Button:hover {
-    box-shadow: 0 0px 0px 0 rgba(0, 40, 120, 0);
+    box-shadow: none;
     background-position: 0 0;
   }
 
 .Button:disabled {
-    color: #303563;
+    color: var(--blue);
     cursor: not-allowed;
-    background-color: #5c6296;
-    border: 1px solid #303563;
+    background-color: var(--lightBlue);
+    border: 1px solid var(--blue);
     background-image: none;
     background-position: 100% 0;
 }
 
 .Success {
-    background-color: #0b0f33;
-    background-image: linear-gradient(45deg, #00bfff 0%, #00bfff 55%, #303563 90%);
+    background-color: var(--darkBlue);
+    background-image: linear-gradient(45deg, var(--skyBlue) 0%, var(--skyBlue) 55%, var(--blue) 90%);
     background-position: 100% 0;
     background-size: 200% 200%;
-    color: white;
+    color: var(--white);
+    /* border: 2px solid var(--skyBlue); */
 }
 
 .Danger {
-    color: #303563;
+    color: var(--blue);
 }

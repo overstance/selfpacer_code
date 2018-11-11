@@ -1,81 +1,53 @@
 .Footer {
-    color: #fff;
-    background-color: #0b0f33;
+    background-color: var(--darkestBlue);
   }
   
-  .Footer .Copyright {
-    overflow: hidden;
-    min-height: 30px;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    padding: 20px 0px;
-    color: #66cc00;
-  }
+.Footer .Copyright {
+  overflow: hidden;
+  min-height: 30px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px 0px;
+  color: var(--green);
+}
 
-  .Container {
-    margin: 0 auto;
-  }
+.Container {
+  margin: 0 auto;
+}
 
-  .Container a {
-    text-decoration: none;
-    color: #66cc00;
-   } 
-
-  .Container a span {
-    text-decoration-line: underline;
-    color: #5c6296;
-    padding-left: 5px;
-   } 
-
-/*   .Container {
-    margin: 0 auto;
-    max-width: 1280px;
-    width: 90%;
-  }
-
-  .Container a {
-   text-decoration: none;
-   color: #66cc00;
+.Container a {
+  text-decoration: none;
+  color: var(--green);
   } 
 
-  .Container a span {
-    text-decoration-line: underline;
-    color: #66cc00;
-   } 
-  
-  @media only screen and (min-width: 601px) {
-    .Container {
-      width: 85%;
-    }
-  }
-  
-  @media only screen and (min-width: 993px) {
-    .Container {
-      width: 70%;
-    }
-  } */
+.Container a span {
+  text-decoration-line: underline;
+  color: var(--lightBlue);
+  padding-left: 5px;
+  } 
 
-  @media only screen and (min-width: 550px) {
-    .SocialLinks {
-      float: right !important;
-    }
+
+@media only screen and (min-width: 550px) {
+  .SocialLinks {
+    float: right !important;
   }
+}
 
 .SocialLinks {
   text-align: center;
   display: block;
   float: none;
-  color: #5c6296;
+  color: var(--lightBlue);
 }
 
 @media (max-width: 550px) {

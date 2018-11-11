@@ -1,12 +1,12 @@
 .AddFeedbackInfo {
-    color: #0b0f33;
+    color: var(--darkBlue);
     padding: 5px;
     font-size: small;
     display: inline;
 }
 
 .ErrorFeedbackInfo {
-    color: #ff4433;
+    color: var(--red);
     padding: 5px;
     font-size: small;
     display: inline;
@@ -34,13 +34,13 @@
 }
 
 .AdminAction {
-    color: #0b0f33;
+    color: var(--darkBlue);
     font-size: x-small;
     font-weight: 700;
 }
 
 .Form {
-    background: #5c6296;
+    background: var(--lightBlue);
     padding: 20px;
     margin: 10px;
 }

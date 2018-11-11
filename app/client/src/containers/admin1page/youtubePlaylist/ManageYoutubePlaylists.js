@@ -85,8 +85,7 @@ class ManageYoutubePlaylists extends Component {
             }
             this.setState({ subject: subjectUpdated});
         } else {
-            this.props.onAddYoutubePlaylist(this.state.youtubePlaylist.value, this.state.subject.value);
-            console.log(this.state.youtubePlaylist.value, this.state.subject.value);
+            this.props.onAddYoutubePlaylist(this.state.youtubePlaylist.value, this.state.subject.value, this.props.user);
             const youtubeReset = {
                     ...this.state.youtubePlaylist,
                     value: ''
@@ -108,9 +107,7 @@ class ManageYoutubePlaylists extends Component {
             valid: this.checkValidity(event.target.value, this.state.youtubePlaylist.validation),
             touched: true,   
         }
-        this.setState({ youtubePlaylist: updated});
-
-        console.log(this.state.youtubePlylist);   
+        this.setState({ youtubePlaylist: updated});   
     }  
 
     subjectChangedHandler = (event) => {
@@ -121,8 +118,6 @@ class ManageYoutubePlaylists extends Component {
             touched: true
         }
         this.setState({ subject: updated});
-
-        console.log(this.state.subject.value);
     }
 
     elementConfig = () => {
@@ -197,12 +192,13 @@ const mapStateToProps = state => ({
     youtubePlaylistAddedFeedback: state.profile.youtubePlaylistAddedFeedback,
     youtubePlaylistAddError: state.profile.addYoutubePlaylistError,
     subjects: state.explore.subjects,
+    user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onAddYoutubePlaylist: (playlistId, subject) => dispatch( actions.addYoutubePlaylist(playlistId, subject))
+        onAddYoutubePlaylist: (playlistId, subject, user) => dispatch( actions.addYoutubePlaylist(playlistId, subject, user))
     };
 };
 

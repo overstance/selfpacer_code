@@ -10,7 +10,7 @@
 }
   
 .header {
-    background: whitesmoke;
+    background: var(--lightestGray);
     margin: 5px 0;
     display: -ms-flexbox;
     display: flex;
@@ -26,7 +26,7 @@
 
   
 .footer {
-    background: whitesmoke;
+    background: var(--lightestGray);
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -42,14 +42,9 @@
 .main {
     text-align: left;
 }
-
-.main p {
-      color: #8ee630;
-      padding: 10px;
-}
   
 .aside1 {
-    background: whitesmoke;
+    background: var(--lightestGray);
     /* margin: 0 5px; */
     margin-bottom: 5px;
     display: -ms-flexbox;
@@ -64,7 +59,7 @@
 }
   
 .aside2 {
-    background: whitesmoke;
+    background: var(--lightestGray);
     /* margin: 0 5px; */
     margin-bottom: 5px;
     display: -ms-flexbox;

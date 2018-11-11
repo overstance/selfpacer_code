@@ -4,7 +4,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    /*background: deepskyblue;*/
+    /*background: var(--skyBlue);*/
 }
 
 
@@ -13,7 +13,7 @@
     /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: deepskyblue;
+    color: var(--skyBlue);
 }
   
 .Youtube {
@@ -23,24 +23,24 @@
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
-    /*background: #ff4433;*/
-    background: #0b0f33;
-    border-right: 1px solid #303563;
+    /*background: var(--red);*/
+    background: var(--darkBlue);
+    border-right: 1px solid var(--blue);
     margin: 0px;
     /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: deepskyblue;
+    color: var(--skyBlue);
     font-size: small;
 }
 
 .Active {
-    border-bottom: 4px solid #ff4433;
+    border-bottom: 4px solid var(--red);
 }
 
 .Youtube:hover {
     cursor: pointer;
-    color: #ff4433;
+    color: var(--red);
 }
 
 .Mooc {
@@ -51,20 +51,20 @@
     max-width: 100%;
     text-align: center;
     /*background: #828efc;*/
-    background: #0b0f33;
-    border-right: 1px solid #303563;
+    background: var(--darkBlue);
+    border-right: 1px solid var(--blue);
     margin: 0px;
     /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: deepskyblue;
+    color: var(--skyBlue);
     font-size: small;
 
 }
 
 .Mooc:hover {
     cursor: pointer;
-    color: #ff4433;
+    color: var(--red);
 }
 
 .Web {
@@ -75,20 +75,20 @@
     max-width: 100%;
     text-align: center;
     /*background: #74be23;*/
-    background: #0b0f33;
-    border-right: 1px solid #303563;
+    background: var(--darkBlue);
+    border-right: 1px solid var(--blue);
     margin: 0px;
     /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: deepskyblue;
+    color: var(--skyBlue);
     font-size: small;
 
 }
 
 .Web:hover {
     cursor: pointer;
-    color: #ff4433;
+    color: var(--red);
 }
 
 .Book {
@@ -98,18 +98,18 @@
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
-    /*background: deepskyblue;*/
-    background: #0b0f33;
+    /*background: var(--skyBlue);*/
+    background: var(--darkBlue);
     margin: 0px;
     /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: deepskyblue;
+    color: var(--skyBlue);
     font-size: small;
 
 }
 
 .Book:hover {
     cursor: pointer;
-    color: #ff4433;
+    color: var(--red);
 }

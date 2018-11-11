@@ -6,6 +6,7 @@ const youtube = google.youtube({
   version: 'v3',
   auth: keys.youtubeAPI
 });
+const middleware = require('../middlewares');
 
 const YoutubeAcct = require('../models/Youtube/YoutubeAcct');
 
@@ -57,76 +58,88 @@ module.exports = app => {
     res.send(seedData);
   }); */
 
-  app.post('/api/youtube_accounting_playlist', async (req, res) => {
-    const playlistId = req.body.id;
-    const response = await youtube.playlists.list({
-      id: playlistId,
-      part: 'snippet,contentDetails'
-    });
-
-    const responseData = response.data.items;
-
-    const seedData = await responseData.map(seed => {
-      return {
-        title: seed.snippet.title,
-        img: seed.snippet.thumbnails.default.url,
-        link: 'https://www.youtube.com/results?search_query=' + seed.id,
-        like: 0,
-        dislikes: 0,
-        youtubeId: seed.id,
-        source: 'youtube.com',
-        type: seed.kind,
-        videoCount: seed.contentDetails.itemCount
-      };
-    });
-
-    seedData.forEach(function(seed) {
-      YoutubeAcct.create(seed, function(err, resource) {
-        if (err) {
-          console.log(err);
-        } else {
-          resource.save();
-        }
+  app.post(
+    '/api/youtube_accounting_playlist',
+    middleware.isLoggedIn,
+    async (req, res) => {
+      const playlistId = req.body.id;
+      const user = req.body.user;
+      const response = await youtube.playlists.list({
+        id: playlistId,
+        part: 'snippet,contentDetails'
       });
-    });
 
-    res.send(seedData);
-  });
+      const responseData = response.data.items;
 
-  app.post('/api/youtube_accounting_video', async (req, res) => {
-    const videoId = req.body.id;
-    const response = await youtube.videos.list({
-      id: videoId,
-      part: 'snippet,statistics'
-    });
-
-    const responseData = response.data.items;
-
-    const seedData = await responseData.map(seed => {
-      return {
-        title: seed.snippet.title,
-        img: seed.snippet.thumbnails.default.url,
-        link: 'https://www.youtube.com/results?search_query=' + seed.id,
-        like: 0,
-        dislikes: 0,
-        youtubeId: seed.id,
-        source: 'youtube.com',
-        type: seed.kind,
-        youtubeviews: seed.statistics.viewCount,
-        youtubelikes: seed.statistics.likeCount
-      };
-    });
-
-    seedData.forEach(function(seed) {
-      YoutubeAcct.create(seed, function(err, resource) {
-        if (err) {
-          console.log(err);
-        } else {
-          resource.save();
-        }
+      const seedData = await responseData.map(seed => {
+        return {
+          title: seed.snippet.title,
+          img: seed.snippet.thumbnails.default.url,
+          link: 'https://www.youtube.com/results?search_query=' + seed.id,
+          like: 0,
+          dislikes: 0,
+          youtubeId: seed.id,
+          source: 'youtube.com',
+          type: seed.kind,
+          videoCount: seed.contentDetails.itemCount,
+          user_id: user._id
+        };
       });
-    });
 
-    res.send(seedData);
-  });
+      seedData.forEach(function(seed) {
+        YoutubeAcct.create(seed, function(err, resource) {
+          if (err) {
+            console.log(err);
+          } else {
+            resource.save();
+          }
+        });
+      });
+
+      res.send(seedData);
+    }
+  );
+
+  app.post(
+    '/api/youtube_accounting_video',
+    middleware.isLoggedIn,
+    async (req, res) => {
+      const videoId = req.body.id;
+      const user = req.body.user;
+      const response = await youtube.videos.list({
+        id: videoId,
+        part: 'snippet,statistics'
+      });
+
+      const responseData = response.data.items;
+
+      const seedData = await responseData.map(seed => {
+        return {
+          title: seed.snippet.title,
+          img: seed.snippet.thumbnails.default.url,
+          link: 'https://www.youtube.com/results?search_query=' + seed.id,
+          like: 0,
+          dislikes: 0,
+          youtubeId: seed.id,
+          source: 'youtube.com',
+          type: seed.kind,
+          youtubeviews: seed.statistics.viewCount,
+          youtubelikes: seed.statistics.likeCount,
+          user_id: user._id
+        };
+      });
+
+      seedData.forEach(function(seed) {
+        YoutubeAcct.create(seed, function(err, resource) {
+          if (err) {
+            console.log(err);
+          } else {
+            resource.save();
+          }
+        });
+      });
+
+      res.send(seedData);
+    }
+  );
 };

@@ -61,7 +61,7 @@
 }
 
 .NavigationItem a {
-    color: #66cc00;
+    color: var(--green);
     text-decoration: none;
     width: 100%;
     box-sizing: border-box;
@@ -72,7 +72,7 @@
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    color: #ff4433;
+    color: var(--red);
 }
 
 @media (min-width: 780px) {
@@ -93,4 +93,11 @@
         padding: 0px;
     }
     
+}
+
+@media (max-width: 780px) {
+    .DesktopOnly {
+        display: none;
+    }
+
 }

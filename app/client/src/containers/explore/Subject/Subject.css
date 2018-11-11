@@ -16,14 +16,14 @@
     cursor: pointer;
     border-radius: 1rem;
     width: 160px;
-    /*background: #8ee630;*/
+    /*background: var(--green);*/
     margin: auto;
     padding: 5px;
     
     }
   
     .SubjectWrapper:hover {
-        background:#8ee630;
+        background: var(--green);
       }
   
     .SubjectContainer {
@@ -53,19 +53,20 @@
   }
 
   .SubjectSpan {
-    color: deepskyblue;
+    color: var(--skyBlue);
     display: block;
+    font-weight: 400;
   }
 
   .ViewCounter {
-    background: white;
+    background: var(--white);
     border-radius: 10px;
     padding: 0 10px;
     text-align: right;
   } 
 
 
-  @media all and (max-width: 600px) {
+  @media all and (max-width: 700px) {
     .Subject {
       -ms-flex: 0 0 41.666667%;
       flex: 0 0 41.666667%;

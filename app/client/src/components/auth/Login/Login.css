@@ -11,13 +11,13 @@
 }
 
 .ValidationErrors p {
-    color: #ff4433;
+    color: var(--red);
     font-size: 13px;
     font-weight: 500
 }
 
 .Error {
-    color: #ff4433;
+    color: var(--red);
     font-size: 13px;
     font-weight: 500
 }
@@ -25,9 +25,9 @@
 .HeaderItem {
     display: inline;
     margin: 20px;
-    color: #ff4433;
+    color: var(--red);
     padding-bottom: 3px;
-    border-bottom: 3px solid #8ee630;
+    border-bottom: 3px solid var(--green);
     cursor: pointer;
   }
 
@@ -38,9 +38,9 @@
       height: 490px;
       margin: auto;
       margin-top: 20px; 
-      box-shadow: 0px 0px 0px 1px #333;
+      box-shadow: 0px 0px 0px 1px var(--blue);
       overflow:hidden;
-      background-color: #0b0f33;
+      background-color: var(--darkBlue);
     }
 
 .Logo {
@@ -63,7 +63,7 @@
 .Form div p{
        display: inline;
        font-weight: 700;
-       color: #fff;
+       color: var(--white);
    }
    
 .Form a{

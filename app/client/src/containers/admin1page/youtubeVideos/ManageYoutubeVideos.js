@@ -9,6 +9,7 @@ class ManageYoutubeVideos extends Component {
 
     componentDidMount() {
         this.props.onFetchSubjects();
+        // this.props.onFetchUser();
     }
 
     state = {
@@ -72,9 +73,7 @@ class ManageYoutubeVideos extends Component {
             valid: this.checkValidity(event.target.value, this.state.youtubeVideo.validation),
             touched: true,   
         }
-        this.setState({ youtubeVideo: updated});
-
-        console.log(this.state.youtubeVideo);   
+        this.setState({ youtubeVideo: updated});  
     }
 
     submitYoutubeVideoHandler = (event) => {
@@ -95,8 +94,8 @@ class ManageYoutubeVideos extends Component {
             }
             this.setState({ subject: subjectUpdated});
         } else {
-            this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value);
-            console.log(this.state.youtubeVideo.value, this.state.subject.value);
+            this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value, this.props.user);
+            
             const youtubeReset = {
                     ...this.state.youtubeVideo,
                     value: ''
@@ -119,8 +118,7 @@ class ManageYoutubeVideos extends Component {
             touched: true
         }
         this.setState({ subject: updated});
-
-        console.log(this.state.subject.value);
+       
     }
 
     elementConfig = () => {
@@ -195,13 +193,15 @@ class ManageYoutubeVideos extends Component {
 const mapStateToProps = state => ({
     subjects: state.explore.subjects,
     youtubeVideoAddedFeedback: state.profile.youtubeVideoAddedFeedback,
-    youtubeVideoAddError: state.profile.addYoutubeVideoError
+    youtubeVideoAddError: state.profile.addYoutubeVideoError,
+    user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onAddYoutubeVideo: (videoId, subject) => dispatch( actions.addYoutubeVideo(videoId, subject) )
+        // onFetchUser: () => dispatch(actions.fetchUser()),
+        onAddYoutubeVideo: (videoId, subject, user) => dispatch( actions.addYoutubeVideo(videoId, subject, user) )
     };
 };
 

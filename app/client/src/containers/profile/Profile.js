@@ -68,7 +68,7 @@ class Profile extends Component {
                     <div>
                     <div className={classes.Menu}>
                         <div className={classes.MenuItem} onClick={this.profileHandler}>PROFILE</div>
-                        { this.props.user === "5be0649f2e483510a87bbef9" ? <div className={classes.MenuItem} onClick={this.admin1Handler}>ADMIN1</div> : null}
+                        { this.props.user === "5be0649f2e483510a87bbef9" || this.props.user === "5be62e05f8931400135450c3" ? <div className={classes.MenuItem} onClick={this.admin1Handler}>ADMIN1</div> : null}
                         { this.props.isAdmin === true ? <div className={classes.MenuItem} onClick={this.adminHandler}>ADMIN2</div> : null}
                         <div className={classes.MenuItem}>COLLECTIONS</div>
                         <div className={classes.MenuItem}>ASSETS</div>

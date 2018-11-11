@@ -9,8 +9,8 @@ import Footer from '../Navigation/Footer/Footer';
 
 class Layout extends Component {
     state = {
-        showSideDrawer: false,
-        showSearchbar: false
+        showSideDrawer: false
+        /* showSearchbar: false */
     }
 
     sideDrawerClosedHandler = () => {
@@ -42,7 +42,7 @@ class Layout extends Component {
                         isAuth={this.props.isAuthenticated}
                         sideDrawerToggleClicked={this.sideDrawertoggleHandler}
                         searchbarToggleClicked={this.searchbarToggleHandler}
-                        showSearchbar={this.state.showSearchbar}
+                        /* showSearchbar={this.state.showSearchbar} */
                         exploreRefresh={this.onExploreRefresh}
                     />
                     <SideDrawer

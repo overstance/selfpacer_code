@@ -10,7 +10,7 @@
 }
 
 .Searchbar {
-    background-color: #0b0f33;
+    background-color: var(--darkBlue);
     padding-bottom: 10px;
     padding-top: 10px;
 }
@@ -19,4 +19,11 @@
     .Searchbar {
         display: none;
     }
+}
+
+@media (max-width: 550px) {
+    .Content {
+        margin-top: 92px;
+    }
+
 }

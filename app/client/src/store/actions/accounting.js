@@ -30,7 +30,6 @@ export const fetchYoutubeAccounting = () => {
         axios.get( '/api/yaccounting_res')
             .then(                
                 res => {
-                    console.log(res.data);
                 const youtubeAccounting = [...res.data.accountingRes];
                 dispatch(fetchYoutubeAccountingSuccess(youtubeAccounting));
             } )

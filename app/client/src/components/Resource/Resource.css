@@ -8,7 +8,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    background: lightgray;
+    background: var(--lightGray);
     text-decoration: none;
 }
 
@@ -16,7 +16,7 @@
     display: -ms-flexbox;
     display: flex;
     flex-flow: column;
-    /* background: whitesmoke; */
+    /* background: var(--lightestGray); */
 }
 
 .TitleRow {
@@ -30,31 +30,31 @@
 
 .Hr {
 height: 1px;
-background: lightgray;
+background: var(--lightGray);
 }
 
 .HrContainer {
     padding: 3px 0px;
-    background: whitesmoke;
+    background: var(--lightestGray);
 }
 
 
 .Title {
     margin: 0px;
-    background-color: whitesmoke;
+    background-color: var(--lightestGray);
     padding: 15px 40px;
     text-align: left;
-    color: #0b0f33;
+    color: var(--darkBlue);
     font-weight: 400;
 }
 
 .Source {
-    color: #0b0f33;
+    color: var(--darkBlue);
     font-weight: 700;
     padding-left: 40px;
     font-size: x-small;
     text-align: left;
-    background: whitesmoke;
+    background: var(--lightestGray);
 }
 
 .DetailsContainer {
@@ -63,7 +63,7 @@ background: lightgray;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     padding: 5px 0;
-    background: whitesmoke;
+    background: var(--lightestGray);
 }
 
 .DetailsColumnFlex {
@@ -77,21 +77,21 @@ background: lightgray;
 
 
 .Type {
-    color: #0b0f33;
+    color: var(--darkBlue);
     font-weight: 700;
     font-size: x-small;
     text-align: left;
-    background: whitesmoke;    
+    background: var(--lightestGray);    
 }
 
 .Type span {
-    color: #ff4433;
+    color: var(--red);
     padding: 0 10px;
 
 }
 
 .Source span {
-    color: #ff4433;
+    color: var(--red);
     padding: 0 10px;
 
 }
@@ -111,8 +111,8 @@ background: lightgray;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     /* padding: 5px 0; */
-    background: whitesmoke;
-    border-bottom: 1px solid lightgrey;
+    background: var(--lightestGray);
+    border-bottom: 1px solid var(--lightGray);
 }
 
 .FeedbackIcons {
@@ -160,7 +160,7 @@ background: lightgray;
 }
 
 .FeedBackIconLike:hover {
-    /* background-color: #ff4433; */
+    /* background-color: var(--red); */
     background-image: url('../../assets/images/thumbs-up-focus.svg');
 }
 
@@ -186,7 +186,7 @@ background: lightgray;
 
 .FeedbackText {
     font-size: small;
-    color: #0b0f33;
+    color: var(--darkBlue);
 }
 
 
@@ -220,7 +220,7 @@ background: lightgray;
 .Options {
     text-align: right;
     padding: 5px 10px;
-    background: whitesmoke;
+    background: var(--lightestGray);
 }
 
 @media all and (max-width: 480px) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import logoImage from '../../../assets/images/selfpacer0147.png';
+import logoImage from '../../../assets/images/logo-green.png';
 //import Logo from '../../Logo/Logo';
 import classes from './Register.css';
 import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';

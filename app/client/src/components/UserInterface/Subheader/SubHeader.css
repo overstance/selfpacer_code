@@ -1,5 +1,5 @@
 .Subhead {
-    background: #8ee630;
+    background: var(--green);
     /*padding-bottom : 10px;*/
 }
 
@@ -9,17 +9,17 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    background: deepskyblue;
+    background: var(--skyBlue);
 }
 
 
 .TitleColumn h5 {
     margin: 0px;
-    background-color: #74be23;
+    background-color: var(--blue);
     padding: 15px 40px;
     text-align: left;
-    color: #0b0f33;
-    font-weight: 700;
+    color: var(--green);
+    font-weight: 400;
 }
   
 .TitleColumn {
