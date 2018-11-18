@@ -84,20 +84,12 @@ class Profile extends Component {
 
 const mapStateToProps = state => ({
     user: state.auth.user._id,
-    isAdmin: state.auth.isAdmin,
-    adminUserAddedFeedback: state.profile.userAddedFeedback,
-    adminAddError: state.profile.adminAddError,
-    youtubePlaylistAddFeedback: state.profile.youtubePlaylistAddedFeedback,
-    youtubeAddError: state.profile.addYoutubePlaylistError,
-    subjects: state.explore.subjects,
+    isAdmin: state.auth.isAdmin
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddAdminUser: (user_id, history) => dispatch(actions.addAdminUser(user_id, history)),
-        onFetchUser: () => dispatch(actions.fetchUser()),
-        onFetchSubjects: () => dispatch( actions.fetchSubjects() ),
-        onAddYoutubePlaylist: (playlistId, subject) => dispatch( actions.addYoutubePlaylist(playlistId, subject))
+        onFetchUser: () => dispatch(actions.fetchUser())
     };
 };
 

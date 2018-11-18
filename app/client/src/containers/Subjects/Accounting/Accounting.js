@@ -10,6 +10,7 @@ import PlatformNav from '../../../components/PlatformNav/PlatformNav';
 import Grid from '../../../components/UserInterface/Grid/Grid';
 import * as actions from '../../../store/actions/index';
 import Resource from '../../../components/Resource/Resource';
+// import addIcon from '../../../assets/images/plus.svg';
 
 function shuffleArray(array) {
     let i = array.length - 1;
@@ -39,7 +40,7 @@ class Accounting extends Component {
         youtubeActive: true,
         moocActive: false,
         webActive: false,
-        booksActive: false
+        booksActive: false,
     }
 
     pathsToggleHandler = () => {
@@ -65,7 +66,7 @@ class Accounting extends Component {
             moocActive: false,
             webActive: false,
             booksActive: false,
-            youtubeActive: true        
+            youtubeActive: true,
         })
     }
 
@@ -74,7 +75,7 @@ class Accounting extends Component {
             moocActive: true,
             webActive: false,
             booksActive: false,
-            youtubeActive: false        
+            youtubeActive: false,        
         })
     }
 
@@ -83,7 +84,7 @@ class Accounting extends Component {
             moocActive: false,
             webActive: true,
             booksActive: false,
-            youtubeActive: false        
+            youtubeActive: false,        
         })
     }
 
@@ -92,9 +93,13 @@ class Accounting extends Component {
             moocActive: false,
             webActive: false,
             booksActive: true,
-            youtubeActive: false        
+            youtubeActive: false,        
         })
     }
+
+    resourceClickedHandler = ( platform ) => {
+        this.props.onSetClickedPlatform( platform );
+    };
 
 
 
@@ -119,23 +124,25 @@ class Accounting extends Component {
             filterIconClasses.push(classes.Rotate180);
         }
 
-        /* let youtubeAll = <div style={{ "padding-top": "3rem"}}> <Spinner /> </div> */
         let youtube = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
 
         if ( !this.props.resourceLoading ) {
             const youtubeShuffled = shuffleArray(this.props.youtube);
             youtube = youtubeShuffled.map( (resource, i) => (
                    <Resource
-                   key={i} 
+                   key={i}
+                   id={resource._id} 
                    link={resource.link}
                    image={resource.img}
                    title={resource.title}
                    likes={resource.likes}
                    dislikes={resource.dislikes}
                    youtubeViews={resource.youtubeviews}
+                   publishDate={resource.publishDate}
                    source={resource.source}
                    type={resource.type}
                    videoCount={resource.videoCount}
+                   clicked={() => this.resourceClickedHandler(resource.type)}
                    />
             ) )
         }
@@ -173,6 +180,10 @@ class Accounting extends Component {
                         booksClicked={this.booksHandler}
                     />
                     <div className={classes.Resources}>
+                    <div className={classes.AddIconContainer}>
+                        <div className={classes.AddIcon}></div>
+                        <div className={classes.AddInfo}>ADD YOUTUBE RESOURCE</div>
+                    </div>
                         <div>
                             {youtube}
                         </div>
@@ -197,7 +208,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchAccounting: () => dispatch( actions.fetchAccounting() ),
-        onFetchYoutubeAccounting: () => dispatch ( actions.fetchYoutubeAccounting() )
+        onFetchYoutubeAccounting: () => dispatch ( actions.fetchYoutubeAccounting() ),
+        onSetClickedPlatform: ( platform ) => dispatch ( actions.setClickedPlatform( platform ) )
     };
 };
 

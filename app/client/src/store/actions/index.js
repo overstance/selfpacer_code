@@ -18,12 +18,17 @@ export {
     fetchAccounting
 } from './clickedSubject';
 export {
-    fetchYoutubeAccounting
+    fetchYoutubeAccounting,
+    fetchResourceById,
+    setClickedPlatform
 } from './accounting';
 export {
     addAdminUser,
+    removeAdminUser,
     addYoutubePlaylist,
-    addYoutubeVideo
-} from './profile';
+    addYoutubeVideo,
+    updateYoutubeVideos,
+    updateYoutubePlaylists
+} from './admin1';
 
 

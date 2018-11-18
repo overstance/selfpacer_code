@@ -1,60 +1,14 @@
-.AddFeedbackInfo {
-    color: var(--darkBlue);
-    padding: 5px;
-    font-size: small;
-    display: inline;
-}
-
-.ErrorFeedbackInfo {
-    color: var(--red);
-    padding: 5px;
-    font-size: small;
-    display: inline;
+.Options {
+    padding: 10px 0;
+    background: var(--blue);
+    color: var(--green);
 }
 
 .ContentItems {
     display: flex;
-    justify-content: space-around;  
+    justify-content: center;  
     flex-flow: row wrap;
     text-align: center;
     padding: 10px;
     /* background: lightgray;  */
-}
-
-.ContainerItem {
-    padding: 5px;
-}
-
-.ContainerItem span {
-    display: none;
-}
-
-.ContainerItem button {
- font-size: small;
-}
-
-.AdminAction {
-    color: var(--darkBlue);
-    font-size: x-small;
-    font-weight: 700;
-}
-
-.Form {
-    background: var(--lightBlue);
-    padding: 20px;
-    margin: 10px;
-}
-
-.Form label {
-    margin-top: 0px;
-    font-weight: 400;
-    font-size: small;
-}
-
-.Form select {
-    font-weight: 400;
-}
-
-.Form input {
-    font-weight: 400;
 }

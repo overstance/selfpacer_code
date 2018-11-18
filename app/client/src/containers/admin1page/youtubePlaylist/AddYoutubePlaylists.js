@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './ManageYoutubePlaylists.css';
+import classes from './AddYoutubePlaylists.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
@@ -70,7 +70,7 @@ class ManageYoutubePlaylists extends Component {
     submitYoutubePlaylistHandler = (event) => {
         event.preventDefault();
 
-        if ((!this.state.youtubePlaylist.touched || this.state.youtubePlaylist.value === '') && (!this.state.youtubePlaylist.touched || this.state.youtubePlaylist.value === '')) {
+        if ((!this.state.youtubePlaylist.touched || this.state.youtubePlaylist.value === '') && (!this.state.subject.touched || this.state.subject.value === '')) {
             const youtubeUpdated = {
                 ...this.state.youtubePlaylist,
                 touched: true,
@@ -122,75 +122,79 @@ class ManageYoutubePlaylists extends Component {
 
     elementConfig = () => {
         let elementConfig = {};
+        
+        const subjects = this.props.subjects.map( subject => subject.title );
 
-       const temp = this.props.subjects.map( subject => {
+        const subjectSort = subjects.sort();
+
+        const temp = subjectSort.map( subject => {
             return {
-                value: subject.title,
-                displayValue: subject.title
+                value: subject,
+                displayValue: subject
             }
         })
 
+        temp.unshift({ value: '', displayValue: ''});
+
         elementConfig.options = temp;
-        elementConfig.options[0] = { value: '', displayValue: ''};
+
         return elementConfig;
     } 
 
     render() {
-        return (
-            <div>                    
-                <div className={classes.ContainerItem}>
-                    <div className={classes.AdminAction}>ADD YOUTUBE PLAYLIST</div>
-                    <form 
-                    className={classes.Form}
-                    onSubmit={this.submitYoutubePlaylistHandler}
-                    >
-                        <Input 
-                        label={this.state.youtubePlaylist.label} 
-                        name={this.state.youtubePlaylist.name}
-                        value={this.state.youtubePlaylist.value}
-                        invalid={!this.state.youtubePlaylist.valid}
-                        shouldValidate={this.state.youtubePlaylist.validation}
-                        touched={this.state.youtubePlaylist.touched}
-                        changed={(event) => this.youtubePlaylistInputChangedHandler(event)}
-                        />
-                        <Input 
-                        label={this.state.subject.label} 
-                        name={this.state.subject.name}
-                        value={this.state.subject.value}
-                        elementType='select'
-                        invalid={!this.state.subject.valid}
-                        shouldValidate={this.state.subject.validation}
-                        touched={this.state.subject.touched}
-                        elementConfig={this.elementConfig()}
-                        changed={(event) => this.subjectChangedHandler(event)}
-                        />
-                        { (!this.state.youtubePlaylist.valid && this.state.youtubePlaylist.touched) || (!this.state.subject.valid && this.state.subject.touched) ? 
-                            <Button btnType='Danger' disabled> Add </Button> :
-                            <Button btnType='Success'> Add </Button>    
-                        }
-                        { this.props.youtubePlaylistAddError ? 
-                            <div>
-                                <div className={classes.ErrorFeedbackInfo}>
-                                    {this.props.youtubePlaylistAddError}
-                                </div>
-                            </div> 
-                            :
-                            <div>
-                                <div className={classes.AddFeedbackInfo}>
-                                    {this.props.youtubePlaylistAddedFeedback}
-                                </div>
-                            </div> 
-                        }
-                    </form>
-                </div>                                
-            </div>                      
+        return (                   
+            <div className={classes.ContainerItem}>
+                <div className={classes.AdminAction}>ADD YOUTUBE PLAYLIST</div>
+                <form 
+                className={classes.Form}
+                onSubmit={this.submitYoutubePlaylistHandler}
+                >
+                    <Input 
+                    label={this.state.youtubePlaylist.label} 
+                    name={this.state.youtubePlaylist.name}
+                    value={this.state.youtubePlaylist.value}
+                    invalid={!this.state.youtubePlaylist.valid}
+                    shouldValidate={this.state.youtubePlaylist.validation}
+                    touched={this.state.youtubePlaylist.touched}
+                    changed={(event) => this.youtubePlaylistInputChangedHandler(event)}
+                    />
+                    <Input 
+                    label={this.state.subject.label} 
+                    name={this.state.subject.name}
+                    value={this.state.subject.value}
+                    elementType='select'
+                    invalid={!this.state.subject.valid}
+                    shouldValidate={this.state.subject.validation}
+                    touched={this.state.subject.touched}
+                    elementConfig={this.elementConfig()}
+                    changed={(event) => this.subjectChangedHandler(event)}
+                    />
+                    { (!this.state.youtubePlaylist.valid && this.state.youtubePlaylist.touched) || (!this.state.subject.valid && this.state.subject.touched) ? 
+                        <Button btnType='Danger' disabled> Add </Button> :
+                        <Button btnType='Success'> Add </Button>    
+                    }
+                    { this.props.youtubePlaylistAddError ? 
+                        <div>
+                            <div className={classes.ErrorFeedbackInfo}>
+                                {this.props.youtubePlaylistAddError}
+                            </div>
+                        </div> 
+                        :
+                        <div>
+                            <div className={classes.AddFeedbackInfo}>
+                                {this.props.youtubePlaylistAddedFeedback}
+                            </div>
+                        </div> 
+                    }
+                </form>
+            </div>                                                      
         )
     }
 };
 
 const mapStateToProps = state => ({   
-    youtubePlaylistAddedFeedback: state.profile.youtubePlaylistAddedFeedback,
-    youtubePlaylistAddError: state.profile.addYoutubePlaylistError,
+    youtubePlaylistAddedFeedback: state.admin1.youtubePlaylistAddedFeedback,
+    youtubePlaylistAddError: state.admin1.addYoutubePlaylistError,
     subjects: state.explore.subjects,
     user: state.auth.user
 });

@@ -96,19 +96,18 @@ module.exports = app => {
       maxResults: 2
     }); */
 
-    const response = await youtube.videos.list({
-      id:
-        'YjkRSlTxsZM,kNaxTNSAtLk,BdwiXi9cbRc,suzs0sCeWLc,5eGRi66iUfU,OowV6lQn6qI,v=sXaemwHoDDY',
-      part: 'snippet,statistics'
+    const response = await youtube.playlists.list({
+      id: 'PL301238C9BC6E0B83,PLuDogk1rsivCeUWyWrHm1y1sBs2n7QeVL',
+      part: 'snippet,contentDetails'
     });
 
     if (err) {
       console.log(err);
     }
 
-    /* res.send(response.data); */
+    res.send(response.data.items);
 
-    const responseData = response.data.items;
+    // const responseData = response.data.items;
 
     /* console.log(responseData[0].snippet.title); */
 
@@ -127,7 +126,7 @@ module.exports = app => {
       return rObj;
     });
 
-    res.send(seedData); */
+    res.send(seedData); 
 
     const seedData = responseData.map(seed => {
       return {
@@ -143,7 +142,7 @@ module.exports = app => {
       };
     });
 
-    res.send(seedData);
+    res.send(seedData);*/
   });
 
   app.post('/api/subjectviews', (req, res) => {

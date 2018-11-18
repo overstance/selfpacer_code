@@ -10,7 +10,7 @@ import App from './App';
 import { unregister } from './registerServiceWorker';
 
 import authReducer from './store/reducers/authReducer';
-import profileReducer from './store/reducers/profileReducer';
+import admin1Reducer from './store/reducers/admin1Reducer';
 import exploreReducer from './store/reducers/exploreReducer';
 import clickedSubjectReducer from './store/reducers/clickedSubjectReducer';
 import accountingReducer from './store/reducers/accountingReducer';
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
     explore: exploreReducer,
     clickedSubject: clickedSubjectReducer,
     accounting: accountingReducer,
-    profile: profileReducer
+    admin1: admin1Reducer
 });
 
 

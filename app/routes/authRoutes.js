@@ -77,7 +77,7 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/admin_user', (req, res) => {
+  app.post('/api/add_admin_user', (req, res) => {
     //console.log(req.body);
 
     // let id = req.body.userId;
@@ -93,6 +93,21 @@ module.exports = app => {
         res.send({ updatedUser: updatedUser });
       }
     });
+  });
+
+  app.post('/api/remove_admin_user', (req, res) => {
+    User.findOneAndUpdate(
+      { _id: req.body.userId },
+      { isAdmin: false },
+      function(err, updatedUser) {
+        if (err) {
+          // console.log(err.name);
+          res.send(err.name);
+        } else {
+          res.send({ updatedUser: updatedUser });
+        }
+      }
+    );
   });
 
   app.post('/api/login', (req, res) => {

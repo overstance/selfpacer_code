@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './ManageYoutubeVideos.css';
+import classes from './AddYoutubeVideos.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
@@ -79,7 +79,7 @@ class ManageYoutubeVideos extends Component {
     submitYoutubeVideoHandler = (event) => {
         event.preventDefault();
 
-        if ((!this.state.youtubeVideo.touched || this.state.youtubeVideo.value === '') && (!this.state.youtubeVideo.touched || this.state.youtubeVideo.value === '')) {
+        if ((!this.state.youtubeVideo.touched || this.state.youtubeVideo.value === '') && (!this.state.subject.touched || this.state.subject.value === '')) {
             const youtubeUpdated = {
                 ...this.state.youtubeVideo,
                 touched: true,
@@ -123,84 +123,86 @@ class ManageYoutubeVideos extends Component {
 
     elementConfig = () => {
         let elementConfig = {};
+        
+        const subjects = this.props.subjects.map( subject => subject.title );
 
-       const temp = this.props.subjects.map( subject => {
+        const subjectSort = subjects.sort();
+
+        const temp = subjectSort.map( subject => {
             return {
-                value: subject.title,
-                displayValue: subject.title
+                value: subject,
+                displayValue: subject
             }
         })
 
+        temp.unshift({ value: '', displayValue: ''});
+
         elementConfig.options = temp;
-        elementConfig.options[0] = { value: '', displayValue: ''};
+
         return elementConfig;
     } 
 
     render() {
         return (
-            <div>
-                <div className={classes.ContainerItem}>
-                    <div className={classes.AdminAction}>ADD YOUTUBE VIDEOS</div>
-                    <form 
-                    className={classes.Form}
-                    onSubmit={this.submitYoutubeVideoHandler}
-                    >
-                        <Input 
-                        label={this.state.youtubeVideo.label} 
-                        name={this.state.youtubeVideo.name}
-                        value={this.state.youtubeVideo.value}
-                        invalid={!this.state.youtubeVideo.valid}
-                        shouldValidate={this.state.youtubeVideo.validation}
-                        touched={this.state.youtubeVideo.touched}
-                        changed={(event) => this.youtubeVideoInputChangedHandler(event)}
-                        />
-                        <Input 
-                        label={this.state.subject.label} 
-                        name={this.state.subject.name}
-                        value={this.state.subject.value}
-                        elementType='select'
-                        invalid={!this.state.subject.valid}
-                        shouldValidate={this.state.subject.validation}
-                        touched={this.state.subject.touched}
-                        elementConfig={this.elementConfig()}
-                        changed={(event) => this.subjectChangedHandler(event)}
-                        />
-                        { (!this.state.youtubeVideo.valid && this.state.youtubeVideo.touched) || (!this.state.subject.valid && this.state.subject.touched) ? 
-                            <Button btnType='Danger' disabled> Add </Button> :
-                            <Button btnType='Success'> Add </Button>    
-                        }
-                        { this.props.youtubeVideoAddError ? 
-                            <div>
-                                <div className={classes.ErrorFeedbackInfo}>
-                                    {this.props.youtubeVideoAddError}
-                                </div>
-                            </div> 
-                            :
-                            <div>
-                                <div className={classes.AddFeedbackInfo}>
-                                    {this.props.youtubeVideoAddedFeedback}
-                                </div>
-                            </div> 
-                        }
-                    </form>
-                </div >            
-            </div>
-                      
+            <div className={classes.ContainerItem}>
+                <div className={classes.AdminAction}>ADD YOUTUBE VIDEOS</div>
+                <form 
+                className={classes.Form}
+                onSubmit={this.submitYoutubeVideoHandler}
+                >
+                    <Input 
+                    label={this.state.youtubeVideo.label} 
+                    name={this.state.youtubeVideo.name}
+                    value={this.state.youtubeVideo.value}
+                    invalid={!this.state.youtubeVideo.valid}
+                    shouldValidate={this.state.youtubeVideo.validation}
+                    touched={this.state.youtubeVideo.touched}
+                    changed={(event) => this.youtubeVideoInputChangedHandler(event)}
+                    />
+                    <Input 
+                    label={this.state.subject.label} 
+                    name={this.state.subject.name}
+                    value={this.state.subject.value}
+                    elementType='select'
+                    invalid={!this.state.subject.valid}
+                    shouldValidate={this.state.subject.validation}
+                    touched={this.state.subject.touched}
+                    elementConfig={this.elementConfig()}
+                    changed={(event) => this.subjectChangedHandler(event)}
+                    />
+                    { (!this.state.youtubeVideo.valid && this.state.youtubeVideo.touched) || (!this.state.subject.valid && this.state.subject.touched) ? 
+                        <Button btnType='Danger' disabled> Add </Button> :
+                        <Button btnType='Success'> Add </Button>    
+                    }
+                    { this.props.youtubeVideoAddError ? 
+                        <div>
+                            <div className={classes.ErrorFeedbackInfo}>
+                                {this.props.youtubeVideoAddError}
+                            </div>
+                        </div> 
+                        :
+                        <div>
+                            <div className={classes.AddFeedbackInfo}>
+                                {this.props.youtubeVideoAddedFeedback}
+                            </div>
+                        </div> 
+                    }
+                </form>
+            </div >                                 
         )
     }
 };
 
 const mapStateToProps = state => ({
     subjects: state.explore.subjects,
-    youtubeVideoAddedFeedback: state.profile.youtubeVideoAddedFeedback,
-    youtubeVideoAddError: state.profile.addYoutubeVideoError,
+    youtubeVideoAddedFeedback: state.admin1.youtubeVideoAddedFeedback,
+    youtubeVideoAddError: state.admin1.addYoutubeVideoError,
     user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        // onFetchUser: () => dispatch(actions.fetchUser()),
         onAddYoutubeVideo: (videoId, subject, user) => dispatch( actions.addYoutubeVideo(videoId, subject, user) )
     };
 };

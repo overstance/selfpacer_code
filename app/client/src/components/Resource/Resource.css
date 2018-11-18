@@ -1,6 +1,7 @@
 .Resource {
-    margin: 10px 0;
+    margin-bottom: 10px;
     outline: none;
+    box-shadow: 1px 0px 6px 0px var(--lightGray);
 }
 
 .MainContainer {
@@ -8,7 +9,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    background: var(--lightGray);
+    background: var(--white);
     text-decoration: none;
 }
 
@@ -16,7 +17,17 @@
     display: -ms-flexbox;
     display: flex;
     flex-flow: column;
+    /* border-bottom: 1px solid var(--lightGray); */
     /* background: var(--lightestGray); */
+}
+
+.InfoColumn {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
 }
 
 .TitleRow {
@@ -28,7 +39,7 @@
     text-align: center;
 }
 
-.Hr {
+/* .Hr {
 height: 1px;
 background: var(--lightGray);
 }
@@ -36,26 +47,36 @@ background: var(--lightGray);
 .HrContainer {
     padding: 3px 0px;
     background: var(--lightestGray);
-}
+} */
 
 
 .Title {
     margin: 0px;
-    background-color: var(--lightestGray);
+    background-color: var(--white);
     padding: 15px 40px;
     text-align: left;
     color: var(--darkBlue);
     font-weight: 400;
 }
 
-.Source {
+.Title:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--darkBlue);
+}
+
+/* .Source {
     color: var(--darkBlue);
     font-weight: 700;
     padding-left: 40px;
     font-size: x-small;
-    text-align: left;
-    background: var(--lightestGray);
+    text-align: right;
 }
+
+.Source span {
+    color: var(--red);
+    padding: 0 10px;
+
+} */
 
 .DetailsContainer {
     display: -ms-flexbox;
@@ -63,7 +84,20 @@ background: var(--lightGray);
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     padding: 5px 0;
-    background: var(--lightestGray);
+    background: var(--white);
+}
+
+.ImgColumn {
+    width: 100px;
+    text-align: center;
+    margin: auto; 
+}
+
+.ResourceImg {
+    width: 100px;
+    vertical-align: top;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .DetailsColumnFlex {
@@ -81,16 +115,10 @@ background: var(--lightGray);
     font-weight: 700;
     font-size: x-small;
     text-align: left;
-    background: var(--lightestGray);    
+    padding-left: 40px;
 }
 
 .Type span {
-    color: var(--red);
-    padding: 0 10px;
-
-}
-
-.Source span {
     color: var(--red);
     padding: 0 10px;
 
@@ -110,9 +138,9 @@ background: var(--lightGray);
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    /* padding: 5px 0; */
-    background: var(--lightestGray);
+    background: var(--white);
     border-bottom: 1px solid var(--lightGray);
+    border-top: 1px solid var(--lightGray);
 }
 
 .FeedbackIcons {
@@ -143,7 +171,6 @@ background: var(--lightGray);
 
 
 .FeedBackIconLike {
- /*    padding: 5px; */
     width: 30px;
     height: 30px;
     display: inline-block;
@@ -160,7 +187,6 @@ background: var(--lightGray);
 }
 
 .FeedBackIconLike:hover {
-    /* background-color: var(--red); */
     background-image: url('../../assets/images/thumbs-up-focus.svg');
 }
 
@@ -199,33 +225,30 @@ background: var(--lightGray);
     text-align: center;
 }
 
-.ImgColumn {
-    width: 70px;
-    text-align: center;
-    margin: auto; 
-}
-
-.ResourceImg {
-    width: 70px;
-    vertical-align: top;
-    padding: 5px;
-    box-sizing: border-box;
-}
-
-/* .FeedbackIcons {
-    width: 20px;
-    vertical-align: bottom;
-} */
-
 .Options {
     text-align: right;
     padding: 5px 10px;
-    background: var(--lightestGray);
 }
 
 @media all and (max-width: 480px) {
     .Type {
-        padding-left: 40px;    
+        padding-left: 10px;    
+    }
+
+    .Title {
+        padding: 10px;
+    }
+
+    .Source {
+        padding-left: 10px;
+    }
+
+    .ImgColumn {
+        width: 80px;
+    }
+
+    .ResourceImg {
+        width: 80px;
     }
 }
 
@@ -233,4 +256,9 @@ background: var(--lightGray);
     .Options {
         padding: 0px;
     }
+}
+
+.FeedbackIcons {
+    width: 20px;
+    vertical-align: bottom;
 }

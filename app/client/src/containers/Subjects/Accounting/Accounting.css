@@ -50,3 +50,53 @@
     padding: 5px 0px;
     font-weight: 400;
 }
+
+.AddIcon {
+    background-color: var(--blue);
+    background-image: url('../../../assets/images/plus.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 50%;
+    box-shadow: 0 0px 2px 2px rgba(0, 0, 0, 0.14);
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    border-radius: 50%;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
+    cursor: pointer;
+    /* margin-left: 15px;
+    margin-right: 15px; */
+    /* margin-top: -2px; */   
+    /* color: #fff; */
+    /* position: relative;
+    overflow: hidden;
+    z-index: 1; */
+    /* line-height: 40px; */
+    /* background-color: #26a69a; */
+    /* vertical-align: middle; */
+}
+
+.AddIcon:hover{
+    background-color: var(--skyBlue);
+    box-shadow: none;
+}
+
+.AddInfo{
+    font-size: x-small;
+    padding: 5px 0;
+    color: var(--darkBlue);
+}
+
+.AddIconContainer {
+    padding-top: 5px;
+    background: var(--lightestBlue);
+    text-align: center;
+    /* position: fixed;
+    right: 23px;
+    bottom: 23px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 997; */
+}

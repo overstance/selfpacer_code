@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './Subject.css';
-import eyeIcon from '../../../assets/images/eye.svg';
+// import eyeIcon from '../../../assets/images/eye.svg';
 import { Link } from 'react-router-dom';
 
 
@@ -15,7 +15,8 @@ const subject = (props) => (
                     </div>
                     <div className={classes.ViewCounter}>
                         <div>
-                            <img className={classes.EyeIcon} src={eyeIcon} alt='eye icon' /><span style={{ color: "#ff4433" }}>{props.views}</span>
+                            {/* <img className={classes.EyeIcon} src={eyeIcon} alt='eye icon' /><span style={{ color: "#ff4433" }}>{props.views}</span> */}
+                            <div className={classes.Category}>{props.category}</div>
                         </div>
                     </div>
             </Link>
@@ -27,7 +28,7 @@ subject.propTypes= {
     src: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
-    views: PropTypes.number.isRequired   
+    // views: PropTypes.number.isRequired   
 }
 
 export default subject;

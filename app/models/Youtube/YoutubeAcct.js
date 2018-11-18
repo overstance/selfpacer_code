@@ -6,14 +6,15 @@ const youtubeAcctSchema = new Schema({
     type: Date,
     default: Date.now()
   },
+  publishDate: Number,
   title: String,
   img: String,
   link: String,
-  likes: {
+  views: {
     type: Number,
     default: 0
   },
-  dislikes: {
+  likes: {
     type: Number,
     default: 0
   },

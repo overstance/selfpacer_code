@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import classes from './ManageAdminUsers.css';
+import classes from './AddAdminUsers.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
 
-class ManageAdminUsers extends Component {
+class AddAdminUsers extends Component {
 
     state = {
         userId: {
@@ -63,7 +63,6 @@ class ManageAdminUsers extends Component {
         this.setState({ userId: updated});
         } else {
             this.props.onAddAdminUser(this.state.userId.value);
-            console.log(this.state.userId.value);
             const updated = {
                 ...this.state.userId,
                 value: '',
@@ -82,55 +81,52 @@ class ManageAdminUsers extends Component {
             valid: this.checkValidity(event.target.value, this.state.userId.validation),
             touched: true
         }
-        this.setState({ userId: updated});
-        console.log(this.state.userId);   
+        this.setState({ userId: updated});   
     }
 
     render() {
         return (
-            <div>
-                <div className={classes.ContainerItem}>
-                    <div className={classes.AdminAction}>ADD ADMIN USER</div>
-                        <form
-                        className={classes.Form} 
-                        onSubmit={this.submitUserHandler}
-                        >
-                            <Input 
-                            label={this.state.userId.label} 
-                            name={this.state.userId.name}
-                            value={this.state.userId.value}
-                            invalid={!this.state.userId.valid}
-                            shouldValidate={this.state.userId.validation}
-                            touched={this.state.userId.touched}
-                            changed={(event) => this.adminUserInputChangedHandler(event)}
-                            />
-                            { !this.state.userId.valid && this.state.userId.touched ? 
-                                <Button btnType='Danger' disabled> Add </Button> :
-                                <Button btnType='Success'> Add </Button>    
-                            }
-                            { this.props.adminAddError ? 
-                                <div>
-                                    <div className={classes.ErrorFeedbackInfo}>
-                                        {this.props.adminAddError}
-                                    </div>
-                                </div> 
-                                :
-                                <div>
-                                    <div className={classes.AddFeedbackInfo}>
-                                        {this.props.adminUserAddedFeedback}
-                                    </div>
-                                </div> 
-                            }
-                        </form>
-                    </div>            
+            <div className={classes.ContainerItem}>
+                <div className={classes.AdminAction}>ADD ADMIN USER</div>
+                <form
+                className={classes.Form} 
+                onSubmit={this.submitUserHandler}
+                >
+                    <Input 
+                    label={this.state.userId.label} 
+                    name={this.state.userId.name}
+                    value={this.state.userId.value}
+                    invalid={!this.state.userId.valid}
+                    shouldValidate={this.state.userId.validation}
+                    touched={this.state.userId.touched}
+                    changed={(event) => this.adminUserInputChangedHandler(event)}
+                    />
+                    { !this.state.userId.valid && this.state.userId.touched ? 
+                        <Button btnType='Danger' disabled> Add </Button> :
+                        <Button btnType='Success'> Add </Button>    
+                    }
+                    { this.props.adminAddError ? 
+                        <div>
+                            <div className={classes.ErrorFeedbackInfo}>
+                                {this.props.adminAddError}
+                            </div>
+                        </div> 
+                        :
+                        <div>
+                            <div className={classes.AddFeedbackInfo}>
+                                {this.props.adminUserAddedFeedback}
+                            </div>
+                        </div> 
+                    }
+                </form>
             </div>                      
         )
     }
 };
 
 const mapStateToProps = state => ({
-    adminUserAddedFeedback: state.profile.userAddedFeedback,
-    adminAddError: state.profile.adminAddError,
+    adminUserAddedFeedback: state.admin1.userAddedFeedback,
+    adminAddError: state.admin1.adminAddError,
 });
 
 const mapDispatchToProps = dispatch => {
@@ -139,5 +135,5 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageAdminUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(AddAdminUsers);
 

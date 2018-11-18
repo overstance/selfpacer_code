@@ -98,7 +98,8 @@ class Explore extends Component {
                         key={subject._id}
                         src={subject.src}
                         alt={subject.alt}
-                        views={subject.views}
+                        // views={subject.views}
+                        category={subject.category}
                         title={subject.title}
                         clicked={() => this.viewsIncreasedHandler( subject._id, subject.views, subject.path, subject.curriculum )}
                     />

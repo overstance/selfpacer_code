@@ -18,9 +18,10 @@
 }
 
 
-body {
+html, body {
     margin: 0;
     padding: 0;
     /*font-family: 'Open Sans', sans-serif;*/
     font-family: 'Ubuntu', sans-serif;
+    background: var(--lightestGray);
 }

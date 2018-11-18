@@ -9,6 +9,7 @@ import Logout from './components/auth/Logout/Logout';
 import Explore from './containers/explore/Explore';
 import Accounting from './containers/Subjects/Accounting/Accounting';
 import Profile from './containers/profile/Profile';
+import ResourcePage from './containers/resourcepage/Resoucepage'
 //import Admin1Dev from './containers/admin1page/Admin1';
 
 
@@ -19,6 +20,10 @@ const Landing = () => <h2>
 /* const Home = () => <h2>
   User Home. Welcome!
 </h2> */
+
+const NotFound = () => <h2>
+  Resource Not Found!
+</h2>
 
 const graphicDesign = () => <h2>
  subject explore
@@ -33,6 +38,7 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
+        <Route path="/accounting/:id" component={ResourcePage} />
         <Route path="/explore/accounting" component={Accounting} />
         <Route path="/explore/graphic-design" component={graphicDesign} />                
         <Route path="/explore" component={ (props) => (
@@ -41,6 +47,7 @@ class App extends Component {
         />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/not-found" component={NotFound} />
         <Route path="/" exact component={Landing} />
         <Redirect to="/" />       
       </Switch>
@@ -49,6 +56,7 @@ class App extends Component {
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
+          <Route path="/accounting/:id" component={ResourcePage} />
           <Route path="/explore/accounting" component={Accounting} />
           <Route path="/explore" component={ (props) => (
             <Explore timestamp={new Date().toString()} {...props} />

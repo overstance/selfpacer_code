@@ -1,0 +1,105 @@
+.Wrapper {
+    background: var(--white);
+    padding: 10px;
+    margin: 30px auto;
+    width: 320px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.Container {
+    width: 100%;
+    display: block;
+    overflow: auto;
+    background: var(--lightestBlue);
+}
+
+.Image {
+    width: 300px;
+    border: 2px solid var(--darkestBlue);
+    box-sizing: border-box;
+} 
+
+.Spinner {
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Title {
+    text-align: center;
+    max-width: 200px;
+    margin: auto;
+    padding-top: 20px;
+    color: var(--darkBlue);
+    font-size: large;
+}
+
+@media (max-width: 400px){
+    .Wrapper {
+        width: 240px;
+        box-sizing: border-box;
+    }
+
+    .Image {
+        width: 220px;
+    }
+}
+
+.View {
+    padding: 15px 0;
+    border-radius: 30px;
+    text-align: center;
+    background: var(--red);
+    color: white;
+    cursor: pointer;
+}
+
+.Type {
+    color: var(--darkBlue);
+    font-weight: 400;
+    padding: 5px;
+    text-align: left;
+}
+
+.Type span {
+    color: var(--red);
+    padding: 0 20px;
+}
+
+.Type div {
+    display: inline-block;
+    text-align: right;
+}
+
+.Options {
+    text-align: right;
+    padding: 5px 10px;
+    /* background: var(--lightestGray); */
+}
+
+.FeedbackText {
+    font-size: small;
+    color: var(--darkBlue);
+}
+
+.FeedBackIconCollect {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+    background-image: url('../../assets/images/file-import.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 60%;
+}
+
+.FeedBackIconCollect:hover {
+    background-image: url('../../assets/images/file-import-focus.svg');
+}
