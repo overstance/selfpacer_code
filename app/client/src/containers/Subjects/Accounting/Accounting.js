@@ -11,6 +11,11 @@ import Grid from '../../../components/UserInterface/Grid/Grid';
 import * as actions from '../../../store/actions/index';
 import Resource from '../../../components/Resource/Resource';
 // import addIcon from '../../../assets/images/plus.svg';
+// import Modal from '../../../components/UserInterface/Modal/Modal';
+// import { Link } from 'react-router-dom';
+import AuthRequired from '../../../components/Dialogues/AuthRequired/authRequired';
+import AddToCollection from '../../../components/Dialogues/addToCollection/addToCollection';
+
 
 function shuffleArray(array) {
     let i = array.length - 1;
@@ -29,18 +34,50 @@ class Accounting extends Component {
    componentDidMount () {
         this.props.onFetchAccounting();
         this.props.onFetchYoutubeAccounting();
-    }
+        // this.props.onFetchUserCollections(this.props.userId);
 
+        if (this.props.activeContent === 'youtube') {
+            this.setState({
+                youtubeActive: true,
+                moocActive: false,
+                allActive: false,
+                booksActive: false
+            });
+        }
+
+        if (this.props.activeContent === 'mooc') {
+            this.setState({
+                youtubeActive: false,
+                moocActive: true,
+                allActive: false,
+                booksActive: false
+            });
+        }
+
+        if (this.props.activeContent === 'books') {
+            this.setState({
+                youtubeActive: false,
+                moocActive: false,
+                allActive: false,
+                booksActive: true
+            });
+        }
+    }
   
    state = {
         showPaths: false,
         showCurricula: false,
         pathIconRotate: false,
         curriculaIconRotate: false,
-        youtubeActive: true,
+
+        youtubeActive: false,
         moocActive: false,
-        webActive: false,
+        allActive: true,
         booksActive: false,
+
+        AuthenticateToCollectOrAdd: false,
+        showAuthRequiredModal: false,
+        showCollectionModal: false
     }
 
     pathsToggleHandler = () => {
@@ -64,42 +101,94 @@ class Accounting extends Component {
     youtubeHandler = () => {
         this.setState({
             moocActive: false,
-            webActive: false,
+            allActive: false,
             booksActive: false,
             youtubeActive: true,
-        })
+        });
+
+        this.props.onSetActiveContentType('youtube');
     }
 
     moocHandler = () => {
         this.setState({
             moocActive: true,
-            webActive: false,
+            allActive: false,
             booksActive: false,
             youtubeActive: false,        
-        })
+        });
+
+        this.props.onSetActiveContentType('mooc');
     }
 
-    webHandler = () => {
+    allHandler = () => {
         this.setState({
             moocActive: false,
-            webActive: true,
+            allActive: true,
             booksActive: false,
             youtubeActive: false,        
-        })
+        });
+
+        this.props.onSetActiveContentType('');
     }
 
     booksHandler = () => {
         this.setState({
             moocActive: false,
-            webActive: false,
+            allActive: false,
             booksActive: true,
             youtubeActive: false,        
-        })
+        });
+
+        this.props.onSetActiveContentType('books');
     }
 
     resourceClickedHandler = ( platform ) => {
         this.props.onSetClickedPlatform( platform );
     };
+
+    likeHandler = (id, likes, type) => {
+        this.props.onResourceLiked(id, likes, type);
+    }
+
+    collectHandler = ( id ) => {
+        if (!this.props.isAuthenticated) {
+            this.setState({ AuthenticateToCollectOrAdd: true, showAuthRequiredModal: true});
+        } 
+
+        if (this.props.isAuthenticated) {
+            // this.props.history.push('/profile');
+            if (this.state.youtubeActive) {
+                const toCollectArray = this.props.youtube.filter( resource => ( resource._id === id));
+
+                const toCollectResource = toCollectArray[0]
+
+                // console.log(toCollectDisarrayed);
+
+                this.props.onSetToCollectResource( toCollectResource );
+                this.props.onFetchUserCollections(this.props.userId);
+            }
+            this.setState({ showCollectionModal: true });
+        }
+    }
+
+    addResourceHandler = () => {
+        if (!this.props.isAuthenticated) {
+            this.setState({ AuthenticateToCollectOrAdd: true, showAuthRequiredModal: true});
+        } 
+
+        if (this.props.isAuthenticated) {
+            this.props.history.push('/add_resource');
+        }
+    }
+
+    collectAuthDialogueCloseHandler = () => {
+        this.setState({ showAuthRequiredModal: false, AuthenticateToCollectOrAdd: false });
+    }
+
+    collectModalCloseHandler = () => {
+        this.setState({ showCollectionModal: false });
+        this.props.onClearAddToCollectionMessages();
+    }
 
 
 
@@ -143,12 +232,26 @@ class Accounting extends Component {
                    type={resource.type}
                    videoCount={resource.videoCount}
                    clicked={() => this.resourceClickedHandler(resource.type)}
+                   likeclicked={() => this.likeHandler( resource._id, resource.likes, resource.type )}
+                   collectclicked={() => this.collectHandler( resource._id )}
                    />
             ) )
         }
 
+        const youtubePlusAddButton = 
+            <div>
+                <div className={classes.AddIconContainer}>
+                    <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
+                    <div className={classes.AddInfo}>ADD YOUTUBE RESOURCE</div>
+                </div>
+                {youtube}
+            </div>
 
+        let pageContent = null;
 
+        if (this.state.youtubeActive) {
+            pageContent = youtubePlusAddButton;
+        }
 
         return (
             <Grid>
@@ -172,20 +275,26 @@ class Accounting extends Component {
                     <PlatformNav
                         youtubeActived={this.state.youtubeActive}
                         moocActived={this.state.moocActive}
-                        webActived={this.state.webActive}
+                        allActived={this.state.allActive}
                         booksActived={this.state.booksActive}
                         youtubeClicked={this.youtubeHandler}
                         moocClicked={this.moocHandler}
-                        webClicked={this.webHandler}
+                        allClicked={this.allHandler}
                         booksClicked={this.booksHandler}
                     />
                     <div className={classes.Resources}>
-                    <div className={classes.AddIconContainer}>
-                        <div className={classes.AddIcon}></div>
-                        <div className={classes.AddInfo}>ADD YOUTUBE RESOURCE</div>
-                    </div>
                         <div>
-                            {youtube}
+                            {this.state.AuthenticateToCollectOrAdd ? 
+                                <AuthRequired 
+                                showDialogue={this.state.showAuthRequiredModal}
+                                closeDialogue={this.collectAuthDialogueCloseHandler}
+                                />: null
+                            }
+                            <AddToCollection 
+                            showDialogue={this.state.showCollectionModal}
+                            closeDialogue={this.collectModalCloseHandler} 
+                            />
+                            {pageContent}
                         </div>
                     </div>
                 </div>             
@@ -201,7 +310,10 @@ const mapStateToProps = state => {
         loading: state.clickedSubject.loading,
         subject: state.clickedSubject.subject,
         youtube: state.accounting.youtubeResources,
-        resourceLoading: state.accounting.loading
+        resourceLoading: state.accounting.loading,
+        isAuthenticated: state.auth.isAuthenticated,
+        activeContent: state.explore.activeContentType,
+        userId: state.auth.user._id
     };
 };
 
@@ -209,7 +321,12 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchAccounting: () => dispatch( actions.fetchAccounting() ),
         onFetchYoutubeAccounting: () => dispatch ( actions.fetchYoutubeAccounting() ),
-        onSetClickedPlatform: ( platform ) => dispatch ( actions.setClickedPlatform( platform ) )
+        onSetClickedPlatform: ( platform ) => dispatch ( actions.setClickedPlatform( platform ) ),
+        onResourceLiked: ( id, likes, type) => dispatch ( actions.accountingResourceLiked( id, likes, type)),
+        onSetToCollectResource: ( resource ) => dispatch ( actions.setToCollectResource( resource )),
+        onSetActiveContentType: ( platform ) => dispatch ( actions.setActiveContentType( platform )),
+        onFetchUserCollections: ( userId ) => dispatch(actions.fetchUserCollections( userId )),
+        onClearAddToCollectionMessages: () => dispatch(actions.clearAddToCollectionMessages())
     };
 };
 

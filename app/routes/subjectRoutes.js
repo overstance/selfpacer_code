@@ -11,6 +11,9 @@ const youtube = google.youtube({
 googleapis.client.setApiKey(keys.youtubeAPI);*/
 
 const Subject = require('../models/Subject');
+const User_resource = require('../models/User_resource');
+
+//GET ROUTES
 
 module.exports = app => {
   app.get('/api/explore', (req, res) => {
@@ -78,24 +81,7 @@ module.exports = app => {
     });
   });
 
-  /*  async function runSample() {
-    const res = await youtube.search.list({
-      part: 'full',
-      q: 'accounting full course',
-      maxResults: 10
-    });
-    console.log(res.data);
-  }
-
-  runSample();*/
-
   app.get('/api/accounting_youtube', async (err, res) => {
-    /*     const response = await youtube.search.list({
-      part: 'snippet',
-      q: 'accounting full course',
-      maxResults: 2
-    }); */
-
     const response = await youtube.playlists.list({
       id: 'PL301238C9BC6E0B83,PLuDogk1rsivCeUWyWrHm1y1sBs2n7QeVL',
       part: 'snippet,contentDetails'
@@ -106,48 +92,11 @@ module.exports = app => {
     }
 
     res.send(response.data.items);
-
-    // const responseData = response.data.items;
-
-    /* console.log(responseData[0].snippet.title); */
-
-    /*     const seedData = responseData.map(seed => {
-      let rObj = {};
-
-      rObj[title] = seed.snippet.title;
-      rObj[img] = seed.snippet.thumbnails.default.url;
-      rObj[link] = 'https://www.youtube.com/results?search_query=' + seed.id;
-      rObj[likes] = 0;
-      rObj[dislikes] = 0;
-      rObj[source] = 'youtube.com';
-      rObj[type] = seed.kind;
-      rObj[youtubeviews] = seed.statistics.viewCount;
-
-      return rObj;
-    });
-
-    res.send(seedData); 
-
-    const seedData = responseData.map(seed => {
-      return {
-        title: seed.snippet.title,
-        img: seed.snippet.thumbnails.default.url,
-        link: 'https://www.youtube.com/results?search_query=' + seed.id,
-        like: 0,
-        dislikes: 0,
-        source: 'youtube.com',
-        type: seed.kind,
-        youtubeviews: seed.statistics.viewCount,
-        youtubelikes: seed.statistics.likeCount
-      };
-    });
-
-    res.send(seedData);*/
   });
 
-  app.post('/api/subjectviews', (req, res) => {
-    //console.log(req.body);
+  //POST ROUTES
 
+  app.post('/api/subjectviews', (req, res) => {
     let id = req.body.subjectId;
     let views = req.body.subjectViews;
 
@@ -159,6 +108,28 @@ module.exports = app => {
         console.log(err);
       } else {
         res.send({ subjects: updatedSubject });
+      }
+    });
+  });
+
+  app.post('/api/add_resources', (req, res) => {
+    // console.log(req.body);
+
+    const resource = {
+      subject: req.body.subject,
+      type: req.body.type,
+      user_id: req.body.userId,
+      link: req.body.link
+    };
+
+    User_resource.create(resource, function(err, resource) {
+      if (err) {
+        console.log(err);
+        res.send(err.name);
+      } else {
+        resource.save();
+        // console.log('resource saved');
+        res.send('Resource submitted!!');
       }
     });
   });

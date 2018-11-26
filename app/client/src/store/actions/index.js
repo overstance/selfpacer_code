@@ -12,15 +12,18 @@ export {
     fetchBusinessSubjects,
     fetchTechnologySubjects,
     fetchLifeStyleSubjects,
-    increaseViews
+    increaseViews,
+    setActiveContentType,
+    setSelectedCategory
 } from './explore';
 export {
-    fetchAccounting
+    fetchAccounting,
 } from './clickedSubject';
 export {
     fetchYoutubeAccounting,
     fetchResourceById,
-    setClickedPlatform
+    setClickedPlatform,
+    accountingResourceLiked,
 } from './accounting';
 export {
     addAdminUser,
@@ -30,5 +33,19 @@ export {
     updateYoutubeVideos,
     updateYoutubePlaylists
 } from './admin1';
+
+export {
+    addResource
+} from './addResource';
+
+export {
+    fetchToCollectResource,
+    createCollection,
+    setToCollectResource,
+    resetCollectionMessages,
+    fetchUserCollections,
+    addResourceToCollection,
+    clearAddToCollectionMessages
+} from './collection';
 
 

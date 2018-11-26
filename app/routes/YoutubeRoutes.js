@@ -221,4 +221,22 @@ module.exports = app => {
       });
     }
   );
+
+  app.post('/api/youtube_accounting_liked', (req, res) => {
+    //console.log(req.body);
+
+    let id = req.body.resourceId;
+    let likes = req.body.resourceLikes;
+
+    YoutubeAcct.findOneAndUpdate({ _id: id }, { likes: likes }, function(
+      err,
+      updatedResource
+    ) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ resource: updatedResource });
+      }
+    });
+  });
 };

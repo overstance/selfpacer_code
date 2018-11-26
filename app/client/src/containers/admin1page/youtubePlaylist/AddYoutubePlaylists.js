@@ -12,6 +12,7 @@ class ManageYoutubePlaylists extends Component {
     }
 
     state = {
+        fillError: null,
         subject: {
             value: '',
             label: "Select Subject", 
@@ -84,6 +85,8 @@ class ManageYoutubePlaylists extends Component {
                 valid: false
             }
             this.setState({ subject: subjectUpdated});
+
+            this.setState({ fillError: 'Please fill all fields' });
         } else {
             this.props.onAddYoutubePlaylist(this.state.youtubePlaylist.value, this.state.subject.value, this.props.user);
             const youtubeReset = {
@@ -149,10 +152,12 @@ class ManageYoutubePlaylists extends Component {
                 className={classes.Form}
                 onSubmit={this.submitYoutubePlaylistHandler}
                 >
+                    <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
                     label={this.state.youtubePlaylist.label} 
                     name={this.state.youtubePlaylist.name}
                     value={this.state.youtubePlaylist.value}
+                    elementType='textarea'
                     invalid={!this.state.youtubePlaylist.valid}
                     shouldValidate={this.state.youtubePlaylist.validation}
                     touched={this.state.youtubePlaylist.touched}

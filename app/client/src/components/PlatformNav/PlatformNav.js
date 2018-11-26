@@ -15,9 +15,9 @@ const subheader = (props) => {
         moocClasses.push(classes.Active);
     }
 
-    const webClasses = [classes.Web];
-    if (props.webActived) {
-        webClasses.push(classes.Active);
+    const allClasses = [classes.All];
+    if (props.allActived) {
+        allClasses.push(classes.Active);
     }
 
     const bookClasses = [classes.Book];
@@ -29,6 +29,12 @@ const subheader = (props) => {
         <div>
             <div className={classes.FlexContainer}>
                 <div 
+                    className={allClasses.join(' ')}
+                    onClick={props.allClicked}
+                >
+                    ALL
+                </div>
+                <div 
                     className={youtubeClasses.join(' ')} 
                     onClick={props.youtubeClicked}
                 >               
@@ -39,12 +45,6 @@ const subheader = (props) => {
                     onClick={props.moocClicked}
                 >
                     MOOCs
-                </div>
-                <div 
-                    className={webClasses.join(' ')}
-                    onClick={props.webClicked}
-                >
-                    WEB
                 </div>
                 <div
                     className={bookClasses.join(' ')}

@@ -1,6 +1,6 @@
 .Options {
     padding: 10px 0;
-    background: var(--blue);
+    background: var(--lightBlue);
     color: var(--green);
 }
 
@@ -10,5 +10,5 @@
     flex-flow: row wrap;
     text-align: center;
     padding: 10px;
-    /* background: lightgray;  */
+    background: var(--white); 
 }

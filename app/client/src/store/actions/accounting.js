@@ -96,3 +96,25 @@ export const fetchResourceByIdFail = ( error ) => {
     };
 };
 
+//Increase likes count
+
+export const accountingResourceLiked = (id, likes, type) => {
+    return () => {
+        const resource = {
+            resourceId: id,
+            resourceLikes: likes + 1
+        };
+
+        // console.log(resource.resourceLikes);
+
+        if ( type === 'youtube#video' || 'youtube#playlist' ) {
+            axios.post('/api/youtube_accounting_liked', resource)
+            .then(res => {
+                // console.log(res.data.resource.likes);
+            })
+            .catch(error => {console.log(error)}
+            );
+        }
+    }
+};
+

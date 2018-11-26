@@ -9,6 +9,7 @@ class AddAdminUsers extends Component {
 
     state = {
         userId: {
+            fillError: null,
             value: '',
             label: 'Enter User Id',
             name: 'userId',
@@ -61,6 +62,8 @@ class AddAdminUsers extends Component {
                 valid: false
             }
         this.setState({ userId: updated});
+
+        this.setState({ fillError: 'Please fill all fields' });
         } else {
             this.props.onAddAdminUser(this.state.userId.value);
             const updated = {
@@ -92,9 +95,11 @@ class AddAdminUsers extends Component {
                 className={classes.Form} 
                 onSubmit={this.submitUserHandler}
                 >
+                    <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
                     label={this.state.userId.label} 
                     name={this.state.userId.name}
+                    elementType={'textarea'}
                     value={this.state.userId.value}
                     invalid={!this.state.userId.valid}
                     shouldValidate={this.state.userId.validation}

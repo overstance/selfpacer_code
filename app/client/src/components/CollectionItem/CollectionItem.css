@@ -1,0 +1,57 @@
+.Container {
+    display: flex;
+    flex-wrap: nowrap;
+    /* width: 260px; */
+    margin: 2px auto;
+    border-bottom: 1px solid var(--blue);
+    /* background: var(--lightestGray); */
+}
+
+.Container:last-of-type {
+    border-bottom: none;
+}
+
+.CollectionNameColumn {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 400;
+    /* background: var(--lightestGray); */
+    overflow-x: auto;
+    padding-left: 10px;
+}
+
+.CollectionName {
+    text-align: left;
+    color: var(--green);
+    padding: 10px 0;
+}
+
+.CollectionAddButtonColumn {
+    /* width: 20px; */
+    text-align: center;
+    margin: auto; 
+    padding: 10px;
+    /* background: var(--lightBlue); */
+}
+
+.CollectionAddButton {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--skyBlue);
+    background-image: url('../../assets/images/plus.svg');
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    cursor: pointer;
+    margin: auto;
+}
+
+.CollectionAddButton:hover {
+    background-color: var(--green);
+}

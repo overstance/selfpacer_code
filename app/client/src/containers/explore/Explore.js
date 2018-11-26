@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+// import axios from 'axios';
+// import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import PropTypes from 'prop-types';
 import classes from './Explore.css';
 import ExploreHeaderNav from './ExploreHeaderNav/ExploreHeaderNav';
@@ -26,7 +26,27 @@ function shuffleArray(array) {
 class Explore extends Component {
 
     componentDidMount () {
-        this.props.onFetchSubjects();
+
+        if ( this.props.selectedCategory === 'all') {
+            this.props.onFetchSubjects();
+        }
+
+        if ( this.props.selectedCategory === 'creative') {
+            this.props.onCreativeNav();
+        }
+
+        if ( this.props.selectedCategory === 'business') {
+            this.props.onBusinessNav();
+        }
+
+        if ( this.props.selectedCategory === 'technology') {
+            this.props.onTechnologyNav();
+        }
+
+        if ( this.props.selectedCategory === 'lifeStyle') {
+            this.props.onLifeStyleNav();
+        }
+        
     }
 
     
@@ -52,6 +72,7 @@ class Explore extends Component {
                 filterIconRotate: !prevState.filterIconRotate
             };
         });
+        this.props.onSetSelectedCategory('creative');
     }
 
     businessNavHandler = () => {
@@ -61,7 +82,8 @@ class Explore extends Component {
                 showFilter: !prevState.showFilter,
                 filterIconRotate: !prevState.filterIconRotate
             };
-        }); 
+        });
+        this.props.onSetSelectedCategory('business'); 
     }
 
     technologyNavHandler = () => {
@@ -71,7 +93,8 @@ class Explore extends Component {
                 showFilter: !prevState.showFilter,
                 filterIconRotate: !prevState.filterIconRotate
             };
-        }); 
+        });
+        this.props.onSetSelectedCategory('technology'); 
     }
 
     lifeStyleNavHandler = () => {
@@ -81,11 +104,15 @@ class Explore extends Component {
                 showFilter: !prevState.showFilter,
                 filterIconRotate: !prevState.filterIconRotate
             };
-        }); 
+        });
+        this.props.onSetSelectedCategory('lifeStyle'); 
     }
 
     viewsIncreasedHandler = (id, views) => {
-        this.props.onViewsIncrease(id, views);
+        const clickedSubjectArray = this.props.subjects.filter( subject => subject._id === id);
+        const clickedSubject = clickedSubjectArray[0];
+        // console.log(id, views, clickedSubject)
+        this.props.onViewsIncrease(id, views, clickedSubject);
     }
 
     render() {
@@ -101,7 +128,7 @@ class Explore extends Component {
                         // views={subject.views}
                         category={subject.category}
                         title={subject.title}
-                        clicked={() => this.viewsIncreasedHandler( subject._id, subject.views, subject.path, subject.curriculum )}
+                        clicked={() => this.viewsIncreasedHandler( subject._id, subject.views )}
                     />
                     
             ) )
@@ -149,6 +176,7 @@ const mapStateToProps = state => {
     return {
         subjects: state.explore.subjects,
         loading: state.explore.loading,
+        selectedCategory: state.explore.selectedCategory,
     };
 };
 
@@ -159,11 +187,12 @@ const mapDispatchToProps = dispatch => {
         onBusinessNav : () => dispatch( actions.fetchBusinessSubjects()),
         onTechnologyNav : () => dispatch( actions.fetchTechnologySubjects()),
         onLifeStyleNav : () => dispatch( actions.fetchLifeStyleSubjects()),
-        onViewsIncrease: ( id, views, path, curriculum ) => dispatch( actions.increaseViews( id, views, path, curriculum ) )
+        onViewsIncrease: ( id, views, clickedSubject ) => dispatch( actions.increaseViews( id, views, clickedSubject ) ),
+        onSetSelectedCategory: ( category ) => dispatch( actions.setSelectedCategory( category )),
     };
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( withErrorHandler( Explore, axios )  );
+export default connect( mapStateToProps, mapDispatchToProps )( Explore );
 
 
 /*

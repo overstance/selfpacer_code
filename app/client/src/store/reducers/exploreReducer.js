@@ -5,7 +5,9 @@ const initialState = {
     subjects: [],
     loading: false,
     error: null,
-    clickedSubjectId: null
+    selectedCategory: 'all',
+    clickedSubject: {},
+    activeContentType: null
 };
 
 const fetchSubjectsStart = ( state, action ) => {
@@ -24,7 +26,21 @@ const fetchSubjectsFail = ( state, action ) => {
 };
 
 const updateClickedSubject = ( state, action ) => {
-    return updateObject( state, { clickedSubjectId: action.subjectId } );
+    return updateObject( state, { clickedSubject: action.clickedSubject } );
+};
+
+
+
+//Set resources page content type to all, youtube, mooc, or books
+
+const setActiveContentType = ( state, action ) => {
+    return updateObject( state, { activeContentType: action.platform } );
+};
+
+//Set selected category to either business, technology, creative, lifeStyle
+
+const setSelectedCategory = ( state, action ) => {
+    return updateObject( state, { selectedCategory: action.category } );
 };
 
 const reducer = ( state = initialState, action ) => {
@@ -32,7 +48,13 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_SUBJECTS_START: return fetchSubjectsStart( state, action );
         case actionTypes.FETCH_SUBJECTS_SUCCESS: return fetchSubjectsSuccess( state, action );
         case actionTypes.FETCH_SUBJECTS_FAIL: return fetchSubjectsFail( state, action );
+        
         case actionTypes.UPDATE_CLICKED_SUBJECT: return updateClickedSubject( state, action );
+
+        case actionTypes.SET_ACTIVE_CONTENT_TYPE: return setActiveContentType( state, action );
+
+        case actionTypes.SET_SELECTED_CATEGORY: return setSelectedCategory( state, action );
+
         default: return state;
     }
 };

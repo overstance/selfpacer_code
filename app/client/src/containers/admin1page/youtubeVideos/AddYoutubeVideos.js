@@ -13,6 +13,7 @@ class ManageYoutubeVideos extends Component {
     }
 
     state = {
+        fillError: null,
         subject: {
             value: '',
             label: "Select Subject", 
@@ -93,6 +94,8 @@ class ManageYoutubeVideos extends Component {
                 valid: false
             }
             this.setState({ subject: subjectUpdated});
+
+            this.setState({ fillError: 'Please fill all fields' });
         } else {
             this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value, this.props.user);
             
@@ -150,10 +153,12 @@ class ManageYoutubeVideos extends Component {
                 className={classes.Form}
                 onSubmit={this.submitYoutubeVideoHandler}
                 >
+                    <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
                     label={this.state.youtubeVideo.label} 
                     name={this.state.youtubeVideo.name}
                     value={this.state.youtubeVideo.value}
+                    elementType={'textarea'}
                     invalid={!this.state.youtubeVideo.valid}
                     shouldValidate={this.state.youtubeVideo.validation}
                     touched={this.state.youtubeVideo.touched}

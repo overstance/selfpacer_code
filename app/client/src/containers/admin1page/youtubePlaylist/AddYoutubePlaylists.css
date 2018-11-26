@@ -1,5 +1,6 @@
 .AddFeedbackInfo {
-    color: var(--darkBlue);
+    color: var(--green);
+    font-weight: 400;
     padding: 5px;
     font-size: small;
     display: inline;
@@ -44,9 +45,15 @@
 }
 
 .Form {
-    background: var(--lightBlue);
+    background: var(--darkBlue);
     padding: 20px;
     margin: 10px;
+    border-radius: 20px;
+}
+
+.Form textarea {
+    border-radius: 5px;
+    resize: none;
 }
 
 .Form label {
@@ -61,4 +68,13 @@
 
 .Form input {
     font-weight: 400;
+}
+
+.FillError {
+    color: var(--red);
+    font-size: small;
+    font-weight: 400;
+    max-width: 180px;
+    margin: auto;
+    padding: 2px;
 }

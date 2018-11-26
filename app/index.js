@@ -13,6 +13,7 @@ require('./services/passport');
 const authRoutes = require('./routes/authRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
 const youtubeRoutes = require('./routes/YoutubeRoutes');
+const collectionsRoute = require('./routes/collectionsRoute');
 
 //mongoose.Promise = global.Promise;
 mongoose.connect(
@@ -44,6 +45,7 @@ app.use(passport.session());
 authRoutes(app);
 subjectRoutes(app);
 youtubeRoutes(app);
+collectionsRoute(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

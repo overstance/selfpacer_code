@@ -2,6 +2,8 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
 
+// ************ACTIONS
+
 export const fetchSubjectsSuccess = ( subjects ) => {
     return {
         type: actionTypes.FETCH_SUBJECTS_SUCCESS,
@@ -22,12 +24,37 @@ export const fetchSubjectsStart = () => {
     };
 };
 
-export const updateClickedSubject = ( id ) => {
+export const updateClickedSubject = ( clickedSubject ) => {
     return {
         type: actionTypes.UPDATE_CLICKED_SUBJECT,
-        subjectId: id,
+        clickedSubject: clickedSubject,
     };
 };
+
+//Set to Id of Resource to Collect
+
+
+
+//Set resources page content type to all, youtube, mooc, or books
+
+export const setActiveContentType = ( platform ) => {
+    return {
+        type: actionTypes.SET_ACTIVE_CONTENT_TYPE,
+        platform: platform
+    }
+}
+
+//Set selected category to either business, technology, creative, lifeStyle
+
+export const setSelectedCategory = ( category ) => {
+    return {
+        type: actionTypes.SET_SELECTED_CATEGORY,
+        category: category
+    }
+}
+
+
+//*********/DISPATCHES
 
 export const fetchCreativeSubjects = ( history ) => {
 
@@ -122,25 +149,9 @@ export const fetchSubjects = () => {
     };
 };
 
-/*
- return dispatch => {
-export const registerUser = (name, email, password, password2, history) => {
+export const increaseViews = ( id, views, clickedSubject ) => {
     return dispatch => {
-        dispatch(authStart());
-        const newUser = {
-            name: name,
-            username: email,
-            email: email,
-            password: password,
-            password2: password2
-        };
-    }
-};
-*/
-
-export const increaseViews = ( id, views ) => {
-    return dispatch => {
-        dispatch(updateClickedSubject( id ));
+        dispatch(updateClickedSubject( clickedSubject ));
         const subject = {
             subjectId: id,
             subjectViews: views + 1
@@ -156,22 +167,3 @@ export const increaseViews = ( id, views ) => {
         );
     }
 };
-
-/*
-export const increaseViews = (id, views) => {
-    return () => {
-        const subject = {
-            subjectId: id,
-            subjectViews: views + 1
-        };
-
-        //console.log(subject);
-
-        axios.post('/api/subjectviews', subject)
-        .then(res => {
-            //console.log(res.data);
-        })
-        .catch(error => {console.log(error)}
-        );
-    }
-};*/

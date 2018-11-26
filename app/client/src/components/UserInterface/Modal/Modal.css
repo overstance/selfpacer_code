@@ -1,20 +1,25 @@
 .Modal {
     position: fixed;
+    width: 500px;
+    left: calc(50% - 250px);
     z-index: 500;
     background-color: var(--white);
-    width: 70%;
+    /* width: 70%; */
     border: 1px solid var(--lightGray);
     box-shadow: 1px 1px 1px var(--black);
-    padding: 16px;
-    left: 15%;
-    top: 30%;
+    /* padding: 16px; */
+    /* left: 15%; */
+    /* top: 30%; */
+    top: calc(50% - 150px);
+    max-height: 300px;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
+    overflow-y: auto;
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
     .Modal {
-        width: 500px;
-        left: calc(50% - 250px);
+        width: 300px;
+        left: calc(50% - 150px);
     }
 }

@@ -148,28 +148,6 @@ background: var(--lightGray);
     vertical-align: bottom;
 }
 
-.FeedBackIconDislike {
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    box-sizing: border-box;
-    vertical-align: middle;
-    cursor: pointer;
-    text-align: center;
-    font-weight: 400;
-    background-image: url('../../assets/images/thumbs-down.svg');
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 60%;
-}
-
-.FeedBackIconDislike:hover {
-    background-image: url('../../assets/images/thumbs-down-focus.svg');
-}
-
-
-
 .FeedBackIconLike {
     width: 30px;
     height: 30px;

@@ -9,13 +9,20 @@ import Logout from './components/auth/Logout/Logout';
 import Explore from './containers/explore/Explore';
 import Accounting from './containers/Subjects/Accounting/Accounting';
 import Profile from './containers/profile/Profile';
-import ResourcePage from './containers/resourcepage/Resoucepage'
-//import Admin1Dev from './containers/admin1page/Admin1';
+import ResourcePage from './containers/resourcepage/Resoucepage';
+import AddResource from './containers/addResource/addResource';
+import CreateNewCollection from './containers/createCollection/createCollection';
+
+// const BrowserHistory = require('react-router/lib/BrowserHistory').default;
 
 
 const Landing = () => <h2>
   Landing page component
 </h2>
+
+/* const AddResource = () => <h2>
+  Add Resource Page
+</h2> */
 
 /* const Home = () => <h2>
   User Home. Welcome!
@@ -38,24 +45,26 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/accounting/:id" component={ResourcePage} />
-        <Route path="/explore/accounting" component={Accounting} />
-        <Route path="/explore/graphic-design" component={graphicDesign} />                
-        <Route path="/explore" component={ (props) => (
-            <Explore timestamp={new Date().toString()} {...props} />
-            )}  
-        />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/not-found" component={NotFound} />
-        <Route path="/" exact component={Landing} />
-        <Redirect to="/" />       
+          <Route path="/accounting/:id" component={ResourcePage} />
+          <Route path="/explore/accounting" component={Accounting} />
+          <Route path="/explore/graphic-design" component={graphicDesign} />                
+          <Route path="/explore" component={ (props) => (
+              <Explore timestamp={new Date().toString()} {...props} />
+              )}  
+          />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/not-found" component={NotFound} />
+          <Route path="/" exact component={Landing} />
+          <Redirect to="/" />      
       </Switch>
     );
 
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
+          <Route path="/create_collection" exact component={CreateNewCollection} />
+          <Route path="/add_resource" exact component={AddResource} />
           <Route path="/accounting/:id" component={ResourcePage} />
           <Route path="/explore/accounting" component={Accounting} />
           <Route path="/explore" component={ (props) => (

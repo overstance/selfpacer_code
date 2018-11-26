@@ -8,19 +8,6 @@
     padding: 0px;
 }
 
-/*.SpinnerContainer {
-    padding-top: 10rem;
-}*/
-
-
-/*.SpinnerContainer {
-    display: flex;  
-    flex-flow: row wrap;
-    font-weight: bold;
-    text-align: center;
-}*/
-
-
 .Platform {
     margin: 5px 0;
 }
@@ -100,3 +87,4 @@
     margin-bottom: 0;
     z-index: 997; */
 }
+

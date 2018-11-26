@@ -13,6 +13,7 @@ class UpdateYoutubeVideos extends Component {
     }
 
     state = {
+        fillError: null,
         subject: {
             value: '',
             label: "Select Subject", 
@@ -66,6 +67,8 @@ class UpdateYoutubeVideos extends Component {
                 valid: false
             }
             this.setState({ subject: subjectUpdated});
+
+            this.setState({ fillError: 'Please fill all fields' });
         } else {
             this.props.onUpdateYoutubeVideos(this.state.subject.value, this.props.user);
             
@@ -119,6 +122,7 @@ class UpdateYoutubeVideos extends Component {
                 className={classes.Form}
                 onSubmit={this.submitYoutubeVideoHandler}
                 >
+                    <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
                     label={this.state.subject.label} 
                     name={this.state.subject.name}

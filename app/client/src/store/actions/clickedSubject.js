@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-
 export const fetchClickedSubjectSuccess = ( clickedSubject ) => {
     return {
         type: actionTypes.FETCH_CLICKEDSUBJECT_SUCCESS,

@@ -1,0 +1,29 @@
+.NewButton {
+    text-decoration: none;
+    color: var(--darkBlue);
+    background: var(--skyBlue);
+    border-radius: 20px;
+    font-size: small;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+}
+
+.NewButton:hover {
+    background: var(--green);
+}
+
+.CollectionsContainer {
+    width: 260px;
+    margin: auto;
+    background: var(--darkBlue);
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.PostAddInfo {
+    padding: 20px 0;
+    font-weight: 400;
+    color: var(--green);
+}
+

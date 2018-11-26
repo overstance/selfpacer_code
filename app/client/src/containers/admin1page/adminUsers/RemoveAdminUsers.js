@@ -8,6 +8,7 @@ import Button from '../../../components/UserInterface/Button/Button';
 class RemoveAdminUsers extends Component {
 
     state = {
+        fillError: null,
         userId: {
             value: '',
             label: 'Enter User Id',
@@ -61,6 +62,8 @@ class RemoveAdminUsers extends Component {
                 valid: false
             }
         this.setState({ userId: updated});
+
+        this.setState({ fillError: 'Please fill all fields' });
         } else {
             this.props.onRemoveAdminUser(this.state.userId.value);
             const updated = {
@@ -92,10 +95,12 @@ class RemoveAdminUsers extends Component {
                 className={classes.Form} 
                 onSubmit={this.submitUserHandler}
                 >
+                    <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
                     label={this.state.userId.label} 
                     name={this.state.userId.name}
                     value={this.state.userId.value}
+                    elementType={'textarea'}
                     invalid={!this.state.userId.valid}
                     shouldValidate={this.state.userId.validation}
                     touched={this.state.userId.touched}

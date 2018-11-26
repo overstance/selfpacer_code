@@ -14,6 +14,8 @@ import admin1Reducer from './store/reducers/admin1Reducer';
 import exploreReducer from './store/reducers/exploreReducer';
 import clickedSubjectReducer from './store/reducers/clickedSubjectReducer';
 import accountingReducer from './store/reducers/accountingReducer';
+import addResourceReducer from './store/reducers/addResourceReducer';
+import collectionReducer from './store/reducers/collectionReducer';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -23,7 +25,9 @@ const rootReducer = combineReducers({
     explore: exploreReducer,
     clickedSubject: clickedSubjectReducer,
     accounting: accountingReducer,
-    admin1: admin1Reducer
+    admin1: admin1Reducer,
+    addResource: addResourceReducer,
+    collection: collectionReducer
 });
 
 
