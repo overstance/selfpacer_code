@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { Route, Switch, /* Redirect, */ withRouter } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
@@ -56,7 +56,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/not-found" component={NotFound} />
           <Route path="/" exact component={Landing} />
-          <Redirect to="/" />      
+          {/* <Redirect to="/" /> */}
       </Switch>
     );
 
@@ -70,11 +70,11 @@ class App extends Component {
           <Route path="/explore" component={ (props) => (
             <Explore timestamp={new Date().toString()} {...props} />
             )} 
-          />
-          
+          />          
           <Route path="/logout" component={Logout} />
           <Route path="/profile" exact component={Profile} />
-          <Redirect to="/profile" />
+          <Route path="/" exact component={Landing} />
+          {/* <Redirect to="/" /> */}
         </Switch>
       );
     }

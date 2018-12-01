@@ -17,7 +17,7 @@ module.exports = app => {
   app.post('/api/create_collection', (req, res) => {
     const collection = {
       title: req.body.title,
-      resources: [req.body.resource],
+      resources: [req.body.resourceId],
       user_id: req.body.userId,
       resourceCount: 1
     };

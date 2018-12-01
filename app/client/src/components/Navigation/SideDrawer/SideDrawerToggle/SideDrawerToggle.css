@@ -10,7 +10,7 @@
     background-color: var(--green);
 }
 
-@media (min-width: 780px) {
+@media (min-width: 875px) {
     .SideDrawerToggle {
         display: none;
     }

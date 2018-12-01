@@ -8,3 +8,9 @@
     background-color: rgba(0, 0, 0, 0.75);
     min-height: 100%;
 }
+
+@media (min-width: 875px) {
+    .Backdrop {
+        display: none;
+    }
+}

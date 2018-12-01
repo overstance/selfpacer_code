@@ -20,10 +20,7 @@ export {
     fetchAccounting,
 } from './clickedSubject';
 export {
-    fetchYoutubeAccounting,
-    fetchResourceById,
-    setClickedPlatform,
-    accountingResourceLiked,
+    fetchYoutubeAccounting
 } from './accounting';
 export {
     addAdminUser,
@@ -35,8 +32,14 @@ export {
 } from './admin1';
 
 export {
-    addResource
-} from './addResource';
+    addResource,
+    fetchResourceById,
+    setClickedPlatform,
+    resourceLiked,
+    updateUserRecentlyViewed,
+    updateUserLikeCount
+    // setUserLikedResources
+} from './resource';
 
 export {
     fetchToCollectResource,

@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const youtubeAcctSchema = new Schema({
-  date: {
+const resourceSchema = new Schema({
+  dateAdded: {
     type: Date,
     default: Date.now()
   },
+  category: String,
   publishDate: Number,
   title: String,
   img: String,
@@ -20,11 +21,11 @@ const youtubeAcctSchema = new Schema({
   },
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   type: String,
-  youtubeId: String,
   source: String,
+  youtubeId: String,
   youtubeviews: String,
   youtubelikes: String,
   videoCount: String
 });
 
-module.exports = mongoose.model('youtubeAccts', youtubeAcctSchema);
+module.exports = mongoose.model('resources', resourceSchema);

@@ -8,21 +8,11 @@ const youtube = google.youtube({
 });
 const middleware = require('../middlewares');
 
-const YoutubeAcct = require('../models/Youtube/YoutubeAcct');
+const Resource = require('../models/Resource');
 
 module.exports = app => {
-  app.get('/api/youtube_accounting', (req, res) => {
-    YoutubeAcct.find({}, function(err, resources) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send({ accountingRes: resources });
-      }
-    });
-  });
-
   app.get('/api/youtube_accounting/:id', (req, res) => {
-    YoutubeAcct.findOne({ _id: req.params.id }, function(err, resource) {
+    Resource.findOne({ _id: req.params.id }, function(err, resource) {
       if (err) {
         console.log(err);
         res.send(err.name);
@@ -50,6 +40,7 @@ module.exports = app => {
         const year = pdate.getFullYear();
         return {
           publishDate: year,
+          category: 'Accounting',
           title: seed.snippet.title,
           img: seed.snippet.thumbnails.medium.url,
           link: 'https://www.youtube.com/results?search_query=' + seed.id,
@@ -64,7 +55,7 @@ module.exports = app => {
       });
 
       seedData.forEach(function(seed) {
-        YoutubeAcct.create(seed, function(err, resource) {
+        Resource.create(seed, function(err, resource) {
           if (err) {
             console.log(err);
           } else {
@@ -81,7 +72,7 @@ module.exports = app => {
     '/api/youtube_accounting_playlist',
     middleware.isLoggedIn,
     (req, res) => {
-      YoutubeAcct.find({ type: 'youtube#playlist' }, async (err, resources) => {
+      Resource.find({ type: 'youtube#playlist' }, async (err, resources) => {
         if (err) {
           console.log(err);
         } else {
@@ -105,7 +96,7 @@ module.exports = app => {
 
           seedData.forEach(function(seed) {
             let query = seed.youtubeId;
-            YoutubeAcct.findOneAndUpdate(
+            Resource.findOneAndUpdate(
               query,
               { youtubeCount: seed.youtubeCount },
               function(err, resource) {
@@ -143,6 +134,7 @@ module.exports = app => {
 
         return {
           publishDate: year,
+          category: 'Accounting',
           title: seed.snippet.title,
           img: seed.snippet.thumbnails.medium.url,
           link: 'https://www.youtube.com/results?search_query=' + seed.id,
@@ -158,7 +150,7 @@ module.exports = app => {
       });
 
       seedData.forEach(function(seed) {
-        YoutubeAcct.create(seed, function(err, resource) {
+        Resource.create(seed, function(err, resource) {
           if (err) {
             console.log(err);
           } else {
@@ -175,7 +167,7 @@ module.exports = app => {
     '/api/youtube_accounting_video',
     middleware.isLoggedIn,
     (req, res) => {
-      YoutubeAcct.find({ type: 'youtube#video' }, async (err, resources) => {
+      Resource.find({ type: 'youtube#video' }, async (err, resources) => {
         if (err) {
           console.log(err);
         } else {
@@ -200,7 +192,7 @@ module.exports = app => {
 
           seedData.forEach(function(seed) {
             let query = seed.youtubeId;
-            YoutubeAcct.findOneAndUpdate(
+            Resource.findOneAndUpdate(
               query,
               {
                 youtubeviews: seed.youtubeviews,
@@ -221,22 +213,4 @@ module.exports = app => {
       });
     }
   );
-
-  app.post('/api/youtube_accounting_liked', (req, res) => {
-    //console.log(req.body);
-
-    let id = req.body.resourceId;
-    let likes = req.body.resourceLikes;
-
-    YoutubeAcct.findOneAndUpdate({ _id: id }, { likes: likes }, function(
-      err,
-      updatedResource
-    ) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send({ resource: updatedResource });
-      }
-    });
-  });
 };

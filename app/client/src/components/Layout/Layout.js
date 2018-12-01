@@ -50,6 +50,8 @@ class Layout extends Component {
                         open={this.state.showSideDrawer}
                         closed={this.sideDrawerClosedHandler}
                         onAuth={this.authenticatingHandler}
+                        userName={this.props.userName}
+                        showSideDrawer={this.state.showSideDrawer}
                     />
                     <main >
                         {this.props.children}
@@ -68,6 +70,7 @@ Layout.propTypes= {
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
+        userName: state.auth.user.name
     }
 };
 

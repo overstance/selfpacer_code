@@ -4,10 +4,26 @@ import { FETCH_USER, LOGOUT_USER } from './actionTypes';
 import * as actionTypes from './actionTypes';
 
 
+export const setUserRecentlyViewed = ( userRecentlyViewed ) => {
+    return {
+        type: actionTypes.SET_USER_RECENTLY_VIEWED,
+        userRecentlyViewed: userRecentlyViewed
+    };
+};
+
+export const setUserLikeCount = ( userLikeCount ) => {
+    return {
+        type: actionTypes.SET_USER_LIKE_COUNT,
+        userLikeCount: userLikeCount
+    };
+};
 
 export const fetchUser = () => async (dispatch) => {
     const res = await axios.get('/api/current_user');
     dispatch({ type: FETCH_USER, payload: res.data });
+
+    dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
+    dispatch(setUserLikeCount(res.data.likeCount));
 };
 
 export const logout = () => async (dispatch) => {
@@ -71,7 +87,7 @@ export const registerUser = (name, email, password, password2, history) => {
             .then(res => {
                 if (res.data._id) {
                     dispatch(authSuccess(res.data._id));
-                    history.push('/login');
+                    history.push('/');
                     return;
                 }
 
@@ -101,7 +117,7 @@ export const loginUser = (email, password, history) => {
             .then(res => {
                 if (res.data._id) {
                     dispatch(authSuccess(res.data));
-                    history.push('/profile');
+                    history.push('/');
                     return;
                 }
 

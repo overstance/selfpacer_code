@@ -294,8 +294,8 @@ class AddResources extends Component {
 
 const mapStateToProps = state => ({
     subjects: state.explore.subjects,
-    successMessage: state.addResource.successMessage,
-    error: state.addResource.error,
+    successMessage: state.resource.successMessage,
+    error: state.resource.error,
     user: state.auth.user,
     activeContentPage: state.explore.activeContentType,
     activeSubject: state.clickedSubject.subject[0].title

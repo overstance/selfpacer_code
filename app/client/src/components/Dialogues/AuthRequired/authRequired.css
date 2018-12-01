@@ -1,3 +1,5 @@
+
+
 .DialogueTitleHead {
     display: -ms-flexbox;
     display: flex;
@@ -41,10 +43,15 @@
 .DialogueMessage {
     padding: 30px 5px;
     text-align: center;
+    width: 240px;
+    border-radius: 20px;
+    background: var(--darkBlue);
+    margin: 20px auto;
 }
 
 .DialogueMessage div {
-    padding: 10px;
+    color: var(--white);
+    font-weight: 400;
 }
 
 .DialogueMessage a {

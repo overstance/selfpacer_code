@@ -116,6 +116,10 @@ class Login extends Component {
         this.props.onLoginUser(this.state.controls.email.value, this.state.controls.password.value, this.props.history);
     }
 
+    handleBack = () => {
+        this.props.history.goBack()
+      }
+
     render() {
         const formElementsArray = [];
         for (let key in this.state.controls) {
@@ -162,15 +166,15 @@ class Login extends Component {
             {errorMessage}
             <form className={classes.Form} onSubmit={this.submitHandler}>
                 {LoginInput}
-                <Button btnType='Success'>LogIn</Button>
-                <div>
-                    <p>Login with</p>
-                    <a href='/auth/google'>
-                        <img className={classes.Google} src={googleLogo} alt='google logo' />
+                <Button btnType='Success'>LOG IN</Button>
+                <div className={classes.Oauth}>
+                    <p>Log in with</p>
+                    <a className={classes.Google} href='/auth/google'>
+                        <img src={googleLogo} alt='google logo' />
                     </a>
                     <p>or</p>
-                    <a href="/auth/facebook">
-                        <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
+                    <a className={classes.Facebook} href="/auth/facebook">
+                        <img src={facebookLogo} alt='facebook logo' />
                     </a>
                 </div>
             </form>
@@ -181,18 +185,18 @@ class Login extends Component {
         }
 
         return (
-
-            <AuthBackdrop show>
-                <div className={classes.Logo}>
-                    <a href="/"><img src={logoImage} alt='logo' /></a>
-                </div>
+            <div className={classes.UniversalWrapper}>
+                <AuthBackdrop show clicked={this.handleBack} />
                 <div className={classes.container}>
+                    <a href="/" className={classes.Logo}>
+                        <img src={logoImage} alt='logo' />
+                    </a>
                     <div className={classes.Menu}>
                         <h2 className={classes.HeaderItem}>LOG IN</h2>
                     </div>
                     {formAll}   
                 </div>
-            </AuthBackdrop>
+            </div>
         )
     }
 };

@@ -14,6 +14,7 @@ const authRoutes = require('./routes/authRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
 const youtubeRoutes = require('./routes/YoutubeRoutes');
 const collectionsRoute = require('./routes/collectionsRoute');
+const resourceRoute = require('./routes/resourceRoute');
 
 //mongoose.Promise = global.Promise;
 mongoose.connect(
@@ -46,6 +47,7 @@ authRoutes(app);
 subjectRoutes(app);
 youtubeRoutes(app);
 collectionsRoute(app);
+resourceRoute(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

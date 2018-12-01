@@ -11,7 +11,7 @@
 .SearchWrapper {
   display: flex;  
   /* flex-flow: row; */
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   text-align: center;
   /* background: lightgray;  */
   flex-basis: 0;
@@ -27,8 +27,8 @@
   max-width: 100%;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
   flex-grow: 1;
   flex-basis: 0;
   justify-content: space-between;

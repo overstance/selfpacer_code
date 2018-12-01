@@ -11,7 +11,20 @@ export const fetchYoutubeAccounting = () => {
             .then(                
                 res => {
                 const youtubeAccounting = [...res.data.accountingRes];
-                dispatch(fetchYoutubeAccountingSuccess(youtubeAccounting));
+
+                function shuffleArray(array) {
+                    let i = array.length - 1;
+                    for (; i > 0; i--) {
+                      const j = Math.floor(Math.random() * (i + 1));
+                      const temp = array[i];
+                      array[i] = array[j];
+                      array[j] = temp;
+                    }
+                    return array;
+                } 
+
+                const youtubeShuffled = shuffleArray(youtubeAccounting);
+                dispatch(fetchYoutubeAccountingSuccess(youtubeShuffled));
             } )
             .catch( err => {
                 dispatch(fetchYoutubeAccountingFail(err));
@@ -37,84 +50,5 @@ export const fetchYoutubeAccountingStart = () => {
     return {
         type: actionTypes.FETCH_YOUTUBE_ACCOUNTING_START
     };
-};
-
-// set Clicked Platform
-
-export const setClickedPlatform = ( platform ) => {
-    return {
-        type: actionTypes.SET_CLICKED_PLATFORM,
-        platform: platform
-    };
-};
-
-// Fetch Clicked Resource Info
-
-export const fetchResourceById = ( id, platform ) => {
-    return dispatch => {
-        dispatch(fetchResourceByIdStart());
-
-        console.log(id, platform);
-
-        if (platform === 'youtube#video' || 'youtube#playlist') {
-            axios.get(`/api/youtube_accounting/${id}`)
-            .then(  
-                // res => {console.log(res.data);}              
-                res => {
-                // const youtubeAccounting = [...res.data.accountingRes];
-                if (res.data.resource) {
-                    dispatch(fetchResourceByIdSuccess(res.data.resource));
-                } else {
-                    dispatch(fetchResourceByIdFail(res.data));
-                };     
-            } )
-            .catch( err => {
-                dispatch(fetchResourceByIdFail(err));
-            } );
-
-        }
-    };
-};
-
-export const fetchResourceByIdStart = () => {
-    return {
-        type: actionTypes.FETCH_RESOURCE_BY_ID_START
-    };
-};
-
-export const fetchResourceByIdSuccess = ( resource ) => {
-    return {
-        type: actionTypes.FETCH_RESOURCE_BY_ID_SUCCESS,
-        resource: resource
-    };
-};
-
-export const fetchResourceByIdFail = ( error ) => {
-    return {
-        type: actionTypes.FETCH_RESOURCE_BY_ID_FAIL,
-        error: error
-    };
-};
-
-//Increase likes count
-
-export const accountingResourceLiked = (id, likes, type) => {
-    return () => {
-        const resource = {
-            resourceId: id,
-            resourceLikes: likes + 1
-        };
-
-        // console.log(resource.resourceLikes);
-
-        if ( type === 'youtube#video' || 'youtube#playlist' ) {
-            axios.post('/api/youtube_accounting_liked', resource)
-            .then(res => {
-                // console.log(res.data.resource.likes);
-            })
-            .catch(error => {console.log(error)}
-            );
-        }
-    }
 };
 

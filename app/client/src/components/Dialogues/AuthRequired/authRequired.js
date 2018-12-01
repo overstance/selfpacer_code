@@ -4,7 +4,7 @@ import Modal from '../../UserInterface/Modal/Modal';
 import { Link } from 'react-router-dom';
 
 const authRequired = (props) => (
-    <Modal show={props.showDialogue}>
+    <Modal show={props.showDialogue} closeModal={props.closeModal}>
         <div>
             <div className={classes.DialogueTitleHead}>
                 <div className={classes.DialogueTitleColumn}>

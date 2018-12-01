@@ -1,4 +1,4 @@
-const YoutubeAcct = require('../models/Youtube/YoutubeAcct');
+const Resource = require('../models/Resource');
 //var Comment = require('../models/comment');
 
 // all the middleare goes here

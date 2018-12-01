@@ -1,6 +1,6 @@
 .NavigationItems {
     margin: 0;
-    padding: 30px;
+    padding: 10px 30px;
     list-style: none;
     display: flex;
     flex-flow: column;
@@ -28,13 +28,13 @@
     background-image: url('../../../assets/images/user-circle-focus.svg');
 }
 
-@media (min-width: 780px) {
+@media (min-width: 875px) {
     .NavigationItems {
         flex-flow: row-reverse;
     }
 }
 
-@media (min-width: 780px) {
+@media (min-width: 875px) {
     .SearchBarWrap {
         width: 40%;
         position: absolute;
@@ -47,7 +47,7 @@
     }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 875px) {
     .SearchBarWrap {
         display: none;
     }
@@ -75,7 +75,7 @@
     color: var(--red);
 }
 
-@media (min-width: 780px) {
+@media (min-width: 875px) {
     .NavigationItem {
         margin: 0;
         display: flex;
@@ -95,7 +95,7 @@
     
 }
 
-@media (max-width: 780px) {
+@media (max-width: 875px) {
     .DesktopOnly {
         display: none;
     }

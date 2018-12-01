@@ -1,12 +1,17 @@
-.Login {
+.UniversalWrapper {
+    width: 100%;
+    min-height: 100%;
     position: absolute;
-    padding: 10% 13%;
-    width: 74%;
-    left:0px;
+    left: 0;
+    top: 0;
+}
+
+.Login {
+    padding: 20px 30px;
 }
 
 .ValidationErrors {
-    position: relative;
+    /* position: relative; */
     margin-top: 0px; 
 }
 
@@ -32,32 +37,36 @@
   }
 
 .container {
-      display: block;
-      position: relative;
-      width: 530px;
-      height: 490px;
-      margin: auto;
-      margin-top: 20px; 
-      box-shadow: 0px 0px 0px 1px var(--blue);
-      overflow:hidden;
-      background-color: var(--darkBlue);
-    }
+    position: relative;
+    left: calc(50% - 210px);
+    /* top: calc(50% - 260px); */
+    width: 420px;
+    /* height: 520px; */
+    margin-top: 10%;
+    /* box-shadow: 0px 0px 0px 1px var(--blue); */
+    overflow-y: auto;
+    background-color: var(--darkBlue);
+    border-radius: 40px;
+    z-index: 200;
+}
 
 .Logo {
-    position: relative;
     text-align: center;
-    width: fit-content;
-    margin: auto;
-    }
+    background: var(--blue);
+    display: block;
+}
+
+.Logo:hover {
+    background: var(--lightBlue);
+}
         
 .Logo img {
-    height: 100px;
-    margin-top: 20px;
+    height: 60px;
+    padding: 10px;
 }    
     
 .Menu {
-      position: relative;
-      padding: 5% 13% 0 13%;
+      padding: 10px 20px 0 20px;
     }
    
 .Form div p{
@@ -69,57 +78,55 @@
 .Form a{
        text-decoration: none;
        cursor: pointer;
-       
+       margin: 0 5px;  
    }
 
 .Form {
     text-align: center;
 }
-   
-.Google{
-       height: 50px;
-       position: relative;
-       top: 15px;
-       margin-left: 5px;
-       margin-right: 5px;
-       cursor: pointer;
-   }
-   
-.Facebook{
-       height: 40px;
-       position: relative;
-       top: 10px;
-       margin-left: 10px;
-    }
-
-@media (max-width: 560px) {
-    .container {
-        /* display: flex; */
-        position: relative;
-        width: 98%;
-      }
-
-      .Menu {
-        position: absolute;
-        width: 100%;
-      }
-
-      .Login {
-        position: absolute;
-        padding-top: 25%;
-    }
-
-    .Logo {
-        height: 80px;
-        padding-bottom: 20px;
-    }  
-
-    .Logo img {
-        height: 80px;
-    }  
-
-}
 
 .Spinner {
     padding-top: 5rem;
 }
+
+.Oauth {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.Google{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: var(--white);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.Google img {
+    height: 40px;
+    vertical-align: middle;
+}
+
+.Facebook{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+ }
+
+ .Facebook img {
+    height: 40px;
+    vertical-align: middle; 
+ }
+   
+@media (max-width: 560px) {
+    .container {
+        width: 300px;
+        left: calc(50% - 150px);
+    }
+
+}
+
+
+

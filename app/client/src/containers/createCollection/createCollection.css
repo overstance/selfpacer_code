@@ -50,6 +50,7 @@
     background: var(--darkBlue);
     padding: 20px;
     margin: 10px;
+    border-radius: 20px;
 }
 
 .Form label {

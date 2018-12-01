@@ -25,7 +25,7 @@ export const fetchAccounting = () => {
     return dispatch => {
         dispatch(fetchClickedSubjectStart());
 
-        axios.get( '/api/accounting')
+        axios.get('/api/accounting')
             .then(                
                 res => {
                 const clickedSubject = [...res.data.subjects];

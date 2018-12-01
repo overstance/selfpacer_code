@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const YoutubeAcct = require('../models/Youtube/YoutubeAcct');
+const Resource = require('../models/Resource');
 
 /* const data = [
   {

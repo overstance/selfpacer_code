@@ -16,7 +16,7 @@ const toolbar = (props) => (
         <Container>
             <header className={classes.Toolbar}>
                 <div className={classes.Logo}>
-                    <Link to={props.isAuth ? "/home" : "/"}><img src={LogoGreen} alt='logo' style={{'height': '45px'}} /></Link>
+                    <Link to= "/"><img src={LogoGreen} alt='logo' style={{'height': '45px'}} /></Link>
                 </div>
                 <div className={classes.NewSearchContainer + ' ' + classes.DesktopOnlySearchbar}>
                     <Searchbar show />

@@ -9,7 +9,7 @@ import CollectionItem from '../../components/CollectionItem/CollectionItem';
 class Collections extends Component {
 
     addToCollectionHandler = (collectionId, collectionResources) => {
-        this.props.onAddResourceToCollection(collectionId, collectionResources, this.props.resourceToCollect);
+        this.props.onAddResourceToCollection(collectionId, collectionResources, this.props.resourceToCollect.id);
     }
 
     render () {

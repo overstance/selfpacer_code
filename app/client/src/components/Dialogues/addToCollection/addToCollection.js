@@ -8,7 +8,7 @@ class AddToCollection extends Component {
     
     render () {
         return (
-            <Modal show={this.props.showDialogue}>
+            <Modal show={this.props.showDialogue} closeModal={this.props.closeModal}>
                 <div>
                     <div className={classes.DialogueTitleHead}>
                         <div className={classes.DialogueTitleColumn}>

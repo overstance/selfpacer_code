@@ -17,7 +17,7 @@ import AuthRequired from '../../../components/Dialogues/AuthRequired/authRequire
 import AddToCollection from '../../../components/Dialogues/addToCollection/addToCollection';
 
 
-function shuffleArray(array) {
+/* function shuffleArray(array) {
     let i = array.length - 1;
     for (; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -26,7 +26,7 @@ function shuffleArray(array) {
       array[j] = temp;
     }
     return array;
-} 
+} */ 
 
 
 class Accounting extends Component {
@@ -34,6 +34,7 @@ class Accounting extends Component {
    componentDidMount () {
         this.props.onFetchAccounting();
         this.props.onFetchYoutubeAccounting();
+    
         // this.props.onFetchUserCollections(this.props.userId);
 
         if (this.props.activeContent === 'youtube') {
@@ -142,31 +143,39 @@ class Accounting extends Component {
         this.props.onSetActiveContentType('books');
     }
 
-    resourceClickedHandler = ( platform ) => {
+    resourceClickedHandler = ( platform, id ) => {
         this.props.onSetClickedPlatform( platform );
+
+        // console.log(platform, id);
+
+        if (this.props.isAuthenticated) {
+           
+            const checkViewed = this.props.settedUserRecentlyViewed.filter(resource => resource === id);
+
+            // console.log(checkViewed.length);
+
+            if (checkViewed.length === 0) {
+                this.props.onUpdateRecentlyViewed(id, this.props.settedUserRecentlyViewed, this.props.userId);
+            }           
+        }        
     };
 
-    likeHandler = (id, likes, type) => {
-        this.props.onResourceLiked(id, likes, type);
+    likeHandler = (id, likes) => {
+        this.props.onResourceLiked(id, likes);
+
+        if (this.props.isAuthenticated) {
+            this.props.onUpdateUserLikeCount( this.props.userId, this.props.userLikeCount );        
+        }    
     }
 
-    collectHandler = ( id ) => {
+    collectHandler = ( id, image, title ) => {
         if (!this.props.isAuthenticated) {
             this.setState({ AuthenticateToCollectOrAdd: true, showAuthRequiredModal: true});
         } 
 
         if (this.props.isAuthenticated) {
-            // this.props.history.push('/profile');
-            if (this.state.youtubeActive) {
-                const toCollectArray = this.props.youtube.filter( resource => ( resource._id === id));
-
-                const toCollectResource = toCollectArray[0]
-
-                // console.log(toCollectDisarrayed);
-
-                this.props.onSetToCollectResource( toCollectResource );
-                this.props.onFetchUserCollections(this.props.userId);
-            }
+            this.props.onSetToCollectResource(id, image, title);
+            this.props.onFetchUserCollections(this.props.userId);
             this.setState({ showCollectionModal: true });
         }
     }
@@ -216,8 +225,8 @@ class Accounting extends Component {
         let youtube = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
 
         if ( !this.props.resourceLoading ) {
-            const youtubeShuffled = shuffleArray(this.props.youtube);
-            youtube = youtubeShuffled.map( (resource, i) => (
+            // const youtubeShuffled = shuffleArray(this.props.youtube);
+            youtube = this.props.youtube.map( (resource, i) => (
                    <Resource
                    key={i}
                    id={resource._id} 
@@ -231,9 +240,9 @@ class Accounting extends Component {
                    source={resource.source}
                    type={resource.type}
                    videoCount={resource.videoCount}
-                   clicked={() => this.resourceClickedHandler(resource.type)}
-                   likeclicked={() => this.likeHandler( resource._id, resource.likes, resource.type )}
-                   collectclicked={() => this.collectHandler( resource._id )}
+                   clicked={() => this.resourceClickedHandler(resource.type, resource._id)}
+                   likeclicked={() => this.likeHandler( resource._id, resource.likes, resource.img, resource.link, resource.title )}
+                   collectclicked={() => this.collectHandler( resource._id, resource.img, resource.title )}
                    />
             ) )
         }
@@ -288,11 +297,13 @@ class Accounting extends Component {
                                 <AuthRequired 
                                 showDialogue={this.state.showAuthRequiredModal}
                                 closeDialogue={this.collectAuthDialogueCloseHandler}
+                                closeModal={this.collectAuthDialogueCloseHandler}
                                 />: null
                             }
                             <AddToCollection 
                             showDialogue={this.state.showCollectionModal}
                             closeDialogue={this.collectModalCloseHandler} 
+                            closeModal={this.collectModalCloseHandler}
                             />
                             {pageContent}
                         </div>
@@ -313,7 +324,10 @@ const mapStateToProps = state => {
         resourceLoading: state.accounting.loading,
         isAuthenticated: state.auth.isAuthenticated,
         activeContent: state.explore.activeContentType,
-        userId: state.auth.user._id
+        userId: state.auth.user._id,
+        userLikedResources: state.auth.user.likedResources,
+        settedUserRecentlyViewed: state.resource.userRecentlyViewed,
+        userLikeCount: state.resource.userLikeCount
     };
 };
 
@@ -322,11 +336,13 @@ const mapDispatchToProps = dispatch => {
         onFetchAccounting: () => dispatch( actions.fetchAccounting() ),
         onFetchYoutubeAccounting: () => dispatch ( actions.fetchYoutubeAccounting() ),
         onSetClickedPlatform: ( platform ) => dispatch ( actions.setClickedPlatform( platform ) ),
-        onResourceLiked: ( id, likes, type) => dispatch ( actions.accountingResourceLiked( id, likes, type)),
-        onSetToCollectResource: ( resource ) => dispatch ( actions.setToCollectResource( resource )),
+        onResourceLiked: ( id, likes ) => dispatch ( actions.resourceLiked( id, likes )),
+        onSetToCollectResource: ( resourceId, image, title ) => dispatch ( actions.setToCollectResource( resourceId, image, title )),
         onSetActiveContentType: ( platform ) => dispatch ( actions.setActiveContentType( platform )),
         onFetchUserCollections: ( userId ) => dispatch(actions.fetchUserCollections( userId )),
-        onClearAddToCollectionMessages: () => dispatch(actions.clearAddToCollectionMessages())
+        onClearAddToCollectionMessages: () => dispatch(actions.clearAddToCollectionMessages()),
+        onUpdateUserLikeCount: ( userId, userLikeCount ) => dispatch(actions.updateUserLikeCount( userId, userLikeCount )),
+        onUpdateRecentlyViewed: (id, viewedResources, userId) => dispatch( actions.updateUserRecentlyViewed(id, viewedResources, userId))
     };
 };
 
@@ -339,30 +355,3 @@ Accounting.propTypes = {
 
 export default connect( mapStateToProps, mapDispatchToProps )( Accounting );
 
-/*         if ( !this.props.resourceLoading ) {
-            const youtubeRecommended = this.props.youtube.filter( resource => resource.isAdmin === true);
-            console.log(youtubeRecommended);
-            youtubeRec = youtubeRecommended.map( resource => (
-                   <Resource 
-                   link={resource.link}
-                   image={resource.img}
-                   title={resource.title}
-                   likes={resource.likes}
-                   dislikes={resource.dislikes}
-                   />
-            ) )
-        }
-
-        if ( !this.props.resourceLoading ) {
-            const youtube = this.props.youtube.filter( resource => resource.isAdmin === false);
-            console.log(youtube);
-            youtubeOthers = youtube.map( resource => (
-                <Resource 
-                link={resource.link}
-                image={resource.img}
-                title={resource.title}
-                likes={resource.likes}
-                dislikes={resource.dislikes}
-                />
-            ) )
-        } */

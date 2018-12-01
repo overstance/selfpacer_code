@@ -10,10 +10,20 @@ const userSchema = new Schema({
   username: String,
   email: String,
   password: String,
+  accountType: {
+    type: String,
+    default: 'User'
+  },
+  specialization: String,
   date: {
     type: Date,
     default: Date.now()
   },
+  likeCount: {
+    type: Number,
+    default: 0
+  },
+  recentlyViewed: Array,
   isAdmin: {
     type: Boolean,
     default: false

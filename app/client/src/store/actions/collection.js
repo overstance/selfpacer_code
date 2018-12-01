@@ -2,10 +2,14 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
 
-export const setToCollectResource = ( resource ) => {
+export const setToCollectResource = ( resourceId, image, title ) => {
     return {
         type: actionTypes.SET_TO_COLLECT_RESOURCE,
-        resource: resource
+        resource: {
+            id: resourceId,
+            title: title,
+            img: image
+        }
     };
 };
 
@@ -79,18 +83,9 @@ export const createCollection = ( title, user, resource ) => {
     return dispatch => {
         dispatch(createCollectionStart());
 
-        // console.log(resource);
-
-        const resourceTrimmed = {
-            img: resource.img,
-            link: resource.link,
-            source: resource.link,
-            title: resource.title
-        }
-
         const collection = {
             title: title,
-            resource: resourceTrimmed,
+            resourceId: resource,
             userId: user._id
         }
 
@@ -146,16 +141,9 @@ export const addResourceToCollection = ( collectionId, collectionResources, reso
     return dispatch => {
         // dispatch(addResourceToCollectionStart());
 
-        const resourceTrimmed = {
-            img: resourceToAdd.img,
-            link: resourceToAdd.link,
-            source: resourceToAdd.link,
-            title: resourceToAdd.title
-        }
-
         const temp = collectionResources;
 
-        temp.push(resourceTrimmed);
+        temp.push(resourceToAdd);
 
         const updatedCollectionResources = temp;
 

@@ -137,6 +137,10 @@ class Register extends Component {
         this.props.onRegisterUser(this.state.controls.name.value, this.state.controls.email.value, this.state.controls.password.value, this.state.controls.password2.value, this.props.history);
     }
 
+    handleBack = () => {
+        this.props.history.goBack()
+    }
+
     onValidationError = (name) => {
         if (name === 'name' && this.props.errors) {
             return this.props.errors.name;
@@ -159,9 +163,9 @@ class Register extends Component {
         }
     };
 
-    googleHandler = () => {
+    /* googleHandler = () => {
         this.props.onGoogleAuth();
-    }
+    } */
 
     render() {
         const formElementsArray = [];
@@ -200,15 +204,15 @@ class Register extends Component {
             {errorMessage}
             <form className={classes.Form} onSubmit={this.submitHandler}>
                 {RegisterInput}
-                <Button btnType='Success'>SignUp</Button>
-                <div>
-                    <p>Sign-up  with</p>
-                    <a href="/auth/google">
-                        <img className={classes.Google} src={googleLogo} alt='google logo' />
+                <Button btnType='Success'>SIGN UP</Button>
+                <div className={classes.Oauth}>
+                    <p>Sign up with</p>
+                    <a className={classes.Google} href='/auth/google'>
+                        <img src={googleLogo} alt='google logo' />
                     </a>
                     <p>or</p>
-                    <a href="/auth/facebook">
-                        <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
+                    <a className={classes.Facebook} href="/auth/facebook">
+                        <img src={facebookLogo} alt='facebook logo' />
                     </a>
                 </div>
             </form>
@@ -219,17 +223,18 @@ class Register extends Component {
         }
 
         return (
-            <AuthBackdrop show>
-                <div className={classes.Logo}>
-                    <a href="/"><img src={logoImage} alt='logo' /></a>
-                </div>
+            <div className={classes.UniversalWrapper}>
+                <AuthBackdrop show clicked={this.handleBack}/>
                 <div className={classes.container}>
+                    <a href="/" className={classes.Logo}>
+                        <img src={logoImage} alt='logo' />
+                    </a>
                     <div className={classes.Menu}>
                         <h2 className={classes.HeaderItem}> SIGN UP</h2>
                     </div>
                     {formAll}
                 </div>
-            </AuthBackdrop>
+            </div>
         )
     }
 };

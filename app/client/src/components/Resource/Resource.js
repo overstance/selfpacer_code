@@ -11,6 +11,7 @@ const resource = (props) => {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 href={props.link}
+                onClick={props.clicked}
                 >
                     <div className={classes.ImgColumn}>
                         <img className={classes.ResourceImg} src={props.image} alt="resource" />    

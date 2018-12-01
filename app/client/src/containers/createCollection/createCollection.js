@@ -92,7 +92,7 @@ class CreateCollection extends Component {
             this.setState({ fillError: 'Please fill all fields' });
 
         } else {
-            this.props.onCreateCollection(this.state.title.value, this.props.user, this.props.resourceToCollect);
+            this.props.onCreateCollection(this.state.title.value, this.props.user, this.props.resourceToCollect.id);
             
             const titleReset = {
                 ...this.state.title,

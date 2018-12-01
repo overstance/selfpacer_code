@@ -1,8 +1,10 @@
 import React from 'react';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import classes from './SideDrawer.css';
-import Backdrop from '../../UserInterface/Backdrop/Backdrop';
+import NavBackdrop from '../../UserInterface/Backdrop/NavBackdrop';
 import Aux from '../../../hoc/Auxiliary';
+import { Link } from 'react-router-dom';
+// import LogoDarkBlue from '../../../assets/images/logo-darkBlue.png';
 //import BackdropCloser from '../../UserInterface/Backdrop/BackdropCloser/BackdropCloser';
 
 
@@ -20,11 +22,30 @@ const sideDrawer = (props) => {
 
     return (
         <Aux>
-            <Backdrop show={props.open} clicked={props.closed} />
+            <NavBackdrop show={props.open} clicked={props.closed} />
             <div className={attachedClasses.join(' ')}>
+                <a className={classes.Logo} href='/'>{/* <img src={LogoDarkBlue} alt='logo blue'/> */}</a>
+                {props.isAuth ? 
+                <Link 
+                to="/profile" 
+                onClick={props.onAuth} 
+                className={classes.UserProfilePanel}
+                >
+                    <div className={classes.UserIconColumn}><div className={classes.UserIcon}></div></div>
+                    <div className={classes.UserNameColumn}>
+                        <div>Hi,</div>
+                        <div className={classes.UserName}>{props.userName}</div>
+                    </div>
+                </Link>
+                : null }
                 <nav>
-                    <NavigationItems isAuthenticated={props.isAuth} closeSideDrawer={props.onAuth} />
+                    <NavigationItems 
+                    isAuthenticated={props.isAuth} 
+                    closeSideDrawer={props.onAuth}
+                    showSideDrawer={props.showSideDrawer}
+                    />
                 </nav>
+                 
             </div>
         </Aux>
     );
