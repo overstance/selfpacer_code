@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
-//import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import PropTypes from 'prop-types';
 import classes from './Accounting.css';
 import {connect} from 'react-redux';
@@ -10,32 +8,16 @@ import PlatformNav from '../../../components/PlatformNav/PlatformNav';
 import Grid from '../../../components/UserInterface/Grid/Grid';
 import * as actions from '../../../store/actions/index';
 import Resource from '../../../components/Resource/Resource';
-// import addIcon from '../../../assets/images/plus.svg';
-// import Modal from '../../../components/UserInterface/Modal/Modal';
-// import { Link } from 'react-router-dom';
 import AuthRequired from '../../../components/Dialogues/AuthRequired/authRequired';
 import AddToCollection from '../../../components/Dialogues/addToCollection/addToCollection';
-
-
-/* function shuffleArray(array) {
-    let i = array.length - 1;
-    for (; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-} */ 
-
+// import ScrollToTopOnMount from '../../../hoc/ScrollToTopOnMount';
 
 class Accounting extends Component {
-
+    
    componentDidMount () {
+
         this.props.onFetchAccounting();
         this.props.onFetchYoutubeAccounting();
-    
-        // this.props.onFetchUserCollections(this.props.userId);
 
         if (this.props.activeContent === 'youtube') {
             this.setState({
@@ -44,6 +26,7 @@ class Accounting extends Component {
                 allActive: false,
                 booksActive: false
             });
+
         }
 
         if (this.props.activeContent === 'mooc') {
@@ -53,6 +36,7 @@ class Accounting extends Component {
                 allActive: false,
                 booksActive: false
             });
+
         }
 
         if (this.props.activeContent === 'books') {
@@ -62,6 +46,7 @@ class Accounting extends Component {
                 allActive: false,
                 booksActive: true
             });
+
         }
     }
   

@@ -8,7 +8,9 @@ const initialState = {
     clickedResource: {},
     clickedResourcePlatform: null,
     userRecentlyViewed: null,
-    userLikeCount: null
+    userLikeCount: null,
+    userAssets: [],
+    fetchAssetError: null
 };
 
 // Add user resource
@@ -75,6 +77,23 @@ const updateUserLikedCount = ( state, action ) => {
     return updateObject( state, { userLikeCount: action.newLikeCount } );
 };
 
+// On fetch User Assets( user submitted resource)
+
+const fetchUserAssetStart = ( state, action ) => {
+    return updateObject( state, { loading: true } );
+};
+
+const fetchUserAssetSuccess = ( state, action ) => {
+    return updateObject( state, {
+        userAssets: action.userAssets,
+        loading: false
+    } );
+};
+
+const fetchUserAssetFailed = ( state, action ) => {
+    return updateObject( state, { loading: false, fetchAssetError: action.error } );
+};
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.ADD_RESOURCE_START: return addResourceStart( state, action );
@@ -84,6 +103,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_RESOURCE_BY_ID_START: return fetchResourceByIdStart( state, action );
         case actionTypes.FETCH_RESOURCE_BY_ID_SUCCESS: return fetchResourceByIdSuccess( state, action );
         case actionTypes.FETCH_RESOURCE_BY_ID_FAIL: return fetchResourceByIdFail( state, action );
+
+        case actionTypes.FETCH_USER_ASSET_START: return fetchUserAssetStart( state, action );
+        case actionTypes.FETCH_USER_ASSET_SUCCESS: return fetchUserAssetSuccess( state, action );
+        case actionTypes.FETCH_USER_ASSET_FAILED: return fetchUserAssetFailed( state, action );
 
         case actionTypes.SET_CLICKED_PLATFORM: return setClickedPlatform( state, action );
 

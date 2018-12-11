@@ -66,7 +66,19 @@ export const fetchCreativeSubjects = ( history ) => {
                 
                 res => {
                 const fetchedSubjects = [...res.data.subjects];
-                dispatch(fetchSubjectsSuccess(fetchedSubjects));
+                function shuffleArray(array) {
+                    let i = array.length - 1;
+                    for (; i > 0; i--) {
+                      const j = Math.floor(Math.random() * (i + 1));
+                      const temp = array[i];
+                      array[i] = array[j];
+                      array[j] = temp;
+                    }
+                    return array;
+                } 
+
+                const shuffledSubjects = shuffleArray(fetchedSubjects)
+                dispatch(fetchSubjectsSuccess(shuffledSubjects));
             } )
             .catch( err => {
                 dispatch(fetchSubjectsFail(err));
@@ -85,7 +97,19 @@ export const fetchBusinessSubjects = () => {
                 
                 res => {
                 const fetchedSubjects = [...res.data.subjects];
-                dispatch(fetchSubjectsSuccess(fetchedSubjects));
+                function shuffleArray(array) {
+                    let i = array.length - 1;
+                    for (; i > 0; i--) {
+                      const j = Math.floor(Math.random() * (i + 1));
+                      const temp = array[i];
+                      array[i] = array[j];
+                      array[j] = temp;
+                    }
+                    return array;
+                } 
+
+                const shuffledSubjects = shuffleArray(fetchedSubjects)
+                dispatch(fetchSubjectsSuccess(shuffledSubjects));
             } )
             .catch( err => {
                 dispatch(fetchSubjectsFail(err));
@@ -104,7 +128,19 @@ export const fetchTechnologySubjects = () => {
                 
                 res => {
                 const fetchedSubjects = [...res.data.subjects];
-                dispatch(fetchSubjectsSuccess(fetchedSubjects));
+                function shuffleArray(array) {
+                    let i = array.length - 1;
+                    for (; i > 0; i--) {
+                      const j = Math.floor(Math.random() * (i + 1));
+                      const temp = array[i];
+                      array[i] = array[j];
+                      array[j] = temp;
+                    }
+                    return array;
+                } 
+
+                const shuffledSubjects = shuffleArray(fetchedSubjects)
+                dispatch(fetchSubjectsSuccess(shuffledSubjects));
             } )
             .catch( err => {
                 dispatch(fetchSubjectsFail(err));
@@ -123,7 +159,19 @@ export const fetchLifeStyleSubjects = () => {
                 
                 res => {
                 const fetchedSubjects = [...res.data.subjects];
-                dispatch(fetchSubjectsSuccess(fetchedSubjects));
+                function shuffleArray(array) {
+                    let i = array.length - 1;
+                    for (; i > 0; i--) {
+                      const j = Math.floor(Math.random() * (i + 1));
+                      const temp = array[i];
+                      array[i] = array[j];
+                      array[j] = temp;
+                    }
+                    return array;
+                } 
+
+                const shuffledSubjects = shuffleArray(fetchedSubjects)
+                dispatch(fetchSubjectsSuccess(shuffledSubjects));
             } )
             .catch( err => {
                 dispatch(fetchSubjectsFail(err));
@@ -141,7 +189,20 @@ export const fetchSubjects = () => {
                 
                 res => {
                 const fetchedSubjects = [...res.data.subjects];
-                dispatch(fetchSubjectsSuccess(fetchedSubjects));
+
+                function shuffleArray(array) {
+                    let i = array.length - 1;
+                    for (; i > 0; i--) {
+                      const j = Math.floor(Math.random() * (i + 1));
+                      const temp = array[i];
+                      array[i] = array[j];
+                      array[j] = temp;
+                    }
+                    return array;
+                } 
+
+                const shuffledSubjects = shuffleArray(fetchedSubjects)
+                dispatch(fetchSubjectsSuccess(shuffledSubjects));
             } )
             .catch( err => {
                 dispatch(fetchSubjectsFail(err));

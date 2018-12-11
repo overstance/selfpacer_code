@@ -24,7 +24,7 @@ const sideDrawer = (props) => {
         <Aux>
             <NavBackdrop show={props.open} clicked={props.closed} />
             <div className={attachedClasses.join(' ')}>
-                <a className={classes.Logo} href='/'>{/* <img src={LogoDarkBlue} alt='logo blue'/> */}</a>
+                <div className={classes.LogoContainer}><Link onClick={props.onAuth} className={classes.Logo} to='/' /></div>
                 {props.isAuth ? 
                 <Link 
                 to="/profile" 

@@ -3,11 +3,12 @@ import * as actionTypes from './actionTypes';
 
 //Add AdminUser 
 
-export const addAdminUser = (user_id) => {
+export const addAdminUser = (user_id, newAccountType) => {
     return dispatch => {
         dispatch (AdminAddStart());
         const newAdminUser = {
-            userId: user_id
+            userId: user_id,
+            newAccountType: newAccountType
         };
 
         axios.post('/api/add_admin_user', newAdminUser)

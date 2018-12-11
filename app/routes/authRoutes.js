@@ -82,17 +82,18 @@ module.exports = app => {
 
     // let id = req.body.userId;
 
-    User.findOneAndUpdate({ _id: req.body.userId }, { isAdmin: true }, function(
-      err,
-      updatedUser
-    ) {
-      if (err) {
-        // console.log(err.name);
-        res.send(err.name);
-      } else {
-        res.send({ updatedUser: updatedUser });
+    User.findOneAndUpdate(
+      { _id: req.body.userId },
+      { isAdmin: true, accountType: req.body.newAccountType },
+      function(err, updatedUser) {
+        if (err) {
+          // console.log(err.name);
+          res.send(err.name);
+        } else {
+          res.send({ updatedUser: updatedUser });
+        }
       }
-    });
+    );
   });
 
   app.post('/api/remove_admin_user', (req, res) => {

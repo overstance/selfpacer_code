@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, /* Redirect, */ withRouter } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
@@ -12,9 +12,9 @@ import Profile from './containers/profile/Profile';
 import ResourcePage from './containers/resourcepage/Resoucepage';
 import AddResource from './containers/addResource/addResource';
 import CreateNewCollection from './containers/createCollection/createCollection';
-
-// const BrowserHistory = require('react-router/lib/BrowserHistory').default;
-
+import AdminTools from './containers/admin1page/Admin1';
+import EditProfile from './containers/profile/editProfile/EditProfile';
+// import ScrollToTop from './hoc/ScrollToTop';
 
 const Landing = () => <h2>
   Landing page component
@@ -44,38 +44,40 @@ class App extends Component {
 
   render() {
     let routes = (
-      <Switch>
-          <Route path="/accounting/:id" component={ResourcePage} />
-          <Route path="/explore/accounting" component={Accounting} />
-          <Route path="/explore/graphic-design" component={graphicDesign} />                
-          <Route path="/explore" component={ (props) => (
-              <Explore timestamp={new Date().toString()} {...props} />
-              )}  
-          />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/not-found" component={NotFound} />
-          <Route path="/" exact component={Landing} />
-          {/* <Redirect to="/" /> */}
-      </Switch>
+        <Switch>
+            <Route path="/accounting/:id" component={ResourcePage} />
+            <Route path="/explore/accounting" component={Accounting} />       
+            <Route path="/explore/graphic-design" component={graphicDesign} />                
+            <Route path="/explore" exact component={ (props) => (
+                <Explore timestamp={new Date().toString()} {...props} />
+                )}  
+            />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/not-found" component={NotFound} />
+            <Route path="/" exact component={Landing} />
+            <Redirect to="/" />
+        </Switch>
     );
 
     if (this.props.isAuthenticated) {
       routes = (
-        <Switch>
-          <Route path="/create_collection" exact component={CreateNewCollection} />
-          <Route path="/add_resource" exact component={AddResource} />
-          <Route path="/accounting/:id" component={ResourcePage} />
-          <Route path="/explore/accounting" component={Accounting} />
-          <Route path="/explore" component={ (props) => (
-            <Explore timestamp={new Date().toString()} {...props} />
-            )} 
-          />          
-          <Route path="/logout" component={Logout} />
-          <Route path="/profile" exact component={Profile} />
-          <Route path="/" exact component={Landing} />
-          {/* <Redirect to="/" /> */}
-        </Switch>
+          <Switch>
+            <Route path="/create_collection" exact component={CreateNewCollection} />
+            <Route path="/add_resource" exact component={AddResource} />
+            <Route path="/accounting/:id" component={ResourcePage} />
+            <Route path="/explore/accounting" component={Accounting} />
+            <Route path="/admin_tools" component={AdminTools} />
+            <Route path="/profile/edit" component={EditProfile} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/explore" exact component={ (props) => (
+              <Explore timestamp={new Date().toString()} {...props} />
+              )} 
+            />          
+            <Route path="/logout" component={Logout} />
+            <Route path="/" exact component={Landing} />
+            <Redirect to="/" />
+          </Switch>
       );
     }
 

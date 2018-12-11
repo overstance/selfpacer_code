@@ -17,6 +17,17 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/user_assets/:userId', (req, res) => {
+    Resource.find({ user_id: req.params.userId }, (err, resources) => {
+      if (err) {
+        res.send(err.name);
+      } else {
+        // console.log(resources);
+        res.send({ resources: resources });
+      }
+    });
+  });
+
   app.post('/api/resource_liked', (req, res) => {
     //console.log(req.body);
 

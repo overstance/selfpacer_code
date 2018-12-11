@@ -65,7 +65,7 @@ class AddAdminUsers extends Component {
 
         this.setState({ fillError: 'Please fill all fields' });
         } else {
-            this.props.onAddAdminUser(this.state.userId.value);
+            this.props.onAddAdminUser(this.state.userId.value, 'Administrator');
             const updated = {
                 ...this.state.userId,
                 value: '',
@@ -136,7 +136,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddAdminUser: ( user_id ) => dispatch( actions.addAdminUser( user_id ))
+        onAddAdminUser: ( user_id, newAccountType ) => dispatch( actions.addAdminUser( user_id, newAccountType ))
     };
 };
 

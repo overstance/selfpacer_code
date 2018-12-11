@@ -12,7 +12,7 @@ import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
 import Grid from '../../components/UserInterface/Grid/Grid';
 
 
-function shuffleArray(array) {
+/* function shuffleArray(array) {
     let i = array.length - 1;
     for (; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -21,7 +21,7 @@ function shuffleArray(array) {
       array[j] = temp;
     }
     return array;
-} 
+} */ 
 
 class Explore extends Component {
 
@@ -118,8 +118,8 @@ class Explore extends Component {
     render() {
         let explorer = <div className={classes.SpinnerContainer}> <Spinner /> </div>;
         if ( !this.props.loading ) {
-            const shuffledSubjects = shuffleArray(this.props.subjects);
-            explorer = shuffledSubjects.map( subject => (
+            // const shuffledSubjects = shuffleArray(this.props.subjects);
+            explorer = this.props.subjects.map( subject => (
                     <Subject
                         to={subject.to}
                         key={subject._id}

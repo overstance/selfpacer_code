@@ -22,14 +22,12 @@
     display: block;
     margin-top: 10px;
     padding: 5px 10px;
-    font-size: 15px;
-    font-weight: 600;
     color: var(--white);
     text-align: left;
 }
 
 .Label span {
-    color:  var(--red);
+    color:  var(--green);
 }
 
 .Invalid {

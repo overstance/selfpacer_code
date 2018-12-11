@@ -16,6 +16,7 @@ import clickedSubjectReducer from './store/reducers/clickedSubjectReducer';
 import accountingReducer from './store/reducers/accountingReducer';
 import resourceReducer from './store/reducers/resourceReducer';
 import collectionReducer from './store/reducers/collectionReducer';
+import profileReducer from './store/reducers/profileReducer';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
     accounting: accountingReducer,
     admin1: admin1Reducer,
     resource: resourceReducer,
-    collection: collectionReducer
+    collection: collectionReducer,
+    profile: profileReducer
 });
 
 
@@ -35,9 +37,10 @@ const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(reduxThunk)
 ));
 
+
 const app = (
     <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter >
             <App />
         </BrowserRouter>
     </Provider>

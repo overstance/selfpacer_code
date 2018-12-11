@@ -6,18 +6,9 @@ import { connect } from 'react-redux';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
 import Grid from '../../components/UserInterface/Grid/Grid';
+import PostSubmitDailogue from '../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
 
 class CreateCollection extends Component {
-
-    /* componentDidMount() {
-        this.props.onFetchtitles();
-
-        console.log(this.props.activetitle);
-        // this.props.onFetchUser();
-    } */
-   /*  static contextTypes = {
-        router: () => true, // replace with PropTypes.object if you use them
-      } */
 
       componentWillUnmount() {
           this.props.onResetCollectionMessages();
@@ -161,12 +152,18 @@ class CreateCollection extends Component {
         </form>
 
         const successDialogue = 
-        <div className={classes.PostSubmitDailogue}>
+        <PostSubmitDailogue handleBack={this.handleBack}>
+            {this.props.successMessage}
+        </PostSubmitDailogue>
+
+        /* <div className={classes.PostSubmitDailogue}>
             <div className={classes.PostSubmitMessage}>
                 {this.props.successMessage}
             </div>
             <div className={classes.GoBackPrompt} onClick={this.handleBack}>Go back</div> 
-        </div>
+        </div> */
+
+
 
         let content = form;
 

@@ -12,6 +12,7 @@
     /* padding: 8px 20px; */
     box-sizing: border-box;
     transition: transform 0.1s ease-out;
+    overflow-y: auto;
 }
 
 .Open {
@@ -22,16 +23,16 @@
     transform: translateX(-100%);
 }
 
-.Logo {
+/* .Logo {
     height: 7%;
     margin-bottom: 14px;
     margin-top: 6px;
-}
+} */
 
 .UserProfilePanel {
     display: flex;
     flex-wrap: nowrap;
-    background: var(--blue);
+    background: var(--darkBlue);
     align-items: center;
     cursor: pointer;
     text-decoration: none;
@@ -39,13 +40,13 @@
 }
 
 .UserProfilePanel:hover {
-    background-color: var(--darkBlue);
+    background-color: var(--blue);
     color: var(--red);
 }
 
 .UserIconColumn {
     width: 80px;
-    background: var(--darkBlue);
+    /* background: var(--darkBlue); */
     display: flex;
     min-height: 70px;
 }
@@ -54,7 +55,7 @@
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
-    padding-left: 10px;
+    /* padding-left: 10px; */
     line-height: 25px;
 }
 
@@ -84,18 +85,24 @@
     }
 } */
 
+.LogoContainer {
+ text-align: center;
+ height: 50px;
+}
+
 .Logo {
-    display: block;
+    display: inline-block;
     text-decoration: none;
     text-align: center;
-    height: 60px;
-    background-image: url(../../../assets/images/logo-darkBlue.png);
+    height: 100%;
+    width: 160px;
+    background-image: url(../../../assets/images/logo-blue.png);
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
-    background-size: 50%;
+    background-size: 100%;
     margin: 0;
-    border-bottom: 1px solid deepskyblue;
+    /* border-bottom: 1px solid var(--skyBlue); */
 }
 
 .Logo:hover {

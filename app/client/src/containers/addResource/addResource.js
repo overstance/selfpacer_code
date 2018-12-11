@@ -11,7 +11,7 @@ class AddResources extends Component {
     componentDidMount() {
         this.props.onFetchSubjects();
 
-        console.log(this.props.activeSubject);
+        // console.log(this.props.activeSubject);
         // this.props.onFetchUser();
     }
 
@@ -107,21 +107,21 @@ class AddResources extends Component {
             const resourceUpdated = {
                 ...this.state.resource,
                 touched: true,
-                valid: false
+                valid: true
             }
             this.setState({ resource: resourceUpdated});
 
             const subjectUpdated = {
                 ...this.state.subject,
                 touched: true,
-                valid: false
+                valid: true
             }
             this.setState({ subject: subjectUpdated});
 
             const typeUpdated = {
                 ...this.state.type,
                 touched: true,
-                valid: false
+                valid: true
             }
             this.setState({ type: typeUpdated});
 
@@ -172,7 +172,7 @@ class AddResources extends Component {
             // valid: this.checkValidity(event.target.value, this.state.type.validation),
             touched: false
         }
-        this.setState({ type: typeReset});
+        this.setState({ type: typeReset, fillError: null});
     }
 
     subjectChangedHandler = (event) => {
@@ -182,7 +182,7 @@ class AddResources extends Component {
             valid: this.checkValidity(event.target.value, this.state.subject.validation),
             touched: true
         }
-        this.setState({ subject: updated});      
+        this.setState({ subject: updated, fillError: null});      
     }
 
     typeChangedHandler = (event) => {
@@ -192,7 +192,7 @@ class AddResources extends Component {
             valid: this.checkValidity(event.target.value, this.state.type.validation),
             touched: true
         }
-        this.setState({ type: updated});      
+        this.setState({ type: updated, fillError: null});      
     }
 
     elementConfig = () => {
@@ -260,7 +260,7 @@ class AddResources extends Component {
                                 touched={this.state.resource.touched}
                                 changed={(event) => this.resourceInputChangedHandler(event)}
                                 />
-                                { (!this.state.resource.valid && this.state.resource.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.type.valid && this.state.type.touched)  ? 
+                                { (!this.state.resource.valid && this.state.resource.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.type.valid && this.state.type.touched) || this.state.fillError ? 
                                     <Button btnType='Danger' disabled> Submit </Button> :
                                     <Button btnType='Success'> Submit </Button>    
                                 }

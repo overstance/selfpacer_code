@@ -5,9 +5,15 @@ import classes from './Layout.css';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
 import Footer from '../Navigation/Footer/Footer';
+import * as actions from '../../store/actions/index';
 
 
 class Layout extends Component {
+
+    componentDidMount(){
+        window.scrollTo(0, 0);
+    }
+
     state = {
         showSideDrawer: false
         /* showSearchbar: false */
@@ -25,6 +31,11 @@ class Layout extends Component {
         this.setState((prevState) => {
             return { showSideDrawer: !prevState.showSideDrawer };
         });
+
+        if (this.props.userId) {
+            this.props.onFetchUserCollections( this.props.userId);
+            this.props.onFetchUserAssets( this.props.userId );
+        }
     }
 
     searchbarToggleHandler = () => {
@@ -42,7 +53,6 @@ class Layout extends Component {
                         isAuth={this.props.isAuthenticated}
                         sideDrawerToggleClicked={this.sideDrawertoggleHandler}
                         searchbarToggleClicked={this.searchbarToggleHandler}
-                        /* showSearchbar={this.state.showSearchbar} */
                         exploreRefresh={this.onExploreRefresh}
                     />
                     <SideDrawer
@@ -69,12 +79,20 @@ Layout.propTypes= {
 
 const mapStateToProps = state => {
     return {
+        userId: state.auth.user._id,
         isAuthenticated: state.auth.isAuthenticated,
         userName: state.auth.user.name
     }
 };
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchUserCollections: ( userId ) => dispatch(actions.fetchUserCollections( userId )),
+        onFetchUserAssets: ( userId ) => dispatch(actions.fetchUserAssets( userId ))
+    };
+};
 
 
-export default connect(mapStateToProps)(Layout);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
 

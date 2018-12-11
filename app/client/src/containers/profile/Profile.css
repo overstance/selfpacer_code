@@ -1,61 +1,310 @@
-.TopBoard {
-    height: 50px;
-    width: 100%;
-    background: var(--lightestGray);
+.ProfilePanelWrapper {
+    background: var(--white);
+    position: relative;
+    margin: 10px 0;
+    padding: 20px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, .25);
+    border-radius: 5px;
 }
 
-.Main {
-    display: flex;  
-    flex-flow: column wrap;
-    /* font-weight: bold; */
-    text-align: center;
-    min-height: 300px;
-}
-
-/* .SideMenuContainer {
-
-} */
-
-.Menu {
-    display: flex;  
-    /* flex-flow: row; */
+.ProfilePanel {
+    display: flex;
     flex-wrap: wrap;
-    text-align: center;
-    background: var(--lightGray);
+    justify-content: center;
 }
 
-.MenuItem {
-    /* min-width: 40px;
-    width: 100px; */
-    -ms-flex-preferred-size: 0;
+.Biodata {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    box-sizing: border-box;
+    padding-right: 20px;
+    flex: 0 0 50%;
+    max-width: 50%;
+    border-right: 1px solid var(--lightGray);
+}
+
+.ProfilePic {
+    margin: auto;
+    width: 100px;
+}
+
+.UserIcon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: url(../../assets/images/user-circle.svg);
+    margin: auto;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 88%;
+    border: 1px solid var(--skyBlue);
+}
+
+.BiodataInfo {
     flex-basis: 0;
-    -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
-    text-align: center;
-    padding: 15px 0;
-    border-left: 1px solid var(--blue);
-    box-sizing: border-box;
+}
+
+.BiodataEdit {
+    width: 80px;
+    text-align: left;
+}
+
+.BiodataEditButton {
+    padding: 5px 20px;
+    margin: 5px auto;
+    color: var(--white);
     background: var(--darkBlue);
-    color: var(--lightBlue);
-    font-size: x-small;
+    border-radius: 20px;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.BiodataEditButton:hover {
+    background: var(--skyBlue);
+}
+
+.BiodataInfo div {
+    color: var(--darkBlue);
+    line-height: 25px;
+}
+
+.BiodataInfo span {
+    color: var(--skyBlue);
+    font-weight: 700;
+    padding-left: 10px;
+    display: block;
+}
+
+.BiodataName {
+    font-size: x-large;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-top: 0;
+    color: var(--skyBlue);
+}
+
+.Facilitator {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.FaclitatorButton {
+    border-radius: 20px;
+    padding: 10px;
+    font-weight: 700;
+    color: var(--darkBlue);
+    cursor: pointer;
+    width: 100%;
+    background: var(--green);
+    box-sizing: border-box;
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+.FaclitatorButton:hover {
+    background: var(--darkBlue);
+    color: var(--white);
+}
+
+.Statistics {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.StatisticsLike {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 0 0 33%;
+    max-width: 33%;
+    text-align: center;
+    border-right: 1px solid var(--lightGray);
+}
+
+.StatisticsCollections {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 0 0 33%;
+    max-width: 33%;
+    text-align: center;
+    border-right: 1px solid var(--lightGray);
+}
+
+.StatisticsAssets {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 0 0 33%;
+    max-width: 33%;
+    text-align: center;
+}
+
+.StatisticsCount {
+    font-size: 40px;
+    color: var(--red);
+    overflow-x: auto;
+}
+
+.StatisticsLabel {
+    color: var(--gray);
+}
+
+.EdgeTri {
+    border-right: 40px solid var(--skyBlue);
+    height: 0;
+    width: 0;
+    border-left: 20px solid transparent;
+    border-top: 10px solid var(--skyBlue);
+    border-bottom: 20px solid transparent;
+    padding: 0px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    border-radius: 0 5px 0 0;
+}
+
+.StarIcon {
+    position: absolute;
+    top: -5px;
+    right: -33px;
+    /* color: #fff; */
+    border: 0px;
+    height: 12px;
+}
+
+.LogoutPanelWrapper {
+    background: var(--white);
+    margin: 10px 0;
+    padding: 10px 20px 20px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, .25);
+    border-radius: 5px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.AuthContainer {
+    width: 100%;
+    text-align: center;
+}
+
+.Logout {
+    max-width: 300px;
+    padding: 10px 0;
+    margin: 10px auto;
+    background: var(--red);
+    color: var(--white);
+    border-radius: 20px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
     cursor: pointer;
 }
 
-.MenuItem:hover {
+.AdminTools {
+    max-width: 300px;
+    padding: 10px 0;
+    margin: 10px auto;
+    background: var(--blue);
+    color: var(--white);
+    border-radius: 20px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.DeleteAccount {
     color: var(--red);
+    font-size: small;
+    cursor: pointer;
+    text-align: center;
 }
 
-.MenuItem:first-of-type{
-    border-left: none; 
+@media ( max-width: 875px) {
+    .Biodata {
+        flex: 0 0 100%;
+        max-width: 100%;
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid var(--lightGray);
+    }
+
+    .Statistics {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: 100px;
+    }
+
+    .StatisticsCount {
+        font-size: 30px;
+    }
 }
 
-.Content {
-    /* background: var(--white); */
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-    text-align: center; 
+@media ( max-width: 550px) {
+    .Biodata {
+        flex-direction: column;
+    }
+
+    .Statistics {
+        height: 100%;
+    }
+
+    .StatisticsLike {
+        flex: 0 0 100%;
+        max-width: 100%;
+        border-right: none;
+        height: 80px;
+        border-bottom: 1px solid var(--lightGray);
+    }
+
+    .StatisticsCollections {
+        flex: 0 0 100%;
+        max-width: 100%;
+        border-right: none; 
+        height: 80px;
+        border-bottom: 1px solid var(--lightGray);
+    }
+
+    .StatisticsAssets {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: 80px;
+    }
+
+    .BiodataEdit {
+        text-align: center;
+        width: 100%;
+    }
+
+    .BiodataName {
+        text-align: center;
+    }
+
+    .BiodataInfo div {
+        text-align: center;
+    }
+
+    .BiodataInfo span {
+        display: inline-block;
+        padding-left: 0;
+    }
+
+    .BiodataName {
+        font-size: large;
+        margin-top: 10px;
+    }
 }

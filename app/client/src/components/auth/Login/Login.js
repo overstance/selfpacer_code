@@ -14,12 +14,15 @@ import * as actions from '../../../store/actions/index';
 
 class Login extends Component {
     state = {
+        fillError: null,
+        authorizationError: this.props.error,
         controls: {
             email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    label: 'EMAIL',
+                    label: 'e-mail',
+                    labelspan: '*',
                     name: 'username'
                 },
                 value: '',
@@ -35,11 +38,13 @@ class Login extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    label: 'PASSWORD'
-
+                    label: 'password',
+                    labelspan: '*'
                 },
                 value: '',
-                validation: {},
+                validation: {
+                    required: true,
+                },
                 valid: false,
                 touched: false
             }
@@ -48,7 +53,7 @@ class Login extends Component {
 
     componentDidMount() {
         if (this.props.isAuthenticated) {
-            this.props.history.push('/home');
+            this.props.history.push('/');
         }
     }
 
@@ -93,7 +98,7 @@ class Login extends Component {
                 touched: true
             }
         };
-        this.setState({ controls: updatedControls });
+        this.setState({ controls: updatedControls, fillError: null, authorizationError: null });
     }
 
     onValidationError = (name) => {
@@ -111,9 +116,89 @@ class Login extends Component {
     };
 
     submitHandler = (event) => {
-        event.preventDefault();
-        this.props.onClearErrors();
-        this.props.onLoginUser(this.state.controls.email.value, this.state.controls.password.value, this.props.history);
+        if (this.state.controls.email.value === '' && !this.state.controls.email.touched ) {
+            event.preventDefault();
+            
+            // console.log( 'if block');
+
+            const updatedControls = {
+                ...this.state.controls,
+                email: {
+                    ...this.state.controls.email,
+                    touched: true,
+                    valid: false
+                }
+            };
+            this.setState({ controls: updatedControls });
+
+            this.setState({ fillError: 'please fill all fields', });
+
+        } else if (this.state.controls.password.value === '' && !this.state.controls.password.touched ) {
+            event.preventDefault();
+
+            // console.log( 'else if block 1');
+            const updatedControls = {
+                ...this.state.controls,
+                password: {
+                    ...this.state.controls.password,
+                    touched: true,
+                    valid: false
+                }
+            };
+            this.setState({ controls: updatedControls });
+
+            this.setState({ fillError: 'please fill all fields', });
+
+        } else if ( this.props.error && (!this.state.controls.email.touched || !this.state.controls.password.touched )) {           
+            event.preventDefault();
+
+            const updatedEmailControls = {
+                ...this.state.controls,
+                email: {
+                    ...this.state.controls.email,
+                    touched: true,
+                    valid: false
+                }
+            };
+            this.setState({ controls: updatedEmailControls });
+
+            const updatedPasswordControls = {
+                ...this.state.controls,
+                password: {
+                    ...this.state.controls.password,
+                    touched: true,
+                    valid: false
+                }
+            };
+            this.setState({ controls: updatedPasswordControls });
+
+        } else {
+            event.preventDefault();
+            // console.log( 'else block');
+
+            const updatedEmailControls = {
+                ...this.state.controls,
+                email: {
+                    ...this.state.controls.email,
+                    touched: false
+                }
+            };
+            this.setState({ controls: updatedEmailControls });
+
+            const updatedPasswordControls = {
+                ...this.state.controls,
+                password: {
+                    ...this.state.controls.password,
+                    touched: false
+                }
+            };
+            this.setState({ controls: updatedPasswordControls });
+
+            this.props.onLoginUser(this.state.controls.email.value, this.state.controls.password.value, this.props.history);
+            this.props.onClearErrors();
+
+        }
+       
     }
 
     handleBack = () => {
@@ -140,6 +225,7 @@ class Login extends Component {
                 shouldValidate={formElement.config.validation}
                 touched={formElement.config.touched}
                 label={formElement.config.elementConfig.label}
+                labelspan={formElement.config.elementConfig.labelspan}
                 changed={(event) => this.inputChangedHandler(event, formElement.id)}
                 errorMessage={this.onValidationError(formElement.id)}
             />
@@ -147,26 +233,32 @@ class Login extends Component {
         ));
 
         let errorMessage = null;
+        let fillError =
+        <p className={classes.Error}>{this.state.fillError}</p>
+
         if (this.props.error) {
             let incomingMessage = this.props.error.message;
 
             if (incomingMessage === 'Request failed with status code 401') {
-                errorMessage = (
+                errorMessage = 
                     <p className={classes.Error}>username/password pair incorrect</p>
-                );
             } else {
-                errorMessage = (
+                errorMessage = 
                     <p className={classes.Error}>{this.props.error.message}</p>
-                );
             }
         }
 
         formAll =
         <div className={classes.Login}>
             {errorMessage}
+            {fillError}
             <form className={classes.Form} onSubmit={this.submitHandler}>
                 {LoginInput}
-                <Button btnType='Success'>LOG IN</Button>
+                {/* <Button btnType='Success'>LOG IN</Button> */}
+                { (!this.state.controls.password.valid && this.state.controls.password.touched) || (!this.state.controls.email.valid && this.state.controls.email.touched) || this.state.fillError ? 
+                <Button btnType='Danger' disabled> LOG IN </Button> :
+                <Button btnType='Success'> LOG IN </Button>    
+                }
                 <div className={classes.Oauth}>
                     <p>Log in with</p>
                     <a className={classes.Google} href='/auth/google'>
@@ -177,6 +269,7 @@ class Login extends Component {
                         <img src={facebookLogo} alt='facebook logo' />
                     </a>
                 </div>
+                <div className={classes.ForgotPassword}>forgot password?</div>
             </form>
         </div>
 

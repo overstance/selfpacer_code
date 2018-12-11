@@ -33,8 +33,8 @@ const input = (props) => {
                     className={inputClasses.join(' ')}
                     value={props.value}
                     onChange={props.changed}>
-                    {props.elementConfig.options.map(option => (
-                        <option key={option.value} value={option.value}>
+                    {props.elementConfig.options.map((option, i) => (
+                        <option key={i} value={option.value}>
                             {option.displayValue}
                         </option>
                     ))}
@@ -51,7 +51,7 @@ const input = (props) => {
 
     return (
         <div className={classes.Input}>
-            <label className={classes.Label}>{props.label}<span>*</span></label>
+            <label className={classes.Label}>{props.label}<span>{props.labelspan}</span></label>
             {inputElement}
             <div className={classes.ValidationErrors}>{props.errorMessage}</div>
         </div>

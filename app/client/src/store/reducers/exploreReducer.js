@@ -25,6 +25,7 @@ const fetchSubjectsFail = ( state, action ) => {
     return updateObject( state, { loading: false, error: action.error } );
 };
 
+
 const updateClickedSubject = ( state, action ) => {
     return updateObject( state, { clickedSubject: action.clickedSubject } );
 };

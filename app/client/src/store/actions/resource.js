@@ -199,23 +199,23 @@ export const updateUserLikedCount = ( newLikeCount ) => {
 };
 
 export const updateUserLikeCount = ( userId, userLikeCount ) => {
-    console.log(userId, userLikeCount);
+    // console.log(userId, userLikeCount);
 
     return dispatch => {
         const updatedLikeCount = {
             newLikeCount: userLikeCount + 1
         }
 
-        console.log(updatedLikeCount);
+        // console.log(updatedLikeCount);
 
         axios.post(`/api/update_user_liked_count/${userId}`, updatedLikeCount)
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data === 'userLikeCountUpdated') {
                 
                 const newLikeCount = userLikeCount + 1;
 
-                console.log(newLikeCount);
+                // console.log(newLikeCount);
 
                 dispatch( updateUserLikedCount( newLikeCount ));
             }
@@ -224,3 +224,40 @@ export const updateUserLikeCount = ( userId, userLikeCount ) => {
         );       
     }
 };
+
+// Fetch user assets(user added resources)
+
+export const fetchUserAssetStart = () => {
+    return {
+        type: actionTypes.FETCH_USER_ASSET_START
+    }
+}
+
+export const fetchUserAssetSuccess = ( userAssets ) => {
+    return {
+        type: actionTypes.FETCH_USER_ASSET_SUCCESS,
+        userAssets: userAssets
+    }
+}
+
+export const fetchUserAssetFailed = ( error ) => {
+    return {
+        type: actionTypes.FETCH_USER_ASSET_FAILED,
+        error: error
+    }
+}
+
+export const fetchUserAssets = ( userId ) => async(dispatch) => {
+    
+    dispatch(fetchUserAssetStart());
+    const res = await axios.get(`/api/user_assets/${userId}`);
+
+    if (res.data.resources.length >= 0) {
+        // console.log(res.data.resources);
+        dispatch(fetchUserAssetSuccess(res.data.resources));
+    } else {
+        // console.log(res.data)
+        dispatch(fetchUserAssetFailed( res.data ));
+    }
+
+}

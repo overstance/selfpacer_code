@@ -21,11 +21,7 @@ const toolbar = (props) => (
                 <div className={classes.NewSearchContainer + ' ' + classes.DesktopOnlySearchbar}>
                     <Searchbar show />
                 </div>
-                {/* <div className={classes.SearchBar + ' ' + classes.DesktopOnly}>
-                    <Searchbar show />
-                </div> */}
                 <div className={classes.Widgets}>
-                    {/* <SearchbarToggle clicked={props.searchbarToggleClicked} /> */}
                     <SideDrawerToggle clicked={props.sideDrawerToggleClicked} />
                 </div>
                 <nav className={classes.DesktopOnly}>
@@ -35,7 +31,6 @@ const toolbar = (props) => (
                 </nav>
             </header>
             <div className={classes.NewSearchContainer + ' ' + classes.MobileSearchBar}>
-                {/* <Searchbar show={props.showSearchbar} /> */}
                 <Searchbar show />
             </div>
         </Container>

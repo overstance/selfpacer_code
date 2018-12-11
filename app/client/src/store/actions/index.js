@@ -37,8 +37,8 @@ export {
     setClickedPlatform,
     resourceLiked,
     updateUserRecentlyViewed,
-    updateUserLikeCount
-    // setUserLikedResources
+    updateUserLikeCount,
+    fetchUserAssets
 } from './resource';
 
 export {
@@ -50,5 +50,11 @@ export {
     addResourceToCollection,
     clearAddToCollectionMessages
 } from './collection';
+
+export {
+    editProfile,
+    changePassword,
+    resetEditProfileMessages
+} from './profile';
 
 

@@ -14,7 +14,11 @@ const userSchema = new Schema({
     type: String,
     default: 'User'
   },
-  specialization: String,
+  specialization: {
+    type: String,
+    default: 'N/A'
+  },
+  specialization_alt: String,
   date: {
     type: Date,
     default: Date.now()
@@ -27,7 +31,9 @@ const userSchema = new Schema({
   isAdmin: {
     type: Boolean,
     default: false
-  }
+  },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 userSchema.plugin(passportLocalMongoose);
