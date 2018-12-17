@@ -10,9 +10,15 @@ import Spinner from '../../UserInterface/Spinner/Spinner';
 import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
 import * as actions from '../../../store/actions/index';
+import { Link } from 'react-router-dom';
 
 
 class Login extends Component {
+
+    componentWillUnmount() {
+        this.props.onClearErrors();
+    }
+    
     state = {
         fillError: null,
         authorizationError: this.props.error,
@@ -51,11 +57,11 @@ class Login extends Component {
         }
     };
 
-    componentDidMount() {
+    /* componentDidMount() {
         if (this.props.isAuthenticated) {
             this.props.history.push('/');
         }
-    }
+    } */
 
     checkValidity(value, rules) {
         let isValid = true;
@@ -236,16 +242,15 @@ class Login extends Component {
         let fillError =
         <p className={classes.Error}>{this.state.fillError}</p>
 
-        if (this.props.error) {
-            let incomingMessage = this.props.error.message;
-
-            if (incomingMessage === 'Request failed with status code 401') {
-                errorMessage = 
-                    <p className={classes.Error}>username/password pair incorrect</p>
-            } else {
-                errorMessage = 
-                    <p className={classes.Error}>{this.props.error.message}</p>
-            }
+        if (this.props.error === 'Request failed with status code 401') {    
+            errorMessage = 
+            <p className={classes.Error}>username/password pair incorrect</p>
+        } else if (this.props.error === 'Please verify your email') {
+            errorMessage = 
+            <p className={classes.Error}>{this.props.error}</p>
+        } else if ( this.props.error !== null && (this.props.error !== 'Request failed with status code 401' || this.props.error !== 'Please verify your email') ) {
+            errorMessage = 
+                <p className={classes.Error}>Error: Try again</p>
         }
 
         formAll =
@@ -269,7 +274,7 @@ class Login extends Component {
                         <img src={facebookLogo} alt='facebook logo' />
                     </a>
                 </div>
-                <div className={classes.ForgotPassword}>forgot password?</div>
+                <Link to='/forgot_password' className={classes.ForgotPassword}>forgot password?</Link>
             </form>
         </div>
 

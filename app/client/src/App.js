@@ -14,6 +14,10 @@ import AddResource from './containers/addResource/addResource';
 import CreateNewCollection from './containers/createCollection/createCollection';
 import AdminTools from './containers/admin1page/Admin1';
 import EditProfile from './containers/profile/editProfile/EditProfile';
+import ForgotPassword from './components/auth/ForgotPassword/ForgotPassword';
+import ResetPassword from './components/auth/ResetPassword/ResetPassword';
+import EmailVerified from './components/auth/Register/EmailVerified';
+import ReverifyEmail from './components/auth/Register/ReverifyEmail/ReverifyEmail';
 // import ScrollToTop from './hoc/ScrollToTop';
 
 const Landing = () => <h2>
@@ -52,6 +56,10 @@ class App extends Component {
                 <Explore timestamp={new Date().toString()} {...props} />
                 )}  
             />
+            <Route path="/reverify_email" component={ReverifyEmail} />
+            <Route path="/email_verify/:token" component={EmailVerified} />
+            <Route path="/reset/:token" component={ResetPassword} />
+            <Route path="/forgot_password" component={ForgotPassword} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/not-found" component={NotFound} />
@@ -60,7 +68,7 @@ class App extends Component {
         </Switch>
     );
 
-    if (this.props.isAuthenticated) {
+    if (this.props.isAuthenticated && this.props.user.active) {
       routes = (
           <Switch>
             <Route path="/create_collection" exact component={CreateNewCollection} />
@@ -92,7 +100,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
   };
 };
 

@@ -75,7 +75,7 @@ class Profile extends Component {
                 </div>
                 <div className={classes.LogoutPanelWrapper}>
                     <div className={classes.AuthContainer}>
-                        {this.props.userId === "5c07f98775015b1bd8914a27" || this.props.userId === "5c084bd94eade90013bf46e2" ? <Link className={classes.AdminTools} to='/admin_tools'>Admin Tools</Link> : null}
+                        {this.props.userId === "5c16e8de76e09e200c039178" || this.props.userId === "5c16efcef6d0f300144d3cda" ? <Link className={classes.AdminTools} to='/admin_tools'>Admin Tools</Link> : null}
                         <Link className={classes.Logout} to='/logout'>Log Out</Link>
                     </div>
                     <div className={classes.DeleteAccount}> Delete Account</div>

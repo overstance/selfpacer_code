@@ -9,6 +9,8 @@ const userSchema = new Schema({
   name: String,
   username: String,
   email: String,
+  from_google_email: String,
+  from_facebook_email: String,
   password: String,
   accountType: {
     type: String,
@@ -28,12 +30,13 @@ const userSchema = new Schema({
     default: 0
   },
   recentlyViewed: Array,
-  isAdmin: {
+  active: {
     type: Boolean,
     default: false
   },
   resetPasswordToken: String,
-  resetPasswordExpires: Date
+  resetPasswordExpires: Date,
+  verifyEmailToken: String
 });
 
 userSchema.plugin(passportLocalMongoose);

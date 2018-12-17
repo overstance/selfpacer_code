@@ -7,5 +7,6 @@ module.exports = {
   facebookAppSecret: process.env.FACEBOOK_APP_SECRET,
   mongoURI: process.env.MONGO_URI,
   cookieKey: process.env.COOKIE_KEY,
-  youtubeAPI: process.env.YOUTUBE_API
+  youtubeAPI: process.env.YOUTUBE_API,
+  sendgridKey: process.env.SENDGRID_KEY
 };

@@ -40,7 +40,8 @@ passport.use(
       const user = await new User({
         googleId: profile.id,
         name: profile.displayName,
-        email: profile.emails[0].value
+        from_google_email: profile.emails[0].value,
+        active: true
       }).save();
 
       done(null, user);
@@ -68,7 +69,8 @@ passport.use(
       const user = await new User({
         facebookId: profile.id,
         name: profile.displayName,
-        email: profile._json.email
+        from_facebook_email: profile._json.email,
+        active: true
       }).save();
 
       done(null, user);

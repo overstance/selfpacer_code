@@ -6,10 +6,31 @@ import isEmpty from './validation/isEmpty';
 const initialState = {
     isAuthenticated: false,
     isAdmin: false,
+    registerSuccessInfo: null,
+    verifyEmailSuccessinfo: null,
+    emailToVerify: null,
+
     user: {},
     error: null,
     loading: false,
     errors: {},
+
+    emailSentInfo: null,
+    emailSendFailedError: null,
+    forgotPasswordLoading: false,
+
+    reverifyEmailSentInfo: null,
+    reverifyEmailFailedError: null,
+    reverifyEmailLoading: false,
+
+    confirmTokenSuccess: null,
+    confirmTokenError: null,
+    confirmTokenLoading: false,
+
+
+    resetPasswordError: null,
+    resetPasswordSuccessFeedback: null,
+    resetPasswordLoading: false
 };
 
 const fetchUser = (state, action) => {
@@ -48,6 +69,135 @@ const authSuccess = (state, action) => {
     });
 };
 
+const registerSuccess = (state, action) => {
+    return updateObject(state, {
+        registerSuccessInfo: action.info,
+        loading: false
+    });
+};
+
+const emailVerifySuccess = (state, action) => {
+    return updateObject(state, {
+        verifyEmailSuccessinfo: action.info,
+        loading: false
+    });
+};
+
+const verificationRequired = (state, action) => {
+    return updateObject(state, {
+        emailToVerify: action.email,
+        loading: false
+    });
+};
+
+// FORGOT PASSWORD
+
+const forgotPasswordStart = (state, action) => {
+    return updateObject(state, {
+        forgotPasswordLoading: true
+    });
+}
+
+const resetEmailSent  = (state, action) => {
+    return updateObject(state, {
+        forgotPasswordLoading: false,
+        emailSentInfo: action.emailSentInfo
+    });
+}
+
+const resetEmailFailed  = (state, action) => {
+    return updateObject(state, {
+        forgotPasswordLoading: false,
+        emailSendFailedError: action.sendFailedInfo
+    });
+}
+
+const clearForgetPasswordError = (state, action) => {
+    return updateObject(state, {
+        emailSentInfo: null,
+        emailSendFailedError: null
+    });
+}
+
+// COMFIRM TOKEN
+
+const confirmResetTokenStart = (state, action) => {
+    return updateObject(state, {
+        confirmTokenSuccess: null,
+        confirmTokenError: null,
+        confirmTokenLoading: true
+    });
+}
+
+
+const confirmResetTokenSuccess = (state, action) => {
+    return updateObject(state, {
+        confirmTokenLoading: false,
+        confirmTokenSuccess: action.user
+    });
+}
+
+const confirmResetTokenFailed = (state, action) => {
+    return updateObject(state, {
+        confirmTokenLoading: false,
+        confirmTokenError: action.error
+    });
+}
+
+// RESET PASSWORD
+
+const resetPasswordStart = (state, action) => {
+    return updateObject(state, {
+        resetPasswordError: null,
+        resetPasswordSuccessFeedback: null,
+        resetPasswordLoading: true
+    });
+}
+
+
+const resetPasswordSuccess = (state, action) => {
+    return updateObject(state, {
+        resetPasswordSuccessFeedback: action.info,
+        resetPasswordLoading: false
+    });
+}
+
+const resetPasswordFailed = (state, action) => {
+    return updateObject(state, {
+        resetPasswordError: action.error,
+        resetPasswordLoading: false
+    });
+}
+
+// REVERIFY EMAIL
+
+const reverifyEmailStart = (state, action) => {
+    return updateObject(state, {
+        reverifyEmailLoading: true
+    });
+}
+
+const reverifyEmailSent  = (state, action) => {
+    return updateObject(state, {
+        reverifyEmailLoading: false,
+        reverifyEmailSentInfo: action.emailSentInfo
+    });
+}
+
+const reverifyEmailFailed  = (state, action) => {
+    return updateObject(state, {
+        reverifyEmailLoading: false,
+        reverifyEmailFailedError: action.sendFailedInfo
+    });
+}
+
+const clearReverifyEmailError = (state, action) => {
+    return updateObject(state, {
+        reverifyEmailSentInfo: null,
+        reverifyEmailFailedError: null
+    });
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_USER: return fetchUser(state, action);
@@ -55,8 +205,31 @@ const reducer = (state = initialState, action) => {
         case actionTypes.VALIDATION_ERRORS: return validationErrors(state, action);
         case actionTypes.AUTH_FAIL: return authFail(state, action);
         case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
+        case actionTypes.REGISTER_SUCCESS: return registerSuccess(state, action);
         case actionTypes.CLEAR_ERRORS: return clearErrors(state, action);
         case actionTypes.LOGOUT_USER: return authLogout(state, action);
+
+        case actionTypes.FORGOT_PASSWORD_START: return forgotPasswordStart(state, action);
+        case actionTypes.RESET_EMAIL_SENT: return resetEmailSent(state, action);
+        case actionTypes.RESET_EMAIL_FAILED: return resetEmailFailed(state, action);
+        case actionTypes.CLEAR_FORGOT_PASSWORD_ERROR: return clearForgetPasswordError(state, action);
+
+        case actionTypes.CONFIRM_RESET_TOKEN_START: return confirmResetTokenStart(state, action);
+        case actionTypes.CONFIRM_RESET_TOKEN_SUCCESS: return confirmResetTokenSuccess(state, action);
+        case actionTypes.CONFIRM_RESET_TOKEN_FAILED: return confirmResetTokenFailed(state, action);
+
+        case actionTypes.RESET_PASSWORD_START: return resetPasswordStart(state, action);
+        case actionTypes.RESET_PASSWORD_SUCCESS: return resetPasswordSuccess(state, action);
+        case actionTypes.RESET_PASSWORD_FAILED: return resetPasswordFailed(state, action);
+
+        case actionTypes.EMAIL_VERIFY_SUCCESS: return emailVerifySuccess(state, action);
+        case actionTypes.VERIFIFICATION_REQUIRED: return verificationRequired(state, action);
+
+        case actionTypes.REVERIFY_EMAIL_START: return reverifyEmailStart(state, action);
+        case actionTypes.REVERIFY_EMAIL_SENT: return reverifyEmailSent(state, action);
+        case actionTypes.REVERIFY_EMAIL_FAILED: return reverifyEmailFailed(state, action);
+        case actionTypes.CLEAR_REVERIFY_EMAIL_ERROR: return clearReverifyEmailError(state, action);
+
         default:
             return state;
     }

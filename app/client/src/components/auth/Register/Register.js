@@ -11,18 +11,27 @@ import googleLogo from '../../../assets/images/google_PNG19635.png';
 import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
 import * as actions from '../../../store/actions/index';
+// import PostSubmitDailogue from '../../UserInterface/PostSubmitDialogue/PostSubmitDialogue';
 
 
 
 class Register extends Component {
+
+    componentWillUnmount() {
+        this.props.onClearErrors();
+    }
+
+
     state = {
+        fillError: null,
         errors: this.props.validationErrors,
         controls: {
             name: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'text',
-                    label: 'NAME'
+                    label: 'name',
+                    labelspan: '*'
                 },
                 value: '',
                 validation: {
@@ -37,7 +46,8 @@ class Register extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
-                    label: 'EMAIL'
+                    label: 'email',
+                    labelspan: '*'
                 },
                 value: '',
                 validation: {
@@ -51,7 +61,8 @@ class Register extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    label: 'PASSWORD'
+                    label: 'password',
+                    labelspan: '*(8 char. or more)'
 
                 },
                 value: '',
@@ -67,7 +78,8 @@ class Register extends Component {
                 elementType: 'input',
                 elementConfig: {
                     type: 'password',
-                    label: 'CONFIRM PASSWORD'
+                    label: 'confirm password',
+                    labelspan: '*'
                 },
                 value: '',
                 validation: {
@@ -81,11 +93,11 @@ class Register extends Component {
         },
     }
 
-    componentDidMount() {
+    /* componentDidMount() {
         if (this.props.isAuthenticated) {
             this.props.history.push('/home');
         }
-    }
+    } */
 
     checkValidity(value, rules) {
         let isValid = true;
@@ -128,13 +140,95 @@ class Register extends Component {
                 touched: true
             }
         };
-        this.setState({ controls: updatedControls });
+
+        this.setState({ controls: updatedControls, fillError: null });
+
     }
 
     submitHandler = (event) => {
+
+        if (this.state.controls.name.value === '' && !this.state.controls.name.touched ) {
+            event.preventDefault();
+
+            const updatedControls = {
+                ...this.state.controls,
+                name: {
+                    ...this.state.controls.name,
+                    touched: true,
+                    valid: false
+                }
+            };
+            this.setState({ controls: updatedControls });
+
+            this.setState({ fillError: 'please fill all fields', });
+        } else if ( this.state.controls.email.value === '' && !this.state.controls.email.touched) {
+            event.preventDefault();
+
+            const updatedControls = {
+                ...this.state.controls,
+                email: {
+                    ...this.state.controls.email,
+                    touched: true,
+                    valid: false
+                }
+            };
+            this.setState({ controls: updatedControls });
+        } else if( this.state.controls.password.value === '' && !this.state.controls.password.touched) {
+            event.preventDefault();
+
+            const updatedControls = {
+                ...this.state.controls,
+                password: {
+                    ...this.state.controls.password,
+                    touched: true,
+                    valid: false
+                }
+            };
+            this.setState({ controls: updatedControls });
+        } else if( this.state.controls.password2.value === '' && !this.state.controls.password2.touched) {
+            event.preventDefault();
+
+            const updatedControls = {
+                ...this.state.controls,
+                password2: {
+                    ...this.state.controls.password2,
+                    touched: true,
+                    valid: false
+                }
+            };
+            this.setState({ controls: updatedControls });
+        } else if(this.state.controls.password.value !== this.state.controls.password2.value) {
+            event.preventDefault();
+            this.setState({ fillError: 'new password does not match!' });
+
+        } else if ( this.props.error && (!this.state.controls.email.touched )) {           
+            event.preventDefault();
+
+            const updatedEmailControls = {
+                ...this.state.controls,
+                email: {
+                    ...this.state.controls.email,
+                    touched: true,
+                    valid: false
+                }
+            };
+            this.setState({ controls: updatedEmailControls });
+        } else {
         event.preventDefault();
+
+        const updatedEmailControls = {
+            ...this.state.controls,
+            email: {
+                ...this.state.controls.email,
+                touched: false
+            }
+        };
+
+        this.setState({ controls: updatedEmailControls });
+        
         this.props.onClearErrors();
         this.props.onRegisterUser(this.state.controls.name.value, this.state.controls.email.value, this.state.controls.password.value, this.state.controls.password2.value, this.props.history);
+        }
     }
 
     handleBack = () => {
@@ -187,24 +281,41 @@ class Register extends Component {
                 shouldValidate={formElement.config.validation}
                 touched={formElement.config.touched}
                 label={formElement.config.elementConfig.label}
+                labelspan={formElement.config.elementConfig.labelspan}
                 changed={(event) => this.inputChangedHandler(event, formElement.id)}
                 errorMessage={this.onValidationError(formElement.id)}
             />
         ));
 
+        /* const successDialogue = 
+        <PostSubmitDailogue>
+            {this.props.registerSuccessInfo}
+        </PostSubmitDailogue> */
+
         let errorMessage = null;
-        if (this.props.error) {
+        if (this.props.error === 'A user with the given username is already registered') {
             errorMessage = (
-                <p className={classes.Error}>{this.props.error.message}</p>
+                <p className={classes.Error}>A user with the given e-mail exists</p>
+            );
+        } else if ( this.props.error !== 'A user with the given username is already registered') {
+            errorMessage = (
+                <p className={classes.Error}>{this.props.error}</p>
             );
         }
 
+        let fillError =
+        <p className={classes.Error}>{this.state.fillError}</p>
+
         formAll = 
         <div className={classes.Register}>
+            {fillError}
             {errorMessage}
             <form className={classes.Form} onSubmit={this.submitHandler}>
                 {RegisterInput}
-                <Button btnType='Success'>SIGN UP</Button>
+                { (!this.state.controls.name.valid && this.state.controls.name.touched) || (!this.state.controls.email.valid && this.state.controls.email.touched)|| (!this.state.controls.password.valid && this.state.controls.password.touched)|| (!this.state.controls.password2.valid && this.state.controls.password2.touched) || this.state.fillError ? 
+                <Button btnType='Danger' disabled> SIGN UP </Button> :
+                <Button btnType='Success'> SIGN UP </Button>    
+                }
                 <div className={classes.Oauth}>
                     <p>Sign up with</p>
                     <a className={classes.Google} href='/auth/google'>
@@ -220,6 +331,10 @@ class Register extends Component {
 
         if (this.props.loading) {
             formAll = <div className={classes.Spinner}><Spinner /></div>
+        }
+
+        if (this.props.registerSuccessInfo) {
+            formAll = <div style={{ 'color': '#8ee630', 'padding': '60px 20px'}}>{this.props.registerSuccessInfo}</div>
         }
 
         return (
@@ -253,6 +368,8 @@ const mapStateToProps = state => ({
     error: state.auth.error,
     errors: state.auth.errors,
     isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user,
+    registerSuccessInfo: state.auth.registerSuccessInfo
 });
 
 const mapDispatchToProps = dispatch => {

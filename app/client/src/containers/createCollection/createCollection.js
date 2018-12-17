@@ -152,7 +152,7 @@ class CreateCollection extends Component {
         </form>
 
         const successDialogue = 
-        <PostSubmitDailogue handleBack={this.handleBack}>
+        <PostSubmitDailogue withGoBackButton handleBack={this.handleBack}>
             {this.props.successMessage}
         </PostSubmitDailogue>
 

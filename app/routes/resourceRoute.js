@@ -22,7 +22,6 @@ module.exports = app => {
       if (err) {
         res.send(err.name);
       } else {
-        // console.log(resources);
         res.send({ resources: resources });
       }
     });

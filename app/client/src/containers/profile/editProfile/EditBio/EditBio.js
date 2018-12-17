@@ -45,18 +45,6 @@ class EditBio extends Component {
             },
             valid: false,
             touched: false,
-        },
-        password: {
-            value: '',
-            elementConfig: {
-                type: 'password',
-                label: 'Enter Password'
-            },
-            validation: {
-                required: true
-            },
-            valid: false,
-            touched: false,
         }
     };
 
@@ -113,7 +101,7 @@ class EditBio extends Component {
         } else {
             this.props.onEditProfile(this.state.name.value, this.state.specialization1.value, this.state.specialization2.value, this.props.user);
             
-            const nameReset = {
+            /* const nameReset = {
                     ...this.state.name,
                     value: ''
                 }
@@ -122,7 +110,7 @@ class EditBio extends Component {
                 value: ''
             }
 
-            this.setState({ name: nameReset, specialization1: specialization1Reset});
+            this.setState({ name: nameReset, specialization1: specialization1Reset}); */
         }
         
     }
@@ -206,10 +194,6 @@ class EditBio extends Component {
         return elementConfig;
     } 
 
-    ChangePasswordClicked = () => {
-        this.setState({ showChangePasswordForm: true});
-    }
-
     render() {
 
         const editBioForm = 
@@ -269,7 +253,7 @@ class EditBio extends Component {
         </form>
         
         const successDialogue = 
-        <PostSubmitDailogue handleBack={this.props.handleBack}>
+        <PostSubmitDailogue withGoBackButton handleBack={this.props.handleBack}>
             {this.props.profileEditSuccessFeedback}
         </PostSubmitDailogue>
 

@@ -249,6 +249,7 @@ export const fetchUserAssetFailed = ( error ) => {
 
 export const fetchUserAssets = ( userId ) => async(dispatch) => {
     
+    
     dispatch(fetchUserAssetStart());
     const res = await axios.get(`/api/user_assets/${userId}`);
 

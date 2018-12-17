@@ -1,5 +1,7 @@
 const Resource = require('../models/Resource');
-//var Comment = require('../models/comment');
+const mongoose = require('mongoose');
+
+const User = mongoose.model('users');
 
 // all the middleare goes here
 let middlewareObj = {};
@@ -54,6 +56,42 @@ middlewareObj.isLoggedIn = function(req, res, next) {
   }
 
   next();
+};
+
+/* middlewareObj.isInactive = async (req, res, next) => {
+  console.log(req.body.username);
+
+  const activeUser = await User.findOne(
+    { email: req.body.username, active: false },
+    user => {
+      return user;
+    }
+  );
+
+  console.log(activeUser);
+
+  if (activeUser) {
+    // return res.status(401).send({ error: 'loginRequired' });
+    res.send('Please verify your email');
+  }
+
+  next();
+}; */
+
+middlewareObj.isInactive = (req, res, next) => {
+  // console.log(req.body.username);
+
+  User.findOne({ email: req.body.username, active: false }, (err, user) => {
+    if (user) {
+      // console.log(user);
+      return res.send({
+        emailToVerify: user.email,
+        info: 'Please verify your email'
+      });
+    } else {
+      next();
+    }
+  });
 };
 
 module.exports = middlewareObj;

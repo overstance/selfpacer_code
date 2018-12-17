@@ -24,14 +24,15 @@ class EditProfile extends Component {
         return (
             <div className={classes.ContentItems}>
                 <EditBio handleBack={this.handleBack} />
-                <ChangePassword handleBack={this.handleBack} />    
+                { this.props.facebookUser || this.props.googleUser ? null : <ChangePassword handleBack={this.handleBack} />}    
             </div>                                 
         )
     }
 };
 
 const mapStateToProps = state => ({
-    user: state.auth.user
+    facebookUser: state.auth.user.facebookId,
+    googleUser: state.auth.user.googleId
 });
 
 const mapDispatchToProps = dispatch => {

@@ -7,7 +7,7 @@ module.exports = app => {
   app.post('/api/edit_profile', middleware.isLoggedIn, (req, res) => {
     // console.log(req.body);
     User.findOneAndUpdate(
-      { id: req.body.user._Id },
+      { _id: req.body.user._id },
       {
         name: req.body.name,
         specialization: req.body.specialization1,
@@ -16,9 +16,9 @@ module.exports = app => {
       (err, user) => {
         if (err) {
           res.send(err.name);
-          //   console.log(err.name);
+          // console.log(err.name);
         } else {
-          //   console.log(user);
+          // console.log(user);
           res.send({ user });
         }
       }

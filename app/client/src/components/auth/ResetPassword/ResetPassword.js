@@ -1,29 +1,21 @@
 import React, { Component } from 'react';
-import classes from './ChangePassword.css';
-import * as actions from '../../../../store/actions/index';
+import classes from './ResetPassword.css';
+import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
-import Input from '../../../../components/UserInterface/Input/Input';
-import Button from '../../../../components/UserInterface/Button/Button';
-import PostSubmitDailogue from '../../../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
-import Spinner from '../../../../components/UserInterface/Spinner/Spinner';
+import Input from '../../UserInterface/Input/Input';
+import Button from '../../UserInterface/Button/Button';
+import PostSubmitDailogue from '../../UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+import Spinner from '../../UserInterface/Spinner/Spinner';
+import { Link } from 'react-router-dom';
 
-class ChangePassword extends Component {
+class ResetPassword extends Component {
+
+    componentDidMount() {
+        this.props.onConfirmResetToken(this.props.match.params.token);
+    }
 
     state = {
-        showChangePasswordForm: false,
-        changePasswordFillError: null,
-        password: {
-            value: '',
-            elementConfig: {
-                type: 'password',
-                label: 'Enter Password'
-            },
-            validation: {
-                required: true
-            },
-            valid: false,
-            touched: false,
-        },
+        fillError: null,
         newPassword: {
             value: '',
             elementConfig: {
@@ -86,17 +78,6 @@ class ChangePassword extends Component {
         return isValid;
     }
 
-    passwordInputChangedHandler = (event) => {
-        const updated = {
-            ...this.state.password,
-            value: event.target.value,
-            valid: this.checkValidity(event.target.value, this.state.password.validation),
-            touched: true
-        }
-        this.setState({ password: updated, changePasswordFillError: null, changePasswordError: null});
-       
-    }
-
     newPasswordInputChangedHandler = (event) => {
         const updated = {
             ...this.state.newPassword,
@@ -104,7 +85,7 @@ class ChangePassword extends Component {
             valid: this.checkValidity(event.target.value, this.state.newPassword.validation),
             touched: true
         }
-        this.setState({ newPassword: updated, changePasswordFillError: null});
+        this.setState({ newPassword: updated, fillError: null});
        
     }
 
@@ -115,15 +96,15 @@ class ChangePassword extends Component {
             valid: this.checkValidity(event.target.value, this.state.newPasswordReenter.validation),
             touched: true
         }
-        this.setState({ newPasswordReenter: updated, changePasswordFillError: null});
+        this.setState({ newPasswordReenter: updated, fillError: null});
        
     }
 
 
-    submitChangePasswordHandler = (event) => {
+    submitResetPasswordHandler = (event) => {
         event.preventDefault();
 
-        if (this.props.changePasswordError && !this.state.password.touched) {
+/*         if (this.props.resetPasswordError && !this.state.password.touched) {
             const passwordUpdated = {
                 ...this.state.password,
                 touched: true,
@@ -132,13 +113,7 @@ class ChangePassword extends Component {
 
             this.setState({ password: passwordUpdated});
 
-        } else if ((!this.state.password.touched || this.state.password.value === '') || (!this.state.newPassword.touched || this.state.newPassword.value === '') || (!this.state.newPasswordReenter.touched || this.state.newPasswordReenter.value === '')) {
-            const passwordUpdated = {
-                ...this.state.password,
-                touched: true,
-                valid: true
-            }
-            this.setState({ password: passwordUpdated});
+        } else */ if ( (!this.state.newPassword.touched || this.state.newPassword.value === '') || (!this.state.newPasswordReenter.touched || this.state.newPasswordReenter.value === '')) {
 
             const newPasswordUpdated = {
                 ...this.state.newPassword,
@@ -154,58 +129,41 @@ class ChangePassword extends Component {
             }
             this.setState({ newPasswordReenter: newPasswordReenterUpdated});
 
-            this.setState({ changePasswordFillError: 'please fill all fields' });
+            this.setState({ fillError: 'please fill all fields' });
         } else if(this.state.newPassword.value !== this.state.newPasswordReenter.value) {
-            this.setState({ changePasswordFillError: 'new password does not match!' });
-
-        } else if ( this.state.password.value === this.state.newPassword.value) {
-
-            this.setState({ changePasswordFillError: 'new password same as old!' });
+            this.setState({ fillError: 'new password does not match!' });
 
         } else {
-            this.props.onChangePassword(this.state.password.value, this.state.newPassword.value, this.props.user);
+            this.props.onResetPassword(this.state.newPassword.value, this.props.match.params.token);
             
-            const passwordUpdated = {
+            /* const passwordUpdated = {
                 ...this.state.password,
                 touched: false,
                 valid: false
             }
 
-            this.setState({password: passwordUpdated, changePasswordFillError: null});
+            this.setState({password: passwordUpdated, fillError: null}); */
         }   
-    }
-
-    showFormHandler = () => {
-        this.setState({ showChangePasswordForm: true });
     }
 
     render() {
 
         let errorMessage = null;
-        let fillError = <div className={classes.FillError}>{this.state.changePasswordFillError}</div>
+        let fillError = <div className={classes.FillError}>{this.state.fillError}</div>
 
-        if (this.props.changePasswordError === 'IncorrectPasswordError') {
+        if (this.props.resetPasswordError === 'IncorrectPasswordError') {
             errorMessage = <div className={classes.FillError}>password incorrect</div>
-        } else if (this.props.changePasswordError) {
-            errorMessage = <div className={classes.FillError}>{this.props.changePasswordError}</div>
+        } else if (this.props.resetPasswordError) {
+            errorMessage = <div className={classes.FillError}>{this.props.resetPasswordError}</div>
         }
 
-        const changePasswordForm = 
+        const resetPasswordForm = 
         <form
         className={classes.Form}
-        onSubmit={this.submitChangePasswordHandler}
+        onSubmit={this.submitResetPasswordHandler}
         >
             {errorMessage}
             {fillError}
-            <Input
-                elementConfig={this.state.password.elementConfig} 
-                label={this.state.password.elementConfig.label}
-                value={this.state.password.value}
-                invalid={!this.state.password.valid}
-                shouldValidate={this.state.password.validation}
-                touched={this.state.password.touched}
-                changed={(event) => this.passwordInputChangedHandler(event)}
-            />
             <Input
                 elementConfig={this.state.newPassword.elementConfig} 
                 label={this.state.newPassword.elementConfig.label}
@@ -225,67 +183,84 @@ class ChangePassword extends Component {
                 touched={this.state.newPasswordReenter.touched}
                 changed={(event) => this.newPasswordReenterInputChangedHandler(event)}
             />
-            { (!this.state.password.valid && this.state.password.touched) || (!this.state.newPassword.valid && this.state.newPassword.touched) || (!this.state.newPasswordReenter.valid && this.state.newPasswordReenter.touched) || this.state.changePasswordFillError ? 
+            { (!this.state.newPassword.valid && this.state.newPassword.touched) || (!this.state.newPasswordReenter.valid && this.state.newPasswordReenter.touched) || this.state.fillError ? 
                 <Button btnType='Danger' disabled> Submit </Button> :
                 <Button btnType='Success'> Submit </Button>    
             }
         </form>
         
         const successDialogue = 
-        <PostSubmitDailogue withGoBackButton handleBack={this.props.handleBack}>
-            {this.props.changePasswordSuccessFeedback}
+        <PostSubmitDailogue>
+            {this.props.resetPasswordSuccessFeedback}
+            <Link className={classes.Login} to='/login'>Go to Login</Link>
         </PostSubmitDailogue>
 
-        let content = changePasswordForm;
+        const invalidTokenDialogue = 
+        <PostSubmitDailogue>
+            {this.props.confirmTokenError}
+            <div style={{'marginTop': '10px'}}>Please try again!</div>
+        </PostSubmitDailogue>
+
+        const resetPasswordFailDialogue = 
+        <PostSubmitDailogue>
+            {this.props.resetPasswordError}
+            <div style={{'marginTop': '10px'}}>Please try again!</div>
+        </PostSubmitDailogue>
+
+        let content = null;
         
-        if (this.props.loading) {
+        if (this.props.confirmTokenLoading) {
             content = 
             <div className={classes.Form}>
                 <Spinner />
             </div>
-
         }
 
-        if (this.props.changePasswordSuccessFeedback === 'password changed') {
-            content = successDialogue;
+        if (this.props.comfirmTokenError || !this.props.confirmTokenSuccess) {
+            content = invalidTokenDialogue
+        }
+
+        if (this.props.confirmTokenSuccess) {
+            content = resetPasswordForm;
+        }
+
+        if (this.props.resetPasswordLoading) {
+            content = 
+            <div className={classes.Form}>
+                <Spinner />
+            </div>
+        }
+
+        if( this.props.confirmTokenSuccess && this.props.resetPasswordSuccessFeedback) {
+            content = successDialogue
+        }
+
+        if( this.props.confirmTokenSuccess && this.props.resetPasswordError) {
+            content = resetPasswordFailDialogue
         }
 
         return ( 
             <div className={classes.ContainerItem}>
-                <div onClick={this.showFormHandler} className={classes.ChangePassword}>Change your password</div>
-                { this.state.showChangePasswordForm ? <div>{content}</div> : null}
+                <div>{content}</div>
             </div>   
         );
     }
 };
 
 const mapStateToProps = state => ({
-    changePasswordError: state.profile.changePasswordError,
-    changePasswordSuccessFeedback: state.profile.changePasswordSuccessFeedback,
-    loading: state.profile.changePasswordLoading,
-    user: state.auth.user
+    resetPasswordError: state.auth.resetPasswordError,
+    resetPasswordSuccessFeedback: state.auth.resetPasswordSuccessFeedback,
+    resetPasswordLoading: state.auth.resetPasswordLoading,
+    confirmTokenSuccess: state.auth.confirmTokenSuccess,
+    confirmTokenError: state.auth.confirmTokenError,
+    confirmTokenLoading: state.auth.confirmTokenLoading
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onChangePassword: (oldPassword, newPassword, user) => dispatch( actions.changePassword(oldPassword, newPassword, user) )
+        onResetPassword: (newPassword, token) => dispatch( actions.resetPassword(newPassword, token)),
+        onConfirmResetToken: (token) => dispatch(actions.confirmResetToken(token))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (ChangePassword);
-
-/*
-{ this.props.changePasswordError ? 
-                <div>
-                    <div className={classes.ErrorFeedbackInfo}>
-                        {this.props.changePasswordError}
-                    </div>
-                </div> 
-                :
-                <div>
-                    <div className={classes.AddFeedbackInfo}>
-                        {this.props.changePasswordSuccessFeedback}
-                    </div>
-                </div> 
-            }
-*/
+export default connect(mapStateToProps, mapDispatchToProps) (ResetPassword);

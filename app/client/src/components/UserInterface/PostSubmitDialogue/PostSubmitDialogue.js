@@ -6,7 +6,7 @@ const postSubmitDialogue = (props) => (
         <div className={classes.PostSubmitMessage}>
             {props.children}
         </div>
-        <div className={classes.GoBackPrompt} onClick={props.handleBack}>Go back</div> 
+        { props.withGoBackButton ? <div className={classes.GoBackPrompt} onClick={props.handleBack}>Go back</div>: null} 
     </div>
 );
 

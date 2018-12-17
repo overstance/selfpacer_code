@@ -2,9 +2,16 @@ export {
     fetchUser,
     loginUser,
     registerUser,
+    emailVerified,
+    reverifyEmail,
+    clearReverifyEmailError,
     setAuthRedirectPath,
     clearErrors,
     logout,
+    forgotPassword,
+    clearForgetPasswordError,
+    confirmResetToken,
+    resetPassword
 } from './auth';
 export {
     fetchSubjects,
