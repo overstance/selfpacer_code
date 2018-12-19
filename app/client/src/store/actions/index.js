@@ -35,7 +35,9 @@ export {
     addYoutubePlaylist,
     addYoutubeVideo,
     updateYoutubeVideos,
-    updateYoutubePlaylists
+    updateYoutubePlaylists,
+    addMooc,
+    clearAddMoocFeedbacks
 } from './admin1';
 
 export {

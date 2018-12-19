@@ -283,3 +283,78 @@ export const youtubePlaylistsUpdateFailed = ( error ) => {
         error: error
     };
 };
+
+
+// ADD MOOC RESOURCE
+
+/* export const addMoocStart = () => {
+    return {
+        type: actionTypes.ADD_MOOC_START
+    }
+} */
+
+export const addMoocSuccess = (info) => {
+    return {
+        type: actionTypes.ADD_MOOC_SUCCESS,
+        info: info
+    }
+}
+
+export const addMoocFailed = (error) => {
+    return {
+        type: actionTypes.ADD_MOOC_FAILED,
+        error: error
+    }
+}
+
+export const clearAddMoocFeedbacks = () => {
+    return { 
+        type: actionTypes.CLEAR_ADD_MOOC_FEEDBACKS
+    }
+}
+
+export const addMooc = (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) => async dispatch => {
+    dispatch(clearAddMoocFeedbacks());
+
+    let imageLink = imageUrl;
+    let updateTime = lastUpdated;
+    let rating = avgRating;
+
+    if (imageUrl === '') {
+        imageLink = undefined
+    }
+
+    if (lastUpdated === '') {
+        updateTime = undefined
+    }
+
+    if (avgRating === '') {
+        rating = undefined
+    }
+
+    const info = {
+        subject: subject,
+        title: title,
+        url: url,
+        imageUrl: imageLink,
+        source: source,
+        videoCount: videoCount,
+        tutor: tutor,
+        enrollees: enrollees,
+        duration: duration,
+        level: level,
+        lastUpdated: updateTime,
+        avgRating: rating,
+        agent: agent
+    }
+
+    const res = await axios.post('/api/add_mooc', info);
+
+    if (res.data.resource) {
+        dispatch(addMoocSuccess('resource added!'));
+        console.log(res.data);
+    } else {
+        dispatch(addMoocFailed(res.data));
+        console.log(res.data);
+    }
+}

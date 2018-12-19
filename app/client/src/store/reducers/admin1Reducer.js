@@ -24,7 +24,10 @@ const initialState = {
 
     updatedYoutubeVideos: null,
     updateYoutubeVideosError: null,
-    youtubeVideosUpdatedFeedback: null
+    youtubeVideosUpdatedFeedback: null,
+
+    addMoocSucessInfo: null,
+    addMoocError: null
 };
 
 // Add Admin User 
@@ -159,6 +162,34 @@ const youtubeVideosUpdatedFailed = ( state, action ) => {
     } );
 };
 
+// ADD MOOC RESOURCE
+
+/* const addMoocStart = ( state, action ) => {
+    return updateObject( state, {
+        addMoocError: null,
+        addMoocSucessInfo: null
+    });
+} */
+
+const addMoocSuccess = ( state, action ) => {
+    return updateObject( state, {
+        addMoocSucessInfo: action.info
+    });
+}
+
+const addMoocFailed = ( state, action ) => {
+    return updateObject( state, {
+        addMoocError: 'add failed!:' + action.error
+    });
+}
+
+const clearAddMoocFeedbacks = ( state, action ) => {
+    return updateObject( state, {
+        addMoocError: null,
+        addMoocSucessInfo: null
+    });
+}
+
 
 
 const reducer = ( state = initialState, action ) => {
@@ -186,6 +217,11 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.YOUTUBE_VIDEOS_UPDATED: return youtubeVideosUpdated( state, action );
         case actionTypes.YOUTUBE_VIDEOS_UPDATE_START: return youtubeVideosUpdateStart( state, action );
         case actionTypes.YOUTUBE_VIDEOS_UPDATE_FAILED: return youtubeVideosUpdatedFailed( state, action );
+
+        // case actionTypes.ADD_MOOC_START: return addMoocStart( state, action );
+        case actionTypes.ADD_MOOC_SUCCESS: return addMoocSuccess( state, action );
+        case actionTypes.ADD_MOOC_FAILED: return addMoocFailed( state, action );
+        case actionTypes.CLEAR_ADD_MOOC_FEEDBACKS: return clearAddMoocFeedbacks( state, action );
 
         default: return state;
     }

@@ -25,7 +25,13 @@ const resourceSchema = new Schema({
   youtubeId: String,
   youtubeviews: String,
   youtubelikes: String,
-  videoCount: String
+  videoCount: String,
+  tutor: String,
+  enrollees: String,
+  duration: String,
+  Level: String,
+  lastUpdated: String,
+  avgRating: String
 });
 
 module.exports = mongoose.model('resources', resourceSchema);

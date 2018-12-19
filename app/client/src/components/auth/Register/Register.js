@@ -146,9 +146,9 @@ class Register extends Component {
     }
 
     submitHandler = (event) => {
+        event.preventDefault();
 
         if (this.state.controls.name.value === '' && !this.state.controls.name.touched ) {
-            event.preventDefault();
 
             const updatedControls = {
                 ...this.state.controls,
@@ -162,7 +162,6 @@ class Register extends Component {
 
             this.setState({ fillError: 'please fill all fields', });
         } else if ( this.state.controls.email.value === '' && !this.state.controls.email.touched) {
-            event.preventDefault();
 
             const updatedControls = {
                 ...this.state.controls,
@@ -174,7 +173,6 @@ class Register extends Component {
             };
             this.setState({ controls: updatedControls });
         } else if( this.state.controls.password.value === '' && !this.state.controls.password.touched) {
-            event.preventDefault();
 
             const updatedControls = {
                 ...this.state.controls,
@@ -186,7 +184,6 @@ class Register extends Component {
             };
             this.setState({ controls: updatedControls });
         } else if( this.state.controls.password2.value === '' && !this.state.controls.password2.touched) {
-            event.preventDefault();
 
             const updatedControls = {
                 ...this.state.controls,
@@ -198,11 +195,9 @@ class Register extends Component {
             };
             this.setState({ controls: updatedControls });
         } else if(this.state.controls.password.value !== this.state.controls.password2.value) {
-            event.preventDefault();
             this.setState({ fillError: 'new password does not match!' });
 
         } else if ( this.props.error && (!this.state.controls.email.touched )) {           
-            event.preventDefault();
 
             const updatedEmailControls = {
                 ...this.state.controls,
