@@ -19,6 +19,7 @@ class Accounting extends Component {
         this.props.onFetchAccounting();
         this.props.onFetchYoutubeAccounting();
         this.props.onFetchMoocAccounting();
+        this.props.onFetchBooksAccounting();
 
         if (this.props.activeContent === 'youtube') {
             this.setState({
@@ -210,6 +211,7 @@ class Accounting extends Component {
 
         let youtube = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
         let mooc = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
+        let books = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
 
         if ( !this.props.youtubeLoading ) {
             // const youtubeShuffled = shuffleArray(this.props.youtube);
@@ -222,9 +224,11 @@ class Accounting extends Component {
                    title={resource.title}
                    likes={resource.likes}
                    lastUpdated={resource.lastUpdated}
+                   avgRating={resource.avgRating}
                    tutor={resource.tutor}
                    enrollees={resource.enrollees}
                    duration={resource.duration}
+                   author={resource.author}
                    youtubeViews={resource.youtubeviews}
                    publishDate={resource.publishDate}
                    source={resource.source}
@@ -248,9 +252,39 @@ class Accounting extends Component {
                    title={resource.title}
                    likes={resource.likes}
                    lastUpdated={resource.lastUpdated}
+                   avgRating={resource.avgRating}
                    tutor={resource.tutor}
                    enrollees={resource.enrollees}
                    duration={resource.duration}
+                   author={resource.author}
+                   youtubeViews={resource.youtubeviews}
+                   publishDate={resource.publishDate}
+                   source={resource.source}
+                   type={resource.type}
+                   videoCount={resource.videoCount}
+                   clicked={() => this.resourceClickedHandler(resource.type, resource._id)}
+                   likeclicked={() => this.likeHandler( resource._id, resource.likes/* , resource.img, resource.link, resource.title */ )}
+                   collectclicked={() => this.collectHandler( resource._id, resource.img, resource.title )}
+                   />
+            ) )
+        }
+
+        if ( !this.props.booksLoading ) {
+            // const youtubeShuffled = shuffleArray(this.props.youtube);
+            books = this.props.books.map( (resource, i) => (
+                   <Resource
+                   key={i}
+                   id={resource._id} 
+                   link={resource.link}
+                   image={resource.img}
+                   title={resource.title}
+                   likes={resource.likes}
+                   lastUpdated={resource.lastUpdated}
+                   avgRating={resource.avgRating}
+                   tutor={resource.tutor}
+                   enrollees={resource.enrollees}
+                   duration={resource.duration}
+                   author={resource.author}
                    youtubeViews={resource.youtubeviews}
                    publishDate={resource.publishDate}
                    source={resource.source}
@@ -283,6 +317,16 @@ class Accounting extends Component {
             {this.props.fetchMoocResourcesError}
         </div>
 
+        const booksContent = 
+        <div>
+            <div className={classes.AddIconContainer}>
+                <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
+                <div className={classes.AddInfo}>ADD BOOK OR DOC RESOURCE</div>
+            </div>
+            {books}
+            {this.props.fetchBooksResourcesError}
+        </div>
+
         let pageContent = null;
 
         if (this.state.youtubeActive) {
@@ -291,6 +335,10 @@ class Accounting extends Component {
 
         if (this.state.moocActive) {
             pageContent = moocContent
+        }
+
+        if (this.state.booksActive) {
+            pageContent = booksContent
         }
 
         return (
@@ -366,6 +414,10 @@ const mapStateToProps = state => {
         moocLoading: state.accounting.moocLoading,
         fetchMoocResourcesError: state.accounting.fetchMoocResourcesError,
 
+        books: state.accounting.booksResources,
+        booksLoading: state.accounting.booksLoading,
+        fetchBooksResourcesError: state.accounting.fetchBooksResourcesError,
+
         settedUserRecentlyViewed: state.resource.userRecentlyViewed,
         userLikeCount: state.resource.userLikeCount
     };
@@ -376,6 +428,8 @@ const mapDispatchToProps = dispatch => {
         onFetchAccounting: () => dispatch( actions.fetchAccounting() ),
         onFetchYoutubeAccounting: () => dispatch ( actions.fetchYoutubeAccounting() ),
         onFetchMoocAccounting: () => dispatch ( actions.fetchMoocAccounting()),
+        onFetchBooksAccounting: () => dispatch ( actions.fetchBooksAccounting()),
+
         onSetClickedPlatform: ( platform ) => dispatch ( actions.setClickedPlatform( platform ) ),
         onResourceLiked: ( id, likes ) => dispatch ( actions.resourceLiked( id, likes )),
         onSetToCollectResource: ( resourceId, image, title ) => dispatch ( actions.setToCollectResource( resourceId, image, title )),

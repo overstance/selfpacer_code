@@ -28,7 +28,8 @@ export {
 } from './clickedSubject';
 export {
     fetchYoutubeAccounting,
-    fetchMoocAccounting
+    fetchMoocAccounting,
+    fetchBooksAccounting
 } from './accounting';
 export {
     addAdminUser,
@@ -38,7 +39,9 @@ export {
     updateYoutubeVideos,
     updateYoutubePlaylists,
     addMooc,
-    clearAddMoocFeedbacks
+    clearAddMoocFeedbacks,
+    addBooks,
+    clearAddBooksFeedbacks
 } from './admin1';
 
 export {

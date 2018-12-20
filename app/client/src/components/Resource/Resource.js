@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Resource.css';
 import PropTypes from 'prop-types';
+import noImageIcon from '../../assets/images/image.svg'
 
 const resource = (props) => {
 
@@ -14,7 +15,11 @@ const resource = (props) => {
                 onClick={props.clicked}
                 >
                     <div className={classes.ImgColumn}>
-                        <img className={classes.ResourceImg} src={props.image} alt="resource" />    
+                        { props.image ? 
+                            <img className={classes.ResourceImg} src={props.image} alt="resource" />
+                            :
+                            <img className={classes.ResourceImg} src={noImageIcon} alt="resource" />
+                            }    
                     </div>
                     <div className={classes.InfoColumn}>
                         <div className={classes.InfoContainer}>
@@ -42,6 +47,11 @@ const resource = (props) => {
                                             <div className={classes.Type}>TUTOR:<span>{props.tutor}</span></div>
                                         </div> : null
                                     }
+                                    { props.author ?
+                                        <div>
+                                            <div className={classes.Type}>AUTHOR:<span>{props.author}</span></div>
+                                        </div> : null
+                                    }
                                     { props.enrollees ?
                                         <div>
                                             <div className={classes.Type}>ENROLLEES:<span>{props.enrollees}</span></div>
@@ -50,6 +60,11 @@ const resource = (props) => {
                                     { props.duration ?
                                         <div>
                                             <div className={classes.Type}>DURATION:<span>{props.duration}</span></div>
+                                        </div> : null
+                                    }
+                                    { props.avgRating ?
+                                        <div>
+                                            <div className={classes.Type}>AVG.RATING:<span>{props.avgRating}</span></div>
                                         </div> : null
                                     }
                                     { props.videoCount ? 
@@ -87,8 +102,8 @@ const resource = (props) => {
 
 resource.propTypes= {
     link: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    publishDate: PropTypes.number.isRequired,
+    image: PropTypes.string,
+    publishDate: PropTypes.number,
     source: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

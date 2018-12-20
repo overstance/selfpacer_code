@@ -10,12 +10,29 @@ const initialState = {
     moocLoading: false,
     fetchMoocResourcesError: null,
 
-    bookResources: [],
+    booksResources: [],
     booksLoading: false,
-    error: null
+    fetchBooksResourcesError: null,
 };
 
-// fetch youtube
+// fetch books
+
+const fetchBooksAccountingStart = ( state, action ) => {
+    return updateObject( state, { booksLoading: true } );
+};
+
+const fetchBooksAccountingSuccess = ( state, action ) => {
+    return updateObject( state, {
+        booksResources: action.resources,
+        booksLoading: false
+    } );
+};
+
+const fetchBooksAccountingFail = ( state, action ) => {
+    return updateObject( state, { booksLoading: false, fetchBooksResourcesError: action.error } );
+};
+
+// fetch mooc
 
 const fetchMoocAccountingStart = ( state, action ) => {
     return updateObject( state, { moocLoading: true } );
@@ -32,7 +49,7 @@ const fetchMoocAccountingFail = ( state, action ) => {
     return updateObject( state, { moocLoading: false, fetchMoocResourcesError: action.error } );
 };
 
-// fetch mooc
+// fetch youtube
 
 const fetchYoutubeAccountingStart = ( state, action ) => {
     return updateObject( state, { youtubeLoading: true } );
@@ -51,6 +68,8 @@ const fetchYoutubeAccountingFail = ( state, action ) => {
 
 
 
+
+
 //Reducer
 
 const reducer = ( state = initialState, action ) => {
@@ -62,6 +81,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_MOOC_ACCOUNTING_START: return fetchMoocAccountingStart( state, action );
         case actionTypes.FETCH_MOOC_ACCOUNTING_SUCCESS: return fetchMoocAccountingSuccess( state, action );
         case actionTypes.FETCH_MOOC_ACCOUNTING_FAILED: return fetchMoocAccountingFail( state, action );
+
+        case actionTypes.FETCH_BOOKS_ACCOUNTING_START: return fetchBooksAccountingStart( state, action );
+        case actionTypes.FETCH_BOOKS_ACCOUNTING_SUCCESS: return fetchBooksAccountingSuccess( state, action );
+        case actionTypes.FETCH_BOOKS_ACCOUNTING_FAILED: return fetchBooksAccountingFail( state, action );
 
         default: return state;
     }

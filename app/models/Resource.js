@@ -31,7 +31,8 @@ const resourceSchema = new Schema({
   duration: String,
   Level: String,
   lastUpdated: String,
-  avgRating: String
+  avgRating: String,
+  author: String
 });
 
 module.exports = mongoose.model('resources', resourceSchema);

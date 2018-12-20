@@ -86,5 +86,41 @@ export const fetchMoocAccounting = () => async dispatch => {
     } else dispatch(fetchMoocAccountingFailed(res.data));
 }
 
+// Fetch books accounting resources
+
+export const fetchBooksAccountingStart = () => {
+    return {
+        type: actionTypes.FETCH_BOOKS_ACCOUNTING_START
+    }
+}
+
+export const fetchBooksAccountingSuccess = ( resources ) => {
+    return {
+        type: actionTypes.FETCH_BOOKS_ACCOUNTING_SUCCESS,
+        resources: resources 
+    }
+}
+
+export const fetchBooksAccountingFailed = ( error ) => {
+    return {
+        type: actionTypes.FETCH_BOOKS_ACCOUNTING_FAILED,
+        error: error 
+    }
+}
+
+export const fetchBooksAccounting = () => async dispatch => {
+    dispatch(fetchBooksAccountingStart());
+
+    const res = await axios.get('/api/books_accounting');
+
+    if (res.data.booksAccounting) {
+        const booksAccounting = [...res.data.booksAccounting];
+
+        const booksShuffled = shuffleArray(booksAccounting);
+
+        dispatch(fetchBooksAccountingSuccess(booksShuffled));
+    } else dispatch(fetchBooksAccountingFailed(res.data));
+}
+
 
 

@@ -17,6 +17,7 @@ const collectionsRoute = require('./routes/collectionsRoute');
 const resourceRoute = require('./routes/resourceRoute');
 const profileRoutes = require('./routes/profileRoutes');
 const moocRoutes = require('./routes/moocRoutes');
+const booksRoutes = require('./routes/booksRoute');
 
 //mongoose.Promise = global.Promise;
 mongoose.connect(
@@ -52,6 +53,7 @@ collectionsRoute(app);
 resourceRoute(app);
 profileRoutes(app);
 moocRoutes(app);
+booksRoutes(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

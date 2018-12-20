@@ -32,6 +32,20 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/books_accounting', (req, res) => {
+    Resource.find({ category: 'Accounting', type: 'books' }, function(
+      err,
+      resources
+    ) {
+      if (err) {
+        console.log(err);
+        res.send(err.message);
+      } else {
+        res.send({ booksAccounting: resources });
+      }
+    });
+  });
+
   app.get('/api/user_assets/:userId', (req, res) => {
     Resource.find({ user_id: req.params.userId }, (err, resources) => {
       if (err) {

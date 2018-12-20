@@ -287,12 +287,6 @@ export const youtubePlaylistsUpdateFailed = ( error ) => {
 
 // ADD MOOC RESOURCE
 
-/* export const addMoocStart = () => {
-    return {
-        type: actionTypes.ADD_MOOC_START
-    }
-} */
-
 export const addMoocSuccess = (info) => {
     return {
         type: actionTypes.ADD_MOOC_SUCCESS,
@@ -358,3 +352,68 @@ export const addMooc = (subject, title, url, imageUrl, source, videoCount, tutor
         console.log(res.data);
     }
 }
+
+// ADD BOOK RESOURCE
+
+export const addBooksSuccess = (info) => {
+    return {
+        type: actionTypes.ADD_BOOKS_SUCCESS,
+        info: info
+    }
+}
+
+export const addBooksFailed = (error) => {
+    return {
+        type: actionTypes.ADD_BOOKS_FAILED,
+        error: error
+    }
+}
+
+export const clearAddBooksFeedbacks = () => {
+    return { 
+        type: actionTypes.CLEAR_ADD_BOOKS_FEEDBACKS
+    }
+}
+
+export const addBooks = (subject, title, url, imageUrl, source, author, level, avgRating, agent) => async dispatch => {
+    dispatch(clearAddBooksFeedbacks());
+
+    let imageLink = imageUrl;
+    let bookLevel = level;
+    let rating = avgRating;
+
+    if (imageUrl === '') {
+        imageLink = undefined
+    }
+
+    if (level === '') {
+        bookLevel = undefined
+    }
+
+    if (avgRating === '') {
+        rating = undefined
+    }
+
+    const info = {
+        subject: subject,
+        title: title,
+        url: url,
+        imageUrl: imageLink,
+        source: source,
+        author: author,
+        level: bookLevel,
+        avgRating: rating,
+        agent: agent
+    }
+
+    const res = await axios.post('/api/add_books', info);
+
+    if (res.data.resource) {
+        dispatch(addBooksSuccess('resource added!'));
+        console.log(res.data);
+    } else {
+        dispatch(addBooksFailed(res.data));
+        console.log(res.data);
+    }
+}
+

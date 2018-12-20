@@ -10,18 +10,25 @@ import UpdateYoutubeVideos from './youtubeVideos/UpdateYoutubeVideos';
 import UpdateYoutubePlaylists from './youtubePlaylist/UpdateYoutubePlaylists';
 import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
 import AddMooc from './manageMoocs/AddMooc';
+import AddBooks from './manageBooks/AddBooks';
 
 class Admin1 extends Component {
 
     state = {
         showManageUsers: false,
         manageUsersIconRotate: false,
+
         showManageYoutubeVideos: false,
         manageYoutubeVideosIconRotate: false,
+
         showManageYoutubePlaylists: false,
         manageYoutubePlaylistsIconRotate: false,
+
         showManageMoocs: false,
         manageMoocsIconRotate: false,
+
+        showManageBooks: false,
+        manageBooksIconRotate: false,
     }
 
     manageUsersToggleHandler = () => {
@@ -56,6 +63,15 @@ class Admin1 extends Component {
             return {
                 showManageMoocs: !prevState.showManageMoocs,
                 manageMoocsIconRotate: !prevState.manageMoocsIconRotate
+            };
+        });
+    }
+
+    manageBooksToggleHandler = () => {
+        this.setState((prevState) => {
+            return {
+                showManageBooks: !prevState.showManageBooks,
+                manageBooksIconRotate: !prevState.manageBooksIconRotate
             };
         });
     }
@@ -114,6 +130,19 @@ class Admin1 extends Component {
                     { this.state.showManageMoocs ? 
                         <div className={classes.ContentItems}>
                             <AddMooc />
+                        </div>
+                    : null }
+                </div>
+                < div style={{'color': 'white', 'height': '1px'}} />
+                <div className={classes.Subheader}>
+                    <SubHeader 
+                        filterIconRotate={this.state.manageBooksIconRotate} 
+                        filterToggleHandler={this.manageBooksToggleHandler}
+                        subheadTitle="MANAGE BOOKS"
+                    />
+                    { this.state.showManageBooks ? 
+                        <div className={classes.ContentItems}>
+                            <AddBooks />
                         </div>
                     : null }
                 </div>
