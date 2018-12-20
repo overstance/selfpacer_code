@@ -23,8 +23,8 @@ module.exports = app => {
   });
 
   app.post(
-    '/api/youtube_accounting_playlist',
-    middleware.isLoggedIn,
+    '/api/youtube_accounting_playlist' /* ,
+    middleware.isLoggedIn */,
     async (req, res) => {
       const playlistId = req.body.id;
       const user = req.body.user;
@@ -50,7 +50,7 @@ module.exports = app => {
           source: 'youtube.com',
           type: seed.kind,
           videoCount: seed.contentDetails.itemCount,
-          user_id: user._id
+          user_id: user
         };
       });
 
@@ -116,14 +116,14 @@ module.exports = app => {
   );
 
   app.post(
-    '/api/youtube_accounting_video',
-    middleware.isLoggedIn,
+    '/api/youtube_accounting_video' /* ,
+    middleware.isLoggedIn */,
     async (req, res) => {
       const videoId = req.body.id;
       const user = req.body.user;
       const response = await youtube.videos.list({
         id: videoId,
-        part: 'snippet,statistics'
+        part: 'snippet,contentDetails,statistics'
       });
 
       const responseData = response.data.items;
@@ -142,10 +142,11 @@ module.exports = app => {
           likes: 0,
           youtubeId: seed.id,
           source: 'youtube.com',
+          duration: seed.contentDetails.duration,
           type: seed.kind,
           youtubeviews: seed.statistics.viewCount,
           youtubelikes: seed.statistics.likeCount,
-          user_id: user._id
+          user_id: user
         };
       });
 

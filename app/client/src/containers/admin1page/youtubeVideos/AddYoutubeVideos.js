@@ -9,7 +9,6 @@ class ManageYoutubeVideos extends Component {
 
     componentDidMount() {
         this.props.onFetchSubjects();
-        // this.props.onFetchUser();
     }
 
     state = {
@@ -28,6 +27,16 @@ class ManageYoutubeVideos extends Component {
             value: '',
             label: "Enter Video Id(s)", 
             name: "youtubeVideo",
+            validation: {
+                required: true
+            },
+            valid: false,
+            touched: false,
+        },
+        agent: {
+            value: '',
+            label: "agent", 
+            name: "agent",
             validation: {
                 required: true
             },
@@ -67,6 +76,56 @@ class ManageYoutubeVideos extends Component {
         return isValid;
     }
 
+
+    submitYoutubeVideoHandler = (event) => {
+        event.preventDefault();
+
+        if ( this.props.youtubeVideoAddedFeedback && !this.state.youtubeVideo.touched) {
+            const youtubeUpdated = {
+                ...this.state.youtubeVideo,
+                touched: true,
+                valid: false
+            }
+            this.setState({ youtubeVideo: youtubeUpdated, fillError: 'Add new'});
+
+        } else if (!this.state.youtubeVideo.touched || this.state.youtubeVideo.value === '') {
+            const youtubeUpdated = {
+                ...this.state.youtubeVideo,
+                touched: true,
+                valid: false
+            }
+            this.setState({ youtubeVideo: youtubeUpdated, fillError: 'Please fill all fields'});
+
+        } else if ( !this.state.subject.touched && this.state.subject.value === '') {
+            const subjectUpdated = {
+                ...this.state.subject,
+                touched: true,
+                valid: false
+            }
+            this.setState({ subject: subjectUpdated, fillError: 'Please fill all fields'});
+
+        } else if ( !this.state.agent.touched && this.state.agent.value === '') {
+            const agentUpdated = {
+                ...this.state.agent,
+                touched: true,
+                valid: false
+            }
+            this.setState({ agent: agentUpdated, fillError: 'Please fill all fields'});
+
+        } else {
+            this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value, this.state.agent.value);
+            
+            const youtubeReset = {
+                    ...this.state.youtubeVideo,
+                    value: '',
+                    touched: false
+                }
+            
+            this.setState({ youtubeVideo: youtubeReset});
+        }
+        
+    }
+
     youtubeVideoInputChangedHandler = (event) => {
         const updated = {
             ...this.state.youtubeVideo,
@@ -74,43 +133,7 @@ class ManageYoutubeVideos extends Component {
             valid: this.checkValidity(event.target.value, this.state.youtubeVideo.validation),
             touched: true,   
         }
-        this.setState({ youtubeVideo: updated});  
-    }
-
-    submitYoutubeVideoHandler = (event) => {
-        event.preventDefault();
-
-        if ((!this.state.youtubeVideo.touched || this.state.youtubeVideo.value === '') && (!this.state.subject.touched || this.state.subject.value === '')) {
-            const youtubeUpdated = {
-                ...this.state.youtubeVideo,
-                touched: true,
-                valid: false
-            }
-            this.setState({ youtubeVideo: youtubeUpdated});
-
-            const subjectUpdated = {
-                ...this.state.subject,
-                touched: true,
-                valid: false
-            }
-            this.setState({ subject: subjectUpdated});
-
-            this.setState({ fillError: 'Please fill all fields' });
-        } else {
-            this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value, this.props.user);
-            
-            const youtubeReset = {
-                    ...this.state.youtubeVideo,
-                    value: ''
-                }
-            const subjectReset = {
-                ...this.state.subject,
-                value: ''
-            }
-
-            this.setState({ youtubeVideo: youtubeReset, subject: subjectReset});
-        }
-        
+        this.setState({ youtubeVideo: updated, fillError: null});  
     }
 
     subjectChangedHandler = (event) => {
@@ -120,7 +143,18 @@ class ManageYoutubeVideos extends Component {
             valid: this.checkValidity(event.target.value, this.state.subject.validation),
             touched: true
         }
-        this.setState({ subject: updated});
+        this.setState({ subject: updated, fillError: null});
+       
+    }
+
+    agentChangedHandler = (event) => {
+        const updated = {
+            ...this.state.agent,
+            value: event.target.value,
+            valid: this.checkValidity(event.target.value, this.state.agent.validation),
+            touched: true
+        }
+        this.setState({ agent: updated, fillError: null});
        
     }
 
@@ -175,7 +209,16 @@ class ManageYoutubeVideos extends Component {
                     elementConfig={this.elementConfig()}
                     changed={(event) => this.subjectChangedHandler(event)}
                     />
-                    { (!this.state.youtubeVideo.valid && this.state.youtubeVideo.touched) || (!this.state.subject.valid && this.state.subject.touched) ? 
+                    <Input 
+                    label={this.state.agent.label} 
+                    name={this.state.agent.name}
+                    value={this.state.agent.value}
+                    invalid={!this.state.agent.valid}
+                    shouldValidate={this.state.agent.validation}
+                    touched={this.state.agent.touched}
+                    changed={(event) => this.agentChangedHandler(event)}
+                    />
+                    { (!this.state.youtubeVideo.valid && this.state.youtubeVideo.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.agent.valid && this.state.agent.touched) || this.state.fillError ? 
                         <Button btnType='Danger' disabled> Add </Button> :
                         <Button btnType='Success'> Add </Button>    
                     }

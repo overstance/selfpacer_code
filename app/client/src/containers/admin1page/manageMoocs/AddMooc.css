@@ -63,13 +63,13 @@
     font-size: small;
 }
 
-.Form select {
+/* .Form select {
     font-weight: 400;
 }
 
 .Form input {
     font-weight: 400;
-}
+} */
 
 .FillError {
     color: var(--red);

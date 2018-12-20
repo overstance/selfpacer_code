@@ -24,17 +24,42 @@ const resource = (props) => {
                                     <div>
                                         <div className={classes.Type}>SOURCE:<span>{props.source}</span></div>
                                     </div>
-                                    <div>
-                                        <div className={classes.Type}>PUBLISHED:<span>{props.publishDate}</span></div>
-                                    </div>
+                                    { props.publishDate ? 
+                                        <div>
+                                            <div className={classes.Type}>PUBLISHED:<span>{props.publishDate}</span></div>
+                                        </div> : null
+                                    }
+                                    { props.lastUpdated ? 
+                                        <div>
+                                            <div className={classes.Type}>LAST-UPDATED:<span>{props.lastUpdated}</span></div>
+                                        </div> : null
+                                    }
                                     <div>
                                         <div className={classes.Type}>TYPE:<span>{props.type}</span></div>
                                     </div>
-                                    {props.videoCount ? <div className={classes.DetailsColumnFlex}>
-                                        <div className={classes.Type}>VIDEOCOUNT:<span>{props.videoCount}</span></div>
-                                    </div> : <div className={classes.DetailsColumnFlex}>
-                                        <div className={classes.Type}>YOUTUBEVIEWS:<span>{props.youtubeViews}</span></div>
-                                    </div>}   
+                                    { props.tutor ?
+                                        <div>
+                                            <div className={classes.Type}>TUTOR:<span>{props.tutor}</span></div>
+                                        </div> : null
+                                    }
+                                    { props.enrollees ?
+                                        <div>
+                                            <div className={classes.Type}>ENROLLEES:<span>{props.enrollees}</span></div>
+                                        </div> : null
+                                    }
+                                    { props.duration ?
+                                        <div>
+                                            <div className={classes.Type}>DURATION:<span>{props.duration}</span></div>
+                                        </div> : null
+                                    }
+                                    { props.videoCount ? 
+                                        <div className={classes.DetailsColumnFlex}>
+                                            <div className={classes.Type}>VIDEOCOUNT:<span>{props.videoCount}</span></div>
+                                        </div> :
+                                        <div className={classes.DetailsColumnFlex}>
+                                            <div className={classes.Type}>YOUTUBEVIEWS:<span>{props.youtubeViews}</span></div>
+                                        </div>
+                                    }   
                                 </div>
                             </div>
                         </div>

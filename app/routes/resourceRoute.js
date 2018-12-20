@@ -11,8 +11,23 @@ module.exports = app => {
     ) {
       if (err) {
         console.log(err);
+        res.send(err.message);
       } else {
-        res.send({ accountingRes: resources });
+        res.send({ youtubeAccounting: resources });
+      }
+    });
+  });
+
+  app.get('/api/mooc_accounting', (req, res) => {
+    Resource.find({ category: 'Accounting', type: 'mooc' }, function(
+      err,
+      resources
+    ) {
+      if (err) {
+        console.log(err);
+        res.send(err.message);
+      } else {
+        res.send({ moocAccounting: resources });
       }
     });
   });

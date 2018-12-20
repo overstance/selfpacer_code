@@ -1,36 +1,18 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+function shuffleArray(array) {
+    let i = array.length - 1;
+    for (; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+} 
+
 // Fetch youtube accounting
-
-export const fetchYoutubeAccounting = () => {
-    return dispatch => {
-        dispatch(fetchYoutubeAccountingStart());
-
-        axios.get( '/api/youtube_accounting')
-            .then(                
-                res => {
-                const youtubeAccounting = [...res.data.accountingRes];
-
-                function shuffleArray(array) {
-                    let i = array.length - 1;
-                    for (; i > 0; i--) {
-                      const j = Math.floor(Math.random() * (i + 1));
-                      const temp = array[i];
-                      array[i] = array[j];
-                      array[j] = temp;
-                    }
-                    return array;
-                } 
-
-                const youtubeShuffled = shuffleArray(youtubeAccounting);
-                dispatch(fetchYoutubeAccountingSuccess(youtubeShuffled));
-            } )
-            .catch( err => {
-                dispatch(fetchYoutubeAccountingFail(err));
-            } );
-    };
-};
 
 export const fetchYoutubeAccountingSuccess = ( resources ) => {
     return {
@@ -51,4 +33,58 @@ export const fetchYoutubeAccountingStart = () => {
         type: actionTypes.FETCH_YOUTUBE_ACCOUNTING_START
     };
 };
+
+export const fetchYoutubeAccounting = () => async dispatch => {
+   
+    dispatch(fetchYoutubeAccountingStart());
+
+    const res = await axios.get( '/api/youtube_accounting');
+
+    if (res.data.youtubeAccounting) {
+        const youtubeAccounting = [...res.data.youtubeAccounting];
+
+        const youtubeShuffled = shuffleArray(youtubeAccounting);
+        dispatch(fetchYoutubeAccountingSuccess(youtubeShuffled));
+    } else {
+        dispatch(fetchYoutubeAccountingFail(res.data)); 
+    }
+};
+
+// Fetch mooc accounting resources
+
+export const fetchMoocAccountingStart = () => {
+    return {
+        type: actionTypes.FETCH_MOOC_ACCOUNTING_START
+    }
+}
+
+export const fetchMoocAccountingSuccess = ( resources ) => {
+    return {
+        type: actionTypes.FETCH_MOOC_ACCOUNTING_SUCCESS,
+        resources: resources 
+    }
+}
+
+export const fetchMoocAccountingFailed = ( error ) => {
+    return {
+        type: actionTypes.FETCH_MOOC_ACCOUNTING_FAILED,
+        error: error 
+    }
+}
+
+export const fetchMoocAccounting = () => async dispatch => {
+    dispatch(fetchMoocAccountingStart());
+
+    const res = await axios.get('/api/mooc_accounting');
+
+    if (res.data.moocAccounting) {
+        const moocAccounting = [...res.data.moocAccounting];
+
+        const moocShuffled = shuffleArray(moocAccounting);
+
+        dispatch(fetchMoocAccountingSuccess(moocShuffled));
+    } else dispatch(fetchMoocAccountingFailed(res.data));
+}
+
+
 

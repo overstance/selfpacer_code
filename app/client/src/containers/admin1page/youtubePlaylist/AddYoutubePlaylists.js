@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
 
-class ManageYoutubePlaylists extends Component {
+class AddYoutubePlaylists extends Component {
 
     componentDidMount() {
         this.props.onFetchSubjects();
@@ -27,6 +27,16 @@ class ManageYoutubePlaylists extends Component {
             value: '',
             label: "Enter Playlist Id(s)", 
             name: "youtubePlaylist",
+            validation: {
+                required: true
+            },
+            valid: false,
+            touched: false,
+        },
+        agent: {
+            value: '',
+            label: "agent", 
+            name: "agent",
             validation: {
                 required: true
             },
@@ -71,34 +81,47 @@ class ManageYoutubePlaylists extends Component {
     submitYoutubePlaylistHandler = (event) => {
         event.preventDefault();
 
-        if ((!this.state.youtubePlaylist.touched || this.state.youtubePlaylist.value === '') && (!this.state.subject.touched || this.state.subject.value === '')) {
+        if ( this.props.youtubeVideoAddedFeedback && !this.state.youtubePlaylist.touched) {
             const youtubeUpdated = {
                 ...this.state.youtubePlaylist,
                 touched: true,
                 valid: false
             }
-            this.setState({ youtubePlaylist: youtubeUpdated});
+            this.setState({ youtubePlaylist: youtubeUpdated, fillError: 'Add new'})
 
+        } else if (!this.state.youtubePlaylist.touched || this.state.youtubePlaylist.value === '') {
+            const youtubeUpdated = {
+                ...this.state.youtubePlaylist,
+                touched: true,
+                valid: false
+            }
+            this.setState({ youtubePlaylist: youtubeUpdated, fillError: 'Please fill all fields'});
+
+        } else if (!this.state.subject.touched || this.state.subject.value === '') {
             const subjectUpdated = {
                 ...this.state.subject,
                 touched: true,
                 valid: false
             }
-            this.setState({ subject: subjectUpdated});
+            this.setState({ subject: subjectUpdated, fillError: 'Please fill all fields'});
 
-            this.setState({ fillError: 'Please fill all fields' });
+        } else if (!this.state.agent.touched || this.state.agent.value === '') {
+            const agentUpdated = {
+                ...this.state.agent,
+                touched: true,
+                valid: false
+            }
+            this.setState({ agent: agentUpdated, fillError: 'Please fill all fields'});
+
         } else {
-            this.props.onAddYoutubePlaylist(this.state.youtubePlaylist.value, this.state.subject.value, this.props.user);
+            this.props.onAddYoutubePlaylist(this.state.youtubePlaylist.value, this.state.subject.value, this.state.agent.value);
             const youtubeReset = {
                     ...this.state.youtubePlaylist,
-                    value: ''
+                    value: '',
+                    touched: false
                 }
-            const subjectReset = {
-                ...this.state.subject,
-                value: ''
-            }
 
-            this.setState({ youtubePlaylist: youtubeReset, subject: subjectReset});
+            this.setState({ youtubePlaylist: youtubeReset });
         }
         
     }  
@@ -110,7 +133,7 @@ class ManageYoutubePlaylists extends Component {
             valid: this.checkValidity(event.target.value, this.state.youtubePlaylist.validation),
             touched: true,   
         }
-        this.setState({ youtubePlaylist: updated});   
+        this.setState({ youtubePlaylist: updated, fillError: null});   
     }  
 
     subjectChangedHandler = (event) => {
@@ -120,7 +143,18 @@ class ManageYoutubePlaylists extends Component {
             valid: this.checkValidity(event.target.value, this.state.subject.validation),
             touched: true
         }
-        this.setState({ subject: updated});
+        this.setState({ subject: updated, fillError: null});
+    }
+
+    agentChangedHandler = (event) => {
+        const updated = {
+            ...this.state.agent,
+            value: event.target.value,
+            valid: this.checkValidity(event.target.value, this.state.agent.validation),
+            touched: true
+        }
+        this.setState({ agent: updated, fillError: null});
+       
     }
 
     elementConfig = () => {
@@ -174,7 +208,16 @@ class ManageYoutubePlaylists extends Component {
                     elementConfig={this.elementConfig()}
                     changed={(event) => this.subjectChangedHandler(event)}
                     />
-                    { (!this.state.youtubePlaylist.valid && this.state.youtubePlaylist.touched) || (!this.state.subject.valid && this.state.subject.touched) ? 
+                    <Input 
+                    label={this.state.agent.label} 
+                    name={this.state.agent.name}
+                    value={this.state.agent.value}
+                    invalid={!this.state.agent.valid}
+                    shouldValidate={this.state.agent.validation}
+                    touched={this.state.agent.touched}
+                    changed={(event) => this.agentChangedHandler(event)}
+                    />
+                    { (!this.state.youtubePlaylist.valid && this.state.youtubePlaylist.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.agent.valid && this.state.agent.touched) || this.state.fillError ? 
                         <Button btnType='Danger' disabled> Add </Button> :
                         <Button btnType='Success'> Add </Button>    
                     }
@@ -211,4 +254,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (ManageYoutubePlaylists);
+export default connect(mapStateToProps, mapDispatchToProps) (AddYoutubePlaylists);

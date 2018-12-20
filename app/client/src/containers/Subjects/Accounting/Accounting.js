@@ -18,6 +18,7 @@ class Accounting extends Component {
 
         this.props.onFetchAccounting();
         this.props.onFetchYoutubeAccounting();
+        this.props.onFetchMoocAccounting();
 
         if (this.props.activeContent === 'youtube') {
             this.setState({
@@ -194,7 +195,7 @@ class Accounting extends Component {
         let subjectPath = <div className={classes.SpinnerContainer}> <Spinner /> </div>;
         let subjectCurriculum = <div className={classes.SpinnerContainer}> <Spinner /> </div>;
 
-        if ( !this.props.loading ) {          
+        if ( !this.props.clickedSubjectLoading ) {          
             const paths = Subject.map( subject => (subject.paths));
             const curricula = Subject.map( subject => (subject.curriculum));
             subjectPath = paths.map( (path) => path.map((x, i) => <li key={i}>{x}</li>));
@@ -208,8 +209,9 @@ class Accounting extends Component {
         }
 
         let youtube = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
+        let mooc = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
 
-        if ( !this.props.resourceLoading ) {
+        if ( !this.props.youtubeLoading ) {
             // const youtubeShuffled = shuffleArray(this.props.youtube);
             youtube = this.props.youtube.map( (resource, i) => (
                    <Resource
@@ -219,32 +221,76 @@ class Accounting extends Component {
                    image={resource.img}
                    title={resource.title}
                    likes={resource.likes}
-                   dislikes={resource.dislikes}
+                   lastUpdated={resource.lastUpdated}
+                   tutor={resource.tutor}
+                   enrollees={resource.enrollees}
+                   duration={resource.duration}
                    youtubeViews={resource.youtubeviews}
                    publishDate={resource.publishDate}
                    source={resource.source}
                    type={resource.type}
                    videoCount={resource.videoCount}
                    clicked={() => this.resourceClickedHandler(resource.type, resource._id)}
-                   likeclicked={() => this.likeHandler( resource._id, resource.likes, resource.img, resource.link, resource.title )}
+                   likeclicked={() => this.likeHandler( resource._id, resource.likes/* , resource.img, resource.link, resource.title */ )}
                    collectclicked={() => this.collectHandler( resource._id, resource.img, resource.title )}
                    />
             ) )
         }
 
-        const youtubePlusAddButton = 
-            <div>
-                <div className={classes.AddIconContainer}>
-                    <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
-                    <div className={classes.AddInfo}>ADD YOUTUBE RESOURCE</div>
-                </div>
-                {youtube}
+        if ( !this.props.moocLoading ) {
+            // const youtubeShuffled = shuffleArray(this.props.youtube);
+            mooc = this.props.mooc.map( (resource, i) => (
+                   <Resource
+                   key={i}
+                   id={resource._id} 
+                   link={resource.link}
+                   image={resource.img}
+                   title={resource.title}
+                   likes={resource.likes}
+                   lastUpdated={resource.lastUpdated}
+                   tutor={resource.tutor}
+                   enrollees={resource.enrollees}
+                   duration={resource.duration}
+                   youtubeViews={resource.youtubeviews}
+                   publishDate={resource.publishDate}
+                   source={resource.source}
+                   type={resource.type}
+                   videoCount={resource.videoCount}
+                   clicked={() => this.resourceClickedHandler(resource.type, resource._id)}
+                   likeclicked={() => this.likeHandler( resource._id, resource.likes/* , resource.img, resource.link, resource.title */ )}
+                   collectclicked={() => this.collectHandler( resource._id, resource.img, resource.title )}
+                   />
+            ) )
+        }
+
+        const youtubeContent = 
+        <div>
+            <div className={classes.AddIconContainer}>
+                <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
+                <div className={classes.AddInfo}>ADD YOUTUBE RESOURCE</div>
             </div>
+            {youtube}
+            {this.props.fetchYoutubeResourceError}
+        </div>
+
+        const moocContent = 
+        <div>
+            <div className={classes.AddIconContainer}>
+                <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
+                <div className={classes.AddInfo}>ADD MOOC RESOURCE</div>
+            </div>
+            {mooc}
+            {this.props.fetchMoocResourcesError}
+        </div>
 
         let pageContent = null;
 
         if (this.state.youtubeActive) {
-            pageContent = youtubePlusAddButton;
+            pageContent = youtubeContent;
+        }
+
+        if (this.state.moocActive) {
+            pageContent = moocContent
         }
 
         return (
@@ -303,14 +349,23 @@ class Accounting extends Component {
 
 const mapStateToProps = state => {
     return {
-        loading: state.clickedSubject.loading,
-        subject: state.clickedSubject.subject,
-        youtube: state.accounting.youtubeResources,
-        resourceLoading: state.accounting.loading,
         isAuthenticated: state.auth.isAuthenticated,
-        activeContent: state.explore.activeContentType,
         userId: state.auth.user._id,
         userLikedResources: state.auth.user.likedResources,
+
+        clickedSubjectLoading: state.clickedSubject.loading,
+        subject: state.clickedSubject.subject,
+
+        activeContent: state.explore.activeContentType,
+
+        youtube: state.accounting.youtubeResources,
+        youtubeLoading: state.accounting.youtubeLoading,
+        fetchYoutubeResourceError: state.accounting.fetchYoutubeResourceError,
+
+        mooc: state.accounting.moocResources,
+        moocLoading: state.accounting.moocLoading,
+        fetchMoocResourcesError: state.accounting.fetchMoocResourcesError,
+
         settedUserRecentlyViewed: state.resource.userRecentlyViewed,
         userLikeCount: state.resource.userLikeCount
     };
@@ -320,6 +375,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchAccounting: () => dispatch( actions.fetchAccounting() ),
         onFetchYoutubeAccounting: () => dispatch ( actions.fetchYoutubeAccounting() ),
+        onFetchMoocAccounting: () => dispatch ( actions.fetchMoocAccounting()),
         onSetClickedPlatform: ( platform ) => dispatch ( actions.setClickedPlatform( platform ) ),
         onResourceLiked: ( id, likes ) => dispatch ( actions.resourceLiked( id, likes )),
         onSetToCollectResource: ( resourceId, image, title ) => dispatch ( actions.setToCollectResource( resourceId, image, title )),
@@ -334,8 +390,7 @@ const mapDispatchToProps = dispatch => {
 Accounting.propTypes = {
     onFetchAccounting: PropTypes.func.isRequired,
     onFetchYoutubeAccounting: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
-    subject: PropTypes.array.isRequired,
+    subject: PropTypes.array.isRequired
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )( Accounting );

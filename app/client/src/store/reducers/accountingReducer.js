@@ -3,27 +3,53 @@ import { updateObject } from '../utility';
 
 const initialState = {
     youtubeResources: [],
+    youtubeLoading: false,
+    fetchYoutubeResourceError: null,
+
     moocResources: [],
-    webResources: [],
+    moocLoading: false,
+    fetchMoocResourcesError: null,
+
     bookResources: [],
-    loading: false,
+    booksLoading: false,
     error: null
 };
 
+// fetch youtube
+
+const fetchMoocAccountingStart = ( state, action ) => {
+    return updateObject( state, { moocLoading: true } );
+};
+
+const fetchMoocAccountingSuccess = ( state, action ) => {
+    return updateObject( state, {
+        moocResources: action.resources,
+        moocLoading: false
+    } );
+};
+
+const fetchMoocAccountingFail = ( state, action ) => {
+    return updateObject( state, { moocLoading: false, fetchMoocResourcesError: action.error } );
+};
+
+// fetch mooc
+
 const fetchYoutubeAccountingStart = ( state, action ) => {
-    return updateObject( state, { loading: true } );
+    return updateObject( state, { youtubeLoading: true } );
 };
 
 const fetchYoutubeAccountingSuccess = ( state, action ) => {
     return updateObject( state, {
         youtubeResources: action.resources,
-        loading: false
+        youtubeLoading: false
     } );
 };
 
 const fetchYoutubeAccountingFail = ( state, action ) => {
-    return updateObject( state, { loading: false, error: action.error } );
+    return updateObject( state, { youtubeLoading: false, fetchYoutubeResourceError: action.error } );
 };
+
+
 
 //Reducer
 
@@ -32,6 +58,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_YOUTUBE_ACCOUNTING_START: return fetchYoutubeAccountingStart( state, action );
         case actionTypes.FETCH_YOUTUBE_ACCOUNTING_SUCCESS: return fetchYoutubeAccountingSuccess( state, action );
         case actionTypes.FETCH_YOUTUBE_ACCOUNTING_FAIL: return fetchYoutubeAccountingFail( state, action );
+
+        case actionTypes.FETCH_MOOC_ACCOUNTING_START: return fetchMoocAccountingStart( state, action );
+        case actionTypes.FETCH_MOOC_ACCOUNTING_SUCCESS: return fetchMoocAccountingSuccess( state, action );
+        case actionTypes.FETCH_MOOC_ACCOUNTING_FAILED: return fetchMoocAccountingFail( state, action );
 
         default: return state;
     }

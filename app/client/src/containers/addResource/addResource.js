@@ -59,7 +59,7 @@ class AddResources extends Component {
         },
         resource: {
             value: '',
-            label: "Enter Resource Link(s)", 
+            label: "Enter Resource Url", 
             name: "resource",
             validation: {
                 required: true

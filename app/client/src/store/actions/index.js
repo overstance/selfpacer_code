@@ -27,7 +27,8 @@ export {
     fetchAccounting,
 } from './clickedSubject';
 export {
-    fetchYoutubeAccounting
+    fetchYoutubeAccounting,
+    fetchMoocAccounting
 } from './accounting';
 export {
     addAdminUser,

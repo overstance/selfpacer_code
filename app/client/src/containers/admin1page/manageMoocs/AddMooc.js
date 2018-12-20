@@ -119,7 +119,6 @@ class AddMooc extends Component {
                 value: '', 
                 validation: {
                     required: true,
-                    isNumeric: true
                 },
                 valid: false,
                 touched: false,
