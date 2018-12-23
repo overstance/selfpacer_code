@@ -1,8 +1,19 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+function shuffleArray(array) {
+    let i = array.length - 1;
+    for (; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+}
 
-// ************ACTIONS
+
+// Fetch Subject
 
 export const fetchSubjectsSuccess = ( subjects ) => {
     return {
@@ -24,37 +35,24 @@ export const fetchSubjectsStart = () => {
     };
 };
 
-export const updateClickedSubject = ( clickedSubject ) => {
-    return {
-        type: actionTypes.UPDATE_CLICKED_SUBJECT,
-        clickedSubject: clickedSubject,
+export const fetchSubjects = () => {
+    return dispatch => {
+        dispatch(fetchSubjectsStart());
+        
+        axios.get( '/api/explore' )
+            .then( 
+                
+                res => {
+                const fetchedSubjects = [...res.data.subjects];
+
+                const shuffledSubjects = shuffleArray(fetchedSubjects)
+                dispatch(fetchSubjectsSuccess(shuffledSubjects));
+            } )
+            .catch( err => {
+                dispatch(fetchSubjectsFail(err));
+            } );
     };
 };
-
-//Set to Id of Resource to Collect
-
-
-
-//Set resources page content type to all, youtube, mooc, or books
-
-export const setActiveContentType = ( platform ) => {
-    return {
-        type: actionTypes.SET_ACTIVE_CONTENT_TYPE,
-        platform: platform
-    }
-}
-
-//Set selected category to either business, technology, creative, lifeStyle
-
-export const setSelectedCategory = ( category ) => {
-    return {
-        type: actionTypes.SET_SELECTED_CATEGORY,
-        category: category
-    }
-}
-
-
-//*********/DISPATCHES
 
 export const fetchCreativeSubjects = ( history ) => {
 
@@ -65,17 +63,7 @@ export const fetchCreativeSubjects = ( history ) => {
             .then( 
                 
                 res => {
-                const fetchedSubjects = [...res.data.subjects];
-                function shuffleArray(array) {
-                    let i = array.length - 1;
-                    for (; i > 0; i--) {
-                      const j = Math.floor(Math.random() * (i + 1));
-                      const temp = array[i];
-                      array[i] = array[j];
-                      array[j] = temp;
-                    }
-                    return array;
-                } 
+                const fetchedSubjects = [...res.data.subjects]; 
 
                 const shuffledSubjects = shuffleArray(fetchedSubjects)
                 dispatch(fetchSubjectsSuccess(shuffledSubjects));
@@ -96,17 +84,7 @@ export const fetchBusinessSubjects = () => {
             .then( 
                 
                 res => {
-                const fetchedSubjects = [...res.data.subjects];
-                function shuffleArray(array) {
-                    let i = array.length - 1;
-                    for (; i > 0; i--) {
-                      const j = Math.floor(Math.random() * (i + 1));
-                      const temp = array[i];
-                      array[i] = array[j];
-                      array[j] = temp;
-                    }
-                    return array;
-                } 
+                const fetchedSubjects = [...res.data.subjects]; 
 
                 const shuffledSubjects = shuffleArray(fetchedSubjects)
                 dispatch(fetchSubjectsSuccess(shuffledSubjects));
@@ -128,16 +106,6 @@ export const fetchTechnologySubjects = () => {
                 
                 res => {
                 const fetchedSubjects = [...res.data.subjects];
-                function shuffleArray(array) {
-                    let i = array.length - 1;
-                    for (; i > 0; i--) {
-                      const j = Math.floor(Math.random() * (i + 1));
-                      const temp = array[i];
-                      array[i] = array[j];
-                      array[j] = temp;
-                    }
-                    return array;
-                } 
 
                 const shuffledSubjects = shuffleArray(fetchedSubjects)
                 dispatch(fetchSubjectsSuccess(shuffledSubjects));
@@ -158,17 +126,7 @@ export const fetchLifeStyleSubjects = () => {
             .then( 
                 
                 res => {
-                const fetchedSubjects = [...res.data.subjects];
-                function shuffleArray(array) {
-                    let i = array.length - 1;
-                    for (; i > 0; i--) {
-                      const j = Math.floor(Math.random() * (i + 1));
-                      const temp = array[i];
-                      array[i] = array[j];
-                      array[j] = temp;
-                    }
-                    return array;
-                } 
+                const fetchedSubjects = [...res.data.subjects]; 
 
                 const shuffledSubjects = shuffleArray(fetchedSubjects)
                 dispatch(fetchSubjectsSuccess(shuffledSubjects));
@@ -180,33 +138,12 @@ export const fetchLifeStyleSubjects = () => {
 
 }
 
-export const fetchSubjects = () => {
-    return dispatch => {
-        dispatch(fetchSubjectsStart());
-        
-        axios.get( '/api/explore' )
-            .then( 
-                
-                res => {
-                const fetchedSubjects = [...res.data.subjects];
+//Increase subject view count and set clicked Subject
 
-                function shuffleArray(array) {
-                    let i = array.length - 1;
-                    for (; i > 0; i--) {
-                      const j = Math.floor(Math.random() * (i + 1));
-                      const temp = array[i];
-                      array[i] = array[j];
-                      array[j] = temp;
-                    }
-                    return array;
-                } 
-
-                const shuffledSubjects = shuffleArray(fetchedSubjects)
-                dispatch(fetchSubjectsSuccess(shuffledSubjects));
-            } )
-            .catch( err => {
-                dispatch(fetchSubjectsFail(err));
-            } );
+export const updateClickedSubject = ( clickedSubject ) => {
+    return {
+        type: actionTypes.UPDATE_CLICKED_SUBJECT,
+        clickedSubject: clickedSubject,
     };
 };
 
@@ -228,3 +165,30 @@ export const increaseViews = ( id, views, clickedSubject ) => {
         );
     }
 };
+
+//Set resources page content type to all, youtube, mooc, or books
+
+export const setActiveContentType = ( platform ) => {
+    return {
+        type: actionTypes.SET_ACTIVE_CONTENT_TYPE,
+        platform: platform
+    }
+}
+
+//Set selected category to either business, technology, creative, lifeStyle
+
+export const setSelectedCategory = ( category ) => {
+    return {
+        type: actionTypes.SET_SELECTED_CATEGORY,
+        category: category
+    }
+}
+
+// set liked resource
+
+export const setLikedResource = ( id ) => {
+    return {
+        type: actionTypes.SET_LIKED_RESOURCE,
+        id: id
+    }
+}

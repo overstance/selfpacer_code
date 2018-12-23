@@ -23,11 +23,13 @@ module.exports = app => {
   });
 
   app.post(
-    '/api/youtube_accounting_playlist' /* ,
+    '/api/youtube_playlist' /* ,
     middleware.isLoggedIn */,
     async (req, res) => {
       const playlistId = req.body.id;
       const user = req.body.user;
+      const subject = req.body.subject;
+
       const response = await youtube.playlists.list({
         id: playlistId,
         part: 'snippet,contentDetails'
@@ -40,7 +42,7 @@ module.exports = app => {
         const year = pdate.getFullYear();
         return {
           publishDate: year,
-          category: 'Accounting',
+          category: subject,
           title: seed.snippet.title,
           img: seed.snippet.thumbnails.medium.url,
           link: 'https://www.youtube.com/results?search_query=' + seed.id,
@@ -68,11 +70,10 @@ module.exports = app => {
     }
   );
 
-  app.put(
-    '/api/youtube_accounting_playlist',
-    middleware.isLoggedIn,
-    (req, res) => {
-      Resource.find({ type: 'youtube#playlist' }, async (err, resources) => {
+  app.put('/api/youtube_playlist', middleware.isLoggedIn, (req, res) => {
+    Resource.find(
+      { type: 'youtube#playlist', category: req.body.subject },
+      async (err, resources) => {
         if (err) {
           console.log(err);
         } else {
@@ -111,16 +112,18 @@ module.exports = app => {
 
           res.send(playlistIds);
         }
-      });
-    }
-  );
+      }
+    );
+  });
 
   app.post(
-    '/api/youtube_accounting_video' /* ,
+    '/api/youtube_video' /* ,
     middleware.isLoggedIn */,
     async (req, res) => {
       const videoId = req.body.id;
       const user = req.body.user;
+      const subject = req.body.subject;
+
       const response = await youtube.videos.list({
         id: videoId,
         part: 'snippet,contentDetails,statistics'
@@ -134,7 +137,7 @@ module.exports = app => {
 
         return {
           publishDate: year,
-          category: 'Accounting',
+          category: subject,
           title: seed.snippet.title,
           img: seed.snippet.thumbnails.medium.url,
           link: 'https://www.youtube.com/results?search_query=' + seed.id,
@@ -164,11 +167,10 @@ module.exports = app => {
     }
   );
 
-  app.put(
-    '/api/youtube_accounting_video',
-    middleware.isLoggedIn,
-    (req, res) => {
-      Resource.find({ type: 'youtube#video' }, async (err, resources) => {
+  app.put('/api/youtube_video', middleware.isLoggedIn, (req, res) => {
+    Resource.find(
+      { type: 'youtube#video', category: req.body.subject },
+      async (err, resources) => {
         if (err) {
           console.log(err);
         } else {
@@ -211,7 +213,7 @@ module.exports = app => {
 
           res.send(videoIds);
         }
-      });
-    }
-  );
+      }
+    );
+  });
 };

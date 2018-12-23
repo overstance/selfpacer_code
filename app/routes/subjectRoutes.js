@@ -1,14 +1,21 @@
-/* const passport = require('passport');
-const mongoose = require('mongoose'); */
+const multer = require('multer');
 const keys = require('../config/keys');
 const { google } = require('googleapis');
+
 const youtube = google.youtube({
   version: 'v3',
   auth: keys.youtubeAPI
 });
 
-/*const googleapis = require('googleapis');
-googleapis.client.setApiKey(keys.youtubeAPI);*/
+const storage = multer.diskStorage({
+  destination: './uploads',
+  filename(req, file, cb) {
+    console.log(file);
+    cb(null, `${file.originalname}`);
+  }
+});
+
+const upload = multer({ storage });
 
 const Subject = require('../models/Subject');
 const User_resource = require('../models/User_resource');
@@ -81,6 +88,16 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/animation', (req, res) => {
+    Subject.find({ title: 'Animation' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
   app.get('/api/accounting_youtube', async (err, res) => {
     const response = await youtube.playlists.list({
       id: 'PL301238C9BC6E0B83,PLuDogk1rsivCeUWyWrHm1y1sBs2n7QeVL',
@@ -133,4 +150,14 @@ module.exports = app => {
       }
     });
   });
+
+  // this subjectIcon post route is pended on front end
+  app.post(
+    '/api/upload_subjectIcon',
+    upload.single('file'),
+    async (req, res) => {
+      console.log(req.body.file);
+      res.send(req.body.file);
+    }
+  );
 };

@@ -7,7 +7,8 @@ const initialState = {
     error: null,
     selectedCategory: 'all',
     clickedSubject: {},
-    activeContentType: null
+    activeContentType: null,
+    likedResource: null
 };
 
 const fetchSubjectsStart = ( state, action ) => {
@@ -44,6 +45,11 @@ const setSelectedCategory = ( state, action ) => {
     return updateObject( state, { selectedCategory: action.category } );
 };
 
+//Set liked resource
+const setLikedResource = ( state, action ) => {
+    return updateObject( state, { likedResource: action.id } );
+};
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.FETCH_SUBJECTS_START: return fetchSubjectsStart( state, action );
@@ -55,6 +61,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.SET_ACTIVE_CONTENT_TYPE: return setActiveContentType( state, action );
 
         case actionTypes.SET_SELECTED_CATEGORY: return setSelectedCategory( state, action );
+
+        case actionTypes.SET_LIKED_RESOURCE: return setLikedResource( state, action );
 
         default: return state;
     }

@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Resource.css';
 import PropTypes from 'prop-types';
-import noImageIcon from '../../assets/images/image.svg'
+import noImageIcon from '../../assets/images/image.svg';
+import {connect} from 'react-redux';
 
-const resource = (props) => {
-
-    return (
+class Resource extends Component {
+    render () {
+        return (
             <div className={classes.Resource}>
                 <a 
                 className={classes.MainContainer}
                 target="_blank" 
                 rel="noopener noreferrer" 
-                href={props.link}
-                onClick={props.clicked}
+                href={this.props.link}
+                onClick={this.props.clicked}
                 >
                     <div className={classes.ImgColumn}>
-                        { props.image ? 
-                            <img className={classes.ResourceImg} src={props.image} alt="resource" />
+                        { this.props.image ? 
+                            <img className={classes.ResourceImg} src={this.props.image} alt="resource" />
                             :
                             <img className={classes.ResourceImg} src={noImageIcon} alt="resource" />
                             }    
@@ -24,55 +25,55 @@ const resource = (props) => {
                     <div className={classes.InfoColumn}>
                         <div className={classes.InfoContainer}>
                             <div className={classes.TitleRow}>
-                                <div className={classes.Title}>{props.title}</div>
+                                <div className={classes.Title}>{this.props.title}</div>
                                 <div className={classes.DetailsContainer}>
                                     <div>
-                                        <div className={classes.Type}>SOURCE:<span>{props.source}</span></div>
+                                        <div className={classes.Type}>SOURCE:<span>{this.props.source}</span></div>
                                     </div>
-                                    { props.publishDate ? 
+                                    { this.props.publishDate ? 
                                         <div>
-                                            <div className={classes.Type}>PUBLISHED:<span>{props.publishDate}</span></div>
+                                            <div className={classes.Type}>PUBLISHED:<span>{this.props.publishDate}</span></div>
                                         </div> : null
                                     }
-                                    { props.lastUpdated ? 
+                                    { this.props.lastUpdated ? 
                                         <div>
-                                            <div className={classes.Type}>LAST-UPDATED:<span>{props.lastUpdated}</span></div>
+                                            <div className={classes.Type}>LAST-UPDATED:<span>{this.props.lastUpdated}</span></div>
                                         </div> : null
                                     }
                                     <div>
-                                        <div className={classes.Type}>TYPE:<span>{props.type}</span></div>
+                                        <div className={classes.Type}>TYPE:<span>{this.props.type}</span></div>
                                     </div>
-                                    { props.tutor ?
+                                    { this.props.tutor ?
                                         <div>
-                                            <div className={classes.Type}>TUTOR:<span>{props.tutor}</span></div>
+                                            <div className={classes.Type}>TUTOR:<span>{this.props.tutor}</span></div>
                                         </div> : null
                                     }
-                                    { props.author ?
+                                    { this.props.author ?
                                         <div>
-                                            <div className={classes.Type}>AUTHOR:<span>{props.author}</span></div>
+                                            <div className={classes.Type}>AUTHOR:<span>{this.props.author}</span></div>
                                         </div> : null
                                     }
-                                    { props.enrollees ?
+                                    { this.props.enrollees ?
                                         <div>
-                                            <div className={classes.Type}>ENROLLEES:<span>{props.enrollees}</span></div>
+                                            <div className={classes.Type}>ENROLLEES:<span>{this.props.enrollees}</span></div>
                                         </div> : null
                                     }
-                                    { props.duration ?
+                                    { this.props.duration ?
                                         <div>
-                                            <div className={classes.Type}>DURATION:<span>{props.duration}</span></div>
+                                            <div className={classes.Type}>DURATION:<span>{this.props.duration}</span></div>
                                         </div> : null
                                     }
-                                    { props.avgRating ?
+                                    { this.props.avgRating ?
                                         <div>
-                                            <div className={classes.Type}>AVG.RATING:<span>{props.avgRating}</span></div>
+                                            <div className={classes.Type}>AVG.RATING:<span>{this.props.avgRating}</span></div>
                                         </div> : null
                                     }
-                                    { props.videoCount ? 
+                                    { this.props.videoCount ? 
                                         <div className={classes.DetailsColumnFlex}>
-                                            <div className={classes.Type}>VIDEOCOUNT:<span>{props.videoCount}</span></div>
+                                            <div className={classes.Type}>VIDEOCOUNT:<span>{this.props.videoCount}</span></div>
                                         </div> :
                                         <div className={classes.DetailsColumnFlex}>
-                                            <div className={classes.Type}>YOUTUBEVIEWS:<span>{props.youtubeViews}</span></div>
+                                            <div className={classes.Type}>YOUTUBEVIEWS:<span>{this.props.youtubeViews}</span></div>
                                         </div>
                                     }   
                                 </div>
@@ -84,23 +85,36 @@ const resource = (props) => {
                 <div className={classes.FeedbackRow}>
                     <div className={classes.FeedbackContainer}>
                         <div className={classes.DetailsColumnFlex}>
-                            <div className={classes.Options}>
+                            { this.props.id === this.props.likedResource ?
+                                 <div className={classes.youLiked}>
+                                    <span className={classes.FeedbackText}>liked</span>
+                                </div> : null
+                            }
+                            <div className={classes.OptionsLike}>
                                 <span className={classes.FeedbackText}>like</span>
-                                <span onClick={props.likeclicked} className={classes.FeedBackIconLike}></span>
-                                {/* <span>{props.likes}</span> */}
+                                <span onClick={this.props.likeclicked} className={classes.FeedBackIconLike}></span>
+                                {/* <span>{this.props.likes}</span> */}
                             </div>
                         </div>
                         <div className={classes.Options}>
                             <span className={classes.FeedbackText}>collect</span>
-                            <span onClick={props.collectclicked} className={classes.FeedBackIconCollect}></span>
+                            <span onClick={this.props.collectclicked} className={classes.FeedBackIconCollect}></span>
                         </div>
                     </div>
                 </div>           
             </div> 
-    );
+        );
+    }
 };
 
-resource.propTypes= {
+const mapStateToProps = state => {
+    return {
+        likedResource: state.explore.likedResource
+    };
+};
+
+
+Resource.propTypes= {
     link: PropTypes.string.isRequired,
     image: PropTypes.string,
     publishDate: PropTypes.number,
@@ -113,13 +127,13 @@ resource.propTypes= {
     collectclicked: PropTypes.func.isRequired   
 }
 
-export default resource;
+export default connect(mapStateToProps)(Resource);
 
 /* 
 
         <div className={classes.Resource}>
             <Link
-            to={`/accounting/${props.id}`} 
+            to={`/accounting/${this.props.id}`} 
             className={classes.MainContainer}
             onClick={props.clicked}
             >

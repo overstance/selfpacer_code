@@ -101,26 +101,24 @@ export const adminUserRemoveFailed = ( error ) => {
 export const addYoutubePlaylist = (playlistId, subject, user) => {
     return dispatch => {
         dispatch (youtubePlaylistAddStart());
-        
 
-        if (subject === 'Accounting') {
-            const asset = {
-                id: playlistId,
-                user: user
-            };
-          
-            axios.post('/api/youtube_accounting_playlist', asset)
-            .then( res => {
-             
-                if (res.data.length >= 1) {
-                    dispatch(youtubePlaylistAdded(res.data, res.data.length));
-                } else {
-                    dispatch(youtubePlaylistAddFailed( 'error!'))
-                }
-            }).catch(err => 
-                dispatch(youtubePlaylistAddFailed(err.name))               
-            );  
-        }
+        const asset = {
+            id: playlistId,
+            user: user,
+            subject: subject
+        };
+        
+        axios.post('/api/youtube_playlist', asset)
+        .then( res => {
+            
+            if (res.data.length >= 1) {
+                dispatch(youtubePlaylistAdded(res.data, res.data.length));
+            } else {
+                dispatch(youtubePlaylistAddFailed( 'error!'))
+            }
+        }).catch(err => 
+            dispatch(youtubePlaylistAddFailed(err.name))               
+        );  
     }
 };
 
@@ -151,13 +149,13 @@ export const addYoutubeVideo = (videoId, subject, user) => {
     return dispatch => {
         dispatch (youtubeVideoAddStart());
         
-
-        if (subject === 'Accounting') {
             const asset = {
                 id: videoId,
-                user: user
+                user: user,
+                subject: subject
             };
-            axios.post('/api/youtube_accounting_video', asset)
+
+            axios.post('/api/youtube_video', asset)
             .then( res => {
                 if (res.data.length >= 1) {
                     dispatch(youtubeVideoAdded(res.data, res.data.length));
@@ -168,7 +166,6 @@ export const addYoutubeVideo = (videoId, subject, user) => {
                 dispatch(youtubeVideoAddFailed(err.name))               
             );  
         }
-    }
 };
 
 export const youtubeVideoAddStart = () => {
@@ -197,23 +194,21 @@ export const youtubeVideoAddFailed = ( error ) => {
 export const updateYoutubeVideos = (subject, user) => {
     return dispatch => {
         dispatch (youtubeVideosUpdateStart());
-        
-
-        if (subject === 'Accounting') {
-            const Admin = {
-                user: user
-            };
-            axios.put('/api/youtube_accounting_video', Admin)
-            .then( res => {
-                if (res.data.length >= 1) {
-                    dispatch(youtubeVideosUpdated(res.data, res.data.length));
-                } else {
-                    dispatch(youtubeVideosUpdateFailed( 'error!'))
-                }
-            }).catch(err => 
-                dispatch(youtubeVideosUpdateFailed(err.name))               
-            );  
-        }
+    
+        const Admin = {
+            user: user,
+            subject: subject
+        };
+        axios.put('/api/youtube_video', Admin)
+        .then( res => {
+            if (res.data.length >= 1) {
+                dispatch(youtubeVideosUpdated(res.data, res.data.length));
+            } else {
+                dispatch(youtubeVideosUpdateFailed( 'error!'))
+            }
+        }).catch(err => 
+            dispatch(youtubeVideosUpdateFailed(err.name))               
+        );  
     }
 };
 
@@ -243,13 +238,13 @@ export const youtubeVideosUpdateFailed = ( error ) => {
 export const updateYoutubePlaylists = (subject, user) => {
     return dispatch => {
         dispatch (youtubePlaylistsUpdateStart());
-        
 
-        if (subject === 'Accounting') {
             const Admin = {
-                user: user
+                user: user,
+                subject: subject
             };
-            axios.put('/api/youtube_accounting_playlist', Admin)
+
+            axios.put('/api/youtube_playlist', Admin)
             .then( res => {
                 if (res.data.length >= 1) {
                     dispatch(youtubePlaylistsUpdated(res.data, res.data.length));
@@ -260,7 +255,6 @@ export const updateYoutubePlaylists = (subject, user) => {
                 dispatch(youtubePlaylistsUpdateFailed(err.name))               
             );  
         }
-    }
 };
 
 export const youtubePlaylistsUpdateStart = () => {
@@ -416,4 +410,20 @@ export const addBooks = (subject, title, url, imageUrl, source, author, level, a
         console.log(res.data);
     }
 }
+
+// Add subject Icon(pending)
+
+export const onAddSubjectIcon = ( file ) => async dispatch => {  
+
+    let data = new FormData();
+    
+    data.append('file', file);
+
+    console.log(data);
+  
+    const res = await axios.post('/api/upload_subjectIcon', data);
+
+    console.log(res.data);
+       
+  }
 

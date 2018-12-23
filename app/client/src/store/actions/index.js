@@ -21,16 +21,15 @@ export {
     fetchLifeStyleSubjects,
     increaseViews,
     setActiveContentType,
-    setSelectedCategory
+    setSelectedCategory,
+    setLikedResource
 } from './explore';
 export {
     fetchAccounting,
+    fetchAllAccounting,
+    fetchAnimation,
+    fetchAllAnimation
 } from './clickedSubject';
-export {
-    fetchYoutubeAccounting,
-    fetchMoocAccounting,
-    fetchBooksAccounting
-} from './accounting';
 export {
     addAdminUser,
     removeAdminUser,
@@ -41,7 +40,8 @@ export {
     addMooc,
     clearAddMoocFeedbacks,
     addBooks,
-    clearAddBooksFeedbacks
+    clearAddBooksFeedbacks,
+    onAddSubjectIcon/* this action is pending */
 } from './admin1';
 
 export {
@@ -51,6 +51,7 @@ export {
     resourceLiked,
     updateUserRecentlyViewed,
     updateUserLikeCount,
+    increaseResourceViewCount,
     fetchUserAssets
 } from './resource';
 

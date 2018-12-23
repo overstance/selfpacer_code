@@ -13,7 +13,6 @@ import authReducer from './store/reducers/authReducer';
 import admin1Reducer from './store/reducers/admin1Reducer';
 import exploreReducer from './store/reducers/exploreReducer';
 import clickedSubjectReducer from './store/reducers/clickedSubjectReducer';
-import accountingReducer from './store/reducers/accountingReducer';
 import resourceReducer from './store/reducers/resourceReducer';
 import collectionReducer from './store/reducers/collectionReducer';
 import profileReducer from './store/reducers/profileReducer';
@@ -25,7 +24,6 @@ const rootReducer = combineReducers({
     auth: authReducer,
     explore: exploreReducer,
     clickedSubject: clickedSubjectReducer,
-    accounting: accountingReducer,
     admin1: admin1Reducer,
     resource: resourceReducer,
     collection: collectionReducer,

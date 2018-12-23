@@ -1,0 +1,11 @@
+.Form {
+    background: var(--darkBlue);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+    /* width: 400px; */
+}
+
+.ContainerItem {
+    padding: 5px;
+}

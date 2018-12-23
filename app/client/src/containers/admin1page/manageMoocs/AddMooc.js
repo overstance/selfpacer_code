@@ -272,23 +272,15 @@ class AddMooc extends Component {
     submitHandler = (event) => {
         event.preventDefault();
 
-        if ( this.props.addMoocSucessInfo && (!this.state.controls.title.touched || !this.state.controls.url.touched)  ) {
+        if ( this.props.addMoocSucessInfo && !this.state.subject.touched ) {
 
-            const updateControls = {
-                ...this.state.controls,
-                title: {
-                    ...this.state.controls.title,
-                    touched: true,
-                    valid: false
-                },
-                url: {
-                    ...this.state.controls.url,
-                    touched: true,
-                    valid: false
-                }
-
+            const updatedSubject = {
+                ...this.state.subject,
+                touched: true,
+                valid: false
             };
-            this.setState({ controls: updateControls, fillError:'Add new resource' });
+            
+            this.setState({ subject: updatedSubject, fillError:'Add new resource' });
 
         } else if ( !this.state.subject.touched && this.state.subject.value === '' ) {
 
@@ -419,19 +411,76 @@ class AddMooc extends Component {
                 this.state.controls.agent.value 
             );
 
+            const updatedSubject = {
+                ...this.state.subject,
+                touched: false,
+                value: ''
+            }
+
             const updateControls = {
                 ...this.state.controls,
                 title: {
                     ...this.state.controls.title,
-                    touched: false
+                    touched: false,
+                    value: ''
                 },
                 url: {
                     ...this.state.controls.url,
-                    touched: false
+                    touched: false,
+                    value: ''
+                },
+                imageUrl: {
+                    ...this.state.controls.imageUrl,
+                    touched: false,
+                    value: ''
+                },
+                source: {
+                    ...this.state.controls.source,
+                    touched: false,
+                    value: ''
+                },
+                videoCount: {
+                    ...this.state.controls.videoCount,
+                    touched: false,
+                    value: ''
+                },
+                tutor: {
+                    ...this.state.controls.tutor,
+                    touched: false,
+                    value: ''
+                },
+                enrollees: {
+                    ...this.state.controls.enrollees,
+                    touched: false,
+                    value: ''
+                },
+                duration: {
+                    ...this.state.controls.duration,
+                    touched: false,
+                    value: ''
+                },
+                level: {
+                    ...this.state.controls.level,
+                    touched: false,
+                    value: ''
+                },
+                lastUpdated: {
+                    ...this.state.controls.lastUpdated,
+                    touched: false,
+                    value: ''
+                },
+                avgRating: {
+                    ...this.state.controls.avgRating,
+                    touched: false,
+                    value: ''
+                },
+                agent: {
+                    ...this.state.controls.agent,
+                    touched: false,
+                    value: ''
                 }
-
             };
-            this.setState({ controls: updateControls, fillError: null });
+            this.setState({ controls: updateControls, subject: updatedSubject, fillError: null });
             
         }
         

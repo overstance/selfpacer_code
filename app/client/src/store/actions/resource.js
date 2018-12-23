@@ -2,6 +2,8 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
 
+
+
 // Add user resource
 
 export const addResourceSuccess = ( message ) => {
@@ -114,7 +116,8 @@ export const setClickedPlatform = ( platform ) => {
 
 export const resourceLiked = (id, likes) => {
     // console.log(category);
-    return () => {
+    return dispatch => {
+
         const resource = {
             resourceId: id,
             resourceLikes: likes + 1
@@ -260,5 +263,19 @@ export const fetchUserAssets = ( userId ) => async(dispatch) => {
         // console.log(res.data)
         dispatch(fetchUserAssetFailed( res.data ));
     }
+
+}
+
+// Increase Resource view count
+
+export const increaseResourceViewCount = ( id, views ) => async dispatch => {
+    const resource = {
+        resourceId: id,
+        resourceViews: views + 1
+    };
+
+    console.log(resource);
+
+    await axios.post('/api/increase_resourceviews', resource); 
 
 }

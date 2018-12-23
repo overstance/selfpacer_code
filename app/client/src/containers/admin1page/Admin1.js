@@ -11,6 +11,7 @@ import UpdateYoutubePlaylists from './youtubePlaylist/UpdateYoutubePlaylists';
 import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
 import AddMooc from './manageMoocs/AddMooc';
 import AddBooks from './manageBooks/AddBooks';
+// import AddSubjectIcon from './manageSubjects/AddSubjectIcon';
 
 class Admin1 extends Component {
 

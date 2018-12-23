@@ -101,6 +101,7 @@ background: var(--lightGray);
 }
 
 .DetailsColumnFlex {
+    display: flex;
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
     -ms-flex-positive: 1;
@@ -207,6 +208,36 @@ background: var(--lightGray);
     text-align: right;
     padding: 5px 10px;
 }
+
+.OptionsLike {
+    text-align: right;
+    padding: 5px 10px;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+.youLiked {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    overflow-x: hidden;
+}
+
+.youLiked span {
+    color: var(--green);
+    animation: slideRight 0.2s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 0 10px 10px 0;
+    background: var(--darkBlue);
+}
+
+@keyframes slideRight {
+    0% {transform:translateX(-50px); }
+    100%{transform: translateX(0px);}
+  }
 
 @media all and (max-width: 480px) {
     .Type {

@@ -7,7 +7,10 @@ import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Logout from './components/auth/Logout/Logout';
 import Explore from './containers/explore/Explore';
-import Accounting from './containers/Subjects/Accounting/Accounting';
+
+import Accounting from './containers/Subjects/Accounting';
+import Animation from './containers/Subjects/Animation';
+
 import Profile from './containers/profile/Profile';
 import ResourcePage from './containers/resourcepage/Resoucepage';
 import AddResource from './containers/addResource/addResource';
@@ -49,6 +52,7 @@ class App extends Component {
   render() {
     let routes = (
         <Switch>
+            <Route path="/explore/animation" component={Animation} />
             <Route path="/accounting/:id" component={ResourcePage} />
             <Route path="/explore/accounting" component={Accounting} />       
             <Route path="/explore/graphic-design" component={graphicDesign} />                
@@ -71,6 +75,7 @@ class App extends Component {
     if (this.props.isAuthenticated && this.props.user.active) {
       routes = (
           <Switch>
+            <Route path="/explore/animation" component={Animation} />
             <Route path="/create_collection" exact component={CreateNewCollection} />
             <Route path="/add_resource" exact component={AddResource} />
             <Route path="/accounting/:id" component={ResourcePage} />
