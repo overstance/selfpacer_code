@@ -142,7 +142,7 @@ const data = [
     src: '/images/camera-retro.svg',
     alt: 'Photography icon',
     views: 0,
-    to: '/explore/photograpghy',
+    to: '/explore/photography',
     paths: [
       'Potrait Photography',
       'Street Photography',

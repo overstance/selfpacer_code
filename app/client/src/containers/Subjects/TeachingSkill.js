@@ -12,12 +12,12 @@ import AuthRequired from '../../components/Dialogues/AuthRequired/authRequired';
 import AddToCollection from '../../components/Dialogues/addToCollection/addToCollection';
 // import ScrollToTopOnMount from '../../../hoc/ScrollToTopOnMount';
 
-class Cloud extends Component {
+class TeachingSkill extends Component {
     
    componentDidMount () {
 
-        this.props.onFetchCloud();
-        this.props.onFetchAllCloud();
+        this.props.onFetchTeachingSkill();
+        this.props.onFetchAllTeachingSkill();
 
         if (this.props.activeContent === 'youtube') {
             this.setState({
@@ -215,7 +215,7 @@ class Cloud extends Component {
         let mooc = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
         let books = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
 
-        if ( !this.props.allCloudLoading && !this.props.fetchAllCloudResourcesError ) {
+        if ( !this.props.allTeachingSkillLoading && !this.props.fetchAllTeachingSkillResourcesError ) {
 
             const youtubeFiltered = this.props.all.filter( resource => resource.source === 'youtube.com');
             const moocFiltered = this.props.all.filter( resource => resource.type === 'mooc');
@@ -235,7 +235,7 @@ class Cloud extends Component {
                    tutor={resource.tutor}
                    enrollees={resource.enrollees}
                    duration={resource.duration}
-                    level={resource.level}
+                   level={resource.level}
                    author={resource.author}
                    youtubeViews={resource.youtubeviews}
                    publishDate={resource.publishDate}
@@ -261,7 +261,7 @@ class Cloud extends Component {
                 tutor={resource.tutor}
                 enrollees={resource.enrollees}
                 duration={resource.duration}
-                level={resource.level}
+                   level={resource.level}
                 author={resource.author}
                 youtubeViews={resource.youtubeviews}
                 publishDate={resource.publishDate}
@@ -287,7 +287,7 @@ class Cloud extends Component {
                 tutor={resource.tutor}
                 enrollees={resource.enrollees}
                 duration={resource.duration}
-                level={resource.level}
+                   level={resource.level}
                 author={resource.author}
                 youtubeViews={resource.youtubeviews}
                 publishDate={resource.publishDate}
@@ -313,7 +313,7 @@ class Cloud extends Component {
                 tutor={resource.tutor}
                 enrollees={resource.enrollees}
                 duration={resource.duration}
-                level={resource.level}
+                   level={resource.level}
                 author={resource.author}
                 youtubeViews={resource.youtubeviews}
                 publishDate={resource.publishDate}
@@ -334,7 +334,7 @@ class Cloud extends Component {
                 <div className={classes.AddInfo}>ADD RESOURCE</div>
             </div>
             {all}
-            {this.props.fetchAllCloudResourcesError}
+            {this.props.fetchAllTeachingSkillResourcesError}
         </div>
 
         const youtubeContent = 
@@ -344,7 +344,7 @@ class Cloud extends Component {
                 <div className={classes.AddInfo}>ADD YOUTUBE RESOURCE</div>
             </div>
             {youtube}
-            {this.props.fetchAllCloudResourcesError}
+            {this.props.fetchAllTeachingSkillResourcesError}
         </div>
 
         const moocContent = 
@@ -354,7 +354,7 @@ class Cloud extends Component {
                 <div className={classes.AddInfo}>ADD MOOC RESOURCE</div>
             </div>
             {mooc}
-            {this.props.fetchAllCloudResourcesError}
+            {this.props.fetchAllTeachingSkillResourcesError}
         </div>
 
         const booksContent = 
@@ -364,7 +364,7 @@ class Cloud extends Component {
                 <div className={classes.AddInfo}>ADD BOOK OR DOC RESOURCE</div>
             </div>
             {books}
-            {this.props.fetchAllCloudResourcesError}
+            {this.props.fetchAllTeachingSkillResourcesError}
         </div>
 
         let pageContent = null;
@@ -448,8 +448,8 @@ const mapStateToProps = state => {
         clickedSubjectLoading: state.clickedSubject.loading,
         subject: state.clickedSubject.subject,
         all: state.clickedSubject.allResources,
-        allCloudLoading: state.clickedSubject.allLoading,
-        fetchAllCloudResourcesError: state.clickedSubject.fetchAllResourcesError,
+        allTeachingSkillLoading: state.clickedSubject.allLoading,
+        fetchAllTeachingSkillResourcesError: state.clickedSubject.fetchAllResourcesError,
 
         activeContent: state.explore.activeContentType,
 
@@ -460,9 +460,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchCloud: () => dispatch( actions.fetchCloud() ),
+        onFetchTeachingSkill: () => dispatch( actions.fetchTeachingSkill() ),
 
-        onFetchAllCloud: () => dispatch( actions.fetchAllCloud() ),
+        onFetchAllTeachingSkill: () => dispatch( actions.fetchAllTeachingSkill() ),
 
         onFetchUserCollections: ( userId ) => dispatch(actions.fetchUserCollections( userId )),
 
@@ -481,9 +481,10 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-Cloud.propTypes = {
-    onFetchAllCloud: PropTypes.func.isRequired,
+TeachingSkill.propTypes = {
+    onFetchAllTeachingSkill: PropTypes.func.isRequired,
     subject: PropTypes.array.isRequired
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( Cloud );
+export default connect( mapStateToProps, mapDispatchToProps )( TeachingSkill );
+

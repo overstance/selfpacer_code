@@ -29,7 +29,7 @@ const resourceSchema = new Schema({
   tutor: String,
   enrollees: String,
   duration: String,
-  Level: String,
+  level: String,
   lastUpdated: String,
   avgRating: String,
   author: String

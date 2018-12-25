@@ -68,6 +68,11 @@ class Resource extends Component {
                                             <div className={classes.Type}>AVG.RATING:<span>{this.props.avgRating}</span></div>
                                         </div> : null
                                     }
+                                    { this.props.level ?
+                                        <div>
+                                            <div className={classes.Type}>LEVEL:<span>{this.props.level}</span></div>
+                                        </div> : null
+                                    }
                                     { this.props.videoCount ? 
                                         <div className={classes.DetailsColumnFlex}>
                                             <div className={classes.Type}>VIDEOCOUNT:<span>{this.props.videoCount}</span></div>

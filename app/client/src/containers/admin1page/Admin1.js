@@ -90,6 +90,7 @@ class Admin1 extends Component {
                         <div className={classes.ContentItems}>
                             <AddAdminUsers />
                             <RemoveAdminUsers />
+                            {/* <AddSubjectIcon /> */}
                         </div>
                     : null }
                 </div>

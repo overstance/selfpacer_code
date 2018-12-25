@@ -235,6 +235,7 @@ class Accounting extends Component {
                    tutor={resource.tutor}
                    enrollees={resource.enrollees}
                    duration={resource.duration}
+                   level={resource.level}
                    author={resource.author}
                    youtubeViews={resource.youtubeviews}
                    publishDate={resource.publishDate}
@@ -260,6 +261,7 @@ class Accounting extends Component {
                 tutor={resource.tutor}
                 enrollees={resource.enrollees}
                 duration={resource.duration}
+                level={resource.level}
                 author={resource.author}
                 youtubeViews={resource.youtubeviews}
                 publishDate={resource.publishDate}
@@ -285,6 +287,7 @@ class Accounting extends Component {
                 tutor={resource.tutor}
                 enrollees={resource.enrollees}
                 duration={resource.duration}
+                level={resource.level}
                 author={resource.author}
                 youtubeViews={resource.youtubeviews}
                 publishDate={resource.publishDate}
