@@ -1,20 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-function shuffleArray(array) {
-    let i = array.length - 1;
-    for (; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-}
-
-
-// Fetch Subject
-
 export const fetchSubjectsSuccess = ( subjects ) => {
     return {
         type: actionTypes.FETCH_SUBJECTS_SUCCESS,
@@ -35,108 +21,29 @@ export const fetchSubjectsStart = () => {
     };
 };
 
-export const fetchSubjects = () => {
-    return dispatch => {
-        dispatch(fetchSubjectsStart());
-        
-        axios.get( '/api/explore' )
-            .then( 
-                
-                res => {
-                const fetchedSubjects = [...res.data.subjects];
+export const fetchSubjects = () => async dispatch => {
+    dispatch(fetchSubjectsStart());
 
-                const shuffledSubjects = shuffleArray(fetchedSubjects)
-                dispatch(fetchSubjectsSuccess(shuffledSubjects));
-            } )
-            .catch( err => {
-                dispatch(fetchSubjectsFail(err));
-            } );
-    };
+    const res = await axios.get( '/api/fetch_subject' );
+
+    // console.log(res.data);
+
+    if (res.data.subjects) {
+        const fetchedSubjects = [...res.data.subjects];
+
+        const sortSubjects = 
+        fetchedSubjects.sort(function(a, b){
+            if(a.title < b.title) { return -1; }
+            if(a.title > b.title) { return 1; }
+            return 0;
+        });
+
+        dispatch(fetchSubjectsSuccess(sortSubjects));
+    } else {
+        dispatch(fetchSubjectsFail(res.data));
+    }
+
 };
-
-export const fetchCreativeSubjects = ( history ) => {
-
-    return dispatch => {
-        dispatch(fetchSubjectsStart());
-        
-        axios.get( '/api/creative' )
-            .then( 
-                
-                res => {
-                const fetchedSubjects = [...res.data.subjects]; 
-
-                const shuffledSubjects = shuffleArray(fetchedSubjects)
-                dispatch(fetchSubjectsSuccess(shuffledSubjects));
-            } )
-            .catch( err => {
-                dispatch(fetchSubjectsFail(err));
-            } );
-    };
-
-}
-
-export const fetchBusinessSubjects = () => {
-
-    return dispatch => {
-        dispatch(fetchSubjectsStart());
-        
-        axios.get( '/api/business' )
-            .then( 
-                
-                res => {
-                const fetchedSubjects = [...res.data.subjects]; 
-
-                const shuffledSubjects = shuffleArray(fetchedSubjects)
-                dispatch(fetchSubjectsSuccess(shuffledSubjects));
-            } )
-            .catch( err => {
-                dispatch(fetchSubjectsFail(err));
-            } );
-    };
-
-}
-
-export const fetchTechnologySubjects = () => {
-
-    return dispatch => {
-        dispatch(fetchSubjectsStart());
-        
-        axios.get( '/api/technology' )
-            .then( 
-                
-                res => {
-                const fetchedSubjects = [...res.data.subjects];
-
-                const shuffledSubjects = shuffleArray(fetchedSubjects)
-                dispatch(fetchSubjectsSuccess(shuffledSubjects));
-            } )
-            .catch( err => {
-                dispatch(fetchSubjectsFail(err));
-            } );
-    };
-
-}
-
-export const fetchLifeStyleSubjects = () => {
-
-    return dispatch => {
-        dispatch(fetchSubjectsStart());
-        
-        axios.get( '/api/lifestyle' )
-            .then( 
-                
-                res => {
-                const fetchedSubjects = [...res.data.subjects]; 
-
-                const shuffledSubjects = shuffleArray(fetchedSubjects)
-                dispatch(fetchSubjectsSuccess(shuffledSubjects));
-            } )
-            .catch( err => {
-                dispatch(fetchSubjectsFail(err));
-            } );
-    };
-
-}
 
 //Increase subject view count and set clicked Subject
 

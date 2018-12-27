@@ -12,3 +12,9 @@
     padding: 10px;
     background: var(--white); 
 }
+
+.BlockContentItems {
+    text-align: center;
+    padding: 10px;
+    background: var(--white); 
+}

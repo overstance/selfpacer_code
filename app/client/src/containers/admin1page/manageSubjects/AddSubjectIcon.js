@@ -22,9 +22,10 @@ class UploadSubjectimage extends Component {
 
     render() {
         return(
-            <div className={classes.ContainerItem}>
+            <div className={classes.IconContainerItem}>
+                <div className={classes.AdminAction}>ADD SUBJECT ICON</div>
                 <form
-                className={classes.Form}
+                className={classes.IconForm}
                 onSubmit={this.submitHandler}
                 encType="multipart/form-data">
                     <input 

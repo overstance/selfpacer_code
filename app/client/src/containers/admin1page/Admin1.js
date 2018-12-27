@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import classes from './Admin1.css';
-// import * as actions from '../../store/actions/index';
-// import { connect } from 'react-redux';
+import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
+
 import AddYoutubeVideos from './youtubeVideos/AddYoutubeVideos';
 import AddYoutubePlaylists from './youtubePlaylist/AddYoutubePlaylists';
 import AddAdminUsers from './adminUsers/AddAdminUsers';
 import RemoveAdminUsers from './adminUsers/RemoveAdminUsers';
 import UpdateYoutubeVideos from './youtubeVideos/UpdateYoutubeVideos';
 import UpdateYoutubePlaylists from './youtubePlaylist/UpdateYoutubePlaylists';
-import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
 import AddMooc from './manageMoocs/AddMooc';
 import AddBooks from './manageBooks/AddBooks';
-// import AddSubjectIcon from './manageSubjects/AddSubjectIcon';
+import AddSubjectIcon from './manageSubjects/AddSubjectIcon';
+import EditSubect from './manageSubjects/EditSubject';
 
 class Admin1 extends Component {
 
     state = {
+        showManageSubjects: false,
+        manageSubjectsIconRotate: false,
+
         showManageUsers: false,
         manageUsersIconRotate: false,
 
@@ -30,6 +33,15 @@ class Admin1 extends Component {
 
         showManageBooks: false,
         manageBooksIconRotate: false,
+    }
+
+    manageSubjectsToggleHandler = () => {
+        this.setState((prevState) => {
+            return {
+                showManageSubjects: !prevState.showManageSubjects,
+                manageSubjectsIconRotate: !prevState.manageSubjectsIconRotate
+            };
+        });
     }
 
     manageUsersToggleHandler = () => {
@@ -80,6 +92,20 @@ class Admin1 extends Component {
     render() {
         return(
             <div>
+                 <div className={classes.Subheader}>
+                    <SubHeader 
+                        filterIconRotate={this.state.manageSubjectsIconRotate} 
+                        filterToggleHandler={this.manageSubjectsToggleHandler}
+                        subheadTitle="MANAGE SUBJECTS"
+                    />
+                    { this.state.showManageSubjects ? 
+                        <div className={classes.BlockContentItems}>
+                            <AddSubjectIcon />
+                            <EditSubect />
+                        </div>
+                    : null }
+                </div>
+                < div style={{'color': 'white', 'height': '1px'}} />
                 <div className={classes.Subheader}>
                     <SubHeader 
                         filterIconRotate={this.state.manageUsersIconRotate} 

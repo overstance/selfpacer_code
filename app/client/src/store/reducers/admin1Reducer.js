@@ -5,6 +5,12 @@ const initialState = {
     updatedUser: {},
     adminAddError: null,
     userAddedFeedback: null,
+
+    subjectToEditPath: null,
+    subjectToEditCurriculum: null,
+
+    editSubjectSuccessInfo: null,
+    editSubjectError: null,
     
     removedUser: {},
     adminUserRemoveError: null,
@@ -207,6 +213,37 @@ const clearAddBooksFeedbacks = ( state, action ) => {
     });
 }
 
+// Fetch subject to edit path and curricula
+
+const fetchSubjectToEditSuccess = ( state, action ) => {
+    return updateObject( state, {
+        subjectToEditPath: action.path,
+        subjectToEditCurriculum: action.curriculum
+    });
+}
+
+// Edit Subject path and curriculum
+
+const editSubjectStart = ( state, action ) => {
+    return updateObject( state, {
+        editSubjectError: null,
+        editSubjectSuccessInfo: null,
+        subjectToEditPath: null,
+        subjectToEditCurriculum: null
+    });
+}
+
+const editSubjectSuccess = ( state, action ) => {
+    return updateObject( state, {
+        editSubjectSuccessInfo: action.successInfo
+    });
+}
+
+const editSubjectFail = ( state, action ) => {
+    return updateObject( state, {
+        editSubjectError: 'error: ' + action.error
+    });
+}
 
 
 const reducer = ( state = initialState, action ) => {
@@ -218,6 +255,12 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADMIN_USER_REMOVE_START: return adminUserRemoveStart( state, action );
         case actionTypes.ADMIN_USER_REMOVED: return adminUserRemoved( state, action );
         case actionTypes.ADMIN_USER_REMOVED_FAILED: return adminUserRemoveFailed( state, action );
+
+        case actionTypes.FETCH_SUBJECT_TO_EDIT_SUCCESS: return fetchSubjectToEditSuccess( state, action );
+
+        case actionTypes.EDIT_SUBJECT_START: return editSubjectStart( state, action );
+        case actionTypes.EDIT_SUBJECT_SUCCESS: return editSubjectSuccess( state, action );
+        case actionTypes.EDIT_SUBJECT_FAIL: return editSubjectFail( state, action );
 
         case actionTypes.YOUTUBE_PLAYLIST_ADDED: return youtubePlaylistAdded( state, action );
         case actionTypes.YOUTUBE_PLAYLIST_ADD_START: return youtubePlaylistAddStart( state, action );

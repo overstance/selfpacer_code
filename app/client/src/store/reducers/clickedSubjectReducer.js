@@ -16,7 +16,7 @@ const initialState = {
 // Fetch clicked subject paths and study topics
 
 const fetchClickedSubjectStart = ( state, action ) => {
-    return updateObject( state, { loading: true } );
+    return updateObject( state, { loading: true, subject: [] } );
 };
 
 const fetchClickedSubjectSuccess = ( state, action ) => {
@@ -33,7 +33,7 @@ const fetchClickedSubjectFail = ( state, action ) => {
 // fetch all
 
 const fetchAllStart = ( state, action ) => {
-    return updateObject( state, { allLoading: true } );
+    return updateObject( state, { allLoading: true, allResources: [] } );
 };
 
 const fetchAllSuccess = ( state, action ) => {
