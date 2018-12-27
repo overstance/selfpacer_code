@@ -15,10 +15,6 @@ export {
 } from './auth';
 export {
     fetchSubjects,
-    fetchCreativeSubjects,
-    fetchBusinessSubjects,
-    fetchTechnologySubjects,
-    fetchLifeStyleSubjects,
     increaseViews,
     setActiveContentType,
     setSelectedCategory,

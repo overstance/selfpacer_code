@@ -418,8 +418,6 @@ export const onAddSubjectIcon = ( file ) => async dispatch => {
     let data = new FormData();
     
     data.append('file', file);
-
-    console.log(data);
   
     const res = await axios.post('/api/upload_subjectIcon', data);
 

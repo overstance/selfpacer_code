@@ -100,16 +100,6 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/animation', (req, res) => {
-    Subject.find({ title: 'Animation' }, function(err, clickedSubject) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send({ subjects: clickedSubject });
-      }
-    });
-  });
-
   app.get('/api/architecture', (req, res) => {
     Subject.find({ title: 'Architectural design' }, function(
       err,
@@ -326,6 +316,225 @@ module.exports = app => {
     });
   });
 
+<<<<<<< HEAD
+  app.get('/api/architecture', (req, res) => {
+    Subject.find({ title: 'Architectural design' }, function(
+      err,
+      clickedSubject
+    ) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/audio', (req, res) => {
+    Subject.find({ title: 'Audio Production' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/beauty', (req, res) => {
+    Subject.find({ title: 'Beauty' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/cloud', (req, res) => {
+    Subject.find({ title: 'Cloud Computing' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/communications', (req, res) => {
+    Subject.find({ title: 'Communications' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/customer', (req, res) => {
+    Subject.find({ title: 'Customer Service' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/data', (req, res) => {
+    Subject.find({ title: 'Data Science' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/database', (req, res) => {
+    Subject.find({ title: 'Database' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/drawing', (req, res) => {
+    Subject.find({ title: 'Drawing' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/fashion', (req, res) => {
+    Subject.find({ title: 'Fashion Design' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/food', (req, res) => {
+    Subject.find({ title: 'Food' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/gamedesign', (req, res) => {
+    Subject.find({ title: 'Game Design' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/gamedev', (req, res) => {
+    Subject.find({ title: 'Game Development' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/gaming', (req, res) => {
+    Subject.find({ title: 'Gaming' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/graphics', (req, res) => {
+    Subject.find({ title: 'Graphic Design' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/hardware', (req, res) => {
+    Subject.find({ title: 'Hardware' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/health', (req, res) => {
+    Subject.find({ title: 'Health and Fitness' }, function(
+      err,
+      clickedSubject
+    ) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/home', (req, res) => {
+    Subject.find({ title: 'Home Improvement' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/interface', (req, res) => {
+    Subject.find({ title: 'UI/UX' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/interior', (req, res) => {
+    Subject.find({ title: 'Interior design' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+  app.get('/api/management', (req, res) => {
+    Subject.find({ title: 'Management' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
+=======
+>>>>>>> 1f6f5d9c7571919e120fb76d2e1a8007b73950ec
   app.get('/api/marketing', (req, res) => {
     Subject.find({ title: 'Marketing and Sales' }, function(
       err,

@@ -93,11 +93,14 @@ class App extends Component {
   render() {
     let routes = (
         <Switch>
+<<<<<<< HEAD
             <Route path="/explore/creative-writing" component={Writing} />
             <Route path="/explore/web-development" component={Webdev} />
             <Route path="/explore/web-design" component={WebDesign} />
             <Route path="/explore/video" component={Video} />
             <Route path="/explore/teaching-skills" component={TeachingSkill} />
+=======
+>>>>>>> 1f6f5d9c7571919e120fb76d2e1a8007b73950ec
             <Route path="/explore/travel" component={Travel} />
             <Route path="/explore/study-skills" component={StudySkill} />
             <Route path="/explore/software-development" component={Software} />

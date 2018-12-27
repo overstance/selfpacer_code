@@ -21,6 +21,7 @@ export const fetchSubjectsStart = () => {
     };
 };
 
+<<<<<<< HEAD
 export const fetchSubjects = () => async dispatch => {
     dispatch(fetchSubjectsStart());
 
@@ -43,6 +44,31 @@ export const fetchSubjects = () => async dispatch => {
         dispatch(fetchSubjectsFail(res.data));
     }
 
+=======
+export const fetchSubjects = () => {
+    return dispatch => {
+        dispatch(fetchSubjectsStart());
+        
+        axios.get( '/api/fetch_subject' )
+            .then( 
+                
+                res => {
+                const fetchedSubjects = [...res.data.subjects];
+
+                const sortSubjects = 
+                fetchedSubjects.sort(function(a, b){
+                    if(a.title < b.title) { return -1; }
+                    if(a.title > b.title) { return 1; }
+                    return 0;
+                });
+
+                dispatch(fetchSubjectsSuccess(sortSubjects));
+            } )
+            .catch( err => {
+                dispatch(fetchSubjectsFail(err));
+            } );
+    };
+>>>>>>> 1f6f5d9c7571919e120fb76d2e1a8007b73950ec
 };
 
 //Increase subject view count and set clicked Subject
