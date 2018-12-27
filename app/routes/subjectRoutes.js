@@ -316,7 +316,6 @@ module.exports = app => {
     });
   });
 
-<<<<<<< HEAD
   app.get('/api/architecture', (req, res) => {
     Subject.find({ title: 'Architectural design' }, function(
       err,
@@ -533,8 +532,6 @@ module.exports = app => {
     });
   });
 
-=======
->>>>>>> 1f6f5d9c7571919e120fb76d2e1a8007b73950ec
   app.get('/api/marketing', (req, res) => {
     Subject.find({ title: 'Marketing and Sales' }, function(
       err,
