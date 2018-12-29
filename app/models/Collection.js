@@ -3,6 +3,11 @@ const { Schema } = mongoose;
 
 const collectionSchema = new Schema({
   title: String,
+  public: {
+    type: Boolean,
+    default: false
+  },
+  desciption: String,
   resources: Array,
   date: {
     type: Date,

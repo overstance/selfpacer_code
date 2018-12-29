@@ -140,7 +140,10 @@ export {
     resetCollectionMessages,
     fetchUserCollections,
     addResourceToCollection,
-    clearAddToCollectionMessages
+    clearAddToCollectionMessages,
+    resourceAlreadyAdded,
+    fetchCollectionById,
+    setClickedCollectionAttributes
 } from './collection';
 
 export {

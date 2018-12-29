@@ -8,6 +8,9 @@ import Register from './components/auth/Register/Register';
 import Logout from './components/auth/Logout/Logout';
 import Explore from './containers/explore/Explore';
 
+import UserCollections from './containers/userCollections/UserCollections';
+import UserCollection from './containers/userCollections/userCollection/UserCollection';
+
 import Profile from './containers/profile/Profile';
 import ResourcePage from './containers/resourcepage/Resoucepage';
 import AddResource from './containers/addResource/addResource';
@@ -61,6 +64,7 @@ import Video from './containers/Subjects/Video';
 import WebDesign from './containers/Subjects/WebDesign';
 import Webdev from './containers/Subjects/Webdev';
 import Writing from './containers/Subjects/Writing';
+
 // import ScrollToTop from './hoc/ScrollToTop';
 
 const Landing = () => <h2>
@@ -203,6 +207,8 @@ class App extends Component {
             <Route path="/explore/accounting" component={Accounting} />
             <Route path="/admin_tools" component={AdminTools} />
             <Route path="/profile/edit" component={EditProfile} />
+            <Route path="/collections/:id" component={UserCollection} />
+            <Route path="/collections" component={UserCollections} />
             <Route path="/profile" component={Profile} />
             <Route path="/explore" exact component={ (props) => (
               <Explore timestamp={new Date().toString()} {...props} />

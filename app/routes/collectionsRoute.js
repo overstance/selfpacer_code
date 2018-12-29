@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const Collection = require('../models/Collection');
+const Resource = require('../models/Resource');
 
 module.exports = app => {
   app.get('/api/collections/:userId', (req, res) => {
@@ -14,12 +15,34 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/fetch_collection/:id', (req, res) => {
+    Collection.findById(req.params.id, (err, collection) => {
+      if (err) {
+        res.send(err.message);
+        console.log(err.message);
+        return;
+      } else {
+        const resources = collection.resources;
+
+        Resource.find({ _id: { $in: resources } }, (err, resources) => {
+          if (err) {
+            res.send(err.message);
+            console.log(err.message);
+            return;
+          } else {
+            res.send({ resources: resources });
+            // console.log(resources);
+          }
+        });
+      }
+    });
+  });
+
   app.post('/api/create_collection', (req, res) => {
     const collection = {
       title: req.body.title,
       resources: [req.body.resourceId],
-      user_id: req.body.userId,
-      resourceCount: 1
+      user_id: req.body.userId
     };
 
     Collection.create(collection, function(err, resource) {

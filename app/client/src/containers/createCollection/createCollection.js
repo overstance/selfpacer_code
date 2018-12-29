@@ -194,7 +194,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onCreateCollection: (title, user, resource) => dispatch( actions.createCollection(title, user, resource) ),
+        onCreateCollection: (title, user, resourceToAdd) => dispatch( actions.createCollection(title, user, resourceToAdd) ),
         onResetCollectionMessages: () => dispatch(actions.resetCollectionMessages() )
     };
 };

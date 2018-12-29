@@ -8,9 +8,24 @@ import CollectionItem from '../../components/CollectionItem/CollectionItem';
 
 class Collections extends Component {
 
-    addToCollectionHandler = (collectionId, collectionResources) => {
-        this.props.onAddResourceToCollection(collectionId, collectionResources, this.props.resourceToCollect.id);
+    componentWillMount(){
+        this.props.onClearMessages();
     }
+
+    addToCollectionHandler = (collectionId, collectionResources, collectionTitle) => {
+
+        let resources = collectionResources
+        let resourceToCheck = this.props.resourceToCollect.id;
+
+        const checkResource = resources.filter( resource => resource === resourceToCheck );
+
+        if (checkResource.length !== 0) {
+           this.props.onResourceAlreadyAdded( collectionTitle ); 
+        } else {
+            this.props.onAddResourceToCollection(collectionId, collectionResources, this.props.resourceToCollect.id);
+        }
+    }
+
 
     render () {
 
@@ -28,11 +43,18 @@ class Collections extends Component {
                     <CollectionItem 
                     key={i}
                     collectionName={collection.title}
-                    collectionClicked={() => this.addToCollectionHandler(collection._id, collection.resources)}
+                    collectionClicked={() => this.addToCollectionHandler(collection._id, collection.resources, collection.title)}
                     />
                 ))
             }
         };
+
+        if ( this.props.resourceAlreadyCollectedTitle ) {
+            collections = 
+            <div className={classes.PostAddInfo}>
+                <div>{'Resource Already Added To: ' + this.props.resourceAlreadyCollectedTitle}</div>
+            </div> 
+        }
 
         if ( this.props.addResourceToCollectionSuccessMessage === 'Resource Collected!') {
             collections = 
@@ -51,7 +73,9 @@ class Collections extends Component {
 
         return (
             <div>
-                <Link className={classes.NewButton} to='/create_collection'>Create New Collection</Link>
+                { this.props.addResourceToCollectionSuccessMessage ? null :
+                    <Link className={classes.NewButton} to='/create_collection'>Create New Collection</Link>
+                }
                <div className={classes.CollectionsContainer}>
                    {collections}
                </div>    
@@ -65,13 +89,16 @@ const mapStateToProps = state => ({
     resourceToCollect: state.collection.resourceToCollect,
     loading: state.collection.loading,
     collections: state.collection.userCollections,
+    resourceAlreadyCollectedTitle: state.collection.resourceAlreadyCollectedTitle,
     addResourceToCollectionSuccessMessage: state.collection.addResourceToCollectionSuccessMessage,
     addResourceToCollectionError: state.collection.addResourceToCollectionError
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddResourceToCollection: (collectionId, collectionResources, resourceToAdd) => dispatch(actions.addResourceToCollection(collectionId, collectionResources, resourceToAdd))
+        onAddResourceToCollection: (collectionId, collectionResources, resourceToAdd) => dispatch(actions.addResourceToCollection(collectionId, collectionResources, resourceToAdd)),
+        onResourceAlreadyAdded: (collectionTitle) => dispatch( actions.resourceAlreadyAdded(collectionTitle)),
+        onClearMessages: () => dispatch( actions.clearAddToCollectionMessages())
     };
 };
 

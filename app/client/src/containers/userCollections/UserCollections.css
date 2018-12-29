@@ -1,0 +1,15 @@
+.CollectionWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: var(--white);
+}
+
+.YourCollection {
+    color: var(--green);
+    background: var(--blue);
+    padding: 15px;
+    text-align: center;
+    font-weight: 400;
+    font-size: small;
+}

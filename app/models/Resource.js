@@ -19,6 +19,10 @@ const resourceSchema = new Schema({
     type: Number,
     default: 0
   },
+  collectCount: {
+    type: Number,
+    default: 0
+  },
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   type: String,
   source: String,

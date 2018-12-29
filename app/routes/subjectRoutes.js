@@ -100,6 +100,16 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/animation', (req, res) => {
+    Subject.find({ title: 'Animation' }, function(err, clickedSubject) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
   app.get('/api/architecture', (req, res) => {
     Subject.find({ title: 'Architectural design' }, function(
       err,

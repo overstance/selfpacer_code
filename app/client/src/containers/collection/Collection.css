@@ -15,14 +15,13 @@
 
 .CollectionsContainer {
     width: 260px;
-    margin: auto;
+    margin: 20px auto;
     background: var(--darkBlue);
     border-radius: 20px;
-    margin-bottom: 10px;
 }
 
 .PostAddInfo {
-    padding: 20px 0;
+    padding: 20px;
     font-weight: 400;
     color: var(--green);
 }

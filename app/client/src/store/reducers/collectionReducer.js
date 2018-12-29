@@ -9,7 +9,14 @@ const initialState = {
     userCollectionsFetchErrors: null,
     loading: null,
     addResourceToCollectionSuccessMessage: null,
-    addResourceToCollectionError: null
+    addResourceToCollectionError: null,
+
+    resourceAlreadyCollectedTitle: null,
+
+    clickedCollectionAttributes: null,
+
+    collectedResources: null,
+    fetchcollectedResourceError: null
 };
 
 //Set Resource to Collect
@@ -69,10 +76,43 @@ const addResourceToCollectionSuccess = ( state, action ) => {
     } );
 };
 
+// Resource Alraedy in collection
+
+const resourceAlreadyAdded = ( state, action ) => {
+    return updateObject( state, { resourceAlreadyCollectedTitle: action.collectionTitle} );
+}
+
 // Clear Add to Collection messages
 
 const clearAddToCollectionMessages = ( state, action ) => {
-    return updateObject( state, { addResourceToCollectionError: null, addResourceToCollectionSuccessMessage: null } );
+    return updateObject( state, 
+        {   addResourceToCollectionError: null, 
+            addResourceToCollectionSuccessMessage: null, 
+            resourceAlreadyCollectedTitle: null, 
+            fetchcollectedResourceError: null, 
+            // clickedCollectionAttributes: null 
+        } 
+    );
+};
+
+// Set clicked collection attributes
+
+const setClickedCollectionAttributes = ( state, action ) => {
+    return updateObject( state, { clickedCollectionAttributes: action.attributes});
+};
+
+// Fetch collection by id for collected resources
+
+const fetchCollectionByIdStart = ( state, action ) => {
+    return updateObject( state, { loading: true, fetchcollectedResourceError: null});
+};
+
+const fetchCollectionByIdSuccess = ( state, action ) => {
+    return updateObject( state, { loading: false, collectedResources: action.resources });
+};
+
+const fetchCollectionByIdFail = ( state, action ) => {
+    return updateObject( state, { loading: false, fetchcollectedResourceError: action.error});
 };
 
 
@@ -94,7 +134,15 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADD_RESOURCE_TO_COLLECTION_FAIL: return addResourceToCollectionFail( state, action );
         case actionTypes.ADD_RESOURCE_TO_COLLECTION_SUCCESS: return addResourceToCollectionSuccess( state, action );
 
+        case actionTypes.RESOURCE_ALREADY_ADDED: return resourceAlreadyAdded( state, action );
+
         case actionTypes.CLEAR_ADD_TO_COLLECTION_MESSAGES: return clearAddToCollectionMessages( state, action );
+
+        case actionTypes.SET_CLICKED_COLLECTION_ATTRIBUTES: return setClickedCollectionAttributes( state, action );
+
+        case actionTypes.FETCH_COLLECTION_BY_ID_START: return fetchCollectionByIdStart( state, action );
+        case actionTypes.FETCH_COLLECTION_BY_ID_SUCCESS: return fetchCollectionByIdSuccess( state, action );
+        case actionTypes.FETCH_COLLECTION_BY_ID_FAIL: return fetchCollectionByIdFail( state, action );
 
         default: return state;
     }

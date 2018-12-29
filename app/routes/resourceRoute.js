@@ -549,4 +549,25 @@ module.exports = app => {
       }
     );
   });
+
+  app.post('/api/increase_collect_count/:resourceToAdd', (req, res) => {
+    Resource.findOne({ _id: req.params.resourceToAdd }, (err, resource) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        const newCount = resource.collectCount + 1;
+
+        Resource.findOneAndUpdate(
+          { _id: req.params.resourceToAdd },
+          { collectCount: newCount },
+          (err, resource) => {
+            if (resource) {
+              res.send('collectCount increased');
+            }
+          }
+        );
+      }
+    });
+  });
 };

@@ -39,9 +39,6 @@ export const fetchUserCollections = ( userId ) => {
     return dispatch => {
         dispatch(fetchUserCollectionsStart());
 
-        /* const resource = {
-            resourceId: resourceId
-        } */
         axios.get(`/api/collections/${userId}`)
             .then(                
                 res => {
@@ -79,32 +76,31 @@ export const createCollectionStart = () => {
     };
 };
 
-export const createCollection = ( title, user, resource ) => {
-    return dispatch => {
+export const createCollection = ( title, user, resourceToAdd ) => async dispatch => {
+
         dispatch(createCollectionStart());
 
         const collection = {
             title: title,
-            resourceId: resource,
+            resourceId: resourceToAdd,
             userId: user._id
         }
 
-        // console.log(resourceTrimmed);
+        const res = await axios.post( '/api/create_collection', collection)
 
-        axios.post( '/api/create_collection', collection)
-            .then(                
-                res => {
-                const message = res.data;
                 if (res.data === 'Collection created!') {
-                    dispatch(createCollectionSuccess(message));
+                    dispatch(createCollectionSuccess(res.data));
+
+                    const res2 = await axios.post(`/api/increase_collect_count/${resourceToAdd}`);
+                    if (res2.data) {
+                        console.log(res2.data);
+                        return;
+                    }
                 } else {
                     dispatch(createCollectionFail(res.data));
                 } 
-            } )
-            .catch( err => {
-                dispatch(createCollectionFail(err));
-            } );
-    };
+
+
 };
 
 // Reset Collection form feedBack Messages
@@ -137,36 +133,42 @@ export const addResourceToCollectionFail = ( error ) => {
     };
 }; */
 
-export const addResourceToCollection = ( collectionId, collectionResources, resourceToAdd ) => {
-    return dispatch => {
-        // dispatch(addResourceToCollectionStart());
+export const addResourceToCollection = ( collectionId, collectionResources, resourceToAdd ) => async dispatch => {
 
-        const temp = collectionResources;
+    const temp = collectionResources;
 
-        temp.push(resourceToAdd);
+    temp.push(resourceToAdd);
 
-        const updatedCollectionResources = temp;
+    const updatedCollectionResources = temp;
 
-        const collectionInfo = {
-            updatedCollectionResources: updatedCollectionResources,
-            collectionId: collectionId
-        }
+    const collectionInfo = {
+        updatedCollectionResources: updatedCollectionResources,
+        collectionId: collectionId
+    }
 
-        axios.post( '/api/add_resource_to_collection', collectionInfo)
-            .then(                
-                res => {
-                // console.log(res.data);
-                if (res.data === 'Resource Collected!') {
-                    dispatch(addResourceToCollectionSuccess(res.data));
-                } else {
-                    dispatch(addResourceToCollectionFail(res.data));
-                } 
-            } )
-            .catch( err => {
-                dispatch(addResourceToCollectionFail(err));
-            } );
-    };
+    const res = await axios.post( '/api/add_resource_to_collection', collectionInfo);
+
+        if (res.data === 'Resource Collected!') {
+            dispatch(addResourceToCollectionSuccess(res.data));
+
+            const res2 = await axios.post(`/api/increase_collect_count/${resourceToAdd}`);
+            if (res2.data) {
+                console.log(res2.data);
+                return;
+            }
+        } else {
+            dispatch(addResourceToCollectionFail(res.data));
+        } 
 };
+
+// resource already contained(added) to/in collection
+
+export const resourceAlreadyAdded = ( collectionTitle ) => {
+    return {
+        type: actionTypes.RESOURCE_ALREADY_ADDED,
+        collectionTitle: collectionTitle
+    }
+} 
 
 // clear add to collection messages
 
@@ -175,6 +177,50 @@ export const clearAddToCollectionMessages = () => {
         type: actionTypes.CLEAR_ADD_TO_COLLECTION_MESSAGES
     };
 };
+
+// set clicked collection attributes( title and date)
+
+export const setClickedCollectionAttributes = ( attributes ) => {
+    return {
+        type: actionTypes.SET_CLICKED_COLLECTION_ATTRIBUTES,
+        attributes: attributes
+    }
+}
+
+// fetch collection Resources by Id
+
+export const fetchCollectionByIdStart = () => {
+    return {
+        type: actionTypes.FETCH_COLLECTION_BY_ID_START
+    }
+}
+
+export const fetchCollectionByIdSuccess = ( resources ) => {
+    return {
+        type: actionTypes.FETCH_COLLECTION_BY_ID_SUCCESS,
+        resources: resources
+    }
+}
+
+export const fetchCollectionByIdFail = ( error ) => {
+    return {
+        type: actionTypes.FETCH_COLLECTION_BY_ID_FAIL,
+        error: error
+    }
+}
+
+export const fetchCollectionById = ( id ) => async dispatch => {
+    dispatch (fetchCollectionByIdStart());
+
+    const res = await axios.get(`/api/fetch_collection/${id}`);
+
+    console.log(res.data);
+    if (res.data.resources) {
+        dispatch(fetchCollectionByIdSuccess(res.data.resources));
+    } else {
+        dispatch(fetchCollectionByIdFail(res.data));
+    }
+}
 
 
 
