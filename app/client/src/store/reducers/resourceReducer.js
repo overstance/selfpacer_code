@@ -8,7 +8,7 @@ const initialState = {
     clickedResource: {},
     clickedResourcePlatform: null,
     userRecentlyViewed: null,
-    userLikeCount: null,
+    
     userAssets: [],
     fetchAssetError: null
 };
@@ -65,7 +65,7 @@ const updateUserRecentlyViewedResources = ( state, action ) => {
     return updateObject( state, { userRecentlyViewed: action.recentlyViewed } );
 };
 
-// Set user like count
+/* // Set user like count
 
 const setUserLikeCount = ( state, action ) => {
     return updateObject( state, { userLikeCount: action.userLikeCount } );
@@ -75,7 +75,7 @@ const setUserLikeCount = ( state, action ) => {
 
 const updateUserLikedCount = ( state, action ) => {
     return updateObject( state, { userLikeCount: action.newLikeCount } );
-};
+}; */
 
 // On fetch User Assets( user submitted resource)
 
@@ -112,9 +112,6 @@ const reducer = ( state = initialState, action ) => {
 
         case actionTypes.SET_USER_RECENTLY_VIEWED: return setUserRecentlyViewed( state, action );
         case actionTypes.UPDATE_USER_RECENTLY_VIEWED: return updateUserRecentlyViewedResources( state, action );
-
-        case actionTypes.SET_USER_LIKE_COUNT: return setUserLikeCount( state, action );
-        case actionTypes.UPDATE_USER_LIKE_COUNT: return updateUserLikedCount( state, action );
 
         default: return state;
     }

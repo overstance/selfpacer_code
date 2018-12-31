@@ -189,9 +189,30 @@ background: var(--lightGray);
     background-image: url('../../assets/images/file-import-focus.svg');
 }
 
+.FeedBackIconDelete {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+    background-image: url('../../assets/images/trash-alt-reg.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 60%;
+}
+
+.FeedBackIconDelete:hover {
+    background-image: url('../../assets/images/trash-alt-req-focus.svg');
+}
+
 .FeedbackText {
     font-size: small;
     color: var(--darkBlue);
+    font-weight: 400;
 }
 
 

@@ -143,7 +143,8 @@ export {
     clearAddToCollectionMessages,
     resourceAlreadyAdded,
     fetchCollectionById,
-    setClickedCollectionAttributes
+    setClickedCollectionAttributes,
+    deleteCollectionItem
 } from './collection';
 
 export {

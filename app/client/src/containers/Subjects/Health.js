@@ -454,7 +454,7 @@ const mapStateToProps = state => {
         activeContent: state.explore.activeContentType,
 
         settedUserRecentlyViewed: state.resource.userRecentlyViewed,
-        userLikeCount: state.resource.userLikeCount
+        userLikeCount: state.auth.userLikeCount
     };
 };
 

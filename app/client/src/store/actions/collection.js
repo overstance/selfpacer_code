@@ -153,7 +153,7 @@ export const addResourceToCollection = ( collectionId, collectionResources, reso
 
             const res2 = await axios.post(`/api/increase_collect_count/${resourceToAdd}`);
             if (res2.data) {
-                console.log(res2.data);
+                // console.log(res2.data);
                 return;
             }
         } else {
@@ -214,12 +214,61 @@ export const fetchCollectionById = ( id ) => async dispatch => {
 
     const res = await axios.get(`/api/fetch_collection/${id}`);
 
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.resources) {
         dispatch(fetchCollectionByIdSuccess(res.data.resources));
     } else {
         dispatch(fetchCollectionByIdFail(res.data));
     }
+}
+
+// Delete a collection Item
+
+/* export const deleteCollectionItemStart = () => {
+    return {
+        type: actionTypes.DELETE_COLLECTION_ITEM_START
+    }
+} */
+
+/* export const deleteCollectionItemSuccess = () => {
+    return {
+        type: actionTypes.DELETE_COLLECTION_ITEM_SUCCESS
+    }
+}
+ */
+
+export const deleteCollectionItemFail = ( error ) => {
+    return {
+        type: actionTypes.DELETE_COLLECTION_ITEM_FAIL,
+        error: error
+    }
+}
+
+export const deleteCollectionItem = ( resourceId, collectionId, history) => async dispatch => {
+    // dispatch(deleteCollectionItemStart());
+
+    const info = {
+        resourceId: resourceId,
+        collectionId: collectionId
+    }
+
+    const res = await axios.post('/api/delete_collection_item', info); 
+
+    if ( res.data.collection._id === collectionId ) {
+        dispatch(fetchCollectionByIdStart());
+        // console.log('second route starts');
+        const id = collectionId;
+
+        const res2 = await axios.get(`/api/fetch_collection/${id}`);
+
+        if (res2.data.resources) {
+            // console.log('second route successful');
+            // console.log(res2.data);
+            dispatch(fetchCollectionByIdSuccess(res2.data.resources));
+        } else {
+            dispatch(deleteCollectionItemFail(res2.data));
+        }
+    } 
 }
 
 

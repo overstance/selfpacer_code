@@ -15,8 +15,10 @@ const initialState = {
 
     clickedCollectionAttributes: null,
 
-    collectedResources: null,
-    fetchcollectedResourceError: null
+    collectedResources: [],
+    fetchcollectedResourceError: null,
+
+    deleteCollectionItemError: null
 };
 
 //Set Resource to Collect
@@ -115,6 +117,10 @@ const fetchCollectionByIdFail = ( state, action ) => {
     return updateObject( state, { loading: false, fetchcollectedResourceError: action.error});
 };
 
+const deleteCollectionItemFail = ( state, action ) => {
+    return updateObject( state, { loading: false, deleteCollectionItemError: action.error});
+};
+
 
 
 const reducer = ( state = initialState, action ) => {
@@ -143,6 +149,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_COLLECTION_BY_ID_START: return fetchCollectionByIdStart( state, action );
         case actionTypes.FETCH_COLLECTION_BY_ID_SUCCESS: return fetchCollectionByIdSuccess( state, action );
         case actionTypes.FETCH_COLLECTION_BY_ID_FAIL: return fetchCollectionByIdFail( state, action );
+
+        case actionTypes.DELETE_COLLECTION_ITEM_FAIL: return deleteCollectionItemFail( state, action );
 
         default: return state;
     }

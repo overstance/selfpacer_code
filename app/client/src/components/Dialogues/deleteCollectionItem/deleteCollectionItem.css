@@ -52,17 +52,34 @@
     font-weight: 400;
 }
 
-.DialogueMessage a {
+.CancelDelete {
     text-decoration: none;
     color: var(--darkBlue);
     background: var(--skyBlue);
     border-radius: 16px;
     font-size: small;
-    padding: 8px;
-    margin: 5px;
+    padding: 10px;
+    margin: 20px 10px 0px;
     display: inline-block;
+    cursor: pointer;
 }
 
-.DialogueMessage a:hover {
+.CancelDelete:hover {
     background: var(--green);
 }
+
+.ConfirmDelete {
+    text-decoration: none;
+    color: var(--darkBlue);
+    background: var(--red);
+    border-radius: 16px;
+    font-size: small;
+    padding: 10px;
+    margin: 20px 10px 0;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* .ConfirmDelete:hover {
+    background: var(--green);
+} */

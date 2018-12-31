@@ -30,7 +30,9 @@ const initialState = {
 
     resetPasswordError: null,
     resetPasswordSuccessFeedback: null,
-    resetPasswordLoading: false
+    resetPasswordLoading: false,
+
+    userLikeCount: null,
 };
 
 const fetchUser = (state, action) => {
@@ -198,6 +200,18 @@ const clearReverifyEmailError = (state, action) => {
     });
 }
 
+// Set user like count
+
+const setUserLikeCount = ( state, action ) => {
+    return updateObject( state, { userLikeCount: action.userLikeCount } );
+};
+
+// update user liked resources
+
+const updateUserLikedCount = ( state, action ) => {
+    return updateObject( state, { userLikeCount: action.newLikeCount } );
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.FETCH_USER: return fetchUser(state, action);
@@ -229,6 +243,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REVERIFY_EMAIL_SENT: return reverifyEmailSent(state, action);
         case actionTypes.REVERIFY_EMAIL_FAILED: return reverifyEmailFailed(state, action);
         case actionTypes.CLEAR_REVERIFY_EMAIL_ERROR: return clearReverifyEmailError(state, action);
+
+        case actionTypes.SET_USER_LIKE_COUNT: return setUserLikeCount( state, action );
+        case actionTypes.UPDATE_USER_LIKE_COUNT: return updateUserLikedCount( state, action );
 
         default:
             return state;

@@ -96,7 +96,7 @@ const mapStateToProps = state => ({
     collectionCount: state.collection.userCollections,
     collectionLoading: state.collection.loading,
     userAssets: state.resource.userAssets,
-    likeCount: state.resource.userLikeCount,
+    likeCount: state.auth.userLikeCount,
     assetsLoading: state.resource.loading,
     isAdmin: state.auth.isAdmin
 });

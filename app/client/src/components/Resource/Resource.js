@@ -48,11 +48,6 @@ class Resource extends Component {
                                             <div className={classes.Type}>TUTOR:<span>{this.props.tutor}</span></div>
                                         </div> : null
                                     }
-                                    { this.props.author ?
-                                        <div>
-                                            <div className={classes.Type}>AUTHOR:<span>{this.props.author}</span></div>
-                                        </div> : null
-                                    }
                                     { this.props.enrollees ?
                                         <div>
                                             <div className={classes.Type}>ENROLLEES:<span>{this.props.enrollees}</span></div>
@@ -76,10 +71,17 @@ class Resource extends Component {
                                     { this.props.videoCount ? 
                                         <div className={classes.DetailsColumnFlex}>
                                             <div className={classes.Type}>VIDEOCOUNT:<span>{this.props.videoCount}</span></div>
-                                        </div> :
+                                        </div> : null
+                                    }
+                                    { this.props.youtubeViews ?
                                         <div className={classes.DetailsColumnFlex}>
                                             <div className={classes.Type}>YOUTUBEVIEWS:<span>{this.props.youtubeViews}</span></div>
-                                        </div>
+                                        </div> : null
+                                    }  
+                                    { this.props.author ?
+                                        <div className={classes.DetailsColumnFlex}>
+                                            <div className={classes.Type}>AUTHOR:<span>{this.props.author}</span></div>
+                                        </div> : null
                                     }   
                                 </div>
                             </div>
@@ -101,10 +103,16 @@ class Resource extends Component {
                                 {/* <span>{this.props.likes}</span> */}
                             </div>
                         </div>
-                        <div className={classes.Options}>
-                            <span className={classes.FeedbackText}>collect</span>
-                            <span onClick={this.props.collectclicked} className={classes.FeedBackIconCollect}></span>
-                        </div>
+                        { this.props.deletable ? 
+                            <div className={classes.Options}>
+                                <span className={classes.FeedbackText}>delete</span>
+                                <span onClick={this.props.deleteClicked} className={classes.FeedBackIconDelete}></span>
+                            </div> :
+                            <div className={classes.Options}>
+                                <span className={classes.FeedbackText}>collect</span>
+                                <span onClick={this.props.collectclicked} className={classes.FeedBackIconCollect}></span>
+                            </div>
+                        }
                     </div>
                 </div>           
             </div> 
@@ -129,7 +137,7 @@ Resource.propTypes= {
     videoCount: PropTypes.string,
     youtubeViews: PropTypes.string,
     likeclicked: PropTypes.func.isRequired,
-    collectclicked: PropTypes.func.isRequired   
+    collectclicked: PropTypes.func   
 }
 
 export default connect(mapStateToProps)(Resource);
