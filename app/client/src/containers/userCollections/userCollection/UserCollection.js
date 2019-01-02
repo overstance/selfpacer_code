@@ -6,6 +6,7 @@ import classes from './UserCollection.css';
 import Grid from '../../../components/UserInterface/Grid/Grid';
 import Resource from '../../../components/Resource/Resource';
 import DeleteCollectionItem from '../../../components/Dialogues/deleteCollectionItem/deleteCollectionItem';
+import EditCollection from '../../../components/Dialogues/editCollection/EditCollection';
 // import Button from '../../../components/UserInterface/Button/Button';
 
 class Resourcepage extends Component {
@@ -31,7 +32,9 @@ class Resourcepage extends Component {
         resourceToDeleteTitle: null,
         collectionId: this.props.clickedCollectionAttributes.id,
 
-        showDeleteCollectionItemModal: false
+        showDeleteCollectionItemModal: false,
+
+        showEditCollectionModal: false
     }
 
     resourceClickedHandler = ( id, views ) => {
@@ -53,7 +56,7 @@ class Resourcepage extends Component {
 
     confirmDeleteHandler = ( resourceId, resourceTitle ) => {
 
-        console.log('confirm delete started');
+        // console.log('confirm delete started');
 
         this.setState({ 
             resourceToDeleteId: resourceId,
@@ -86,6 +89,15 @@ class Resourcepage extends Component {
             showDeleteCollectionItemModal: false
         });
     }
+
+    editCollectionHandler = () => {
+        this.setState({ showEditCollectionModal: true});
+    }
+
+    editCollectionCloseHandler = () => {
+        this.setState({ showEditCollectionModal: false });
+    }
+
 
     likeHandler = (id, likes) => {
         this.props.onSetLikedResource( id );
@@ -137,6 +149,17 @@ class Resourcepage extends Component {
 
         return (
             <Grid>
+                {/* <div className={classes.YourCollection}>YOUR COLLECTIONS</div> */}
+                <div className={classes.HeaderWrapper}>
+                    <div className={classes.TitleColumn}>
+                        <div className={classes.Title}>{this.props.clickedCollectionAttributes.title}</div>
+                    </div>
+                    <div className={classes.OptionsColumn}>
+                        <div onClick={this.editCollectionHandler} className={classes.EditIconRow}></div>
+                        <div onClick={this.shareCollectionHandler} className={classes.ShareIconRow}></div>
+                        <div onClick={this.deleteCollectionHandler} className={classes.DeleteIconRow}></div>
+                    </div>
+                </div>
                 {this.state.showDeleteCollectionItemModal ? 
                     <DeleteCollectionItem 
                     showDialogue={this.state.showDeleteCollectionItemModal}
@@ -145,6 +168,13 @@ class Resourcepage extends Component {
                     itemTitle={this.state.resourceToDeleteTitle}
                     cancelDelete={this.cancelDeleteHandler}
                     confirmDelete={this.deleteConfirmedHandler}
+                    />: null
+                }
+                {this.state.showEditCollectionModal ? 
+                    <EditCollection 
+                    showDialogue={this.state.showEditCollectionModal}
+                    closeDialogue={this.editCollectionCloseHandler}
+                    closeModal={this.editCollectionCloseHandler}
                     />: null
                 }
                 {userCollection}

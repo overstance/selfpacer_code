@@ -14,7 +14,7 @@ const authRequired = (props) => (
             </div>
             <div className={classes.DialogueMessage}>
                 <div>Delete:</div>
-                <div>{props.itemTitle + '?'}</div>
+                <h4>{props.itemTitle}<span>?</span></h4>
                 <div>
                     <div onClick={props.cancelDelete} className={classes.CancelDelete}>CANCEL</div>
                     <div onClick={props.confirmDelete} className={classes.ConfirmDelete}>DELETE</div>

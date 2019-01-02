@@ -18,7 +18,11 @@ const initialState = {
     collectedResources: [],
     fetchcollectedResourceError: null,
 
-    deleteCollectionItemError: null
+    deleteCollectionItemError: null,
+
+    editCollectionLoading: false,
+    editCollectionSuccessInfo: null,
+    editCollectionError: null
 };
 
 //Set Resource to Collect
@@ -121,6 +125,26 @@ const deleteCollectionItemFail = ( state, action ) => {
     return updateObject( state, { loading: false, deleteCollectionItemError: action.error});
 };
 
+// Edit collection
+
+const editCollectionStart = ( state, action) => {
+    return updateObject( state, { editCollectionLoading: true});
+}
+
+const editCollectionSuccess = ( state, action) => {
+    return updateObject( state, { editCollectionLoading: false, editCollectionSuccessInfo: action.successInfo, clickedCollectionAttributes: action.attributes});
+}
+
+const editCollectionFail = ( state, action) => {
+    return updateObject( state, { editCollectionLoading: false, editCollectionError: action.error });
+}
+
+// Clear edit Collection messages 
+
+const clearEditCollectionMessages = ( state, action) => {
+    return updateObject( state, { editCollectionSuccessInfo: null, editCollectionError: null });
+}
+
 
 
 const reducer = ( state = initialState, action ) => {
@@ -151,6 +175,12 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_COLLECTION_BY_ID_FAIL: return fetchCollectionByIdFail( state, action );
 
         case actionTypes.DELETE_COLLECTION_ITEM_FAIL: return deleteCollectionItemFail( state, action );
+
+        case actionTypes.EDIT_COLLECTION_START: return editCollectionStart( state, action );
+        case actionTypes.EDIT_COLLECTION_SUCCESS: return editCollectionSuccess( state, action );
+        case actionTypes.EDIT_COLLECTION_FAIL: return editCollectionFail( state, action );
+
+        case actionTypes.CLEAR_EDIT_COLLECTION_MESSAGES: return clearEditCollectionMessages( state, action );
 
         default: return state;
     }

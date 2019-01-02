@@ -7,10 +7,10 @@ import Button from '../../../components/UserInterface/Button/Button';
 
 class AddMooc extends Component {
 
-    componentDidMount() {
+    /* componentDidMount() {
         this.props.onFetchSubjects();       
     }
-
+ */
     componentWillUnmount() {
         this.props.onClearAddMoocFeedbacks();
     }
@@ -586,7 +586,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchSubjects: () => dispatch( actions.fetchSubjects()),
+        // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
         onClearAddMoocFeedbacks: () => dispatch( actions.clearAddMoocFeedbacks()),
         onAddMooc: (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) => dispatch( actions.addMooc(subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) )
     };

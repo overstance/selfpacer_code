@@ -7,9 +7,9 @@ import Button from '../../../components/UserInterface/Button/Button';
 
 class AddBooks extends Component {
 
-    componentDidMount() {
+    /* componentDidMount() {
         this.props.onFetchSubjects();       
-    }
+    } */
 
     componentWillUnmount() {
         this.props.onClearAddBooksFeedbacks();
@@ -462,7 +462,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchSubjects: () => dispatch( actions.fetchSubjects()),
+        // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
         onClearAddBooksFeedbacks: () => dispatch( actions.clearAddBooksFeedbacks()),
         onAddBooks: (subject, title, url, imageUrl, source, author, level, avgRating, agent) => dispatch( actions.addBooks(subject, title, url, imageUrl, source, author, level, avgRating, agent) )
     };

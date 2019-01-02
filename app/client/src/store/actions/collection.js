@@ -271,6 +271,68 @@ export const deleteCollectionItem = ( resourceId, collectionId, history) => asyn
     } 
 }
 
+// Edit Collection
+
+export const editCollectionStart = () => {
+    return {
+        type: actionTypes.EDIT_COLLECTION_START
+    }
+}
+
+export const editCollectionSuccess = (successInfo, attributes) => {
+    return {
+        type: actionTypes.EDIT_COLLECTION_SUCCESS,
+        successInfo: successInfo,
+        attributes: attributes
+    }
+}
+
+export const editCollectionFail = ( error ) => {
+    return {
+        type: actionTypes.EDIT_COLLECTION_FAIL,
+        error: error
+    }
+}
+
+export const editCollection = ( title, description, collectionId) => async dispatch => {
+    dispatch(editCollectionStart());
+
+    let checkedDescription = description;
+
+    if ( description === '') {
+        checkedDescription = undefined;
+    }
+
+    const info = {
+        title: title,
+        description: checkedDescription,
+        id: collectionId
+    }
+
+    const res = await axios.post('/api/edit_collection', info);
+
+    if (res.data.collection._id === collectionId ) {
+
+        const attributes = {
+            title: res.data.collection.title,
+            id: res.data.collection._id,
+            description: res.data.collection.description
+        }
+        
+        dispatch(editCollectionSuccess('edit successful', attributes));
+    } else {
+        dispatch(editCollectionFail(res.data));
+    }
+}
+
+// Clear Edit Collection messages 
+
+export const clearEditCollectionMessages = () => {
+    return {
+        type: actionTypes.CLEAR_EDIT_COLLECTION_MESSAGES
+    }
+}
+
 
 
 

@@ -8,12 +8,12 @@ import Grid from '../../components/UserInterface/Grid/Grid';
 
 class AddResources extends Component {
 
-    componentDidMount() {
+    /* componentDidMount() {
         this.props.onFetchSubjects();
 
         // console.log(this.props.activeSubject);
         // this.props.onFetchUser();
-    }
+    } */
 
     state = {
         fillError: null,
@@ -303,7 +303,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchSubjects: () => dispatch( actions.fetchSubjects()),
+        // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
         onAddResource: (link, subject, type, user, history) => dispatch( actions.addResource(link, subject, type, user, history) )
     };
 };

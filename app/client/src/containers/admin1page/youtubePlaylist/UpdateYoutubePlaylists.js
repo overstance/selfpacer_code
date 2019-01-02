@@ -7,9 +7,9 @@ import Button from '../../../components/UserInterface/Button/Button';
 
 class UpdateYoutubePlaylists extends Component {
 
-    componentDidMount() {
+    /* componentDidMount() {
         this.props.onFetchSubjects();
-    }
+    } */
 
     state = {
         fillError: null,
@@ -165,7 +165,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchSubjects: () => dispatch( actions.fetchSubjects()),
+        // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
         onUpdateYoutubePlaylists: (subject, user) => dispatch( actions.updateYoutubePlaylists(subject, user) )
     };
 };

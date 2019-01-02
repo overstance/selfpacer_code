@@ -7,10 +7,10 @@ import Button from '../../../components/UserInterface/Button/Button';
 
 class UpdateYoutubeVideos extends Component {
 
-    componentDidMount() {
+    /* componentDidMount() {
         this.props.onFetchSubjects();
         // this.props.onFetchAccountingVideos();
-    }
+    } */
 
     state = {
         fillError: null,
@@ -166,7 +166,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchSubjects: () => dispatch( actions.fetchSubjects()),
+        // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
         onUpdateYoutubeVideos: (subject, user) => dispatch( actions.updateYoutubeVideos(subject, user) )
     };
 };

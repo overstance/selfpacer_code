@@ -144,7 +144,9 @@ export {
     resourceAlreadyAdded,
     fetchCollectionById,
     setClickedCollectionAttributes,
-    deleteCollectionItem
+    deleteCollectionItem,
+    editCollection,
+    clearEditCollectionMessages
 } from './collection';
 
 export {

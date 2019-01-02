@@ -98,12 +98,29 @@ module.exports = app => {
               res.send(err.message);
               console.log(err.message);
             } else {
-              console.log(collection);
-              // res.send({ collection: collection });
+              // console.log(collection);
+              res.send({ collection: collection });
             }
           }
         );
       }
     });
+  });
+
+  app.post('/api/edit_collection', (req, res) => {
+    // console.log(req.body);
+    Collection.findByIdAndUpdate(
+      req.body.id,
+      { title: req.body.title, description: req.body.description },
+      { new: true },
+      (err, collection) => {
+        if (err) {
+          res.send(err.message);
+        } else {
+          res.send({ collection: collection });
+          // console.log(collection);
+        }
+      }
+    );
   });
 };

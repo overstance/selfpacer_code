@@ -7,9 +7,9 @@ import Button from '../../../components/UserInterface/Button/Button';
 
 class EditSubject extends Component {
 
-    componentDidMount() {
+    /* componentDidMount() {
         this.props.onFetchSubjects();
-    }
+    } */
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
@@ -308,7 +308,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchSubjects: () => dispatch( actions.fetchSubjects()),
+        // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
         onFetchSelectSubjectInfo: (subject) => dispatch( actions.fetchSelectSubjectInfo(subject)),
         onEditSubject: ( subject, path, curriculum ) => dispatch( actions.editSubject( subject, path, curriculum ) )
     };
