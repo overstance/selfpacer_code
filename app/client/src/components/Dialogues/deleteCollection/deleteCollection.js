@@ -1,9 +1,12 @@
 import React from 'react';
-import classes from './deleteCollectionItem.css';
+import classes from './deleteCollection.css';
 import Modal from '../../UserInterface/Modal/Modal';
-// import { Link } from 'react-router-dom';
+/* import { connect } from 'react-redux';
+import Spinner from '../../UserInterface/Spinner/Spinner';
+import * as actions from '../../../store/actions/index';
+// import { Link } from 'react-router-dom'; */
 
-const deleteCollectionItem = (props) => (
+const deleteCollection = (props) => (
     <Modal show={props.showDialogue} closeModal={props.closeModal}>
         <div>
             <div className={classes.DialogueTitleHead}>
@@ -13,15 +16,16 @@ const deleteCollectionItem = (props) => (
                 <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
             </div>
             <div className={classes.DialogueMessage}>
-                <div>Delete:</div>
-                <h4>{props.itemTitle}<span>?</span></h4> 
+            <div>Delete:</div>
+                <h4>{props.collectionTitle}</h4>
+                <span>?</span>
                 <div>
                     <div onClick={props.cancelDelete} className={classes.CancelDelete}>CANCEL</div>
                     <div onClick={props.confirmDelete} className={classes.ConfirmDelete}>DELETE</div>
                 </div>
-            </div>                                    
+            </div>                              
         </div>
     </Modal>
 );
 
-export default deleteCollectionItem;
+export default deleteCollection;

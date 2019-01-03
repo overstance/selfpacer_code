@@ -123,4 +123,48 @@ module.exports = app => {
       }
     );
   });
+
+  app.post('/api/publish_collection', (req, res) => {
+    Collection.findByIdAndUpdate(
+      req.body.id,
+      { public: true },
+      { new: true },
+      (err, collection) => {
+        if (err) {
+          res.send(err.message);
+        } else {
+          res.send({ collection: collection });
+        }
+      }
+    );
+  });
+
+  app.post('/api/unpublish_collection', (req, res) => {
+    Collection.findByIdAndUpdate(
+      req.body.id,
+      { public: false },
+      { new: true },
+      (err, collection) => {
+        if (err) {
+          res.send(err.message);
+        } else {
+          res.send({ collection: collection });
+        }
+      }
+    );
+  });
+
+  app.post('/api/delete_collection', (req, res) => {
+    Collection.findByIdAndRemove(
+      req.body.id,
+      { public: false },
+      (err, collection) => {
+        if (err) {
+          res.send(err.message);
+        } else {
+          res.send({ collection: collection });
+        }
+      }
+    );
+  });
 };

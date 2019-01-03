@@ -17,9 +17,9 @@ class UserCollections extends Component {
         this.props.onClearMessages();
     } */
 
-    collectionClickedHandler = (title, date, id, description) => {
+    collectionClickedHandler = (title, date, id, description, published) => {
         const dateToString = new Date(date).toLocaleDateString();
-        this.props.onSetClickedCollectionAttributes( {title: title, date: dateToString, id: id, description: description} );
+        this.props.onSetClickedCollectionAttributes( {title: title, date: dateToString, id: id, description: description, public: published} );
     }
 
     
@@ -34,7 +34,7 @@ class UserCollections extends Component {
             title={collection.title}
             itemCount={collection.resources.length}
             date={new Date(collection.date).toLocaleDateString()}
-            collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description)}
+            collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description, collection.public)}
             />
         ));
 

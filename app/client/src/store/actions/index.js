@@ -146,7 +146,12 @@ export {
     setClickedCollectionAttributes,
     deleteCollectionItem,
     editCollection,
-    clearEditCollectionMessages
+    clearEditCollectionMessages,
+    publishCollection,
+    clearPublishCollectionMessages,
+    unpublishCollection,
+    deleteCollection,
+    clearDeleteCollectionMessages
 } from './collection';
 
 export {

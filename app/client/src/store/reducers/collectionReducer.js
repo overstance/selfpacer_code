@@ -22,7 +22,15 @@ const initialState = {
 
     editCollectionLoading: false,
     editCollectionSuccessInfo: null,
-    editCollectionError: null
+    editCollectionError: null,
+
+    publishCollectionLoading: false,
+    publishCollectionSuccessInfo: null,
+    publishCollectionError: null,
+
+    deleteCollectionLoading: false,
+    deleteCollectionSuccessInfo: null,
+    deleteCollectionError: null
 };
 
 //Set Resource to Collect
@@ -145,7 +153,45 @@ const clearEditCollectionMessages = ( state, action) => {
     return updateObject( state, { editCollectionSuccessInfo: null, editCollectionError: null });
 }
 
+// publish collection
 
+const publishCollectionStart = ( state, action) => {
+    return updateObject( state, { publishCollectionLoading: true});
+}
+
+const publishCollectionSuccess = ( state, action) => {
+    return updateObject( state, { publishCollectionLoading: false, publishCollectionSuccessInfo: action.successInfo, clickedCollectionAttributes: action.attributes});
+}
+
+const publishCollectionFail = ( state, action) => {
+    return updateObject( state, { publishCollectionLoading: false, publishCollectionError: action.error });
+}
+
+// Clear publish Collection messages 
+
+const clearPublishCollectionMessages = ( state, action) => {
+    return updateObject( state, { publishCollectionSuccessInfo: null, publishCollectionError: null });
+}
+
+// delete collection
+
+const deleteCollectionStart = ( state, action) => {
+    return updateObject( state, { deleteCollectionLoading: true});
+}
+
+const deleteCollectionSuccess = ( state, action) => {
+    return updateObject( state, { deleteCollectionLoading: false, deleteCollectionSuccessInfo: action.successInfo});
+}
+
+const deleteCollectionFail = ( state, action) => {
+    return updateObject( state, { deleteCollectionLoading: false, deleteCollectionError: action.error });
+}
+
+// Clear delete Collection messages 
+
+const clearDeleteCollectionMessages = ( state, action) => {
+    return updateObject( state, { deleteCollectionSuccessInfo: null, deleteCollectionError: null });
+}
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
@@ -181,6 +227,18 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.EDIT_COLLECTION_FAIL: return editCollectionFail( state, action );
 
         case actionTypes.CLEAR_EDIT_COLLECTION_MESSAGES: return clearEditCollectionMessages( state, action );
+
+        case actionTypes.PUBLISH_COLLECTION_START: return publishCollectionStart( state, action );
+        case actionTypes.PUBLISH_COLLECTION_SUCCESS: return publishCollectionSuccess( state, action );
+        case actionTypes.PUBLISH_COLLECTION_FAIL: return publishCollectionFail( state, action );
+
+        case actionTypes.CLEAR_PUBLISH_COLLECTION_MESSAGES: return clearPublishCollectionMessages( state, action );
+
+        case actionTypes.DELETE_COLLECTION_START: return deleteCollectionStart( state, action );
+        case actionTypes.DELETE_COLLECTION_SUCCESS: return deleteCollectionSuccess( state, action );
+        case actionTypes.DELETE_COLLECTION_FAIL: return deleteCollectionFail( state, action );
+
+        case actionTypes.CLEAR_DELETE_COLLECTION_MESSAGES: return clearDeleteCollectionMessages( state, action );
 
         default: return state;
     }

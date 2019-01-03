@@ -66,7 +66,7 @@
 
 .CancelDelete {
     text-decoration: none;
-    color: var(--darkBlue);
+    /* color: var(--darkBlue); */
     background: var(--skyBlue);
     border-radius: 16px;
     font-size: small;
@@ -82,7 +82,7 @@
 
 .ConfirmDelete {
     text-decoration: none;
-    color: var(--darkBlue);
+    /* color: var(--darkBlue); */
     background: var(--red);
     border-radius: 16px;
     font-size: small;
@@ -92,6 +92,17 @@
     cursor: pointer;
 }
 
-/* .ConfirmDelete:hover {
-    background: var(--green);
-} */
+.AddFeedbackInfo {
+    color: var(--green);
+    font-weight: 400;
+    padding: 5px;
+    font-size: small;
+    display: inline;
+}
+
+.ErrorFeedbackInfo {
+    color: var(--red);
+    padding: 5px;
+    font-size: small;
+    display: inline;
+}

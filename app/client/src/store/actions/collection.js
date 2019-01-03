@@ -316,7 +316,8 @@ export const editCollection = ( title, description, collectionId) => async dispa
         const attributes = {
             title: res.data.collection.title,
             id: res.data.collection._id,
-            description: res.data.collection.description
+            description: res.data.collection.description,
+            public: res.data.collection.public
         }
         
         dispatch(editCollectionSuccess('edit successful', attributes));
@@ -330,6 +331,138 @@ export const editCollection = ( title, description, collectionId) => async dispa
 export const clearEditCollectionMessages = () => {
     return {
         type: actionTypes.CLEAR_EDIT_COLLECTION_MESSAGES
+    }
+}
+
+// publish Collection
+
+export const publishCollectionStart = () => {
+    return {
+        type: actionTypes.PUBLISH_COLLECTION_START
+    }
+}
+
+export const publishCollectionSuccess = ( successInfo, attributes ) => {
+    return {
+        type: actionTypes.PUBLISH_COLLECTION_SUCCESS,
+        successInfo: successInfo,
+        attributes: attributes
+    }
+}
+
+export const publishCollectionFail = ( error ) => {
+    return {
+        type: actionTypes.PUBLISH_COLLECTION_FAIL,
+        error: error
+    }
+}
+
+export const publishCollection = ( collectionId ) => async dispatch => {
+    dispatch(publishCollectionStart());
+
+    const info = {
+        id: collectionId
+    }
+
+    const res = await axios.post('/api/publish_collection', info);
+
+    if ( res.data.collection._id === collectionId ) {
+        // console.log(res.data.collection);
+
+        const attributes = {
+            title: res.data.collection.title,
+            id: res.data.collection._id,
+            description: res.data.collection.description,
+            public: res.data.collection.public
+        }
+
+        dispatch(publishCollectionSuccess('collection Published', attributes));
+    } else {
+        dispatch(publishCollectionFail(res.data));
+    }
+}
+
+// unpublish collection
+
+export const unpublishCollection = ( collectionId ) => async dispatch => {
+    dispatch(publishCollectionStart());
+
+    const info = {
+        id: collectionId
+    }
+
+    const res = await axios.post('/api/unpublish_collection', info);
+
+    if ( res.data.collection._id === collectionId ) {
+        // console.log(res.data.collection);
+
+        const attributes = {
+            title: res.data.collection.title,
+            id: res.data.collection._id,
+            description: res.data.collection.description,
+            public: res.data.collection.public
+        }
+
+        dispatch(publishCollectionSuccess('collection unpublished', attributes));
+    } else {
+        dispatch(publishCollectionFail(res.data));
+    }
+}
+
+
+// clear publish collection messages
+
+export const clearPublishCollectionMessages = () => {
+    return {
+        type: actionTypes.CLEAR_PUBLISH_COLLECTION_MESSAGES
+    }
+}
+
+// delete collection
+
+export const deleteCollectionStart = () => {
+    return {
+        type: actionTypes.DELETE_COLLECTION_START
+    }
+}
+
+export const deleteCollectionSuccess = ( successInfo ) => {
+    return {
+        type: actionTypes.DELETE_COLLECTION_SUCCESS,
+        successInfo: successInfo
+    }
+}
+
+export const deleteCollectionFail = ( error ) => {
+    return {
+        type: actionTypes.DELETE_COLLECTION_FAIL,
+        error: error
+    }
+}
+
+export const deleteCollection = ( collectionId ) => async dispatch => {
+    dispatch(deleteCollectionStart());
+
+    const info = {
+        id: collectionId
+    }
+
+    const res = await axios.post('/api/delete_collection', info);
+
+    if ( res.data.collection._id === collectionId ) {
+        // console.log(res.data.collection);
+
+        dispatch(deleteCollectionSuccess('collection deleted'));
+    } else {
+        dispatch(deleteCollectionFail(res.data));
+    }
+}
+
+// clear delete collection messages
+
+export const clearDeleteCollectionMessages = () => {
+    return {
+        type: actionTypes.CLEAR_DELETE_COLLECTION_MESSAGES
     }
 }
 

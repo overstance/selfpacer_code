@@ -7,7 +7,12 @@ import Grid from '../../../components/UserInterface/Grid/Grid';
 import Resource from '../../../components/Resource/Resource';
 import DeleteCollectionItem from '../../../components/Dialogues/deleteCollectionItem/deleteCollectionItem';
 import EditCollection from '../../../components/Dialogues/editCollection/EditCollection';
+import PublishCollection from '../../../components/Dialogues/publishCollection/publishCollection';
+import UnpublishCollection from '../../../components/Dialogues/unpublishCollection/unpublishCollection';
+import DeleteCollection from '../../../components/Dialogues/deleteCollection/deleteCollection';
+import PostDeleteDialogue from '../../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
 // import Button from '../../../components/UserInterface/Button/Button';
+
 
 class Resourcepage extends Component {
 
@@ -17,9 +22,9 @@ class Resourcepage extends Component {
         }
     }
 
-    /* componentWillUnmount() {
-        this.props.onClearMessages();
-    } */
+    componentWillUnmount() {
+        this.props.onClearDeleteCollectionMessages();
+    }
     
       /* componentWillReceiveProps(nextProps) {
         if (nextProps.collectedResources === null && this.props.resource.loading) {
@@ -33,8 +38,14 @@ class Resourcepage extends Component {
         collectionId: this.props.clickedCollectionAttributes.id,
 
         showDeleteCollectionItemModal: false,
+        showEditCollectionModal: false,
+        showPublishCollectionModal: false,
+        showUnpublishCollectionModal: false,
+        showDeleteCollectionModal: false
+    }
 
-        showEditCollectionModal: false
+    handleBack = () => {
+        this.props.history.goBack()
     }
 
     resourceClickedHandler = ( id, views ) => {
@@ -98,6 +109,45 @@ class Resourcepage extends Component {
         this.setState({ showEditCollectionModal: false });
     }
 
+    publishCollectionHandler = () => {
+
+        if( this.props.clickedCollectionAttributes.public ) {
+            this.setState({ showUnpublishCollectionModal: true });
+        } else {
+            this.setState({  showPublishCollectionModal: true });
+        }       
+    }
+
+    publishCollectionCloseHandler = () => {
+        this.setState({ showPublishCollectionModal: false});
+    }
+
+    unpublishCollectionCloseHandler = () => {
+        this.setState({ showUnpublishCollectionModal: false});
+    }
+
+    publishConfirmedHandler = () => {
+        this.props.onPublishCollection(this.props.clickedCollectionAttributes.id);
+    }
+
+    unpublishConfirmedHandler = () => {
+        this.props.onUnpublishCollection(this.props.clickedCollectionAttributes.id);
+    }
+
+    deleteCollectionCloseHandler = () => {
+        this.setState({ showDeleteCollectionModal: false});
+    }
+
+    deleteCollectionHandler = () => {
+        this.setState({ showDeleteCollectionModal: true });
+    }
+
+    deleteCollectionConfirmedHandler = () => {
+        this.props.onDeleteCollection(this.props.clickedCollectionAttributes.id);
+
+        this.setState({ showDeleteCollectionModal: false});
+    }
+
 
     likeHandler = (id, likes) => {
         this.props.onSetLikedResource( id );
@@ -145,21 +195,52 @@ class Resourcepage extends Component {
             <div className={classes.Container}>
                 <div className={classes.Spinner}><Spinner /></div>
             </div>
-        }     
+        }  
+        
+        let content =
+        <div>
+            <div className={classes.HeaderWrapper}>
+                <div className={classes.TitleColumn}>
+                    <div className={classes.Title}>{this.props.clickedCollectionAttributes.title}</div>
+                    {this.props.clickedCollectionAttributes.public ? <div className={classes.PublicTag}>PUBLIC</div> : null}
+                </div>
+                <div className={classes.OptionsColumn}>
+                    <div onClick={this.editCollectionHandler} className={classes.EditIconRow}></div>
+                    <div onClick={this.publishCollectionHandler} className={classes.ShareIconRow}></div>
+                    <div onClick={this.deleteCollectionHandler} className={classes.DeleteIconRow}></div>
+                </div>
+            </div>
+            {userCollection}
+        </div>
+
+        if (this.props.deleteCollectionLoading) {
+            content =
+            <div className={classes.Container}>
+                <div className={classes.Spinner}><Spinner /></div>
+            </div>
+        }
+
+        if (this.props.deleteCollectionSuccessInfo) {
+            content = 
+            <div className={classes.ContainerItem}>
+                <PostDeleteDialogue withGoBackButton handleBack={this.handleBack}>
+                    {this.props.deleteCollectionSuccessInfo}
+                </PostDeleteDialogue>
+            </div>
+            
+        } else if (this.props.deleteCollectionError) {
+            content =
+            <div className={classes.ContainerItem}>
+                <PostDeleteDialogue withGoBackButton handleBack={this.handleBack}>
+                    {this.props.deleteCollectionError}
+                </PostDeleteDialogue>
+            </div>
+             
+        }
 
         return (
             <Grid>
-                {/* <div className={classes.YourCollection}>YOUR COLLECTIONS</div> */}
-                <div className={classes.HeaderWrapper}>
-                    <div className={classes.TitleColumn}>
-                        <div className={classes.Title}>{this.props.clickedCollectionAttributes.title}</div>
-                    </div>
-                    <div className={classes.OptionsColumn}>
-                        <div onClick={this.editCollectionHandler} className={classes.EditIconRow}></div>
-                        <div onClick={this.shareCollectionHandler} className={classes.ShareIconRow}></div>
-                        <div onClick={this.deleteCollectionHandler} className={classes.DeleteIconRow}></div>
-                    </div>
-                </div>
+                {content}
                 {this.state.showDeleteCollectionItemModal ? 
                     <DeleteCollectionItem 
                     showDialogue={this.state.showDeleteCollectionItemModal}
@@ -177,7 +258,36 @@ class Resourcepage extends Component {
                     closeModal={this.editCollectionCloseHandler}
                     />: null
                 }
-                {userCollection}
+                {this.state.showPublishCollectionModal ? 
+                    <PublishCollection 
+                    showDialogue={this.state.showPublishCollectionModal}
+                    closeDialogue={this.publishCollectionCloseHandler}
+                    closeModal={this.publishCollectionCloseHandler}
+                    collectionTitle={this.props.clickedCollectionAttributes.title}
+                    cancelPublish={this.publishCollectionCloseHandler}
+                    confirmPublish={this.publishConfirmedHandler}
+                    />: null
+                }
+                {this.state.showUnpublishCollectionModal ? 
+                    <UnpublishCollection 
+                    showDialogue={this.state.showUnpublishCollectionModal}
+                    closeDialogue={this.unpublishCollectionCloseHandler}
+                    closeModal={this.unpublishCollectionCloseHandler}
+                    collectionTitle={this.props.clickedCollectionAttributes.title}
+                    cancelUnpublish={this.unpublishCollectionCloseHandler}
+                    confirmUnpublish={this.unpublishConfirmedHandler}
+                    />: null
+                }
+                {this.state.showDeleteCollectionModal ? 
+                    <DeleteCollection 
+                    showDialogue={this.state.showDeleteCollectionModal}
+                    closeDialogue={this.deleteCollectionCloseHandler}
+                    closeModal={this.deleteCollectionCloseHandler}
+                    collectionTitle={this.props.clickedCollectionAttributes.title}
+                    cancelDelete={this.deleteCollectionCloseHandler}
+                    confirmDelete={this.deleteCollectionConfirmedHandler}
+                    />: null
+                }
             </Grid>  
         );
     };
@@ -192,21 +302,30 @@ const mapStateToProps = state => {
         fetchcollectedResourceError: state.collection.fetchcollectedResourceError,
         clickedCollectionAttributes: state.collection.clickedCollectionAttributes,
         settedUserRecentlyViewed: state.resource.userRecentlyViewed,
-        userLikeCount: state.auth.userLikeCount
+        userLikeCount: state.auth.userLikeCount,
+
+        deleteCollectionSuccessInfo: state.collection.deleteCollectionSuccessInfo,
+        deleteCollectionError: state.collection.deleteCollectionError,
+        deleteCollectionLoading: state.collection.deleteCollectionLoading
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onFetchCollectionById: ( id ) => dispatch( actions.fetchCollectionById( id ) ),
-        onClearMessages: () => dispatch( actions.clearAddToCollectionMessages()),
+
         onIncreaseResourceViewCount: ( id, views ) => dispatch( actions.increaseResourceViewCount( id, views )),
         onUpdateRecentlyViewed: (id, viewedResources, userId) => dispatch( actions.updateUserRecentlyViewed(id, viewedResources, userId)),
         onSetLikedResource: ( id ) => dispatch ( actions.setLikedResource( id )),
         onResourceLiked: ( id, likes ) => dispatch ( actions.resourceLiked( id, likes )),
         onUpdateUserLikeCount: ( userId, userLikeCount ) => dispatch(actions.updateUserLikeCount( userId, userLikeCount )),
 
-        onDeleteCollectionItem: ( resourceId, collectionId, history ) => dispatch(actions.deleteCollectionItem( resourceId, collectionId, history ))
+        onDeleteCollectionItem: ( resourceId, collectionId, history ) => dispatch(actions.deleteCollectionItem( resourceId, collectionId, history )),
+        onPublishCollection: (collectionId) => dispatch( actions.publishCollection(collectionId)),
+        onUnpublishCollection: (collectionId) => dispatch( actions.unpublishCollection(collectionId)),
+        onDeleteCollection: (collectionId) => dispatch( actions.deleteCollection(collectionId)),
+
+        onClearDeleteCollectionMessages: () => dispatch( actions.clearDeleteCollectionMessages()),
     };
 };
 
