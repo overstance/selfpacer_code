@@ -42,23 +42,24 @@
     text-align: center;
 }
 
-.DialogueMessage a:hover {
+/* .DialogueMessage a:hover {
     background: var(--green);
-}
+} */
 
 .AddFeedbackInfo {
     color: var(--green);
     font-weight: 400;
-    padding: 5px;
+    padding: 20px;
     font-size: small;
-    display: inline;
+    display: inline-block;
 }
 
 .ErrorFeedbackInfo {
     color: var(--red);
-    padding: 5px;
+    font-weight: 400;
+    padding: 20px;
     font-size: small;
-    display: inline;
+    display: inline-block;
 }
 
 .ContentItems {

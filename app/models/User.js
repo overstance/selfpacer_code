@@ -20,7 +20,10 @@ const userSchema = new Schema({
     type: String,
     default: 'N/A'
   },
-  specialization_alt: String,
+  specialization_alt: {
+    type: String,
+    default: ''
+  },
   date: {
     type: Date,
     default: Date.now()
@@ -29,7 +32,14 @@ const userSchema = new Schema({
     type: Number,
     default: 0
   },
-  recentlyViewed: Array,
+  pinnedCollections: {
+    type: Array,
+    default: []
+  },
+  recentlyViewed: {
+    type: Array,
+    default: []
+  },
   active: {
     type: Boolean,
     default: false

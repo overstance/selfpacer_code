@@ -14,8 +14,8 @@
 }
 
 .CollectionsContainer {
-    width: 260px;
-    margin: 20px auto;
+    /* width: 260px; */
+    margin: 20px;
     background: var(--darkBlue);
     border-radius: 20px;
 }

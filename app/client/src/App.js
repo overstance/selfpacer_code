@@ -10,6 +10,7 @@ import Explore from './containers/explore/Explore';
 
 import UserCollections from './containers/userCollections/UserCollections';
 import UserCollection from './containers/userCollections/userCollection/UserCollection';
+import SharedCollection from './containers/userCollections/sharedCollection/SharedCollection';
 
 import Profile from './containers/profile/Profile';
 import ResourcePage from './containers/resourcepage/Resoucepage';
@@ -207,6 +208,7 @@ class App extends Component {
             <Route path="/explore/accounting" component={Accounting} />
             <Route path="/admin_tools" component={AdminTools} />
             <Route path="/profile/edit" component={EditProfile} />
+            <Route path="/shared_collections/:id" component={SharedCollection} />
             <Route path="/collections/:id" component={UserCollection} />
             <Route path="/collections" component={UserCollections} />
             <Route path="/profile" component={Profile} />

@@ -11,6 +11,19 @@ module.exports = app => {
         res.send(err.name);
       } else {
         res.send({ collections: collections });
+        // console.log(collections);
+      }
+    });
+  });
+
+  app.get('/api/shared_collections', (req, res) => {
+    Collection.find({ public: true }, function(err, collections) {
+      if (err) {
+        console.log(err);
+        res.send(err.name);
+      } else {
+        res.send({ collections: collections });
+        // console.log(collections);
       }
     });
   });
@@ -127,7 +140,7 @@ module.exports = app => {
   app.post('/api/publish_collection', (req, res) => {
     Collection.findByIdAndUpdate(
       req.body.id,
-      { public: true },
+      { public: true, description: req.body.description },
       { new: true },
       (err, collection) => {
         if (err) {
@@ -142,7 +155,7 @@ module.exports = app => {
   app.post('/api/unpublish_collection', (req, res) => {
     Collection.findByIdAndUpdate(
       req.body.id,
-      { public: false },
+      { public: false, description: '' },
       { new: true },
       (err, collection) => {
         if (err) {

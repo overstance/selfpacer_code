@@ -5,9 +5,15 @@ const initialState = {
     error: null,
     successMessage: null,
     resourceToCollect: {},
+
     userCollections: [],
     userCollectionsFetchErrors: null,
     loading: null,
+
+    sharedCollections: [],
+    sharedCollectionsFetchErrors: null,
+    sharedCollectionsLoading: null,
+
     addResourceToCollectionSuccessMessage: null,
     addResourceToCollectionError: null,
 
@@ -75,6 +81,24 @@ const fetchUserCollectionsSuccess = ( state, action ) => {
         userCollections: action.collections,
         userCollectionsFetchErrors: null,
         loading: false
+    } );
+};
+
+// Fetch user collections
+
+const fetchSharedCollectionsStart = ( state, action ) => {
+    return updateObject( state, { sharedCollectionsLoading: true } );
+};
+
+const fetchSharedCollectionsFail = ( state, action ) => {
+    return updateObject( state, { sharedCollectionsFetchErrors: action.error, sharedCollectionsLoading: false } );
+};
+
+const fetchSharedCollectionsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        sharedCollections: action.collections,
+        sharedCollectionsFetchErrors: null,
+        sharedCollectionsLoading: false
     } );
 };
 
@@ -206,6 +230,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_USER_COLLECTIONS_START: return fetchUserCollectionsStart( state, action );
         case actionTypes.FETCH_USER_COLLECTIONS_FAIL: return fetchUserCollectionsFail( state, action );
         case actionTypes.FETCH_USER_COLLECTIONS_SUCCESS: return fetchUserCollectionsSuccess( state, action );
+
+        case actionTypes.FETCH_SHARED_COLLECTIONS_START: return fetchSharedCollectionsStart( state, action );
+        case actionTypes.FETCH_SHARED_COLLECTIONS_FAIL: return fetchSharedCollectionsFail( state, action );
+        case actionTypes.FETCH_SHARED_COLLECTIONS_SUCCESS: return fetchSharedCollectionsSuccess( state, action );
 
         case actionTypes.ADD_RESOURCE_TO_COLLECTION_FAIL: return addResourceToCollectionFail( state, action );
         case actionTypes.ADD_RESOURCE_TO_COLLECTION_SUCCESS: return addResourceToCollectionSuccess( state, action );

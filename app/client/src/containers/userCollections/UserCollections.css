@@ -5,6 +5,15 @@
     background: var(--white);
 }
 
+.SharedCollectionWrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 570px;
+    justify-content: flex-start;
+    /* background: var(--white); */
+    overflow-x: auto;
+}
+
 .YourCollection {
     color: var(--green);
     background: var(--blue);
@@ -12,4 +21,13 @@
     text-align: center;
     font-weight: 400;
     font-size: small;
+}
+
+.PostAddInfo {
+    padding: 20px;
+    font-weight: 400;
+    color: var(--green);
+    background: var(--darkBlue);
+    margin: 10px;
+    border-radius: 20px;
 }

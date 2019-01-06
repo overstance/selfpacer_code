@@ -44,6 +44,8 @@ export const editProfile = (name, specialization1, specialization2, user) => {
             specialization2: specialization2
         };
 
+        // console.log(editInfo);
+
         axios.post('/api/edit_profile', editInfo)
         .then( res => {
             // console.log(res.data);

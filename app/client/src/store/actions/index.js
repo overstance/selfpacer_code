@@ -151,7 +151,8 @@ export {
     clearPublishCollectionMessages,
     unpublishCollection,
     deleteCollection,
-    clearDeleteCollectionMessages
+    clearDeleteCollectionMessages,
+    fetchSharedCollections
 } from './collection';
 
 export {

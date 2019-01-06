@@ -7,7 +7,10 @@ const collectionSchema = new Schema({
     type: Boolean,
     default: false
   },
-  description: String,
+  description: {
+    type: String,
+    default: ''
+  },
   resources: Array,
   date: {
     type: Date,

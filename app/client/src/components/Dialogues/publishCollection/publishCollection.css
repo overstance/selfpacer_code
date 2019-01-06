@@ -39,15 +39,10 @@
 }
 
 .DialogueMessage {
-    padding: 30px 5px;
     text-align: center;
-    width: 240px;
-    border-radius: 20px;
-    background: var(--darkBlue);
-    margin: 20px auto;
 }
 
-.DialogueMessage div {
+/* .DialogueMessage div {
     color: var(--white);
     font-weight: 400;
 }
@@ -62,47 +57,90 @@
 .DialogueMessage span {
     color: var(--white);
     font-weight: 400;
-}
-
-.ConfirmPublish {
-    text-decoration: none;
-    /* color: var(--darkBlue); */
-    background: var(--skyBlue);
-    border-radius: 16px;
-    font-size: small;
-    padding: 10px;
-    margin: 20px 10px 0px;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.ConfirmPublish:hover {
-    background: var(--green);
-}
-
-.CancelPublish {
-    text-decoration: none;
-    /* color: var(--darkBlue); */
-    background: var(--red);
-    border-radius: 16px;
-    font-size: small;
-    padding: 10px;
-    margin: 20px 10px 0;
-    display: inline-block;
-    cursor: pointer;
-}
+} */
 
 .AddFeedbackInfo {
     color: var(--green);
     font-weight: 400;
-    padding: 5px;
+    padding: 20px;
     font-size: small;
-    display: inline;
+    display: inline-block;
 }
 
 .ErrorFeedbackInfo {
     color: var(--red);
-    padding: 5px;
+    font-weight: 400;
+    padding: 20px;
     font-size: small;
-    display: inline;
+    display: inline-block;
+}
+
+.ContentItems {
+    display: flex;
+    justify-content: space-around;  
+    flex-flow: row wrap;
+    text-align: center;
+    padding: 10px;
+    /* background: lightgray;  */
+}
+
+.ContainerItem {
+    padding: 5px;
+}
+
+.ContainerItem span {
+    display: none;
+}
+
+.ContainerItem button {
+ font-size: small;
+ width: 100px;
+ height: 50px;
+ border-radius: 25px;
+ padding: 0;
+}
+
+.AdminAction {
+    color: var(--darkBlue);
+    font-size: x-small;
+    font-weight: 700;
+}
+
+.Form {
+    background: var(--darkBlue);
+    padding: 10px;
+    margin: 10px 20px;
+    border-radius: 20px;
+}
+
+.Form textarea {
+    border-radius: 5px;
+    resize: none;
+}
+
+.Form Button {
+    margin-top: 10px;
+}
+
+.Form label {
+    margin-top: 0px;
+    font-weight: 400;
+    font-size: small;
+}
+
+.Form select {
+    font-weight: 400;
+}
+
+.Form input {
+    font-weight: 400;
+}
+
+.FillError {
+    color: var(--red);
+    font-size: small;
+    font-weight: 400;
+    max-width: 180px;
+    margin: auto;
+    padding: 2px;
 }

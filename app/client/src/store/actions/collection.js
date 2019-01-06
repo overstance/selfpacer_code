@@ -35,23 +35,55 @@ export const fetchUserCollectionsStart = () => {
     };
 };
 
-export const fetchUserCollections = ( userId ) => {
-    return dispatch => {
-        dispatch(fetchUserCollectionsStart());
+export const fetchUserCollections = ( userId ) => async dispatch => {
 
-        axios.get(`/api/collections/${userId}`)
-            .then(                
-                res => {
-                if (res.data.collections) {
-                    dispatch(fetchUserCollectionsSuccess(res.data.collections));
-                } else {
-                    dispatch(fetchUserCollectionsFail(res.data));
-                } 
-            } )
-            .catch( err => {
-                dispatch(fetchUserCollectionsFail(err));
-            } );
+    dispatch(fetchUserCollectionsStart());
+
+    const res = await axios.get(`/api/collections/${userId}`);
+
+    if (res.data.collections) {
+        dispatch(fetchUserCollectionsSuccess(res.data.collections));
+    } else {
+        dispatch(fetchUserCollectionsFail(res.data));
+    } 
+
+};
+
+// fetch shared collections
+
+export const fetchSharedCollectionsSuccess = ( collections ) => {
+    return {
+        type: actionTypes.FETCH_SHARED_COLLECTIONS_SUCCESS,
+        collections: collections
     };
+};
+
+export const fetchSharedCollectionsFail = ( error ) => {
+    return {
+        type: actionTypes.FETCH_SHARED_COLLECTIONS_FAIL,
+        error: error
+    };
+};
+
+export const fetchSharedCollectionsStart = () => {
+    return {
+        type: actionTypes.FETCH_SHARED_COLLECTIONS_START
+    };
+};
+
+export const fetchSharedCollections = () => async dispatch => {
+
+    dispatch(fetchSharedCollectionsStart());
+
+    const res = await axios.get('/api/shared_collections');
+
+    if (res.data.collections) {
+        console.log(res.data.collections);
+        dispatch(fetchSharedCollectionsSuccess(res.data.collections));
+    } else {
+        dispatch(fetchSharedCollectionsFail(res.data));
+    } 
+
 };
 
 // Create new Collection
@@ -93,7 +125,7 @@ export const createCollection = ( title, user, resourceToAdd ) => async dispatch
 
                     const res2 = await axios.post(`/api/increase_collect_count/${resourceToAdd}`);
                     if (res2.data) {
-                        console.log(res2.data);
+                        // console.log(res2.data);
                         return;
                     }
                 } else {
@@ -297,17 +329,19 @@ export const editCollectionFail = ( error ) => {
 export const editCollection = ( title, description, collectionId) => async dispatch => {
     dispatch(editCollectionStart());
 
-    let checkedDescription = description;
+    // let checkedDescription = description;
 
-    if ( description === '') {
+    /* if ( description === '') {
         checkedDescription = undefined;
-    }
+    } */
 
     const info = {
         title: title,
-        description: checkedDescription,
+        description: description,
         id: collectionId
     }
+
+    // console.log(info);
 
     const res = await axios.post('/api/edit_collection', info);
 
@@ -357,11 +391,12 @@ export const publishCollectionFail = ( error ) => {
     }
 }
 
-export const publishCollection = ( collectionId ) => async dispatch => {
+export const publishCollection = ( collectionId, description ) => async dispatch => {
     dispatch(publishCollectionStart());
 
     const info = {
-        id: collectionId
+        id: collectionId,
+        description: description
     }
 
     const res = await axios.post('/api/publish_collection', info);
@@ -376,7 +411,7 @@ export const publishCollection = ( collectionId ) => async dispatch => {
             public: res.data.collection.public
         }
 
-        dispatch(publishCollectionSuccess('collection Published', attributes));
+        dispatch(publishCollectionSuccess('Collection Published', attributes));
     } else {
         dispatch(publishCollectionFail(res.data));
     }
