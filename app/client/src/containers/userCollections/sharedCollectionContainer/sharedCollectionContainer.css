@@ -1,6 +1,5 @@
 .Container {
-    width: 180px;
-    /* padding: 20px; */
+    width: 160px;
     background: var(--darkBlue);
     margin: 5px;
     border-radius: 20px;
@@ -11,24 +10,20 @@
     text-decoration: none;
     flex-shrink: 0;
     overflow: hidden;
-    /* border: 2px solid var(--green); */
 }
 
 .Container:hover {
-    /* border: 1px solid var(--green); */
     background: var(--blue);
 }
 
 .Title {
     max-height: 50px;
     overflow: auto;
-    /* overflow-x: hidden; */
-    color: var(--darkBlue);
-    /* text-align: center; */
+    color: var(--lightBlue);
     border-bottom: 1px solid var(--lightBlue);
     margin-bottom: 10px;
     padding: 10px;
-    background: var(--skyBlue);
+    font-weight: 400;
 }
 
 .NontitleWrapper {
@@ -36,7 +31,6 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-between;
-    /* flex-basis: 0; */
     flex-grow: 1;
 }
 
@@ -83,4 +77,12 @@
     font-weight: 400;
     text-align: center;
     padding: 10px;
+}
+
+.DescLabel {
+    color: var(--green);
+    font-size: small;
+    font-weight: 400;
+    text-align: center;
+    /* padding: 10px; */
 }

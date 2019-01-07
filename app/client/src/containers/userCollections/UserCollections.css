@@ -5,13 +5,65 @@
     background: var(--white);
 }
 
+.Carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    background: var(--white);
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.Previous {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: var(--darkBlue);
+    background-image: url('../../assets/images/angle-left.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 50%;
+    margin: auto 10px auto 0;
+    cursor: pointer;
+}
+
+.Previous:hover {
+    background-color: var(--blue);
+}
+
+.Next {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: var(--darkBlue);
+    background-image: url('../../assets/images/angle-right.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 50%;
+    margin: auto 0 auto 10px;
+    cursor: pointer;
+}
+
+.Next:hover {
+    background-color: var(--blue);
+}
+
+.VisibleCollections {
+    width: 510px;
+    overflow-x: hidden;
+}
+
 .SharedCollectionWrapper {
     display: flex;
     flex-wrap: nowrap;
-    width: 570px;
     justify-content: flex-start;
+    width: 9999px;
+    /* margin-left: 0px; */
+    padding: 0;
+    list-style: none;
+    transition: margin-left 250ms;
     /* background: var(--white); */
-    overflow-x: auto;
 }
 
 .YourCollection {
@@ -30,4 +82,5 @@
     background: var(--darkBlue);
     margin: 10px;
     border-radius: 20px;
+    
 }

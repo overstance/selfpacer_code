@@ -15,6 +15,7 @@ const sharedCollectionContainer = (props) => (
                 :
                 <div className={classes.ItemLabel}>Items</div>
             }
+            <div className={classes.DescLabel}>{props.description}</div>
             <div className={classes.DateLabel}>{'Created on: ' + props.date}</div>
         </div>
     </Link>

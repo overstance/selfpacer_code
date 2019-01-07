@@ -6,9 +6,15 @@ import UserCollectionContainer from './userCollectionContainer/userCollectionCon
 import SharedCollectionContainer from './sharedCollectionContainer/sharedCollectionContainer';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
+import ReactDOM from 'react-dom';
 // import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
 
 class UserCollections extends Component {
+
+    constructor(props) {
+        super(props);
+        this.carousel = React.createRef();
+    }
 
     componentDidMount() {
         this.props.onFetchUserCollections(this.props.user._id);
@@ -22,6 +28,72 @@ class UserCollections extends Component {
     collectionClickedHandler = (title, date, id, description, published) => {
         const dateToString = new Date(date).toLocaleDateString();
         this.props.onSetClickedCollectionAttributes( {title: title, date: dateToString, id: id, description: description, public: published} );
+    }
+
+    previousSharedCollectionHandler = () => {
+
+        const Carousel = ReactDOM.findDOMNode(this.carousel.current);
+
+        let width = 170; // image width
+        let count = 3; // visible images count
+
+        let list = Carousel.querySelector('ul');
+        // let listElems = Carousel.querySelectorAll('a');
+
+        let position = parseInt(list.style.marginLeft, 10); // ribbon scroll position
+
+        // shift left
+        position += width * count;
+        // can't move to the left too much, end of images
+        position = Math.min(position, 0);
+        console.log(width, count, position);
+        list.style.marginLeft = position + 'px';
+    }
+
+    nextSharedCollectionHandler = () => {
+
+        const Carousel = ReactDOM.findDOMNode(this.carousel.current);
+
+        let width = 170; // image width
+        let count = 3; // visible images count
+
+        let list = Carousel.querySelector('ul');
+        let listElems = Carousel.querySelectorAll('a');
+
+        let init = list.style.marginLeft;
+
+        // let initPos = list.style.marginLeft;
+        console.log({init: init, num: 2});
+
+        if ( init === '') {
+            let position = 0;
+
+            position -= width * count;
+            // can only shift the ribbbon for (total ribbon length - visible count) images
+            position = Math.max(position, -width * (listElems.length - count));
+
+            console.log(width, count, position, listElems.length);
+            list.style.marginLeft = position + 'px';
+
+            init = position
+        } else {
+            let position = parseInt(list.style.marginLeft, 10);
+
+            position -= width * count;
+            // can only shift the ribbbon for (total ribbon length - visible count) images
+            position = Math.max(position, -width * (listElems.length - count));
+
+            console.log(width, count, position, listElems.length);
+            list.style.marginLeft = position + 'px';
+
+            init = position
+        }
+
+        let position = parseInt(init, 10); // ribbon scroll position
+        console.log(position);
+
+        
+
     }
 
     
@@ -50,6 +122,7 @@ class UserCollections extends Component {
                 itemCount={collection.resources.length}
                 date={new Date(collection.date).toLocaleDateString()}
                 collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description, collection.public)}
+                description={collection.description}
                 />
             ));
             }
@@ -87,8 +160,14 @@ class UserCollections extends Component {
             <Grid>
                 <div>
                     <div className={classes.YourCollection}>SHARED COLLECTIONS</div>
-                    <div className={classes.SharedCollectionWrapper}>
-                        {sharedCollections}
+                    <div ref={this.carousel} className={classes.Carousel}>
+                        <div className={classes.Previous} onClick={this.previousSharedCollectionHandler}></div>
+                        <div className={classes.VisibleCollections}>
+                            <ul className={classes.SharedCollectionWrapper}>
+                                {sharedCollections}
+                            </ul>
+                        </div>
+                        <div className={classes.Next} onClick={this.nextSharedCollectionHandler}></div>
                     </div>  
                 </div>
                 <div>
