@@ -1,0 +1,97 @@
+.DialogueTitleHead {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background: var(--lightGray);
+}
+
+.DialogueTitleColumn {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+
+.DialogueTitleColumn h5 {
+    margin: 0px;
+    background-color: var(--blue);
+    padding: 15px 15px;
+    text-align: left;
+    color: var(--green);
+    font-weight: 400;
+}
+
+.DialogueCloseIcon {
+    width: 50px;
+    background-image: url('../../../assets/images/baseline-clear-24px.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 60%;
+    cursor: pointer;
+}
+
+.DialogueCloseIcon:hover {
+    background-color: var(--red);
+}
+
+.DialogueMessage {
+    padding: 30px 5px;
+    text-align: center;
+    width: 240px;
+    border-radius: 20px;
+    background: var(--darkBlue);
+    margin: 20px auto;
+}
+
+.DialogueMessage div {
+    color: var(--white);
+    font-weight: 400;
+}
+
+.DialogueMessage h4 {
+    color: var(--green);
+    font-weight: 400;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+.DialogueMessage span {
+    color: var(--white);
+    font-weight: 400;
+}
+
+.ConfirmPin {
+    text-decoration: none;
+    color: var(--darkBlue);
+    background: var(--skyBlue);
+    border-radius: 16px;
+    font-size: small;
+    padding: 10px 20px;
+    margin: 20px 10px 0px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.ConfirmPin:hover {
+    background: var(--green);
+}
+
+.CancelPin {
+    text-decoration: none;
+    color: var(--darkBlue);
+    background: var(--red);
+    border-radius: 16px;
+    font-size: small;
+    padding: 10px;
+    margin: 20px 10px 0;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* .CancelPin:hover {
+    background: var(--green);
+} */

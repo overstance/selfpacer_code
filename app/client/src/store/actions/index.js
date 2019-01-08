@@ -130,7 +130,8 @@ export {
     updateUserRecentlyViewed,
     updateUserLikeCount,
     increaseResourceViewCount,
-    fetchUserAssets
+    fetchUserAssets,
+    fetchRecentlyViewedResources
 } from './resource';
 
 export {
@@ -152,7 +153,9 @@ export {
     unpublishCollection,
     deleteCollection,
     clearDeleteCollectionMessages,
-    fetchSharedCollections
+    fetchSharedCollections,
+    pinCollection,
+    unpinCollection
 } from './collection';
 
 export {

@@ -35,7 +35,7 @@
 }
 
 .OptionsColumn {
-    padding-right: 5px;
+    padding-right: 10px;
     margin: auto;
 }
 
@@ -52,13 +52,23 @@
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: center;
-    background-size: 50%;
+    background-size: 40%;
     transform: rotate(45deg);
 }
 
 .PinIconRow:hover {
     background-image: url('../../../assets/images/thumbtack-focus.svg');
     transform: rotate(0deg);
+}
+
+.UnpinIconRow {
+    padding: 5px 10px;
+    background: var(--red);
+    cursor: pointer;
+    border-radius: 20px;
+    color: var(--darkBlue);
+    /* font-weight: 400; */
+    font-size: small;
 }
 
 .PublicTag {

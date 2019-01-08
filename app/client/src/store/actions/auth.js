@@ -18,12 +18,37 @@ export const setUserLikeCount = ( userLikeCount ) => {
     };
 };
 
+export const setUserPinnedCollections = ( collectionIds ) => {
+    return {
+        type: actionTypes.SET_USER_PINNED_COLLECTION,
+        collectionIds: collectionIds
+    };
+};
+
+export const fetchRecentlyViewedSuccess = ( resources ) => {
+    return {
+        type: actionTypes.FETCH_RECENTLY_VIEWED_SUCCESS,
+        resources: resources
+    }
+}
+
 export const fetchUser = () => async (dispatch) => {
     const res = await axios.get('/api/current_user');
     dispatch({ type: FETCH_USER, payload: res.data });
 
+    if ( res.data.recentlyViewed.length > 0 ) {
+        let userId = res.data._id;
+        const res2 = await axios.get(`/api/recently_viewed/${userId}`);
+
+        if ( res2.data.resources) {
+            dispatch(fetchRecentlyViewedSuccess(res2.data.resources));
+            // console.log(res2.data.resources);
+        }
+    }
+
     dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
     dispatch(setUserLikeCount(res.data.likeCount));
+    dispatch(setUserPinnedCollections(res.data.pinnedCollections));
 };
 
 export const logout = () => async (dispatch) => {

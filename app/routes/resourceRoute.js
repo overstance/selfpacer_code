@@ -483,6 +483,29 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/recently_viewed/:userId', (req, res) => {
+    User.findById(req.params.userId, (err, user) => {
+      if (err) {
+        res.send(err.message);
+        console.log(err.message);
+        return;
+      } else {
+        const recentlyViewed = user.recentlyViewed;
+
+        Resource.find({ _id: { $in: recentlyViewed } }, (err, resources) => {
+          if (err) {
+            res.send(err.message);
+            console.log(err.message);
+            return;
+          } else {
+            res.send({ resources: resources });
+            // console.log(resources);
+          }
+        });
+      }
+    });
+  });
+
   app.post('/api/resource_liked', (req, res) => {
     //console.log(req.body);
 

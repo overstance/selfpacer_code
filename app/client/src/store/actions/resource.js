@@ -1,6 +1,16 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+function shuffleArray(array) {
+    let i = array.length - 1;
+    for (; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
 
 
 
@@ -278,4 +288,24 @@ export const increaseResourceViewCount = ( id, views ) => async dispatch => {
 
     await axios.post('/api/increase_resourceviews', resource); 
 
+}
+
+// fetch recently viewed resources
+
+export const fetchRecentlyViewedSuccess = ( resources ) => {
+    return {
+        type: actionTypes.FETCH_RECENTLY_VIEWED_SUCCESS,
+        resources: resources
+    }
+}
+
+export const fetchRecentlyViewedResources = (userId) => async dispatch => {
+    const res = await axios.get(`/api/recently_viewed/${userId}`);
+
+        if ( res.data.resources) {
+
+            let shuffledResources = shuffleArray(res.data.resources);
+            dispatch(fetchRecentlyViewedSuccess(shuffledResources));
+            // console.log(res2.data.resources);
+        }
 }

@@ -8,6 +8,8 @@ const initialState = {
     clickedResource: {},
     clickedResourcePlatform: null,
     userRecentlyViewed: null,
+
+    recentlyViewedResources: [],
     
     userAssets: [],
     fetchAssetError: null
@@ -94,6 +96,14 @@ const fetchUserAssetFailed = ( state, action ) => {
     return updateObject( state, { loading: false, fetchAssetError: action.error } );
 };
 
+// fetch user recently viewed resources
+
+const fetchRecentlyViewedResources = ( state, action ) => {
+    return updateObject( state, { recentlyViewedResources: action.resources } );
+};
+
+
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.ADD_RESOURCE_START: return addResourceStart( state, action );
@@ -112,6 +122,8 @@ const reducer = ( state = initialState, action ) => {
 
         case actionTypes.SET_USER_RECENTLY_VIEWED: return setUserRecentlyViewed( state, action );
         case actionTypes.UPDATE_USER_RECENTLY_VIEWED: return updateUserRecentlyViewedResources( state, action );
+
+        case actionTypes.FETCH_RECENTLY_VIEWED_SUCCESS: return fetchRecentlyViewedResources( state, action );
 
         default: return state;
     }

@@ -9,13 +9,15 @@ import Resource from '../../../components/Resource/Resource';
 import EditCollection from '../../../components/Dialogues/editCollection/EditCollection';
 import PublishCollection from '../../../components/Dialogues/publishCollection/publishCollection';
 import UnpublishCollection from '../../../components/Dialogues/unpublishCollection/unpublishCollection';
-import DeleteCollection from '../../../components/Dialogues/deleteCollection/deleteCollection'; */
+ */
+import PinCollection from '../../../components/Dialogues/pinCollection/pinCollection';
+import UnpinCollection from '../../../components/Dialogues/unpinCollection/unpinCollection';
 import PostDeleteDialogue from '../../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
 import AddToCollection from '../../../components/Dialogues/addToCollection/addToCollection';
 // import Button from '../../../components/UserInterface/Button/Button';
 
 
-class Resourcepage extends Component {
+class SharedCollection extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id) {
@@ -26,33 +28,18 @@ class Resourcepage extends Component {
     componentWillUnmount() {
         this.props.onClearDeleteCollectionMessages();
     }
-    
-      /* componentWillReceiveProps(nextProps) {
-        if (nextProps.collectedResources === null && this.props.resource.loading) {
-          this.props.history.push('/not-found');
-        }
-    } */
 
     state = {
-        resourceToDeleteId: null,
-        resourceToDeleteTitle: null,
         collectionId: this.props.clickedCollectionAttributes.id,
-
-        showDeleteCollectionItemModal: false,
-        showEditCollectionModal: false,
-        showPublishCollectionModal: false,
-        showUnpublishCollectionModal: false,
-        showDeleteCollectionModal: false,
-
+        showPinCollectionModal: false,
+        showUnpinCollectionModal: false,
         showCollectionModal: false
     }
 
     collectHandler = ( id, image, title ) => {
-
         this.props.onSetToCollectResource(id, image, title);
         this.props.onFetchUserCollections(this.props.userId);
         this.setState({ showCollectionModal: true });
-
     }
 
     collectModalCloseHandler = () => {
@@ -66,102 +53,40 @@ class Resourcepage extends Component {
 
     resourceClickedHandler = ( id, views ) => {
         this.props.onIncreaseResourceViewCount( id, views);
-
         // console.log(platform, id);
-
-        if (this.props.isAuthenticated) {
-           
-            const checkViewed = this.props.settedUserRecentlyViewed.filter(resource => resource === id);
-
-            // console.log(checkViewed.length);
-
-            if (checkViewed.length === 0) {
-                this.props.onUpdateRecentlyViewed(id, this.props.settedUserRecentlyViewed, this.props.userId);
-            }           
-        }        
+        const checkViewed = this.props.settedUserRecentlyViewed.filter(resource => resource === id);
+        // console.log(checkViewed.length);
+        if (checkViewed.length === 0) {
+            this.props.onUpdateRecentlyViewed(id, this.props.settedUserRecentlyViewed, this.props.userId);
+        }                   
     };
 
-    confirmDeleteHandler = ( resourceId, resourceTitle ) => {
-
-        // console.log('confirm delete started');
-
-        this.setState({ 
-            resourceToDeleteId: resourceId,
-            resourceToDeleteTitle: resourceTitle,
-            showDeleteCollectionItemModal: true
-        });
-
-        
+    pinCollectionCloseHandler = () => {
+        this.setState({ showPinCollectionModal: false});
     }
 
-    deleteCollectionItemCloseHandler = () => {
-        this.setState({ showDeleteCollectionItemModal: false });
+    pinCollectionHandler = () => {
+        this.setState({ showPinCollectionModal: true });
     }
 
-    deleteConfirmedHandler = () => {
-        this.props.onDeleteCollectionItem( this.state.resourceToDeleteId, this.state.collectionId, this.props.history );
+    pinCollectionConfirmedHandler = () => {
+        this.props.onPinCollection(this.props.clickedCollectionAttributes.id, this.props.userId, this.props.pinnedCollectionIds);
 
-        this.setState({ 
-            resourceToDeleteId: null,
-            resourceToDeleteTitle: null,
-            showDeleteCollectionItemModal: false
-        });
-
+        this.setState({ showPinCollectionModal: false});
     }
 
-    cancelDeleteHandler = () => {
-        this.setState({ 
-            resourceToDeleteId: null,
-            resourceToDeleteTitle: null,
-            showDeleteCollectionItemModal: false
-        });
+    unpinCollectionCloseHandler = () => {
+        this.setState({ showUnpinCollectionModal: false});
     }
 
-    editCollectionHandler = () => {
-        this.setState({ showEditCollectionModal: true});
+    unpinCollectionHandler = () => {
+        this.setState({ showUnpinCollectionModal: true });
     }
 
-    editCollectionCloseHandler = () => {
-        this.setState({ showEditCollectionModal: false });
-    }
+    unpinCollectionConfirmedHandler = () => {
+        this.props.onUnpinCollection(this.props.clickedCollectionAttributes.id, this.props.userId, this.props.pinnedCollectionIds);
 
-    publishCollectionHandler = () => {
-
-        if( this.props.clickedCollectionAttributes.public ) {
-            this.setState({ showUnpublishCollectionModal: true });
-        } else {
-            this.setState({  showPublishCollectionModal: true });
-        }       
-    }
-
-    publishCollectionCloseHandler = () => {
-        this.setState({ showPublishCollectionModal: false});
-    }
-
-    unpublishCollectionCloseHandler = () => {
-        this.setState({ showUnpublishCollectionModal: false});
-    }
-
-    publishConfirmedHandler = () => {
-        this.props.onPublishCollection(this.props.clickedCollectionAttributes.id);
-    }
-
-    unpublishConfirmedHandler = () => {
-        this.props.onUnpublishCollection(this.props.clickedCollectionAttributes.id);
-    }
-
-    deleteCollectionCloseHandler = () => {
-        this.setState({ showDeleteCollectionModal: false});
-    }
-
-    deleteCollectionHandler = () => {
-        this.setState({ showDeleteCollectionModal: true });
-    }
-
-    deleteCollectionConfirmedHandler = () => {
-        this.props.onDeleteCollection(this.props.clickedCollectionAttributes.id);
-
-        this.setState({ showDeleteCollectionModal: false});
+        this.setState({ showUnpinCollectionModal: false});
     }
 
 
@@ -210,20 +135,50 @@ class Resourcepage extends Component {
             <div className={classes.Container}>
                 <div className={classes.Spinner}><Spinner /></div>
             </div>
-        }  
+        }
+        
+        let checkPinned = this.props.pinnedCollectionIds.filter( collection => collection === this.props.clickedCollectionAttributes.id);
         
         let content =
         <div>
             <div className={classes.HeaderWrapper}>
                 <div className={classes.TitleColumn}>
                     <div className={classes.Title}>{this.props.clickedCollectionAttributes.title}</div>
-                    {/* {this.props.clickedCollectionAttributes.public ? <div className={classes.PublicTag}>PUBLIC</div> : null} */}
                 </div>
                 <div className={classes.OptionsColumn}>
-                    <div onClick={this.deleteCollectionHandler} className={classes.PinIconRow}></div>
+                    { checkPinned.length !== 0 ?
+                        <div onClick={this.unpinCollectionHandler} className={classes.UnpinIconRow}>unpin</div> 
+                        :
+                        <div onClick={this.pinCollectionHandler} className={classes.PinIconRow}></div>
+                    }
                 </div>
             </div>
             {userCollection}
+            {this.state.showPinCollectionModal ? 
+                <PinCollection 
+                showDialogue={this.state.showPinCollectionModal}
+                closeDialogue={this.pinCollectionCloseHandler}
+                closeModal={this.pinCollectionCloseHandler}
+                collectionTitle={this.props.clickedCollectionAttributes.title}
+                cancelPin={this.pinCollectionCloseHandler}
+                confirmPin={this.pinCollectionConfirmedHandler}
+                />: null
+            }
+            {this.state.showUnpinCollectionModal ? 
+                <UnpinCollection 
+                showDialogue={this.state.showUnpinCollectionModal}
+                closeDialogue={this.unpinCollectionCloseHandler}
+                closeModal={this.unpinCollectionCloseHandler}
+                collectionTitle={this.props.clickedCollectionAttributes.title}
+                cancelUnpin={this.unpinCollectionCloseHandler}
+                confirmUnpin={this.unpinCollectionConfirmedHandler}
+                />: null
+            }
+            <AddToCollection 
+                showDialogue={this.state.showCollectionModal}
+                closeDialogue={this.collectModalCloseHandler} 
+                closeModal={this.collectModalCloseHandler}
+            />
         </div>
 
         if (this.props.deleteCollectionLoading) {
@@ -254,11 +209,6 @@ class Resourcepage extends Component {
         return (
             <Grid>
                 {content}
-                <AddToCollection 
-                    showDialogue={this.state.showCollectionModal}
-                    closeDialogue={this.collectModalCloseHandler} 
-                    closeModal={this.collectModalCloseHandler}
-                    />
             </Grid>  
         );
     };
@@ -266,8 +216,9 @@ class Resourcepage extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth.isAuthenticated,
+        // isAuthenticated: state.auth.isAuthenticated,
         userId: state.auth.user._id,
+        userPinnedCollections: state.auth.user.pinnedCollections,
         loading: state.collection.loading,
         collectedResources: state.collection.collectedResources,
         fetchcollectedResourceError: state.collection.fetchcollectedResourceError,
@@ -275,9 +226,11 @@ const mapStateToProps = state => {
         settedUserRecentlyViewed: state.resource.userRecentlyViewed,
         userLikeCount: state.auth.userLikeCount,
 
-        deleteCollectionSuccessInfo: state.collection.deleteCollectionSuccessInfo,
-        deleteCollectionError: state.collection.deleteCollectionError,
-        deleteCollectionLoading: state.collection.deleteCollectionLoading
+        pinnedCollectionIds: state.collection.pinnedCollectionIds,
+
+        pinCollectionSuccessInfo: state.collection.pinCollectionSuccessInfo,
+        pinCollectionError: state.collection.pinCollectionError,
+        pinCollectionLoading: state.collection.pinCollectionLoading
     };
 };
 
@@ -294,64 +247,12 @@ const mapDispatchToProps = dispatch => {
         onResourceLiked: ( id, likes ) => dispatch ( actions.resourceLiked( id, likes )),
         onUpdateUserLikeCount: ( userId, userLikeCount ) => dispatch(actions.updateUserLikeCount( userId, userLikeCount )),
 
-        onDeleteCollectionItem: ( resourceId, collectionId, history ) => dispatch(actions.deleteCollectionItem( resourceId, collectionId, history )),
-        // onPublishCollection: (collectionId) => dispatch( actions.publishCollection(collectionId)),
-        onUnpublishCollection: (collectionId) => dispatch( actions.unpublishCollection(collectionId)),
-        onDeleteCollection: (collectionId) => dispatch( actions.deleteCollection(collectionId)),
+        onPinCollection: (collectionId, userId, userPinnedCollections) => dispatch( actions.pinCollection(collectionId, userId, userPinnedCollections)),
+        onUnpinCollection: (collectionId, userId, userPinnedCollections) => dispatch( actions.unpinCollection(collectionId, userId, userPinnedCollections)),
 
         onClearDeleteCollectionMessages: () => dispatch( actions.clearDeleteCollectionMessages()),
         onClearAddToCollectionMessages: () => dispatch(actions.clearAddToCollectionMessages())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Resourcepage);
-
-/*
- {this.state.showDeleteCollectionItemModal ? 
-                    <DeleteCollectionItem 
-                    showDialogue={this.state.showDeleteCollectionItemModal}
-                    closeDialogue={this.deleteCollectionItemCloseHandler}
-                    closeModal={this.deleteCollectionItemCloseHandler}
-                    itemTitle={this.state.resourceToDeleteTitle}
-                    cancelDelete={this.cancelDeleteHandler}
-                    confirmDelete={this.deleteConfirmedHandler}
-                    />: null
-                }
-                {this.state.showEditCollectionModal ? 
-                    <EditCollection 
-                    showDialogue={this.state.showEditCollectionModal}
-                    closeDialogue={this.editCollectionCloseHandler}
-                    closeModal={this.editCollectionCloseHandler}
-                    />: null
-                }
-                {this.state.showPublishCollectionModal ? 
-                    <PublishCollection 
-                    showDialogue={this.state.showPublishCollectionModal}
-                    closeDialogue={this.publishCollectionCloseHandler}
-                    closeModal={this.publishCollectionCloseHandler}
-                    collectionTitle={this.props.clickedCollectionAttributes.title}
-                    cancelPublish={this.publishCollectionCloseHandler}
-                    // confirmPublish={this.publishConfirmedHandler}
-                    />: null
-                }
-                {this.state.showUnpublishCollectionModal ? 
-                    <UnpublishCollection 
-                    showDialogue={this.state.showUnpublishCollectionModal}
-                    closeDialogue={this.unpublishCollectionCloseHandler}
-                    closeModal={this.unpublishCollectionCloseHandler}
-                    collectionTitle={this.props.clickedCollectionAttributes.title}
-                    cancelUnpublish={this.unpublishCollectionCloseHandler}
-                    confirmUnpublish={this.unpublishConfirmedHandler}
-                    />: null
-                }
-                {this.state.showDeleteCollectionModal ? 
-                    <DeleteCollection 
-                    showDialogue={this.state.showDeleteCollectionModal}
-                    closeDialogue={this.deleteCollectionCloseHandler}
-                    closeModal={this.deleteCollectionCloseHandler}
-                    collectionTitle={this.props.clickedCollectionAttributes.title}
-                    cancelDelete={this.deleteCollectionCloseHandler}
-                    confirmDelete={this.deleteCollectionConfirmedHandler}
-                    />: null
-                }
-*/
+export default connect(mapStateToProps, mapDispatchToProps)(SharedCollection);

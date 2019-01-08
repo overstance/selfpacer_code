@@ -1,5 +1,5 @@
 .Container {
-    width: 160px;
+    width: 180px;
     background: var(--darkBlue);
     margin: 5px;
     border-radius: 20px;
@@ -85,4 +85,27 @@
     font-weight: 400;
     text-align: center;
     /* padding: 10px; */
+}
+
+.PinIconWrapper {
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 5px;
+}
+
+.PinIconRow {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+    background-image: url('../../../assets/images/thumbtack-focus.svg');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 60%;
+    transform: rotate(45deg);
 }

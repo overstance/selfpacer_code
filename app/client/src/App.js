@@ -235,14 +235,15 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user
+    user: state.auth.user,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onFetchSubjects: () => dispatch( actions.fetchSubjects() ),
-    onFetchUser: () => dispatch(actions.fetchUser())
+    onFetchUser: () => dispatch(actions.fetchUser()),
+    // onFetchRecentlyViewed: (recentlyViewedArray) => dispatch(actions.fetchRecentlyViewed(recentlyViewedArray))
   };
 };
 

@@ -501,6 +501,64 @@ export const clearDeleteCollectionMessages = () => {
     }
 }
 
+// pin collection
+
+export const pinCollectionSuccess = ( collectionIds ) => {
+    return {
+        type: actionTypes.PIN_COLLECTION_SUCCESS,
+        collectionIds: collectionIds
+    }
+}
+
+export const pinCollection = (collectionId, userId, userPinnedCollections) => async dispatch => {
+    let temp = userPinnedCollections;
+
+    temp.push(collectionId);
+
+    const updatedUserPinnedCollections = temp;
+
+    let info = {
+        userId: userId,
+        userPinnedCollections: updatedUserPinnedCollections
+    }
+
+    const res = await axios.post('/api/pin_collection', info);
+
+    if (res.data._id === userId) {
+        dispatch(pinCollectionSuccess(res.data.pinnedCollections));
+    }
+}
+
+// unpinCollection
+
+export const unpinCollectionSuccess = ( collectionIds ) => {
+    return {
+        type: actionTypes.PIN_COLLECTION_SUCCESS,
+        collectionIds: collectionIds
+    }
+}
+
+export const unpinCollection = (collectionId, userId, userPinnedCollections) => async dispatch => {
+    /* let temp = userPinnedCollections;
+
+    temp.push(collectionId); */
+
+    const updatedUserPinnedCollections = userPinnedCollections.filter(collection => collection !== collectionId);
+
+    let info = {
+        userId: userId,
+        userPinnedCollections: updatedUserPinnedCollections
+    }
+
+    const res = await axios.post('/api/unpin_collection', info);
+
+    if (res.data._id === userId) {
+        dispatch(unpinCollectionSuccess(res.data.pinnedCollections));
+    }
+}
+
+
+
 
 
 

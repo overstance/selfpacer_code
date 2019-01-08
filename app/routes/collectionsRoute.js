@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const Collection = require('../models/Collection');
 const Resource = require('../models/Resource');
 
+const User = mongoose.model('users');
+
 module.exports = app => {
   app.get('/api/collections/:userId', (req, res) => {
     Collection.find({ user_id: req.params.userId }, function(err, collections) {
@@ -162,6 +164,36 @@ module.exports = app => {
           res.send(err.message);
         } else {
           res.send({ collection: collection });
+        }
+      }
+    );
+  });
+
+  app.post('/api/pin_collection', (req, res) => {
+    User.findByIdAndUpdate(
+      req.body.userId,
+      { pinnedCollections: req.body.userPinnedCollections },
+      { new: true },
+      (err, user) => {
+        if (err) {
+          res.send(err.message);
+        } else {
+          res.send(user);
+        }
+      }
+    );
+  });
+
+  app.post('/api/unpin_collection', (req, res) => {
+    User.findByIdAndUpdate(
+      req.body.userId,
+      { pinnedCollections: req.body.userPinnedCollections },
+      { new: true },
+      (err, user) => {
+        if (err) {
+          res.send(err.message);
+        } else {
+          res.send(user);
         }
       }
     );

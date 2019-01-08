@@ -1,24 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './sharedCollectionContainer.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const sharedCollectionContainer = (props) => (
-    <Link 
-    to={`/shared_collections/${props.id}`} className={classes.Container}
-    onClick={props.collectionClicked}
-    >
-        <div className={classes.Title}>{props.title}</div>
-        <div className={classes.NontitleWrapper}>
-            <div className={classes.ItemCount}>{props.itemCount}</div>
-            { props.itemCount <= 1 ? 
-                <div className={classes.ItemLabel}>Item</div>
-                :
-                <div className={classes.ItemLabel}>Items</div>
-            }
-            <div className={classes.DescLabel}>{props.description}</div>
-            <div className={classes.DateLabel}>{'Created on: ' + props.date}</div>
-        </div>
-    </Link>
-);
+class SharedCollectionContainer extends Component {
+    render () {
 
-export default sharedCollectionContainer;
+        let checkPinned = this.props.pinnedCollectionIds.filter(collection => collection === this.props.id);
+        return (
+            <Link 
+            to={`/shared_collections/${this.props.id}`} className={classes.Container}
+            onClick={this.props.collectionClicked}
+            >
+                { checkPinned.length !== 0 ? <div className={classes.PinIconWrapper}><div className={classes.PinIconRow}></div></div> : null }
+                <div className={classes.Title}>{this.props.title}</div>
+                <div className={classes.NontitleWrapper}>
+                    <div className={classes.ItemCount}>{this.props.itemCount}</div>
+                    { this.props.itemCount <= 1 ? 
+                        <div className={classes.ItemLabel}>Item</div>
+                        :
+                        <div className={classes.ItemLabel}>Items</div>
+                    }
+                    <div className={classes.DescLabel}>{this.props.description}</div>
+                    <div className={classes.DateLabel}>{'Created on: ' + this.props.date}</div>
+                </div>
+            </Link>
+        )
+    }
+} 
+
+const mapStateToProps = state => {
+    return {
+        pinnedCollectionIds: state.collection.pinnedCollectionIds,
+    };
+};
+
+
+export default connect(mapStateToProps)(SharedCollectionContainer);

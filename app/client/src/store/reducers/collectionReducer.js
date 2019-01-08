@@ -36,7 +36,9 @@ const initialState = {
 
     deleteCollectionLoading: false,
     deleteCollectionSuccessInfo: null,
-    deleteCollectionError: null
+    deleteCollectionError: null,
+
+    pinnedCollectionIds: null
 };
 
 //Set Resource to Collect
@@ -217,6 +219,18 @@ const clearDeleteCollectionMessages = ( state, action) => {
     return updateObject( state, { deleteCollectionSuccessInfo: null, deleteCollectionError: null });
 }
 
+// 
+
+const setPinnedCollections = ( state, action) => {
+    return updateObject( state, { pinnedCollectionIds: action.collectionIds });
+}
+
+// Pin collection
+
+const pinCollectionSuccess = ( state, action) => {
+    return updateObject( state, { pinnedCollectionIds: action.collectionIds });
+}
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.CREATE_COLLECTION_START: return createCollectionStart( state, action );
@@ -267,6 +281,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.DELETE_COLLECTION_FAIL: return deleteCollectionFail( state, action );
 
         case actionTypes.CLEAR_DELETE_COLLECTION_MESSAGES: return clearDeleteCollectionMessages( state, action );
+
+        case actionTypes.SET_USER_PINNED_COLLECTION: return setPinnedCollections( state, action );
+
+        case actionTypes.PIN_COLLECTION_SUCCESS: return pinCollectionSuccess( state, action );
 
         default: return state;
     }

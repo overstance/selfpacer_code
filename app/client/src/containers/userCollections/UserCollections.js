@@ -19,6 +19,12 @@ class UserCollections extends Component {
     componentDidMount() {
         this.props.onFetchUserCollections(this.props.user._id);
         this.props.onFetchSharedCollections();
+
+        console.log( this.props.user.specialization, this.props.user.specialization_alt, this.props.user.recentlyViewed.length );
+        if ( this.props.user.specialization === 'N/A' && this.props.user.specialization_alt === '' && this.props.user.recentlyViewed.length !== 0) {
+            this.props.onFetchRecentlyViewedResources(this.props.user._id);
+        }
+        
     }
 
     /* componentWillUnmount() {
@@ -34,8 +40,8 @@ class UserCollections extends Component {
 
         const Carousel = ReactDOM.findDOMNode(this.carousel.current);
 
-        let width = 170; // image width
-        let count = 3; // visible images count
+        let width = 190; // image width
+        let count = 1; // visible images count
 
         let list = Carousel.querySelector('ul');
         // let listElems = Carousel.querySelectorAll('a');
@@ -46,7 +52,7 @@ class UserCollections extends Component {
         position += width * count;
         // can't move to the left too much, end of images
         position = Math.min(position, 0);
-        console.log(width, count, position);
+        // console.log(width, count, position);
         list.style.marginLeft = position + 'px';
     }
 
@@ -54,8 +60,8 @@ class UserCollections extends Component {
 
         const Carousel = ReactDOM.findDOMNode(this.carousel.current);
 
-        let width = 170; // image width
-        let count = 3; // visible images count
+        let width = 190; // image width
+        let count = 1; // visible images count
 
         let list = Carousel.querySelector('ul');
         let listElems = Carousel.querySelectorAll('a');
@@ -63,7 +69,7 @@ class UserCollections extends Component {
         let init = list.style.marginLeft;
 
         // let initPos = list.style.marginLeft;
-        console.log({init: init, num: 2});
+        // console.log({init: init, num: 2});
 
         if ( init === '') {
             let position = 0;
@@ -72,7 +78,7 @@ class UserCollections extends Component {
             // can only shift the ribbbon for (total ribbon length - visible count) images
             position = Math.max(position, -width * (listElems.length - count));
 
-            console.log(width, count, position, listElems.length);
+            // console.log(width, count, position, listElems.length);
             list.style.marginLeft = position + 'px';
 
             init = position
@@ -83,38 +89,62 @@ class UserCollections extends Component {
             // can only shift the ribbbon for (total ribbon length - visible count) images
             position = Math.max(position, -width * (listElems.length - count));
 
-            console.log(width, count, position, listElems.length);
+            // console.log(width, count, position, listElems.length);
             list.style.marginLeft = position + 'px';
 
             init = position
         }
-
-        let position = parseInt(init, 10); // ribbon scroll position
-        console.log(position);
-
-        
-
     }
 
     
     render() {
 
-        let sharedCollections = <div style={{ 'paddingTop': '2rem', 'paddingBottom': '2rem'}}><Spinner /></div>;
+        let sharedCollectionsContent = <div style={{ 'paddingTop': '2rem', 'paddingBottom': '2rem'}}><Spinner /></div>;
         // let sharedCollections = <div style={{ 'paddingTop': '5rem'}}><Spinner /></div>;
 
         if (!this.props.sharedCollectionsLoading) {
-            if ( this.props.sharedCollections.length === 0) {
-                sharedCollections = 
-                 <div className={classes.PostAddInfo}>
-                     <div>No shared collections!</div>
-                 </div>    
-            } else if (this.props.sharedCollectionsFetchErrors) {
-                sharedCollections = 
-                 <div className={classes.PostAddInfo}>
-                     <div>{this.props.sharedCollectionsFetchErrors}</div>
-                 </div>
-            } else {
-            sharedCollections = this.props.sharedCollections.map( (collection, i) => (
+
+            let allSharedArray = this.props.sharedCollections;
+            let byRecentlyViewed = [];
+            let bySpec1 = [];
+            let bySpec1and2 = [];
+
+            let spec1 = this.props.user.specialization;
+            let spec2 = this.props.user.specialization_alt;
+
+            let recentlyViewed = this.props.recentlyViewed;
+
+            let recentlyViewedCategory = '';
+
+            if ( recentlyViewed.length > 0) {
+                recentlyViewedCategory = recentlyViewed[recentlyViewed.length - 1].category;
+            }
+            
+
+
+            /* 
+            
+            */
+        if (this.props.sharedCollectionsFetchErrors) {
+            console.log('1.case fetcherror');
+            sharedCollectionsContent = 
+             <div className={classes.PostAddInfo}>
+                 <div>{this.props.sharedCollectionsFetchErrors}</div>
+             </div>
+        } else if ( allSharedArray.length === 0) {
+            console.log('2.case no Shared');
+            sharedCollectionsContent = 
+            <div className={classes.PostAddInfo}>
+                <div>No shared collections!</div>
+            </div>    
+        } else if (spec1 === 'N/A' && spec2 === '' && recentlyViewed.length === 0) {
+                console.log('3.case no specs and no recently viewed');
+
+                if ( allSharedArray.length > 20) {
+                    allSharedArray = allSharedArray.slice(0, 20);
+                }
+
+                let sharedCollections = allSharedArray.map( (collection, i) => (
                 <SharedCollectionContainer
                 key={i}
                 id={collection._id} 
@@ -125,6 +155,228 @@ class UserCollections extends Component {
                 description={collection.description}
                 />
             ));
+            
+            sharedCollectionsContent =
+                <div className={classes.AllWrapper}>
+                    <div className={classes.ViewAllWrapper}>
+                        <div className={classes.ViewPinned}>view pinned</div>
+                        <div className={classes.ViewAll}>view all</div>
+                    </div>
+                    <div ref={this.carousel} className={classes.Carousel}>
+                        <div className={classes.Previous} onClick={this.previousSharedCollectionHandler}></div>
+                        <div className={classes.VisibleCollections}>
+                            <ul className={classes.SharedCollectionWrapper}>
+                                {sharedCollections}
+                            </ul>
+                        </div>
+                        <div className={classes.Next} onClick={this.nextSharedCollectionHandler}></div>
+                    </div>
+                </div>
+        } else if (spec1 === 'N/A' && spec2 === '' && recentlyViewed.length > 0) {
+            console.log('4.case no specs but recently viewed');
+            byRecentlyViewed = allSharedArray.filter(collection => collection.description === recentlyViewedCategory); 
+
+            if(byRecentlyViewed.length > 0) {
+                console.log('4a.case no specs but recently viewed and recently viewed category in all shared');
+                if ( byRecentlyViewed.length > 20) {
+                    byRecentlyViewed = byRecentlyViewed.slice(0, 20);
+                }
+                let sharedCollections = byRecentlyViewed.map( (collection, i) => (
+                    <SharedCollectionContainer
+                    key={i}
+                    id={collection._id} 
+                    title={collection.title}
+                    itemCount={collection.resources.length}
+                    date={new Date(collection.date).toLocaleDateString()}
+                    collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description, collection.public)}
+                    description={collection.description}
+                    />
+                ));
+                
+                sharedCollectionsContent =
+                <div className={classes.AllWrapper}>
+                    <div className={classes.ViewAllWrapper}>
+                        <div className={classes.ViewPinned}>view pinned</div>
+                        <div className={classes.ViewAll}>view all</div>
+                    </div>
+                    <div ref={this.carousel} className={classes.Carousel}>
+                        <div className={classes.Previous} onClick={this.previousSharedCollectionHandler}></div>
+                        <div className={classes.VisibleCollections}>
+                            <ul className={classes.SharedCollectionWrapper}>
+                                {sharedCollections}
+                            </ul>
+                        </div>
+                        <div className={classes.Next} onClick={this.nextSharedCollectionHandler}></div>
+                    </div>
+                </div>
+            } else {
+                console.log('4b.case no specs but recently viewed and recently viewed category not in all shared');
+
+                if (allSharedArray.length > 20) {
+                    allSharedArray = allSharedArray.slice(0, 20);
+                }
+
+                let sharedCollections = allSharedArray.map( (collection, i) => (
+                    <SharedCollectionContainer
+                    key={i}
+                    id={collection._id} 
+                    title={collection.title}
+                    itemCount={collection.resources.length}
+                    date={new Date(collection.date).toLocaleDateString()}
+                    collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description, collection.public)}
+                    description={collection.description}
+                    />
+                ));
+                
+                sharedCollectionsContent =
+                <div className={classes.AllWrapper}>
+                    <div className={classes.ViewAllWrapper}>
+                        <div className={classes.ViewPinned}>view pinned</div>
+                        <div className={classes.ViewAll}>view all</div>
+                    </div>
+                    <div ref={this.carousel} className={classes.Carousel}>
+                        <div className={classes.Previous} onClick={this.previousSharedCollectionHandler}></div>
+                        <div className={classes.VisibleCollections}>
+                            <ul className={classes.SharedCollectionWrapper}>
+                                {sharedCollections}
+                            </ul>
+                        </div>
+                        <div className={classes.Next} onClick={this.nextSharedCollectionHandler}></div>
+                    </div>
+                </div>
+            }
+
+        } else if (spec1 !== 'N/A' && spec2 === '') {
+            console.log('5.case specs1 only');
+            bySpec1 = allSharedArray.filter(collection => collection.description === spec1);
+            
+            if(bySpec1.length > 0) {
+                console.log('5b.case specs1 only and spec1 in all shared ');
+
+                // console.log(bySpec1, 'case5.original byspec1');
+                if ( bySpec1.length > 20) {
+                    bySpec1 = bySpec1.slice(0, 20);
+                }
+
+                // console.log(bySpec1, 'case5.sliced byspec1');
+                let sharedCollections = bySpec1.map( (collection, i) => (
+                    <SharedCollectionContainer
+                    key={i}
+                    id={collection._id} 
+                    title={collection.title}
+                    itemCount={collection.resources.length}
+                    date={new Date(collection.date).toLocaleDateString()}
+                    collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description, collection.public)}
+                    description={collection.description}
+                    />
+                ));
+                
+                sharedCollectionsContent =
+                <div className={classes.AllWrapper}>
+                    <div className={classes.ViewAllWrapper}>
+                        <div className={classes.ViewPinned}>view pinned</div>
+                        <div className={classes.ViewAll}>view all</div>
+                    </div>
+                    <div ref={this.carousel} className={classes.Carousel}>
+                        <div className={classes.Previous} onClick={this.previousSharedCollectionHandler}></div>
+                        <div className={classes.VisibleCollections}>
+                            <ul className={classes.SharedCollectionWrapper}>
+                                {sharedCollections}
+                            </ul>
+                        </div>
+                        <div className={classes.Next} onClick={this.nextSharedCollectionHandler}></div>
+                    </div>
+                </div>
+            } else {
+                console.log('5b.case specs1 only and spec1 in not in all shared ');
+                sharedCollectionsContent = 
+                <div className={classes.PostAddInfo}>
+                    <div>{'No shared collections for ' + spec1 + ' yet.'}</div>
+                </div>
+            }
+
+        } else if (spec1 !== 'N/A' && spec2 !== '') {
+            console.log('6.case specs1 and spec2 ');
+            bySpec1and2 = allSharedArray.filter(collection => collection.description === spec1 || collection.description === spec2 ); 
+
+            // console.log(bySpec1and2);
+
+            if (bySpec1and2.length > 0) {
+
+                if ( bySpec1and2.length > 20) {
+                    bySpec1and2 = bySpec1and2.slice(0, 20);
+                }
+                console.log('6a.case specs1 and spec2 and spec1 or spec2 in all shared ');
+                let sharedCollections = bySpec1and2.map( (collection, i) => (
+                    <SharedCollectionContainer
+                    key={i}
+                    id={collection._id} 
+                    title={collection.title}
+                    itemCount={collection.resources.length}
+                    date={new Date(collection.date).toLocaleDateString()}
+                    collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description, collection.public)}
+                    description={collection.description}
+                    />
+                ));
+                
+                sharedCollectionsContent =
+                <div className={classes.AllWrapper}>
+                    <div className={classes.ViewAllWrapper}>
+                        <div className={classes.ViewPinned}>view pinned</div>
+                        <div className={classes.ViewAll}>view all</div>
+                    </div>
+                    <div ref={this.carousel} className={classes.Carousel}>
+                        <div className={classes.Previous} onClick={this.previousSharedCollectionHandler}></div>
+                        <div className={classes.VisibleCollections}>
+                            <ul className={classes.SharedCollectionWrapper}>
+                                {sharedCollections}
+                            </ul>
+                        </div>
+                        <div className={classes.Next} onClick={this.nextSharedCollectionHandler}></div>
+                    </div>
+                </div>
+                    
+            } else {
+                console.log('6b.case specs1 and spec2 and spec1 or spec2 not in all shared ');
+                sharedCollectionsContent = 
+                 <div className={classes.PostAddInfo}>
+                     <div>{'No shared collections for ' + spec1 + ' or ' + spec2 + ' yet.'}</div>
+                 </div>
+            }
+
+        } else {
+            console.log('7.last case all shared');
+            if ( allSharedArray.length > 20) {
+                allSharedArray = allSharedArray.slice(0, 20);
+            }
+            let sharedCollections = allSharedArray.map( (collection, i) => (
+                <SharedCollectionContainer
+                key={i}
+                id={collection._id} 
+                title={collection.title}
+                itemCount={collection.resources.length}
+                date={new Date(collection.date).toLocaleDateString()}
+                collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description, collection.public)}
+                description={collection.description}
+                />
+            ));
+            
+            sharedCollectionsContent =
+                <div className={classes.AllWrapper}>
+                    <div className={classes.ViewAllWrapper}>
+                        <div className={classes.ViewPinned}>view pinned</div>
+                        <div className={classes.ViewAll}>view all</div>
+                    </div>
+                    <div ref={this.carousel} className={classes.Carousel}>
+                        <div className={classes.Previous} onClick={this.previousSharedCollectionHandler}></div>
+                        <div className={classes.VisibleCollections}>
+                            <ul className={classes.SharedCollectionWrapper}>
+                                {sharedCollections}
+                            </ul>
+                        </div>
+                        <div className={classes.Next} onClick={this.nextSharedCollectionHandler}></div>
+                    </div>
+                </div>
             }
         }     
 
@@ -135,7 +387,7 @@ class UserCollections extends Component {
             if ( this.props.collections.length === 0) {
                 userCollections = 
                  <div className={classes.PostAddInfo}>
-                     <div>You have no collections!</div>
+                     <div>You have no collections.</div>
                  </div>    
             } else if (this.props.userCollectionsFetchErrors) {
                 userCollections = 
@@ -160,15 +412,7 @@ class UserCollections extends Component {
             <Grid>
                 <div>
                     <div className={classes.YourCollection}>SHARED COLLECTIONS</div>
-                    <div ref={this.carousel} className={classes.Carousel}>
-                        <div className={classes.Previous} onClick={this.previousSharedCollectionHandler}></div>
-                        <div className={classes.VisibleCollections}>
-                            <ul className={classes.SharedCollectionWrapper}>
-                                {sharedCollections}
-                            </ul>
-                        </div>
-                        <div className={classes.Next} onClick={this.nextSharedCollectionHandler}></div>
-                    </div>  
+                    {sharedCollectionsContent}    
                 </div>
                 <div>
                     <div className={classes.YourCollection}>YOUR COLLECTIONS</div>
@@ -188,15 +432,15 @@ const mapStateToProps = state => ({
     sharedCollections: state.collection.sharedCollections,
     sharedCollectionsFetchErrors: state.collection.sharedCollectionsFetchErrors,
     sharedCollectionsLoading: state.collection.sharedCollectionsLoading,
-    user: state.auth.user
+    user: state.auth.user,
+    recentlyViewed: state.resource.recentlyViewedResources
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        /* onAddResourceToCollection: (collectionId, collectionResources, resourceToAdd) => dispatch(actions.addResourceToCollection(collectionId, collectionResources, resourceToAdd)),
-        onResourceAlreadyAdded: (collectionTitle) => dispatch( actions.resourceAlreadyAdded(collectionTitle)), */
         onFetchUserCollections: (userId) => dispatch( actions.fetchUserCollections(userId)),
         onFetchSharedCollections: () => dispatch(actions.fetchSharedCollections()),
+        onFetchRecentlyViewedResources: (userId) => dispatch(actions.fetchRecentlyViewedResources(userId)),
         onClearMessages: () => dispatch( actions.clearAddToCollectionMessages()),
         onSetClickedCollectionAttributes: ( attributes ) => dispatch(actions.setClickedCollectionAttributes( attributes ))
     };

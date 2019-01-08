@@ -1,56 +1,61 @@
+.AllWrapper {
+    background: var(--white);
+}
+
 .CollectionWrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     background: var(--white);
+    /* padding-top: 10px; */
 }
 
 .Carousel {
     display: flex;
     flex-wrap: nowrap;
-    background: var(--white);
+    /* background: var(--white); */
     justify-content: center;
-    padding: 10px 0;
+    padding-bottom: 5px;
 }
 
 .Previous {
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
-    background-color: var(--darkBlue);
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    /* background-color: var(--darkBlue); */
     background-image: url('../../assets/images/angle-left.svg');
     background-repeat: no-repeat;
-    background-position-x: center;
+    background-position-x: 50%;
     background-position-y: center;
-    background-size: 50%;
+    background-size: 55%;
     margin: auto 10px auto 0;
     cursor: pointer;
 }
 
 .Previous:hover {
-    background-color: var(--blue);
+    background-color: var(--lightestGray);
 }
 
 .Next {
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
-    background-color: var(--darkBlue);
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    /* background-color: var(--darkBlue); */
     background-image: url('../../assets/images/angle-right.svg');
     background-repeat: no-repeat;
-    background-position-x: center;
+    background-position-x: 50%;
     background-position-y: center;
-    background-size: 50%;
+    background-size: 55%;
     margin: auto 0 auto 10px;
     cursor: pointer;
 }
 
 .Next:hover {
-    background-color: var(--blue);
+    background-color: var(--lightestGray);
 }
 
 .VisibleCollections {
-    width: 510px;
+    width: 190px;
     overflow-x: hidden;
 }
 
@@ -60,6 +65,7 @@
     justify-content: flex-start;
     width: 9999px;
     /* margin-left: 0px; */
+    margin: 0;
     padding: 0;
     list-style: none;
     transition: margin-left 250ms;
@@ -80,7 +86,65 @@
     font-weight: 400;
     color: var(--green);
     background: var(--darkBlue);
-    margin: 10px;
+    margin: 10px auto;
     border-radius: 20px;
+    max-width: 400px;
+    text-align: center;
+    overflow: auto;
     
+}
+
+.ViewAllWrapper {
+    text-align: right;
+}
+
+.ViewPinned {
+    padding: 10px;
+    background: var(--blue);
+    text-decoration: none;
+    color: var(--white);
+    cursor: pointer;
+    text-align: right;
+    margin: 10px;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: small;
+    /* text-transform: lowercase; */
+}
+
+.ViewPinned:hover {
+    background: var(--skyBlue);
+}
+
+.ViewAll {
+    padding: 10px;
+    background: var(--blue);
+    text-decoration: none;
+    color: var(--white);
+    cursor: pointer;
+    text-align: right;
+    margin: 10px 10px 10px 0;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: small;
+    /* text-transform: lowercase; */
+}
+
+.ViewAll:hover {
+    background: var(--skyBlue);
+}
+
+@media ( max-width: 380px) {
+    .Next {
+        margin: auto 0;
+    }
+
+    .Previous {
+        margin: auto 0;
+    }
+
+    .Carousel {
+        flex-direction: column;
+        align-items: center;
+    }
 }
