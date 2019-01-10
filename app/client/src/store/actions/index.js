@@ -155,7 +155,8 @@ export {
     clearDeleteCollectionMessages,
     fetchSharedCollections,
     pinCollection,
-    unpinCollection
+    unpinCollection,
+    fetchUserPinnedCollections
 } from './collection';
 
 export {

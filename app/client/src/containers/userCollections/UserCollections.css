@@ -1,5 +1,6 @@
 .AllWrapper {
     background: var(--white);
+    padding: 10px;
 }
 
 .CollectionWrapper {
@@ -7,7 +8,7 @@
     flex-wrap: wrap;
     justify-content: center;
     background: var(--white);
-    /* padding-top: 10px; */
+    padding: 10px;
 }
 
 .Carousel {
@@ -90,8 +91,7 @@
     border-radius: 20px;
     max-width: 400px;
     text-align: center;
-    overflow: auto;
-    
+    overflow: auto;   
 }
 
 .ViewAllWrapper {
@@ -113,7 +113,7 @@
 }
 
 .ViewPinned:hover {
-    background: var(--skyBlue);
+    background: var(--darkGreen);
 }
 
 .ViewAll {

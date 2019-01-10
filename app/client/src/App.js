@@ -11,6 +11,8 @@ import Explore from './containers/explore/Explore';
 import UserCollections from './containers/userCollections/UserCollections';
 import UserCollection from './containers/userCollections/userCollection/UserCollection';
 import SharedCollection from './containers/userCollections/sharedCollection/SharedCollection';
+import AllSharedCollections from './containers/allSharedCollections/AllSharedCollections';
+import PinnedCollections from './containers/pinnedCollection/PinnedCollections';
 
 import Profile from './containers/profile/Profile';
 import ResourcePage from './containers/resourcepage/Resoucepage';
@@ -65,6 +67,7 @@ import Video from './containers/Subjects/Video';
 import WebDesign from './containers/Subjects/WebDesign';
 import Webdev from './containers/Subjects/Webdev';
 import Writing from './containers/Subjects/Writing';
+
 
 // import ScrollToTop from './hoc/ScrollToTop';
 
@@ -208,6 +211,8 @@ class App extends Component {
             <Route path="/explore/accounting" component={Accounting} />
             <Route path="/admin_tools" component={AdminTools} />
             <Route path="/profile/edit" component={EditProfile} />
+            <Route path="/pinned_collections" component={PinnedCollections} />
+            <Route path="/all_shared_collections" component={AllSharedCollections} />
             <Route path="/shared_collections/:id" component={SharedCollection} />
             <Route path="/collections/:id" component={UserCollection} />
             <Route path="/collections" component={UserCollections} />

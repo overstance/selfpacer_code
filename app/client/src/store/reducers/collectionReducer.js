@@ -38,7 +38,11 @@ const initialState = {
     deleteCollectionSuccessInfo: null,
     deleteCollectionError: null,
 
-    pinnedCollectionIds: null
+    pinnedCollectionIds: null,
+
+    fetchUserPinnedCollectionsLoading: false,
+    fetchUserPinnedCollectionsError: null,
+    userPinnedCollections: []
 };
 
 //Set Resource to Collect
@@ -130,6 +134,9 @@ const clearAddToCollectionMessages = ( state, action ) => {
             addResourceToCollectionSuccessMessage: null, 
             resourceAlreadyCollectedTitle: null, 
             fetchcollectedResourceError: null, 
+            fetchUserPinnedCollectionsError: null,
+            userCollectionsFetchErrors: null,
+            sharedCollectionsFetchErrors: null
             // clickedCollectionAttributes: null 
         } 
     );
@@ -231,6 +238,20 @@ const pinCollectionSuccess = ( state, action) => {
     return updateObject( state, { pinnedCollectionIds: action.collectionIds });
 }
 
+// fetch user pinned collections
+
+const fetchUserPinnedCollectionsStart = ( state, action) => {
+    return updateObject( state, { fetchUserPinnedCollectionsLoading: true});
+}
+
+const fetchUserPinnedCollectionsSuccess = ( state, action) => {
+    return updateObject( state, { fetchUserPinnedCollectionsLoading: false, userPinnedCollections: action.pinnedCollections});
+}
+
+const fetchUserPinnedCollectionsFail = ( state, action) => {
+    return updateObject( state, { fetchUserPinnedCollectionsLoading: false, fetchUserPinnedCollectionsError: action.error });
+}
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.CREATE_COLLECTION_START: return createCollectionStart( state, action );
@@ -285,6 +306,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.SET_USER_PINNED_COLLECTION: return setPinnedCollections( state, action );
 
         case actionTypes.PIN_COLLECTION_SUCCESS: return pinCollectionSuccess( state, action );
+
+        case actionTypes.FETCH_USER_PINNED_COLLECTION_START: return fetchUserPinnedCollectionsStart( state, action );
+        case actionTypes.FETCH_USER_PINNED_COLLECTION_SUCCESS: return fetchUserPinnedCollectionsSuccess( state, action );
+        case actionTypes.FETCH_USER_PINNED_COLLECTION_FAIL: return fetchUserPinnedCollectionsFail( state, action );
 
         default: return state;
     }

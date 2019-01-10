@@ -30,9 +30,7 @@ class EditBio extends Component {
             value: this.props.specialization2,
             label: "Edit Specialization2", 
             name: "specialization2",
-            validation: {
-                required: true
-            },
+            validation: {},
             valid: false,
             touched: false   
         },
@@ -126,24 +124,62 @@ class EditBio extends Component {
     }
 
     specialization1ChangedHandler = (event) => {
+
         const updated = {
             ...this.state.specialization1,
             value: event.target.value,
             valid: this.checkValidity(event.target.value, this.state.specialization1.validation),
             touched: true
         }
-        this.setState({ specialization1: updated, biodataFillError: null});
+        this.setState({ specialization1: updated, biodataFillError: null}, () => {
+            if (this.state.specialization1.value === 'N/A' && this.state.specialization2.value !== '') {
+                const updated = {
+                    ...this.state.specialization2,
+                    valid: false,
+                    touched: true
+                }
+                this.setState({ specialization2: updated, biodataFillError: 'edit specialization1 first'});
+            } else if ((this.state.specialization1.value !== '' && this.state.specialization2.value === '') || (this.state.specialization1.value !== this.state.specialization2.value)) {
+                const updated = {
+                    ...this.state.specialization2,
+                    valid: true,
+                    touched: true
+                }
+                this.setState({ specialization2: updated, biodataFillError: null});
+            }
+        });
+
        
     }
 
     specialization2ChangedHandler = (event) => {
-        const updated = {
-            ...this.state.specialization2,
-            value: event.target.value,
-            valid: this.checkValidity(event.target.value, this.state.specialization2.validation),
-            touched: true
+
+        if (this.state.specialization1.value === 'N/A') {
+            const updated = {
+                ...this.state.specialization2,
+                value: '',
+                valid: false,
+                touched: true
+            }
+            this.setState({ specialization2: updated, biodataFillError: 'edit specialization1 first'});    
+        } else {
+            const updated = {
+                ...this.state.specialization2,
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.specialization2.validation),
+                touched: true
+            }
+            this.setState({ specialization2: updated, biodataFillError: null}, () => {
+                if (this.state.specialization2.value === this.state.specialization1.value) {
+                    const updated = {
+                        ...this.state.specialization2,
+                        valid: false,
+                        touched: true
+                    }
+                    this.setState({ specialization2: updated, biodataFillError: 'specialization2 must be different'})
+                }
+            });
         }
-        this.setState({ specialization2: updated, biodataFillError: null});
        
     }
 
@@ -182,12 +218,7 @@ class EditBio extends Component {
             }
         })
 
-        if (this.props.specialization2) {
-            temp.unshift({ value: this.props.specialization2, displayValue: this.props.specialization2}); 
-        } else {
-            temp.unshift({ value: 'N/A', displayValue: 'N/A'});
-            temp.unshift({ value: '', displayValue: ''});
-        }
+        temp.unshift({ value: this.props.specialization2, displayValue: this.props.specialization2});
 
         elementConfig.options = temp;
 

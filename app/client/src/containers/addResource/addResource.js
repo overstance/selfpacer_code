@@ -280,9 +280,8 @@ class AddResources extends Component {
                                 
                             </form>
                             <div className={classes.FootNote} >
-                                **Your Submitted resource(s) will be added to the selfpacer
-                                resource lists only after been processed and approved
-                                by standard efficiency requirements.
+                                **The submitted resource will be added to the selfpacer
+                                resource lists only after been checked and approved.
                             </div>
                         </div>
                     </div >

@@ -53,6 +53,31 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/fetch_user_pinned_collections/:userId', (req, res) => {
+    User.findById(req.params.userId, (err, user) => {
+      if (err) {
+        res.send(err.message);
+        console.log(err.message);
+        return;
+      } else {
+        const pinnedCollections = user.pinnedCollections;
+        Collection.find(
+          { _id: { $in: pinnedCollections } },
+          (err, collections) => {
+            if (err) {
+              res.send(err.message);
+              console.log(err.message);
+              return;
+            } else {
+              res.send({ collections: collections });
+              // console.log(resources);
+            }
+          }
+        );
+      }
+    });
+  });
+
   app.post('/api/create_collection', (req, res) => {
     const collection = {
       title: req.body.title,

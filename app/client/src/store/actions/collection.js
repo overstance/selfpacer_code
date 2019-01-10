@@ -557,6 +557,41 @@ export const unpinCollection = (collectionId, userId, userPinnedCollections) => 
     }
 }
 
+// fetch User Pinned Collections
+
+export const fetchUserPinnedCollectionsStart = () => {
+    return {
+        type: actionTypes.FETCH_USER_PINNED_COLLECTION_START
+    }
+}
+
+export const fetchUserPinnedCollectionsSuccess = (pinnedCollections) => {
+    return {
+        type: actionTypes.FETCH_USER_PINNED_COLLECTION_SUCCESS,
+        pinnedCollections: pinnedCollections
+    }
+}
+
+export const fetchUserPinnedCollectionsFail = (error) => {
+    return {
+        type: actionTypes.FETCH_USER_PINNED_COLLECTION_FAIL,
+        error: error
+    }
+}
+
+export const fetchUserPinnedCollections = (userId) => async dispatch => {
+
+    dispatch(fetchUserPinnedCollectionsStart());
+
+    const res = await axios.get(`/api/fetch_user_pinned_collections/${userId}`);
+
+    if (res.data.collections) {
+        dispatch(fetchUserPinnedCollectionsSuccess(res.data.collections));
+    } else {
+        dispatch(fetchUserPinnedCollectionsFail(res.data));
+    }
+}
+
 
 
 
