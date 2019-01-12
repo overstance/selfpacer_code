@@ -26,9 +26,9 @@
     margin: auto;
 }
 
-.ContainerItem span {
+/* .ContainerItem span {
     display: none;
-}
+} */
 
 .ContainerItem button {
  font-size: small;
@@ -44,10 +44,29 @@
     padding: 20px 0;
 }
 
-.Form {
+.OuterContainer {
     background: var(--darkBlue);
     padding: 20px;
-    border-radius: 20px 20px 0 0;
+    border-radius: 20px;
+    /* margin: 10px; */  
+}
+
+.OuterContainer label {
+    margin-top: 0px;
+    font-weight: 400;
+    font-size: small;
+}
+
+.Notype {
+    padding-top: 20px;
+    color: var(--green);
+    font-weight: 400;
+}
+
+.Form {
+    background: var(--darkBlue);
+    /* padding: 20px 0; */
+    /* border-radius: 20px; */
     /* margin: 10px; */
     
 }

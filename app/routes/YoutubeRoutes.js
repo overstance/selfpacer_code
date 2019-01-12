@@ -36,37 +36,42 @@ module.exports = app => {
       });
 
       const responseData = response.data.items;
+      // console.log(response.data);
 
-      const seedData = await responseData.map(seed => {
-        const pdate = new Date(seed.snippet.publishedAt);
-        const year = pdate.getFullYear();
-        return {
-          publishDate: year,
-          category: subject,
-          title: seed.snippet.title,
-          img: seed.snippet.thumbnails.medium.url,
-          link: 'https://www.youtube.com/results?search_query=' + seed.id,
-          views: 0,
-          likes: 0,
-          youtubeId: seed.id,
-          source: 'youtube.com',
-          type: seed.kind,
-          videoCount: seed.contentDetails.itemCount,
-          user_id: user
-        };
-      });
+      if (responseData.length === 0) {
+        res.send('playlist not found!');
+      } else {
+        const seedData = await responseData.map(seed => {
+          const pdate = new Date(seed.snippet.publishedAt);
+          const year = pdate.getFullYear();
 
-      seedData.forEach(function(seed) {
-        Resource.create(seed, function(err, resource) {
-          if (err) {
-            console.log(err);
-          } else {
-            resource.save();
-          }
+          return {
+            publishDate: year,
+            category: subject,
+            title: seed.snippet.title,
+            img: seed.snippet.thumbnails.medium.url,
+            link: 'https://www.youtube.com/results?search_query=' + seed.id,
+            views: 0,
+            likes: 0,
+            youtubeId: seed.id,
+            source: 'youtube.com',
+            type: seed.kind,
+            videoCount: seed.contentDetails.itemCount,
+            user_id: user
+          };
         });
-      });
 
-      res.send(seedData);
+        seedData.forEach(function(seed) {
+          Resource.create(seed, function(err, resource) {
+            if (err) {
+              console.log(err);
+            } else {
+              resource.save();
+            }
+          });
+        });
+        res.send({ seedData: seedData });
+      }
     }
   );
 
@@ -131,6 +136,12 @@ module.exports = app => {
 
       const responseData = response.data.items;
 
+      // console.log(responseData);
+
+      function numberWithCommas(x) {
+        return x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+
       const seedData = await responseData.map(seed => {
         const pdate = new Date(seed.snippet.publishedAt);
         const year = pdate.getFullYear();
@@ -147,8 +158,8 @@ module.exports = app => {
           source: 'youtube.com',
           duration: seed.contentDetails.duration,
           type: seed.kind,
-          youtubeviews: seed.statistics.viewCount,
-          youtubelikes: seed.statistics.likeCount,
+          youtubeviews: numberWithCommas(seed.statistics.viewCount),
+          youtubelikes: numberWithCommas(seed.statistics.likeCount),
           user_id: user
         };
       });

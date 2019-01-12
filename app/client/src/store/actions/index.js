@@ -119,7 +119,8 @@ export {
     clearAddBooksFeedbacks,
     onAddSubjectIcon,
     fetchSelectSubjectInfo,
-    editSubject
+    editSubject,
+    clearAddMessages
 } from './admin1';
 
 export {

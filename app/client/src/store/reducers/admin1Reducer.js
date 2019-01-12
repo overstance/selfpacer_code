@@ -16,6 +16,7 @@ const initialState = {
     adminUserRemoveError: null,
     adminUserRemovedFeedback: null,
     
+    youtubePlaylistLoading: false,
     addedYoutubePlaylist: {},
     addYoutubePlaylistError: null,
     youtubePlaylistAddedFeedback: null,
@@ -88,20 +89,23 @@ const adminUserRemoveFailed = ( state, action ) => {
 const youtubePlaylistAddStart = ( state, action ) => {
     return updateObject( state, {
         addYoutubePlaylistError: null,
-        youtubePlaylistAddedFeedback: null
+        youtubePlaylistAddedFeedback: null,
+        youtubePlaylistLoading: true
     } );
 };
 
 const youtubePlaylistAdded = ( state, action ) => {
     return updateObject( state, {
         youtubePlaylistAddedFeedback: action.addCount + ' item(s) added',
-        addedYoutubePlaylist: action.playlists
+        addedYoutubePlaylist: action.playlists,
+        youtubePlaylistLoading: false
     } );
 };
 
 const youtubePlaylistAddFailed = ( state, action ) => {
     return updateObject( state, {
-        addYoutubePlaylistError: 'Failed!: ' + action.error
+        addYoutubePlaylistError: 'Failed!: ' + action.error,
+        youtubePlaylistLoading: false
     } );
 };
 
@@ -245,6 +249,30 @@ const editSubjectFail = ( state, action ) => {
     });
 }
 
+// clear all admin add messages
+
+const clearAddMessages = ( state, action ) => {
+    return updateObject( state, {
+    adminAddError: null,
+    editSubjectSuccessInfo: null,
+    editSubjectError: null,
+    adminUserRemoveError: null,
+    adminUserRemovedFeedback: null,
+    addYoutubePlaylistError: null,
+    youtubePlaylistAddedFeedback: null,
+    updateYoutubePlaylistsError: null,
+    youtubePlaylistsUpdatedFeedback: null,
+    addYoutubeVideoError: null,
+    youtubeVideoAddedFeedback: null,
+    updateYoutubeVideosError: null,
+    youtubeVideosUpdatedFeedback: null,
+    addMoocSucessInfo: null,
+    addMoocError: null,
+    addBooksSucessInfo: null,
+    addBooksError: null
+    });
+}
+
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
@@ -285,6 +313,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADD_BOOKS_SUCCESS: return addBooksSuccess( state, action );
         case actionTypes.ADD_BOOKS_FAILED: return addBooksFailed( state, action );
         case actionTypes.CLEAR_ADD_BOOKS_FEEDBACKS: return clearAddBooksFeedbacks( state, action );
+
+        case actionTypes.CLEAR_ADD_MESSAGES: return clearAddMessages( state, action );
 
         default: return state;
     }

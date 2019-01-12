@@ -32,16 +32,6 @@ class ManageYoutubeVideos extends Component {
             },
             valid: false,
             touched: false,
-        },
-        agent: {
-            value: '',
-            label: "agent", 
-            name: "agent",
-            validation: {
-                required: true
-            },
-            valid: false,
-            touched: false,
         }
     };
 
@@ -104,16 +94,8 @@ class ManageYoutubeVideos extends Component {
             }
             this.setState({ subject: subjectUpdated, fillError: 'Please fill all fields'});
 
-        } else if ( !this.state.agent.touched && this.state.agent.value === '') {
-            const agentUpdated = {
-                ...this.state.agent,
-                touched: true,
-                valid: false
-            }
-            this.setState({ agent: agentUpdated, fillError: 'Please fill all fields'});
-
         } else {
-            this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value, this.state.agent.value);
+            this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value, this.props.user._id);
             
             const youtubeReset = {
                     ...this.state.youtubeVideo,
@@ -144,17 +126,6 @@ class ManageYoutubeVideos extends Component {
             touched: true
         }
         this.setState({ subject: updated, fillError: null});
-       
-    }
-
-    agentChangedHandler = (event) => {
-        const updated = {
-            ...this.state.agent,
-            value: event.target.value,
-            valid: this.checkValidity(event.target.value, this.state.agent.validation),
-            touched: true
-        }
-        this.setState({ agent: updated, fillError: null});
        
     }
 
@@ -209,16 +180,7 @@ class ManageYoutubeVideos extends Component {
                     elementConfig={this.elementConfig()}
                     changed={(event) => this.subjectChangedHandler(event)}
                     />
-                    <Input 
-                    label={this.state.agent.label} 
-                    name={this.state.agent.name}
-                    value={this.state.agent.value}
-                    invalid={!this.state.agent.valid}
-                    shouldValidate={this.state.agent.validation}
-                    touched={this.state.agent.touched}
-                    changed={(event) => this.agentChangedHandler(event)}
-                    />
-                    { (!this.state.youtubeVideo.valid && this.state.youtubeVideo.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.agent.valid && this.state.agent.touched) || this.state.fillError ? 
+                    { (!this.state.youtubeVideo.valid && this.state.youtubeVideo.touched) || (!this.state.subject.valid && this.state.subject.touched) || this.state.fillError ? 
                         <Button btnType='Danger' disabled> Add </Button> :
                         <Button btnType='Success'> Add </Button>    
                     }

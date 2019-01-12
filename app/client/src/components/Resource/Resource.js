@@ -50,7 +50,7 @@ class Resource extends Component {
                                     }
                                     { this.props.enrollees ?
                                         <div>
-                                            <div className={classes.Type}>ENROLLEES:<span>{this.props.enrollees}</span></div>
+                                            <div className={classes.Type}>ENROLLEES:<span>{this.props.enrollees + '+'}</span></div>
                                         </div> : null
                                     }
                                     { this.props.duration ?
@@ -60,7 +60,7 @@ class Resource extends Component {
                                     }
                                     { this.props.avgRating ?
                                         <div>
-                                            <div className={classes.Type}>AVG.RATING:<span>{this.props.avgRating}</span></div>
+                                            <div className={classes.Type}>AVG.RATING:<span>{this.props.avgRating + ' of 5 stars'}</span></div>
                                         </div> : null
                                     }
                                     { this.props.level ?

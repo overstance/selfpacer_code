@@ -48,7 +48,7 @@ class AddMooc extends Component {
                 elementType: 'textarea',
                 elementConfig: {
                     label: "course url",
-                    labelspan: '*'
+                    labelspan: '(valid url only)*'
                 },
                 value: '', 
                 validation: {
@@ -61,7 +61,8 @@ class AddMooc extends Component {
             imageUrl: {
                 elementType: 'textarea',
                 elementConfig: {
-                    label: "image url"
+                    label: "image url",
+                    labelspan: '(valid url only)'
                 },
                 value: '',
                 validation: {
@@ -74,7 +75,7 @@ class AddMooc extends Component {
                 elementType: 'input',
                 elementConfig: {
                     label: "source",
-                    labelspan: '*'
+                    labelspan: '(i.e udemy.com)*'
                 },
                 value: '',
                 validation: {
@@ -87,7 +88,7 @@ class AddMooc extends Component {
                 elementType: 'input',
                 elementConfig: {
                     label: "video count",
-                    labelspan: '*'
+                    labelspan: '(number with no commas)*'
                 },
                 value: '', 
                 validation: {
@@ -114,11 +115,12 @@ class AddMooc extends Component {
                 elementType: 'input',
                 elementConfig: {
                     label: "enrollees",
-                    labelspan: '*'
+                    labelspan: '(number with no commas)*'
                 },
                 value: '', 
                 validation: {
                     required: true,
+                    isNumeric: true
                 },
                 valid: false,
                 touched: false,
@@ -186,22 +188,10 @@ class AddMooc extends Component {
                 elementType: 'input',
                 elementConfig: {
                     label: "avg. Rating",
+                    labelspan: '(of 5 stars)'
                 },
                 value: '', 
                 validation: {},
-                valid: false,
-                touched: false,
-            },
-            agent: {
-                elementType: 'input',
-                elementConfig: {
-                    label: "agent",
-                    labelspan: '*'
-                },
-                value: '', 
-                validation: {
-                    required: true
-                },
                 valid: false,
                 touched: false,
             }
@@ -388,18 +378,6 @@ class AddMooc extends Component {
             this.setState({ controls: updatedControls });
 
             this.setState({ fillError: 'Please fill all asterisked fields' });
-        } else if (!this.state.controls.agent.touched && this.state.controls.agent.value === '' ) {
-            const updatedControls = {
-                ...this.state.controls,
-                agent: {
-                    ...this.state.controls.agent,
-                    touched: true,
-                    valid: false
-                }
-            };
-            this.setState({ controls: updatedControls });
-
-            this.setState({ fillError: 'Please fill all asterisked fields' });
         } else {
 
             // this.props.onClearAddMoocFeedbacks();
@@ -408,7 +386,7 @@ class AddMooc extends Component {
                 this.state.controls.imageUrl.value, this.state.controls.source.value, this.state.controls.videoCount.value,
                 this.state.controls.tutor.value, this.state.controls.enrollees.value, this.state.controls.duration.value,
                 this.state.controls.level.value, this.state.controls.lastUpdated.value, this.state.controls.avgRating.value,
-                this.state.controls.agent.value 
+                this.props.user._id 
             );
 
             const updatedSubject = {
@@ -471,11 +449,6 @@ class AddMooc extends Component {
                 },
                 avgRating: {
                     ...this.state.controls.avgRating,
-                    touched: false,
-                    value: ''
-                },
-                agent: {
-                    ...this.state.controls.agent,
                     touched: false,
                     value: ''
                 }
@@ -554,7 +527,7 @@ class AddMooc extends Component {
                     changed={(event) => this.subjectChangedHandler(event)}
                     />
                     {registerInput}
-                    { (!this.state.controls.title.valid && this.state.controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.controls.url.valid && this.state.controls.url.touched)  || (!this.state.controls.source.valid && this.state.controls.source.touched) || (!this.state.controls.videoCount.valid && this.state.controls.videoCount.touched) || (!this.state.controls.tutor.valid && this.state.controls.tutor.touched) || (!this.state.controls.enrollees.valid && this.state.controls.enrollees.touched) || (!this.state.controls.duration.valid && this.state.controls.duration.touched) || (!this.state.controls.level.valid && this.state.controls.level.touched) || (!this.state.controls.agent.valid && this.state.controls.agent.touched) || this.state.fillError ? 
+                    { (!this.state.controls.title.valid && this.state.controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.controls.url.valid && this.state.controls.url.touched)  || (!this.state.controls.source.valid && this.state.controls.source.touched) || (!this.state.controls.videoCount.valid && this.state.controls.videoCount.touched) || (!this.state.controls.tutor.valid && this.state.controls.tutor.touched) || (!this.state.controls.enrollees.valid && this.state.controls.enrollees.touched) || (!this.state.controls.duration.valid && this.state.controls.duration.touched) || (!this.state.controls.level.valid && this.state.controls.level.touched) || this.state.fillError ? 
                         <Button btnType='Danger' disabled> Add </Button> :
                         <Button btnType='Success'> Add </Button>    
                     }
@@ -581,7 +554,7 @@ const mapStateToProps = state => ({
     subjects: state.explore.subjects,
     addMoocSucessInfo: state.admin1.addMoocSucessInfo,
     addMoocError: state.admin1.addMoocError,
-    // user: state.auth.user
+    user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {

@@ -48,7 +48,7 @@ class AddBooks extends Component {
                 elementType: 'textarea',
                 elementConfig: {
                     label: "resource url",
-                    labelspan: '*'
+                    labelspan: '(valid url only)*'
                 },
                 value: '', 
                 validation: {
@@ -61,7 +61,8 @@ class AddBooks extends Component {
             imageUrl: {
                 elementType: 'textarea',
                 elementConfig: {
-                    label: "image url"
+                    label: "image url",
+                    labelspan: '(valid url only)'
                 },
                 value: '',
                 validation: {
@@ -74,7 +75,7 @@ class AddBooks extends Component {
                 elementType: 'input',
                 elementConfig: {
                     label: "source",
-                    labelspan: '*'
+                    labelspan: '(i.e amazon.com)*'
                 },
                 value: '',
                 validation: {
@@ -132,22 +133,10 @@ class AddBooks extends Component {
                 elementType: 'input',
                 elementConfig: {
                     label: "avg. Rating",
+                    labelspan: '(of 5 stars)'
                 },
                 value: '', 
                 validation: {},
-                valid: false,
-                touched: false,
-            },
-            agent: {
-                elementType: 'input',
-                elementConfig: {
-                    label: "agent",
-                    labelspan: '*'
-                },
-                value: '', 
-                validation: {
-                    required: true
-                },
                 valid: false,
                 touched: false,
             }
@@ -286,18 +275,6 @@ class AddBooks extends Component {
             this.setState({ controls: updatedControls });
 
             this.setState({ fillError: 'Please fill all asterisked fields' });
-        } else if (!this.state.controls.agent.touched && this.state.controls.agent.value === '' ) {
-            const updatedControls = {
-                ...this.state.controls,
-                agent: {
-                    ...this.state.controls.agent,
-                    touched: true,
-                    valid: false
-                }
-            };
-            this.setState({ controls: updatedControls });
-
-            this.setState({ fillError: 'Please fill all asterisked fields' });
         } else {
 
             // this.props.onClearAddBooksFeedbacks();
@@ -305,7 +282,7 @@ class AddBooks extends Component {
             this.props.onAddBooks(
                 this.state.subject.value, this.state.controls.title.value, this.state.controls.url.value,
                 this.state.controls.imageUrl.value, this.state.controls.source.value, this.state.controls.author.value,
-                this.state.controls.level.value, this.state.controls.avgRating.value, this.state.controls.agent.value 
+                this.state.controls.level.value, this.state.controls.avgRating.value, this.props.user._id 
             );
 
             const updatedSubject = {
@@ -348,11 +325,6 @@ class AddBooks extends Component {
                 },
                 avgRating: {
                     ...this.state.controls.avgRating,
-                    touched: false,
-                    value: ''
-                },
-                agent: {
-                    ...this.state.controls.agent,
                     touched: false,
                     value: ''
                 }
@@ -430,7 +402,7 @@ class AddBooks extends Component {
                     changed={(event) => this.subjectChangedHandler(event)}
                     />
                     {registerInput}
-                    { (!this.state.controls.title.valid && this.state.controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.controls.url.valid && this.state.controls.url.touched)  || (!this.state.controls.source.valid && this.state.controls.source.touched) || (!this.state.controls.author.valid && this.state.controls.author.touched) || (!this.state.controls.agent.valid && this.state.controls.agent.touched) || this.state.fillError ? 
+                    { (!this.state.controls.title.valid && this.state.controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.controls.url.valid && this.state.controls.url.touched)  || (!this.state.controls.source.valid && this.state.controls.source.touched) || (!this.state.controls.author.valid && this.state.controls.author.touched) || this.state.fillError ? 
                         <Button btnType='Danger' disabled> Add </Button> :
                         <Button btnType='Success'> Add </Button>    
                     }
@@ -457,7 +429,7 @@ const mapStateToProps = state => ({
     subjects: state.explore.subjects,
     addBooksSucessInfo: state.admin1.addBooksSucessInfo,
     addBooksError: state.admin1.addBooksError,
-    // user: state.auth.user
+    user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {

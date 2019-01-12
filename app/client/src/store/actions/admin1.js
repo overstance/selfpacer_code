@@ -1,6 +1,10 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 //Add AdminUser
 
 export const addAdminUser = (user_id, newAccountType) => {
@@ -111,10 +115,12 @@ export const addYoutubePlaylist = (playlistId, subject, user) => {
         axios.post('/api/youtube_playlist', asset)
         .then( res => {
             
-            if (res.data.length >= 1) {
-                dispatch(youtubePlaylistAdded(res.data, res.data.length));
+            if (res.data.seedData) {
+                dispatch(youtubePlaylistAdded(res.data.seedData, res.data.seedData.length));
+            } else if ( res.data === 'playlist not found!') {
+                dispatch(youtubePlaylistAddFailed( res.data)); 
             } else {
-                dispatch(youtubePlaylistAddFailed( 'error!'))
+                dispatch(youtubePlaylistAddFailed( 'error!'));
             }
         }).catch(err => 
             dispatch(youtubePlaylistAddFailed(err.name))               
@@ -328,7 +334,7 @@ export const addMooc = (subject, title, url, imageUrl, source, videoCount, tutor
         source: source,
         videoCount: videoCount,
         tutor: tutor,
-        enrollees: enrollees,
+        enrollees: numberWithCommas(enrollees),
         duration: duration,
         level: level,
         lastUpdated: updateTime,
@@ -487,6 +493,14 @@ export const editSubject = ( subject, path, curriculum ) => async dispatch => {
         dispatch( editSubjectSuccess('subject edited'));
     } else {
         dispatch( editSubjectFail(res.data));
+    }
+}
+
+// clear all add messages
+
+export const clearAddMessages = () => {
+    return {
+        type: actionTypes.CLEAR_ADD_MESSAGES
     }
 }
 
