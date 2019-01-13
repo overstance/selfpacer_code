@@ -7,8 +7,8 @@
 .MainContainer {
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
     background: var(--white);
     text-decoration: none;
 }
@@ -90,7 +90,22 @@ background: var(--lightGray);
 .ImgColumn {
     width: 100px;
     text-align: center;
-    margin: auto; 
+    /* margin: auto; */
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+
+.NoImageColumn {
+    width: 100px;
+    text-align: center;
+    background-image: url('../../assets/images/image.svg');
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-color: var(--blue);
 }
 
 .ResourceImg {
@@ -142,6 +157,7 @@ background: var(--lightGray);
     background: var(--white);
     border-bottom: 1px solid var(--lightGray);
     border-top: 1px solid var(--lightGray);
+    align-items: center;
 }
 
 .FeedbackIcons {
@@ -215,6 +231,19 @@ background: var(--lightGray);
     font-weight: 400;
 }
 
+.ToConfirm {
+    font-size: small;
+    background: var(--blue);
+    color: var(--white);
+    font-weight: 400; 
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ToConfirm:hover {
+    background: var(--darkGreen)
+}
 
 .InfoColumn {
     -ms-flex-preferred-size: 0;
@@ -273,9 +302,15 @@ background: var(--lightGray);
         padding-left: 10px;
     }
 
-    .ImgColumn {
-        width: 80px;
+    /* .ImgColumn {
+        height: 80px;
+        width: 100%;
     }
+
+    .NoImageColumn {
+        height: 80px;
+        width: 100%; 
+    } */
 
     .ResourceImg {
         width: 80px;

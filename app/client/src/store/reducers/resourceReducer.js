@@ -9,6 +9,8 @@ const initialState = {
     clickedResourcePlatform: null,
     userRecentlyViewed: null,
 
+    unconfirmedResources: [], 
+
     recentlyViewedResources: [],
     
     userAssets: [],
@@ -67,20 +69,6 @@ const updateUserRecentlyViewedResources = ( state, action ) => {
     return updateObject( state, { userRecentlyViewed: action.recentlyViewed } );
 };
 
-/* // Set user like count
-
-const setUserLikeCount = ( state, action ) => {
-    return updateObject( state, { userLikeCount: action.userLikeCount } );
-};
-
-// update user liked resources
-
-const updateUserLikedCount = ( state, action ) => {
-    return updateObject( state, { userLikeCount: action.newLikeCount } );
-}; */
-
-// On fetch User Assets( user submitted resource)
-
 const fetchUserAssetStart = ( state, action ) => {
     return updateObject( state, { loading: true } );
 };
@@ -101,6 +89,25 @@ const fetchUserAssetFailed = ( state, action ) => {
 const fetchRecentlyViewedResources = ( state, action ) => {
     return updateObject( state, { recentlyViewedResources: action.resources } );
 };
+
+// fetch unconfirmed resources
+
+const fetchUnconfirmedStart = ( state, action ) => {
+    return updateObject( state, { loading: true } );
+};
+
+const fetchUnconfirmedSuccess = ( state, action ) => {
+    return updateObject( state, {
+        unconfirmedResources: action.resources,
+        loading: false
+    } );
+};
+
+const fetchUnconfirmedFail = ( state, action ) => {
+    return updateObject( state, { loading: false } );
+};
+
+
 
 
 
@@ -124,6 +131,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.UPDATE_USER_RECENTLY_VIEWED: return updateUserRecentlyViewedResources( state, action );
 
         case actionTypes.FETCH_RECENTLY_VIEWED_SUCCESS: return fetchRecentlyViewedResources( state, action );
+
+        case actionTypes.FETCH_UNCONFIRMED_RESOURCES_START: return fetchUnconfirmedStart( state, action );
+        case actionTypes.FETCH_UNCONFIRMED_RESOURCES_SUCCESS: return fetchUnconfirmedSuccess( state, action );
+        case actionTypes.FETCH_UNCONFIRMED_RESOURCES_FAIL: return fetchUnconfirmedFail( state, action );
 
         default: return state;
     }

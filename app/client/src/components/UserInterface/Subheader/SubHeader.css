@@ -9,7 +9,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    background: var(--skyBlue);
+    /* background: var(--skyBlue); */
 }
 
 
@@ -34,18 +34,30 @@
 .IconColumn {
     width: 70px;
     text-align: center;
-    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--skyBlue);
+    /* margin: auto; */
     /*padding: 7px 0px;*/
 }
 
 .IconColumn:hover {  
     /*background: rgb(56, 197, 245);*/
     cursor: pointer;  
+    background: var(--green)
 }
 
 .FilterIcon {
     height: 30px;
     vertical-align: top;
+}
+
+.RightAngleIcon {
+    height: 30px;
+    vertical-align: top;
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
 }
 
 

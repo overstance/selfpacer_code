@@ -309,3 +309,57 @@ export const fetchRecentlyViewedResources = (userId) => async dispatch => {
             // console.log(res2.data.resources);
         }
 }
+
+// fetch Unconfirmed Resources
+
+export const fetchUnconfirmedStart = () => {
+   return {
+    type: actionTypes.FETCH_UNCONFIRMED_RESOURCES_START
+   } 
+}
+
+export const fetchUnconfirmedSuccess = (resources) => {
+    return {
+     type: actionTypes.FETCH_UNCONFIRMED_RESOURCES_SUCCESS,
+     resources: resources
+    } 
+}
+
+export const fetchUnconfirmedFail = () => {
+    return {
+        type: actionTypes.FETCH_UNCONFIRMED_RESOURCES_FAIL
+    } 
+}
+
+export const fetchUnconfirmed = () => async dispatch => {
+    dispatch(fetchUnconfirmedStart());
+
+    const res = await axios.get('/api/unconfirmed_resources');
+
+    if (res.data.resources) {
+        dispatch(fetchUnconfirmedSuccess(res.data.resources));
+    } else {
+        dispatch(fetchUnconfirmedFail());  
+    }
+}
+
+export const confirmResource = (resourceId) => async dispatch => {
+    // dispatch(fetchUnconfirmedStart());
+    const info = {
+        resourceId: resourceId
+    }
+    const res = await axios.put('/api/confirm_resource', info);
+
+    if (res.data.resources) {
+        dispatch(fetchUnconfirmedSuccess(res.data.resources));
+    }
+}
+
+export const deleteUnconfirmedResource = (resourceId) => async dispatch => {
+    // dispatch(fetchUnconfirmedStart());
+    const res = await axios.delete(`/api/delete_resource/${resourceId}`);
+
+    if (res.data.resources) {
+        dispatch(fetchUnconfirmedSuccess(res.data.resources));
+    }
+}

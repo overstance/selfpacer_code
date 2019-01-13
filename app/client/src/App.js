@@ -19,6 +19,7 @@ import ResourcePage from './containers/resourcepage/Resoucepage';
 import AddResource from './containers/addResource/addResource';
 import CreateNewCollection from './containers/createCollection/createCollection';
 import AdminTools from './containers/admin1page/Admin1';
+import ConfirmResource from './containers/admin1page/confirmResource/ConfirmResource';
 import EditProfile from './containers/profile/editProfile/EditProfile';
 import ForgotPassword from './components/auth/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword/ResetPassword';
@@ -67,6 +68,7 @@ import Video from './containers/Subjects/Video';
 import WebDesign from './containers/Subjects/WebDesign';
 import Webdev from './containers/Subjects/Webdev';
 import Writing from './containers/Subjects/Writing';
+
 
 
 // import ScrollToTop from './hoc/ScrollToTop';
@@ -209,6 +211,7 @@ class App extends Component {
             <Route path="/add_resource" exact component={AddResource} />
             <Route path="/accounting/:id" component={ResourcePage} />
             <Route path="/explore/accounting" component={Accounting} />
+            <Route path="/admin_tools/confirm_resources" component={ConfirmResource} />
             <Route path="/admin_tools" component={AdminTools} />
             <Route path="/profile/edit" component={EditProfile} />
             <Route path="/pinned_collections" component={PinnedCollections} />

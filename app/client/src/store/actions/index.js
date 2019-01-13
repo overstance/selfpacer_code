@@ -130,7 +130,10 @@ export {
     updateUserLikeCount,
     increaseResourceViewCount,
     fetchUserAssets,
-    fetchRecentlyViewedResources
+    fetchRecentlyViewedResources,
+    fetchUnconfirmed,
+    confirmResource,
+    deleteUnconfirmedResource
 } from './resource';
 
 export {

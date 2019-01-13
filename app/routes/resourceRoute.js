@@ -4,8 +4,22 @@ const Resource = require('../models/Resource');
 const User = mongoose.model('users');
 
 module.exports = app => {
+  app.get('/api/unconfirmed_resources', (req, res) => {
+    Resource.find({ confirmed: false }, function(err, resources) {
+      if (err) {
+        console.log(err.message);
+        res.send(err.message);
+      } else {
+        res.send({ resources: resources });
+      }
+    });
+  });
+
   app.get('/api/all_accounting', (req, res) => {
-    Resource.find({ category: 'Accounting' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Accounting' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -16,7 +30,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_animation', (req, res) => {
-    Resource.find({ category: 'Animation' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Animation' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -27,21 +44,24 @@ module.exports = app => {
   });
 
   app.get('/api/all_architecture', (req, res) => {
-    Resource.find({ category: 'Architectural design' }, function(
-      err,
-      resources
-    ) {
-      if (err) {
-        console.log(err);
-        res.send(err.message);
-      } else {
-        res.send({ all: resources });
+    Resource.find(
+      { confirmed: true, category: 'Architectural design' },
+      function(err, resources) {
+        if (err) {
+          console.log(err);
+          res.send(err.message);
+        } else {
+          res.send({ all: resources });
+        }
       }
-    });
+    );
   });
 
   app.get('/api/all_audio', (req, res) => {
-    Resource.find({ category: 'Audio Production' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Audio Production' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -52,7 +72,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_beauty', (req, res) => {
-    Resource.find({ category: 'Beauty' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Beauty' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -63,7 +86,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_cloud', (req, res) => {
-    Resource.find({ category: 'Cloud Computing' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Cloud Computing' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -74,7 +100,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_communications', (req, res) => {
-    Resource.find({ category: 'Communications' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Communications' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -85,7 +114,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_customer', (req, res) => {
-    Resource.find({ category: 'Customer Service' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Customer Service' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -96,7 +128,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_data', (req, res) => {
-    Resource.find({ category: 'Data Science' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Data Science' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -107,7 +142,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_database', (req, res) => {
-    Resource.find({ category: 'Database' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Database' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -118,7 +156,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_drawing', (req, res) => {
-    Resource.find({ category: 'Drawing' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Drawing' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -129,7 +170,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_fashion', (req, res) => {
-    Resource.find({ category: 'Fashion Design' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Fashion Design' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -140,7 +184,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_food', (req, res) => {
-    Resource.find({ category: 'Food' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Food' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -151,7 +198,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_gamedesign', (req, res) => {
-    Resource.find({ category: 'Game Design' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Game Design' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -162,7 +212,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_gamedev', (req, res) => {
-    Resource.find({ category: 'Game Development' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Game Development' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -173,7 +226,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_graphics', (req, res) => {
-    Resource.find({ category: 'Graphic Design' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Graphic Design' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -184,7 +240,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_hardware', (req, res) => {
-    Resource.find({ category: 'Hardware' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Hardware' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -195,7 +254,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_health', (req, res) => {
-    Resource.find({ category: 'Health and Fitness' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Health and Fitness' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -206,7 +268,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_home', (req, res) => {
-    Resource.find({ category: 'Home Improvement' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Home Improvement' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -217,7 +282,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_interface', (req, res) => {
-    Resource.find({ category: 'UI/UX' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'UI/UX' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -228,7 +296,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_interior', (req, res) => {
-    Resource.find({ category: 'Interior design' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Interior design' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -239,7 +310,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_management', (req, res) => {
-    Resource.find({ category: 'Management' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Management' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -250,21 +324,24 @@ module.exports = app => {
   });
 
   app.get('/api/all_marketing', (req, res) => {
-    Resource.find({ category: 'Marketing and Sales' }, function(
-      err,
-      resources
-    ) {
-      if (err) {
-        console.log(err);
-        res.send(err.message);
-      } else {
-        res.send({ all: resources });
+    Resource.find(
+      { confirmed: true, category: 'Marketing and Sales' },
+      function(err, resources) {
+        if (err) {
+          console.log(err);
+          res.send(err.message);
+        } else {
+          res.send({ all: resources });
+        }
       }
-    });
+    );
   });
 
   app.get('/api/all_mobile', (req, res) => {
-    Resource.find({ category: 'Mobile Development' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Mobile Development' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -275,7 +352,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_modesign', (req, res) => {
-    Resource.find({ category: 'Motion Design/VFX' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Motion Design/VFX' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -286,7 +366,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_music', (req, res) => {
-    Resource.find({ category: 'Music' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Music' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -297,21 +380,24 @@ module.exports = app => {
   });
 
   app.get('/api/all_network', (req, res) => {
-    Resource.find({ category: 'Networks and Systems' }, function(
-      err,
-      resources
-    ) {
-      if (err) {
-        console.log(err);
-        res.send(err.message);
-      } else {
-        res.send({ all: resources });
+    Resource.find(
+      { confirmed: true, category: 'Networks and Systems' },
+      function(err, resources) {
+        if (err) {
+          console.log(err);
+          res.send(err.message);
+        } else {
+          res.send({ all: resources });
+        }
       }
-    });
+    );
   });
 
   app.get('/api/all_painting', (req, res) => {
-    Resource.find({ category: 'Painting' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Painting' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -322,21 +408,24 @@ module.exports = app => {
   });
 
   app.get('/api/all_personal_dev', (req, res) => {
-    Resource.find({ category: 'Personal Development' }, function(
-      err,
-      resources
-    ) {
-      if (err) {
-        console.log(err);
-        res.send(err.message);
-      } else {
-        res.send({ all: resources });
+    Resource.find(
+      { confirmed: true, category: 'Personal Development' },
+      function(err, resources) {
+        if (err) {
+          console.log(err);
+          res.send(err.message);
+        } else {
+          res.send({ all: resources });
+        }
       }
-    });
+    );
   });
 
   app.get('/api/all_pet', (req, res) => {
-    Resource.find({ category: 'Pet Care' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Pet Care' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -347,7 +436,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_photography', (req, res) => {
-    Resource.find({ category: 'Photography' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Photography' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -358,21 +450,24 @@ module.exports = app => {
   });
 
   app.get('/api/all_prof_dev', (req, res) => {
-    Resource.find({ category: 'Professional Development' }, function(
-      err,
-      resources
-    ) {
-      if (err) {
-        console.log(err);
-        res.send(err.message);
-      } else {
-        res.send({ all: resources });
+    Resource.find(
+      { confirmed: true, category: 'Professional Development' },
+      function(err, resources) {
+        if (err) {
+          console.log(err);
+          res.send(err.message);
+        } else {
+          res.send({ all: resources });
+        }
       }
-    });
+    );
   });
 
   app.get('/api/all_real_estate', (req, res) => {
-    Resource.find({ category: 'Real Estate' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Real Estate' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -383,7 +478,21 @@ module.exports = app => {
   });
 
   app.get('/api/all_software', (req, res) => {
-    Resource.find({ category: 'Software Development' }, function(
+    Resource.find(
+      { confirmed: true, category: 'Software Development' },
+      function(err, resources) {
+        if (err) {
+          console.log(err);
+          res.send(err.message);
+        } else {
+          res.send({ all: resources });
+        }
+      }
+    );
+  });
+
+  app.get('/api/all_study_skill', (req, res) => {
+    Resource.find({ confirmed: true, category: 'Study Skills' }, function(
       err,
       resources
     ) {
@@ -396,19 +505,11 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/all_study_skill', (req, res) => {
-    Resource.find({ category: 'Study Skills' }, function(err, resources) {
-      if (err) {
-        console.log(err);
-        res.send(err.message);
-      } else {
-        res.send({ all: resources });
-      }
-    });
-  });
-
   app.get('/api/all_teaching_skill', (req, res) => {
-    Resource.find({ category: 'Teaching Skills' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Teaching Skills' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -419,7 +520,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_travel', (req, res) => {
-    Resource.find({ category: 'Travel' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Travel' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -430,7 +534,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_video', (req, res) => {
-    Resource.find({ category: 'Video' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Video' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -441,7 +548,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_web_design', (req, res) => {
-    Resource.find({ category: 'Web Design' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Web Design' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -452,7 +562,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_webdev', (req, res) => {
-    Resource.find({ category: 'Web Development' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Web Development' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -463,7 +576,10 @@ module.exports = app => {
   });
 
   app.get('/api/all_writing', (req, res) => {
-    Resource.find({ category: 'Creative Writing' }, function(err, resources) {
+    Resource.find({ confirmed: true, category: 'Creative Writing' }, function(
+      err,
+      resources
+    ) {
       if (err) {
         console.log(err);
         res.send(err.message);
@@ -590,6 +706,46 @@ module.exports = app => {
             }
           }
         );
+      }
+    });
+  });
+
+  app.put('/api/confirm_resource', (req, res) => {
+    Resource.findByIdAndUpdate(
+      req.body.resourceId,
+      { confirmed: true },
+      (err, resource) => {
+        if (err) {
+          res.send(err.message);
+          console.log(err.message);
+        } else if (resource) {
+          Resource.find({ confirmed: false }, (err, resources) => {
+            if (err) {
+              res.send(err.message);
+              console.log(err.message);
+            } else if (resources) {
+              res.send({ resources: resources });
+            }
+          });
+        }
+      }
+    );
+  });
+
+  app.delete('/api/delete_resource/:resourceId', (req, res) => {
+    Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
+      if (err) {
+        res.send(err.message);
+        console.log(err.message);
+      } else if (resource) {
+        Resource.find({ confirmed: false }, (err, resources) => {
+          if (err) {
+            res.send(err.message);
+            console.log(err.message);
+          } else if (resources) {
+            res.send({ resources: resources });
+          }
+        });
       }
     });
   });

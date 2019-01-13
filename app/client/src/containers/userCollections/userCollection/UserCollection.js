@@ -14,7 +14,7 @@ import PostDeleteDialogue from '../../../components/UserInterface/PostSubmitDial
 // import Button from '../../../components/UserInterface/Button/Button';
 
 
-class Resourcepage extends Component {
+class UserCollection extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id) {
@@ -329,4 +329,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Resourcepage);
+export default connect(mapStateToProps, mapDispatchToProps)(UserCollection);

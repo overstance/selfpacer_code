@@ -178,7 +178,7 @@ module.exports = app => {
             likes: 0,
             youtubeId: seed.id,
             source: 'youtube.com',
-            duration: seed.contentDetails.duration,
+            duration: seed.contentDetails.duration.slice(2),
             type: seed.kind,
             youtubeviews: numberWithCommas(seed.statistics.viewCount),
             youtubelikes: numberWithCommas(seed.statistics.likeCount),

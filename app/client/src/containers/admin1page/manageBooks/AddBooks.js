@@ -35,7 +35,7 @@ class AddBooks extends Component {
             title: {
                 elementType: 'textarea',
                 elementConfig: {
-                    label: "course title",
+                    label: "book title",
                     labelspan: '*'
                 },
                 value: '',

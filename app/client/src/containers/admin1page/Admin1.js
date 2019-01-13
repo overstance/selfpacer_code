@@ -12,6 +12,7 @@ import AddMooc from './manageMoocs/AddMooc';
 import AddBooks from './manageBooks/AddBooks';
 import AddSubjectIcon from './manageSubjects/AddSubjectIcon';
 import EditSubect from './manageSubjects/EditSubject';
+import Container from '../../components/UserInterface/Container/Container';
 
 class Admin1 extends Component {
 
@@ -91,91 +92,101 @@ class Admin1 extends Component {
 
     render() {
         return(
-            <div>
-                 <div className={classes.Subheader}>
-                    <SubHeader 
-                        filterIconRotate={this.state.manageSubjectsIconRotate} 
-                        filterToggleHandler={this.manageSubjectsToggleHandler}
-                        subheadTitle="MANAGE SUBJECTS"
-                    />
-                    { this.state.showManageSubjects ? 
-                        <div className={classes.BlockContentItems}>
-                            <AddSubjectIcon />
-                            <EditSubect />
-                        </div>
-                    : null }
+            <Container>
+                <div style={{'paddingTop': '10px'}}>
+                    <div className={classes.Subheader}>
+                        <SubHeader 
+                            subheadTitle="CONFIRM RESOURCES"
+                            isLink
+                            link='/admin_tools/confirm_resources'
+                        />
+                    </div>
+                    < div style={{'color': 'white', 'height': '1px'}} />
+                    <div className={classes.Subheader}>
+                        <SubHeader 
+                            filterIconRotate={this.state.manageSubjectsIconRotate} 
+                            filterToggleHandler={this.manageSubjectsToggleHandler}
+                            subheadTitle="MANAGE SUBJECTS"
+                        />
+                        { this.state.showManageSubjects ? 
+                            <div className={classes.BlockContentItems}>
+                                <AddSubjectIcon />
+                                <EditSubect />
+                            </div>
+                        : null }
+                    </div>
+                    < div style={{'color': 'white', 'height': '1px'}} />
+                    <div className={classes.Subheader}>
+                        <SubHeader 
+                            filterIconRotate={this.state.manageUsersIconRotate} 
+                            filterToggleHandler={this.manageUsersToggleHandler}
+                            subheadTitle="MANAGE USERS"
+                        />
+                        { this.state.showManageUsers ? 
+                            <div className={classes.ContentItems}>
+                                <AddAdminUsers />
+                                <RemoveAdminUsers />
+                                {/* <AddSubjectIcon /> */}
+                            </div>
+                        : null }
+                    </div>
+                    < div style={{'color': 'white', 'height': '1px'}} />
+                    <div className={classes.Subheader}>
+                        <SubHeader 
+                            filterIconRotate={this.state.manageYoutubeVideosIconRotate} 
+                            filterToggleHandler={this.manageYoutubeVideosToggleHandler}
+                            subheadTitle="MANAGE YOUTUBE VIDEOS"
+                        />
+                        { this.state.showManageYoutubeVideos ? 
+                            <div className={classes.ContentItems}>
+                                <AddYoutubeVideos />
+                                <UpdateYoutubeVideos />
+                            </div>
+                        : null }
+                    </div>
+                    < div style={{'color': 'white', 'height': '1px'}} />
+                    <div className={classes.Subheader}>
+                        <SubHeader 
+                            filterIconRotate={this.state.manageYoutubePlaylistsIconRotate} 
+                            filterToggleHandler={this.manageYoutubePlaylistsToggleHandler}
+                            subheadTitle="MANAGE YOUTUBE PLAYLISTS"
+                        />
+                        { this.state.showManageYoutubePlaylists ? 
+                            <div className={classes.ContentItems}>
+                                <AddYoutubePlaylists />
+                                <UpdateYoutubePlaylists />
+                            </div>
+                        : null }
+                    </div>
+                    < div style={{'color': 'white', 'height': '1px'}} />
+                    <div className={classes.Subheader}>
+                        <SubHeader 
+                            filterIconRotate={this.state.manageMoocsIconRotate} 
+                            filterToggleHandler={this.manageMoocsToggleHandler}
+                            subheadTitle="MANAGE MOOCS"
+                        />
+                        { this.state.showManageMoocs ? 
+                            <div className={classes.ContentItems}>
+                                <AddMooc />
+                            </div>
+                        : null }
+                    </div>
+                    < div style={{'color': 'white', 'height': '1px'}} />
+                    <div className={classes.Subheader}>
+                        <SubHeader 
+                            filterIconRotate={this.state.manageBooksIconRotate} 
+                            filterToggleHandler={this.manageBooksToggleHandler}
+                            subheadTitle="MANAGE BOOKS"
+                        />
+                        { this.state.showManageBooks ? 
+                            <div className={classes.ContentItems}>
+                                <AddBooks />
+                            </div>
+                        : null }
+                    </div>
+                    < div style={{'color': 'white', 'height': '1px'}} />
                 </div>
-                < div style={{'color': 'white', 'height': '1px'}} />
-                <div className={classes.Subheader}>
-                    <SubHeader 
-                        filterIconRotate={this.state.manageUsersIconRotate} 
-                        filterToggleHandler={this.manageUsersToggleHandler}
-                        subheadTitle="MANAGE USERS"
-                    />
-                    { this.state.showManageUsers ? 
-                        <div className={classes.ContentItems}>
-                            <AddAdminUsers />
-                            <RemoveAdminUsers />
-                            {/* <AddSubjectIcon /> */}
-                        </div>
-                    : null }
-                </div>
-                < div style={{'color': 'white', 'height': '1px'}} />
-                <div className={classes.Subheader}>
-                    <SubHeader 
-                        filterIconRotate={this.state.manageYoutubeVideosIconRotate} 
-                        filterToggleHandler={this.manageYoutubeVideosToggleHandler}
-                        subheadTitle="MANAGE YOUTUBE VIDEOS"
-                    />
-                    { this.state.showManageYoutubeVideos ? 
-                        <div className={classes.ContentItems}>
-                            <AddYoutubeVideos />
-                            <UpdateYoutubeVideos />
-                        </div>
-                    : null }
-                </div>
-                < div style={{'color': 'white', 'height': '1px'}} />
-                <div className={classes.Subheader}>
-                    <SubHeader 
-                        filterIconRotate={this.state.manageYoutubePlaylistsIconRotate} 
-                        filterToggleHandler={this.manageYoutubePlaylistsToggleHandler}
-                        subheadTitle="MANAGE YOUTUBE PLAYLISTS"
-                    />
-                    { this.state.showManageYoutubePlaylists ? 
-                        <div className={classes.ContentItems}>
-                            <AddYoutubePlaylists />
-                            <UpdateYoutubePlaylists />
-                        </div>
-                    : null }
-                </div>
-                < div style={{'color': 'white', 'height': '1px'}} />
-                <div className={classes.Subheader}>
-                    <SubHeader 
-                        filterIconRotate={this.state.manageMoocsIconRotate} 
-                        filterToggleHandler={this.manageMoocsToggleHandler}
-                        subheadTitle="MANAGE MOOCS"
-                    />
-                    { this.state.showManageMoocs ? 
-                        <div className={classes.ContentItems}>
-                            <AddMooc />
-                        </div>
-                    : null }
-                </div>
-                < div style={{'color': 'white', 'height': '1px'}} />
-                <div className={classes.Subheader}>
-                    <SubHeader 
-                        filterIconRotate={this.state.manageBooksIconRotate} 
-                        filterToggleHandler={this.manageBooksToggleHandler}
-                        subheadTitle="MANAGE BOOKS"
-                    />
-                    { this.state.showManageBooks ? 
-                        <div className={classes.ContentItems}>
-                            <AddBooks />
-                        </div>
-                    : null }
-                </div>
-                < div style={{'color': 'white', 'height': '1px'}} />
-            </div>
+            </Container>
         )
     }
 }

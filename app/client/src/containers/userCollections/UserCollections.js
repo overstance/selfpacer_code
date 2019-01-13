@@ -128,15 +128,19 @@ class UserCollections extends Component {
             */
         if (this.props.sharedCollectionsFetchErrors) {
             // console.log('1.case fetcherror');
-            sharedCollectionsContent = 
-             <div className={classes.PostAddInfo}>
-                 <div>{this.props.sharedCollectionsFetchErrors}</div>
-             </div>
+            sharedCollectionsContent =
+            <div className={classes.AllWrapper}> 
+                <div className={classes.PostAddInfo}>
+                    <div>{this.props.sharedCollectionsFetchErrors}</div>
+                </div>
+            </div>
         } else if ( allSharedArray.length === 0) {
             // console.log('2.case no Shared');
             sharedCollectionsContent = 
-            <div className={classes.PostAddInfo}>
-                <div>No shared collections!</div>
+            <div className={classes.AllWrapper}>
+                <div className={classes.PostAddInfo}>
+                    <div>No shared collections!</div>
+                </div>
             </div>    
         } else if (spec1 === 'N/A' && spec2 === '' && recentlyViewed.length === 0) {
                 // console.log('3.case no specs and no recently viewed');
@@ -291,8 +295,10 @@ class UserCollections extends Component {
             } else {
                 // console.log('5b.case specs1 only and spec1 in not in all shared ');
                 sharedCollectionsContent = 
-                <div className={classes.PostAddInfo}>
-                    <div>{'Sorry! No shared collections for ' + spec1 + ' yet.'}</div>
+                <div className={classes.AllWrapper}>
+                    <div className={classes.PostAddInfo}>
+                        <div>{'Sorry! No shared collections for ' + spec1 + ' yet.'}</div>
+                    </div>
                 </div>
             }
 
@@ -339,10 +345,12 @@ class UserCollections extends Component {
                     
             } else {
                 // console.log('6b.case specs1 and spec2 and spec1 or spec2 not in all shared ');
-                sharedCollectionsContent = 
-                 <div className={classes.PostAddInfo}>
-                     <div>{'No shared collections for ' + spec1 + ' or ' + spec2 + ' yet.'}</div>
-                 </div>
+                sharedCollectionsContent =
+                <div className={classes.AllWrapper}>
+                    <div className={classes.PostAddInfo}>
+                        <div>{'No shared collections for ' + spec1 + ' or ' + spec2 + ' yet.'}</div>
+                    </div>
+                </div>            
             }
 
         } else {

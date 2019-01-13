@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classes from './Resource.css';
 import PropTypes from 'prop-types';
-import noImageIcon from '../../assets/images/image.svg';
+// import noImageIcon from '../../assets/images/image.svg';
 import {connect} from 'react-redux';
 
 class Resource extends Component {
@@ -15,13 +15,17 @@ class Resource extends Component {
                 href={this.props.link}
                 onClick={this.props.clicked}
                 >
-                    <div className={classes.ImgColumn}>
+                    {/* <div className={classes.ImgColumn}>
                         { this.props.image ? 
                             <img className={classes.ResourceImg} src={this.props.image} alt="resource" />
                             :
                             <img className={classes.ResourceImg} src={noImageIcon} alt="resource" />
                             }    
-                    </div>
+                    </div> */}
+                    { this.props.image ? 
+                        <div style={{'backgroundImage': `url(${this.props.image})`}} className={classes.ImgColumn}></div> :
+                        <div className={classes.NoImageColumn}></div>
+                    } 
                     <div className={classes.InfoColumn}>
                         <div className={classes.InfoContainer}>
                             <div className={classes.TitleRow}>
@@ -91,18 +95,24 @@ class Resource extends Component {
                 <div className={classes.Hr}/>
                 <div className={classes.FeedbackRow}>
                     <div className={classes.FeedbackContainer}>
-                        <div className={classes.DetailsColumnFlex}>
-                            { this.props.id === this.props.likedResource ?
-                                 <div className={classes.youLiked}>
-                                    <span className={classes.FeedbackText}>liked</span>
-                                </div> : null
-                            }
+                        { this.props.toConfirm ? 
                             <div className={classes.OptionsLike}>
-                                <span className={classes.FeedbackText}>like</span>
-                                <span onClick={this.props.likeclicked} className={classes.FeedBackIconLike}></span>
-                                {/* <span>{this.props.likes}</span> */}
+                                <span onClick={this.props.confirmClicked} className={classes.ToConfirm}>confirm</span>
+                            </div>  
+                            : 
+                            <div className={classes.DetailsColumnFlex}>
+                                { this.props.id === this.props.likedResource ?
+                                    <div className={classes.youLiked}>
+                                        <span className={classes.FeedbackText}>liked</span>
+                                    </div> : null
+                                }
+                                <div className={classes.OptionsLike}>
+                                    <span className={classes.FeedbackText}>like</span>
+                                    <span onClick={this.props.likeclicked} className={classes.FeedBackIconLike}></span>
+                                    {/* <span>{this.props.likes}</span> */}
+                                </div>
                             </div>
-                        </div>
+                        }
                         { this.props.deletable ? 
                             <div className={classes.Options}>
                                 <span className={classes.FeedbackText}>delete</span>
