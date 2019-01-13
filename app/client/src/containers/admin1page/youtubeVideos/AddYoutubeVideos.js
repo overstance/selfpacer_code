@@ -4,12 +4,13 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
+import ButtonSpinner from '../../../components/UserInterface/ButtonSpinner/ButtonSpinner';
 
 class ManageYoutubeVideos extends Component {
 
-    /* componentDidMount() {
-        this.props.onFetchSubjects();
-    } */
+    componentWillUnmount() {
+        this.props.onClearAddMessages();
+    }
 
     state = {
         fillError: null,
@@ -125,7 +126,14 @@ class ManageYoutubeVideos extends Component {
             valid: this.checkValidity(event.target.value, this.state.subject.validation),
             touched: true
         }
-        this.setState({ subject: updated, fillError: null});
+        this.setState({ subject: updated}, () => {
+            if (this.state.subject.value === '') {
+                this.setState({fillError: 'please select subject'});
+            } else {   
+                this.setState({ subject: updated, fillError: null});
+                this.props.onClearAddMessages();
+            }
+        });
        
     }
 
@@ -151,6 +159,11 @@ class ManageYoutubeVideos extends Component {
     } 
 
     render() {
+        let youtubeVideoButtonText = 'submit';
+
+        if(this.props.youtubeVideoLoading) {
+            youtubeVideoButtonText = <ButtonSpinner />;
+        }
         return (
             <div className={classes.ContainerItem}>
                 <div className={classes.AdminAction}>ADD YOUTUBE VIDEOS</div>
@@ -181,8 +194,8 @@ class ManageYoutubeVideos extends Component {
                     changed={(event) => this.subjectChangedHandler(event)}
                     />
                     { (!this.state.youtubeVideo.valid && this.state.youtubeVideo.touched) || (!this.state.subject.valid && this.state.subject.touched) || this.state.fillError ? 
-                        <Button btnType='Danger' disabled> Add </Button> :
-                        <Button btnType='Success'> Add </Button>    
+                        <Button btnType='Danger' disabled> {youtubeVideoButtonText} </Button> :
+                        <Button btnType='Success'> {youtubeVideoButtonText} </Button>    
                     }
                     { this.props.youtubeVideoAddError ? 
                         <div>
@@ -205,6 +218,7 @@ class ManageYoutubeVideos extends Component {
 
 const mapStateToProps = state => ({
     subjects: state.explore.subjects,
+    youtubeVideoLoading: state.admin1.youtubeVideoLoading,
     youtubeVideoAddedFeedback: state.admin1.youtubeVideoAddedFeedback,
     youtubeVideoAddError: state.admin1.addYoutubeVideoError,
     user: state.auth.user
@@ -213,7 +227,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onAddYoutubeVideo: (videoId, subject, user) => dispatch( actions.addYoutubeVideo(videoId, subject, user) )
+        onAddYoutubeVideo: (videoId, subject, user) => dispatch( actions.addYoutubeVideo(videoId, subject, user) ),
+        onClearAddMessages: () => dispatch(actions.clearAddMessages())
     };
 };
 

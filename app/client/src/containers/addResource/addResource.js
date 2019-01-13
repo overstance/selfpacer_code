@@ -16,7 +16,7 @@ class AddResources extends Component {
         // this.props.onFetchUser();
     } */
 
-    componentWillMount() {
+    componentWillUnmount() {
         this.props.onClearAddMessages();
     }
 
@@ -441,49 +441,339 @@ class AddResources extends Component {
             }
         }
 
-        /* if ((this.state.subject.value === '' || this.state.type.value === '' || this.state.resource.value === '' ) && (!this.state.subject.touched || !this.state.resource.touched || !this.state.type.touched)) {
-            const resourceUpdated = {
-                ...this.state.resource,
-                touched: true,
-                valid: true
-            }
-            this.setState({ resource: resourceUpdated});
-
-            const subjectUpdated = {
-                ...this.state.subject,
-                touched: true,
-                valid: true
-            }
-            this.setState({ subject: subjectUpdated});
-
-            const typeUpdated = {
-                ...this.state.type,
-                touched: true,
-                valid: true
-            }
-            this.setState({ type: typeUpdated});
-
-            this.setState({ fillError: 'Please fill all fields' });
-
-        } else {
-            this.props.onAddResource(this.state.resource.value, this.state.subject.value, this.state.type.value, this.props.user, this.props.history);
-            
-            const youtubeReset = {
-                    ...this.state.resource,
-                    value: ''
+        if (this.state.type.value === 'youtube video') {
+            if ( this.props.youtubeVideoAddedFeedback && !this.state.youtubeVideo.touched) {
+                const youtubeUpdated = {
+                    ...this.state.youtubeVideo,
+                    touched: true,
+                    valid: false
                 }
-            const subjectReset = {
-                ...this.state.subject,
-                value: this.state.subject.value
+                this.setState({ youtubeVideo: youtubeUpdated, fillError: 'Add new'});
+    
+            } else if (!this.state.youtubeVideo.touched || this.state.youtubeVideo.value === '') {
+                const youtubeUpdated = {
+                    ...this.state.youtubeVideo,
+                    touched: true,
+                    valid: false
+                }
+                this.setState({ youtubeVideo: youtubeUpdated, fillError: 'Please fill all fields'});
+    
+            } else if (this.state.subject.value === '') {
+                const subjectUpdated = {
+                    ...this.state.subject,
+                    touched: true,
+                    valid: false
+                }
+                this.setState({ subject: subjectUpdated, fillError: 'Please fill all fields'});
+    
+            } else {
+                this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value, this.props.user._id);
+                
+                const youtubeReset = {
+                        ...this.state.youtubeVideo,
+                        value: '',
+                        touched: false
+                    }
+                
+                this.setState({ youtubeVideo: youtubeReset});
             }
+        }
 
-            const typeReset = {
-                ...this.state.type,
-                value: this.state.type.value
+        if (this.state.type.value === 'mooc') {
+
+            if ( this.props.addMoocSucessInfo && !this.state.mooc_controls.title.touched ) {
+
+                const updated = {
+                    ...this.state.mooc_controls,
+                    title: {
+                        ...this.state.mooc_controls.title,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ mooc_controls: updated, fillError: 'Add new resource' });
+    
+            } else if (!this.state.mooc_controls.title.touched && this.state.mooc_controls.title.value === '' ) {
+                const updated = {
+                    ...this.state.mooc_controls,
+                    title: {
+                        ...this.state.mooc_controls.title,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ mooc_controls: updated, fillError: 'Please fill all asterisked fields' });
+
+            } else if (!this.state.mooc_controls.url.touched && this.state.mooc_controls.url.value === '' ) {
+                const updated = {
+                    ...this.state.mooc_controls,
+                    url: {
+                        ...this.state.mooc_controls.url,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ mooc_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else if (!this.state.mooc_controls.source.touched && this.state.mooc_controls.source.value === '' ) {
+                const updated = {
+                    ...this.state.mooc_controls,
+                    source: {
+                        ...this.state.mooc_controls.source,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ mooc_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else if (!this.state.mooc_controls.videoCount.touched && this.state.mooc_controls.videoCount.value === '' ) {
+                const updated = {
+                    ...this.state.mooc_controls,
+                    videoCount: {
+                        ...this.state.mooc_controls.videoCount,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ mooc_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else if (!this.state.mooc_controls.tutor.touched && this.state.mooc_controls.tutor.value === '' ) {
+                const updated = {
+                    ...this.state.mooc_controls,
+                    tutor: {
+                        ...this.state.mooc_controls.tutor,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ mooc_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else if (!this.state.mooc_controls.enrollees.touched && this.state.mooc_controls.enrollees.value === '' ) {
+                const updated = {
+                    ...this.state.mooc_controls,
+                    enrollees: {
+                        ...this.state.mooc_controls.enrollees,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ mooc_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else if (!this.state.mooc_controls.duration.touched && this.state.mooc_controls.duration.value === '' ) {
+                const updated = {
+                    ...this.state.mooc_controls,
+                    duration: {
+                        ...this.state.mooc_controls.duration,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ mooc_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else if (!this.state.mooc_controls.level.touched && this.state.mooc_controls.level.value === '' ) {
+                const updated = {
+                    ...this.state.mooc_controls,
+                    level: {
+                        ...this.state.mooc_controls.level,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ mooc_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else {
+    
+                // this.props.onClearAddMoocFeedbacks();
+    
+                this.props.onAddMooc(this.state.subject.value, this.state.mooc_controls.title.value, this.state.mooc_controls.url.value,
+                    this.state.mooc_controls.imageUrl.value, this.state.mooc_controls.source.value, this.state.mooc_controls.videoCount.value,
+                    this.state.mooc_controls.tutor.value, this.state.mooc_controls.enrollees.value, this.state.mooc_controls.duration.value,
+                    this.state.mooc_controls.level.value, this.state.mooc_controls.lastUpdated.value, this.state.mooc_controls.avgRating.value,
+                    this.props.user._id 
+                );
+    
+                const updated = {
+                    ...this.state.mooc_controls,
+                    title: {
+                        ...this.state.mooc_controls.title,
+                        touched: false,
+                        value: ''
+                    },
+                    url: {
+                        ...this.state.mooc_controls.url,
+                        touched: false,
+                        value: ''
+                    },
+                    imageUrl: {
+                        ...this.state.mooc_controls.imageUrl,
+                        touched: false,
+                        value: ''
+                    },
+                    source: {
+                        ...this.state.mooc_controls.source,
+                        touched: false,
+                        value: ''
+                    },
+                    videoCount: {
+                        ...this.state.mooc_controls.videoCount,
+                        touched: false,
+                        value: ''
+                    },
+                    tutor: {
+                        ...this.state.mooc_controls.tutor,
+                        touched: false,
+                        value: ''
+                    },
+                    enrollees: {
+                        ...this.state.mooc_controls.enrollees,
+                        touched: false,
+                        value: ''
+                    },
+                    duration: {
+                        ...this.state.mooc_controls.duration,
+                        touched: false,
+                        value: ''
+                    },
+                    level: {
+                        ...this.state.mooc_controls.level,
+                        touched: false,
+                        value: ''
+                    },
+                    lastUpdated: {
+                        ...this.state.mooc_controls.lastUpdated,
+                        touched: false,
+                        value: ''
+                    },
+                    avgRating: {
+                        ...this.state.mooc_controls.avgRating,
+                        touched: false,
+                        value: ''
+                    }
+                };
+                this.setState({ mooc_controls: updated, fillError: null });
+                
             }
+     
+        }
 
-            this.setState({ resource: youtubeReset, subject: subjectReset, type: typeReset, fillError: null});
-        } */
+        if (this.state.type.value === 'book') {
+
+            if ( this.props.addBooksSucessInfo && !this.state.book_controls.title.touched ) {
+
+                const updated = {
+                    ...this.state.book_controls,
+                    title: {
+                        ...this.state.book_controls.title,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                
+                this.setState({ book_controls: updated, fillError:'Add new resource' });
+    
+            } else if (!this.state.book_controls.title.touched && this.state.book_controls.title.value === '' ) {
+                const updated = {
+                    ...this.state.book_controls,
+                    title: {
+                        ...this.state.book_controls.title,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ book_controls: updated, fillError: 'Please fill all asterisked fields' });
+
+            } else if (!this.state.book_controls.url.touched && this.state.book_controls.url.value === '' ) {
+                const updated = {
+                    ...this.state.book_controls,
+                    url: {
+                        ...this.state.book_controls.url,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ book_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else if (!this.state.book_controls.source.touched && this.state.book_controls.source.value === '' ) {
+                const updated = {
+                    ...this.state.book_controls,
+                    source: {
+                        ...this.state.book_controls.source,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ book_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else if (!this.state.book_controls.author.touched && this.state.book_controls.author.value === '' ) {
+                const updated = {
+                    ...this.state.book_controls,
+                    author: {
+                        ...this.state.book_controls.author,
+                        touched: true,
+                        valid: false
+                    }
+                };
+                this.setState({ book_controls: updated });
+    
+                this.setState({ fillError: 'Please fill all asterisked fields' });
+            } else {
+    
+                this.props.onAddBooks(
+                    this.state.subject.value, this.state.book_controls.title.value, this.state.book_controls.url.value,
+                    this.state.book_controls.imageUrl.value, this.state.book_controls.source.value, this.state.book_controls.author.value,
+                    this.state.book_controls.level.value, this.state.book_controls.avgRating.value, this.props.user._id 
+                );
+    
+                const updated = {
+                    ...this.state.book_controls,
+                    title: {
+                        ...this.state.book_controls.title,
+                        touched: false,
+                        value: ''
+                    },
+                    url: {
+                        ...this.state.book_controls.url,
+                        touched: false,
+                        value: ''
+                    },
+                    imageUrl: {
+                        ...this.state.book_controls.imageUrl,
+                        touched: false,
+                        value: ''
+                    },
+                    source: {
+                        ...this.state.book_controls.source,
+                        touched: false,
+                        value: ''
+                    },
+                    author: {
+                        ...this.state.book_controls.author,
+                        touched: false,
+                        value: ''
+                    },
+                    level: {
+                        ...this.state.book_controls.level,
+                        touched: false,
+                        value: ''
+                    },
+                    avgRating: {
+                        ...this.state.book_controls.avgRating,
+                        touched: false,
+                        value: ''
+                    }
+                };
+                this.setState({ book_controls: updated, fillError: null });    
+            }
+        }
         
     }
 
@@ -497,10 +787,11 @@ class AddResources extends Component {
         }
 
         this.setState({ subject: updated}, () => {
-            if(this.state.subject.value === '') {
+            if (this.state.subject.value === '') {
                 this.setState({fillError: 'please select category'});
             } else {   
                 this.setState({ subject: updated, fillError: null});
+                this.props.onClearAddMessages();
             }
         });
         
@@ -514,9 +805,7 @@ class AddResources extends Component {
             touched: true
         }
         this.setState({ type: updated, fillError: null}, () => {
-            if(this.props.youtubePlaylistAddError || this.props.youtubePlaylistAddedFeedback) {
-                this.props.onClearAddMessages();
-            }
+            this.props.onClearAddMessages();
         });      
     }
 
@@ -593,12 +882,11 @@ class AddResources extends Component {
     render() {
 
         let platformSpecificForm = <div className={classes.Notype}>Please select resource type to continue</div>
-        let playlistButtonText = 'submit';
-
+        
+        let youtubePlaylistButtonText = 'submit';
         if(this.props.youtubePlaylistLoading) {
-            playlistButtonText = <ButtonSpinner />;
+            youtubePlaylistButtonText = <ButtonSpinner />;
         }
-
 
         let youtubePlaylistForm = 
         <form 
@@ -616,8 +904,8 @@ class AddResources extends Component {
             changed={(event) => this.youtubePlaylistInputChangedHandler(event)}
             />
             { (!this.state.youtubePlaylist.valid && this.state.youtubePlaylist.touched) || this.state.fillError ? 
-                <Button btnType='Danger' disabled>{playlistButtonText} </Button> :
-                <Button btnType='Success'>{playlistButtonText} </Button>    
+                <Button btnType='Danger' disabled>{youtubePlaylistButtonText} </Button> :
+                <Button btnType='Success'>{youtubePlaylistButtonText} </Button>    
             }
             { this.props.youtubePlaylistAddError ? 
                         <div>
@@ -633,6 +921,12 @@ class AddResources extends Component {
                         </div> 
                     }
         </form>
+
+        let youtubeVideoButtonText = 'submit';
+
+        if(this.props.youtubeVideoLoading) {
+            youtubeVideoButtonText = <ButtonSpinner />;
+        }
 
         let youtubeVideoForm = 
         <form 
@@ -650,8 +944,21 @@ class AddResources extends Component {
             changed={(event) => this.youtubeVideoInputChangedHandler(event)}
             />
             { (!this.state.youtubeVideo.valid && this.state.youtubeVideo.touched) || this.state.fillError ? 
-                <Button btnType='Danger' disabled> Submit </Button> :
-                <Button btnType='Success'> Submit </Button>    
+                <Button btnType='Danger' disabled> {youtubeVideoButtonText} </Button> :
+                <Button btnType='Success'> {youtubeVideoButtonText} </Button>    
+            }
+            { this.props.youtubeVideoAddError ? 
+                <div>
+                    <div className={classes.ErrorFeedbackInfo}>
+                        {this.props.youtubeVideoAddError}
+                    </div>
+                </div> 
+                :
+                <div>
+                    <div className={classes.AddFeedbackInfo}>
+                        {this.props.youtubeVideoAddedFeedback}
+                    </div>
+                </div> 
             }
         </form>
 
@@ -679,16 +986,21 @@ class AddResources extends Component {
             />
         ));
 
+        let addMoocButtonText = 'submit';
+        if(this.props.addMoocLoading) {
+            addMoocButtonText = <ButtonSpinner />;
+        }
+
         let moocForm =
         <form 
         className={classes.Form}
-        onSubmit={this.submitHandler}
+        onSubmit={this.submitResourceHandler}
         >
             {/* <div className={classes.FillError}>{this.state.fillError}</div> */}
             {moocInputs}
             { (!this.state.mooc_controls.title.valid && this.state.mooc_controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.mooc_controls.url.valid && this.state.mooc_controls.url.touched)  || (!this.state.mooc_controls.source.valid && this.state.mooc_controls.source.touched) || (!this.state.mooc_controls.videoCount.valid && this.state.mooc_controls.videoCount.touched) || (!this.state.mooc_controls.tutor.valid && this.state.mooc_controls.tutor.touched) || (!this.state.mooc_controls.enrollees.valid && this.state.mooc_controls.enrollees.touched) || (!this.state.mooc_controls.duration.valid && this.state.mooc_controls.duration.touched) || (!this.state.mooc_controls.level.valid && this.state.mooc_controls.level.touched) || this.state.fillError ? 
-                <Button btnType='Danger' disabled> Add </Button> :
-                <Button btnType='Success'> Add </Button>    
+                <Button btnType='Danger' disabled> {addMoocButtonText} </Button> :
+                <Button btnType='Success'> {addMoocButtonText} </Button>    
             }
             { this.props.addMoocError ? 
                 <div>
@@ -730,16 +1042,20 @@ class AddResources extends Component {
             />
         ));
 
+        let addBooksButtonText = 'submit';
+        if(this.props.addBooksLoading) {
+            addBooksButtonText = <ButtonSpinner />;
+        }
+
         let bookForm =
         <form 
         className={classes.Form}
-        onSubmit={this.submitHandler}
+        onSubmit={this.submitResourceHandler}
         >
-            {/* <div className={classes.FillError}>{this.state.fillError}</div> */}
             {bookInputs}
             { (!this.state.book_controls.title.valid && this.state.book_controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.book_controls.url.valid && this.state.book_controls.url.touched)  || (!this.state.book_controls.source.valid && this.state.book_controls.source.touched) || (!this.state.book_controls.author.valid && this.state.book_controls.author.touched) || this.state.fillError ? 
-                <Button btnType='Danger' disabled> Add </Button> :
-                <Button btnType='Success'> Add </Button>    
+                <Button btnType='Danger' disabled> {addBooksButtonText} </Button> :
+                <Button btnType='Success'> {addBooksButtonText} </Button>    
             }
             { this.props.addBooksError ? 
                 <div>
@@ -834,15 +1150,26 @@ const mapStateToProps = state => ({
     youtubePlaylistAddedFeedback: state.admin1.youtubePlaylistAddedFeedback,
     youtubePlaylistAddError: state.admin1.addYoutubePlaylistError,
 
-    /* successMessage: state.resource.successMessage,
-    error: state.resource.error, */
+    youtubeVideoLoading: state.admin1.youtubeVideoLoading,
+    youtubeVideoAddedFeedback: state.admin1.youtubeVideoAddedFeedback,
+    youtubeVideoAddError: state.admin1.addYoutubeVideoError,
+
+    addMoocSucessInfo: state.admin1.addMoocSucessInfo,
+    addMoocError: state.admin1.addMoocError,
+    addMoocLoading: state.admin1.addMoocLoading,
+
+    addBooksSucessInfo: state.admin1.addBooksSucessInfo,
+    addBooksError: state.admin1.addBooksError,
+    addBooksLoading: state.admin1.addBooksLoading,
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        // onAddResource: (link, subject, type, user, history) => dispatch( actions.addResource(link, subject, type, user, history) )
         onAddYoutubePlaylist: (playlistId, subject, user) => dispatch( actions.addYoutubePlaylist(playlistId, subject, user)),
+        onAddYoutubeVideo: (videoId, subject, user) => dispatch( actions.addYoutubeVideo(videoId, subject, user) ),
+        onAddMooc: (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) => dispatch( actions.addMooc(subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) ),
+        onAddBooks: (subject, title, url, imageUrl, source, author, level, avgRating, agent) => dispatch( actions.addBooks(subject, title, url, imageUrl, source, author, level, avgRating, agent) ),
+
         onClearAddMessages: () => dispatch(actions.clearAddMessages())
     };
 };

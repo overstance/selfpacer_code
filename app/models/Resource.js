@@ -36,7 +36,11 @@ const resourceSchema = new Schema({
   level: String,
   lastUpdated: String,
   avgRating: String,
-  author: String
+  author: String,
+  confirmed: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model('resources', resourceSchema);

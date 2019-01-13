@@ -4,6 +4,7 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
+import ButtonSpinner from '../../../components/UserInterface/ButtonSpinner/ButtonSpinner';
 
 class AddMooc extends Component {
 
@@ -12,7 +13,8 @@ class AddMooc extends Component {
     }
  */
     componentWillUnmount() {
-        this.props.onClearAddMoocFeedbacks();
+        // this.props.onClearAddMoocFeedbacks();
+        this.props.onClearAddMessages();
     }
 
     state = {
@@ -256,7 +258,14 @@ class AddMooc extends Component {
             valid: this.checkValidity(event.target.value, this.state.subject.validation),
             touched: true
         }
-        this.setState({ subject: updated, fillError: null});
+        this.setState({ subject: updated}, () => {
+            if (this.state.subject.value === '') {
+                this.setState({fillError: 'please select subject'});
+            } else {   
+                this.setState({ subject: updated, fillError: null});
+                this.props.onClearAddMessages();
+            }
+        });
     }
 
     submitHandler = (event) => {
@@ -490,6 +499,11 @@ class AddMooc extends Component {
             });
         }
 
+        let addMoocButtonText = 'submit';
+        if(this.props.addMoocLoading) {
+            addMoocButtonText = <ButtonSpinner />;
+        }
+
         // let formAll = null;
         let registerInput = formElementsArray.map(formElement => (
             <Input
@@ -528,8 +542,8 @@ class AddMooc extends Component {
                     />
                     {registerInput}
                     { (!this.state.controls.title.valid && this.state.controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.controls.url.valid && this.state.controls.url.touched)  || (!this.state.controls.source.valid && this.state.controls.source.touched) || (!this.state.controls.videoCount.valid && this.state.controls.videoCount.touched) || (!this.state.controls.tutor.valid && this.state.controls.tutor.touched) || (!this.state.controls.enrollees.valid && this.state.controls.enrollees.touched) || (!this.state.controls.duration.valid && this.state.controls.duration.touched) || (!this.state.controls.level.valid && this.state.controls.level.touched) || this.state.fillError ? 
-                        <Button btnType='Danger' disabled> Add </Button> :
-                        <Button btnType='Success'> Add </Button>    
+                        <Button btnType='Danger' disabled> {addMoocButtonText} </Button> :
+                        <Button btnType='Success'> {addMoocButtonText} </Button>    
                     }
                     { this.props.addMoocError ? 
                         <div>
@@ -554,13 +568,15 @@ const mapStateToProps = state => ({
     subjects: state.explore.subjects,
     addMoocSucessInfo: state.admin1.addMoocSucessInfo,
     addMoocError: state.admin1.addMoocError,
+    addMoocLoading: state.admin1.addMoocLoading,
     user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onClearAddMoocFeedbacks: () => dispatch( actions.clearAddMoocFeedbacks()),
+        // onClearAddMoocFeedbacks: () => dispatch( actions.clearAddMoocFeedbacks()),
+        onClearAddMessages: () => dispatch(actions.clearAddMessages()),
         onAddMooc: (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) => dispatch( actions.addMooc(subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) )
     };
 };

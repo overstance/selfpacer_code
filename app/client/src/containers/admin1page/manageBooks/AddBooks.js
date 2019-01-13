@@ -4,6 +4,7 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
+import ButtonSpinner from '../../../components/UserInterface/ButtonSpinner/ButtonSpinner';
 
 class AddBooks extends Component {
 
@@ -12,7 +13,7 @@ class AddBooks extends Component {
     } */
 
     componentWillUnmount() {
-        this.props.onClearAddBooksFeedbacks();
+        this.props.onClearAddMessages();
     }
 
     state = {
@@ -277,8 +278,6 @@ class AddBooks extends Component {
             this.setState({ fillError: 'Please fill all asterisked fields' });
         } else {
 
-            // this.props.onClearAddBooksFeedbacks();
-
             this.props.onAddBooks(
                 this.state.subject.value, this.state.controls.title.value, this.state.controls.url.value,
                 this.state.controls.imageUrl.value, this.state.controls.source.value, this.state.controls.author.value,
@@ -365,6 +364,11 @@ class AddBooks extends Component {
             });
         }
 
+        let addBooksButtonText = 'submit';
+        if(this.props.addBooksLoading) {
+            addBooksButtonText = <ButtonSpinner />;
+        }
+
         // let formAll = null;
         let registerInput = formElementsArray.map(formElement => (
             <Input
@@ -403,8 +407,8 @@ class AddBooks extends Component {
                     />
                     {registerInput}
                     { (!this.state.controls.title.valid && this.state.controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.controls.url.valid && this.state.controls.url.touched)  || (!this.state.controls.source.valid && this.state.controls.source.touched) || (!this.state.controls.author.valid && this.state.controls.author.touched) || this.state.fillError ? 
-                        <Button btnType='Danger' disabled> Add </Button> :
-                        <Button btnType='Success'> Add </Button>    
+                        <Button btnType='Danger' disabled> {addBooksButtonText} </Button> :
+                        <Button btnType='Success'> {addBooksButtonText} </Button>    
                     }
                     { this.props.addBooksError ? 
                         <div>
@@ -429,15 +433,17 @@ const mapStateToProps = state => ({
     subjects: state.explore.subjects,
     addBooksSucessInfo: state.admin1.addBooksSucessInfo,
     addBooksError: state.admin1.addBooksError,
+    addBooksLoading: state.admin1.addBooksLoading,
     user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onClearAddBooksFeedbacks: () => dispatch( actions.clearAddBooksFeedbacks()),
+        // onClearAddBooksFeedbacks: () => dispatch( actions.clearAddBooksFeedbacks()),
+        onClearAddMessages: () => dispatch(actions.clearAddMessages()),
         onAddBooks: (subject, title, url, imageUrl, source, author, level, avgRating, agent) => dispatch( actions.addBooks(subject, title, url, imageUrl, source, author, level, avgRating, agent) )
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (AddBooks);
+export default connect(mapStateToProps, mapDispatchToProps)(AddBooks);

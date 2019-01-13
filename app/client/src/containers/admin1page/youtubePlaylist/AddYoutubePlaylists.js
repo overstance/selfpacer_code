@@ -4,12 +4,13 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
+import ButtonSpinner from '../../../components/UserInterface/ButtonSpinner/ButtonSpinner';
 
 class AddYoutubePlaylists extends Component {
 
-    /* componentDidMount() {
-        this.props.onFetchSubjects();
-    } */
+    componentWillUnmount() {
+        this.props.onClearAddMessages();
+    }
 
     state = {
         fillError: null,
@@ -125,7 +126,14 @@ class AddYoutubePlaylists extends Component {
             valid: this.checkValidity(event.target.value, this.state.subject.validation),
             touched: true
         }
-        this.setState({ subject: updated, fillError: null});
+        this.setState({ subject: updated}, () => {
+            if (this.state.subject.value === '') {
+                this.setState({fillError: 'please select subject'});
+            } else {   
+                this.setState({ subject: updated, fillError: null});
+                this.props.onClearAddMessages();
+            }
+        });
     }
 
     elementConfig = () => {
@@ -150,6 +158,10 @@ class AddYoutubePlaylists extends Component {
     } 
 
     render() {
+        let youtubePlaylistButtonText = 'submit';
+        if(this.props.youtubePlaylistLoading) {
+            youtubePlaylistButtonText = <ButtonSpinner />;
+        }
         return (                   
             <div className={classes.ContainerItem}>
                 <div className={classes.AdminAction}>ADD YOUTUBE PLAYLIST</div>
@@ -180,8 +192,8 @@ class AddYoutubePlaylists extends Component {
                     changed={(event) => this.subjectChangedHandler(event)}
                     />
                     { (!this.state.youtubePlaylist.valid && this.state.youtubePlaylist.touched) || (!this.state.subject.valid && this.state.subject.touched) || this.state.fillError ? 
-                        <Button btnType='Danger' disabled> Add </Button> :
-                        <Button btnType='Success'> Add </Button>    
+                        <Button btnType='Danger' disabled> {youtubePlaylistButtonText} </Button> :
+                        <Button btnType='Success'> {youtubePlaylistButtonText} </Button>    
                     }
                     { this.props.youtubePlaylistAddError ? 
                         <div>
@@ -203,6 +215,7 @@ class AddYoutubePlaylists extends Component {
 };
 
 const mapStateToProps = state => ({   
+    youtubePlaylistLoading: state.admin1.youtubePlaylistLoading,
     youtubePlaylistAddedFeedback: state.admin1.youtubePlaylistAddedFeedback,
     youtubePlaylistAddError: state.admin1.addYoutubePlaylistError,
     subjects: state.explore.subjects,
@@ -212,7 +225,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onAddYoutubePlaylist: (playlistId, subject, user) => dispatch( actions.addYoutubePlaylist(playlistId, subject, user))
+        onAddYoutubePlaylist: (playlistId, subject, user) => dispatch( actions.addYoutubePlaylist(playlistId, subject, user)),
+        onClearAddMessages: () => dispatch(actions.clearAddMessages())
     };
 };
 

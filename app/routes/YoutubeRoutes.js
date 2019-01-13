@@ -30,6 +30,16 @@ module.exports = app => {
       const user = req.body.user;
       const subject = req.body.subject;
 
+      let confirmed = false;
+      if (
+        user === '5c16e8de76e09e200c039178' ||
+        user === '5c16efcef6d0f300144d3cda'
+      ) {
+        confirmed = true;
+      }
+
+      // console.log(user, confirmed);
+
       const response = await youtube.playlists.list({
         id: playlistId,
         part: 'snippet,contentDetails'
@@ -57,7 +67,8 @@ module.exports = app => {
             source: 'youtube.com',
             type: seed.kind,
             videoCount: seed.contentDetails.itemCount,
-            user_id: user
+            user_id: user,
+            confirmed: confirmed
           };
         });
 
@@ -129,6 +140,14 @@ module.exports = app => {
       const user = req.body.user;
       const subject = req.body.subject;
 
+      let confirmed = false;
+      if (
+        user === '5c16e8de76e09e200c039178' ||
+        user === '5c16efcef6d0f300144d3cda'
+      ) {
+        confirmed = true;
+      }
+
       const response = await youtube.videos.list({
         id: videoId,
         part: 'snippet,contentDetails,statistics'
@@ -142,39 +161,44 @@ module.exports = app => {
         return x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       }
 
-      const seedData = await responseData.map(seed => {
-        const pdate = new Date(seed.snippet.publishedAt);
-        const year = pdate.getFullYear();
+      if (responseData.length === 0) {
+        res.send('video not found!');
+      } else {
+        const seedData = await responseData.map(seed => {
+          const pdate = new Date(seed.snippet.publishedAt);
+          const year = pdate.getFullYear();
 
-        return {
-          publishDate: year,
-          category: subject,
-          title: seed.snippet.title,
-          img: seed.snippet.thumbnails.medium.url,
-          link: 'https://www.youtube.com/results?search_query=' + seed.id,
-          views: 0,
-          likes: 0,
-          youtubeId: seed.id,
-          source: 'youtube.com',
-          duration: seed.contentDetails.duration,
-          type: seed.kind,
-          youtubeviews: numberWithCommas(seed.statistics.viewCount),
-          youtubelikes: numberWithCommas(seed.statistics.likeCount),
-          user_id: user
-        };
-      });
-
-      seedData.forEach(function(seed) {
-        Resource.create(seed, function(err, resource) {
-          if (err) {
-            console.log(err);
-          } else {
-            resource.save();
-          }
+          return {
+            publishDate: year,
+            category: subject,
+            title: seed.snippet.title,
+            img: seed.snippet.thumbnails.medium.url,
+            link: 'https://www.youtube.com/results?search_query=' + seed.id,
+            views: 0,
+            likes: 0,
+            youtubeId: seed.id,
+            source: 'youtube.com',
+            duration: seed.contentDetails.duration,
+            type: seed.kind,
+            youtubeviews: numberWithCommas(seed.statistics.viewCount),
+            youtubelikes: numberWithCommas(seed.statistics.likeCount),
+            user_id: user,
+            confirmed: confirmed
+          };
         });
-      });
 
-      res.send(seedData);
+        seedData.forEach(function(seed) {
+          Resource.create(seed, function(err, resource) {
+            if (err) {
+              console.log(err);
+            } else {
+              resource.save();
+            }
+          });
+        });
+
+        res.send({ seedData: seedData });
+      }
     }
   );
 

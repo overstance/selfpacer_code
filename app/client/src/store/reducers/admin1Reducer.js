@@ -25,6 +25,7 @@ const initialState = {
     updateYoutubePlaylistsError: null,
     youtubePlaylistsUpdatedFeedback: null,
     
+    youtubeVideoLoading: false,
     addedYoutubeVideo: {},
     addYoutubeVideoError: null,
     youtubeVideoAddedFeedback: null,
@@ -33,9 +34,11 @@ const initialState = {
     updateYoutubeVideosError: null,
     youtubeVideosUpdatedFeedback: null,
 
+    addMoocLoading: false,
     addMoocSucessInfo: null,
     addMoocError: null,
 
+    addBooksLoading: false,
     addBooksSucessInfo: null,
     addBooksError: null
 };
@@ -136,20 +139,23 @@ const youtubePlaylistsUpdatedFailed = ( state, action ) => {
 const youtubeVideoAddStart = ( state, action ) => {
     return updateObject( state, {
         addYoutubeVideoError: null,
-        youtubeVideoAddedFeedback: null
+        youtubeVideoAddedFeedback: null,
+        youtubeVideoLoading: true
     } );
 };
 
 const youtubeVideoAdded = ( state, action ) => {
     return updateObject( state, {
         youtubeVideoAddedFeedback: action.addCount + ' item(s) added',
-        addedYoutubeVideo: action.videos
+        addedYoutubeVideo: action.videos,
+        youtubeVideoLoading: false
     } );
 };
 
 const youtubeVideoAddFailed = ( state, action ) => {
     return updateObject( state, {
-        addYoutubeVideoError: 'Failed!: ' + action.error
+        addYoutubeVideoError: 'Failed!: ' + action.error,
+        youtubeVideoLoading: false
     } );
 };
 
@@ -158,7 +164,7 @@ const youtubeVideoAddFailed = ( state, action ) => {
 const youtubeVideosUpdateStart = ( state, action ) => {
     return updateObject( state, {
         updateYoutubeVideosError: null,
-        youtubeVideosUpdatedFeedback: null
+        youtubeVideosUpdatedFeedback: null,
     } );
 };
 
@@ -177,43 +183,49 @@ const youtubeVideosUpdatedFailed = ( state, action ) => {
 
 // ADD MOOC RESOURCE
 
+const addMoocStart = ( state, action ) => {
+    return updateObject( state, {
+        addMoocSucessInfo: null,
+        addMoocError: null,
+        addMoocLoading: true
+    });
+}
+
 const addMoocSuccess = ( state, action ) => {
     return updateObject( state, {
-        addMoocSucessInfo: action.info
+        addMoocSucessInfo: action.info,
+        addMoocLoading: false
     });
 }
 
 const addMoocFailed = ( state, action ) => {
     return updateObject( state, {
-        addMoocError: 'add failed!:' + action.error
-    });
-}
-
-const clearAddMoocFeedbacks = ( state, action ) => {
-    return updateObject( state, {
-        addMoocError: null,
-        addMoocSucessInfo: null
+        addMoocError: 'add failed!:' + action.error,
+        addMoocLoading: false
     });
 }
 
 // ADD BOOKS RESOURCE
 
+const addBooksStart = ( state, action ) => {
+    return updateObject( state, {
+        addBooksLoading: true,
+        addBooksSucessInfo: null,
+        addBooksError: null
+    });
+}
+
 const addBooksSuccess = ( state, action ) => {
     return updateObject( state, {
-        addBooksSucessInfo: action.info
+        addBooksSucessInfo: action.info,
+        addBooksLoading: false,
     });
 }
 
 const addBooksFailed = ( state, action ) => {
     return updateObject( state, {
-        addBooksError: 'add failed!:' + action.error
-    });
-}
-
-const clearAddBooksFeedbacks = ( state, action ) => {
-    return updateObject( state, {
-        addBooksError: null,
-        addBooksSucessInfo: null
+        addBooksError: 'add failed!:' + action.error,
+        addBooksLoading: false,
     });
 }
 
@@ -308,11 +320,11 @@ const reducer = ( state = initialState, action ) => {
 
         case actionTypes.ADD_MOOC_SUCCESS: return addMoocSuccess( state, action );
         case actionTypes.ADD_MOOC_FAILED: return addMoocFailed( state, action );
-        case actionTypes.CLEAR_ADD_MOOC_FEEDBACKS: return clearAddMoocFeedbacks( state, action );
+        case actionTypes.ADD_MOOC_START: return addMoocStart( state, action );
 
         case actionTypes.ADD_BOOKS_SUCCESS: return addBooksSuccess( state, action );
         case actionTypes.ADD_BOOKS_FAILED: return addBooksFailed( state, action );
-        case actionTypes.CLEAR_ADD_BOOKS_FEEDBACKS: return clearAddBooksFeedbacks( state, action );
+        case actionTypes.ADD_BOOKS_START: return addBooksStart( state, action );
 
         case actionTypes.CLEAR_ADD_MESSAGES: return clearAddMessages( state, action );
 

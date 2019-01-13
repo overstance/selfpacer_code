@@ -5,6 +5,13 @@ const User = mongoose.model('users');
 
 module.exports = app => {
   app.post('/api/add_mooc', (req, res) => {
+    let confirmed = false;
+    if (
+      req.body.agent === '5c16e8de76e09e200c039178' ||
+      req.body.agent === '5c16efcef6d0f300144d3cda'
+    ) {
+      confirmed = true;
+    }
     // console.log(req.body);
 
     const newMooc = {
@@ -21,7 +28,8 @@ module.exports = app => {
       level: req.body.level,
       lastUpdated: req.body.lastUpdated,
       avgRating: req.body.avgRating,
-      user_id: req.body.agent
+      user_id: req.body.agent,
+      confirmed: confirmed
     };
 
     Resource.create(newMooc, (err, resource) => {

@@ -163,8 +163,10 @@ export const addYoutubeVideo = (videoId, subject, user) => {
 
             axios.post('/api/youtube_video', asset)
             .then( res => {
-                if (res.data.length >= 1) {
-                    dispatch(youtubeVideoAdded(res.data, res.data.length));
+                if (res.data.seedData) {
+                    dispatch(youtubeVideoAdded(res.data.seedData, res.data.seedData.length));
+                } else if (res.data === 'video not found!') {
+                    dispatch(youtubeVideoAddFailed( res.data));
                 } else {
                     dispatch(youtubeVideoAddFailed( 'error!'))
                 }
@@ -287,6 +289,12 @@ export const youtubePlaylistsUpdateFailed = ( error ) => {
 
 // ADD MOOC RESOURCE
 
+export const addMoocStart = () => {
+    return {
+        type: actionTypes.ADD_MOOC_START
+    }
+}
+
 export const addMoocSuccess = (info) => {
     return {
         type: actionTypes.ADD_MOOC_SUCCESS,
@@ -301,14 +309,8 @@ export const addMoocFailed = (error) => {
     }
 }
 
-export const clearAddMoocFeedbacks = () => {
-    return { 
-        type: actionTypes.CLEAR_ADD_MOOC_FEEDBACKS
-    }
-}
-
 export const addMooc = (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) => async dispatch => {
-    dispatch(clearAddMoocFeedbacks());
+    dispatch(addMoocStart());
 
     let imageLink = imageUrl;
     let updateTime = lastUpdated;
@@ -355,6 +357,12 @@ export const addMooc = (subject, title, url, imageUrl, source, videoCount, tutor
 
 // ADD BOOK RESOURCE
 
+export const addBooksStart = () => {
+    return {
+        type: actionTypes.ADD_BOOKS_START
+    }
+}
+
 export const addBooksSuccess = (info) => {
     return {
         type: actionTypes.ADD_BOOKS_SUCCESS,
@@ -369,14 +377,8 @@ export const addBooksFailed = (error) => {
     }
 }
 
-export const clearAddBooksFeedbacks = () => {
-    return { 
-        type: actionTypes.CLEAR_ADD_BOOKS_FEEDBACKS
-    }
-}
-
 export const addBooks = (subject, title, url, imageUrl, source, author, level, avgRating, agent) => async dispatch => {
-    dispatch(clearAddBooksFeedbacks());
+    dispatch(addBooksStart());
 
     let imageLink = imageUrl;
     let bookLevel = level;

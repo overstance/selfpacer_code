@@ -7,6 +7,14 @@ module.exports = app => {
   app.post('/api/add_books', (req, res) => {
     // console.log(req.body);
 
+    let confirmed = false;
+    if (
+      req.body.agent === '5c16e8de76e09e200c039178' ||
+      req.body.agent === '5c16efcef6d0f300144d3cda'
+    ) {
+      confirmed = true;
+    }
+
     const newBook = {
       category: req.body.subject,
       type: 'books',
@@ -17,7 +25,8 @@ module.exports = app => {
       author: req.body.author,
       level: req.body.level,
       avgRating: req.body.avgRating,
-      user_id: req.body.agent
+      user_id: req.body.agent,
+      confirmed: confirmed
     };
 
     Resource.create(newBook, (err, resource) => {
