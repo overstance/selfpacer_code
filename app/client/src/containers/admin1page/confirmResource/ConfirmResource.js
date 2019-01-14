@@ -81,6 +81,7 @@ class ConfirmResource extends Component {
                 videoCount={resource.videoCount}
                 confirmClicked={() => this.confirmResourceHandler( resource._id )}
                 deleteClicked={() => this.deleteUnconfirmedResourceHandler( resource._id )}
+                dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
                 toConfirm
                 deletable
                 />

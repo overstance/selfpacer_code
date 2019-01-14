@@ -32,25 +32,25 @@ const subheader = (props) => {
                     className={allClasses.join(' ')}
                     onClick={props.allClicked}
                 >
-                    ALL
+                    <div className={classes.AllIcon}></div><div>all</div>
                 </div>
                 <div 
                     className={youtubeClasses.join(' ')} 
                     onClick={props.youtubeClicked}
                 >               
-                    YOUTUBE
+                    <div className={classes.YoutubeIcon}></div><div>youtube</div>
                 </div>
                 <div 
                     className={moocClasses.join(' ')}
                     onClick={props.moocClicked}
                 >
-                    MOOCs
+                    <div className={classes.MoocIcon}></div><div>moocs</div>
                 </div>
                 <div
                     className={bookClasses.join(' ')}
                     onClick={props.booksClicked}
                 >                
-                    BOOKS
+                    <div className={classes.BookIcon}></div><div>books</div>
                 </div>
             </div>           
         </div>

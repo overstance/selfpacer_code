@@ -45,7 +45,7 @@
 .IconColumn:hover {  
     /*background: rgb(56, 197, 245);*/
     cursor: pointer;  
-    background: var(--green)
+    background: var(--darkGreen);
 }
 
 .FilterIcon {

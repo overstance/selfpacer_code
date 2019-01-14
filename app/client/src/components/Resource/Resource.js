@@ -96,9 +96,10 @@ class Resource extends Component {
                 <div className={classes.FeedbackRow}>
                     <div className={classes.FeedbackContainer}>
                         { this.props.toConfirm ? 
-                            <div className={classes.OptionsLike}>
+                            <div className={classes.OptionsConfirm}>
+                                <span className={classes.DateAdded}>{'date added: ' + this.props.dateAdded}</span>
                                 <span onClick={this.props.confirmClicked} className={classes.ToConfirm}>confirm</span>
-                            </div>  
+                            </div>
                             : 
                             <div className={classes.DetailsColumnFlex}>
                                 { this.props.id === this.props.likedResource ?
@@ -146,7 +147,7 @@ Resource.propTypes= {
     type: PropTypes.string.isRequired,
     videoCount: PropTypes.string,
     youtubeViews: PropTypes.string,
-    likeclicked: PropTypes.func.isRequired,
+    likeclicked: PropTypes.func,
     collectclicked: PropTypes.func   
 }
 

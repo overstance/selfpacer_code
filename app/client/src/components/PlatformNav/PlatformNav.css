@@ -31,16 +31,31 @@
     padding: 15px 0px;
     text-align: center;
     color: var(--skyBlue);
-    font-size: small;
+    /* font-size: small; */
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.YoutubeIcon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-image: url(../../assets/images/youtube.svg);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 100%;
 }
 
 .Active {
-    border-bottom: 2px solid var(--red);
+    border-bottom: 2px solid var(--green);
 }
 
 .Youtube:hover {
     cursor: pointer;
-    color: var(--red);
+    color: var(--green);
 }
 
 .Mooc {
@@ -58,13 +73,28 @@
     padding: 15px 0px;
     text-align: center;
     color: var(--skyBlue);
-    font-size: small;
+    /* font-size: small; */
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+}
+
+.MoocIcon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-image: url(../../assets/images/mooc.svg);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 100%;
 }
 
 .Mooc:hover {
     cursor: pointer;
-    color: var(--red);
+    color: var(--green);
 }
 
 .All {
@@ -82,13 +112,27 @@
     padding: 15px 0px;
     text-align: center;
     color: var(--skyBlue);
-    font-size: small;
+    /* font-size: small; */
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.AllIcon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-image: url(../../assets/images/layer-group.svg);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 100%;
 }
 
 .All:hover {
     cursor: pointer;
-    color: var(--red);
+    color: var(--green);
 }
 
 .Book {
@@ -105,11 +149,65 @@
     padding: 15px 0px;
     text-align: center;
     color: var(--skyBlue);
-    font-size: small;
+    /* font-size: small; */
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+}
+
+.BookIcon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-image: url(../../assets/images/book.svg);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 100%;
 }
 
 .Book:hover {
     cursor: pointer;
-    color: var(--red);
+    color: var(--green);
+}
+
+@media (max-width: 450px) {
+    .All {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .AllIcon {
+        margin: 0;
+    }
+
+
+    .Youtube {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .YoutubeIcon {
+        margin: 0;
+    }
+
+    .Mooc {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .MoocIcon {
+        margin: 0;
+    }
+
+    .Book {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .BookIcon {
+        margin: 0;
+    }
 }
