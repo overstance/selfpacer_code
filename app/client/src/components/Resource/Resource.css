@@ -194,7 +194,7 @@ background: var(--lightGray);
     cursor: pointer;
     text-align: center;
     font-weight: 400;
-    background-image: url('../../assets/images/file-import.svg');
+    background-image: url('../../assets/images/compress-arrows-alt.svg');
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: center;
@@ -202,7 +202,7 @@ background: var(--lightGray);
 }
 
 .FeedBackIconCollect:hover {
-    background-image: url('../../assets/images/file-import-focus.svg');
+    background-image: url('../../assets/images/compress-arrows-alt-focus.svg');
 }
 
 .FeedBackIconDelete {

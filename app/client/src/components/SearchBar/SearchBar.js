@@ -17,7 +17,7 @@ const searchBar = (props) => (
             <div className={classes.SearchWrapper}> 
                 <div className={classes.SearchIcon}></div>
                 <form className={classes.SearchForm}>
-                    <input placeholder='Enter an Interest' className={classes.SearchInput} />
+                    <input placeholder='search' className={classes.SearchInput} />
                     <button className={classes.SearchButton} >GO</button>
                 </form>
             </div>

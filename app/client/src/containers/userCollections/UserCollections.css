@@ -1,5 +1,5 @@
 .AllWrapper {
-    background: var(--white);
+    background: var(--green);
     padding: 10px;
 }
 
@@ -7,7 +7,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background: var(--white);
+    background: var(--green);
     padding: 10px;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .Previous:hover {
-    background-color: var(--lightestGray);
+    background-color: var(--darkGreen);
 }
 
 .Next {
@@ -52,7 +52,7 @@
 }
 
 .Next:hover {
-    background-color: var(--lightestGray);
+    background-color: var(--darkGreen);
 }
 
 .VisibleCollections {
@@ -109,11 +109,13 @@
     display: inline-block;
     border-radius: 20px;
     font-size: small;
+    font-weight: 400;
     /* text-transform: lowercase; */
 }
 
 .ViewPinned:hover {
-    background: var(--darkGreen);
+    background: var(--skyBlue);
+    color: var(--darkBlue);
 }
 
 .ViewAll {
@@ -127,11 +129,13 @@
     display: inline-block;
     border-radius: 20px;
     font-size: small;
+    font-weight: 400;
     /* text-transform: lowercase; */
 }
 
 .ViewAll:hover {
     background: var(--skyBlue);
+    color: var(--darkBlue);
 }
 
 @media ( max-width: 380px) {

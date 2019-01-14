@@ -41,7 +41,7 @@
 
 .UserProfilePanel:hover {
     background-color: var(--blue);
-    color: var(--red);
+    color: var(--green);
 }
 
 .UserIconColumn {
@@ -86,8 +86,17 @@
 } */
 
 .LogoContainer {
- text-align: center;
- height: 50px;
+    text-align: center;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding-left: 10px;
+}
+
+.LogoContainer:hover {
+    background: var(--darkBlue);
 }
 
 .Logo {
@@ -100,15 +109,29 @@
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 80%;
     margin: 0;
     /* border-bottom: 1px solid var(--skyBlue); */
 }
 
-.Logo:hover {
+.HomeIcon {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    height: 30px;
+    width: 30px;
+    background-image: url(../../../assets/images/home.svg);
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    margin: 0;
+}
+
+/* .Logo:hover {
     background-image: url(../../../assets/images/logo-green.png);
 
-}
+} */
 
 /* .Logo img {
     height: 60px;

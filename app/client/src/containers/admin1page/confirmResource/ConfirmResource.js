@@ -86,22 +86,20 @@ class ConfirmResource extends Component {
                 deletable
                 />
             ));
-        } /* else if (this.props.loading || this.props.unconfirmedResources === undefined) {
-            unconfirmedResources =
-            <div className={classes.Container}>
-                <div className={classes.Spinner}><Spinner /></div>
-            </div>
-        }  */ 
+        }
         
-        let content =
-        <div>
-            {unconfirmedResources}
-        </div>
+        if (!this.props.loading && this.props.unconfirmedResources.length === 0) {
+            unconfirmedResources =
+            <div className={classes.PostAddInfo}>
+                <div>You have no unconfirmed resources.</div>
+            </div>
+        }  
+        
 
         return (
             <Container>
                 <div style={{'paddingTop': '10px'}}>
-                    {content}
+                    {unconfirmedResources}
                 </div>
             </Container>  
         );

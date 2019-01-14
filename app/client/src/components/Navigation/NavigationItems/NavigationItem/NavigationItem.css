@@ -10,13 +10,17 @@
     text-decoration: none;
     /* width: 100%; */
     box-sizing: border-box; 
-    display: block;
+    /* display: inline-block; */
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
 }
 
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    color: var(--red);
+    color: var(--skyBlue);
 }
 
 @media (min-width: 875px) {
@@ -32,6 +36,7 @@
         /* height: 100%; */
         /* padding: 22px 10px; */
         padding-left: 15px;
+        flex-direction: column;
     }
     
 }

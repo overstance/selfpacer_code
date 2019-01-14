@@ -22,10 +22,15 @@
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
+    border-radius: 50%;
+    background-size: 100%;
+    box-sizing: border-box;
 }
 
 .User:hover {
-    background-image: url('../../../assets/images/user-circle-focus.svg');
+    /* background-image: url('../../../assets/images/user-circle-focus.svg'); */
+    border: 2px solid var(--green);
+    background-size: 88%;
 }
 
 @media (min-width: 875px) {
@@ -75,6 +80,61 @@
     color: var(--red);
 }
 
+.CollectIcon {
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../assets/images/compress-arrows-alt-2.svg');
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    /* margin: auto; */
+}
+
+.AssetIcon {
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../assets/images/briefcase.svg');
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    /* margin: auto; */
+}
+
+.LoginIcon {
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../assets/images/sign-in-alt.svg');
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    /* margin: auto; */
+}
+
+.SignupIcon {
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../assets/images/sign-in-alt.svg');
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    transform: rotate(270deg);
+    /* margin: auto; */
+}
+
+.ExploreIcon {
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../assets/images/compass.svg');
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    /* margin: auto; */
+}
+
+.BlogIcon {
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../assets/images/newspaper.svg');
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    /* margin: auto; */
+}
+
 @media (min-width: 875px) {
     .NavigationItem {
         margin: 0;
@@ -91,6 +151,30 @@
 
     .NavigationItems {
         padding: 0px;
+    }
+
+    .CollectIcon {
+        margin: 0;
+    }
+
+    .AssetIcon {
+        margin: 0;
+    }
+
+    .LoginIcon {
+        margin: 0;
+    }
+
+    .SignupIcon {
+        margin: 0;
+    }
+
+    .ExploreIcon {
+        margin: 0;
+    }
+
+    .BlogIcon {
+        margin: 0;
     }
     
 }

@@ -7,7 +7,7 @@ import SideDrawerToggle from '../SideDrawer/SideDrawerToggle/SideDrawerToggle';
 import Searchbar from '../../SearchBar/SearchBar';
 import { Link } from 'react-router-dom';
 import Container from '../../UserInterface/Container/Container';
-import LogoGreen from '../../../assets/images/logo-green.png';
+// import LogoGreen from '../../../assets/images/logo-green.png';
 //import LogoOrange from '../../../assets/images/logo-orange.png';
 
 
@@ -16,7 +16,7 @@ const toolbar = (props) => (
         <Container>
             <header className={classes.Toolbar}>
                 <div className={classes.Logo}>
-                    <Link to= "/"><img src={LogoGreen} alt='logo' style={{'height': '45px'}} /></Link>
+                    <Link to= "/" className={classes.ToolBarLogo}/>
                 </div>
                 <div className={classes.NewSearchContainer + ' ' + classes.DesktopOnlySearchbar}>
                     <Searchbar show />

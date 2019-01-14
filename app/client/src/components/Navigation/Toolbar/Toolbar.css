@@ -44,8 +44,19 @@
     margin-right: 10px;
 }
 
-.Logo a {
+/* .Logo a {
     display: block;
+} */
+
+.ToolBarLogo {
+    display: block;
+    width: 144px;
+    height: 45px;
+    background-image: url('../../../assets/images/logo-green.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position-x: center;
+    background-position-y: center;
 }
 
 .SearchBar{
