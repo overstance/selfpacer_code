@@ -16,7 +16,8 @@
 
 .ContentItems {
     padding: 10px;
-    background: var(--white); 
+    background: var(--green); 
+    padding-bottom: 10px;
 }
 
 .ContainerItem {
@@ -41,7 +42,7 @@
 .AdminAction {
     color: var(--darkBlue);
     font-weight: 700;
-    padding: 20px 0;
+    padding-bottom: 10px;
 }
 
 .OuterContainer {

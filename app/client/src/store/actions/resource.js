@@ -266,7 +266,7 @@ export const fetchUserAssets = ( userId ) => async(dispatch) => {
     dispatch(fetchUserAssetStart());
     const res = await axios.get(`/api/user_assets/${userId}`);
 
-    if (res.data.resources.length >= 0) {
+    if (res.data.resources) {
         // console.log(res.data.resources);
         dispatch(fetchUserAssetSuccess(res.data.resources));
     } else {

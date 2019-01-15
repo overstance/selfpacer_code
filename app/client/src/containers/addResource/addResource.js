@@ -881,7 +881,7 @@ class AddResources extends Component {
 
     render() {
 
-        let platformSpecificForm = <div className={classes.Notype}>Please select resource type to continue</div>
+        let platformSpecificForm = <div className={classes.Notype}>Please select resource type to continue.</div>
         
         let youtubePlaylistButtonText = 'submit';
         if(this.props.youtubePlaylistLoading) {

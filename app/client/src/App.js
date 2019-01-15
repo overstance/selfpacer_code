@@ -13,6 +13,7 @@ import UserCollection from './containers/userCollections/userCollection/UserColl
 import SharedCollection from './containers/userCollections/sharedCollection/SharedCollection';
 import AllSharedCollections from './containers/allSharedCollections/AllSharedCollections';
 import PinnedCollections from './containers/pinnedCollection/PinnedCollections';
+import UserAssets from './containers/userAssets/UserAssets';
 
 import Profile from './containers/profile/Profile';
 import ResourcePage from './containers/resourcepage/Resoucepage';
@@ -214,6 +215,7 @@ class App extends Component {
             <Route path="/admin_tools/confirm_resources" component={ConfirmResource} />
             <Route path="/admin_tools" component={AdminTools} />
             <Route path="/profile/edit" component={EditProfile} />
+            <Route path="/my_assets" component={UserAssets} />
             <Route path="/pinned_collections" component={PinnedCollections} />
             <Route path="/all_shared_collections" component={AllSharedCollections} />
             <Route path="/shared_collections/:id" component={SharedCollection} />

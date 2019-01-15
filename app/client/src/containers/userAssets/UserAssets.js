@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../../store/actions/index';
-import Spinner from '../../../components/UserInterface/Spinner/Spinner';
-import classes from './ConfirmResource.css';
-import Resource from '../../../components/Resource/Resource';
-import Container from '../../../components/UserInterface/Container/Container'
+import * as actions from '../../store/actions/index';
+import Spinner from '../../components/UserInterface/Spinner/Spinner';
+import classes from './UserAssets.css';
+import Resource from './userAsset/UserAsset';
+import Container from '../../components/UserInterface/Container/Container';
 
 
 class ConfirmResource extends Component {
     
     componentDidMount() {
-        this.props.onFetchUnconfirmed();
+        this.props.onFetchUserAssets(this.props.userId);
     }
 
     state = {}
@@ -25,13 +25,13 @@ class ConfirmResource extends Component {
 
     render() {
        
-        let unconfirmedResources = 
+        let userAssets = 
         <div className={classes.Container}>
             <div className={classes.Spinner}><Spinner /></div>
         </div>
 
         if (!this.props.loading) {
-            unconfirmedResources = this.props.unconfirmedResources.map( (resource, i) => (
+            userAssets = this.props.userAssets.map( (resource, i) => (
                 <Resource 
                 key={i}
                 id={resource._id} 
@@ -51,6 +51,9 @@ class ConfirmResource extends Component {
                 source={resource.source}
                 type={resource.type}
                 videoCount={resource.videoCount}
+                likeCount={resource.likes}
+                collectCount={resource.collectCount}
+                viewCount={resource.views}
                 confirmClicked={() => this.confirmResourceHandler( resource._id )}
                 deleteClicked={() => this.deleteUnconfirmedResourceHandler( resource._id )}
                 dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
@@ -60,8 +63,8 @@ class ConfirmResource extends Component {
             ));
         }
         
-        if (!this.props.loading && this.props.unconfirmedResources.length === 0) {
-            unconfirmedResources =
+        if (!this.props.loading && this.props.userAssets.length === 0) {
+            userAssets =
             <div className={classes.PostAddInfo}>
                 <div>You have no unconfirmed resources.</div>
             </div>
@@ -71,7 +74,7 @@ class ConfirmResource extends Component {
         return (
             <Container>
                 <div style={{'paddingTop': '10px'}}>
-                    {unconfirmedResources}
+                    {userAssets}
                 </div>
             </Container>  
         );
@@ -80,14 +83,16 @@ class ConfirmResource extends Component {
 
 const mapStateToProps = state => {
     return {
-        unconfirmedResources: state.resource.unconfirmedResources,
-        loading: state.resource.loading,
+        userAssets: state.resource.userAssets,
+        userId: state.auth.user._id,
+        loading: state.resource.loading
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchUnconfirmed: () => dispatch(actions.fetchUnconfirmed()),
+        onFetchUserAssets: ( userId ) => dispatch(actions.fetchUserAssets( userId)),
+        // onFetchUnconfirmed: () => dispatch(actions.fetchUnconfirmed()),
         onConfirmResource: (resourceId) => dispatch(actions.confirmResource(resourceId)),
         onDeleteUnconfirmedResource: (resourceId) => dispatch(actions.deleteUnconfirmedResource(resourceId))
     };

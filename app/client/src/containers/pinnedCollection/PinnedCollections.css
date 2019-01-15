@@ -23,6 +23,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background: var(--white);
+    background: var(--green);
     padding: 10px;
 }
