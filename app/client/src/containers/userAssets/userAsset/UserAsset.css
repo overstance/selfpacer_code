@@ -14,24 +14,9 @@
 }
 
 .InfoContainer {
-    display: -ms-flexbox;
     display: flex;
     flex-flow: column;
-}
-
-.InfoColumn {
-    -ms-flex-preferred-size: 0;
     flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-    text-align: center;
-}
-
-.TitleRow {
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
@@ -131,7 +116,7 @@
     border-bottom: 1px solid var(--darkBlue);
     border-top: 1px solid var(--lightGray);
     /* align-items: center; */
-    padding: 5px;
+    padding: 5px 0 0;
 }
 
 .FeedbackIcons {
@@ -209,6 +194,7 @@
     background-position-x: center;
     background-position-y: center;
     background-size: 60%;
+    margin-right: 5px;
 }
 
 .EditIconRow {
@@ -241,6 +227,25 @@
     font-weight: 400;
 }
 
+.UpdateButton {
+    display: inline-block;
+    margin: 5px;
+    font-size: small;
+    border-radius: 10px;
+    color: var(--blue);
+    font-weight: 700;
+    background: var(--skyBlue);
+    box-shadow: 6px 3px 6px 0 rgba(0,40,120,.35);
+    /* border: 2px solid var(--darkBlue); */
+    padding: 4px;
+    cursor: pointer;
+}
+
+.UpdateButton:hover {
+    background: var(--green);
+    color: var(--darkBlue);
+}
+
 .DeleteText {
     font-size: small;
     color: var(--red);
@@ -249,9 +254,9 @@
 
 .DateAdded {
     font-size: small;
-    color: var(--skyBlue);
-    font-weight: 400;
-    padding-right: 10px;
+    color: var(--darkestBlue);
+    font-weight: 700;
+    padding: 0 10px;
     text-align: right;
 }
 
@@ -322,6 +327,7 @@
     flex-wrap: nowrap;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .Statistics {
@@ -330,7 +336,7 @@
     flex-direction: row;
     flex: 0 0 70%;
     max-width: 70%;
-    /* height: 100%; */
+    height: 100%;
     /* flex-basis: 0;
     flex-grow: 1;
     max-width: 100%; */
@@ -378,7 +384,8 @@
 }
 
 .StatisticsLabel {
-    color: var(--darkBlue);
+    color: var(--darkestBlue);
+    font-weight: 700;
 }
 
 @keyframes slideRight {
@@ -418,6 +425,12 @@
     .Options {
         padding: 0px;
     }
+
+    .AssetControls {
+        flex-wrap: wrap;
+        align-items: flex-end;
+        /* justify-content: flex-end; */
+    }
 }
 
 .FeedbackIcons {
@@ -430,7 +443,7 @@
     .Statistics {
         flex: 0 0 100%;
         max-width: 100%;
-        height: 80px;
+        /* height: 80px; */
         border-bottom: 1px solid var(--darkBlue);
     }
 
@@ -443,14 +456,15 @@
 
     .DateAdded {
         margin: auto 0;
+        text-align: left
     }
 }
 
 @media ( max-width: 550px) {
 
-    .Statistics {
+    /* .Statistics {
         height: 100%;
-    }
+    } */
 
     .StatisticsLike {
         flex: 0 0 100%;

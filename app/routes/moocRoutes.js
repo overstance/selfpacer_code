@@ -43,4 +43,31 @@ module.exports = app => {
       }
     });
   });
+
+  app.put('/api/update_mooc_asset', (req, res) => {
+    Resource.findByIdAndUpdate(
+      req.body.resourceId,
+      {
+        videoCount: req.body.videoCount,
+        enrollees: req.body.enrollees,
+        duration: req.body.duration,
+        level: req.body.level,
+        lastUpdated: req.body.lastUpdated,
+        avgRating: req.body.avgRating
+      },
+      (err, resource) => {
+        if (err) {
+          res.send(err.message);
+        } else {
+          Resource.find({ user_id: req.body.agent }, (err, resources) => {
+            if (err) {
+              res.send(err.name);
+            } else {
+              res.send({ resources: resources });
+            }
+          });
+        }
+      }
+    );
+  });
 };

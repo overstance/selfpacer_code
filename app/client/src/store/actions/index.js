@@ -133,7 +133,11 @@ export {
     fetchRecentlyViewedResources,
     fetchUnconfirmed,
     confirmResource,
-    deleteUnconfirmedResource
+    deleteUnconfirmedResource,
+    setAssetToUpdateField,
+    updateMoocAsset,
+    updateBookAsset,
+    clearUpdateAssetMessages
 } from './resource';
 
 export {

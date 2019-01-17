@@ -40,4 +40,27 @@ module.exports = app => {
       }
     });
   });
+
+  app.put('/api/update_book_asset', (req, res) => {
+    Resource.findByIdAndUpdate(
+      req.body.resourceId,
+      {
+        level: req.body.level,
+        avgRating: req.body.avgRating
+      },
+      (err, resource) => {
+        if (err) {
+          res.send(err.message);
+        } else {
+          Resource.find({ user_id: req.body.agent }, (err, resources) => {
+            if (err) {
+              res.send(err.name);
+            } else {
+              res.send({ resources: resources });
+            }
+          });
+        }
+      }
+    );
+  });
 };

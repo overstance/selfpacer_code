@@ -14,41 +14,13 @@
 }
 
 .InfoContainer {
-    display: -ms-flexbox;
     display: flex;
     flex-flow: column;
-    /* border-bottom: 1px solid var(--lightGray); */
-    /* background: var(--lightestGray); */
-}
-
-.InfoColumn {
-    -ms-flex-preferred-size: 0;
     flex-basis: 0;
-    -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
 }
-
-.TitleRow {
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-    text-align: center;
-}
-
-/* .Hr {
-height: 1px;
-background: var(--lightGray);
-}
-
-.HrContainer {
-    padding: 3px 0px;
-    background: var(--lightestGray);
-} */
-
 
 .Title {
     margin: 0px;
@@ -63,20 +35,6 @@ background: var(--lightGray);
     text-decoration: underline;
     text-decoration-color: var(--darkBlue);
 }
-
-/* .Source {
-    color: var(--darkBlue);
-    font-weight: 700;
-    padding-left: 40px;
-    font-size: x-small;
-    text-align: right;
-}
-
-.Source span {
-    color: var(--red);
-    padding: 0 10px;
-
-} */
 
 .DetailsContainer {
     display: -ms-flexbox;
@@ -322,16 +280,6 @@ background: var(--lightGray);
     .Source {
         padding-left: 10px;
     }
-
-    /* .ImgColumn {
-        height: 80px;
-        width: 100%;
-    }
-
-    .NoImageColumn {
-        height: 80px;
-        width: 100%; 
-    } */
 
     .ResourceImg {
         width: 80px;

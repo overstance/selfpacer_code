@@ -15,80 +15,69 @@ class Resource extends Component {
                 href={this.props.link}
                 onClick={this.props.clicked}
                 >
-                    {/* <div className={classes.ImgColumn}>
-                        { this.props.image ? 
-                            <img className={classes.ResourceImg} src={this.props.image} alt="resource" />
-                            :
-                            <img className={classes.ResourceImg} src={noImageIcon} alt="resource" />
-                            }    
-                    </div> */}
                     { this.props.image ? 
                         <div style={{'backgroundImage': `url(${this.props.image})`}} className={classes.ImgColumn}></div> :
                         <div className={classes.NoImageColumn}></div>
-                    } 
-                    <div className={classes.InfoColumn}>
-                        <div className={classes.InfoContainer}>
-                            <div className={classes.TitleRow}>
-                                <div className={classes.Title}>{this.props.title}</div>
-                                <div className={classes.DetailsContainer}>
-                                    <div>
-                                        <div className={classes.Type}>SOURCE:<span>{this.props.source}</span></div>
-                                    </div>
-                                    { this.props.publishDate ? 
-                                        <div>
-                                            <div className={classes.Type}>PUBLISHED:<span>{this.props.publishDate}</span></div>
-                                        </div> : null
-                                    }
-                                    { this.props.lastUpdated ? 
-                                        <div>
-                                            <div className={classes.Type}>LAST-UPDATED:<span>{this.props.lastUpdated}</span></div>
-                                        </div> : null
-                                    }
-                                    <div>
-                                        <div className={classes.Type}>TYPE:<span>{this.props.type}</span></div>
-                                    </div>
-                                    { this.props.tutor ?
-                                        <div>
-                                            <div className={classes.Type}>TUTOR:<span>{this.props.tutor}</span></div>
-                                        </div> : null
-                                    }
-                                    { this.props.enrollees ?
-                                        <div>
-                                            <div className={classes.Type}>ENROLLEES:<span>{this.props.enrollees + '+'}</span></div>
-                                        </div> : null
-                                    }
-                                    { this.props.duration ?
-                                        <div>
-                                            <div className={classes.Type}>DURATION:<span>{this.props.duration}</span></div>
-                                        </div> : null
-                                    }
-                                    { this.props.avgRating ?
-                                        <div>
-                                            <div className={classes.Type}>AVG.RATING:<span>{this.props.avgRating + ' of 5 stars'}</span></div>
-                                        </div> : null
-                                    }
-                                    { this.props.level ?
-                                        <div>
-                                            <div className={classes.Type}>LEVEL:<span>{this.props.level}</span></div>
-                                        </div> : null
-                                    }
-                                    { this.props.videoCount ? 
-                                        <div className={classes.DetailsColumnFlex}>
-                                            <div className={classes.Type}>VIDEOCOUNT:<span>{this.props.videoCount}</span></div>
-                                        </div> : null
-                                    }
-                                    { this.props.youtubeViews ?
-                                        <div className={classes.DetailsColumnFlex}>
-                                            <div className={classes.Type}>YOUTUBEVIEWS:<span>{this.props.youtubeViews}</span></div>
-                                        </div> : null
-                                    }  
-                                    { this.props.author ?
-                                        <div className={classes.DetailsColumnFlex}>
-                                            <div className={classes.Type}>AUTHOR:<span>{this.props.author}</span></div>
-                                        </div> : null
-                                    }   
-                                </div>
+                    }
+                    <div className={classes.InfoContainer}>
+                        <div className={classes.Title}>{this.props.title}</div>
+                        <div className={classes.DetailsContainer}>
+                            <div>
+                                <div className={classes.Type}>SOURCE:<span>{this.props.source}</span></div>
                             </div>
+                            { this.props.publishDate ? 
+                                <div>
+                                    <div className={classes.Type}>PUBLISHED:<span>{this.props.publishDate}</span></div>
+                                </div> : null
+                            }
+                            { this.props.lastUpdated ? 
+                                <div>
+                                    <div className={classes.Type}>LAST-UPDATED:<span>{this.props.lastUpdated}</span></div>
+                                </div> : null
+                            }
+                            <div>
+                                <div className={classes.Type}>TYPE:<span>{this.props.type}</span></div>
+                            </div>
+                            { this.props.tutor ?
+                                <div>
+                                    <div className={classes.Type}>TUTOR:<span>{this.props.tutor}</span></div>
+                                </div> : null
+                            }
+                            { this.props.enrollees ?
+                                <div>
+                                    <div className={classes.Type}>ENROLLEES:<span>{this.props.enrollees + '+'}</span></div>
+                                </div> : null
+                            }
+                            { this.props.duration ?
+                                <div>
+                                    <div className={classes.Type}>DURATION:<span>{this.props.duration}</span></div>
+                                </div> : null
+                            }
+                            { this.props.avgRating ?
+                                <div>
+                                    <div className={classes.Type}>AVG.RATING:<span>{this.props.avgRating + ' of 5 stars'}</span></div>
+                                </div> : null
+                            }
+                            { this.props.level ?
+                                <div>
+                                    <div className={classes.Type}>LEVEL:<span>{this.props.level}</span></div>
+                                </div> : null
+                            }
+                            { this.props.videoCount ? 
+                                <div className={classes.DetailsColumnFlex}>
+                                    <div className={classes.Type}>VIDEOCOUNT:<span>{this.props.videoCount}</span></div>
+                                </div> : null
+                            }
+                            { this.props.youtubeViews ?
+                                <div className={classes.DetailsColumnFlex}>
+                                    <div className={classes.Type}>YOUTUBEVIEWS:<span>{this.props.youtubeViews}</span></div>
+                                </div> : null
+                            }  
+                            { this.props.author ?
+                                <div className={classes.DetailsColumnFlex}>
+                                    <div className={classes.Type}>AUTHOR:<span>{this.props.author}</span></div>
+                                </div> : null
+                            }   
                         </div>
                     </div>
                 </a>

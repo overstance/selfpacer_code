@@ -1,6 +1,10 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function shuffleArray(array) {
     let i = array.length - 1;
     for (; i > 0; i--) {
@@ -361,5 +365,136 @@ export const deleteUnconfirmedResource = (resourceId) => async dispatch => {
 
     if (res.data.resources) {
         dispatch(fetchUnconfirmedSuccess(res.data.resources));
+    }
+}
+
+// set asset to update fields
+
+export const setAssetToUpdateField = (assetToUpdateFields) => {
+    return {
+        type: actionTypes.SET_ASSET_TO_UPDATE_FIELDS,
+        assetToUpdateFields: assetToUpdateFields
+    }
+}
+
+// update mooc asset
+
+export const updateMoocAssetStart = () => {
+    return {
+        type: actionTypes.UPDATE_MOOC_ASSET_START
+    }
+}
+
+export const updateMoocAssetSuccess = (info, resources) => {
+    return {
+        type: actionTypes.UPDATE_MOOC_ASSET_SUCCESS,
+        info: info,
+        resources: resources
+    }
+}
+
+export const updateMoocAssetFailed = (error) => {
+    return {
+        type: actionTypes.UPDATE_MOOC_ASSET_FAIL,
+        error: error
+    }
+}
+
+export const updateMoocAsset = (videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId) => async dispatch => {
+    dispatch(updateMoocAssetStart());
+
+    let updateTime = lastUpdated;
+    let rating = avgRating;
+
+    if (lastUpdated === '') {
+        updateTime = undefined
+    }
+
+    if (avgRating === '') {
+        rating = undefined
+    }
+
+    const info = {
+        videoCount: videoCount,
+        enrollees: numberWithCommas(enrollees),
+        duration: duration,
+        level: level,
+        lastUpdated: updateTime,
+        avgRating: rating,
+        agent: agent,
+        resourceId: resourceId
+    }
+
+    const res = await axios.put('/api/update_mooc_asset', info);
+
+    if (res.data.resources) {
+        dispatch(updateMoocAssetSuccess('Asset updated.', res.data.resources));
+        // console.log(res.data);
+    } else {
+        dispatch(updateMoocAssetFailed(res.data));
+        // console.log(res.data);
+    }
+}
+
+// update book asset
+
+export const updateBookAssetStart = () => {
+    return {
+        type: actionTypes.UPDATE_BOOK_ASSET_START
+    }
+}
+
+export const updateBookAssetSuccess = (info, resources) => {
+    return {
+        type: actionTypes.UPDATE_BOOK_ASSET_SUCCESS,
+        info: info,
+        resources: resources
+    }
+}
+
+export const updateBookAssetFailed = (error) => {
+    return {
+        type: actionTypes.UPDATE_BOOK_ASSET_FAIL,
+        error: error
+    }
+}
+
+export const updateBookAsset = (level, avgRating, agent, resourceId) => async dispatch => {
+    dispatch(updateBookAssetStart());
+
+    let updateLevel = level;
+    let rating = avgRating;
+
+    if (level === '') {
+        updateLevel = undefined
+    }
+
+    if (avgRating === '') {
+        rating = undefined
+    }
+
+    const info = {
+        level: updateLevel,
+        avgRating: rating,
+        agent: agent,
+        resourceId: resourceId
+    }
+
+    const res = await axios.put('/api/update_book_asset', info);
+
+    if (res.data.resources) {
+        dispatch(updateBookAssetSuccess('Asset updated.', res.data.resources));
+        // console.log(res.data);
+    } else {
+        dispatch(updateBookAssetFailed(res.data));
+        // console.log(res.data);
+    }
+}
+
+// clear update asset message
+
+export const clearUpdateAssetMessages = () => {
+    return {
+        type: actionTypes.CLEAR_UPDATE_ASSET_MESSAGE
     }
 }

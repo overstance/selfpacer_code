@@ -14,7 +14,19 @@ const initialState = {
     recentlyViewedResources: [],
     
     userAssets: [],
-    fetchAssetError: null
+    fetchAssetError: null,
+
+    assetToUpdateFields: {
+        duration: '',
+        enrollees: '',
+        videoCount: '',
+        level: '',
+        avgRating: '',
+        lastUpdated: ''
+    },
+    updateAssetLoading: false,
+    updateAssetSuccessInfo: null,
+    updateAssetError: null
 };
 
 // Add user resource
@@ -107,6 +119,55 @@ const fetchUnconfirmedFail = ( state, action ) => {
     return updateObject( state, { loading: false } );
 };
 
+// set asset to update fields
+
+const setAssetToupdateFields = ( state, action ) => {
+    return updateObject( state, { assetToUpdateFields: action.assetToUpdateFields } );
+};
+
+// update mooc asset
+
+const updateMoocAssetStart = ( state, action ) => {
+    return updateObject( state, { updateAssetLoading: true } );
+};
+
+const updateMoocAssetSuccess = ( state, action ) => {
+    return updateObject( state, {
+        updateAssetSuccessInfo: action.info,
+        userAssets: action.resources,
+        updateAssetLoading: false
+    } );
+};
+
+const updateMoocAssetFail = ( state, action ) => {
+    return updateObject( state, { loading: false, updateAssetError: action.error } );
+};
+
+// update book asset
+
+const updateBookAssetStart = ( state, action ) => {
+    return updateObject( state, { updateAssetLoading: true } );
+};
+
+const updateBookAssetSuccess = ( state, action ) => {
+    return updateObject( state, {
+        updateAssetSuccessInfo: action.info,
+        userAssets: action.resources,
+        updateAssetLoading: false
+    } );
+};
+
+const updateBookAssetFail = ( state, action ) => {
+    return updateObject( state, { loading: false, updateAssetError: action.error } );
+};
+
+// clear update asset message
+
+const clearUpdateAssetMessages = ( state, action ) => {
+    return updateObject( state, { updateAssetError: null, updateAssetSuccessInfo: null  });
+};
+
+
 
 
 
@@ -135,6 +196,18 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_START: return fetchUnconfirmedStart( state, action );
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_SUCCESS: return fetchUnconfirmedSuccess( state, action );
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_FAIL: return fetchUnconfirmedFail( state, action );
+
+        case actionTypes.SET_ASSET_TO_UPDATE_FIELDS: return setAssetToupdateFields( state, action );
+
+        case actionTypes.UPDATE_MOOC_ASSET_START: return updateMoocAssetStart( state, action );
+        case actionTypes.UPDATE_MOOC_ASSET_SUCCESS: return updateMoocAssetSuccess( state, action );
+        case actionTypes.UPDATE_MOOC_ASSET_FAIL: return updateMoocAssetFail( state, action );
+
+        case actionTypes.UPDATE_BOOK_ASSET_START: return updateBookAssetStart( state, action );
+        case actionTypes.UPDATE_BOOK_ASSET_SUCCESS: return updateBookAssetSuccess( state, action );
+        case actionTypes.UPDATE_BOOK_ASSET_FAIL: return updateBookAssetFail( state, action );
+
+        case actionTypes.CLEAR_UPDATE_ASSET_MESSAGE: return clearUpdateAssetMessages( state, action );
 
         default: return state;
     }
