@@ -16,7 +16,7 @@ const deleteCollection = (props) => (
                 <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
             </div>
             <div className={classes.DialogueMessage}>
-            <div>Delete:</div>
+                <div>Delete:</div>
                 <h4>{props.collectionTitle}</h4>
                 <span>?</span>
                 <div>

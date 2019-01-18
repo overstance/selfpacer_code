@@ -137,6 +137,7 @@ export {
     setAssetToUpdateField,
     updateMoocAsset,
     updateBookAsset,
+    deleteAsset,
     clearUpdateAssetMessages
 } from './resource';
 

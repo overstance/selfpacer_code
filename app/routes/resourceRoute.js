@@ -749,4 +749,21 @@ module.exports = app => {
       }
     });
   });
+
+  app.delete('/api/delete_asset/:resourceId/:userId', (req, res) => {
+    Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
+      if (err) {
+        res.send(err.message);
+        console.log(err.message);
+      } else if (resource) {
+        Resource.find({ user_id: req.params.userId }, (err, resources) => {
+          if (err) {
+            res.send(err.name);
+          } else {
+            res.send({ resources: resources });
+          }
+        });
+      }
+    });
+  });
 };

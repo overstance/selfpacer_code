@@ -168,6 +168,60 @@
     font-weight: 400;
 }
 
+.DialogueMessage {
+    padding: 30px 5px;
+    text-align: center;
+    width: 240px;
+    border-radius: 20px;
+    background: var(--darkBlue);
+    margin: 20px auto;
+}
+
+.DialogueMessage div {
+    color: var(--white);
+    font-weight: 400;
+}
+
+.DialogueMessage h4 {
+    color: var(--green);
+    font-weight: 400;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+.DialogueMessage span {
+    color: var(--white);
+    font-weight: 400;
+}
+
+.CancelDelete {
+    text-decoration: none;
+    /* color: var(--darkBlue); */
+    background: var(--skyBlue);
+    border-radius: 16px;
+    font-size: small;
+    padding: 10px;
+    margin: 20px 10px 0px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.CancelDelete:hover {
+    background: var(--green);
+}
+
+.ConfirmDelete {
+    text-decoration: none;
+    /* color: var(--darkBlue); */
+    background: var(--red);
+    border-radius: 16px;
+    font-size: small;
+    padding: 10px;
+    margin: 20px 10px 0;
+    display: inline-block;
+    cursor: pointer;
+}
+
 .AddFeedbackInfo {
     color: var(--green);
     font-weight: 400;

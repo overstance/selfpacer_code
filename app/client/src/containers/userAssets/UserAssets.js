@@ -6,6 +6,7 @@ import Grid from '../../components/UserInterface/Grid/Grid';
 import classes from './UserAssets.css';
 import Resource from './userAsset/UserAsset';
 import UpdateAssetDialogue from '../../components/Dialogues/updateAsset/updateAsset';
+import DeleteAssetDialogue from '../../components/Dialogues/deleteAsset/deleteAsset';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
 import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSpinner';
@@ -75,7 +76,12 @@ class ConfirmResource extends Component {
         assetToUpdateType: null,
         assetToUpdateId: null,
 
+        resourceToDeleteTitle: null,
+        resourceToDeleteId: null,
+
         showUpdateDialogue: false,
+
+        showDeleteDialogue: false,
 
         mooc_controls: {
             videoCount: {
@@ -265,6 +271,11 @@ class ConfirmResource extends Component {
         this.props.onClearUpdateAssetMessages();
     }
 
+    closeDeleteDialogue = () => {
+        this.setState({ showDeleteDialogue: false});
+        this.props.onClearUpdateAssetMessages();
+    }
+
     updateResourceHandler = ( resourceId, type, duration, enrollees, level, avgRating, videoCount, lastUpdated ) => {
         
         let enrolleesCheckedAndParsed = enrollees;
@@ -315,8 +326,12 @@ class ConfirmResource extends Component {
         // this.props.onConfirmResource(resourceId)
     }
 
-    deleteResourceHandler = ( resourceId ) => {
-        this.props.onDeleteUnconfirmedResource(resourceId);    
+    deleteResourceHandler = ( resourceId, resourceTitle ) => {
+        this.setState({ resourceToDeleteTitle: resourceTitle, resourceToDeleteId: resourceId, showDeleteDialogue: true});   
+    }
+
+    confirmDelete = () => {
+        this.props.onDeleteAsset(this.state.resourceToDeleteId, this.props.userId);   
     }
 
     moocInputChangedHandler = (event, controlName) => {
@@ -479,7 +494,7 @@ class ConfirmResource extends Component {
                 collectCount={numberWithCommas(resource.collectCount)}
                 viewCount={numberWithCommas(resource.views)}
                 updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
-                deleteClicked={() => this.deleteResourceHandler( resource._id )}
+                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
                 dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
                 />
             ));
@@ -594,11 +609,39 @@ class ConfirmResource extends Component {
                 <div>{'Error: ' + this.props.updateAssetError}</div>
             </div>
         }
+
+        let deleteForm =
+        <div className={classes.DialogueMessage}>
+            <div>Delete:</div>
+            <h4>{this.state.resourceToDeleteTitle}</h4>
+            <span>?</span>
+            <div>
+                <div onClick={this.closeDeleteDialogue} className={classes.CancelDelete}>CANCEL</div>
+                <div onClick={this.confirmDelete} className={classes.ConfirmDelete}>DELETE</div>
+            </div>
+        </div> 
+
+        if (this.props.deleteAssetLoading) {
+            deleteForm =
+            <div className={classes.DialogueMessage}><Spinner /></div>
+        }
+
+        if ( this.props.deleteAssetSuccessInfo && !this.props.deleteAssetLoading) {
+            deleteForm =
+            <div className={classes.PostAddInfo}>
+                <div>{this.props.deleteAssetSuccessInfo}</div>
+            </div>
+        } else if ( this.props.deleteAssetError && !this.props.deleteAssetLoading ) {
+            deleteForm =
+            <div className={classes.PostAddError}>
+                <div>{'Error: ' + this.props.deleteAssetError}</div>
+            </div>
+        }
         
 
         return (
             <Grid>
-                <div style={{'paddingTop': '10px'}}>
+                <div>
                     {userAssets}
                 </div>
                 {
@@ -611,6 +654,16 @@ class ConfirmResource extends Component {
                     </UpdateAssetDialogue>
                     : null
                 }
+                {
+                    this.state.showDeleteDialogue ? 
+                    <DeleteAssetDialogue
+                    closeDialogue={this.closeDeleteDialogue}
+                    showDialogue={this.state.showDeleteDialogue}
+                    >
+                        {deleteForm}
+                    </DeleteAssetDialogue>
+                    : null
+                }
             </Grid>  
         );
     };
@@ -620,11 +673,19 @@ const mapStateToProps = state => {
     return {
         userAssets: state.resource.userAssets,
         assetToUpdateFields: state.resource.assetToUpdateFields,
+
+                
+        loading: state.resource.loading,
+        userId: state.auth.user._id,
+
         updateAssetLoading: state.resource.updateAssetLoading,
         updateAssetSuccessInfo: state.resource.updateAssetSuccessInfo,
         updateAssetError: state.resource.updateAssetError,
-        loading: state.resource.loading,
-        userId: state.auth.user._id
+
+        deleteAssetLoading: state.resource.deleteAssetLoading,
+        deleteAssetSuccessInfo: state.resource.deleteAssetSuccessInfo,
+        deleteAssetError: state.resource.deleteAssetError,
+
     };
 };
 
@@ -634,6 +695,7 @@ const mapDispatchToProps = dispatch => {
         onSetAssetToUpdateField: (assetToUpdateFields ) => dispatch(actions.setAssetToUpdateField(assetToUpdateFields)),
         onUpdateMoocAsset: (videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId) => dispatch( actions.updateMoocAsset(videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId) ),
         onUpdateBookAsset: (level, avgRating, agent, resourceId) => dispatch( actions.updateBookAsset(level, avgRating, agent, resourceId) ),
+        onDeleteAsset: (resourceId, userId) => dispatch(actions.deleteAsset(resourceId, userId)),
         onClearUpdateAssetMessages: () => dispatch(actions.clearUpdateAssetMessages())
     };
 };

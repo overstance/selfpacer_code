@@ -498,3 +498,40 @@ export const clearUpdateAssetMessages = () => {
         type: actionTypes.CLEAR_UPDATE_ASSET_MESSAGE
     }
 }
+
+// delete asset 
+
+export const deleteAssetStart = () => {
+    return {
+        type: actionTypes.DELETE_ASSET_START
+    }
+}
+
+export const deleteAssetSuccess = (info, resources) => {
+    return {
+        type: actionTypes.DELETE_ASSET_SUCCESS,
+        info: info,
+        resources: resources
+    }
+}
+
+export const deleteAssetFailed = (error) => {
+    return {
+        type: actionTypes.DELETE_ASSET_FAIL,
+        error: error
+    }
+}
+
+export const deleteAsset = ( resourceId, userId ) => async dispatch => {
+    dispatch(deleteAssetStart());
+
+    const res = await axios.delete(`/api/delete_asset/${resourceId}/${userId}`);
+
+    if (res.data.resources) {
+        dispatch(deleteAssetSuccess('Asset deleted.', res.data.resources));
+        // console.log(res.data);
+    } else {
+        dispatch(deleteAssetFailed(res.data));
+        // console.log(res.data);
+    }
+}

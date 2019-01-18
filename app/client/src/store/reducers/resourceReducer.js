@@ -26,7 +26,11 @@ const initialState = {
     },
     updateAssetLoading: false,
     updateAssetSuccessInfo: null,
-    updateAssetError: null
+    updateAssetError: null,
+
+    deleteAssetLoading: false,
+    deleteAssetSuccessInfo: null,
+    deleteAssetError: null
 };
 
 // Add user resource
@@ -140,7 +144,7 @@ const updateMoocAssetSuccess = ( state, action ) => {
 };
 
 const updateMoocAssetFail = ( state, action ) => {
-    return updateObject( state, { loading: false, updateAssetError: action.error } );
+    return updateObject( state, { updateAssetLoading: false, updateAssetError: action.error } );
 };
 
 // update book asset
@@ -158,13 +162,36 @@ const updateBookAssetSuccess = ( state, action ) => {
 };
 
 const updateBookAssetFail = ( state, action ) => {
-    return updateObject( state, { loading: false, updateAssetError: action.error } );
+    return updateObject( state, { updateAssetLoading: false, updateAssetError: action.error } );
 };
 
 // clear update asset message
 
 const clearUpdateAssetMessages = ( state, action ) => {
-    return updateObject( state, { updateAssetError: null, updateAssetSuccessInfo: null  });
+    return updateObject( state, { 
+        updateAssetError: null,
+        updateAssetSuccessInfo: null,
+        deleteAssetError: null,
+        deleteAssetSuccessInfo: null  
+    });
+};
+
+// delete asset
+
+const deleteAssetStart = ( state, action ) => {
+    return updateObject( state, { deleteAssetLoading: true } );
+};
+
+const deleteAssetSuccess = ( state, action ) => {
+    return updateObject( state, {
+        deleteAssetSuccessInfo: action.info,
+        userAssets: action.resources,
+        deleteAssetLoading: false
+    } );
+};
+
+const deleteAssetFail = ( state, action ) => {
+    return updateObject( state, { deleteAssetLoading: false, deleteAssetError: action.error } );
 };
 
 
@@ -206,6 +233,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.UPDATE_BOOK_ASSET_START: return updateBookAssetStart( state, action );
         case actionTypes.UPDATE_BOOK_ASSET_SUCCESS: return updateBookAssetSuccess( state, action );
         case actionTypes.UPDATE_BOOK_ASSET_FAIL: return updateBookAssetFail( state, action );
+
+        case actionTypes.DELETE_ASSET_START: return deleteAssetStart( state, action );
+        case actionTypes.DELETE_ASSET_SUCCESS: return deleteAssetSuccess( state, action );
+        case actionTypes.DELETE_ASSET_FAIL: return deleteAssetFail( state, action );
 
         case actionTypes.CLEAR_UPDATE_ASSET_MESSAGE: return clearUpdateAssetMessages( state, action );
 

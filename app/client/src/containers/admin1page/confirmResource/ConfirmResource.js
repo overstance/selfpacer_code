@@ -70,7 +70,7 @@ class ConfirmResource extends Component {
 
         return (
             <Container>
-                <div style={{'paddingTop': '10px'}}>
+                <div style={{'padding': '16px 0'}}>
                     {unconfirmedResources}
                 </div>
             </Container>  
