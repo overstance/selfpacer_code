@@ -23,7 +23,7 @@ class AddResources extends Component {
     state = {
         fillError: null,
         subject: {
-            value: this.props.activeSubject,
+            value: this.props.activeSubjectTitle,
             label: "select category", 
             name: "subject",
             validation: {
@@ -1144,7 +1144,7 @@ const mapStateToProps = state => ({
     subjects: state.explore.subjects,
     user: state.auth.user,
     activeContentPage: state.explore.activeContentType,
-    activeSubject: state.clickedSubject.subject[0].title,
+    activeSubjectTitle: state.clickedSubject.clickedSubjectTitle,
 
     youtubePlaylistLoading: state.admin1.youtubePlaylistLoading,
     youtubePlaylistAddedFeedback: state.admin1.youtubePlaylistAddedFeedback,

@@ -3,7 +3,6 @@ import axios from 'axios';
 import { FETCH_USER, LOGOUT_USER } from './actionTypes';
 import * as actionTypes from './actionTypes';
 
-
 export const setUserRecentlyViewed = ( userRecentlyViewed ) => {
     return {
         type: actionTypes.SET_USER_RECENTLY_VIEWED,
@@ -32,27 +31,74 @@ export const fetchRecentlyViewedSuccess = ( resources ) => {
     }
 }
 
-export const fetchUser = () => async (dispatch) => {
+export const setAuthentication = () => {
+    return {
+        type: actionTypes.SET_AUTHENTICATION
+    }
+}
+
+export const fetchUserAssetStart = () => {
+    return {
+        type: actionTypes.FETCH_USER_ASSET_START
+    }
+}
+
+export const fetchUserAssetSuccess = ( userAssets ) => {
+    return {
+        type: actionTypes.FETCH_USER_ASSET_SUCCESS,
+        userAssets: userAssets
+    }
+}
+
+export const fetchUserAssetFailed = ( error ) => {
+    return {
+        type: actionTypes.FETCH_USER_ASSET_FAILED,
+        error: error
+    }
+}
+
+export const fetchUser = () => async dispatch => {
     const res = await axios.get('/api/current_user');
-    dispatch({ type: FETCH_USER, payload: res.data });
 
-    if ( res.data.recentlyViewed.length > 0 ) {
-        let userId = res.data._id;
-        const res2 = await axios.get(`/api/recently_viewed/${userId}`);
+    if (res.data._id) {
+        // let userId = res.data._id
+        dispatch({ type: FETCH_USER, payload: res.data });
 
-        if ( res2.data.resources) {
-            dispatch(fetchRecentlyViewedSuccess(res2.data.resources));
-            // console.log(res2.data.resources);
+        if ( res.data.recentlyViewed.length > 0 ) {
+            let userId = res.data._id;
+            const res2 = await axios.get(`/api/recently_viewed/${userId}`);
+    
+            if ( res2.data.resources) {
+                dispatch(fetchRecentlyViewedSuccess(res2.data.resources));
+                // console.log(res2.data.resources);
+            }
         }
+
+        /* dispatch(fetchUserAssetStart());
+        const res3 = await axios.get(`/api/user_assets/${userId}`)
+        
+        if (res3.data.resources) {
+            // console.log(res.data.resources);
+            dispatch(fetchUserAssetSuccess(res3.data.resources));
+        } else {
+            // console.log(res.data)
+            dispatch(fetchUserAssetFailed( res3.data ));
+        } */
+    
+        dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
+        dispatch(setUserLikeCount(res.data.likeCount));
+        dispatch(setUserPinnedCollections(res.data.pinnedCollections));
+        /* dispatch(fetchUserAssets(res.data._id));
+        dispatch(fetchUserCollections(res._id)); */
+    } else {
+        localStorage.removeItem('token');
     }
 
-    dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
-    dispatch(setUserLikeCount(res.data.likeCount));
-    dispatch(setUserPinnedCollections(res.data.pinnedCollections));
 };
 
 export const logout = () => async (dispatch) => {
     const res = await axios.get('/api/logout');
+    localStorage.removeItem('token');
     dispatch({ type: LOGOUT_USER, payload: res.data });
 };
 
@@ -169,41 +215,42 @@ export const registerUser = (name, email, password, password2, history) => {
     }
 };
 
-export const loginUser = (email, password, history) => {
-    return dispatch => {
+export const loginUser = (email, password, history) => async dispatch => {
+   
         dispatch(authStart());
         const user = {
             username: email,
             password: password,
         };
 
-        axios.post('/api/login', user)
-            .then(res => {
+        const res = await axios.post('/api/login', user);
 
-                if (res.data.info === 'Please verify your email') {
-                    dispatch(verificationRequired(res.data.emailToVerify));
-                    history.push('/reverify_email');
-                    return;   
-                }
+        if (res.data.info === 'Please verify your email') {
+            dispatch(verificationRequired(res.data.emailToVerify));
+            history.push('/reverify_email');
+            return;   
+        }
 
-                if (res.data._id) {
-                    dispatch(authSuccess(res.data));
-                    history.push('/');
-                    return;
-                }
+        if (res.data._id) {
+            /* axios.interceptors.response.use(function (response) {
+            // Do something with response data
+                localStorage.setItem("token",res.data._id);
+            return response;
+            }); */
+            localStorage.setItem("token",res.data._id);
 
-                if (res.data.username || res.data.password) {
-                    dispatch(ValidationErrors(res.data));
-                    return;
-                }
-            })
-            .catch(error => {
-                dispatch(authFail(error.message));
-                console.log(error.message);
-            }
-            );
+            dispatch(authSuccess(res.data));
+            history.push('/');
+            return;
+        } else {
+            localStorage.removeItem('token');
+        };
 
-    }
+        if (res.data.username || res.data.password) {
+            dispatch(ValidationErrors(res.data));
+            return;
+        };
+
 };
 
 // Forgot Password

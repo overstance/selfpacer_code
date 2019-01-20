@@ -50,10 +50,6 @@ module.exports = app => {
     res.send(req.user);
   });
 
-  /*app.get('/api/login', (req, res) => {
-    res.render('login');
-  });*/
-
   app.get('/api/current_user', (req, res) => {
     res.send(req.user);
   });

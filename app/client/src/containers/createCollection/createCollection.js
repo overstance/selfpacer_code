@@ -10,18 +10,25 @@ import PostSubmitDailogue from '../../components/UserInterface/PostSubmitDialogu
 
 class CreateCollection extends Component {
 
-      componentWillUnmount() {
-          this.props.onResetCollectionMessages();
-      }
+    componentWillUnmount() {
+        this.props.onResetCollectionMessages();
+    }
 
-      handleBack = () => {
-        this.props.history.goBack()
-      }
-    
-      handleForward = () => {
-        // console.log(this.props.history)
-        this.props.history.go(+1)
-      }
+    componentDidMount() {
+        if(this.props.resourceToCollect.id === '') {
+            console.log('no resource');
+            this.props.history.push('/explore');
+        }
+    }
+
+    handleBack = () => {
+    this.props.history.goBack()
+    }
+
+    handleForward = () => {
+    // console.log(this.props.history)
+    this.props.history.go(+1)
+    }
 
     state = {
         fillError: null,

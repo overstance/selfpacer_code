@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
-import isEmpty from './validation/isEmpty';
+// import isEmpty from './validation/isEmpty';
 
 
 const initialState = {
@@ -35,8 +35,12 @@ const initialState = {
     userLikeCount: null,
 };
 
+const setAuthentication = (state, action) => {
+    return updateObject(state, { isAuthenticated: true, user: { _id: action.userId } });
+};
+
 const fetchUser = (state, action) => {
-    return updateObject(state, { user: action.payload, isAuthenticated: !isEmpty(action.payload), isAdmin: action.payload.isAdmin });
+    return updateObject(state, { user: action.payload,/*  isAuthenticated: !isEmpty(action.payload), */ isAdmin: action.payload.isAdmin });
 };
 
 const authLogout = (state, action) => {
@@ -214,6 +218,7 @@ const updateUserLikedCount = ( state, action ) => {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.SET_AUTHENTICATION: return setAuthentication(state, action);
         case actionTypes.FETCH_USER: return fetchUser(state, action);
         case actionTypes.AUTH_START: return authStart(state, action);
         case actionTypes.VALIDATION_ERRORS: return validationErrors(state, action);

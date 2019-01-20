@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import reduxThunk from 'redux-thunk';
 
+import { SET_AUTHENTICATION } from './store/actions/actionTypes';
+
 import './index.css';
 import App from './App';
 import { unregister } from './registerServiceWorker';
@@ -34,6 +36,11 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(reduxThunk)
 ));
+
+const token = localStorage.getItem('token');
+if (token) {
+  store.dispatch({ type: SET_AUTHENTICATION, userId: localStorage.token });
+}
 
 
 const app = (

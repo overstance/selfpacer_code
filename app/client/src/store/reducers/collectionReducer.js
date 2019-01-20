@@ -4,7 +4,7 @@ import { updateObject } from '../utility';
 const initialState = {
     error: null,
     successMessage: null,
-    resourceToCollect: {},
+    resourceToCollect: { id: ''},
 
     userCollections: [],
     userCollectionsFetchErrors: null,
@@ -38,7 +38,7 @@ const initialState = {
     deleteCollectionSuccessInfo: null,
     deleteCollectionError: null,
 
-    pinnedCollectionIds: null,
+    pinnedCollectionIds: [],
 
     fetchUserPinnedCollectionsLoading: false,
     fetchUserPinnedCollectionsError: null,

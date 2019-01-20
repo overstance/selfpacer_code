@@ -4,6 +4,8 @@ import { updateObject } from '../utility';
 const initialState = {
     subject: [],
     loading: false,
+
+    clickedSubjectTitle: '',
     error: null,
 
     allLoading: false,
@@ -16,12 +18,13 @@ const initialState = {
 // Fetch clicked subject paths and study topics
 
 const fetchClickedSubjectStart = ( state, action ) => {
-    return updateObject( state, { loading: true, subject: [] } );
+    return updateObject( state, { loading: true } );
 };
 
 const fetchClickedSubjectSuccess = ( state, action ) => {
     return updateObject( state, {
         subject: action.clickedSubject,
+        clickedSubjectTitle: action.clickedSubject[0].title,
         loading: false
     } );
 };

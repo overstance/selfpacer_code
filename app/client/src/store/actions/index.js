@@ -11,7 +11,8 @@ export {
     forgotPassword,
     clearForgetPasswordError,
     confirmResetToken,
-    resetPassword
+    resetPassword,
+    setAuthentication
 } from './auth';
 export {
     fetchSubjects,
