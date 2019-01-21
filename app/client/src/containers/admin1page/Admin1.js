@@ -93,7 +93,7 @@ class Admin1 extends Component {
     render() {
         return(
             <Container>
-                <div style={{'padding': '16px 0'}}>
+                <div >
                     <div className={classes.Subheader}>
                         <SubHeader 
                             subheadTitle="CONFIRM RESOURCES"

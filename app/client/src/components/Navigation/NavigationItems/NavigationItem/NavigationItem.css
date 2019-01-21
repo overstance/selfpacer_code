@@ -8,9 +8,7 @@
 .NavigationItem a {
     color: var(--green);
     text-decoration: none;
-    /* width: 100%; */
     box-sizing: border-box; 
-    /* display: inline-block; */
     display: inline-flex;
     flex-wrap: nowrap;
     align-items: center;

@@ -51,19 +51,22 @@ const setToCollectResource = ( state, action ) => {
     return updateObject( state, { resourceToCollect: action.resource } );
 };
 
+// create collection
+
 const createCollectionStart = ( state, action ) => {
-    return updateObject( state, { error: null, successMessage: null } );
+    return updateObject( state, { error: null, successMessage: null, loading: true } );
 };
 
 const createCollectionSuccess = ( state, action ) => {
     return updateObject( state, {
         successMessage: action.message,
-        error: null
+        error: null,
+        loading: false
     } );
 };
 
 const createCollectionFail = ( state, action ) => {
-    return updateObject( state, { error: action.error } );
+    return updateObject( state, { error: action.error, loading: false } );
 };
 
 // Reset collection messages after form submit

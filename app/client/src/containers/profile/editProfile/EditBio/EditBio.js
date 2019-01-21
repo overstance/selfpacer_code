@@ -9,9 +9,9 @@ import Spinner from '../../../../components/UserInterface/Spinner/Spinner';
 
 class EditBio extends Component {
 
-    componentDidMount() {
+    /* componentDidMount() {
         this.props.onFetchSubjects();
-    }
+    } */
 
     state = {
         biodataFillError: null,

@@ -8,6 +8,9 @@ import EditBio from './EditBio/EditBio';
 class EditProfile extends Component {
 
     componentDidMount() {
+        if(!this.props.accountType) {
+            this.props.history.push('/profile');
+        }
         this.props.onResetEditProfileMessages();
     }
 
@@ -32,7 +35,8 @@ class EditProfile extends Component {
 
 const mapStateToProps = state => ({
     facebookUser: state.auth.user.facebookId,
-    googleUser: state.auth.user.googleId
+    googleUser: state.auth.user.googleId,
+    accountType: state.auth.user.accountType
 });
 
 const mapDispatchToProps = dispatch => {

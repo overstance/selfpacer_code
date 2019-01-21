@@ -28,7 +28,7 @@ class Profile extends Component {
 
         return (
         <Container>
-            <div>
+            <div className={classes.AllWrapper}>
                 <div className={classes.ProfilePanelWrapper}>
                     <div className={classes.ProfilePanel}>
                         <div className={classes.Biodata}>

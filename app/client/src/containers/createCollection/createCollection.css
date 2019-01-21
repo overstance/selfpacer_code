@@ -19,7 +19,7 @@
     flex-flow: row wrap;
     text-align: center;
     padding: 10px;
-    background: var(--white); 
+    background: var(--green); 
 }
 
 .ContainerItem {
@@ -43,7 +43,7 @@
 .AdminAction {
     color: var(--darkBlue);
     font-weight: 700;
-    padding: 20px 0;
+    /* padding: 20px 0; */
 }
 
 .Form {

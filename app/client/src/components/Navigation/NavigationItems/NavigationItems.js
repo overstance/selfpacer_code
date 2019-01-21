@@ -9,10 +9,10 @@ import * as actions from '../../../store/actions/index';
 
 class NavigationItems extends Component {
 
-    profileClickedHandler = () => {
+    /* profileClickedHandler = () => {
         this.props.onFetchUserCollections( this.props.userId );
         this.props.onFetchUserAssets( this.props.userId );
-    }
+    } */
 
     render() {
         return(
@@ -23,7 +23,7 @@ class NavigationItems extends Component {
                 </li>
                 {this.props.isAuthenticated && !this.props.showSideDrawer ? 
                 <Link style={{ 'paddingLeft': '15px'}} to="/profile" 
-                onClick={this.profileClickedHandler}
+                // onClick={this.profileClickedHandler}
                 >
                     <div className={classes.User}></div>
                 </Link> 

@@ -179,7 +179,7 @@ class AddMooc extends Component {
             lastUpdated: {
                 elementType: 'input',
                 elementConfig: {
-                    label: "last Updated"
+                    label: "publish date or last Updated"
                 },
                 value: '',
                 validation: {},

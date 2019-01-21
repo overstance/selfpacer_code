@@ -32,10 +32,10 @@ class Layout extends Component {
             return { showSideDrawer: !prevState.showSideDrawer };
         });
 
-        if (this.props.userId) {
+        /* if (this.props.userId) {
             this.props.onFetchUserCollections( this.props.userId);
             this.props.onFetchUserAssets( this.props.userId );
-        }
+        } */
     }
 
     searchbarToggleHandler = () => {

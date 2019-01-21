@@ -56,3 +56,9 @@
   }
 
 }
+
+@media (max-width: 875px) {
+  .Footer {
+    padding: 0 16px;
+  }
+}

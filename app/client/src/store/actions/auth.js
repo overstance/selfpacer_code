@@ -37,6 +37,8 @@ export const setAuthentication = () => {
     }
 }
 
+// initialize(fetch) user asset
+
 export const fetchUserAssetStart = () => {
     return {
         type: actionTypes.FETCH_USER_ASSET_START
@@ -57,12 +59,37 @@ export const fetchUserAssetFailed = ( error ) => {
     }
 }
 
+// initialize(fetch) user Collections
+
+export const fetchUserCollectionsSuccess = ( collections ) => {
+    return {
+        type: actionTypes.FETCH_USER_COLLECTIONS_SUCCESS,
+        collections: collections
+    };
+};
+
+export const fetchUserCollectionsFail = ( error ) => {
+    return {
+        type: actionTypes.FETCH_USER_COLLECTIONS_FAIL,
+        error: error
+    };
+};
+
+export const fetchUserCollectionsStart = () => {
+    return {
+        type: actionTypes.FETCH_USER_COLLECTIONS_START
+    };
+};
+
 export const fetchUser = () => async dispatch => {
     const res = await axios.get('/api/current_user');
 
     if (res.data._id) {
-        // let userId = res.data._id
+        let userId = res.data._id
         dispatch({ type: FETCH_USER, payload: res.data });
+        dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
+        dispatch(setUserLikeCount(res.data.likeCount));
+        dispatch(setUserPinnedCollections(res.data.pinnedCollections));
 
         if ( res.data.recentlyViewed.length > 0 ) {
             let userId = res.data._id;
@@ -74,7 +101,7 @@ export const fetchUser = () => async dispatch => {
             }
         }
 
-        /* dispatch(fetchUserAssetStart());
+        dispatch(fetchUserAssetStart());
         const res3 = await axios.get(`/api/user_assets/${userId}`)
         
         if (res3.data.resources) {
@@ -83,13 +110,17 @@ export const fetchUser = () => async dispatch => {
         } else {
             // console.log(res.data)
             dispatch(fetchUserAssetFailed( res3.data ));
-        } */
-    
-        dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
-        dispatch(setUserLikeCount(res.data.likeCount));
-        dispatch(setUserPinnedCollections(res.data.pinnedCollections));
-        /* dispatch(fetchUserAssets(res.data._id));
-        dispatch(fetchUserCollections(res._id)); */
+        }
+
+        dispatch(fetchUserCollectionsStart());
+        const res4 = await axios.get(`/api/collections/${userId}`);
+
+        if (res4.data.collections) {
+            dispatch(fetchUserCollectionsSuccess(res4.data.collections));
+        } else {
+            dispatch(fetchUserCollectionsFail(res4.data));
+        }
+        
     } else {
         localStorage.removeItem('token');
     }

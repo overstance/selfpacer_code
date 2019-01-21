@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
+import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSpinner';
 import Grid from '../../components/UserInterface/Grid/Grid';
 import PostSubmitDailogue from '../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
 
@@ -114,6 +115,11 @@ class CreateCollection extends Component {
 
     render() {
 
+        let createCollectionButtonText = 'create';
+        if(this.props.loading) {
+            createCollectionButtonText = <ButtonSpinner />;
+        }
+
         const form = 
         <form 
         className={classes.Form}
@@ -140,8 +146,8 @@ class CreateCollection extends Component {
                 
             </div>                           
             { (!this.state.title.valid && this.state.title.touched)  ? 
-                <Button btnType='Danger' disabled> Create </Button> :
-                <Button btnType='Success'> Create </Button>    
+                <Button btnType='Danger' disabled> {createCollectionButtonText} </Button> :
+                <Button btnType='Success'> {createCollectionButtonText} </Button>    
             }
             { this.props.error ? 
                 <div>
@@ -183,7 +189,7 @@ class CreateCollection extends Component {
             <Grid>
                 <div className={classes.ContentItems}>
                     <div className={classes.ContainerItem}>
-                        <div className={classes.AdminAction}>CREATE A COLLECTION</div>
+                        <div className={classes.AdminAction}>Create Collection</div>
                         {content}
                     </div >
                 </div>            
@@ -194,6 +200,7 @@ class CreateCollection extends Component {
 
 const mapStateToProps = state => ({
     successMessage: state.collection.successMessage,
+    loading: state.collection.loading,
     error: state.collection.error,
     user: state.auth.user,
     resourceToCollect: state.collection.resourceToCollect

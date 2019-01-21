@@ -8,6 +8,10 @@ import Input from '../../components/UserInterface/Input/Input';
 
 class AllSharedCollections extends Component {
 
+    componentDidMount() {
+        this.props.onFetchSharedCollections();
+    }
+
     state = {
         subject: {
             value: 'Accounting',
@@ -246,6 +250,7 @@ const mapDispatchToProps = dispatch => {
         // onFetchSharedCollections: () => dispatch(actions.fetchSharedCollections()),
         // onFetchRecentlyViewedResources: (userId) => dispatch(actions.fetchRecentlyViewedResources(userId)),
         // onClearMessages: () => dispatch( actions.clearAddToCollectionMessages()),
+        onFetchSharedCollections: () => dispatch(actions.fetchSharedCollections()),
         onSetClickedCollectionAttributes: ( attributes ) => dispatch(actions.setClickedCollectionAttributes( attributes ))
     };
 };

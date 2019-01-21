@@ -95,6 +95,10 @@
         display: none;
     }
 
+    .Toolbar {
+        padding: 0 16px;
+    }
+
 }
 
 
