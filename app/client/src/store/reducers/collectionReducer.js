@@ -19,7 +19,7 @@ const initialState = {
 
     resourceAlreadyCollectedTitle: null,
 
-    clickedCollectionAttributes: null,
+    clickedCollectionAttributes: {id: ''},
 
     collectedResources: [],
     fetchcollectedResourceError: null,

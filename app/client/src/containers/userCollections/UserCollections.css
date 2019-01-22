@@ -60,6 +60,10 @@
     overflow-x: hidden;
 }
 
+.SharedCollectionOuterWrapper {
+    background: var(--green);
+}
+
 .SharedCollectionWrapper {
     display: flex;
     flex-wrap: nowrap;

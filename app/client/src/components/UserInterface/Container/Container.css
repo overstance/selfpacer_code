@@ -1,5 +1,5 @@
 .container {
-  padding: 0 16px;
+  /* padding: 0 16px; */
   width: 100%;
   margin-right: auto;
   margin-left: auto;
@@ -13,8 +13,8 @@
   }
 }
 
-@media ( max-width: 875px) {
+/* @media ( max-width: 875px) {
   .container {
     padding: 0;
   }
-}
+} */

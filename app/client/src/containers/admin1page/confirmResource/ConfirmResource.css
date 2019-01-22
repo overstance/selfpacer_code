@@ -106,9 +106,9 @@
     font-weight: 400;
     color: var(--green);
     background: var(--darkBlue);
-    margin: 10px auto;
+    margin: 0 auto;
     border-radius: 20px;
-    max-width: 400px;
+    max-width: 80%;
     text-align: center;
     overflow: auto;   
 }

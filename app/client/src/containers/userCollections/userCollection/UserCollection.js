@@ -16,7 +16,18 @@ import PostDeleteDialogue from '../../../components/UserInterface/PostSubmitDial
 
 class UserCollection extends Component {
 
+    /* componentWillMount() {
+        if (this.props.collectionId === null) {
+            this.props.history.push('/collections');
+
+        }
+    } */
+
     componentDidMount() {
+        if (this.props.clickedCollectionAttributes.id === '') {
+            this.props.history.push('/collections');
+        }
+
         if (this.props.match.params.id) {
           this.props.onFetchCollectionById(this.props.match.params.id);
         }

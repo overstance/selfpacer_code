@@ -421,7 +421,7 @@ class UserCollections extends Component {
             <Grid>
                 <div>
                     <div className={classes.YourCollection}>SHARED COLLECTIONS</div>
-                    {sharedCollectionsContent}    
+                    <div className={classes.SharedCollectionOuterWrapper}>{sharedCollectionsContent}</div>    
                 </div>
                 <div>
                     <div className={classes.YourCollection}>YOUR COLLECTIONS</div>

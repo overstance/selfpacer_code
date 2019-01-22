@@ -86,19 +86,25 @@ class UserAsset extends Component {
                     <div className={classes.FeedbackContainer}>
                         <div className={classes.Statistics}>
                             <div className={classes.StatisticsLike}>
-                                <div><span className={classes.FeedBackIconLike} /></div>
-                                <div className={classes.StatisticsCount}>{this.props.likeCount}</div>
-                                <div className={classes.StatisticsLabel}>likes</div>
+                                <span className={classes.FeedBackIconLike} />
+                                <div className={classes.CountAndLabel}>                                   
+                                    <div className={classes.StatisticsCount}>{this.props.likeCount}</div>
+                                    <div className={classes.StatisticsLabel}>likes</div>
+                                </div>
                             </div>
                             <div className={classes.StatisticsCollections}>
-                                <div><span className={classes.FeedBackIconCollect} /></div>
-                                <div className={classes.StatisticsCount}>{this.props.collectCount}</div>
-                                <div className={classes.StatisticsLabel}>collect counts</div>
+                                <span className={classes.FeedBackIconCollect} />
+                                <div className={classes.CountAndLabel}>
+                                    <div className={classes.StatisticsCount}>{this.props.collectCount}</div>
+                                    <div className={classes.StatisticsLabel}>collect counts</div>
+                                </div>      
                             </div>
                             <div className={classes.StatisticsAssets}>
-                                <div><span className={classes.FeedBackIconView} /></div>
-                                <div className={classes.StatisticsCount}>{this.props.viewCount}</div>
-                                <div className={classes.StatisticsLabel}>views</div>
+                                <span className={classes.FeedBackIconView} />
+                                <div className={classes.CountAndLabel}>
+                                    <div className={classes.StatisticsCount}>{this.props.viewCount}</div>
+                                    <div className={classes.StatisticsLabel}>views</div>
+                                </div>   
                             </div>
                         </div>
                         <div className={classes.AssetOptions}>
