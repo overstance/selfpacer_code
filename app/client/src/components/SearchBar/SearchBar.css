@@ -24,7 +24,7 @@
 }
 
 .SearchForm {  
-  width: 100px;
+  /* width: 100px; */
   max-width: 100%;
   display: -ms-flexbox;
   display: flex;
@@ -40,7 +40,8 @@
   flex-basis: 0;
   -ms-flex-positive: 1;
   flex-grow: 1;
-  max-width: 80%;
+  max-width: 70%;
+  width:150px;
   text-align: left;
   background: none;
   font-size: large;
@@ -90,5 +91,4 @@
     max-width: 70%;
     width: 100px;
   }
-
 }

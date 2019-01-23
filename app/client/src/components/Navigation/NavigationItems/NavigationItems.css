@@ -28,9 +28,9 @@
 }
 
 .User:hover {
-    /* background-image: url('../../../assets/images/user-circle-focus.svg'); */
-    border: 2px solid var(--green);
-    background-size: 88%;
+    background-image: url('../../../assets/images/user-circle-focus.svg');
+    /* border: 2px solid var(--green); */
+    /* background-size: 88%; */
 }
 
 @media (min-width: 875px) {
