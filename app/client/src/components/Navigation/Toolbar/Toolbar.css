@@ -52,9 +52,9 @@
 
 .ToolBarLogo {
     display: block;
-    width: 144px;
-    height: 45px;
-    background-image: url('../../../assets/images/logo-green.png');
+    width: 192px;
+    height: 60px;
+    background-image: url('../../../assets/images/selfpacer_hareLogo_green.png');
     background-repeat: no-repeat;
     background-size: 100%;
     background-position-x: center;
@@ -84,10 +84,10 @@
         display: none;
     }
 
-    .Toolbar {
+    /* .Toolbar {
         height: 50px;
         padding-top: 5px;
-    }
+    } */
 
 }
 
