@@ -571,7 +571,7 @@ class ConfirmResource extends Component {
 
         if (this.state.isMoocAssets && !this.props.loading) {
             
-            let allMooc = this.props.userAssets.filter( resource => resource.source  === 'mooc');
+            let allMooc = this.props.userAssets.filter( resource => resource.type  === 'mooc');
 
             if ( allMooc.length === 0) {
                 userAssets =
