@@ -288,7 +288,7 @@ export const increaseResourceViewCount = ( id, views ) => async dispatch => {
         resourceViews: views + 1
     };
 
-    console.log(resource);
+    // console.log(resource);
 
     await axios.post('/api/increase_resourceviews', resource); 
 

@@ -58,12 +58,16 @@
 
 .Logo {
     text-align: center;
-    background: var(--blue);
+    height: 80px;
+    width: 100%;
+    background-image: url('../../../assets/images/selfpacer_hareLogo_green.png');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 60%;
+    /* background: var(--blue); */
+    border-bottom: 2px solid var(--blue);
     display: block;
-}
-
-.Logo:hover {
-    background: var(--lightBlue);
 }
     
 .Logo img {

@@ -246,42 +246,39 @@ export const registerUser = (name, email, password, password2, history) => {
     }
 };
 
-export const loginUser = (email, password, history) => async dispatch => {
+export const loginUser = (email, password, history) => {
    
+    return dispatch => {
         dispatch(authStart());
         const user = {
             username: email,
             password: password,
         };
 
-        const res = await axios.post('/api/login', user);
-
-        if (res.data.info === 'Please verify your email') {
-            dispatch(verificationRequired(res.data.emailToVerify));
-            history.push('/reverify_email');
-            return;   
-        }
-
-        if (res.data._id) {
-            /* axios.interceptors.response.use(function (response) {
-            // Do something with response data
+        axios.post('/api/login', user)
+        .then( res => {
+            if (res.data.info === 'Please verify your email') {
+                dispatch(verificationRequired(res.data.emailToVerify));
+                history.push('/reverify_email');
+                return;   
+            }
+    
+            if (res.data._id) {
                 localStorage.setItem("token",res.data._id);
-            return response;
-            }); */
-            localStorage.setItem("token",res.data._id);
-
-            dispatch(authSuccess(res.data));
-            history.push('/');
-            return;
-        } else {
-            localStorage.removeItem('token');
-        };
-
-        if (res.data.username || res.data.password) {
-            dispatch(ValidationErrors(res.data));
-            return;
-        };
-
+                dispatch(authSuccess(res.data));
+                history.push('/');
+                return;
+            } else {
+                localStorage.removeItem('token');
+            };
+    
+            if (res.data.username || res.data.password) {
+                dispatch(ValidationErrors(res.data));
+                return;
+            };
+        })
+        .catch(error => dispatch(authFail(error.message)));   
+    }
 };
 
 // Forgot Password

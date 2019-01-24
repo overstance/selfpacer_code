@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import logoImage from '../../../assets/images/logo-green.png';
+// import logoImage from '../../../assets/images/selfpacer_hareLogo_green.png';
 //import Logo from '../../Logo/Logo';
 import classes from './Register.css';
 import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
@@ -337,7 +337,7 @@ class Register extends Component {
                 <AuthBackdrop show clicked={this.handleBack}/>
                 <div className={classes.container}>
                     <a href="/" className={classes.Logo}>
-                        <img src={logoImage} alt='logo' />
+                        {/* <img src={logoImage} alt='logo' /> */}
                     </a>
                     <div className={classes.Menu}>
                         <h2 className={classes.HeaderItem}> SIGN UP</h2>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
-import logoImage from '../../../assets/images/logo-green.png';
+// import logoImage from '../../../assets/images/selfpacer_hareLogo_green.png';
 import classes from './Login.css';
 import facebookLogo from '../../../assets/images/Facebook-2-512.png';
 import googleLogo from '../../../assets/images/google_PNG19635.png';
@@ -287,7 +287,7 @@ class Login extends Component {
                 <AuthBackdrop show clicked={this.handleBack} />
                 <div className={classes.container}>
                     <a href="/" className={classes.Logo}>
-                        <img src={logoImage} alt='logo' />
+                        {/* <img src={logoImage} alt='logo' /> */}
                     </a>
                     <div className={classes.Menu}>
                         <h2 className={classes.HeaderItem}>LOG IN</h2>
