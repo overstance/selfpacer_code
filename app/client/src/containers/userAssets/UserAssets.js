@@ -72,6 +72,10 @@ class ConfirmResource extends Component {
     }
 
     state = {
+        allAssets: true,
+        isYoutubeAssets: false,
+        isBookAssets: false,
+        isMoocAssets: false,
         fillError: null,
         assetToUpdateType: null,
         assetToUpdateId: null,
@@ -462,6 +466,22 @@ class ConfirmResource extends Component {
         
     }
 
+    allClickedHandler = () => {
+        this.setState({ allAssets: true, isYoutubeAssets: false, isMoocAssets: false, isBookAssets: false});
+    }
+
+    youtubeClickedHandler = () => {
+        this.setState({ allAssets: false, isYoutubeAssets: true, isMoocAssets: false, isBookAssets: false});
+    }
+
+    moocClickedHandler = () => {
+        this.setState({ allAssets: false, isYoutubeAssets: false, isMoocAssets: true, isBookAssets: false});
+    }
+
+    booksClickedHandler = () => {
+        this.setState({ allAssets: false, isYoutubeAssets: false, isMoocAssets: false, isBookAssets: true});
+    }
+
     render() {
        
         let userAssets = 
@@ -469,7 +489,14 @@ class ConfirmResource extends Component {
             <div className={classes.Spinner}><Spinner /></div>
         </div>
 
-        if (!this.props.loading) {
+        if (!this.props.loading && this.state.allAssets) {
+
+            if (this.props.userAssets.length === 0) {
+                userAssets =
+                <div className={classes.PostAddInfo}>
+                    <div>You have no added resources.</div>
+                </div>
+            } else {
             userAssets = this.props.userAssets.map( (resource, i) => (
                 <Resource 
                 key={i}
@@ -498,14 +525,133 @@ class ConfirmResource extends Component {
                 dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
                 />
             ));
+            }
         }
-        
-        if (!this.props.loading && this.props.userAssets.length === 0) {
-            userAssets =
-            <div className={classes.PostAddInfo}>
-                <div>You have no added resources.</div>
-            </div>
-        }  
+
+        if (this.state.isYoutubeAssets && !this.props.loading) {
+
+            let allYoutube = this.props.userAssets.filter( resource => resource.source  === 'youtube.com');
+
+            if ( allYoutube.length === 0) {
+                userAssets =
+                <div className={classes.PostAddInfo}>
+                    <div>You have no added Youtube resources.</div>
+                </div>
+            } else {
+            userAssets = allYoutube.map( (resource, i) => (
+                <Resource 
+                key={i}
+                id={resource._id} 
+                link={resource.link}
+                image={resource.img}
+                title={resource.title}
+                likes={resource.likes}
+                lastUpdated={resource.lastUpdated}
+                avgRating={resource.avgRating}
+                tutor={resource.tutor}
+                enrollees={resource.enrollees}
+                duration={resource.duration}
+                level={resource.level}
+                author={resource.author}
+                youtubeViews={resource.youtubeviews}
+                publishDate={resource.publishDate}
+                source={resource.source}
+                type={resource.type}
+                videoCount={resource.videoCount}
+                likeCount={numberWithCommas(resource.likes)}
+                collectCount={numberWithCommas(resource.collectCount)}
+                viewCount={numberWithCommas(resource.views)}
+                updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
+                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
+                dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
+                />
+            ));
+            }
+        };
+
+        if (this.state.isMoocAssets && !this.props.loading) {
+            
+            let allMooc = this.props.userAssets.filter( resource => resource.source  === 'mooc');
+
+            if ( allMooc.length === 0) {
+                userAssets =
+                <div className={classes.PostAddInfo}>
+                    <div>You have no added mooc resources.</div>
+                </div>
+            } else {
+            userAssets = allMooc.map( (resource, i) => (
+                <Resource 
+                key={i}
+                id={resource._id} 
+                link={resource.link}
+                image={resource.img}
+                title={resource.title}
+                likes={resource.likes}
+                lastUpdated={resource.lastUpdated}
+                avgRating={resource.avgRating}
+                tutor={resource.tutor}
+                enrollees={resource.enrollees}
+                duration={resource.duration}
+                level={resource.level}
+                author={resource.author}
+                youtubeViews={resource.youtubeviews}
+                publishDate={resource.publishDate}
+                source={resource.source}
+                type={resource.type}
+                videoCount={resource.videoCount}
+                likeCount={numberWithCommas(resource.likes)}
+                collectCount={numberWithCommas(resource.collectCount)}
+                viewCount={numberWithCommas(resource.views)}
+                updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
+                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
+                dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
+                />
+            ));
+            }
+        };
+
+        if (this.state.isBookAssets && !this.props.loading) {
+
+            let bookAssets = this.props.userAssets.filter( resource => resource.type  === 'books');
+
+            if (bookAssets.length === 0) {
+                userAssets =
+                <div className={classes.PostAddInfo}>
+                    <div>You have no added books resources.</div>
+                </div>
+            } else {
+            
+            userAssets = bookAssets.map( (resource, i) => (
+                <Resource 
+                key={i}
+                id={resource._id} 
+                link={resource.link}
+                image={resource.img}
+                title={resource.title}
+                likes={resource.likes}
+                lastUpdated={resource.lastUpdated}
+                avgRating={resource.avgRating}
+                tutor={resource.tutor}
+                enrollees={resource.enrollees}
+                duration={resource.duration}
+                level={resource.level}
+                author={resource.author}
+                youtubeViews={resource.youtubeviews}
+                publishDate={resource.publishDate}
+                source={resource.source}
+                type={resource.type}
+                videoCount={resource.videoCount}
+                likeCount={numberWithCommas(resource.likes)}
+                collectCount={numberWithCommas(resource.collectCount)}
+                viewCount={numberWithCommas(resource.views)}
+                updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
+                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
+                dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
+                />
+            ));
+            }
+        };
+          
 
         let updateForm;
 
@@ -641,6 +787,12 @@ class ConfirmResource extends Component {
 
         return (
             <Grid>
+                <div className={classes.ViewFilteredWrapper}>
+                    <div onClick={this.allClickedHandler} style={{'padding': '8px 12px'}} className={classes.ViewFiltered}>all</div>
+                    <div onClick={this.youtubeClickedHandler} className={classes.ViewFiltered}>youtube</div>
+                    <div onClick={this.moocClickedHandler} className={classes.ViewFiltered}>mooc</div>
+                    <div onClick={this.booksClickedHandler} className={classes.ViewFiltered}>books</div>
+                </div>
                 <div>
                     {userAssets}
                 </div>
@@ -677,6 +829,8 @@ const mapStateToProps = state => {
                 
         loading: state.resource.loading,
         userId: state.auth.user._id,
+
+        userType: state.auth.user.accountType,
 
         updateAssetLoading: state.resource.updateAssetLoading,
         updateAssetSuccessInfo: state.resource.updateAssetSuccessInfo,

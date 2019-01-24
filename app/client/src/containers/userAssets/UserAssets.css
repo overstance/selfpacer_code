@@ -245,3 +245,29 @@
     margin: auto;
     padding: 2px;
 }
+
+.ViewFilteredWrapper {
+    text-align: right;
+    background: var(--green);
+}
+
+.ViewFiltered {
+    padding: 8px;
+    background: var(--blue);
+    /* border: 2px solid var(--darkBlue); */
+    text-decoration: none;
+    color: var(--white);
+    cursor: pointer;
+    text-align: right;
+    margin: 10px 10px 10px 0;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: small;
+    font-weight: 400;
+    /* text-transform: lowercase; */
+}
+
+.ViewFiltered:hover {
+    background: var(--skyBlue);
+    color: var(--darkBlue);
+}
