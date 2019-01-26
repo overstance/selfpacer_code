@@ -170,7 +170,7 @@ class AddResources extends Component {
             enrollees: {
                 elementType: 'input',
                 elementConfig: {
-                    label: "enrollees",
+                    label: "enrollees/views",
                     labelspan: '(number with no commas)*'
                 },
                 value: '', 

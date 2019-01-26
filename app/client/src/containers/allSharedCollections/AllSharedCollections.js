@@ -145,7 +145,7 @@ class AllSharedCollections extends Component {
         let category =
         <div 
         className={classes.Form}
-        onSubmit={this.submitpathHandler}
+        // onSubmit={this.submitpathHandler}
         >
             <Input 
             label={this.state.subject.label} 

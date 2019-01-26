@@ -20,7 +20,10 @@ class Resource extends Component {
                         <div className={classes.NoImageColumn}></div>
                     }
                     <div className={classes.InfoContainer}>
-                        <div className={classes.Title}>{this.props.title}</div>
+                        <div className={classes.TitlePlusLinkIcon}>
+                            <div className={classes.LinkIconWrapper}><span className={classes.LinkIcon}></span></div>
+                            <div className={classes.Title}>{this.props.title}</div>
+                        </div>
                         <div className={classes.DetailsContainer}>
                             <div>
                                 <div className={classes.Type}>SOURCE:<span>{this.props.source}</span></div>

@@ -87,6 +87,20 @@ class ConfirmResource extends Component {
 
         showDeleteDialogue: false,
 
+        // enteredTitle: null,
+
+        title: {
+            value: '',
+            label: "title", 
+            name: "title",
+            validation: {},
+            elementConfig: {
+                placeholder: 'search asset by title'
+            },
+            valid: true,
+            touched: true   
+        },
+
         mooc_controls: {
             videoCount: {
                 elementType: 'input',
@@ -467,20 +481,50 @@ class ConfirmResource extends Component {
     }
 
     allClickedHandler = () => {
-        this.setState({ allAssets: true, isYoutubeAssets: false, isMoocAssets: false, isBookAssets: false});
+        const titleUpdated = {
+            ...this.state.title,
+            value: ''
+        }
+        this.setState({ allAssets: true, isYoutubeAssets: false, isMoocAssets: false, isBookAssets: false, title: titleUpdated});
     }
 
     youtubeClickedHandler = () => {
-        this.setState({ allAssets: false, isYoutubeAssets: true, isMoocAssets: false, isBookAssets: false});
+        const titleUpdated = {
+            ...this.state.title,
+            value: ''
+        }
+        this.setState({ allAssets: false, isYoutubeAssets: true, isMoocAssets: false, isBookAssets: false, title: titleUpdated});
     }
 
     moocClickedHandler = () => {
-        this.setState({ allAssets: false, isYoutubeAssets: false, isMoocAssets: true, isBookAssets: false});
+        const titleUpdated = {
+            ...this.state.title,
+            value: ''
+        }
+        this.setState({ allAssets: false, isYoutubeAssets: false, isMoocAssets: true, isBookAssets: false, title: titleUpdated});
     }
 
     booksClickedHandler = () => {
-        this.setState({ allAssets: false, isYoutubeAssets: false, isMoocAssets: false, isBookAssets: true});
+        const titleUpdated = {
+            ...this.state.title,
+            value: ''
+        }
+        this.setState({ allAssets: false, isYoutubeAssets: false, isMoocAssets: false, isBookAssets: true, title: titleUpdated});
     }
+
+    titleChangedHandler = (event) => {
+
+        const titleUpdated = {
+            ...this.state.title,
+            value: event.target.value
+        }
+
+        this.setState({ title: titleUpdated});
+    }
+
+    /* titleChangedHandler = (event) => {
+        this.setState({ enteredTitle: event.target.value});
+    } */
 
     render() {
        
@@ -783,6 +827,64 @@ class ConfirmResource extends Component {
                 <div>{'Error: ' + this.props.deleteAssetError}</div>
             </div>
         }
+
+        let byTitle =
+        <div
+        className={classes.SearchForm}
+        >
+            <Input 
+            // label={this.state.title.label} 
+            name={this.state.title.name}
+            value={this.state.title.value}
+            elementType={'textarea'}
+            invalid={!this.state.title.valid}
+            placeholder='search asset by title'
+            shouldValidate={this.state.title.validation}
+            touched={this.state.title.touched}
+            elementConfig={this.state.title.elementConfig}
+            changed={(event) => this.titleChangedHandler(event)}
+            />
+        </div>
+
+        if ( !this.props.loading && this.state.title.value !== '') {
+            let byTitleContent = this.props.userAssets.filter( resource => resource.title === this.state.title.value);
+
+            if (byTitleContent.length === 0) {
+                userAssets =
+                <div className={classes.PostAddInfo}>
+                    <div>No resource with the entered title is found, please make sure the title is correctly entered.</div>
+                </div>
+            } else {
+                userAssets = byTitleContent.map( (resource, i) => (
+                    <Resource 
+                    key={i}
+                    id={resource._id} 
+                    link={resource.link}
+                    image={resource.img}
+                    title={resource.title}
+                    likes={resource.likes}
+                    lastUpdated={resource.lastUpdated}
+                    avgRating={resource.avgRating}
+                    tutor={resource.tutor}
+                    enrollees={resource.enrollees}
+                    duration={resource.duration}
+                    level={resource.level}
+                    author={resource.author}
+                    youtubeViews={resource.youtubeviews}
+                    publishDate={resource.publishDate}
+                    source={resource.source}
+                    type={resource.type}
+                    videoCount={resource.videoCount}
+                    likeCount={numberWithCommas(resource.likes)}
+                    collectCount={numberWithCommas(resource.collectCount)}
+                    viewCount={numberWithCommas(resource.views)}
+                    updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
+                    deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
+                    dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
+                    />
+                ));
+            }
+        }
         
 
         return (
@@ -792,7 +894,9 @@ class ConfirmResource extends Component {
                     <div onClick={this.youtubeClickedHandler} className={classes.ViewFiltered}>youtube</div>
                     <div onClick={this.moocClickedHandler} className={classes.ViewFiltered}>mooc</div>
                     <div onClick={this.booksClickedHandler} className={classes.ViewFiltered}>books</div>
+                    {byTitle}
                 </div>
+                
                 <div>
                     {userAssets}
                 </div>

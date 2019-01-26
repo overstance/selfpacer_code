@@ -271,3 +271,20 @@
     background: var(--skyBlue);
     color: var(--darkBlue);
 }
+
+.SearchForm {
+    padding: 0 10px 10px 10px;
+    margin: 0;
+}
+
+.SearchForm textarea {
+    border-radius: 5px;
+    resize: none;
+    border: 2px solid var(--darkGreen);
+    padding: 5px;
+    font-weight: 400;
+}
+
+.SearchForm label {
+    display: none;
+}

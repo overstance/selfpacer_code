@@ -26,18 +26,46 @@
     text-align: center;
 }
 
+.TitlePlusLinkIcon {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-left: 40px;
+}
+   
+.LinkIconWrapper {
+    margin: auto;
+}
+
 .Title {
     margin: 0px;
     background-color: var(--white);
-    padding: 15px 40px;
+    padding: 15px 10px 15px 0;
     text-align: left;
-    color: var(--darkBlue);
-    font-weight: 400;
+    color: var(--blue);
+    font-weight: 700;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    text-decoration: underline;
+    text-decoration-color: var(--blue);
+    text-decoration-line: 2px;
 }
 
+
 .Title:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--darkBlue);
+    color: var(--darkGreen);
+    text-decoration: none;
+}
+
+.LinkIcon {
+    display: block;
+    width:30px;
+    height: 30px;
+    background-image: url('../../../assets/images/link.svg');
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
 }
 
 .DetailsContainer {
