@@ -16,7 +16,7 @@
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
-    padding: 0 16px;
+    padding: 0 10px;
   }
 
 .Toolbar {
@@ -42,9 +42,9 @@
     height: 100%;
 }
 
-.Logo {
+/* .Logo {
     margin-right: 10px;
-}
+} */
 
 /* .Logo a {
     display: block;
@@ -83,6 +83,10 @@
     .DesktopOnlySearchbar {
         display: none;
     }
+
+    .NewSearchContainer {
+        padding: 0 16px;
+      }
 
     /* .Toolbar {
         height: 50px;

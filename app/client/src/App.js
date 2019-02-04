@@ -117,7 +117,7 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/explore/creative-writing" component={Writing} />
+        <Route path="/explore/writing" component={Writing} />
         <Route path="/explore/web-development" component={Webdev} />
         <Route path="/explore/web-design" component={WebDesign} />
         <Route path="/explore/video" component={Video} />

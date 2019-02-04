@@ -741,7 +741,7 @@ module.exports = app => {
   });
 
   app.get('/api/writing', (req, res) => {
-    Subject.find({ title: 'Creative Writing' }, function(err, clickedSubject) {
+    Subject.find({ title: 'Writing' }, function(err, clickedSubject) {
       if (err) {
         console.log(err);
       } else {

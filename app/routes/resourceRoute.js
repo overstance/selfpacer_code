@@ -576,7 +576,7 @@ module.exports = app => {
   });
 
   app.get('/api/all_writing', (req, res) => {
-    Resource.find({ confirmed: true, category: 'Creative Writing' }, function(
+    Resource.find({ confirmed: true, category: 'Writing' }, function(
       err,
       resources
     ) {

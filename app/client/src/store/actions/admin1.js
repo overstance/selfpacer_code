@@ -348,10 +348,10 @@ export const addMooc = (subject, title, url, imageUrl, source, videoCount, tutor
 
     if (res.data.resource) {
         dispatch(addMoocSuccess('resource added!'));
-        console.log(res.data);
+        // console.log(res.data);
     } else {
         dispatch(addMoocFailed(res.data));
-        console.log(res.data);
+        // console.log(res.data);
     }
 }
 
@@ -412,10 +412,10 @@ export const addBooks = (subject, title, url, imageUrl, source, author, level, a
 
     if (res.data.resource) {
         dispatch(addBooksSuccess('resource added!'));
-        console.log(res.data);
+        // console.log(res.data);
     } else {
         dispatch(addBooksFailed(res.data));
-        console.log(res.data);
+        // console.log(res.data);
     }
 }
 
