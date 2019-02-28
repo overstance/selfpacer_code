@@ -225,6 +225,20 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/all_gaming', (req, res) => {
+    Resource.find({ confirmed: true, category: 'Gaming' }, function(
+      err,
+      resources
+    ) {
+      if (err) {
+        console.log(err);
+        res.send(err.message);
+      } else {
+        res.send({ all: resources });
+      }
+    });
+  });
+
   app.get('/api/all_graphics', (req, res) => {
     Resource.find({ confirmed: true, category: 'Graphic Design' }, function(
       err,

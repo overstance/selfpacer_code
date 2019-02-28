@@ -557,7 +557,7 @@ export const fetchGaming = () => {
 export const fetchAllGaming = () => async dispatch => {
     dispatch(fetchAllStart());
 
-    const res = await axios.get('/api/all_gaming');
+    const res = await axios.get('/api/all_gaming'); 
 
     if (res.data.all) {
         const all = [...res.data.all];

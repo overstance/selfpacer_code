@@ -460,7 +460,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchGaming: () => dispatch( actions.fetchGaming() ),
+        onFetchGaming: () => dispatch(actions.fetchGaming() ),
 
         onFetchAllGaming: () => dispatch( actions.fetchAllGaming() ),
 
