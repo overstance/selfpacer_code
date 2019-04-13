@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_USER, LOGOUT_USER } from './actionTypes';
+import { SET_USER, LOGOUT_USER } from './actionTypes';
 import * as actionTypes from './actionTypes';
 
 export const setUserRecentlyViewed = ( userRecentlyViewed ) => {
@@ -36,6 +36,14 @@ export const setAuthentication = () => {
         type: actionTypes.SET_AUTHENTICATION
     }
 }
+
+export const clearAuth = () => {
+    return {
+        type: actionTypes.CLEAR_AUTH
+    }
+}
+
+
 
 // initialize(fetch) user asset
 
@@ -86,7 +94,7 @@ export const fetchUser = () => async dispatch => {
 
     if (res.data._id) {
         let userId = res.data._id
-        dispatch({ type: FETCH_USER, payload: res.data });
+        dispatch({ type: SET_USER, payload: res.data });
         dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
         dispatch(setUserLikeCount(res.data.likeCount));
         dispatch(setUserPinnedCollections(res.data.pinnedCollections));
@@ -123,6 +131,7 @@ export const fetchUser = () => async dispatch => {
         
     } else {
         localStorage.removeItem('token');
+        dispatch(clearAuth());
     }
 
 };

@@ -72,44 +72,18 @@ import Webdev from './containers/Subjects/Webdev';
 import Writing from './containers/Subjects/Writing';
 
 
-/* const token = localStorage.getItem('token');
-if (token) {
-  store.dispatch({ type: FETCH_USER, payload: res.data });
-} */
-
-
-
-// import ScrollToTop from './hoc/ScrollToTop';
-
 const Landing = () => <h2>
   Landing page component
 </h2>
-
-/* const AddResource = () => <h2>
-  Add Resource Page
-</h2> */
-
-/* const Home = () => <h2>
-  User Home. Welcome!
-</h2> */
 
 const NotFound = () => <h2>
   Resource Not Found!
 </h2>
 
-/* const graphicDesign = () => <h2>
- subject explore
-</h2> */
-
 class App extends Component {
 
-  /* componentWillMount() {
-    if (localStorage.token) {
-      this.props.onSetAuthentication();
-    }
-  } */
-
   componentDidMount() {
+
     this.props.onFetchUser();    
     this.props.onFetchSubjects();
   }
@@ -199,6 +173,7 @@ const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
+    userName: state.auth.user.name,
     userId: state.auth.user._id
   };
 };
@@ -207,153 +182,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onFetchSubjects: () => dispatch( actions.fetchSubjects() ),
     onFetchUser: () => dispatch(actions.fetchUser()),
-    onSetAuthentication: () => dispatch(actions.setAuthentication())
-    // onFetchRecentlyViewed: (recentlyViewedArray) => dispatch(actions.fetchRecentlyViewed(recentlyViewedArray))
+    onSetAuthentication: () => dispatch(actions.setAuthentication()),
   };
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
-
-//<Redirect to="/" />
-
-/* 
-let routes = (
-        <Switch>
-            <Route path="/explore/creative-writing" component={Writing} />
-            <Route path="/explore/web-development" component={Webdev} />
-            <Route path="/explore/web-design" component={WebDesign} />
-            <Route path="/explore/video" component={Video} />
-            <Route path="/explore/teaching-skills" component={TeachingSkill} />
-            <Route path="/explore/travel" component={Travel} />
-            <Route path="/explore/study-skills" component={StudySkill} />
-            <Route path="/explore/software-development" component={Software} />
-            <Route path="/explore/real-estate" component={RealEstate} />
-            <Route path="/explore/professional-development" component={ProfDev} />
-            <Route path="/explore/photography" component={Photography} />
-            <Route path="/explore/pet-care" component={Pet} />
-            <Route path="/explore/personal-development" component={PersonalDev} />
-            <Route path="/explore/painting" component={Painting} />
-            <Route path="/explore/networks-and-systems" component={Network} />
-            <Route path="/explore/music" component={Music} />
-            <Route path="/explore/motion-design-vfx" component={Modesign} />
-            <Route path="/explore/mobile-development" component={Mobile} />
-            <Route path="/explore/marketing-and-sales" component={Marketing} />
-            <Route path="/explore/management" component={Management} />
-            <Route path="/explore/interior-design" component={Interior} />
-            <Route path="/explore/ui-ux" component={UserInterface} />
-            <Route path="/explore/home-improvement" component={Home} />
-            <Route path="/explore/health-and-Fitness" component={Health} />
-            <Route path="/explore/hardware" component={Hardware} />
-            <Route path="/explore/graphic-design" component={Graphics} />
-            <Route path="/explore/gaming" component={Gaming} />
-            <Route path="/explore/game-development" component={Gamedev} />
-            <Route path="/explore/game-design" component={Gamedesign} />
-            <Route path="/explore/food" component={Food} />
-            <Route path="/explore/fashion-design" component={Fashion} />
-            <Route path="/explore/drawing" component={Drawing} />
-            <Route path="/explore/database" component={Database} />
-            <Route path="/explore/data-science" component={Data} />
-            <Route path="/explore/customer-service" component={Customer} />
-            <Route path="/explore/communications" component={Communication} />
-            <Route path="/explore/cloud-computing" component={Cloud} />
-            <Route path="/explore/beauty" component={Beauty} />
-            <Route path="/explore/audio-production" component={Audio} />
-            <Route path="/explore/architectural-design" component={Architecture} />
-            <Route path="/explore/animation" component={Animation} />
-            <Route path="/accounting/:id" component={ResourcePage} />
-            <Route path="/explore/accounting" component={Accounting} />       
-            <Route path="/explore/graphic-design" component={graphicDesign} />                
-            <Route path="/explore" exact component={ (props) => (
-                <Explore timestamp={new Date().toString()} {...props} />
-                )}  
-            />
-            <Route path="/reverify_email" component={ReverifyEmail} />
-            <Route path="/email_verify/:token" component={EmailVerified} />
-            <Route path="/reset/:token" component={ResetPassword} />
-            <Route path="/forgot_password" component={ForgotPassword} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/not-found" component={NotFound} />
-            <Route path="/" exact component={Landing} />
-            <Redirect to="/" />
-        </Switch>
-    );
-
-    if (this.props.isAuthenticated && this.props.user.active) {
-      routes = (
-          <Switch>
-            <Route path="/explore/creative-writing" component={Writing} />
-            <Route path="/explore/web-development" component={Webdev} />
-            <Route path="/explore/web-design" component={WebDesign} />
-            <Route path="/explore/video" component={Video} />
-            <Route path="/explore/teaching-skills" component={TeachingSkill} />
-            <Route path="/explore/travel" component={Travel} />
-            <Route path="/explore/study-skills" component={StudySkill} />
-            <Route path="/explore/software-development" component={Software} />
-            <Route path="/explore/real-estate" component={RealEstate} />
-            <Route path="/explore/professional-development" component={ProfDev} />
-            <Route path="/explore/photography" component={Photography} />
-            <Route path="/explore/pet-care" component={Pet} />
-            <Route path="/explore/personal-development" component={PersonalDev} />
-            <Route path="/explore/painting" component={Painting} />
-            <Route path="/explore/networks-and-systems" component={Network} />
-            <Route path="/explore/music" component={Music} />
-            <Route path="/explore/motion-design-vfx" component={Modesign} />
-            <Route path="/explore/mobile-development" component={Mobile} />
-            <Route path="/explore/marketing-and-sales" component={Marketing} />
-            <Route path="/explore/management" component={Management} />
-            <Route path="/explore/interior-design" component={Interior} />
-            <Route path="/explore/ui-ux" component={UserInterface} />
-            <Route path="/explore/home-improvement" component={Home} />
-            <Route path="/explore/health-and-Fitness" component={Health} />
-            <Route path="/explore/hardware" component={Hardware} />
-            <Route path="/explore/graphic-design" component={Graphics} />
-            <Route path="/explore/gaming" component={Gaming} />
-            <Route path="/explore/game-development" component={Gamedev} />
-            <Route path="/explore/game-design" component={Gamedesign} />
-            <Route path="/explore/food" component={Food} />
-            <Route path="/explore/fashion-design" component={Fashion} />
-            <Route path="/explore/drawing" component={Drawing} />
-            <Route path="/explore/database" component={Database} />
-            <Route path="/explore/data-science" component={Data} />
-            <Route path="/explore/customer-service" component={Customer} />
-            <Route path="/explore/communications" component={Communication} />
-            <Route path="/explore/cloud-computing" component={Cloud} />
-            <Route path="/explore/beauty" component={Beauty} />
-            <Route path="/explore/audio-production" component={Audio} />
-            <Route path="/explore/architectural-design" component={Architecture} />
-            <Route path="/explore/animation" component={Animation} />
-            <Route path="/create_collection" exact component={CreateNewCollection} />
-            <Route path="/add_resource" exact component={AddResource} />
-            <Route path="/accounting/:id" component={ResourcePage} />
-            <Route path="/explore/accounting" component={Accounting} />
-            <Route path="/admin_tools/confirm_resources" component={ConfirmResource} />
-            <Route path="/admin_tools" component={AdminTools} />
-            <Route path="/profile/edit" component={EditProfile} />
-            <Route path="/my_assets" component={UserAssets} />
-            <Route path="/pinned_collections" component={PinnedCollections} />
-            <Route path="/all_shared_collections" component={AllSharedCollections} />
-            <Route path="/shared_collections/:id" component={SharedCollection} />
-            <Route path="/collections/:id" component={UserCollection} />
-            <Route path="/collections" component={UserCollections} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/explore" exact component={ (props) => (
-              <Explore timestamp={new Date().toString()} {...props} />
-              )} 
-            />          
-            <Route path="/logout" component={Logout} />
-            <Route path="/" exact component={Landing} />
-            <Redirect to="/" />
-          </Switch>
-      );
-    }
-
-
-    return (
-      <Layout>
-        {routes}
-      </Layout>
-    );
-  }
-}
-*/

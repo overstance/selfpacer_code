@@ -39,7 +39,11 @@ const setAuthentication = (state, action) => {
     return updateObject(state, { isAuthenticated: true, user: { _id: action.userId } });
 };
 
-const fetchUser = (state, action) => {
+const clearAuth = ( state, action) => {
+    return updateObject(state, { isAuthenticated: false, user: {} });
+}
+
+const setUser = (state, action) => {
     return updateObject(state, { user: action.payload,/*  isAuthenticated: !isEmpty(action.payload), */ isAdmin: action.payload.isAdmin });
 };
 
@@ -219,7 +223,7 @@ const updateUserLikedCount = ( state, action ) => {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_AUTHENTICATION: return setAuthentication(state, action);
-        case actionTypes.FETCH_USER: return fetchUser(state, action);
+        case actionTypes.SET_USER: return setUser(state, action);
         case actionTypes.AUTH_START: return authStart(state, action);
         case actionTypes.VALIDATION_ERRORS: return validationErrors(state, action);
         case actionTypes.AUTH_FAIL: return authFail(state, action);
@@ -227,6 +231,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.REGISTER_SUCCESS: return registerSuccess(state, action);
         case actionTypes.CLEAR_ERRORS: return clearErrors(state, action);
         case actionTypes.LOGOUT_USER: return authLogout(state, action);
+        case actionTypes.CLEAR_AUTH: return clearAuth(state, action);
 
         case actionTypes.FORGOT_PASSWORD_START: return forgotPasswordStart(state, action);
         case actionTypes.RESET_EMAIL_SENT: return resetEmailSent(state, action);

@@ -12,10 +12,11 @@ class Layout extends Component {
 
     componentDidMount(){
         window.scrollTo(0, 0);
+        
     }
 
     state = {
-        showSideDrawer: false
+        showSideDrawer: false,
         /* showSearchbar: false */
     }
 
@@ -88,7 +89,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchUserCollections: ( userId ) => dispatch(actions.fetchUserCollections( userId )),
-        onFetchUserAssets: ( userId ) => dispatch(actions.fetchUserAssets( userId ))
+        onFetchUserAssets: ( userId ) => dispatch(actions.fetchUserAssets( userId )),
+        onLogoutUser: () => dispatch(actions.logout())
     };
 };
 

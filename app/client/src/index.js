@@ -25,7 +25,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
     auth: authReducer,
     explore: exploreReducer,
-    clickedSubject: clickedSubjectReducer,
+    clickedSubject: clickedSubjectReducer, 
     admin1: admin1Reducer,
     resource: resourceReducer,
     collection: collectionReducer,
@@ -38,6 +38,9 @@ const store = createStore(rootReducer, composeEnhancers(
 ));
 
 const token = localStorage.getItem('token');
+
+console.log(token);
+
 if (token) {
   store.dispatch({ type: SET_AUTHENTICATION, userId: localStorage.token });
 }

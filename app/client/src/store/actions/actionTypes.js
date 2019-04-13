@@ -1,5 +1,5 @@
 // AUTH ACTIONS
-export const FETCH_USER = 'FETCH_USER';
+export const SET_USER = 'SET_USER';
 export const AUTH_START = 'AUTH_START';
 export const AUTH_FAIL = 'AUTH_FAIL';
 
@@ -38,6 +38,8 @@ export const SET_USER_LIKE_COUNT = 'SET_USER_LIKE_COUNT';
 export const UPDATE_USER_LIKE_COUNT = 'UPDATE_USER_LIKE_COUNT';
 
 export const SET_AUTHENTICATION = 'SET_AUTHENTICATION';
+
+export const CLEAR_AUTH = 'CLEAR_AUTH';
 
 
 // PROFILE ACTIONS

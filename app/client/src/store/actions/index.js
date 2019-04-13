@@ -12,7 +12,8 @@ export {
     clearForgetPasswordError,
     confirmResetToken,
     resetPassword,
-    setAuthentication
+    setAuthentication,
+    clearAuth
 } from './auth';
 export {
     fetchSubjects,
