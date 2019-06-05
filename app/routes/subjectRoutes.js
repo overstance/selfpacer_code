@@ -90,6 +90,19 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/subject/:subjectTitle', (req, res) => {
+    Subject.find({ title: req.params.subjectTitle }, function(
+      err,
+      clickedSubject
+    ) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: clickedSubject });
+      }
+    });
+  });
+
   app.get('/api/accounting', (req, res) => {
     Subject.find({ title: 'Accounting' }, function(err, clickedSubject) {
       if (err) {

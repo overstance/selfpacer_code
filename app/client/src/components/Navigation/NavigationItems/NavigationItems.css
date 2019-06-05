@@ -1,187 +1,37 @@
 .NavigationItems {
     margin: 0;
-    padding: 10px 30px;
+    padding: 30px;
     list-style: none;
     display: flex;
-    flex-flow: column;
+    flex-flow: column-reverse;
     align-items: center;
     height: 100%;
 }
 
-.SearchBarWrap {
-    position: relative;
-    width: 100%;
-    margin-top: 7px;
-    margin-bottom: 10%;
-}
 
-.User {
-    height: 30px;
-    width: 30px;
-    background-image: url('../../../assets/images/user-circle.svg');
-    background-position-x: center;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    border-radius: 50%;
-    background-size: 100%;
-    box-sizing: border-box;
-}
-
-.User:hover {
-    background-image: url('../../../assets/images/user-circle-focus.svg');
-    /* border: 2px solid var(--green); */
-    /* background-size: 88%; */
-}
-
-@media (min-width: 875px) {
+@media (min-width: 900px) {
     .NavigationItems {
         flex-flow: row-reverse;
-    }
-}
-
-@media (min-width: 875px) {
-    .SearchBarWrap {
-        width: 40%;
-        position: absolute;
-        top: 50%;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        left: 42%;
-        right: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
-@media (max-width: 875px) {
-    .SearchBarWrap {
-        display: none;
-    }
-}
-
-.NavigationItem {
-    margin: 10px 0;
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-}
-
-.NavigationItem a {
-    color: var(--green);
-    text-decoration: none;
-    width: 100%;
-    box-sizing: border-box;
-    display: block;
-    font-weight: normal;
-}
-
-.NavigationItem a:hover,
-.NavigationItem a:active,
-.NavigationItem a.active {
-    color: var(--red);
-}
-
-.CollectIcon {
-    width: 20px;
-    height: 20px;
-    background-image: url('../../../assets/images/compress-arrows-alt-2.svg');
-    background-repeat: no-repeat;
-    margin-right: 10px;
-    /* margin: auto; */
-}
-
-.AssetIcon {
-    width: 20px;
-    height: 20px;
-    background-image: url('../../../assets/images/briefcase.svg');
-    background-repeat: no-repeat;
-    margin-right: 10px;
-    /* margin: auto; */
-}
-
-.LoginIcon {
-    width: 20px;
-    height: 20px;
-    background-image: url('../../../assets/images/sign-in-alt.svg');
-    background-repeat: no-repeat;
-    margin-right: 10px;
-    /* margin: auto; */
-}
-
-.SignupIcon {
-    width: 20px;
-    height: 20px;
-    background-image: url('../../../assets/images/sign-in-alt.svg');
-    background-repeat: no-repeat;
-    margin-right: 10px;
-    transform: rotate(270deg);
-    /* margin: auto; */
-}
-
-.ExploreIcon {
-    width: 20px;
-    height: 20px;
-    background-image: url('../../../assets/images/compass.svg');
-    background-repeat: no-repeat;
-    margin-right: 10px;
-    /* margin: auto; */
-}
-
-.BlogIcon {
-    width: 20px;
-    height: 20px;
-    background-image: url('../../../assets/images/newspaper.svg');
-    background-repeat: no-repeat;
-    margin-right: 10px;
-    /* margin: auto; */
-}
-
-@media (min-width: 875px) {
-    .NavigationItem {
-        margin: 0;
-        display: flex;
-        height: 100%;
-        width: auto;
-        align-items: center;
-    }
-    
-    .NavigationItem a {
-        height: 100%;
-        padding: 22px 10px;
-    }
-
-    .NavigationItems {
         padding: 0px;
     }
-
-    .CollectIcon {
-        margin: 0;
-    }
-
-    .AssetIcon {
-        margin: 0;
-    }
-
-    .LoginIcon {
-        margin: 0;
-    }
-
-    .SignupIcon {
-        margin: 0;
-    }
-
-    .ExploreIcon {
-        margin: 0;
-    }
-
-    .BlogIcon {
-        margin: 0;
-    }
-    
 }
 
-@media (max-width: 875px) {
+.Icon {
+    width: 20px;
+    height: 20px;
+}
+
+.MenuName {
+    color: var(--blue);
+}
+
+@media (max-width: 900px) {
     .DesktopOnly {
         display: none;
+    }
+
+    .Icon {
+        margin-right: 16px
     }
 
 }

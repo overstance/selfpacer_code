@@ -39,8 +39,6 @@ const store = createStore(rootReducer, composeEnhancers(
 
 const token = localStorage.getItem('token');
 
-console.log(token);
-
 if (token) {
   store.dispatch({ type: SET_AUTHENTICATION, userId: localStorage.token });
 }

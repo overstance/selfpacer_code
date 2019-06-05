@@ -1,8 +1,7 @@
 .Subhead {
     background: var(--green);
-    /*padding-bottom : 10px;*/
+    /* padding-bottom : 10px; */
 }
-
 
 .FlexContainer {
     display: -ms-flexbox;
@@ -11,7 +10,6 @@
     flex-wrap: wrap;
     /* background: var(--skyBlue); */
 }
-
 
 .TitleColumn h5 {
     margin: 0px;
@@ -38,12 +36,9 @@
     align-items: center;
     justify-content: center;
     background: var(--skyBlue);
-    /* margin: auto; */
-    /*padding: 7px 0px;*/
 }
 
-.IconColumn:hover {  
-    /*background: rgb(56, 197, 245);*/
+.IconColumn:hover { 
     cursor: pointer;  
     background: var(--darkGreen);
 }

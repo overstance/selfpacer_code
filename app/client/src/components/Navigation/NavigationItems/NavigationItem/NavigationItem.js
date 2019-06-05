@@ -17,17 +17,3 @@ const navigationItem = (props) => (
 );
 
 export default navigationItem;
-
-/* 
-const navigationItem = (props) => (
-    <li className={classes.NavigationItem} onClick={props.isAuthenticating}>
-        <NavLink
-            to={props.link}
-            exact={props.exact}
-            className={props.active ? classes.active : null}
-        > 
-            {props.children}
-        </NavLink>
-    </li>
-);
-*/

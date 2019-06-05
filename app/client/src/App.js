@@ -72,9 +72,16 @@ import Webdev from './containers/Subjects/Webdev';
 import Writing from './containers/Subjects/Writing';
 
 
+import Blog from './containers/blog/Blog';
+import BlogPost from './containers/blog/BlogPost';
+
 const Landing = () => <h2>
   Landing page component
 </h2>
+
+const Search = () => <h1>
+  Search component
+</h1>
 
 const NotFound = () => <h2>
   Resource Not Found!
@@ -91,6 +98,7 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
+        <Route path="/search" component={Search} />
         <Route path="/explore/writing" component={Writing} />
         <Route path="/explore/web-development" component={Webdev} />
         <Route path="/explore/web-design" component={WebDesign} />
@@ -132,7 +140,7 @@ class App extends Component {
         <Route path="/explore/audio-production" component={Audio} />
         <Route path="/explore/architectural-design" component={Architecture} />
         <Route path="/explore/animation" component={Animation} />            
-        <Route path="/explore/accounting" component={Accounting} />
+        <Route path="/explore/accounting" component={Accounting} />}
         <Route path="/explore" exact component={ (props) => (
           <Explore timestamp={new Date().toString()} {...props} />
           )} 
@@ -145,6 +153,9 @@ class App extends Component {
         <Route exact path="/register" component={Register} />
         <Route exact path="/not-found" component={NotFound} />
         <Route exact path="/" component={Landing} />
+        <Route path='/blog/:page' exact component={Blog} />
+        <Route path='/blog' exact component={Blog} />
+        <Route path='/blog/posts/:post' component={BlogPost} />
         <PrivateRoute exact path="/create_collection" component={CreateNewCollection} />
         <PrivateRoute exact path="/add_resource" component={AddResource} />
         <PrivateRoute exact path="/admin_tools/confirm_resources" component={ConfirmResource} />

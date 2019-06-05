@@ -15,6 +15,20 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/resources/:subjectTitle', (req, res) => {
+    Resource.find(
+      { confirmed: true, category: req.params.subjectTitle },
+      function(err, resources) {
+        if (err) {
+          console.log(err);
+          res.send(err.message);
+        } else {
+          res.send({ all: resources });
+        }
+      }
+    );
+  });
+
   app.get('/api/all_accounting', (req, res) => {
     Resource.find({ confirmed: true, category: 'Accounting' }, function(
       err,

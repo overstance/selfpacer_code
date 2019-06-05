@@ -15,8 +15,6 @@ const initialState = {
     
 };
 
-// Fetch clicked subject paths and study topics
-
 const fetchClickedSubjectStart = ( state, action ) => {
     return updateObject( state, { loading: true } );
 };
@@ -62,6 +60,7 @@ const reducer = ( state = initialState, action ) => {
 
         default: return state;
     }
-};
+}; 
+
 
 export default reducer;

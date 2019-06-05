@@ -73,6 +73,7 @@ export const increaseViews = ( id, views, clickedSubject ) => {
     }
 };
 
+
 //Set resources page content type to all, youtube, mooc, or books
 
 export const setActiveContentType = ( platform ) => {

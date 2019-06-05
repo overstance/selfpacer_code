@@ -3,13 +3,10 @@
     width: 320px;
     max-width: 70%;
     height: 100%;
-    /* min-height: 380px; */
     left: 0;
     top: 0;
     z-index: 200;
-    border-right: 1px solid var(--blue);
-    background-color: var(--darkestBlue);
-    /* padding: 8px 20px; */
+    background-color: var(--white);
     box-sizing: border-box;
     transition: transform 0.1s ease-out;
     overflow-y: auto;
@@ -23,117 +20,31 @@
     transform: translateX(-100%);
 }
 
-/* .Logo {
-    height: 7%;
-    margin-bottom: 14px;
-    margin-top: 6px;
-} */
-
-.UserProfilePanel {
-    display: flex;
-    flex-wrap: nowrap;
-    background: var(--darkBlue);
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
-    color: var(--skyBlue);
-}
-
-.UserProfilePanel:hover {
-    background-color: var(--blue);
-    color: var(--green);
-}
-
-.UserIconColumn {
-    width: 80px;
-    /* background: var(--darkBlue); */
-    display: flex;
-    min-height: 70px;
-}
-
-.UserNameColumn {
-    flex-basis: 0;
-    flex-grow: 1;
-    max-width: 100%;
-    /* padding-left: 10px; */
-    line-height: 25px;
-}
-
-/* .UserName {
-    
-} */
-
-.UserIcon {
-    height: 30px;
-    width: 30px;
-    background-image: url('../../../assets/images/user-circle-focus.svg');
-    background-position-x: center;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    margin: auto;
-}
-
-@media (min-width: 875px) {
-    .SideDrawer {
-        display: none;
-    }
-}
-
-/* @media (max-width: 549px) {
-    .UserIconColumn {
-        min-height: 90px;
-    }
-} */
-
 .LogoContainer {
     text-align: center;
-    height: 50px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    padding-left: 10px;
+    background-color: var(--blue);
 }
 
-.LogoContainer:hover {
-    background: var(--darkBlue);
-}
-
-.Logo {
+.SvgLogo {
     display: inline-block;
-    text-decoration: none;
     text-align: center;
     height: 100%;
     width: 160px;
-    background-image: url('../../../assets/images/logo-05.svg');
-    background-position-x: center;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-size: 80%;
-    margin: 0;
-    /* border-bottom: 1px solid var(--skyBlue); */
-}
-
-.HomeIcon {
-    display: inline-block;
-    text-decoration: none;
-    text-align: center;
-    height: 30px;
-    width: 30px;
-    background-image: url(../../../assets/images/home.svg);
-    background-position-x: center;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-size: 80%;
     margin: 0;
 }
 
-/* .Logo:hover {
-    background-image: url(../../../assets/images/logo-green.png);
+.SvgLogo:hover {
+    fill: var(--green);
+}
 
-} */
-
-/* .Logo img {
-    height: 60px;
-} */
+@media (min-width: 900px) {
+    .SideDrawer {
+        display: none;
+    }
+}
 

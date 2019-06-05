@@ -5,6 +5,7 @@
     
     background: none;
     padding-inline-start: 0px;
+    border-bottom: 2px solid var(--blue); 
     
     display: -webkit-box;
     display: -moz-box;
@@ -13,24 +14,83 @@
     display: flex;
     
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: center;
   }
-  
-  .navigation li {
+
+  .All {
     text-decoration: none;
     display: block;
     padding: .5em 1em;
-    color: var(--white);
+    color: var(--blue);
     font-weight: 400;
-    background: var(--darkBlue);
+    border: 2px solid var(--blue);
     border-radius: 20px;
     margin: 5px 5px;
-    /*border: 1px solid #74be23;*/
+  }
+
+  .Creative {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+  }
+
+  .Business {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+  }
+
+  .Technology {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+  }
+
+  .Science {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+  }
+
+  .Lifestyle {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+  }
+
+  .Active {
+    background: var(--blue);
+    color: var(--white);
   }
   
   .navigation li:hover {
-    background-color: var(--skyBlue);
-    /*background-color: #303563;*/
+    background-color: var(--blue);
+    color: var(--white);
     cursor: pointer;
   }
   
@@ -39,21 +99,4 @@
       justify-content: space-around;
     }
   }
-  
-  @media all and (max-width: 600px) {
-    /*.navigation {
-      -webkit-flex-flow: column wrap;
-      flex-flow: column wrap;
-      padding: 0em;
-    }*/
-    
-    .navigation li { 
-      text-align: center;
-      padding: 10px;
-      margin: 5px 5px;
-      border-radius: 20px;
-      width: 250px;
-    }
-  
-}
 

@@ -5,20 +5,34 @@
     text-align: center;
 }
 
-/* .wrapper > * {
-    flex: 1 100%;
-} */
-
-.header {
-    /* background: var(--white); */
+.HeadBar {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     align-items: center;
-    /* height: 100px; */
-    /* margin: 8px 0; */
+    height: 160px;
+    margin: 0 0 8px 0;
+    background-color: var(--blue);
 }
+
+.ShortAdvert {
+    display: none;
+}
+
+.HeadBarAdvert {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: right;
+    padding-right: 32px;
+}
+
+.ExplorePage {
+    background-image: url('../../../assets/art/head-art/site-head-art_and_ad-banners-UI_explore.png');
+} 
 
 .Median {
     display: flex;  
@@ -27,183 +41,59 @@
     text-align: center; 
 }
 
-.main {
+.Main {
     text-align: left;
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
 }
-  
-.aside {
-    /* background: var(--lightGray); */
-    width: 300px;
-}
 
-.footer {
-    /* background: var(--white); */
+.FootBar {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     align-items: center;
-    /* height: 100px; */
-    /* margin: 8px 0; */
+    height: 160px;
+    margin: 0 0 8px 0;
 }
 
-.SideBoard {
-    /* background: var(--lightGray); */
-    width: 300px;
+.FootBarAdvert {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
 }
 
-/* @media all and (max-width: 800px) {
-    .SideBoard {
-        display: none;
-    }
-} */
-  
-/* @media all and (min-width: 1000px) {
-    .main  { flex: 0 0 70%; 
-        max-width: 70%;
-    }
-
-} */
-
-@media all and (max-width: 1200px) {
-    /* .aside { display: none; } */
-
-    /* .main  { flex: 0 0 100%; 
-        max-width: 100%;
-    } */
-
-    .SideBoard {
-        display: none;
-    }
-
+.SideBar {
+    background: var(--lightGray);
+    width: 400px;
 }
 
 @media all and (max-width: 900px) {
-    .aside { display: none; }
 
     .main  { flex: 0 0 100%; 
         max-width: 100%;
     }
 
-    .SideBoard {
+    .SideBar {
         display: none;
     }
 
-}
-
-
-/* .wrapper {
-    display: flex;  
-    flex-flow: row wrap;
-    font-weight: bold;
-    text-align: center;
-}
-
-.header {
-    flex: 1 100%;
-    background: var(--white);
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    align-items: center;
-    height: 100px;
-}
-
-.header div {
-    margin: 5px;
-}
-
-  
-.footer {
-    flex: 1 100%;
-    background: var(--white);
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    align-items: center;
-    height: 100px;
-}
-
-.footer div {
-    margin: 5px;  
-}
-  
-.main {
-    text-align: left;
-}
-  
-.aside1 {
-    background: var(--white);
-    margin-bottom: 5px;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    align-items: flex-start;
-}
-
-.aside1 div {
-    margin: 5px;
-}
-
-.aside2 {
-    background: var(--white);
-    width: 150px;
-}
-
-.aside2 div {
-    margin: 5px;
-}
-  
-
-@media all and (min-width: 600px) {
-    .aside { flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-    }
-}
-  
-@media all and (min-width: 1000px) {
-    .main  { flex: 0 0 60%; 
-        max-width: 60%;
-    }
-     
-    .aside1 { order: 1;} 
-    .main    { order: 2; }
-    .aside2 { order: 3; }
-    .footer  { order: 4; }
-}
-
-@media all and (max-width: 1000px) {
-    .aside { display: none; }
-    .aside2 {
+    .LongAdvert {
         display: none;
-    } 
-} */
+    }
 
+    .ShortAdvert {
+        display: inline-block;
+    }
+}
 
-/* .aside1 { order: 1;} 
-    .main    { order: 2; }
-    .aside2 { order: 3; }
-    .footer  { order: 4; } 
-*/
-
-/* .aside2 {
-    background: var(--white);
-    margin-bottom: 5px;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    align-items: flex-start;
-} */
-
-/* .wrapper > * {
-    flex: 1 100%;
-} */
-
+@media (max-width: 600px) {
+    .HeadBarAdvert {
+        text-align: center;
+        padding: 0;
+    }
+}

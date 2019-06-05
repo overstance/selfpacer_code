@@ -1,6 +1,6 @@
 .Backdrop {
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.98);
+    background-color: rgba(0, 0, 0, 0.90);
     min-height: 100%;
     z-index: 100;
     position: absolute;

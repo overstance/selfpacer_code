@@ -1,0 +1,63 @@
+.FlexWrapper {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-bottom: 2px solid var(--blue);
+}
+
+.Title {
+    margin: 0px;
+    padding: 15px 40px;
+    text-align: left;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: large;
+}
+
+.ToggleButtonContainer {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--skyBlue);
+}
+
+.ToggleButtonContainer:hover {
+    cursor: pointer;
+}
+
+.ToggleButtonBG {
+    transition: ease .3s;
+    width: 60px;
+    height: 22px;
+    background: var(--white);
+    border: 2px solid var(--blue);
+    border-radius: 100px;
+    position: relative;
+}
+
+.ToggleBGColor {
+    transition: ease .3s;
+    background: var(--blue);
+}
+
+.ToggleButton {
+    background: var(--blue);
+    width: 18px;
+    height: 18px;
+    display: block;
+    position: absolute;
+    border-radius: 100px;
+    top: 2px;
+    left: 2px;
+    transition: ease .3s;
+}
+
+.Toggle {
+  transition: ease .3s;
+  top: 2px;
+  left: 40px;
+  background: var(--white);
+}

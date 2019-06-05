@@ -14,11 +14,7 @@
     padding-top: 5rem;
 }
 
-.NavContainer {
-  background: var(--green);
-}
-
 .Explorer {
-    background: var(--darkBlue);
+    /* background: var(--darkBlue); */
     min-height: 500px; 
 }

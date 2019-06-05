@@ -5,11 +5,11 @@
     z-index: 100;
     left: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.90);
     min-height: 100%;
 }
 
-@media (min-width: 875px) {
+@media (min-width: 900px) {
     .Backdrop {
         display: none;
     }

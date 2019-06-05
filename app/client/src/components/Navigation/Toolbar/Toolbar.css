@@ -1,11 +1,20 @@
-.Container {
+/* .Container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 90;
-    /* background-color: #070a2b;  */
-    background-color: var(--darkestBlue);
+    background-color: #0a0426;
+} */
+
+.SvgLogo {
+    display: block;
+    width: 256px;
+    height: 80px;
+}
+
+.SvgLogo:hover {
+    fill: var(--darkBlue);
 }
 
 .NewSearchContainer {
@@ -20,15 +29,13 @@
   }
 
 .Toolbar {
-    height: 70px;
+    height: 100px;
     width: 100%;
-    /* background-color: #0b0f33; */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* padding: 0 20px; */
     box-sizing: border-box;
-    padding: 0 16px;
+    /* padding: 0 16px; */
 }
 
 .Widgets {
@@ -42,23 +49,19 @@
     height: 100%;
 }
 
-/* .Logo {
-    margin-right: 10px;
-} */
-
-/* .Logo a {
-    display: block;
-} */
-
 .ToolBarLogo {
     display: block;
-    width: 192px;
-    height: 60px;
-    background-image: url('../../../assets/images/logo-05.svg');
+    width: 320px;
+    height: 100px;
+    background-image: url('../../../assets/images/logo-full-text.svg');
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 90%;
     background-position-x: center;
     background-position-y: center;
+}
+
+.ToolBarLogo:hover {
+    background-size: 95%;
 }
 
 .SearchBar{
@@ -68,10 +71,9 @@
 
 .MobileSearchBar {
     margin-bottom: 6px
-    /* border-bottom: solid 1px #66cc00; */ 
 }
 
-@media (min-width: 550px) {
+@media (min-width: 600px) {
     .MobileSearchBar {
         display: none;
         padding: 0;
@@ -79,24 +81,23 @@
 
 }
 
-@media (max-width: 550px) {
+@media (max-width: 600px) {
     .DesktopOnlySearchbar {
         display: none;
     }
 
     .NewSearchContainer {
         padding: 0 16px;
-      }
+    }
 
-    /* .Toolbar {
+    .SvgLogo {
+        width: 160px;
         height: 50px;
-        padding-top: 5px;
-    } */
-
+    }
 }
 
 
-@media (max-width: 875px) {
+@media (max-width: 900px) {
     .DesktopOnly {
         display: none;
     }

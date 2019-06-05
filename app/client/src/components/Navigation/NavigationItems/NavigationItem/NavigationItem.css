@@ -6,7 +6,9 @@
 }
 
 .NavigationItem a {
-    color: var(--green);
+    color: var(--blue);
+    font-weight: bold;
+    font-size: larger;
     text-decoration: none;
     box-sizing: border-box; 
     display: inline-flex;
@@ -18,10 +20,16 @@
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    color: var(--skyBlue);
+    color: var(--darkBlue);
 }
 
-@media (min-width: 875px) {
+.NavigationItem a:hover svg,
+.NavigationItem a:active svg,
+.NavigationItem a.active svg {
+    fill: var(--darkBlue);
+}
+
+@media (min-width: 900px) {
     .NavigationItem {
         margin: 0;
         display: flex;
@@ -31,10 +39,9 @@
     }
     
     .NavigationItem a {
-        /* height: 100%; */
-        /* padding: 22px 10px; */
-        padding-left: 15px;
+        padding-right: 15px;
         flex-direction: column;
+        font-size: medium;
     }
     
 }

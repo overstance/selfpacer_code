@@ -22,7 +22,7 @@ const subheader = (props) => {
                         <img className={classes.RightAngleIcon} src={filterIcon} alt="filter icon" />    
                     </Link>
                 </div>
-            :
+                :
                 <div className={classes.FlexContainer}>
                     <div className={classes.TitleColumn}>
                         <h5>{props.subheadTitle}</h5>

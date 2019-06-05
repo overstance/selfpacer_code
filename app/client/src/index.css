@@ -1,20 +1,11 @@
 :root {
-    --darkestBlue: #00021e;
-    --darkBlue: #0b0f33;
-    --blue: #3a3962;
-    --lightBlue: #6b6895;
-    --lightestBlue: #d7d1ff;
-    --green: #8ee630;
-    --darkGreen: #70ca00;
-    --skyBlue: #00bfff;
-    --red: #ff4433;
-    --orange: #ffcc33;
-    --white: white;
-    --lightestGray: whitesmoke;
-    --lightGray: lightgray;
-    --gray: gray;
-    --darkGray: rgb(68, 68, 68);
-    --black: black;
+    --darkBlue: #0a0426;
+    --blue: #3a2d80;
+    --green: #40ff70;
+    --red: #de3535;
+    --orange: #ebbe17;
+    --white: #ffffff;
+    --gray: #cccccc;
 }
 
 
@@ -22,6 +13,6 @@ html, body {
     margin: 0;
     padding: 0;
     /*font-family: 'Open Sans', sans-serif;*/
-    font-family: 'Ubuntu', sans-serif;
-    background: var(--lightestGray);
+    /* font-family: 'Ubuntu', sans-serif; */
+    font-family: 'Comfortaa', cursive;
 }

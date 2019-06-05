@@ -20,7 +20,8 @@ export {
     increaseViews,
     setActiveContentType,
     setSelectedCategory,
-    setLikedResource
+    setLikedResource,
+    setClickedSubjectTitle
 } from './explore';
 export {
     fetchAccounting,
@@ -106,7 +107,7 @@ export {
     fetchWebdev,
     fetchAllWebdev,
     fetchWriting,
-    fetchAllWriting
+    fetchAllWriting,
 } from './clickedSubject';
 export {
     addAdminUser,

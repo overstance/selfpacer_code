@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './Subject.css';
-// import eyeIcon from '../../../assets/images/eye.svg';
 import { Link } from 'react-router-dom';
 
 
@@ -13,12 +12,7 @@ const subject = (props) => (
                     <div className={classes.Caption}>
                         <span className={classes.SubjectSpan}>{props.title}</span>
                     </div>
-                    <div className={classes.ViewCounter}>
-                        <div>
-                            {/* <img className={classes.EyeIcon} src={eyeIcon} alt='eye icon' /><span style={{ color: "#ff4433" }}>{props.views}</span> */}
-                            <div className={classes.Category}>{props.category}</div>
-                        </div>
-                    </div>
+                    <div className={classes.Category}>{props.category}</div>
             </Link>
         </div>
     </li>

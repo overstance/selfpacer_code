@@ -1,0 +1,34 @@
+.SearchIcon {
+    width: 30px;
+    height: 30px;
+    margin-left: 16px;
+}
+
+.SearchIcon:hover {
+    fill: var(--darkBlue);
+}
+
+
+.NavigationItems {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    height: 100%;
+    width: 240px;
+    justify-content: flex-end;
+}
+
+.User {
+    height: 36px;
+    width: 36px;
+}
+
+.User:hover .UserFill {
+    fill: var(--blue);
+}
+
+@media (max-width: 900px) {
+    .NavigationItems {
+        width: 80px;
+    }
+}
