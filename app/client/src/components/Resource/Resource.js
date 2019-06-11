@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import classes from './Resource.css';
 import PropTypes from 'prop-types';
+import LikeActionButton from '../UserInterface/ActionButtons/Like'; 
+import CollectActionButton from '../UserInterface/ActionButtons/Collect';
+import CheckActionButton from '../UserInterface/ActionButtons/Check';
+import DeleteActionButton from '../UserInterface/ActionButtons/Delete'
+
 // import noImageIcon from '../../assets/images/image.svg';
 import {connect} from 'react-redux';
 
@@ -84,13 +89,12 @@ class Resource extends Component {
                         </div>
                     </div>
                 </a>
-                <div className={classes.Hr}/>
                 <div className={classes.FeedbackRow}>
                     <div className={classes.FeedbackContainer}>
                         { this.props.toConfirm ? 
-                            <div className={classes.OptionsConfirm}>
+                            <div className={classes.OptionFlex}>
                                 <span className={classes.DateAdded}>{'date added: ' + this.props.dateAdded}</span>
-                                <span onClick={this.props.confirmClicked} className={classes.ToConfirm}>confirm</span>
+                                <CheckActionButton clicked={this.props.confirmClicked} />
                             </div>
                             : 
                             <div className={classes.DetailsColumnFlex}>
@@ -99,21 +103,17 @@ class Resource extends Component {
                                         <span className={classes.FeedbackText}>liked</span>
                                     </div> : null
                                 }
-                                <div className={classes.OptionsLike}>
-                                    <span className={classes.FeedbackText}>like</span>
-                                    <span onClick={this.props.likeclicked} className={classes.FeedBackIconLike}></span>
-                                    {/* <span>{this.props.likes}</span> */}
+                                <div className={classes.OptionFlex}>
+                                    <LikeActionButton clicked={this.props.likeclicked} />
                                 </div>
                             </div>
                         }
                         { this.props.deletable ? 
-                            <div className={classes.Options}>
-                                <span className={classes.FeedbackText}>delete</span>
-                                <span onClick={this.props.deleteClicked} className={classes.FeedBackIconDelete}></span>
+                            <div className={classes.OptionFixed}>
+                                <DeleteActionButton clicked={this.props.deleteClicked}/>
                             </div> :
-                            <div className={classes.Options}>
-                                <span className={classes.FeedbackText}>collect</span>
-                                <span onClick={this.props.collectclicked} className={classes.FeedBackIconCollect}></span>
+                            <div className={classes.OptionFixed}>
+                                <CollectActionButton clicked={this.props.collectclicked} />
                             </div>
                         }
                     </div>
@@ -144,35 +144,3 @@ Resource.propTypes= {
 }
 
 export default connect(mapStateToProps)(Resource);
-
-/* 
-
-        <div className={classes.Resource}>
-            <Link
-            to={`/accounting/${this.props.id}`} 
-            className={classes.MainContainer}
-            onClick={props.clicked}
-            >
-                <div className={classes.ImgColumn}>
-                    <img className={classes.ResourceImg} src={props.image} alt="resource" />    
-                </div>
-                <div className={classes.InfoColumn}>
-                    <div className={classes.InfoContainer}>
-                        <div className={classes.TitleRow}>
-                            <div className={classes.Title}>{props.title}</div>
-                            <div className={classes.DetailsContainer}>
-                                <div>
-                                    <div className={classes.Source}>SOURCE:<span>{props.source}</span></div>
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Link>
-        </div>
-
-                        <div className={classes.Options}>
-                            <span className={classes.FeedbackText}>collect</span>
-                            <span onClick={props.collectclicked} className={classes.FeedBackIconCollect}></span>
-                        </div>
-*/

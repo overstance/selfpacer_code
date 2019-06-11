@@ -5,23 +5,55 @@
     flex-wrap: wrap;
     justify-content: center;
     border-bottom: 2px solid var(--blue);
+    padding: 8px;
+}
+
+.TitleContainer{
+   /*  width: 100%;
+    margin: 10px 0px;
+    min-height: 1px; */
+    /* padding-right: 15px;
+    padding-left: 15px;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%; */
+    justify-content: flex-end;
+    display: flex;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 50%;
 }
 
 .Title {
     margin: 0px;
-    padding: 15px 40px;
+    /* padding: 15px 40px; */
     text-align: left;
     color: var(--blue);
     font-weight: 700;
     font-size: large;
+    display: inline-block;
+    /* width: 100%; */
 }
 
 .ToggleButtonContainer {
     text-align: center;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: var(--skyBlue);
+    justify-content: flex-start;
+    padding-left: 16px;
+    /* background: var(--skyBlue); */
+    /* padding-right: 15px;
+    padding-left: 15px;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%; */
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 50%;
 }
 
 .ToggleButtonContainer:hover {
@@ -59,5 +91,15 @@
   transition: ease .3s;
   top: 2px;
   left: 40px;
-  background: var(--white);
+  background: var(--green);
+}
+
+@media (max-width: 600px) {
+    .ToggleButtonContainer {
+        justify-content: center;
+    }
+
+    .TitleContainer {
+        justify-content: flex-start
+    }
 }

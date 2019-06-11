@@ -90,8 +90,8 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/subject/:subjectTitle', (req, res) => {
-    Subject.find({ title: req.params.subjectTitle }, function(
+  app.get('/api/subject/:subject_title', (req, res) => {
+    Subject.find({ title: req.params.subject_title }, function(
       err,
       clickedSubject
     ) {

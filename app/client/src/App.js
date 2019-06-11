@@ -28,7 +28,9 @@ import ResetPassword from './components/auth/ResetPassword/ResetPassword';
 import EmailVerified from './components/auth/Register/EmailVerified';
 import ReverifyEmail from './components/auth/Register/ReverifyEmail/ReverifyEmail';
 
-import Accounting from './containers/Subjects/Accounting';
+import SubjectPage from './containers/SubjectPage/SubjectPage';
+
+/* import Accounting from './containers/Subjects/Accounting';
 import Animation from './containers/Subjects/Animation';
 import Architecture from './containers/Subjects/Architecture';
 import Audio from './containers/Subjects/Audio';
@@ -69,7 +71,8 @@ import Travel from './containers/Subjects/Travel';
 import Video from './containers/Subjects/Video';
 import WebDesign from './containers/Subjects/WebDesign';
 import Webdev from './containers/Subjects/Webdev';
-import Writing from './containers/Subjects/Writing';
+import Writing from './containers/Subjects/Writing'; */
+// import Search from './components/UserInterface/FloatingButtons/FloatButtonWithOptions/floatingButton'; 
 
 
 import Blog from './containers/blog/Blog';
@@ -99,7 +102,8 @@ class App extends Component {
     let routes = (
       <Switch>
         <Route path="/search" component={Search} />
-        <Route path="/explore/writing" component={Writing} />
+        <Route path="/explore/:subject_title" component={SubjectPage} />
+        {/* <Route path="/explore/writing" component={Writing} />
         <Route path="/explore/web-development" component={Webdev} />
         <Route path="/explore/web-design" component={WebDesign} />
         <Route path="/explore/video" component={Video} />
@@ -140,7 +144,7 @@ class App extends Component {
         <Route path="/explore/audio-production" component={Audio} />
         <Route path="/explore/architectural-design" component={Architecture} />
         <Route path="/explore/animation" component={Animation} />            
-        <Route path="/explore/accounting" component={Accounting} />}
+        <Route path="/explore/accounting" component={Accounting} /> */}
         <Route path="/explore" exact component={ (props) => (
           <Explore timestamp={new Date().toString()} {...props} />
           )} 

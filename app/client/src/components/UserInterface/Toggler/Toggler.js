@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Toggler.css';
+import {Link} from 'react-router-dom';
 
 
 const toggler = (props) => {
@@ -13,16 +14,30 @@ const toggler = (props) => {
     }
 
     return (
-        
-        <div className={classes.FlexWrapper}>
-            <div className={classes.Title}>{props.subheadTitle}</div>
-            <div onClick={props.toggleHandler} className={classes.ToggleButtonContainer}>
-                <div className={toggleBGClasses.join(' ')}>
-                    <div className={toggleButtonClasses.join(' ')}></div>
+        <div>
+            { props.isLink ?
+                <div className={classes.FlexWrapper}>
+                    <div className={classes.TitleContainer}>
+                        <div className={classes.Title}>{props.subheadTitle}</div>
+                    </div>
+                    <Link to={props.link} /* onClick={props.toggleHandler} */ className={classes.ToggleButtonContainer}>
+                        <div className={toggleBGClasses.join(' ')}>
+                            <div className={toggleButtonClasses.join(' ')}></div>
+                        </div>
+                    </Link>
+                </div> :
+                <div className={classes.FlexWrapper}>
+                    <div className={classes.TitleContainer}>
+                        <div className={classes.Title}>{props.subheadTitle}</div>
+                    </div>
+                    <div onClick={props.toggleHandler} className={classes.ToggleButtonContainer}>
+                        <div className={toggleBGClasses.join(' ')}>
+                            <div className={toggleButtonClasses.join(' ')}></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
-
     );
 };
 

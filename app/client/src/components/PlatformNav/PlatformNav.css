@@ -4,16 +4,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    /*background: var(--skyBlue);*/
-}
-
-
-.FlexContainer h5 {
-    margin: 0px;
-    /*background-color: #74be23;*/
-    padding: 15px 0px;
-    text-align: center;
-    color: var(--skyBlue);
+    background: var(--blue);
 }
   
 .Youtube {
@@ -23,39 +14,41 @@
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
-    /*background: var(--red);*/
-    background: var(--darkBlue);
-    border-right: 1px solid var(--blue);
     margin: 0px;
-    /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: var(--skyBlue);
-    /* font-size: small; */
+    color: var(--white);
     font-weight: 400;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 2px solid var(--blue);
 }
 
 .YoutubeIcon {
+    fill: var(--white);
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    background-image: url(../../assets/images/youtube.svg);
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 100%;
 }
 
 .Active {
-    border-bottom: 2px solid var(--green);
+    border-bottom: 2px solid var(--green) !important;
+    color: var(--green) !important;
+}
+
+.IconActive {
+    fill: var(--green) !important;
 }
 
 .Youtube:hover {
     cursor: pointer;
     color: var(--green);
+    border-bottom: 2px solid var(--green);
+}
+
+.Youtube:hover svg {
+    fill: var(--green);
 }
 
 .Mooc {
@@ -65,36 +58,32 @@
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
-    /*background: #828efc;*/
-    background: var(--darkBlue);
-    border-right: 1px solid var(--blue);
     margin: 0px;
-    /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: var(--skyBlue);
-    /* font-size: small; */
+    color: var(--white);
     font-weight: 400;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    border-bottom: 2px solid var(--blue);
 }
 
 .MoocIcon {
+    fill: var(--white);
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    background-image: url(../../assets/images/mooc.svg);
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 100%;
 }
 
 .Mooc:hover {
     cursor: pointer;
     color: var(--green);
+    border-bottom: 2px solid var(--green);
+}
+
+.Mooc:hover svg {
+    fill: var(--green);
 }
 
 .All {
@@ -104,35 +93,32 @@
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
-    /*background: #74be23;*/
-    background: var(--darkBlue);
-    border-right: 1px solid var(--blue);
     margin: 0px;
-    /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: var(--skyBlue);
-    /* font-size: small; */
+    color: var(--white);
     font-weight: 400;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 2px solid var(--blue);
 }
 
 .AllIcon {
+    fill: var(--white);
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    background-image: url(../../assets/images/layer-group.svg);
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 100%;
 }
 
 .All:hover {
     cursor: pointer;
     color: var(--green);
+    border-bottom: 2px solid var(--green);
+}
+
+.All:hover svg {
+    fill: var(--green)
 }
 
 .Book {
@@ -142,36 +128,33 @@
     flex-grow: 1;
     max-width: 100%;
     text-align: center;
-    /*background: var(--skyBlue);*/
-    background: var(--darkBlue);
     margin: 0px;
-    /*background-color: #74be23;*/
     padding: 15px 0px;
     text-align: center;
-    color: var(--skyBlue);
-    /* font-size: small; */
+    color: var(--white);
     font-weight: 400;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    border-bottom: 2px solid var(--blue);
 }
 
 .BookIcon {
+    fill: var(--white);
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    background-image: url(../../assets/images/book.svg);
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 100%;
 }
 
 .Book:hover {
     cursor: pointer;
     color: var(--green);
+    border-bottom: 2px solid var(--green);
 }
+
+.Book:hover svg {
+    fill: var(--green)
+} 
 
 @media (max-width: 450px) {
     .All {

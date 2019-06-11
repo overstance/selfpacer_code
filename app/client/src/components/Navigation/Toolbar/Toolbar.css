@@ -14,7 +14,7 @@
 }
 
 .SvgLogo:hover {
-    fill: var(--darkBlue);
+    fill: var(--green);
 }
 
 .NewSearchContainer {
@@ -93,6 +93,10 @@
     .SvgLogo {
         width: 160px;
         height: 50px;
+    }
+
+    .Toolbar {
+        padding: 0 16px;    
     }
 }
 

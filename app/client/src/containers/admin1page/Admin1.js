@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './Admin1.css';
-import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
+// import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
+import Toggler from '../../components/UserInterface/Toggler/Toggler';
 
 import AddYoutubeVideos from './youtubeVideos/AddYoutubeVideos';
 import AddYoutubePlaylists from './youtubePlaylist/AddYoutubePlaylists';
@@ -18,29 +19,29 @@ class Admin1 extends Component {
 
     state = {
         showManageSubjects: false,
-        manageSubjectsIconRotate: false,
+        manageSubjectsToggle: false,
 
         showManageUsers: false,
-        manageUsersIconRotate: false,
+        manageUsersToggle: false,
 
         showManageYoutubeVideos: false,
-        manageYoutubeVideosIconRotate: false,
+        manageYoutubeVideosToggle: false,
 
         showManageYoutubePlaylists: false,
-        manageYoutubePlaylistsIconRotate: false,
+        manageYoutubePlaylistsToggle: false,
 
         showManageMoocs: false,
-        manageMoocsIconRotate: false,
+        manageMoocsToggle: false,
 
         showManageBooks: false,
-        manageBooksIconRotate: false,
+        manageBooksToggle: false,
     }
 
     manageSubjectsToggleHandler = () => {
         this.setState((prevState) => {
             return {
                 showManageSubjects: !prevState.showManageSubjects,
-                manageSubjectsIconRotate: !prevState.manageSubjectsIconRotate
+                manageSubjectsToggle: !prevState.manageSubjectsToggle
             };
         });
     }
@@ -49,7 +50,7 @@ class Admin1 extends Component {
         this.setState((prevState) => {
             return {
                 showManageUsers: !prevState.showManageUsers,
-                manageUsersIconRotate: !prevState.manageUsersIconRotate
+                manageUsersToggle: !prevState.manageUsersToggle
             };
         });
     }
@@ -58,7 +59,7 @@ class Admin1 extends Component {
         this.setState((prevState) => {
             return {
                 showManageYoutubeVideos: !prevState.showManageYoutubeVideos,
-                manageYoutubeVideosIconRotate: !prevState.manageYoutubeVideosIconRotate
+                manageYoutubeVideosToggle: !prevState.manageYoutubeVideosToggle
             };
         });
     }
@@ -67,7 +68,7 @@ class Admin1 extends Component {
         this.setState((prevState) => {
             return {
                 showManageYoutubePlaylists: !prevState.showManageYoutubePlaylists,
-                manageYoutubePlaylistsIconRotate: !prevState.manageYoutubePlaylistsIconRotate      
+                manageYoutubePlaylistsToggle: !prevState.manageYoutubePlaylistsToggle      
             };
         });
     }
@@ -76,7 +77,7 @@ class Admin1 extends Component {
         this.setState((prevState) => {
             return {
                 showManageMoocs: !prevState.showManageMoocs,
-                manageMoocsIconRotate: !prevState.manageMoocsIconRotate
+                manageMoocsToggle: !prevState.manageMoocsToggle
             };
         });
     }
@@ -85,7 +86,7 @@ class Admin1 extends Component {
         this.setState((prevState) => {
             return {
                 showManageBooks: !prevState.showManageBooks,
-                manageBooksIconRotate: !prevState.manageBooksIconRotate
+                manageBooksToggle: !prevState.manageBooksToggle
             };
         });
     }
@@ -95,18 +96,18 @@ class Admin1 extends Component {
             <Container>
                 <div >
                     <div className={classes.Subheader}>
-                        <SubHeader 
-                            subheadTitle="CONFIRM RESOURCES"
+                        <Toggler 
+                            subheadTitle="confirm resources"
                             isLink
                             link='/admin_tools/confirm_resources'
                         />
                     </div>
                     < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
-                        <SubHeader 
-                            filterIconRotate={this.state.manageSubjectsIconRotate} 
-                            filterToggleHandler={this.manageSubjectsToggleHandler}
-                            subheadTitle="MANAGE SUBJECTS"
+                        <Toggler 
+                            toggle={this.state.manageSubjectsToggle} 
+                            toggleHandler={this.manageSubjectsToggleHandler}
+                            subheadTitle="manage resources"
                         />
                         { this.state.showManageSubjects ? 
                             <div className={classes.BlockContentItems}>
@@ -117,10 +118,10 @@ class Admin1 extends Component {
                     </div>
                     < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
-                        <SubHeader 
-                            filterIconRotate={this.state.manageUsersIconRotate} 
-                            filterToggleHandler={this.manageUsersToggleHandler}
-                            subheadTitle="MANAGE USERS"
+                        <Toggler 
+                            toggle={this.state.manageUsersToggle} 
+                            toggleHandler={this.manageUsersToggleHandler}
+                            subheadTitle="manage users"
                         />
                         { this.state.showManageUsers ? 
                             <div className={classes.ContentItems}>
@@ -132,10 +133,10 @@ class Admin1 extends Component {
                     </div>
                     < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
-                        <SubHeader 
-                            filterIconRotate={this.state.manageYoutubeVideosIconRotate} 
-                            filterToggleHandler={this.manageYoutubeVideosToggleHandler}
-                            subheadTitle="MANAGE YOUTUBE VIDEOS"
+                        <Toggler 
+                            toggle={this.state.manageYoutubeVideosToggle} 
+                            toggleHandler={this.manageYoutubeVideosToggleHandler}
+                            subheadTitle="manage youtube-videos"
                         />
                         { this.state.showManageYoutubeVideos ? 
                             <div className={classes.ContentItems}>
@@ -146,10 +147,10 @@ class Admin1 extends Component {
                     </div>
                     < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
-                        <SubHeader 
-                            filterIconRotate={this.state.manageYoutubePlaylistsIconRotate} 
-                            filterToggleHandler={this.manageYoutubePlaylistsToggleHandler}
-                            subheadTitle="MANAGE YOUTUBE PLAYLISTS"
+                        <Toggler 
+                            toggle={this.state.manageYoutubePlaylistsToggle} 
+                            toggleHandler={this.manageYoutubePlaylistsToggleHandler}
+                            subheadTitle="manage youtube-playlists"
                         />
                         { this.state.showManageYoutubePlaylists ? 
                             <div className={classes.ContentItems}>
@@ -160,10 +161,10 @@ class Admin1 extends Component {
                     </div>
                     < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
-                        <SubHeader 
-                            filterIconRotate={this.state.manageMoocsIconRotate} 
-                            filterToggleHandler={this.manageMoocsToggleHandler}
-                            subheadTitle="MANAGE MOOCS"
+                        <Toggler 
+                            toggle={this.state.manageMoocsToggle} 
+                            toggleHandler={this.manageMoocsToggleHandler}
+                            subheadTitle="manage courses"
                         />
                         { this.state.showManageMoocs ? 
                             <div className={classes.ContentItems}>
@@ -173,10 +174,10 @@ class Admin1 extends Component {
                     </div>
                     < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
-                        <SubHeader 
-                            filterIconRotate={this.state.manageBooksIconRotate} 
-                            filterToggleHandler={this.manageBooksToggleHandler}
-                            subheadTitle="MANAGE BOOKS"
+                        <Toggler 
+                            toggle={this.state.manageBooksToggle} 
+                            toggleHandler={this.manageBooksToggleHandler}
+                            subheadTitle="manage books"
                         />
                         { this.state.showManageBooks ? 
                             <div className={classes.ContentItems}>

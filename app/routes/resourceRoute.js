@@ -15,9 +15,9 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/resources/:subjectTitle', (req, res) => {
+  app.get('/api/resources/:subject_title', (req, res) => {
     Resource.find(
-      { confirmed: true, category: req.params.subjectTitle },
+      { confirmed: true, category: req.params.subject_title },
       function(err, resources) {
         if (err) {
           console.log(err);

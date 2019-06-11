@@ -20,13 +20,13 @@
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    color: var(--darkBlue);
+    color: var(--green);
 }
 
 .NavigationItem a:hover svg,
 .NavigationItem a:active svg,
 .NavigationItem a.active svg {
-    fill: var(--darkBlue);
+    fill: var(--green);
 }
 
 @media (min-width: 900px) {

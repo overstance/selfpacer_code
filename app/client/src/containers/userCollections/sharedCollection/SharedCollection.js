@@ -20,12 +20,10 @@ import AddToCollection from '../../../components/Dialogues/addToCollection/addTo
 class SharedCollection extends Component {
 
     componentDidMount() {
-        if (this.props.clickedCollectionAttributes.id === '') {
-            this.props.history.push('/collections');
-        }
-        
         if (this.props.match.params.id) {
           this.props.onFetchCollectionById(this.props.match.params.id);
+        } else {
+            this.props.history.push('/collections');  
         }
     }
 

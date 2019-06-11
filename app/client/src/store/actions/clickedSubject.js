@@ -54,10 +54,42 @@ export const fetchAllFailed = ( error ) => {
     }
 }
 
+// dynamic Subject Page
+
+export const fetchSubjectDetails = (subject_title) => {
+    return dispatch => {
+        dispatch(fetchClickedSubjectStart());
+
+        axios.get(`/api/subject/${subject_title}`)
+            .then(                
+                res => {
+                const clickedSubject = [...res.data.subjects];
+                dispatch(fetchClickedSubjectSuccess(clickedSubject));
+            } )
+            .catch( err => {
+                dispatch(fetchClickedSubjectFail(err));
+            } );
+    };
+};
+
+export const fetchSubjectResources = (subject_title) => async dispatch => {
+    dispatch(fetchAllStart());
+
+    const res = await axios.get(`/api/resources/${subject_title}`);
+
+    if (res.data.all) {
+        const all = [...res.data.all];
+
+        const allShuffled = shuffleArray(all);
+
+        dispatch(fetchAllSuccess(allShuffled));
+    } else dispatch(fetchAllFailed(res.data));
+}
+
 
 // Fetch all resources and fetch subject path and study topic actions
 
-// Accounting
+/* // Accounting
 
 export const fetchAccounting = () => {
     return dispatch => {
@@ -1400,4 +1432,4 @@ export const fetchAllWriting = () => async dispatch => {
         dispatch(fetchAllSuccess(allShuffled));
     } else dispatch(fetchAllFailed(res.data));
 }
-
+ */

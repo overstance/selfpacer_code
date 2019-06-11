@@ -7,14 +7,16 @@
 }
     
 
-@media (min-width: 1300px) {
+@media (min-width: 1280px) {
   .container {
     max-width: 1280px;
   }
 }
 
-/* @media ( max-width: 875px) {
+
+
+@media ( max-width: 600px) {
   .container {
     padding: 0;
   }
-} */
+}

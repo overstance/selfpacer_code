@@ -1,11 +1,16 @@
+
 .SearchIcon {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     margin-left: 16px;
 }
 
-.SearchIcon:hover {
-    fill: var(--darkBlue);
+.SearchIcon:hover .SearchIconFront {
+    fill: var(--green);
+}
+
+.SearchIcon:hover .SearchIconBack {
+    fill: var(--blue);
 }
 
 
@@ -19,11 +24,12 @@
 }
 
 .User {
-    height: 36px;
-    width: 36px;
+    height: 32px;
+    width: 32px;
+    fill: var(--green);
 }
 
-.User:hover .UserFill {
+.User:hover {
     fill: var(--blue);
 }
 

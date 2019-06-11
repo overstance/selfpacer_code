@@ -1,0 +1,35 @@
+.Container {
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+    cursor: pointer;
+}
+
+.Icon {
+    fill: var(--blue);
+    vertical-align: middle;
+    padding: 6px;
+}
+
+.IconDelete {
+    fill: var(--blue);
+    vertical-align: middle;
+    padding: 6px;  
+}
+
+.Container:hover {
+    background: var(--blue);
+}
+
+.Container:hover .Icon {
+    fill: var(--green);
+}
+
+.Container:hover .IconDelete {
+    fill: var(--red);
+}
+
+.LargeButton {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 10px
+}

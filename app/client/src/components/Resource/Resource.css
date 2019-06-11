@@ -1,12 +1,8 @@
 .Resource {
     margin-bottom: 10px;
     outline: none;
-    box-shadow: 1px 0px 6px 0px var(--lightGray);
+    box-shadow: 1px 0px 6px 0px var(--gray);
 }
-
-/* .Resource:first-of-type {
-    margin-top: 10px;
-} */
 
 .MainContainer {
     display: -ms-flexbox;
@@ -53,7 +49,7 @@
 
 
 .Title:hover {
-    color: var(--darkGreen);
+    color: var(--green);
     text-decoration: none;
 }
 
@@ -81,7 +77,6 @@
 .ImgColumn {
     width: 100px;
     text-align: center;
-    /* margin: auto; */
     background-position-x: center;
     background-position-y: center;
     background-size: cover;
@@ -126,11 +121,13 @@
 }
 
 .Type span {
-    color: var(--red);
-    padding: 0 10px;
+    color: var(--blue);
+    background: var(--green);
+    margin-left: 4px;
+    font-size: small;
 
 }
-  
+
 .FeedbackRow {
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
@@ -146,74 +143,7 @@
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     background: var(--white);
-    border-bottom: 1px solid var(--lightGray);
-    border-top: 1px solid var(--lightGray);
     align-items: center;
-}
-
-.FeedbackIcons {
-    width: 20px;
-    vertical-align: bottom;
-}
-
-.FeedBackIconLike {
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    box-sizing: border-box;
-    vertical-align: middle;
-    cursor: pointer;
-    text-align: center;
-    font-weight: 400;
-    background-image: url('../../assets/images/thumbs-up.svg');
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 60%;
-}
-
-.FeedBackIconLike:hover {
-    background-image: url('../../assets/images/thumbs-up-focus.svg');
-}
-
-.FeedBackIconCollect {
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    box-sizing: border-box;
-    vertical-align: middle;
-    cursor: pointer;
-    text-align: center;
-    font-weight: 400;
-    background-image: url('../../assets/images/compress-arrows-alt.svg');
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 60%;
-}
-
-.FeedBackIconCollect:hover {
-    background-image: url('../../assets/images/compress-arrows-alt-focus.svg');
-}
-
-.FeedBackIconDelete {
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    box-sizing: border-box;
-    vertical-align: middle;
-    cursor: pointer;
-    text-align: center;
-    font-weight: 400;
-    background-image: url('../../assets/images/trash-alt-reg.svg');
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 60%;
-}
-
-.FeedBackIconDelete:hover {
-    background-image: url('../../assets/images/trash-alt-req-focus.svg');
 }
 
 .FeedbackText {
@@ -224,50 +154,20 @@
 
 .DateAdded {
     font-size: small;
-    color: var(--red);
-    font-weight: 400;
-    padding-right: 10px;
+    color: var(--blue);
+    font-weight: 700;
+    margin-right: 10px;
+    background: var(--green);
 }
 
-.ToConfirm {
-    font-size: small;
-    background: var(--blue);
-    color: var(--white);
-    font-weight: 400; 
-    padding: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.ToConfirm:hover {
-    background: var(--darkGreen)
-}
-
-.InfoColumn {
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-    text-align: center;
-}
-
-.Options {
+.OptionFixed {
     text-align: right;
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
+    padding: 5px 10px 5px 0;
+    display: flex;
 }
 
-.OptionsLike {
-    text-align: right;
-    padding: 5px 10px;
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-}
-
-.OptionsConfirm {
+.OptionFlex {
     text-align: right;
     padding: 5px 10px;
     -ms-flex-preferred-size: 0;
@@ -293,7 +193,7 @@
     animation: slideRight 0.2s ease-in-out;
     padding: 5px 10px;
     border-radius: 0 10px 10px 0;
-    background: var(--darkBlue);
+    background: var(--blue);
 }
 
 @keyframes slideRight {
@@ -301,7 +201,7 @@
     100%{transform: translateX(0px);}
   }
 
-@media all and (max-width: 480px) {
+@media all and (max-width: 600px) {
     .Type {
         padding-left: 10px;    
     }
@@ -317,15 +217,4 @@
     .ResourceImg {
         width: 80px;
     }
-}
-
-@media all and (max-width: 292px) {
-    .Options {
-        padding: 0px;
-    }
-}
-
-.FeedbackIcons {
-    width: 20px;
-    vertical-align: bottom;
 }

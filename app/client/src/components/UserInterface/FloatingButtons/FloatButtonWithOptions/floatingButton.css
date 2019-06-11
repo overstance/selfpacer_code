@@ -1,0 +1,277 @@
+/* .FAB {
+	position: absolute;
+	bottom: 30px;
+	right: 60px;
+	width: 56px;
+	
+	&__action-button,
+	&__mini-action-button{
+		cursor: pointer;
+		position: absolute;
+	}
+	
+	&__action-button {
+		bottom: 0;
+		right: 0;
+		
+		&:hover {
+			.action-button__icon {
+				@include circleShadow(8px);
+			}
+		}
+	}
+	
+	&__mini-action-button {
+		bottom: 0;
+		right: 49px;
+		
+		
+	}
+	
+	
+} */
+
+
+.Wrapper {
+    position: absolute;
+	bottom: 30px;
+	right: 60px;
+	width: 56px;
+}
+
+.WrapperExpand {
+    height: 240px;
+    background: var(--green);
+}
+
+.FloatingButton {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+	right: 0;
+}
+
+.FloatingButton:hover {
+    border: 2px solid var(--darkBlue);
+}
+
+.MiniButtonContainer {
+    cursor: pointer;
+	position: absolute;
+    bottom: 0;
+	right: 49px;
+	display: none;
+}
+
+.MiniButtonContainerShow {
+	display: block
+}
+
+.MiniButton {
+    position: absolute;
+	text-align: center;
+	/* display: block; */
+}
+
+.MiniButtonContainerHide {
+	display: none;
+	/* opacity: 0; */
+}
+
+.MiniButtonContainer:nth-child(1){
+    bottom: 80px;
+}
+
+.MiniButtonContainer:nth-child(2){
+    bottom: 160px;
+}
+
+.MiniButtonContainer:nth-child(1){
+    bottom: 240px;
+}
+
+.AddIcon {
+    background-color: #ff4081;
+    border-radius: 50%;
+    color: #fff;
+    padding: 16px;
+}
+
+.AddLabel {
+    background-color: #212121;
+    border-radius: 3px;
+    color: #fff;
+    right: 75px;
+    font-size: 14px;
+    font-family: "Helvetica Neue";
+    opacity: .8;
+    padding: 5px 9px;
+    position: absolute;
+    top: 2px;
+    white-space: nowrap;
+}
+
+.AddLabelHide {
+    display: none;
+}
+
+.YoutubeIcon {
+    background-color: #ff4081;
+    border-radius: 50%;
+    color: #fff;
+    padding: 16px;
+}
+
+.YoutubeLabel {
+    background-color: #212121;
+    border-radius: 3px;
+    color: #fff;
+    right: 75px;
+    font-size: 14px;
+    font-family: "Helvetica Neue";
+    opacity: .8;
+    padding: 5px 9px;
+    position: absolute;
+    top: 2px;
+    white-space: nowrap;
+}
+
+.YoutubeLabelHide {
+    display: none;
+}
+
+.CourseIcon {
+    background-color: #ff4081;
+    border-radius: 50%;
+    color: #fff;
+    padding: 16px;
+}
+
+.CourseLabel {
+    background-color: #212121;
+    border-radius: 3px;
+    color: #fff;
+    right: 75px;
+    font-size: 14px;
+    font-family: "Helvetica Neue";
+    opacity: .8;
+    padding: 5px 9px;
+    position: absolute;
+    top: 2px;
+    white-space: nowrap;
+}
+
+.CourseLabelHide {
+    display: none;
+}
+
+.BookIcon {
+    background-color: #ff4081;
+    border-radius: 50%;
+    color: #fff;
+    padding: 16px;
+}
+
+.BookLabel {
+    background-color: #212121;
+    border-radius: 3px;
+    color: #fff;
+    right: 75px;
+    font-size: 14px;
+    font-family: "Helvetica Neue";
+    opacity: .8;
+    padding: 5px 9px;
+    position: absolute;
+    top: 2px;
+    white-space: nowrap;
+}
+
+.BookLabelHide {
+    display: none;
+}
+
+
+/* .action-button {
+	&__icon{
+		@include circleShadow(4px);
+		background-color: #ff4081;
+		border-radius: 50%;
+		color: #fff;
+		padding: 16px;
+	}
+	
+	&__text {
+		
+		&--hide {
+			display: none;
+		}
+		
+		&--show {
+			background-color: #212121;
+			border-radius: 3px;
+			color: #fff;
+			right: 75px;
+			font-size: 14px;
+			font-family: "Helvetica Neue";
+			opacity: .8;
+			padding: 5px 9px;
+			position: absolute;
+			top: 2px;
+			white-space: nowrap;
+		}
+	}
+}
+
+.mini-action-button {
+	
+	&__icon {
+		@include circleShadow(4px);
+		background-color: #536DFE;
+		border-radius: 50%;
+		color: #fff;
+		padding: 8px;
+		
+		&:hover {
+			@include circleShadow(8px);
+		}
+		
+	}
+	
+	&__text {
+		
+		&--hide {
+			display: none;
+		}
+		
+		&--show {
+			background-color: #212121;
+			border-radius: 3px;
+			color: #fff;
+			display: block;
+			right: 60px;
+			font-size: 14px;
+			font-family: "Helvetica Neue";
+			opacity: .8;
+			padding: 5px 9px;
+			position: absolute;
+			top: -6px;
+			white-space: nowrap;
+		}
+	}
+
+	&--show {
+		position: absolute;
+		text-align: center;	
+	}
+	
+	&--hide {
+		display: none;
+		opacity: 0;
+	}
+}
+
+@for $i from 1 through 10 {
+	.mini-action-button--show:nth-child(#{$i}) {
+		bottom: 20px + 60px * $i;
+	}
+} */

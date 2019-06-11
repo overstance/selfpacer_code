@@ -24,7 +24,9 @@ export {
     setClickedSubjectTitle
 } from './explore';
 export {
-    fetchAccounting,
+    fetchSubjectDetails,
+    fetchSubjectResources,
+    /* fetchAccounting,
     fetchAllAccounting,
     fetchAnimation,
     fetchAllAnimation,
@@ -107,7 +109,7 @@ export {
     fetchWebdev,
     fetchAllWebdev,
     fetchWriting,
-    fetchAllWriting,
+    fetchAllWriting, */
 } from './clickedSubject';
 export {
     addAdminUser,

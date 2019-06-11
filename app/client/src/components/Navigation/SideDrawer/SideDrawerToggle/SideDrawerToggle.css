@@ -1,22 +1,15 @@
 .SideDrawerToggle {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     cursor: pointer;
 }
 
-.SideDrawerToggle:hover {
-    fill: var(--darkBlue);
+.SideDrawerToggle:hover .SideDrawerToggleBack {
+    fill: var(--blue);
 }
 
-.SideDrawerToggle div {
-    height: 4px;
-    border-radius: 4px;
-    margin: 6px 0;
-    background-color: var(--blue);
-}
-
-.SideDrawerToggle div:hover{
-    background-color: var(--blue);
+.SideDrawerToggle:hover .SideDrawerToggleFront {
+    fill: var(--green);
 }
 
 @media (min-width: 900px) {

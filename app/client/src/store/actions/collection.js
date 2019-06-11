@@ -78,7 +78,7 @@ export const fetchSharedCollections = () => async dispatch => {
     const res = await axios.get('/api/shared_collections');
 
     if (res.data.collections) {
-        console.log(res.data.collections);
+        // console.log(res.data.collections);
         dispatch(fetchSharedCollectionsSuccess(res.data.collections));
     } else {
         dispatch(fetchSharedCollectionsFail(res.data));

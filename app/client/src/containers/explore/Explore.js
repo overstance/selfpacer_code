@@ -184,7 +184,8 @@ class Explore extends Component {
 
         const allSubjects = this.props.subjects.map( subject => (
             <Subject
-                to={subject.to}
+                // to={subject.to}
+                subject_title={subject.title}
                 key={subject._id}
                 src={subject.src}
                 alt={subject.alt}
@@ -197,7 +198,8 @@ class Explore extends Component {
         const creativeSubjectsFilter = this.props.subjects.filter( subject => subject.category === 'Creative');
         const creativeSubjects = creativeSubjectsFilter.map( subject => (
             <Subject
-                to={subject.to}
+                // to={subject.to}
+                subject_title={subject.title}
                 key={subject._id}
                 src={subject.src}
                 alt={subject.alt}
@@ -210,7 +212,8 @@ class Explore extends Component {
         const techSubjectsFilter = this.props.subjects.filter( subject => subject.category === 'Technology');
         const techSubjects = techSubjectsFilter.map( subject => (
             <Subject
-                to={subject.to}
+                // to={subject.to}
+                subject_title={subject.title}
                 key={subject._id}
                 src={subject.src}
                 alt={subject.alt}
@@ -223,7 +226,8 @@ class Explore extends Component {
         const businessSubjectsFilter = this.props.subjects.filter( subject => subject.category === 'Business');
         const businessSubjects = businessSubjectsFilter.map( subject => (
             <Subject
-                to={subject.to}
+                // to={subject.to}
+                subject_title={subject.title}
                 key={subject._id}
                 src={subject.src}
                 alt={subject.alt}
@@ -236,7 +240,8 @@ class Explore extends Component {
         const scienceSubjectsFilter = this.props.subjects.filter( subject => subject.category === 'Science');
         const scienceSubjects = scienceSubjectsFilter.map( subject => (
             <Subject
-                to={subject.to}
+                // to={subject.to}
+                subject_title={subject.title}
                 key={subject._id}
                 src={subject.src}
                 alt={subject.alt}
@@ -249,7 +254,8 @@ class Explore extends Component {
         const lifeStyleSubjectsFilter = this.props.subjects.filter( subject => subject.category === 'Life-style');
         const lifeStyleSubjects = lifeStyleSubjectsFilter.map( subject => (
             <Subject
-                to={subject.to}
+                // to={subject.to}
+                subject_title={subject.title}
                 key={subject._id}
                 src={subject.src}
                 alt={subject.alt}

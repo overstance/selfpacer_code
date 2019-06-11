@@ -43,7 +43,7 @@
     background-position-x: center;
     background-position-y: center;
     background-size: 88%;
-    border: 1px solid var(--skyBlue);
+    border: 1px solid var(--blue);
 }
 
 .BiodataInfo {
@@ -69,7 +69,7 @@
 }
 
 .BiodataEditButton:hover {
-    background: var(--skyBlue);
+    background: var(--blue);
 }
 
 .BiodataInfo div {
@@ -78,7 +78,7 @@
 }
 
 .BiodataInfo span {
-    color: var(--skyBlue);
+    color: var(--blue);
     font-weight: 700;
     padding-left: 10px;
     display: block;
@@ -89,7 +89,7 @@
     font-weight: 700;
     margin-bottom: 20px;
     margin-top: 0;
-    color: var(--skyBlue);
+    color: var(--blue);
 }
 
 .Facilitator {
@@ -164,11 +164,11 @@
 }
 
 .EdgeTri {
-    border-right: 40px solid var(--skyBlue);
+    border-right: 40px solid var(--blue);
     height: 0;
     width: 0;
     border-left: 20px solid transparent;
-    border-top: 10px solid var(--skyBlue);
+    border-top: 10px solid var(--blue);
     border-bottom: 20px solid transparent;
     padding: 0px;
     top: 0;
