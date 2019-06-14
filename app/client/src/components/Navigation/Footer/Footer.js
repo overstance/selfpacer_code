@@ -6,8 +6,8 @@ const footer = () => (
     <footer className={classes.Footer}>
         <Container>
             <div className={classes.Container}>
-                &copy;2018 selfpacer<a href="#!"><span>privacy-policy</span></a>
-                <div className={classes.SocialLinks} href="#!">More Links</div>
+                <div className={classes.Copyright}>&copy;2018 selfpacer<a href="#!"><span>privacy-policy</span></a></div>
+                <div className={classes.SocialLinks}>More Links</div>
             </div>
         </Container>
     </footer>

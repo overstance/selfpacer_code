@@ -147,6 +147,7 @@ export {
 } from './resource';
 
 export {
+    setSelectedMenu,
     fetchToCollectResource,
     createCollection,
     setToCollectResource,
@@ -156,6 +157,7 @@ export {
     clearAddToCollectionMessages,
     resourceAlreadyAdded,
     fetchCollectionById,
+    fetchCollectionAttributes,
     setClickedCollectionAttributes,
     deleteCollectionItem,
     editCollection,
@@ -165,7 +167,8 @@ export {
     unpublishCollection,
     deleteCollection,
     clearDeleteCollectionMessages,
-    fetchSharedCollections,
+    // fetchSharedCollections,
+    fetchSharedCollectionsBySpec,
     pinCollection,
     unpinCollection,
     fetchUserPinnedCollections

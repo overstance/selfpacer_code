@@ -1,40 +1,47 @@
 
+
 .SearchIcon {
     width: 32px;
     height: 32px;
-    margin-left: 16px;
+    /* margin-left: 16px; */
+    vertical-align: middle;
+    fill:var(--blue);
 }
 
-.SearchIcon:hover .SearchIconFront {
+.SearchIcon:hover {
     fill: var(--green);
 }
-
-.SearchIcon:hover .SearchIconBack {
-    fill: var(--blue);
-}
-
 
 .NavigationItems {
     display: flex;
     flex-flow: row;
     align-items: center;
     height: 100%;
-    width: 240px;
+    /* width: 80px; */
     justify-content: flex-end;
+}
+
+.ItemContainer {
+    padding-left: 16px;
+}
+
+.ItemContainer a {
+    display: inline-block;
 }
 
 .User {
     height: 32px;
     width: 32px;
     fill: var(--green);
+    vertical-align: middle;
 }
 
 .User:hover {
     fill: var(--blue);
 }
 
-@media (max-width: 900px) {
-    .NavigationItems {
-        width: 80px;
-    }
+@media (max-width: 600px) {
+    .ItemContainer {
+        padding-left: 8px;
+    } 
 }

@@ -2,6 +2,15 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
 
+export const setSelectedMenu = ( menu ) => {
+    return {
+        type: actionTypes.SET_SELECTED_MENU,
+        menu: menu
+    }
+
+}
+
+
 export const setToCollectResource = ( resourceId, image, title ) => {
     return {
         type: actionTypes.SET_TO_COLLECT_RESOURCE,
@@ -71,7 +80,22 @@ export const fetchSharedCollectionsStart = () => {
     };
 };
 
-export const fetchSharedCollections = () => async dispatch => {
+export const fetchSharedCollectionsBySpec = ( userSpec) => async dispatch => {
+
+    dispatch(fetchSharedCollectionsStart());
+
+    const res = await axios.get(`/api/shared_collections/${userSpec}`);
+
+    if (res.data.collections) {
+        // console.log(res.data.collections);
+        dispatch(fetchSharedCollectionsSuccess(res.data.collections));
+    } else {
+        dispatch(fetchSharedCollectionsFail(res.data));
+    } 
+
+};
+
+/* export const fetchSharedCollections = () => async dispatch => {
 
     dispatch(fetchSharedCollectionsStart());
 
@@ -84,7 +108,7 @@ export const fetchSharedCollections = () => async dispatch => {
         dispatch(fetchSharedCollectionsFail(res.data));
     } 
 
-};
+}; */
 
 // Create new Collection
 
@@ -184,10 +208,20 @@ export const addResourceToCollection = ( collectionId, collectionResources, reso
             dispatch(addResourceToCollectionSuccess(res.data));
 
             const res2 = await axios.post(`/api/increase_collect_count/${resourceToAdd}`);
+            
             if (res2.data) {
-                // console.log(res2.data);
+                console.log(res2.data);
+                const res3 = await axios.post(`/api/change_update_time/${collectionId}`);
+                
+                if (res3.data) {
+                    console.log(res3.data);
+                }
+            }/* 
+
+            if (res3.data) {
+                console.log(res3.data);
                 return;
-            }
+            } */
         } else {
             dispatch(addResourceToCollectionFail(res.data));
         } 
@@ -252,6 +286,50 @@ export const fetchCollectionById = ( id ) => async dispatch => {
     } else {
         dispatch(fetchCollectionByIdFail(res.data));
     }
+}
+
+// fetch collection attribute on collection page reload
+
+/* export const fetchCollectionAttributesStart = () => {
+    return {
+        type: actionTypes.FETCH_COLLECTION_ATTRIBUTES_START
+    }
+} */
+
+export const fetchCollectionAttributesSuccess = ( attributes ) => {
+    return {
+        type: actionTypes.FETCH_COLLECTION_ATTRIBUTES_SUCCESS,
+        attributes: attributes
+    }
+}
+
+/* export const fetchCollectionAttributesFail = ( error ) => {
+    return {
+        type: actionTypes.FETCH_COLLECTION_ATTRIBUTES_FAIL,
+        error: error
+    }
+} */
+
+export const fetchCollectionAttributes = ( id ) => async dispatch => {
+    // dispatch (fetchCollectionAttributesStart());
+
+    const res = await axios.get(`/api/fetch_collection_attributes/${id}`);
+
+    // console.log(res.data);
+    if (res.data.collection) {
+        // console.log(res.data.collection)
+        const collection = res.data.collection;
+        const attributes = {
+            title: collection.title,
+            lastUpdated: collection.lastUpdated,
+            id: collection._id,
+            description: collection.description,
+            public: collection.public
+        }
+        dispatch(fetchCollectionAttributesSuccess(attributes));
+    } /* else {
+        dispatch(fetchCollectionAttributesFail(res.data));
+    } */
 }
 
 // Delete a collection Item

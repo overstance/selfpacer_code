@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
 
 const initialState = {
+    activeMenu: 'mine',
     error: null,
     successMessage: null,
     resourceToCollect: { id: ''},
@@ -44,6 +45,12 @@ const initialState = {
     fetchUserPinnedCollectionsError: null,
     userPinnedCollections: []
 };
+
+// set active or selected menu
+
+const setSelectedMenu = ( state, action ) => {
+    return updateObject( state, { activeMenu: action.menu } );
+}
 
 //Set Resource to Collect
 
@@ -148,6 +155,10 @@ const clearAddToCollectionMessages = ( state, action ) => {
 // Set clicked collection attributes
 
 const setClickedCollectionAttributes = ( state, action ) => {
+    return updateObject( state, { clickedCollectionAttributes: action.attributes});
+};
+
+const setCollectionAttributeOnReload = ( state, action ) => {
     return updateObject( state, { clickedCollectionAttributes: action.attributes});
 };
 
@@ -257,6 +268,8 @@ const fetchUserPinnedCollectionsFail = ( state, action) => {
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
+        case actionTypes.SET_SELECTED_MENU: return setSelectedMenu( state, action );
+        
         case actionTypes.CREATE_COLLECTION_START: return createCollectionStart( state, action );
         case actionTypes.CREATE_COLLECTION_SUCCESS: return createCollectionSuccess( state, action );
         case actionTypes.CREATE_COLLECTION_FAIL: return createCollectionFail( state, action );
@@ -285,6 +298,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_COLLECTION_BY_ID_START: return fetchCollectionByIdStart( state, action );
         case actionTypes.FETCH_COLLECTION_BY_ID_SUCCESS: return fetchCollectionByIdSuccess( state, action );
         case actionTypes.FETCH_COLLECTION_BY_ID_FAIL: return fetchCollectionByIdFail( state, action );
+
+        case actionTypes.FETCH_COLLECTION_ATTRIBUTES_SUCCESS: return setCollectionAttributeOnReload( state, action );
 
         case actionTypes.DELETE_COLLECTION_ITEM_FAIL: return deleteCollectionItemFail( state, action );
 

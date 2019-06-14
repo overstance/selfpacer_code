@@ -11,6 +11,7 @@ const initialState = {
     emailToVerify: null,
 
     user: {},
+    userSpecialization: '',
     error: null,
     loading: false,
     errors: {},
@@ -35,9 +36,15 @@ const initialState = {
     userLikeCount: null,
 };
 
+// initialization actions
 const setAuthentication = (state, action) => {
     return updateObject(state, { isAuthenticated: true, user: { _id: action.userId } });
 };
+
+const setUserSpecialization = (state, action) => {
+    return updateObject(state, {userSpecialization: action.specialization});
+}
+// end of initialization actions
 
 const clearAuth = ( state, action) => {
     return updateObject(state, { isAuthenticated: false, user: {} });
@@ -222,7 +229,11 @@ const updateUserLikedCount = ( state, action ) => {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        //initializations from local storage
         case actionTypes.SET_AUTHENTICATION: return setAuthentication(state, action);
+        case actionTypes.SET_USER_SPECIALIZATION: return setUserSpecialization(state, action);
+        // end of initializations
+
         case actionTypes.SET_USER: return setUser(state, action);
         case actionTypes.AUTH_START: return authStart(state, action);
         case actionTypes.VALIDATION_ERRORS: return validationErrors(state, action);

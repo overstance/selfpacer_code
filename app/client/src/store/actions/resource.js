@@ -18,7 +18,7 @@ function shuffleArray(array) {
 
 
 
-// Add user resource
+/* // Add user resource
 
 export const addResourceSuccess = ( message ) => {
     return {
@@ -66,7 +66,7 @@ export const addResource = ( link, subject, type, user, history ) => {
                 dispatch(addResourceFail(err));
             } );
     };
-};
+}; */
 
 // Fetch Clicked Resource By id Info
 

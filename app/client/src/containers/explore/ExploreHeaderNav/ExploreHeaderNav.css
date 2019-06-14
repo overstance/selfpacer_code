@@ -94,9 +94,9 @@
     cursor: pointer;
   }
   
-  @media all and (max-width: 800px) {
+  /* @media all and (max-width: 800px) {
     .navigation {
       justify-content: space-around;
     }
-  }
+  } */
 

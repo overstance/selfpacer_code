@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import reduxThunk from 'redux-thunk';
 
-import { SET_AUTHENTICATION } from './store/actions/actionTypes';
+import { SET_AUTHENTICATION, SET_USER_SPECIALIZATION } from './store/actions/actionTypes';
 
 import './index.css';
 import App from './App';
@@ -38,9 +38,15 @@ const store = createStore(rootReducer, composeEnhancers(
 ));
 
 const token = localStorage.getItem('token');
+const spec = localStorage.getItem('spec');
 
 if (token) {
   store.dispatch({ type: SET_AUTHENTICATION, userId: localStorage.token });
+}
+
+if (spec) {
+    store.dispatch({ type: SET_USER_SPECIALIZATION, specialization: localStorage.spec });
+    console.log('spec available');
 }
 
 

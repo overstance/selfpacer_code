@@ -1,0 +1,158 @@
+.AllWrapper {
+    background: var(--green);
+    padding: 10px;
+}
+
+.CollectionWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: var(--green);
+    padding: 10px;
+}
+
+.Carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    /* background: var(--white); */
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
+.Previous {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    /* background-color: var(--darkBlue); */
+    background-image: url('../../assets/images/angle-left.svg');
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: center;
+    background-size: 55%;
+    margin: auto 10px auto 0;
+    cursor: pointer;
+}
+
+.Previous:hover {
+    background-color: var(--darkGreen);
+}
+
+.Next {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    /* background-color: var(--darkBlue); */
+    background-image: url('../../assets/images/angle-right.svg');
+    background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: center;
+    background-size: 55%;
+    margin: auto 0 auto 10px;
+    cursor: pointer;
+}
+
+.Next:hover {
+    background-color: var(--darkGreen);
+}
+
+.VisibleCollections {
+    width: 190px;
+    overflow-x: hidden;
+}
+
+.SharedCollectionOuterWrapper {
+    background: var(--green);
+}
+
+.SharedCollectionWrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 9999px;
+    /* margin-left: 0px; */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: margin-left 250ms;
+    /* background: var(--white); */
+}
+
+.YourCollection {
+    color: var(--green);
+    background: var(--blue);
+    padding: 15px;
+    text-align: center;
+    font-weight: 400;
+    font-size: small;
+}
+
+.PostAddInfo {
+    padding: 20px;
+    font-weight: 400;
+    color: var(--green);
+    background: var(--darkBlue);
+    margin: 10px auto;
+    border-radius: 20px;
+    max-width: 400px;
+    text-align: center;
+    overflow: auto;   
+}
+
+.ViewAllWrapper {
+    text-align: right;
+}
+
+.ViewPinned {
+    padding: 10px;
+    background: var(--blue);
+    text-decoration: none;
+    color: var(--white);
+    cursor: pointer;
+    text-align: right;
+    margin: 10px;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: small;
+    font-weight: 400;
+    /* text-transform: lowercase; */
+}
+
+.ViewPinned:hover {
+    background: var(--skyBlue);
+    color: var(--darkBlue);
+}
+
+.ViewAll {
+    padding: 10px;
+    background: var(--blue);
+    text-decoration: none;
+    color: var(--white);
+    cursor: pointer;
+    text-align: right;
+    margin: 10px 10px 10px 0;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: small;
+    font-weight: 400;
+    /* text-transform: lowercase; */
+}
+
+.ViewAll:hover {
+    background: var(--skyBlue);
+    color: var(--darkBlue);
+}
+
+@media ( max-width: 380px) {
+    .Next {
+        margin: auto 0;
+    }
+
+    .Previous {
+        margin: auto 0;
+    }
+
+    .Carousel {
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,19 +1,5 @@
 .Footer {
-  overflow: hidden;
-  min-height: 30px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 20px 0px;
+  /* padding: 20px 0px; */
   color: var(--green);
   background-color: var(--blue);
   padding: 0 16px;
@@ -23,36 +9,38 @@
   margin: 0 auto;
   padding: 32px 0;
   font-weight: bold;
+  display: flex;
+  justify-content: space-between
 }
 
-.Container a {
+.Copyright a {
   text-decoration: none;
   color: var(--green);
   font-weight: bold;
   } 
 
-.Container a span {
+.Copyright a span {
   text-decoration-line: underline;
   color: var(--green);
   padding-left: 5px;
-  } 
-
-
-@media only screen and (min-width: 600px) {
-  .SocialLinks {
-    float: right !important;
-  }
-}
+} 
 
 .SocialLinks {
   text-align: center;
   display: block;
   float: none;
   color: var(--lightBlue);
+  margin-right: 48px;
 }
 
 @media (max-width: 600px) {
   .Container {
     text-align: center;
+    flex-flow: column-reverse;
+    justify-content: center;
+  }
+
+  .SocialLinks {
+    margin: 0;
   }
 }

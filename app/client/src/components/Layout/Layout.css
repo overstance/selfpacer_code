@@ -9,7 +9,7 @@
     min-height: 100vh;
 }
 
-.Searchbar {
+/* .Searchbar {
     background-color: var(--darkBlue);
     padding-bottom: 10px;
     padding-top: 10px;
@@ -19,7 +19,7 @@
     .Searchbar {
         display: none;
     }
-}
+} */
 
 /* @media (max-width: 550px) {
     .Content {

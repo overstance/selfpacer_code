@@ -11,6 +11,7 @@ import Resource from '../../components/Resource/Resource';
 import AuthRequired from '../../components/Dialogues/AuthRequired/authRequired';
 import AddToCollection from '../../components/Dialogues/addToCollection/addToCollection';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
+import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
 
 class SubjectPage extends Component {
     
@@ -338,40 +339,40 @@ class SubjectPage extends Component {
 
         const allContent = 
         <div>
-            <div className={classes.AddIconContainer}>
+            {/* <div className={classes.AddIconContainer}>
                 <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
                 <div className={classes.AddInfo}>ADD RESOURCE</div>
-            </div>
+            </div> */}
             {all}
             {this.props.fetchAllAccountingResourcesError}
         </div>
 
         const youtubeContent = 
         <div>
-            <div className={classes.AddIconContainer}>
+            {/* <div className={classes.AddIconContainer}>
                 <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
                 <div className={classes.AddInfo}>ADD YOUTUBE RESOURCE</div>
-            </div>
+            </div> */}
             {youtube}
             {this.props.fetchAllAccountingResourcesError}
         </div>
 
         const moocContent = 
         <div>
-            <div className={classes.AddIconContainer}>
+            {/* <div className={classes.AddIconContainer}>
                 <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
                 <div className={classes.AddInfo}>ADD MOOC RESOURCE</div>
-            </div>
+            </div> */}
             {mooc}
             {this.props.fetchAllAccountingResourcesError}
         </div>
 
         const booksContent = 
         <div>
-            <div className={classes.AddIconContainer}>
+            {/* <div className={classes.AddIconContainer}>
                 <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
                 <div className={classes.AddInfo}>ADD BOOK OR DOC RESOURCE</div>
-            </div>
+            </div> */}
             {books}
             {this.props.fetchAllAccountingResourcesError}
         </div>
@@ -440,7 +441,8 @@ class SubjectPage extends Component {
                             {pageContent}
                         </div>
                     </div>
-                </div>             
+                </div> 
+                <ScrollButton scrollStepInPx="50" delayInMs="16.66" showUnder={160} />             
             </Grid>
         )
     }

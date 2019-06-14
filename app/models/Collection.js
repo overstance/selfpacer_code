@@ -7,6 +7,10 @@ const collectionSchema = new Schema({
     type: Boolean,
     default: false
   },
+  featured: {
+    type: Boolean,
+    default: false
+  },
   description: {
     type: String,
     default: ''
@@ -15,6 +19,9 @@ const collectionSchema = new Schema({
   date: {
     type: Date,
     default: Date.now()
+  },
+  lastUpdated: {
+    type: Date
   },
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classes from './PinnedCollections.css';
-import Grid from '../../components/UserInterface/Grid/Grid';
+// import Grid from '../../components/UserInterface/Grid/Grid';
 import {connect} from 'react-redux';
 import SharedCollectionContainer from '../userCollections/sharedCollectionContainer/sharedCollectionContainer';
 import * as actions from '../../store/actions/index';
@@ -52,14 +52,19 @@ class PinnedCollections extends Component {
             }
         }     
         return (
-            <Grid>
-                <div>
-                    <div className={classes.YourCollection}>YOUR PINNED COLLECTIONS</div>
+                /*<div>
+                    { this.props.collections.length === 0 ? null :
+                        <div className={classes.Description}>
+                            Your Pinned Collections
+                        </div>
+                    }
                     <div className={classes.CollectionWrapper}>
                         {userPinnedCollections}
                     </div>
-                </div>    
-            </Grid>
+                </div>*/
+                <div className={classes.CollectionWrapper}>
+                    {userPinnedCollections}
+                </div> 
         )
     }
 }

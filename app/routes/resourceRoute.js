@@ -29,7 +29,186 @@ module.exports = app => {
     );
   });
 
-  app.get('/api/all_accounting', (req, res) => {
+  app.get('/api/user_assets/:userId', (req, res) => {
+    Resource.find({ user_id: req.params.userId }, (err, resources) => {
+      if (err) {
+        res.send(err.name);
+      } else {
+        res.send({ resources: resources });
+      }
+    });
+  });
+
+  app.get('/api/recently_viewed/:userId', (req, res) => {
+    User.findById(req.params.userId, (err, user) => {
+      if (err) {
+        res.send(err.message);
+        console.log(err.message);
+        return;
+      } else {
+        const recentlyViewed = user.recentlyViewed;
+
+        Resource.find({ _id: { $in: recentlyViewed } }, (err, resources) => {
+          if (err) {
+            res.send(err.message);
+            console.log(err.message);
+            return;
+          } else {
+            res.send({ resources: resources });
+            // console.log(resources);
+          }
+        });
+      }
+    });
+  });
+
+  app.post('/api/resource_liked', (req, res) => {
+    //console.log(req.body);
+
+    let id = req.body.resourceId;
+    let likes = req.body.resourceLikes;
+
+    Resource.findOneAndUpdate({ _id: id }, { likes: likes }, function(
+      err,
+      updatedResource
+    ) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ resource: updatedResource });
+      }
+    });
+  });
+
+  app.post('/api/user_liked_resources/:userId', (req, res) => {
+    // console.log(req.body);
+    // console.log(req.params.userId);
+
+    // let query = { _id: req.body.userId };
+
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { recentlyViewed: req.body },
+      function(err, user) {
+        if (err) {
+          console.log(err);
+          res.send(err.name);
+        } else {
+          res.send('userRecentlyViewedUpdated');
+        }
+      }
+    );
+  });
+
+  app.post('/api/increase_resourceviews', (req, res) => {
+    Resource.findOneAndUpdate(
+      { _id: req.body.resourceId },
+      { views: req.body.resourceViews },
+      (err, resource) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(resource);
+        }
+      }
+    );
+  });
+
+  app.post('/api/update_user_liked_count/:userId', (req, res) => {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { likeCount: req.body.newLikeCount },
+      function(err, user) {
+        if (err) {
+          console.log(err);
+          res.send(err.name);
+        } else {
+          res.send('userLikeCountUpdated');
+        }
+      }
+    );
+  });
+
+  app.post('/api/increase_collect_count/:resourceToAdd', (req, res) => {
+    Resource.findOne({ _id: req.params.resourceToAdd }, (err, resource) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        const newCount = resource.collectCount + 1;
+
+        Resource.findOneAndUpdate(
+          { _id: req.params.resourceToAdd },
+          { collectCount: newCount },
+          (err, resource) => {
+            if (resource) {
+              res.send('collectCount increased');
+            }
+          }
+        );
+      }
+    });
+  });
+
+  app.put('/api/confirm_resource', (req, res) => {
+    Resource.findByIdAndUpdate(
+      req.body.resourceId,
+      { confirmed: true },
+      (err, resource) => {
+        if (err) {
+          res.send(err.message);
+          console.log(err.message);
+        } else if (resource) {
+          Resource.find({ confirmed: false }, (err, resources) => {
+            if (err) {
+              res.send(err.message);
+              console.log(err.message);
+            } else if (resources) {
+              res.send({ resources: resources });
+            }
+          });
+        }
+      }
+    );
+  });
+
+  app.delete('/api/delete_resource/:resourceId', (req, res) => {
+    Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
+      if (err) {
+        res.send(err.message);
+        console.log(err.message);
+      } else if (resource) {
+        Resource.find({ confirmed: false }, (err, resources) => {
+          if (err) {
+            res.send(err.message);
+            console.log(err.message);
+          } else if (resources) {
+            res.send({ resources: resources });
+          }
+        });
+      }
+    });
+  });
+
+  app.delete('/api/delete_asset/:resourceId/:userId', (req, res) => {
+    Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
+      if (err) {
+        res.send(err.message);
+        console.log(err.message);
+      } else if (resource) {
+        Resource.find({ user_id: req.params.userId }, (err, resources) => {
+          if (err) {
+            res.send(err.name);
+          } else {
+            res.send({ resources: resources });
+          }
+        });
+      }
+    });
+  });
+};
+
+/* app.get('/api/all_accounting', (req, res) => {
     Resource.find({ confirmed: true, category: 'Accounting' }, function(
       err,
       resources
@@ -615,183 +794,4 @@ module.exports = app => {
         res.send({ all: resources });
       }
     });
-  });
-
-  app.get('/api/user_assets/:userId', (req, res) => {
-    Resource.find({ user_id: req.params.userId }, (err, resources) => {
-      if (err) {
-        res.send(err.name);
-      } else {
-        res.send({ resources: resources });
-      }
-    });
-  });
-
-  app.get('/api/recently_viewed/:userId', (req, res) => {
-    User.findById(req.params.userId, (err, user) => {
-      if (err) {
-        res.send(err.message);
-        console.log(err.message);
-        return;
-      } else {
-        const recentlyViewed = user.recentlyViewed;
-
-        Resource.find({ _id: { $in: recentlyViewed } }, (err, resources) => {
-          if (err) {
-            res.send(err.message);
-            console.log(err.message);
-            return;
-          } else {
-            res.send({ resources: resources });
-            // console.log(resources);
-          }
-        });
-      }
-    });
-  });
-
-  app.post('/api/resource_liked', (req, res) => {
-    //console.log(req.body);
-
-    let id = req.body.resourceId;
-    let likes = req.body.resourceLikes;
-
-    Resource.findOneAndUpdate({ _id: id }, { likes: likes }, function(
-      err,
-      updatedResource
-    ) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send({ resource: updatedResource });
-      }
-    });
-  });
-
-  app.post('/api/user_liked_resources/:userId', (req, res) => {
-    // console.log(req.body);
-    // console.log(req.params.userId);
-
-    // let query = { _id: req.body.userId };
-
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { recentlyViewed: req.body },
-      function(err, user) {
-        if (err) {
-          console.log(err);
-          res.send(err.name);
-        } else {
-          res.send('userRecentlyViewedUpdated');
-        }
-      }
-    );
-  });
-
-  app.post('/api/increase_resourceviews', (req, res) => {
-    Resource.findOneAndUpdate(
-      { _id: req.body.resourceId },
-      { views: req.body.resourceViews },
-      (err, resource) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.send(resource);
-        }
-      }
-    );
-  });
-
-  app.post('/api/update_user_liked_count/:userId', (req, res) => {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { likeCount: req.body.newLikeCount },
-      function(err, user) {
-        if (err) {
-          console.log(err);
-          res.send(err.name);
-        } else {
-          res.send('userLikeCountUpdated');
-        }
-      }
-    );
-  });
-
-  app.post('/api/increase_collect_count/:resourceToAdd', (req, res) => {
-    Resource.findOne({ _id: req.params.resourceToAdd }, (err, resource) => {
-      if (err) {
-        console.log(err);
-        res.send(err);
-      } else {
-        const newCount = resource.collectCount + 1;
-
-        Resource.findOneAndUpdate(
-          { _id: req.params.resourceToAdd },
-          { collectCount: newCount },
-          (err, resource) => {
-            if (resource) {
-              res.send('collectCount increased');
-            }
-          }
-        );
-      }
-    });
-  });
-
-  app.put('/api/confirm_resource', (req, res) => {
-    Resource.findByIdAndUpdate(
-      req.body.resourceId,
-      { confirmed: true },
-      (err, resource) => {
-        if (err) {
-          res.send(err.message);
-          console.log(err.message);
-        } else if (resource) {
-          Resource.find({ confirmed: false }, (err, resources) => {
-            if (err) {
-              res.send(err.message);
-              console.log(err.message);
-            } else if (resources) {
-              res.send({ resources: resources });
-            }
-          });
-        }
-      }
-    );
-  });
-
-  app.delete('/api/delete_resource/:resourceId', (req, res) => {
-    Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
-      if (err) {
-        res.send(err.message);
-        console.log(err.message);
-      } else if (resource) {
-        Resource.find({ confirmed: false }, (err, resources) => {
-          if (err) {
-            res.send(err.message);
-            console.log(err.message);
-          } else if (resources) {
-            res.send({ resources: resources });
-          }
-        });
-      }
-    });
-  });
-
-  app.delete('/api/delete_asset/:resourceId/:userId', (req, res) => {
-    Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
-      if (err) {
-        res.send(err.message);
-        console.log(err.message);
-      } else if (resource) {
-        Resource.find({ user_id: req.params.userId }, (err, resources) => {
-          if (err) {
-            res.send(err.name);
-          } else {
-            res.send({ resources: resources });
-          }
-        });
-      }
-    });
-  });
-};
+  }); */

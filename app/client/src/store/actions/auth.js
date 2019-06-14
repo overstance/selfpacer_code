@@ -139,6 +139,7 @@ export const fetchUser = () => async dispatch => {
 export const logout = () => async (dispatch) => {
     const res = await axios.get('/api/logout');
     localStorage.removeItem('token');
+    localStorage.removeItem('spec');
     dispatch({ type: LOGOUT_USER, payload: res.data });
 };
 
@@ -274,11 +275,13 @@ export const loginUser = (email, password, history) => {
     
             if (res.data._id) {
                 localStorage.setItem("token",res.data._id);
+                localStorage.setItem("spec", res.data.specialization);
                 dispatch(authSuccess(res.data));
                 history.push('/');
                 return;
             } else {
                 localStorage.removeItem('token');
+                localStorage.removeItem('spec');
             };
     
             if (res.data.username || res.data.password) {

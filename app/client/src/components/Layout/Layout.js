@@ -12,12 +12,10 @@ class Layout extends Component {
 
     componentDidMount(){
         window.scrollTo(0, 0);
-        
     }
 
     state = {
-        showSideDrawer: false,
-        /* showSearchbar: false */
+        showSideDrawer: false
     }
 
     sideDrawerClosedHandler = () => {
@@ -32,19 +30,7 @@ class Layout extends Component {
         this.setState((prevState) => {
             return { showSideDrawer: !prevState.showSideDrawer };
         });
-
-        /* if (this.props.userId) {
-            this.props.onFetchUserCollections( this.props.userId);
-            this.props.onFetchUserAssets( this.props.userId );
-        } */
     }
-
-    searchbarToggleHandler = () => {
-        this.setState((prevState) => {
-            return { showSearchbar: !prevState.showSearchbar };
-        });
-    }
-
 
     render() {
         return (

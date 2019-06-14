@@ -1,96 +1,48 @@
+/* use the .Container clas below for 
+a colored unlimited width fixed toolbar  */
 /* .Container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 90;
-    background-color: #0a0426;
+    background-color: var(--blue);
 } */
 
-.SvgLogo {
+.Toolbar {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.LogoContainer {
+    padding-right: 100px;
+}
+
+.SvgToolBarLogo {
     display: block;
     width: 256px;
-    height: 80px;
+    height: 100%;
+}
+
+.SvgLogo {
+    fill: var(--blue);
+    vertical-align: middle;
 }
 
 .SvgLogo:hover {
     fill: var(--green);
 }
 
-.NewSearchContainer {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    flex-basis: 0;
-    flex-grow: 1;
-    max-width: 100%;
-    padding: 0 10px;
-  }
-
-.Toolbar {
-    height: 100px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    /* padding: 0 16px; */
-}
-
-.Widgets {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
 .Toolbar nav {
     height: 100%;
 }
 
-.ToolBarLogo {
-    display: block;
-    width: 320px;
-    height: 100px;
-    background-image: url('../../../assets/images/logo-full-text.svg');
-    background-repeat: no-repeat;
-    background-size: 90%;
-    background-position-x: center;
-    background-position-y: center;
-}
-
-.ToolBarLogo:hover {
-    background-size: 95%;
-}
-
-.SearchBar{
-    width: 45%;
-    position: relative;
-}
-
-.MobileSearchBar {
-    margin-bottom: 6px
-}
-
-@media (min-width: 600px) {
-    .MobileSearchBar {
-        display: none;
-        padding: 0;
-    }
-
-}
-
 @media (max-width: 600px) {
-    .DesktopOnlySearchbar {
-        display: none;
-    }
-
-    .NewSearchContainer {
-        padding: 0 16px;
-    }
-
-    .SvgLogo {
+    .SvgToolBarLogo {
         width: 160px;
         height: 50px;
     }
@@ -104,6 +56,10 @@
 @media (max-width: 900px) {
     .DesktopOnly {
         display: none;
+    }
+
+    .LogoContainer {
+        padding-right: 0;
     }
 }
 

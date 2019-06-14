@@ -33,12 +33,12 @@
     margin-block-end: 0px;
 }
 .Items li {
-    color: var(--darkBlue);
+    color: var(--blue);
     padding: 5px 0px;
     font-weight: 700;
 }
 
-.AddIcon {
+/* .AddIcon {
     background-color: var(--skyBlue);
     background-image: url('../../assets/images/plus.svg');
     background-repeat: no-repeat;
@@ -58,7 +58,7 @@
 .AddIcon:hover{
     background-color: var(--green);
     box-shadow: none;
-}
+} */
 
 .AddInfo{
     font-size: x-small;
@@ -66,14 +66,14 @@
     color: var(--darkBlue);
 }
 
-.AddIconContainer {
+/* .AddIconContainer {
     padding: 10px;
     background: var(--lightBlue);
     text-align: center;
-    /* position: fixed;
+    position: fixed;
     right: 23px;
     bottom: 23px;
     padding-top: 15px;
     margin-bottom: 0;
-    z-index: 997; */
-}
+    z-index: 997;
+} */

@@ -344,7 +344,7 @@ const mapDispatchToProps = dispatch => {
         onFetchSubjects: () => dispatch( actions.fetchSubjects() ),
         onViewsIncrease: ( id, views, clickedSubject ) => dispatch( actions.increaseViews( id, views, clickedSubject ) ),
         onSetSelectedCategory: ( category ) => dispatch( actions.setSelectedCategory( category )),
-        onSetClickedClickedSubjectTitle: (title) => dispatch( actions.setClickedSubjectTitle)
+        // onSetClickedSubjectTitle: (title) => dispatch( actions.setClickedSubjectTitle)
     };
 };
 

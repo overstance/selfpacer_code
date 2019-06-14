@@ -1,0 +1,109 @@
+.navigation {
+    list-style: none;
+    margin: 0;
+    padding: 10px 0px; 
+
+    background: none;
+    padding-inline-start: 0px;
+    border-bottom: 2px solid var(--blue); 
+
+    /* display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex; */
+    display: flex;
+
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.Mine {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+}
+
+.Shared {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+}
+
+.Pinned {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+}
+
+.Featured {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+}
+
+.Create {
+    text-decoration: none;
+    display: block;
+    padding: .5em 1em;
+    color: var(--blue);
+    font-weight: 400;
+    border: 2px solid var(--blue);
+    border-radius: 20px;
+    margin: 5px 5px;
+}
+
+.Create:hover {
+    background-color: var(--blue);
+    color: var(--white);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* .Lifestyle {
+text-decoration: none;
+display: block;
+padding: .5em 1em;
+color: var(--blue);
+font-weight: 400;
+border: 2px solid var(--blue);
+border-radius: 20px;
+margin: 5px 5px;
+} */
+
+.Active {
+background: var(--blue);
+color: var(--white);
+}
+
+.navigation li:hover {
+background-color: var(--blue);
+color: var(--white);
+cursor: pointer;
+}
+  
+/* @media all and (max-width: 800px) {
+    .navigation {
+        justify-content: space-around;
+    }
+} */
+

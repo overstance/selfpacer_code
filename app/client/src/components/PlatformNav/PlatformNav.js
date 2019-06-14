@@ -1,6 +1,5 @@
 import React from 'react';
-import classes from './PlatformNav.css';
-//import { NavLink } from 'react-router-dom'; 
+import classes from './PlatformNav.css'; 
 
 
 const platformNav = (props) => {

@@ -18,16 +18,19 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/shared_collections', (req, res) => {
-    Collection.find({ public: true }, function(err, collections) {
-      if (err) {
-        console.log(err);
-        res.send(err.name);
-      } else {
-        res.send({ collections: collections });
-        // console.log(collections);
+  app.get('/api/shared_collections/:userSpec', (req, res) => {
+    Collection.find(
+      { public: true, description: req.params.userSpec },
+      function(err, collections) {
+        if (err) {
+          console.log(err);
+          res.send(err.name);
+        } else {
+          res.send({ collections: collections });
+          // console.log(collections);
+        }
       }
-    });
+    );
   });
 
   app.get('/api/fetch_collection/:id', (req, res) => {
@@ -49,6 +52,17 @@ module.exports = app => {
             // console.log(resources);
           }
         });
+      }
+    });
+  });
+
+  app.get('/api/fetch_collection_attributes/:id', (req, res) => {
+    Collection.findById(req.params.id, (err, collection) => {
+      if (collection) {
+        res.send({ collection: collection });
+        // console.log(collection);
+      } else if (err) {
+        // console.log(err);
       }
     });
   });
@@ -233,6 +247,20 @@ module.exports = app => {
           res.send(err.message);
         } else {
           res.send({ collection: collection });
+        }
+      }
+    );
+  });
+
+  app.post('/api/change_update_time/:collectionId', (req, res) => {
+    Collection.findOneAndUpdate(
+      { _id: req.params.collectionId },
+      { lastUpdated: Date.now() },
+      (err, resource) => {
+        if (resource) {
+          res.send(resource);
+        } else if (err) {
+          res.send(err);
         }
       }
     );

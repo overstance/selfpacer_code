@@ -18,9 +18,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const Subject = require('../models/Subject');
-const User_resource = require('../models/User_resource');
-
-//GET ROUTES
+// const User_resource = require('../models/User_resource');
 
 module.exports = app => {
   app.get('/api/fetch_subject', (req, res) => {
@@ -103,7 +101,70 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/accounting', (req, res) => {
+  app.post('/api/edit_subject', (req, res) => {
+    Subject.findOneAndUpdate(
+      { title: req.body.subject },
+      { paths: req.body.path, curriculum: req.body.curriculum },
+      (err, subject) => {
+        if (err) {
+          console.log(err);
+          res.send(err.message);
+        } else {
+          res.send(subject);
+        }
+      }
+    );
+  });
+
+  app.post('/api/subjectviews', (req, res) => {
+    let id = req.body.subjectId;
+    let views = req.body.subjectViews;
+
+    Subject.findOneAndUpdate({ _id: id }, { views: views }, function(
+      err,
+      updatedSubject
+    ) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ subjects: updatedSubject });
+      }
+    });
+  });
+
+  /* app.post('/api/add_resources', (req, res) => {
+    // console.log(req.body);
+
+    const resource = {
+      subject: req.body.subject,
+      type: req.body.type,
+      user_id: req.body.userId,
+      link: req.body.link
+    };
+
+    User_resource.create(resource, function(err, resource) {
+      if (err) {
+        console.log(err);
+        res.send(err.name);
+      } else {
+        resource.save();
+        // console.log('resource saved');
+        res.send('Resource submitted!!');
+      }
+    });
+  }); */
+
+  app.post(
+    '/api/upload_subjectIcon',
+    upload.single('file'),
+    async (req, res) => {
+      // console.log(req.body.file);
+      res.send(req.body.file);
+    }
+  );
+};
+
+/* app.get('/api/accounting', (req, res) => {
     Subject.find({ title: 'Accounting' }, function(err, clickedSubject) {
       if (err) {
         console.log(err);
@@ -761,9 +822,9 @@ module.exports = app => {
         res.send({ subjects: clickedSubject });
       }
     });
-  });
+  }); */
 
-  /*  app.get('/api/accounting_youtube', async (err, res) => {
+/*  app.get('/api/accounting_youtube', async (err, res) => {
     const response = await youtube.playlists.list({
       id: 'PL301238C9BC6E0B83,PLuDogk1rsivCeUWyWrHm1y1sBs2n7QeVL',
       part: 'snippet,contentDetails'
@@ -776,67 +837,4 @@ module.exports = app => {
     res.send(response.data.items);
   }); */
 
-  //POST ROUTES
-
-  app.post('/api/edit_subject', (req, res) => {
-    Subject.findOneAndUpdate(
-      { title: req.body.subject },
-      { paths: req.body.path, curriculum: req.body.curriculum },
-      (err, subject) => {
-        if (err) {
-          console.log(err);
-          res.send(err.message);
-        } else {
-          res.send(subject);
-        }
-      }
-    );
-  });
-
-  app.post('/api/subjectviews', (req, res) => {
-    let id = req.body.subjectId;
-    let views = req.body.subjectViews;
-
-    Subject.findOneAndUpdate({ _id: id }, { views: views }, function(
-      err,
-      updatedSubject
-    ) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send({ subjects: updatedSubject });
-      }
-    });
-  });
-
-  app.post('/api/add_resources', (req, res) => {
-    // console.log(req.body);
-
-    const resource = {
-      subject: req.body.subject,
-      type: req.body.type,
-      user_id: req.body.userId,
-      link: req.body.link
-    };
-
-    User_resource.create(resource, function(err, resource) {
-      if (err) {
-        console.log(err);
-        res.send(err.name);
-      } else {
-        resource.save();
-        // console.log('resource saved');
-        res.send('Resource submitted!!');
-      }
-    });
-  });
-
-  app.post(
-    '/api/upload_subjectIcon',
-    upload.single('file'),
-    async (req, res) => {
-      // console.log(req.body.file);
-      res.send(req.body.file);
-    }
-  );
-};
+//POST ROUTES

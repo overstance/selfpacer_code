@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import classes from './addToCollection.css';
 import Modal from '../../UserInterface/Modal/Modal';
 // import { Link } from 'react-router-dom';
-import Collection from '../../../containers/collection/Collection';
+import Collection from './collection/Collection';
 
 class AddToCollection extends Component {
     
