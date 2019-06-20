@@ -43,6 +43,12 @@ export const clearAuth = () => {
     }
 }
 
+export const clearAllAuthMessages = () => {
+    return {
+        type: actionTypes.CLEAR_ALL_AUTH_MESSAGES
+    }
+}
+
 
 
 // initialize(fetch) user asset
@@ -213,17 +219,18 @@ export const emailVerified = ( token ) => async dispatch => {
 
     if (res.data._id) {
         console.log(res.data);
-        dispatch( emailVerifySuccess( 'E-mail succesfully Verified' ));
+        dispatch( emailVerifySuccess( 'E-mail succesfully verified.' ));
     } else {
         dispatch( authFail(res.data));
     }
 }
 
 
-export const registerUser = (name, email, password, password2, history) => {
+export const registerUser = (spec, name, email, password, password2, history) => {
     return dispatch => {
         dispatch(authStart());
         const newUser = {
+            spec: spec,
             name: name,
             username: email,
             email: email,

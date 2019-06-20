@@ -1,4 +1,11 @@
-
+.DialogueContainer {
+    padding: 30px 5px;
+    text-align: center;
+    width: 240px;
+    border-radius: 20px;
+    background: var(--blue);
+    margin: 20px auto;
+}
 
 .Spinner {
 width: 40px;

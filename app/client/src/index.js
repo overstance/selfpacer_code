@@ -46,7 +46,7 @@ if (token) {
 
 if (spec) {
     store.dispatch({ type: SET_USER_SPECIALIZATION, specialization: localStorage.spec });
-    console.log('spec available');
+    // console.log('spec available');
 }
 
 

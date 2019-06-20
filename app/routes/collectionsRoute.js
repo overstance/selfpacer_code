@@ -93,11 +93,22 @@ module.exports = app => {
   });
 
   app.post('/api/create_collection', (req, res) => {
-    const collection = {
-      title: req.body.title,
-      resources: [req.body.resourceId],
-      user_id: req.body.userId
-    };
+    let collection = {};
+
+    if (req.body.resourceId === '') {
+      collection = {
+        title: req.body.title,
+        user_id: req.body.userId,
+        lastUpdated: Date.now()
+      };
+    } else {
+      collection = {
+        title: req.body.title,
+        resources: [req.body.resourceId],
+        user_id: req.body.userId,
+        lastUpdated: Date.now()
+      };
+    }
 
     Collection.create(collection, function(err, resource) {
       if (err) {
@@ -130,7 +141,7 @@ module.exports = app => {
   });
 
   app.post('/api/delete_collection_item', (req, res) => {
-    Collection.findById(req.body.collectionId, (err, collection) => {
+    Collection.findById({ _id: req.body.collectionId }, (err, collection) => {
       if (err) {
         res.send(err.message);
         console.log(err.message);
@@ -233,6 +244,36 @@ module.exports = app => {
           res.send(err.message);
         } else {
           res.send(user);
+        }
+      }
+    );
+  });
+
+  app.post('/api/feature_collection/:collectionId', (req, res) => {
+    // console.log('featured route reached');
+    Collection.findByIdAndUpdate(
+      req.params.collectionId,
+      { featured: true },
+      { new: true },
+      (err, collection) => {
+        if (collection) {
+          // console.log(collection);
+          res.send({ collection: collection });
+        }
+      }
+    );
+  });
+
+  app.post('/api/unfeature_collection/:collectionId', (req, res) => {
+    // console.log('featured route reached');
+    Collection.findByIdAndUpdate(
+      req.params.collectionId,
+      { featured: false },
+      { new: true },
+      (err, collection) => {
+        if (collection) {
+          // console.log(collection);
+          res.send({ collection: collection });
         }
       }
     );

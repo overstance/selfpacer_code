@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import classes from './publishCollection.css';
-import Modal from '../../UserInterface/Modal/Modal';
+// import Modal from '../../UserInterface/Modal/Modal';
 import { connect } from 'react-redux';
 import Spinner from '../../UserInterface/Spinner/Spinner';
 import * as actions from '../../../store/actions/index';
 import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
+import PostActionInfo from '../../PostActionInfo/PostActionInfo';
+import Dialogue from '../../Dialogues/Dialogue/Dialogue';
 // import { Link } from 'react-router-dom';
 
 class publishCollection extends Component {
@@ -143,60 +145,35 @@ class publishCollection extends Component {
                 <Button btnType='Danger' disabled> Publish </Button> :
                 <Button btnType='Success'> Publish </Button>    
             }
-            {/* <div onClick={this.props.cancelPublish} className={classes.CancelPublish}>CANCEL</div> */}
         </form>
 
         if (this.props.publishCollectionLoading) {
             editForm =
-            <div className={classes.Form}><Spinner /></div>
+            <Spinner isDialogue/>
         }
 
         if (!this.props.publishCollectionLoading && this.props.publishCollectionSuccessInfo) {
             editForm =
-            <div className={classes.Form}><div className={classes.AddFeedbackInfo}>{this.props.publishCollectionSuccessInfo}</div></div>
+            <PostActionInfo isSuccess>
+               {this.props.publishCollectionSuccessInfo} 
+            </PostActionInfo>
         } else if (!this.props.publishCollectionLoading && this.props.publishCollectionError) {
             editForm =
-            <div className={classes.Form}><div className={classes.ErrorFeedbackInfo}>{this.props.publishCollectionError}</div></div>
+            <PostActionInfo isFailed>
+               {this.props.publishCollectionError} 
+            </PostActionInfo>
         }
-
-        /* let Dialogue =
-        <div className={classes.DialogueMessage}>
-            <div>Publish:</div>
-            <h4>{this.props.collectionTitle}</h4>
-            <span>on Selfpacer?</span>
-            <div>
-                <div onClick={this.props.cancelPublish} className={classes.CancelPublish}>CANCEL</div>
-                <div onClick={this.props.confirmPublish} className={classes.ConfirmPublish}>PUBLISH</div>
-            </div>
-        </div>
-
-        if (this.props.publishCollectionLoading) {
-            Dialogue =
-            <div className={classes.DialogueMessage}><Spinner /></div>
-        }
-
-        if ( this.props.publishCollectionSuccessInfo) {
-            Dialogue =
-            <div className={classes.DialogueMessage}><p className={classes.AddFeedbackInfo}>{this.props.publishCollectionSuccessInfo}</p></div>
-        } else if ( this.props.publishCollectionError) {
-            Dialogue =
-            <div className={classes.DialogueMessage}><p className={classes.ErrorFeedbackInfo}>{this.props.publishCollectionError}</p></div>
-        } */
 
         return (
-            <Modal show={this.props.showDialogue} closeModal={this.props.closeModal}>
-                <div>
-                    <div className={classes.DialogueTitleHead}>
-                        <div className={classes.DialogueTitleColumn}>
-                            <h5>Publish Collection</h5>
-                        </div>
-                        <div onClick={this.props.closeDialogue} className={classes.DialogueCloseIcon}></div>
-                    </div>
-                    <div className={classes.DialogueMessage}>
-                       {editForm} 
-                    </div>                              
+            <Dialogue
+            isPublishCollection
+            closeDialogue={this.props.closeDialogue}
+            showDialogue={this.props.showDialogue}
+            >
+                <div className={classes.DialogueMessage}>
+                    {editForm} 
                 </div>
-            </Modal>
+            </Dialogue>
         )
     }
 }

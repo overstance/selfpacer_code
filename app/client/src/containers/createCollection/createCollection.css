@@ -19,7 +19,8 @@
     flex-flow: row wrap;
     text-align: center;
     padding: 10px;
-    background: var(--green); 
+    min-height: 500px;
+    /* background: var(--green);  */
 }
 
 .ContainerItem {
@@ -28,9 +29,9 @@
     max-width: 400px;
 }
 
-.ContainerItem span {
+/* .ContainerItem span {
     display: none;
-}
+} */
 
 .ContainerItem button {
  font-size: small;
@@ -47,7 +48,7 @@
 }
 
 .Form {
-    background: var(--darkBlue);
+    background: var(--blue);
     padding: 20px;
     margin: 10px;
     border-radius: 20px;

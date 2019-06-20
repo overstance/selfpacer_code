@@ -4,8 +4,9 @@ import * as actions from '../../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../../components/UserInterface/Input/Input';
 import Button from '../../../../components/UserInterface/Button/Button';
-import PostSubmitDailogue from '../../../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+// import PostSubmitDailogue from '../../../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Spinner from '../../../../components/UserInterface/Spinner/Spinner';
+import Dialogue from '../../../../components/Dialogues/Dialogue/Dialogue';
 
 class EditBio extends Component {
 
@@ -18,19 +19,11 @@ class EditBio extends Component {
         showChangePasswordForm: false,
         specialization1: {
             value: this.props.specialization1,
-            label: "Edit Specialization1", 
+            label: "Edit Specialization", 
             name: "specialization1",
             validation: {
                 required: true
             },
-            valid: false,
-            touched: false   
-        },
-        specialization2: {
-            value: this.props.specialization2,
-            label: "Edit Specialization2", 
-            name: "specialization2",
-            validation: {},
             valid: false,
             touched: false   
         },
@@ -80,7 +73,7 @@ class EditBio extends Component {
     submitEditedProfileHandler = (event) => {
         event.preventDefault();
 
-        if ((!this.state.name.touched || this.state.name.value === '') && (!this.state.specialization1.touched || this.state.specialization1.value === '') && (!this.state.specialization2.touched || this.state.specialization2.value === '')) {
+        if ((!this.state.name.touched || this.state.name.value === '') && (!this.state.specialization1.touched || this.state.specialization1.value === '')) {
             const nameUpdated = {
                 ...this.state.name,
                 touched: true,
@@ -97,18 +90,7 @@ class EditBio extends Component {
 
             this.setState({ biodataFillError: 'Please change one or more field' });
         } else {
-            this.props.onEditProfile(this.state.name.value, this.state.specialization1.value, this.state.specialization2.value, this.props.user);
-            
-            /* const nameReset = {
-                    ...this.state.name,
-                    value: ''
-                }
-            const specialization1Reset = {
-                ...this.state.specialization1,
-                value: ''
-            }
-
-            this.setState({ name: nameReset, specialization1: specialization1Reset}); */
+            this.props.onEditProfile(this.state.name.value, this.state.specialization1.value, this.props.user);
         }
         
     }
@@ -131,56 +113,7 @@ class EditBio extends Component {
             valid: this.checkValidity(event.target.value, this.state.specialization1.validation),
             touched: true
         }
-        this.setState({ specialization1: updated, biodataFillError: null}, () => {
-            if (this.state.specialization1.value === 'N/A' && this.state.specialization2.value !== '') {
-                const updated = {
-                    ...this.state.specialization2,
-                    valid: false,
-                    touched: true
-                }
-                this.setState({ specialization2: updated, biodataFillError: 'edit specialization1 first'});
-            } else if ((this.state.specialization1.value !== '' && this.state.specialization2.value === '') || (this.state.specialization1.value !== this.state.specialization2.value)) {
-                const updated = {
-                    ...this.state.specialization2,
-                    valid: true,
-                    touched: true
-                }
-                this.setState({ specialization2: updated, biodataFillError: null});
-            }
-        });
-
-       
-    }
-
-    specialization2ChangedHandler = (event) => {
-
-        if (this.state.specialization1.value === 'N/A') {
-            const updated = {
-                ...this.state.specialization2,
-                value: '',
-                valid: false,
-                touched: true
-            }
-            this.setState({ specialization2: updated, biodataFillError: 'edit specialization1 first'});    
-        } else {
-            const updated = {
-                ...this.state.specialization2,
-                value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.specialization2.validation),
-                touched: true
-            }
-            this.setState({ specialization2: updated, biodataFillError: null}, () => {
-                if (this.state.specialization2.value === this.state.specialization1.value) {
-                    const updated = {
-                        ...this.state.specialization2,
-                        valid: false,
-                        touched: true
-                    }
-                    this.setState({ specialization2: updated, biodataFillError: 'specialization2 must be different'})
-                }
-            });
-        }
-       
+        this.setState({ specialization1: updated, biodataFillError: null});  
     }
 
     elementConfigSpec1 = () => {
@@ -202,28 +135,7 @@ class EditBio extends Component {
         elementConfig.options = temp;
 
         return elementConfig;
-    } 
-
-    elementConfigSpec2 = () => {
-        let elementConfig = {};
-        
-        const specialization2 = this.props.subjects.map( specialization => specialization.title );
-
-        const specialization2Sort = specialization2.sort();
-
-        const temp = specialization2Sort.map( specialization2 => {
-            return {
-                value: specialization2,
-                displayValue: specialization2
-            }
-        })
-
-        temp.unshift({ value: this.props.specialization2, displayValue: this.props.specialization2});
-
-        elementConfig.options = temp;
-
-        return elementConfig;
-    } 
+    }
 
     render() {
 
@@ -253,18 +165,7 @@ class EditBio extends Component {
             elementConfig={this.elementConfigSpec1()}
             changed={(event) => this.specialization1ChangedHandler(event)}
             />
-            <Input
-            label={this.state.specialization2.label} 
-            name={this.state.specialization2.name}
-            value={this.state.specialization2.value}
-            elementType='select'
-            invalid={!this.state.specialization2.valid}
-            shouldValidate={this.state.specialization2.validation}
-            touched={this.state.specialization2.touched}
-            elementConfig={this.elementConfigSpec2()}
-            changed={(event) => this.specialization2ChangedHandler(event)}
-            />
-            { (!this.state.name.valid && this.state.name.touched) || (!this.state.specialization1.valid && this.state.specialization1.touched) || (!this.state.specialization2.valid && this.state.specialization2.touched) || this.state.biodataFillError ? 
+            { (!this.state.name.valid && this.state.name.touched) || (!this.state.specialization1.valid && this.state.specialization1.touched) || this.state.biodataFillError ? 
                 <Button btnType='Danger' disabled> Submit </Button> :
                 <Button btnType='Success'> Submit </Button>    
             }
@@ -284,9 +185,15 @@ class EditBio extends Component {
         </form>
         
         const successDialogue = 
-        <PostSubmitDailogue withGoBackButton handleBack={this.props.handleBack}>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withLink
+        to='/profile'
+        buttonText='go back'
+        >
             {this.props.profileEditSuccessFeedback}
-        </PostSubmitDailogue>
+        </Dialogue>
 
         let content = editBioForm;
         
@@ -304,7 +211,7 @@ class EditBio extends Component {
 
         return (
                 <div className={classes.ContainerItem}>
-                    <div className={classes.AdminAction}>EDIT YOUR PROFILE</div>
+                    <div className={classes.AdminAction}>Edit Your Profile</div>
                     {content}
                 </div >                               
         )
@@ -314,7 +221,6 @@ class EditBio extends Component {
 const mapStateToProps = state => ({
     subjects: state.explore.subjects,
     specialization1:state.auth.user.specialization,
-    specialization2: state.auth.user.specialization_alt,
     name: state.auth.user.name,
     profileEditSuccessFeedback: state.profile.profileEditSuccessFeedback,
     profileEditError: state.profile.profileEditError,
@@ -325,7 +231,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onEditProfile: (name, specialization1, specialization2, user) => dispatch( actions.editProfile(name, specialization1, specialization2, user) )
+        onEditProfile: (name, specialization1, user) => dispatch( actions.editProfile(name, specialization1, user) )
     };
 };
 

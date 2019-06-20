@@ -2,15 +2,24 @@ import React, { Component } from 'react';
 import classes from './Register.css';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
-import PostSubmitDailogue from '../../UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+// import PostSubmitDailogue from '../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';
+import Dialogue from '../../Dialogues/Dialogue/Dialogue';
 import Spinner from '../../UserInterface/Spinner/Spinner';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 class VerifyEmail extends Component {
+
+    componentWillUnmount() {
+        this.props.onClearErrors();
+    }
 
     componentDidMount() {
         this.props.onEmailVerified(this.props.match.params.token);
         console.log(this.props.match.params.token);
+    }
+
+    handleBack = () => {
+        this.props.history.goBack()
     }
 
     render() {
@@ -18,16 +27,28 @@ class VerifyEmail extends Component {
         let content = <Spinner />;
 
         const successDialogue = 
-        <PostSubmitDailogue>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withLink
+        to='/login'
+        buttonText='login'
+        >
             {this.props.verifyEmailSuccessinfo}
-            <Link className={classes.PostSubmitLogin} to='/login'>Go to Login</Link>
-        </PostSubmitDailogue>
+            {/* <Link className={classes.PostSubmitLogin} to='/login'>Go to Login</Link> */}
+        </Dialogue>
 
         const failDialogue = 
-        <PostSubmitDailogue>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withLink
+        to='/'
+        buttonText='exit'
+        >          
             {this.props.error}
-            <div style={{'marginTop': '10px'}}>Please try again!</div>
-        </PostSubmitDailogue>
+            <div style={{'margin': '10px 0'}}>Please try again!</div>
+        </Dialogue>
 
         if (this.props.verifyEmailSuccessinfo) {
             content = successDialogue;
@@ -53,7 +74,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onEmailVerified: (token) => dispatch(actions.emailVerified(token))
+        onEmailVerified: (token) => dispatch(actions.emailVerified(token)),
+        onClearErrors: () => dispatch(actions.clearErrors()),
     };
 };
 

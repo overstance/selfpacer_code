@@ -5,13 +5,12 @@ import Spinner from '../../../components/UserInterface/Spinner/Spinner';
 import classes from './UserCollection.css';
 import Grid from '../../../components/UserInterface/Grid/Grid';
 import Resource from '../../../components/Resource/Resource';
-import DeleteCollectionItem from '../../../components/Dialogues/deleteCollectionItem/deleteCollectionItem';
 import EditCollection from '../../../components/Dialogues/editCollection/EditCollection';
 import PublishCollection from '../../../components/Dialogues/publishCollection/publishCollection';
 import UnpublishCollection from '../../../components/Dialogues/unpublishCollection/unpublishCollection';
-import DeleteCollection from '../../../components/Dialogues/deleteCollection/deleteCollection';
-import PostDeleteDialogue from '../../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
-// import Button from '../../../components/UserInterface/Button/Button';
+import ScrollButton from '../../../components/UserInterface/ScrollToTop/ScrollButton';
+import CollectionNav from '../CollectionNav/CollectionNav';
+import Dialogue from '../../../components/Dialogues/Dialogue/Dialogue';
 
 
 class UserCollection extends Component {
@@ -19,10 +18,10 @@ class UserCollection extends Component {
     componentDidMount() {
 
         if (this.props.match.params.id) {
+
           this.props.onFetchCollectionById(this.props.match.params.id);
-        //   console.log(this.props.match.params.id);
+
             if (this.props.clickedCollectionAttributes.id === '') {
-                // console.log('no attributes found')
                 this.props.onFetchCollectionAttributes(this.props.match.params.id);
             }
         } else {
@@ -37,12 +36,14 @@ class UserCollection extends Component {
     state = {
         resourceToDeleteId: null,
         resourceToDeleteTitle: null,
-        collectionId: this.props.clickedCollectionAttributes.id,
+        // collectionId: this.props.clickedCollectionAttributes.id,
 
         showDeleteCollectionItemModal: false,
         showEditCollectionModal: false,
         showPublishCollectionModal: false,
         showUnpublishCollectionModal: false,
+
+        showCollectionEmptyDialogue: false,
         showDeleteCollectionModal: false
     }
 
@@ -53,13 +54,9 @@ class UserCollection extends Component {
     resourceClickedHandler = ( id, views ) => {
         this.props.onIncreaseResourceViewCount( id, views);
 
-        // console.log(platform, id);
-
         if (this.props.isAuthenticated) {
            
             const checkViewed = this.props.settedUserRecentlyViewed.filter(resource => resource === id);
-
-            // console.log(checkViewed.length);
 
             if (checkViewed.length === 0) {
                 this.props.onUpdateRecentlyViewed(id, this.props.settedUserRecentlyViewed, this.props.userId);
@@ -68,8 +65,6 @@ class UserCollection extends Component {
     };
 
     confirmDeleteHandler = ( resourceId, resourceTitle ) => {
-
-        // console.log('confirm delete started');
 
         this.setState({ 
             resourceToDeleteId: resourceId,
@@ -85,7 +80,7 @@ class UserCollection extends Component {
     }
 
     deleteConfirmedHandler = () => {
-        this.props.onDeleteCollectionItem( this.state.resourceToDeleteId, this.state.collectionId, this.props.history );
+        this.props.onDeleteCollectionItem( this.state.resourceToDeleteId, this.props.clickedCollectionAttributes.id, this.props.history );
 
         this.setState({ 
             resourceToDeleteId: null,
@@ -115,6 +110,9 @@ class UserCollection extends Component {
 
         if( this.props.clickedCollectionAttributes.public ) {
             this.setState({ showUnpublishCollectionModal: true });
+        } else if (!this.props.clickedCollectionAttributes.public && 
+            this.props.collectedResources.length === 0 ) {
+                this.setState({ showCollectionEmptyDialogue: true});
         } else {
             this.setState({  showPublishCollectionModal: true });
         }       
@@ -134,6 +132,10 @@ class UserCollection extends Component {
 
     unpublishConfirmedHandler = () => {
         this.props.onUnpublishCollection(this.props.clickedCollectionAttributes.id);
+    }
+
+    closeCollectionEmptyHandler = () => {
+        this.setState({ showCollectionEmptyDialogue: false });
     }
 
     deleteCollectionCloseHandler = () => {
@@ -165,7 +167,7 @@ class UserCollection extends Component {
             <div className={classes.Spinner}><Spinner /></div>
         </div>
 
-        if (!this.props.loading) {
+        if (!this.props.loading && this.props.collectedResources.length > 0) {
             userCollection = this.props.collectedResources.map( (resource, i) => (
                 <Resource 
                 key={i}
@@ -197,22 +199,32 @@ class UserCollection extends Component {
             <div className={classes.Container}>
                 <div className={classes.Spinner}><Spinner /></div>
             </div>
-        }  
+        } else if (!this.props.loading && this.props.collectedResources.length === 0) {
+            userCollection =
+            <div className={classes.CollectionEmptyMessage}>
+                This collection is empty.
+            </div>
+        } 
         
         let content =
-        <div>
+        <div>  
             <div className={classes.HeaderWrapper}>
-                <div className={classes.TitleColumn}>
-                    <div className={classes.Title}>{this.props.clickedCollectionAttributes.title}</div>
-                    {this.props.clickedCollectionAttributes.public ? <div className={classes.PublicTag}>PUBLIC</div> : null}
-                </div>
-                <div className={classes.OptionsColumn}>
-                    <div onClick={this.editCollectionHandler} className={classes.EditIconRow}></div>
-                    <div onClick={this.publishCollectionHandler} className={classes.ShareIconRow}></div>
-                    <div onClick={this.deleteCollectionHandler} className={classes.DeleteIconRow}></div>
+                <CollectionNav 
+                    published={this.props.clickedCollectionAttributes.public}
+                    editClicked={this.editCollectionHandler}
+                    publishClicked={this.publishCollectionHandler}
+                    deleteClicked={this.deleteCollectionHandler}
+                />
+                <div className={classes.Title}>
+                    {this.props.clickedCollectionAttributes.title + '   '}
+                    {this.props.clickedCollectionAttributes.public ? 
+                        <div className={classes.PublicTag}>Public</div> : null
+                    }
                 </div>
             </div>
-            {userCollection}
+            <div className={classes.Container}>
+                {userCollection}
+            </div>    
         </div>
 
         if (this.props.deleteCollectionLoading) {
@@ -225,29 +237,37 @@ class UserCollection extends Component {
         if (this.props.deleteCollectionSuccessInfo) {
             content = 
             <div className={classes.ContainerItem}>
-                <PostDeleteDialogue withGoBackButton handleBack={this.handleBack}>
+                <Dialogue
+                showDialogue
+                isPostSubmitDialogue
+                withGoBackButton 
+                handleBack={this.handleBack}>
                     {this.props.deleteCollectionSuccessInfo}
-                </PostDeleteDialogue>
+                </Dialogue>
             </div>
             
         } else if (this.props.deleteCollectionError) {
             content =
             <div className={classes.ContainerItem}>
-                <PostDeleteDialogue withGoBackButton handleBack={this.handleBack}>
+                <Dialogue
+                showDialogue
+                isPostSubmitDialogue 
+                withGoBackButton 
+                handleBack={this.handleBack}>
                     {this.props.deleteCollectionError}
-                </PostDeleteDialogue>
+                </Dialogue>
             </div>
              
         }
 
         return (
-            <Grid>
+            <Grid>                
                 {content}
                 {this.state.showDeleteCollectionItemModal ? 
-                    <DeleteCollectionItem 
+                    <Dialogue 
+                    isDeleteCollectionItem
                     showDialogue={this.state.showDeleteCollectionItemModal}
                     closeDialogue={this.deleteCollectionItemCloseHandler}
-                    closeModal={this.deleteCollectionItemCloseHandler}
                     itemTitle={this.state.resourceToDeleteTitle}
                     cancelDelete={this.cancelDeleteHandler}
                     confirmDelete={this.deleteConfirmedHandler}
@@ -281,16 +301,25 @@ class UserCollection extends Component {
                     />: null
                 }
                 {this.state.showDeleteCollectionModal ? 
-                    <DeleteCollection 
+                    <Dialogue
+                    isDeleteCollection 
                     showDialogue={this.state.showDeleteCollectionModal}
                     closeDialogue={this.deleteCollectionCloseHandler}
-                    closeModal={this.deleteCollectionCloseHandler}
                     collectionTitle={this.props.clickedCollectionAttributes.title}
                     cancelDelete={this.deleteCollectionCloseHandler}
                     confirmDelete={this.deleteCollectionConfirmedHandler}
                     />: null
                 }
-            </Grid>  
+                { this.state.showCollectionEmptyDialogue ? 
+                    <Dialogue
+                    isCollectionEmpty
+                    showDialogue={this.state.showCollectionEmptyDialogue}
+                    closeDialogue={this.closeCollectionEmptyHandler}
+                    closeModal={this.closeCollectionEmptyHandler}
+                    />: null
+                }
+                <ScrollButton scrollStepInPx="50" delayInMs="16.66" showUnder={160} />
+            </Grid> 
         );
     };
 };

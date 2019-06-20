@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import classes from './Collections.css';
+import classes from './Collections.css';
 import CollectionsNav from './CollectionsNav/CollectionsNav';
 import Grid from '../../components/UserInterface/Grid/Grid';
 import {connect} from 'react-redux';
@@ -7,6 +7,7 @@ import * as actions from '../../store/actions/index';
 import UserCollections from '../../components/UserCollections/UserCollections';
 import SharedCollections from '../../components/SharedCollections/SharedCollections';
 import PinnedCollections from '../../components/PinnedCollections/PinnedCollections';
+import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
 
 class Collections extends Component {
 
@@ -128,7 +129,7 @@ class Collections extends Component {
                 <div>
                     <CollectionsNav
                         // show={this.state.showFilter}
-                        createRoute='/create_new_collection'
+                        createRoute='/create_collection'
                         mineActived={this.state.mineActive}
                         featuredActived={this.state.featuredActive}
                         sharedActived={this.state.sharedActive}
@@ -139,7 +140,10 @@ class Collections extends Component {
                         pinnedClicked={this.pinnedHandler}
                     />
                 </div>
-                {pageContent}    
+                <div className={classes.CollectionsContainer}>
+                    {pageContent}
+                </div>
+                <ScrollButton scrollStepInPx="50" delayInMs="16.66" showUnder={160} />    
             </Grid>
         );
     }

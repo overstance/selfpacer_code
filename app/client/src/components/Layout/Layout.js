@@ -10,12 +10,26 @@ import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
 
-    componentDidMount(){
-        window.scrollTo(0, 0);
+    constructor(props) {
+        super(props)
+        this.myScrollRef = React.createRef()
     }
+    
+    componentDidUpdate = () => this.handleScroll();
+
+    componentDidMount = () => this.handleScroll();
 
     state = {
         showSideDrawer: false
+    }
+
+    handleScroll = () => {
+        const { index, selected } = this.props
+        if (index === selected) {
+          setTimeout(() => {
+            this.myScrollRef.current.scrollIntoView({ behavior: 'smooth' })
+          }, 500)
+        }
     }
 
     sideDrawerClosedHandler = () => {
@@ -35,6 +49,7 @@ class Layout extends Component {
     render() {
         return (
             <div className={classes.Site}>
+                <div ref={this.myScrollRef}></div>
                 <div className={classes.Content}>
                     <Toolbar
                         isAuth={this.props.isAuthenticated}

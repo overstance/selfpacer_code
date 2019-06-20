@@ -4,6 +4,8 @@ import Modal from '../../UserInterface/Modal/Modal';
 import { connect } from 'react-redux';
 import Spinner from '../../UserInterface/Spinner/Spinner';
 import * as actions from '../../../store/actions/index';
+import PostActionInfo from '../../PostActionInfo/PostActionInfo';
+import AjaxDialogueMessage from '../Dialogue/AjaxDialogueMessage/AjaxDialogueMessage';
 // import { Link } from 'react-router-dom';
 
 class unpublishCollection extends Component {
@@ -15,26 +17,37 @@ class unpublishCollection extends Component {
     render () {
 
         let Dialogue =
-        <div className={classes.DialogueMessage}>
+        <AjaxDialogueMessage 
+        action='unpublish'
+        resourceTitle={this.props.collectionTitle}
+        cancel={this.props.cancelUnpublish}
+        confirm={this.props.confirmUnpublish}
+        />
+        // eslint-disable-next-line no-lone-blocks
+        {/* <div className={classes.DialogueMessage}>
             <h4>{this.props.collectionTitle}</h4>
             <span>is already published</span>
             <div>
                 <div onClick={this.props.cancelUnpublish} className={classes.CancelPublish}>CANCEL</div>
                 <div onClick={this.props.confirmUnpublish} className={classes.ConfirmPublish}>UNPUBLISH</div>
             </div>
-        </div>
+        </div> */}
 
         if (this.props.publishCollectionLoading) {
             Dialogue =
-            <div className={classes.DialogueMessage}><Spinner /></div>
+            <Spinner isDialogue/>
         }
 
         if ( this.props.publishCollectionSuccessInfo) {
             Dialogue =
-            <div className={classes.DialogueMessage}><p className={classes.AddFeedbackInfo}>{this.props.publishCollectionSuccessInfo}</p></div>
+            <PostActionInfo isSuccess>
+                {this.props.publishCollectionSuccessInfo}
+            </PostActionInfo>
         } else if ( this.props.publishCollectionError) {
             Dialogue =
-            <div className={classes.DialogueMessage}><p className={classes.ErrorFeedbackInfo}>{this.props.publishCollectionError}</p></div>
+            <PostActionInfo isFailed>
+                {this.props.publishCollectionError}
+            </PostActionInfo>
         }
 
         return (

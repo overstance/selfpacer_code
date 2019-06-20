@@ -12,7 +12,7 @@ import UnpublishCollection from '../../../components/Dialogues/unpublishCollecti
  */
 import PinCollection from '../../../components/Dialogues/pinCollection/pinCollection';
 import UnpinCollection from '../../../components/Dialogues/unpinCollection/unpinCollection';
-import PostDeleteDialogue from '../../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+import PostDeleteDialogue from '../../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import AddToCollection from '../../../components/Dialogues/addToCollection/addToCollection';
 // import Button from '../../../components/UserInterface/Button/Button';
 

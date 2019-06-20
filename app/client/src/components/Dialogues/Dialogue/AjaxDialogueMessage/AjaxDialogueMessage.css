@@ -1,0 +1,55 @@
+.DialogueMessage {
+    padding: 30px 5px;
+    text-align: center;
+    width: 240px;
+    border-radius: 20px;
+    background: var(--blue);
+    margin: 20px auto;
+}
+
+.DialogueMessage div {
+    color: var(--white);
+    font-weight: 400;
+}
+
+.DialogueMessage h4 {
+    color: var(--green);
+    font-weight: 400;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+.Confirm {
+    text-decoration: none;
+    color: var(--blue);
+    background: var(--white);
+    border-radius: 16px;
+    font-size: small;
+    padding: 10px;
+    margin: 20px 10px 0px;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.Confirm:hover {
+    background: var(--green);
+}
+
+.Cancel {
+    text-decoration: none;
+    color: var(--red);
+    background: var(--white);
+    border-radius: 16px;
+    font-size: small;
+    padding: 10px;
+    margin: 20px 10px 0;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.Cancel:hover {
+    background: var(--red);
+    color: var(--white);
+}

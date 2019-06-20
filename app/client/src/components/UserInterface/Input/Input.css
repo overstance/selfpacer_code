@@ -15,7 +15,7 @@
 
 .InputElement:focus {
     outline: none;
-    background-color: var(--lightGray);
+    background-color: var(--white);
 }
 
 .Label {

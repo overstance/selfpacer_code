@@ -70,6 +70,24 @@ const clearErrors = (state, action) => {
     return updateObject(state, { errors: null, error: null });
 }
 
+const clearAllAuthMessages = (state, action) => {
+    return updateObject(state, { 
+        registerSuccessInfo: null,
+        verifyEmailSuccessinfo: null,
+        emailToVerify: null,
+        error: null,
+        errors: {},
+        emailSentInfo: null,
+        emailSendFailedError: null,
+        reverifyEmailSentInfo: null,
+        reverifyEmailFailedError: null,
+        confirmTokenSuccess: null,
+        confirmTokenError: null,
+        resetPasswordError: null,
+        resetPasswordSuccessFeedback: null, 
+    });
+}
+
 const authFail = (state, action) => {
     return updateObject(state, {
         error: action.error,
@@ -267,6 +285,8 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.SET_USER_LIKE_COUNT: return setUserLikeCount( state, action );
         case actionTypes.UPDATE_USER_LIKE_COUNT: return updateUserLikedCount( state, action );
+
+        case actionTypes.CLEAR_ALL_AUTH_MESSAGES: return clearAllAuthMessages( state, action);
 
         default:
             return state;

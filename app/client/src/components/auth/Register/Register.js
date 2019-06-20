@@ -19,12 +19,26 @@ class Register extends Component {
 
     componentWillUnmount() {
         this.props.onClearErrors();
+        this.props.onClearAllAuthMessages();
     }
 
 
     state = {
         fillError: null,
         errors: this.props.validationErrors,
+        subject: {
+            value: '',
+            elementType: 'select',
+            elementConfig: {
+                label: "specialization",
+                labelspan: '*'
+            }, 
+            validation: {
+                required: true
+            },
+            valid: false,
+            touched: false   
+        },
         controls: {
             name: {
                 elementType: 'input',
@@ -145,10 +159,37 @@ class Register extends Component {
 
     }
 
+    subjectChangedHandler = (event) => {
+        const updated = {
+            ...this.state.subject,
+            value: event.target.value,
+            valid: this.checkValidity(event.target.value, this.state.subject.validation),
+            touched: true
+        }
+        this.setState({ subject: updated}, () => {
+            if (this.state.subject.value === '') {
+                this.setState({fillError: 'please select subject'});
+            } else {   
+                this.setState({ subject: updated, fillError: null});
+                // this.props.onClearAddMessages();
+            }
+        });
+    }
+
     submitHandler = (event) => {
         event.preventDefault();
+        
+        if ( !this.state.subject.touched && this.state.subject.value === '' ) {
 
-        if (this.state.controls.name.value === '' && !this.state.controls.name.touched ) {
+            const subjectUpdated = {
+                ...this.state.subject,
+                touched: true,
+                valid: false
+            }
+            this.setState({ subject: subjectUpdated});
+
+            this.setState({ fillError: 'Please fill all asterisked fields' });
+        } else if (this.state.controls.name.value === '' && !this.state.controls.name.touched ) {
 
             const updatedControls = {
                 ...this.state.controls,
@@ -211,6 +252,12 @@ class Register extends Component {
         } else {
         event.preventDefault();
 
+        const updatedSubject = {
+            ...this.state.subject,
+            touched: false,
+            value: ''
+        }
+
         const updatedEmailControls = {
             ...this.state.controls,
             email: {
@@ -219,10 +266,10 @@ class Register extends Component {
             }
         };
 
-        this.setState({ controls: updatedEmailControls });
+        this.setState({ controls: updatedEmailControls, subject: updatedSubject, });
         
         this.props.onClearErrors();
-        this.props.onRegisterUser(this.state.controls.name.value, this.state.controls.email.value, this.state.controls.password.value, this.state.controls.password2.value, this.props.history);
+        this.props.onRegisterUser(this.state.subject.value, this.state.controls.name.value, this.state.controls.email.value, this.state.controls.password.value, this.state.controls.password2.value, this.props.history);
         }
     }
 
@@ -251,6 +298,27 @@ class Register extends Component {
             return null;
         }
     };
+
+    elementConfig = () => {
+        let elementConfig = {};
+        
+        const subjects = this.props.subjects.map( subject => subject.title );
+
+        const subjectSort = subjects.sort();
+
+        const temp = subjectSort.map( subject => {
+            return {
+                value: subject,
+                displayValue: subject
+            }
+        })
+
+        temp.unshift({ value: '', displayValue: ''});
+
+        elementConfig.options = temp;
+
+        return elementConfig;
+    }
 
     /* googleHandler = () => {
         this.props.onGoogleAuth();
@@ -306,8 +374,19 @@ class Register extends Component {
             {fillError}
             {errorMessage}
             <form className={classes.Form} onSubmit={this.submitHandler}>
+                <Input 
+                    label={this.state.subject.elementConfig.label}
+                    labelspan={this.state.subject.elementConfig.labelspan} 
+                    value={this.state.subject.value}
+                    elementType={this.state.subject.elementType}
+                    invalid={!this.state.subject.valid}
+                    shouldValidate={this.state.subject.validation}
+                    touched={this.state.subject.touched}
+                    elementConfig={this.elementConfig()}
+                    changed={(event) => this.subjectChangedHandler(event)}
+                />
                 {RegisterInput}
-                { (!this.state.controls.name.valid && this.state.controls.name.touched) || (!this.state.controls.email.valid && this.state.controls.email.touched)|| (!this.state.controls.password.valid && this.state.controls.password.touched)|| (!this.state.controls.password2.valid && this.state.controls.password2.touched) || this.state.fillError ? 
+                { (!this.state.subject.valid && this.state.subject.touched)|| (!this.state.controls.name.valid && this.state.controls.name.touched) || (!this.state.controls.email.valid && this.state.controls.email.touched)|| (!this.state.controls.password.valid && this.state.controls.password.touched)|| (!this.state.controls.password2.valid && this.state.controls.password2.touched) || this.state.fillError ? 
                 <Button btnType='Danger' disabled> SIGN UP </Button> :
                 <Button btnType='Success'> SIGN UP </Button>    
                 }
@@ -359,6 +438,7 @@ Register.propTypes = {
 
 
 const mapStateToProps = state => ({
+    subjects: state.explore.subjects,
     loading: state.auth.loading,
     error: state.auth.error,
     errors: state.auth.errors,
@@ -369,8 +449,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRegisterUser: (name, email, password, password2, history) => dispatch(actions.registerUser(name, email, password, password2, history)),
+        onRegisterUser: (spec, name, email, password, password2, history) => dispatch(actions.registerUser(spec, name, email, password, password2, history)),
         onClearErrors: () => dispatch(actions.clearErrors()),
+        onClearAllAuthMessages: () => dispatch(actions.clearAllAuthMessages())
     };
 };
 

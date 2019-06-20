@@ -41,6 +41,14 @@ const initialState = {
 
     pinnedCollectionIds: [],
 
+    pinCollectionLoading: false,
+    pinCollectionSuccessInfo: null,
+    pinCollectionError: null,
+
+    featureCollectionLoading: false,
+    featureCollectionSuccessinfo: null,
+    featureCollectionError: null,
+
     fetchUserPinnedCollectionsLoading: false,
     fetchUserPinnedCollectionsError: null,
     userPinnedCollections: []
@@ -152,6 +160,12 @@ const clearAddToCollectionMessages = ( state, action ) => {
     );
 };
 
+// clear resource to add on collection create success
+
+const clearResourceToCollect = ( state, action ) => {
+    return updateObject( state, { resourceToCollect: { id: ''} });
+};
+
 // Set clicked collection attributes
 
 const setClickedCollectionAttributes = ( state, action ) => {
@@ -246,10 +260,33 @@ const setPinnedCollections = ( state, action) => {
     return updateObject( state, { pinnedCollectionIds: action.collectionIds });
 }
 
-// Pin collection
+// Pin or unpin collection
+
+const pinCollectionStart = ( state, action) => {
+    return updateObject( state, { pinCollectionLoading: true });
+}
+
+const pinCollectionFail = ( state, action) => {
+    return updateObject( state, 
+        {   pinCollectionLoading: false,
+            pinCollectionError: action.error
+        });
+}
 
 const pinCollectionSuccess = ( state, action) => {
-    return updateObject( state, { pinnedCollectionIds: action.collectionIds });
+    return updateObject( state, 
+        {   pinCollectionLoading: false, 
+            pinnedCollectionIds: action.collectionIds,
+            pinCollectionSuccessInfo: 'success' 
+        });
+}
+
+const clearPinCollectionMessages = ( state, action) => {
+    return updateObject( state, 
+        { 
+            pinCollectionError: null,
+            pinCollectionSuccessInfo: null 
+        });
 }
 
 // fetch user pinned collections
@@ -293,6 +330,8 @@ const reducer = ( state = initialState, action ) => {
 
         case actionTypes.CLEAR_ADD_TO_COLLECTION_MESSAGES: return clearAddToCollectionMessages( state, action );
 
+        case actionTypes.CLEAR_RESOURCE_TO_COLLECT: return clearResourceToCollect( state, action);
+
         case actionTypes.SET_CLICKED_COLLECTION_ATTRIBUTES: return setClickedCollectionAttributes( state, action );
 
         case actionTypes.FETCH_COLLECTION_BY_ID_START: return fetchCollectionByIdStart( state, action );
@@ -323,7 +362,10 @@ const reducer = ( state = initialState, action ) => {
 
         case actionTypes.SET_USER_PINNED_COLLECTION: return setPinnedCollections( state, action );
 
+        case actionTypes.PIN_COLLECTION_START: return pinCollectionStart( state, action );
+        case actionTypes.PIN_COLLECTION_FAIL: return pinCollectionFail( state, action );
         case actionTypes.PIN_COLLECTION_SUCCESS: return pinCollectionSuccess( state, action );
+        case actionTypes.CLEAR_PIN_COLLECTION_MESSAGES: return clearPinCollectionMessages( state, action );
 
         case actionTypes.FETCH_USER_PINNED_COLLECTION_START: return fetchUserPinnedCollectionsStart( state, action );
         case actionTypes.FETCH_USER_PINNED_COLLECTION_SUCCESS: return fetchUserPinnedCollectionsSuccess( state, action );

@@ -10,8 +10,7 @@ module.exports = app => {
       { _id: req.body.user._id },
       {
         name: req.body.name,
-        specialization: req.body.specialization1,
-        specialization_alt: req.body.specialization2
+        specialization: req.body.specialization1
       },
       (err, user) => {
         if (err) {

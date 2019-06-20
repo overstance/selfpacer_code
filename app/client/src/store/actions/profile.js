@@ -33,15 +33,14 @@ export const profileEditFailed = ( error ) => {
 
 // Edit Profile
 
-export const editProfile = (name, specialization1, specialization2, user) => {
+export const editProfile = (name, specialization1, user) => {
     return dispatch => {
         dispatch (profileEditStart());
 
         const editInfo = {
             user: user,
             name: name,
-            specialization1: specialization1,
-            specialization2: specialization2
+            specialization1: specialization1
         };
 
         // console.log(editInfo);

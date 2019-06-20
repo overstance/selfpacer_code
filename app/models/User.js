@@ -20,10 +20,6 @@ const userSchema = new Schema({
     type: String,
     default: 'N/A'
   },
-  specialization_alt: {
-    type: String,
-    default: ''
-  },
   date: {
     type: Date,
     default: Date.now()

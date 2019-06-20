@@ -4,8 +4,9 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
-import PostSubmitDailogue from '../../UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+// import PostSubmitDailogue from '../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Spinner from '../../UserInterface/Spinner/Spinner';
+import Dialogue from '../../Dialogues/Dialogue/Dialogue';
 
 class ForgotPassword extends Component {
 
@@ -127,14 +128,24 @@ class ForgotPassword extends Component {
         </form>
         
         const successDialogue = 
-        <PostSubmitDailogue>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withGoBackButton
+        handleBack={this.handleBack}
+        >
             {this.props.emailSentInfo}
-        </PostSubmitDailogue>
+        </Dialogue>
 
-        const failDialogue = 
-        <PostSubmitDailogue withGoBackButton handleBack={this.handleBack}>
+        const failDialogue =
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue 
+        withGoBackButton 
+        handleBack={this.handleBack}
+        >
             {this.props.emailSendFailedError}
-        </PostSubmitDailogue>
+        </Dialogue> 
 
         let content = editBioForm;
         
@@ -155,7 +166,7 @@ class ForgotPassword extends Component {
 
         return (
                 <div className={classes.ContainerItem}>
-                    <div className={classes.AdminAction}>FORGOT PASSWORD</div>
+                    <div className={classes.AdminAction}>Forgot Password</div>
                     {content}
                 </div >                               
         )

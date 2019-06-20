@@ -3,7 +3,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    background: var(--lightGray);
+    /* background: var(--lightGray); */
 }
 
 .DialogueTitleColumn {
@@ -43,7 +43,7 @@
     text-align: center;
     width: 240px;
     border-radius: 20px;
-    background: var(--darkBlue);
+    background: var(--blue);
     margin: 20px auto;
 }
 
@@ -59,39 +59,53 @@
     margin: 0;
 }
 
-.DialogueMessage span {
-    color: var(--white);
-    font-weight: 400;
-}
-
-.CancelUnpin {
+.Confirm {
     text-decoration: none;
-    color: var(--darkBlue);
-    background: var(--skyBlue);
+    color: var(--blue);
+    background: var(--white);
     border-radius: 16px;
     font-size: small;
-    padding: 10px 20px;
+    padding: 10px;
     margin: 20px 10px 0px;
     display: inline-block;
     cursor: pointer;
+    font-weight: 700;
 }
 
-.CancelUnpin:hover {
+.Confirm:hover {
     background: var(--green);
 }
 
-.ConfirmUnpin {
+.Cancel {
     text-decoration: none;
-    color: var(--darkBlue);
-    background: var(--red);
+    color: var(--red);
+    background: var(--white);
     border-radius: 16px;
     font-size: small;
     padding: 10px;
     margin: 20px 10px 0;
     display: inline-block;
     cursor: pointer;
+    font-weight: 700;
 }
 
-/* .ConfirmUnpin:hover {
+.Cancel:hover {
+    background: var(--red);
+    color: var(--white);
+}
+
+.DialogueMessage a {
+    text-decoration: none;
+    color: var(--blue);
+    background: var(--white);
+    border-radius: 16px;
+    font-size: small;
+    padding: 10px;
+    margin-top: 10px;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.DialogueMessage a:hover {
     background: var(--green);
-} */
+}

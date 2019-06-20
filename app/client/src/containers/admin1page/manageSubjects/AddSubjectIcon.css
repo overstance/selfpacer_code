@@ -51,7 +51,7 @@
 }
 
 .Form {
-    background: var(--darkBlue);
+    background: var(--blue);
     padding: 20px;
     margin: 10px;
     border-radius: 20px;
@@ -60,7 +60,7 @@
 }
 
 .IconForm {
-    background: var(--darkBlue);
+    background: var(--blue);
     padding: 20px;
     margin: 10px;
     border-radius: 20px;

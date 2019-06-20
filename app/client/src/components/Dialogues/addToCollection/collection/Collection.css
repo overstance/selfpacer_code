@@ -1,7 +1,7 @@
 .NewButton {
     text-decoration: none;
-    color: var(--darkBlue);
-    background: var(--skyBlue);
+    color: var(--blue);
+    background: var(--white);
     border-radius: 20px;
     font-size: small;
     padding: 10px;
@@ -16,7 +16,7 @@
 .CollectionsContainer {
     /* width: 260px; */
     margin: 20px;
-    background: var(--darkBlue);
+    background: var(--blue);
     border-radius: 20px;
 }
 

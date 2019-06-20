@@ -10,7 +10,7 @@ import EditCollection from '../../../components/Dialogues/editCollection/EditCol
 import PublishCollection from '../../../components/Dialogues/publishCollection/publishCollection';
 import UnpublishCollection from '../../../components/Dialogues/unpublishCollection/unpublishCollection';
 import DeleteCollection from '../../../components/Dialogues/deleteCollection/deleteCollection';
-import PostDeleteDialogue from '../../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+import PostDeleteDialogue from '../../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 // import Button from '../../../components/UserInterface/Button/Button';
 
 

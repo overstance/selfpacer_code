@@ -4,9 +4,10 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
-import PostSubmitDailogue from '../../UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+// import PostSubmitDailogue from '../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Spinner from '../../UserInterface/Spinner/Spinner';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import Dialogue from '../../Dialogues/Dialogue/Dialogue';
 
 class ResetPassword extends Component {
 
@@ -190,22 +191,39 @@ class ResetPassword extends Component {
         </form>
         
         const successDialogue = 
-        <PostSubmitDailogue>
-            {this.props.resetPasswordSuccessFeedback}
-            <Link className={classes.Login} to='/login'>Go to Login</Link>
-        </PostSubmitDailogue>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withLink
+        to='/login'
+        buttonText='login'
+        >
+             {this.props.resetPasswordSuccessFeedback}
+        </Dialogue>
 
         const invalidTokenDialogue = 
-        <PostSubmitDailogue>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withLink
+        to='/'
+        buttonText='exit'
+        >          
             {this.props.confirmTokenError}
             <div style={{'marginTop': '10px'}}>Please try again!</div>
-        </PostSubmitDailogue>
+        </Dialogue>
 
         const resetPasswordFailDialogue = 
-        <PostSubmitDailogue>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withLink
+        to='/'
+        buttonText='exit'
+        >          
             {this.props.resetPasswordError}
             <div style={{'marginTop': '10px'}}>Please try again!</div>
-        </PostSubmitDailogue>
+        </Dialogue>
 
         let content = null;
         

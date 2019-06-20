@@ -65,7 +65,8 @@ module.exports = app => {
       new User({
         name: req.body.name,
         username: req.body.email,
-        email: req.body.email
+        email: req.body.email,
+        specialization: req.body.spec
       }),
       req.body.password,
       (err, user) => {

@@ -4,14 +4,17 @@ import * as actions from '../../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../UserInterface/Input/Input';
 import Button from '../../../UserInterface/Button/Button';
-import PostSubmitDailogue from '../../../UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+// import PostSubmitDailogue from '../../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';
+import Dialogue from '../../../Dialogues/Dialogue/Dialogue';
 import Spinner from '../../../UserInterface/Spinner/Spinner';
 
 class ReverifyEmail extends Component {
+    componentDidMount () {
+        if (this.props.emailToVerify === null) {
+            this.props.history.push('/login');
+        }
+    }
 
-    /* componentDidMount() {
-        this.props.onFetchSubjects();
-    } */
     componentWillUnmount() {
         this.props.onClearReverifyEmailError();
     }
@@ -20,7 +23,6 @@ class ReverifyEmail extends Component {
         fillError: null,
         email: {
             value: this.props.emailToVerify,
-            /* label: "Enter your e-mail", */ 
             name: "email",
             validation: {
                 required: true,
@@ -121,20 +123,30 @@ class ReverifyEmail extends Component {
             />
             
             { (!this.state.email.valid && this.state.email.touched) || this.state.fillError ? 
-                <Button btnType='Danger' disabled> Verify </Button> :
-                <Button btnType='Success'> Verify </Button>    
+                <Button btnType='Danger' disabled> verify </Button> :
+                <Button btnType='Success'> verify </Button>    
             }
         </form>
         
         const successDialogue = 
-        <PostSubmitDailogue>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withGoBackButton
+        handleBack={this.handleBack}
+        >
             {this.props.reverifyEmailSentInfo}
-        </PostSubmitDailogue>
+        </Dialogue>
 
         const failDialogue = 
-        <PostSubmitDailogue withGoBackButton handleBack={this.handleBack}>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue 
+        withGoBackButton 
+        handleBack={this.handleBack}
+        >
             {this.props.reverifyEmailFailedError}
-        </PostSubmitDailogue>
+        </Dialogue>
 
         let content = reverifyForm;
         
@@ -154,10 +166,10 @@ class ReverifyEmail extends Component {
         }
 
         return (
-                <div className={classes.ContainerItem}>
-                    <div className={classes.AdminAction}>E-MAIL VERIFICATION REQUIRED</div>
-                    {content}
-                </div >                               
+            <div className={classes.ContainerItem}>
+                <div className={classes.AdminAction}>E-mail Verification Required</div>
+                {content}
+            </div >                               
         )
     }
 };

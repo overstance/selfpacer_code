@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 import Spinner from '../../../UserInterface/Spinner/Spinner';
 import * as actions from '../../../../store/actions/index';
 import CollectionItem from '../../../CollectionItem/CollectionItem';
+import PostActionInfo from '../../../PostActionInfo/PostActionInfo';
 
 class Collections extends Component {
 
     componentWillMount(){
-        this.props.onClearMessages();
+        this.props.onClearMessages(); 
     }
 
     addToCollectionHandler = (collectionId, collectionResources, collectionTitle) => {
@@ -26,7 +27,6 @@ class Collections extends Component {
         }
     }
 
-
     render () {
 
         let collections = <Spinner />;
@@ -35,9 +35,9 @@ class Collections extends Component {
 
             if ( this.props.collections.length === 0) {
                 collections = 
-                <div className={classes.PostAddInfo}>
+                <PostActionInfo isSuccess>
                     <div>You have no collections!</div>
-                </div>    
+                </PostActionInfo>   
             } else {
                 collections = this.props.collections.map((collection, i) => (
                     <CollectionItem 
@@ -51,32 +51,34 @@ class Collections extends Component {
 
         if ( this.props.resourceAlreadyCollectedTitle ) {
             collections = 
-            <div className={classes.PostAddInfo}>
-                <div>{'Resource Already Added To: ' + this.props.resourceAlreadyCollectedTitle}</div>
-            </div> 
+            <PostActionInfo isSuccess>
+                <span>Resource already added to:</span>
+                {' ' + this.props.resourceAlreadyCollectedTitle}
+            </PostActionInfo>  
         }
 
         if ( this.props.addResourceToCollectionSuccessMessage === 'Resource Collected!') {
             collections = 
-            <div className={classes.PostAddInfo}>
-                <div>{this.props.addResourceToCollectionSuccessMessage}</div>
-            </div> 
+            <PostActionInfo isSuccess>
+                <span>{this.props.addResourceToCollectionSuccessMessage}</span>
+            </PostActionInfo> 
         }
 
         if ( !this.props.addResourceToCollectionSuccessMessage && this.props.addResourceToCollectionError) {
             collections = 
-            <div className={classes.PostAddInfo}>
-                <div>{this.props.addResourceToCollectionError}</div>
-                <div>Please retry!</div>
-            </div> 
+            <PostActionInfo isFailed>
+                {this.props.addResourceToCollectionError + ' : Please retry!'}
+            </PostActionInfo> 
         }
 
         return (
             <div>
-                { this.props.addResourceToCollectionSuccessMessage ? null :
-                    <Link className={classes.NewButton} to='/create_collection'>Create New Collection</Link>
-                }
                <div className={classes.CollectionsContainer}>
+                    { this.props.addResourceToCollectionSuccessMessage || this.props.addResourceToCollectionError || this.props.resourceAlreadyCollectedTitle
+                     ? 
+                     null :
+                        <Link className={classes.NewButton} to='/create_collection'>create-new</Link>
+                    }
                    {collections}
                </div>    
             </div>

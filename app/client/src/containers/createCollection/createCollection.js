@@ -7,20 +7,22 @@ import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
 import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSpinner';
 import Grid from '../../components/UserInterface/Grid/Grid';
-import PostSubmitDailogue from '../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+// import PostSubmitDailogue from '../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
+import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
 
 class CreateCollection extends Component {
 
     componentWillUnmount() {
         this.props.onResetCollectionMessages();
+        this.props.onClearResourceToCollect();
     }
 
-    componentDidMount() {
+    /* componentDidMount() {
         if(this.props.resourceToCollect.id === '') {
             console.log('no resource');
             this.props.history.push('/explore');
         }
-    }
+    } */
 
     handleBack = () => {
     this.props.history.goBack()
@@ -135,16 +137,19 @@ class CreateCollection extends Component {
             touched={this.state.title.touched}
             changed={(event) => this.titleChangedHandler(event)}
             />
-            <div className={classes.ResourceLabel}>Resource To Add: </div>
-            <div className={classes.ResourceContainer}>
-                <div className={classes.ResourceImgColumn}>
-                    <img src={this.props.resourceToCollect.img} alt='resource' /> 
-                </div>
-                <div className={classes.ResourceTitleColumn}>
-                    <div className={classes.ResourceTitle}>{this.props.resourceToCollect.title}</div>
-                </div>
-                
-            </div>                           
+            { this.props.resourceToCollect.id === '' ? null : 
+                <div className={classes.ResourceLabel}>Resource To Add: </div>
+            }
+            { this.props.resourceToCollect.id === '' ? null :
+                <div className={classes.ResourceContainer}>
+                    <div className={classes.ResourceImgColumn}>
+                        <img src={this.props.resourceToCollect.img} alt='resource' /> 
+                    </div>
+                    <div className={classes.ResourceTitleColumn}>
+                        <div className={classes.ResourceTitle}>{this.props.resourceToCollect.title}</div>
+                    </div>   
+                </div>     
+            }                      
             { (!this.state.title.valid && this.state.title.touched)  ? 
                 <Button btnType='Danger' disabled> {createCollectionButtonText} </Button> :
                 <Button btnType='Success'> {createCollectionButtonText} </Button>    
@@ -165,18 +170,14 @@ class CreateCollection extends Component {
         </form>
 
         const successDialogue = 
-        <PostSubmitDailogue withGoBackButton handleBack={this.handleBack}>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withGoBackButton
+        handleBack={this.handleBack}
+        >
             {this.props.successMessage}
-        </PostSubmitDailogue>
-
-        /* <div className={classes.PostSubmitDailogue}>
-            <div className={classes.PostSubmitMessage}>
-                {this.props.successMessage}
-            </div>
-            <div className={classes.GoBackPrompt} onClick={this.handleBack}>Go back</div> 
-        </div> */
-
-
+        </Dialogue>
 
         let content = form;
 
@@ -209,7 +210,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         onCreateCollection: (title, user, resourceToAdd) => dispatch( actions.createCollection(title, user, resourceToAdd) ),
-        onResetCollectionMessages: () => dispatch(actions.resetCollectionMessages() )
+        onResetCollectionMessages: () => dispatch(actions.resetCollectionMessages() ),
+        onClearResourceToCollect: () => dispatch(actions.clearResourceToCollect())
     };
 };
 

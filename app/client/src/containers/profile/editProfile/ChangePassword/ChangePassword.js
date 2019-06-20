@@ -4,8 +4,9 @@ import * as actions from '../../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../../components/UserInterface/Input/Input';
 import Button from '../../../../components/UserInterface/Button/Button';
-import PostSubmitDailogue from '../../../../components/UserInterface/PostSubmitDialogue/PostSubmitDialogue';
+// import PostSubmitDailogue from '../../../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Spinner from '../../../../components/UserInterface/Spinner/Spinner';
+import Dialogue from '../../../../components/Dialogues/Dialogue/Dialogue';
 
 class ChangePassword extends Component {
 
@@ -179,6 +180,10 @@ class ChangePassword extends Component {
         this.setState({ showChangePasswordForm: true });
     }
 
+    handleBack = () => {
+        this.props.history.goBack()
+    }
+
     render() {
 
         let errorMessage = null;
@@ -232,9 +237,15 @@ class ChangePassword extends Component {
         </form>
         
         const successDialogue = 
-        <PostSubmitDailogue withGoBackButton handleBack={this.props.handleBack}>
+        <Dialogue
+        isPostSubmitDialogue
+        showDialogue
+        withLink
+        to='/profile'
+        buttonText='go back'
+        >
             {this.props.changePasswordSuccessFeedback}
-        </PostSubmitDailogue>
+        </Dialogue>
 
         let content = changePasswordForm;
         
@@ -252,7 +263,7 @@ class ChangePassword extends Component {
 
         return ( 
             <div className={classes.ContainerItem}>
-                <div onClick={this.showFormHandler} className={classes.ChangePassword}>Change your password</div>
+                <div onClick={this.showFormHandler} className={classes.ChangePassword}>change your password</div>
                 { this.state.showChangePasswordForm ? <div>{content}</div> : null}
             </div>   
         );

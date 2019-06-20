@@ -1,11 +1,6 @@
-/* .YourCollection {
-    color: var(--green);
-    background: var(--blue);
-    padding: 15px;
-    text-align: center;
-    font-weight: 400;
-    font-size: small;
-} */
+.Container {
+    min-height: 500px;
+}
 
 .ContainerItem {
     padding: 5px;
@@ -15,26 +10,27 @@
 }
 
 .HeaderWrapper {
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
     background: var(--blue);
 }
 
-.TitleColumn {
+/* .TitleColumn {
     flex-basis: 0;
     -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
-}
+} */
 
 .Title {
     padding: 14px;
-    overflow-x: auto;
+    overflow-x: hidden;
     color: var(--green);
-    font-weight: 400;
+    font-weight: 700;
+    width: 500px;
 }
 
-.OptionsColumn {
+/* .OptionsColumn {
     padding-right: 10px;
     margin: auto;
 }
@@ -67,9 +63,8 @@
     cursor: pointer;
     border-radius: 20px;
     color: var(--darkBlue);
-    /* font-weight: 400; */
     font-size: small;
-}
+} */
 
 .PublicTag {
     font-size: x-small;
@@ -82,13 +77,8 @@
     margin: 10px;
 }
 
-@media( max-width: 380px) {
+@media( max-width: 600px) {
     .Title {
-       width: 200px;
-    }
-
-    .OptionsColumn {
-        padding: 0 10px 10px;
-        margin: auto 0 auto auto;
+       width: 250px;
     }
 }

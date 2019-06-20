@@ -24,7 +24,7 @@ a colored unlimited width fixed toolbar  */
 
 .SvgToolBarLogo {
     display: block;
-    width: 256px;
+    width: 200px;
     height: 100%;
 }
 
@@ -44,7 +44,7 @@ a colored unlimited width fixed toolbar  */
 @media (max-width: 600px) {
     .SvgToolBarLogo {
         width: 160px;
-        height: 50px;
+        height: 100%;
     }
 
     .Toolbar {

@@ -1,0 +1,232 @@
+
+.FlexContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--white);
+    /* background: var(--blue); */
+}
+
+.Delete {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    margin: 0px;
+    padding: 15px 0px;
+    text-align: center;
+    color: var(--white);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-bottom: 2px solid var(--blue); */
+}
+
+.DeleteIcon {
+    fill: var(--white);
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.Delete:hover {
+    cursor: pointer;
+    color: var(--green);
+    /* border-bottom: 2px solid var(--green); */
+}
+
+.Delete:hover svg {
+    fill: var(--green);
+}
+  
+.Publish {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    margin: 0px;
+    padding: 15px 0px;
+    text-align: center;
+    color: var(--white);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-bottom: 2px solid var(--blue); */
+}
+
+.PublishIcon {
+    fill: var(--white);
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.Publish:hover {
+    cursor: pointer;
+    color: var(--green);
+    /* border-bottom: 2px solid var(--green); */
+}
+
+.Publish:hover svg {
+    fill: var(--green);
+}
+
+.Feature {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    margin: 0px;
+    padding: 15px 0px;
+    text-align: center;
+    color: var(--white);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-bottom: 2px solid var(--blue); */
+}
+
+.FeatureIcon {
+    fill: var(--white);
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.Feature:hover {
+    cursor: pointer;
+    color: var(--green);
+    /* border-bottom: 2px solid var(--green); */
+}
+
+.Feature:hover svg {
+    fill: var(--green);
+}
+
+.Edit {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    margin: 0px;
+    padding: 15px 0px;
+    text-align: center;
+    color: var(--white);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-bottom: 2px solid var(--blue); */
+}
+
+.EditIcon {
+    fill: var(--white);
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.Edit:hover {
+    cursor: pointer;
+    color: var(--green);
+    /* border-bottom: 2px solid var(--green); */
+}
+
+.Edit:hover svg {
+    fill: var(--green)
+}
+
+.Pin {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+    margin: 0px;
+    padding: 15px 0px;
+    text-align: center;
+    color: var(--white);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-bottom: 2px solid var(--blue); */
+}
+
+.PinIcon {
+    fill: var(--white);
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.Pin:hover {
+    cursor: pointer;
+    color: var(--green);
+    /* border-bottom: 2px solid var(--green); */
+}
+
+.Pin:hover svg {
+    fill: var(--green)
+} 
+
+/* .Active {
+    border-bottom: 2px solid var(--green) !important;
+    color: var(--green) !important;
+}
+
+.IconActive {
+    fill: var(--green) !important;
+} */
+
+/* @media (max-width: 450px) {
+    .All {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .AllIcon {
+        margin: 0;
+    }
+
+
+    .Youtube {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .YoutubeIcon {
+        margin: 0;
+    }
+
+    .Mooc {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .MoocIcon {
+        margin: 0;
+    }
+
+    .Book {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .BookIcon {
+        margin: 0;
+    }
+} */

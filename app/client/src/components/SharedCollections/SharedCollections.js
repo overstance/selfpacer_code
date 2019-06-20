@@ -28,9 +28,9 @@ class SharedCollections extends Component {
         }
     } */
 
-    collectionClickedHandler = (title, lastUpdated, id, description, published) => {
+    collectionClickedHandler = (title, lastUpdated, id, description, published, featured) => {
         const dateToString = new Date(lastUpdated).toLocaleDateString();
-        this.props.onSetClickedCollectionAttributes( {title: title, lastUpdated: dateToString, id: id, description: description, public: published} );
+        this.props.onSetClickedCollectionAttributes( {title: title, lastUpdated: dateToString, id: id, description: description, public: published, featured: featured} );
     }
 
     /* subjectChangedHandler = (event) => {
@@ -92,7 +92,7 @@ class SharedCollections extends Component {
                 title={collection.title}
                 itemCount={collection.resources.length}
                 lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
-                collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public)}
+                collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured)}
                 description={collection.description}
                 />
                 ));                   

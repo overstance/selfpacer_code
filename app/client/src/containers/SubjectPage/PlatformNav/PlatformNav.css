@@ -156,7 +156,7 @@
     fill: var(--green)
 } 
 
-@media (max-width: 450px) {
+@media (max-width: 600px) {
     .All {
         flex-direction: column;
         padding: 5px;

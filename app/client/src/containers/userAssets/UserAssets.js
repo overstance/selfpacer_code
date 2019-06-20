@@ -5,11 +5,14 @@ import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Grid from '../../components/UserInterface/Grid/Grid';
 import classes from './UserAssets.css';
 import Resource from './userAsset/UserAsset';
-import UpdateAssetDialogue from '../../components/Dialogues/updateAsset/updateAsset';
-import DeleteAssetDialogue from '../../components/Dialogues/deleteAsset/deleteAsset';
+// import UpdateAssetDialogue from '../../components/Dialogues/updateAsset/updateAsset';
+// import DeleteAssetDialogue from '../../components/Dialogues/deleteAsset/deleteAsset';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
 import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSpinner';
+import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
+import AjaxDialogueMessage from '../../components/Dialogues/Dialogue/AjaxDialogueMessage/AjaxDialogueMessage';
+import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -456,7 +459,36 @@ class ConfirmResource extends Component {
                     this.props.userId,
                     this.state.assetToUpdateId 
                 );
-                this.setState({fillError: null });
+
+                const updated = {
+                    ...this.state.mooc_controls,
+                    videoCount: {
+                        ...this.state.mooc_controls.videoCount,
+                        touched: false
+                    },
+                    enrollees: {
+                        ...this.state.mooc_controls.enrollees,
+                        touched: false
+                    },
+                    duration: {
+                        ...this.state.mooc_controls.duration,
+                        touched: false
+                    },
+                    level: {
+                        ...this.state.mooc_controls.level,
+                        touched: false
+                    },
+                    lastUpdated: {
+                        ...this.state.mooc_controls.lastUpdated,
+                        touched: false
+                    },
+                    avgRating: {
+                        ...this.state.mooc_controls.avgRating,
+                        touched: false
+                    }
+                };
+
+                this.setState({mooc_controls: updated, fillError: null });
                 // console.log('all conditioned fulfilled')
                 
             }
@@ -472,8 +504,20 @@ class ConfirmResource extends Component {
             } else {
     
                 this.props.onUpdateBookAsset(this.state.book_controls.level.value, this.state.book_controls.avgRating.value, this.props.userId, this.state.assetToUpdateId );
+
+                const updated = {
+                    ...this.state.book_controls,
+                    level: {
+                        ...this.state.book_controls.level,
+                        touched: false
+                    },
+                    avgRating: {
+                        ...this.state.book_controls.avgRating,
+                        touched: false
+                    }
+                }
                 
-                this.setState({fillError: null }); 
+                this.setState({book_controls: updated, fillError: null }); 
                 // console.log('books all condition fulfilled');   
             }
         }
@@ -790,42 +834,49 @@ class ConfirmResource extends Component {
 
         if (!this.props.updateAssetLoading && this.props.updateAssetSuccessInfo) {
             updateForm =
-            <div className={classes.PostAddInfo}>
-                <div>{this.props.updateAssetSuccessInfo}</div>
-            </div>
+            <PostActionInfo isSuccess>
+                {this.props.updateAssetSuccessInfo}
+            </PostActionInfo>
+            
         } else if (!this.props.updateAssetLoading && this.props.updateAssetError) {
             updateForm =
-            <div className={classes.PostAddError}>
-                <div>{'Error: ' + this.props.updateAssetError}</div>
-            </div>
+            <PostActionInfo isFailed>
+                {'Error: ' + this.props.updateAssetError}
+            </PostActionInfo>
         }
 
-        let deleteForm =
-        <div className={classes.DialogueMessage}>
+        let deleteForm = 
+        <AjaxDialogueMessage 
+        isDelete
+        action='delete'
+        resourceTitle={this.state.resourceToDeleteTitle}
+        cancel={this.closeDeleteDialogue}
+        confirm={this.confirmDelete}
+        />
+        /*<div className={classes.DialogueMessage}>
             <div>Delete:</div>
             <h4>{this.state.resourceToDeleteTitle}</h4>
-            <span>?</span>
             <div>
-                <div onClick={this.closeDeleteDialogue} className={classes.CancelDelete}>CANCEL</div>
-                <div onClick={this.confirmDelete} className={classes.ConfirmDelete}>DELETE</div>
+                <span onClick={this.closeDeleteDialogue} className={classes.Cancel}>cancel</span>
+                <span onClick={this.confirmDelete} className={classes.Confirm}>delete</span>
             </div>
-        </div> 
+        </div> */
 
         if (this.props.deleteAssetLoading) {
             deleteForm =
-            <div className={classes.DialogueMessage}><Spinner /></div>
+            <Spinner isDialogue/>
         }
 
         if ( this.props.deleteAssetSuccessInfo && !this.props.deleteAssetLoading) {
             deleteForm =
-            <div className={classes.PostAddInfo}>
-                <div>{this.props.deleteAssetSuccessInfo}</div>
-            </div>
+            <PostActionInfo isSuccess>
+                {this.props.deleteAssetSuccessInfo}
+            </PostActionInfo>
         } else if ( this.props.deleteAssetError && !this.props.deleteAssetLoading ) {
             deleteForm =
-            <div className={classes.PostAddError}>
-                <div>{'Error: ' + this.props.deleteAssetError}</div>
-            </div>
+            <PostActionInfo isFailed>
+                {'Error: ' + this.props.deleteAssetError}
+            </PostActionInfo>   
         }
 
         let byTitle =
@@ -902,22 +953,24 @@ class ConfirmResource extends Component {
                 </div>
                 {
                     this.state.showUpdateDialogue ? 
-                    <UpdateAssetDialogue
+                    <Dialogue
+                    isUpdateAsset
                     closeDialogue={this.closeUpdateDialogue}
                     showDialogue={this.state.showUpdateDialogue}
                     >
                         {updateForm}
-                    </UpdateAssetDialogue>
+                    </Dialogue>
                     : null
                 }
                 {
                     this.state.showDeleteDialogue ? 
-                    <DeleteAssetDialogue
+                    <Dialogue
+                    isDeleteAsset
                     closeDialogue={this.closeDeleteDialogue}
                     showDialogue={this.state.showDeleteDialogue}
                     >
                         {deleteForm}
-                    </DeleteAssetDialogue>
+                    </Dialogue>
                     : null
                 }
             </Grid>  

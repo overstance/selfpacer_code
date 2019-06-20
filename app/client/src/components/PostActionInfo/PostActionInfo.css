@@ -1,0 +1,39 @@
+.Success {
+    text-align: center;
+    max-width: 400px;
+    background: var(--blue);
+    margin: 30px auto;
+    color: var(--green);
+    font-weight: 400;
+    border-radius: 20px;
+    padding: 20px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.Failed {
+    text-align: center;
+    max-width: 400px;
+    background: var(--blue);
+    margin: 30px auto;
+    color: var(--red);
+    font-weight: 400;
+    border-radius: 20px;
+    padding: 50px;
+    overflow: hidden; 
+    box-sizing: border-box;  
+}
+
+.Success span {
+    color: var(--white);
+}
+
+@media (max-width: 600px) {
+    .Success {
+        max-width: 240px;
+    }
+
+    .Failed {
+        max-width: 240px;
+    }
+}

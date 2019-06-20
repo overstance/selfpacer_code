@@ -3,12 +3,11 @@ import React, { Component } from 'react';
 import classes from './SubjectPage.css';
 import {connect} from 'react-redux';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
-// import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
-import PlatformNav from '../../components/PlatformNav/PlatformNav';
+import PlatformNav from './PlatformNav/PlatformNav';
 import Grid from '../../components/UserInterface/Grid/Grid';
 import * as actions from '../../store/actions/index';
 import Resource from '../../components/Resource/Resource';
-import AuthRequired from '../../components/Dialogues/AuthRequired/authRequired';
+import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
 import AddToCollection from '../../components/Dialogues/addToCollection/addToCollection';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
 import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
@@ -16,7 +15,6 @@ import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButto
 class SubjectPage extends Component {
     
    componentDidMount () {
-        // console.log(this.props.match.params.subject_title);
         this.props.onFetchSubjectDetails(this.props.match.params.subject_title);
         this.props.onFetchSubjectResources(this.props.match.params.subject_title);
 
@@ -64,9 +62,7 @@ class SubjectPage extends Component {
 
         AuthenticateToCollectOrAdd: false,
         showAuthRequiredModal: false,
-        showCollectionModal: false,
-
-        // addButtonActivated: false
+        showCollectionModal: false
     }
 
     pathsToggleHandler = () => {
@@ -131,25 +127,13 @@ class SubjectPage extends Component {
         this.props.onSetActiveContentType('books');
     }
 
-    /* addResourceButtonClicked = () => {
-        this.setState((prevState) => {
-            return {
-                addButtonActivated: !prevState.addButtonActivated,
-            };
-        });
-    } */
-
     resourceClickedHandler = ( platform, id, views ) => {
         this.props.onSetClickedPlatform( platform );
         this.props.onIncreaseResourceViewCount( id, views);
 
-        // console.log(platform, id);
-
         if (this.props.isAuthenticated) {
            
             const checkViewed = this.props.settedUserRecentlyViewed.filter(resource => resource === id);
-
-            // console.log(checkViewed.length);
 
             if (checkViewed.length === 0) {
                 this.props.onUpdateRecentlyViewed(id, this.props.settedUserRecentlyViewed, this.props.userId);
@@ -427,10 +411,10 @@ class SubjectPage extends Component {
                     <div className={classes.Resources}>
                         <div>
                             {this.state.AuthenticateToCollectOrAdd ? 
-                                <AuthRequired 
+                                <Dialogue
+                                isAuthenticate 
                                 showDialogue={this.state.showAuthRequiredModal}
                                 closeDialogue={this.collectAuthDialogueCloseHandler}
-                                closeModal={this.collectAuthDialogueCloseHandler}
                                 />: null
                             }
                             <AddToCollection 

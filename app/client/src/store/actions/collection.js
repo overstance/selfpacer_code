@@ -147,11 +147,14 @@ export const createCollection = ( title, user, resourceToAdd ) => async dispatch
                 if (res.data === 'Collection created!') {
                     dispatch(createCollectionSuccess(res.data));
 
-                    const res2 = await axios.post(`/api/increase_collect_count/${resourceToAdd}`);
-                    if (res2.data) {
-                        // console.log(res2.data);
-                        return;
+                    if (resourceToAdd !== '') {
+                        const res2 = await axios.post(`/api/increase_collect_count/${resourceToAdd}`);
+                        if (res2.data) {
+                            // console.log(res2.data);
+                            return;
+                        }
                     }
+                    
                 } else {
                     dispatch(createCollectionFail(res.data));
                 } 
@@ -210,18 +213,15 @@ export const addResourceToCollection = ( collectionId, collectionResources, reso
             const res2 = await axios.post(`/api/increase_collect_count/${resourceToAdd}`);
             
             if (res2.data) {
-                console.log(res2.data);
+                // console.log(res2.data);
                 const res3 = await axios.post(`/api/change_update_time/${collectionId}`);
                 
                 if (res3.data) {
-                    console.log(res3.data);
+                    return;
+                } else {
+                    return;
                 }
-            }/* 
-
-            if (res3.data) {
-                console.log(res3.data);
-                return;
-            } */
+            }
         } else {
             dispatch(addResourceToCollectionFail(res.data));
         } 
@@ -250,6 +250,14 @@ export const setClickedCollectionAttributes = ( attributes ) => {
     return {
         type: actionTypes.SET_CLICKED_COLLECTION_ATTRIBUTES,
         attributes: attributes
+    }
+}
+
+// clear resource to collect after collection created
+
+export const clearResourceToCollect = ( attributes ) => {
+    return {
+        type: actionTypes.CLEAR_RESOURCE_TO_COLLECT
     }
 }
 
@@ -324,7 +332,8 @@ export const fetchCollectionAttributes = ( id ) => async dispatch => {
             lastUpdated: collection.lastUpdated,
             id: collection._id,
             description: collection.description,
-            public: collection.public
+            public: collection.public,
+            featured: collection.featured
         }
         dispatch(fetchCollectionAttributesSuccess(attributes));
     } /* else {
@@ -356,13 +365,12 @@ export const deleteCollectionItemFail = ( error ) => {
 
 export const deleteCollectionItem = ( resourceId, collectionId, history) => async dispatch => {
     // dispatch(deleteCollectionItemStart());
-
     const info = {
         resourceId: resourceId,
         collectionId: collectionId
     }
 
-    const res = await axios.post('/api/delete_collection_item', info); 
+    const res = await axios.post('/api/delete_collection_item', info);
 
     if ( res.data.collection._id === collectionId ) {
         dispatch(fetchCollectionByIdStart());
@@ -378,7 +386,9 @@ export const deleteCollectionItem = ( resourceId, collectionId, history) => asyn
         } else {
             dispatch(deleteCollectionItemFail(res2.data));
         }
-    } 
+    } else {
+        return;
+    }
 }
 
 // Edit Collection
@@ -580,6 +590,18 @@ export const clearDeleteCollectionMessages = () => {
 }
 
 // pin collection
+export const pinCollectionStart = () => {
+    return {
+        type: actionTypes.PIN_COLLECTION_START
+    }
+}
+
+export const pinCollectionFail = (error) => {
+    return {
+        type: actionTypes.PIN_COLLECTION_FAIL,
+        error: error
+    }
+}
 
 export const pinCollectionSuccess = ( collectionIds ) => {
     return {
@@ -589,6 +611,8 @@ export const pinCollectionSuccess = ( collectionIds ) => {
 }
 
 export const pinCollection = (collectionId, userId, userPinnedCollections) => async dispatch => {
+    dispatch(pinCollectionStart());
+
     let temp = userPinnedCollections;
 
     temp.push(collectionId);
@@ -604,19 +628,16 @@ export const pinCollection = (collectionId, userId, userPinnedCollections) => as
 
     if (res.data._id === userId) {
         dispatch(pinCollectionSuccess(res.data.pinnedCollections));
+    } else {
+        dispatch(pinCollectionFail(res.data));
     }
 }
 
 // unpinCollection
 
-export const unpinCollectionSuccess = ( collectionIds ) => {
-    return {
-        type: actionTypes.PIN_COLLECTION_SUCCESS,
-        collectionIds: collectionIds
-    }
-}
-
 export const unpinCollection = (collectionId, userId, userPinnedCollections) => async dispatch => {
+
+    dispatch(pinCollectionStart());
     /* let temp = userPinnedCollections;
 
     temp.push(collectionId); */
@@ -631,8 +652,65 @@ export const unpinCollection = (collectionId, userId, userPinnedCollections) => 
     const res = await axios.post('/api/unpin_collection', info);
 
     if (res.data._id === userId) {
-        dispatch(unpinCollectionSuccess(res.data.pinnedCollections));
+        dispatch(pinCollectionSuccess(res.data.pinnedCollections));
+    } else {
+        dispatch(pinCollectionFail(res.data));
     }
+}
+
+// clear pin collection messages before showing dialogue
+
+export const clearPinCollectionMessages = () => {
+    return {
+        type: actionTypes.CLEAR_PIN_COLLECTION_MESSAGES
+    }
+}
+
+
+// feature Collection by admin
+
+export const featureCollection = ( collectionId ) => async dispatch => {
+
+    // console.log('front featured route reached');
+
+    const res = await axios.post(`/api/feature_collection/${collectionId}`);
+
+    if (res.data.collection) {
+        // console.log(res.data.collection)
+        const collection = res.data.collection;
+        const attributes = {
+            title: collection.title,
+            lastUpdated: collection.lastUpdated,
+            id: collection._id,
+            description: collection.description,
+            public: collection.public,
+            featured: collection.featured
+        }
+        dispatch(fetchCollectionAttributesSuccess(attributes));
+    } 
+}
+
+// unfeature collection
+
+export const unfeatureCollection = ( collectionId ) => async dispatch => {
+
+    // console.log('front featured route reached');
+
+    const res = await axios.post(`/api/unfeature_collection/${collectionId}`);
+
+    if (res.data.collection) {
+        // console.log(res.data.collection)
+        const collection = res.data.collection;
+        const attributes = {
+            title: collection.title,
+            lastUpdated: collection.lastUpdated,
+            id: collection._id,
+            description: collection.description,
+            public: collection.public,
+            featured: collection.featured
+        }
+        dispatch(fetchCollectionAttributesSuccess(attributes));
+    } 
 }
 
 // fetch User Pinned Collections
