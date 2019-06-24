@@ -284,6 +284,9 @@ export const loginUser = (email, password, history) => {
                 localStorage.setItem("token",res.data._id);
                 localStorage.setItem("spec", res.data.specialization);
                 dispatch(authSuccess(res.data));
+                dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
+                dispatch(setUserLikeCount(res.data.likeCount));
+                dispatch(setUserPinnedCollections(res.data.pinnedCollections));
                 history.push('/');
                 return;
             } else {

@@ -4,6 +4,9 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
+import Form from '../../../components/UserInterface/Form/Form';
+import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class RemoveAdminUsers extends Component {
 
@@ -90,10 +93,9 @@ class RemoveAdminUsers extends Component {
     render() {
         return (
             <div className={classes.ContainerItem}>
-                <div className={classes.AdminAction}>REMOVE ADMIN USER</div>
-                <form
-                className={classes.Form} 
-                onSubmit={this.submitUserHandler}
+                <FormTitle isAdmin>Remove Admin User</FormTitle>
+                <Form
+                submitForm={this.submitUserHandler}
                 >
                     <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
@@ -111,19 +113,15 @@ class RemoveAdminUsers extends Component {
                         <Button btnType='Success'> Remove </Button>    
                     }
                     { this.props.adminUserRemoveError ? 
-                        <div>
-                            <div className={classes.ErrorFeedbackInfo}>
-                                {this.props.adminUserRemoveError}
-                            </div>
-                        </div> 
+                        <FormFeedback isFailed>
+                            {this.props.adminUserRemoveError}
+                        </FormFeedback>
                         :
-                        <div>
-                            <div className={classes.AddFeedbackInfo}>
-                                {this.props.adminUserRemovedFeedback}
-                            </div>
-                        </div> 
+                        <FormFeedback isSuccess>
+                            {this.props.adminUserRemovedFeedback}
+                        </FormFeedback>
                     }
-                </form>
+                </Form>
             </div>                      
         )
     }

@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
 import ButtonSpinner from '../../../components/UserInterface/ButtonSpinner/ButtonSpinner';
+import Form from '../../../components/UserInterface/Form/Form';
+import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class AddBooks extends Component {
 
@@ -388,10 +391,9 @@ class AddBooks extends Component {
 
         return (
             <div className={classes.ContainerItem}>
-                <div className={classes.AdminAction}>ADD BOOKS OR DOCS</div>
-                <form 
-                className={classes.Form}
-                onSubmit={this.submitHandler}
+                <FormTitle isAdmin>Add Book</FormTitle>
+                <Form
+                submitForm={this.submitHandler}
                 >
                     <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
@@ -411,19 +413,15 @@ class AddBooks extends Component {
                         <Button btnType='Success'> {addBooksButtonText} </Button>    
                     }
                     { this.props.addBooksError ? 
-                        <div>
-                            <div className={classes.ErrorFeedbackInfo}>
-                                {this.props.addBooksError}
-                            </div>
-                        </div> 
+                        <FormFeedback isFailed>
+                            {this.props.addBooksError}
+                        </FormFeedback>
                         :
-                        <div>
-                            <div className={classes.AddFeedbackInfo}>
-                                {this.props.addBooksSucessInfo}
-                            </div>
-                        </div> 
+                        <FormFeedback isSuccess>
+                            {this.props.addBooksSucessInfo}
+                        </FormFeedback>
                     }
-                </form>
+                </Form>
             </div >                                 
         )
     }

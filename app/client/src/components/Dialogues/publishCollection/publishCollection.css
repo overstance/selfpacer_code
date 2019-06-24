@@ -2,34 +2,12 @@
     text-align: center;
 }
 
-.Form {
-    background: var(--blue);
-    padding: 10px;
+.DialogueMessage form {
     margin: 10px 20px;
-    border-radius: 20px;
 }
 
-.Form textarea {
-    border-radius: 5px;
-    resize: none;
-}
-
-.Form Button {
+.DialogueMessage Button {
     margin-top: 10px;
-}
-
-.Form label {
-    margin-top: 0px;
-    font-weight: 400;
-    font-size: small;
-}
-
-.Form select {
-    font-weight: 400;
-}
-
-.Form input {
-    font-weight: 400;
 }
 
 .FillError {

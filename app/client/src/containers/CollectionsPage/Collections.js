@@ -7,11 +7,18 @@ import * as actions from '../../store/actions/index';
 import UserCollections from '../../components/UserCollections/UserCollections';
 import SharedCollections from '../../components/SharedCollections/SharedCollections';
 import PinnedCollections from '../../components/PinnedCollections/PinnedCollections';
+import FeaturedCollections from '../../components/FeaturedCollections/FeaturedCollections';
 import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
+import CreateCollection from '../../components/createCollection/createCollection';
+import SharedCollectionsBySubject from '../../components/SharedCollectionsBySubject/SharedCollectionsBySubject';
 
 class Collections extends Component {
 
     componentDidMount () {
+
+        if (!this.props.user._id || this.props.user.specialization === 'N/A') {
+            this.setState ({ isUnspecified: true, mineActive: false});
+        }
 
         if (this.props.activeMenu === 'featured') {
             this.setState({ 
@@ -20,7 +27,7 @@ class Collections extends Component {
                 pinnedActive: false,
                 createActive: false,
                 featuredActive: true,
-    
+                
             });
         }
 
@@ -45,15 +52,28 @@ class Collections extends Component {
     
             });
         }
+
+        if (this.props.activeMenu === 'create') {
+            this.setState({ 
+                mineActive: false,
+                sharedActive: false,
+                pinnedActive: false,
+                createActive: true,
+                featuredActive: false,
+    
+            });
+        }
     }
 
     state = {
         /* showFilter: false,
         toggle: false, */
         pageTitle: 'Collections',
+        isUnspecified: false,
         mineActive: true,
         sharedActive: false,
         pinnedActive: false,
+        createActive: false,
         featuredActive: false,
     }
 
@@ -62,6 +82,7 @@ class Collections extends Component {
             mineActive: true,
             sharedActive: false,
             pinnedActive: false,
+            createActive: false,
             featuredActive: false,
 
         });
@@ -75,6 +96,7 @@ class Collections extends Component {
             mineActive: false,
             sharedActive: false,
             pinnedActive: false,
+            createActive: false,
             featuredActive: true,
 
         });
@@ -88,6 +110,7 @@ class Collections extends Component {
             mineActive: false,
             sharedActive: true,
             pinnedActive: false,
+            createActive: false,
             featuredActive: false,
 
         });
@@ -101,6 +124,7 @@ class Collections extends Component {
             mineActive: false,
             sharedActive: false,
             pinnedActive: true,
+            createActive: false,
             featuredActive: false,
 
         });
@@ -108,40 +132,70 @@ class Collections extends Component {
         this.props.onSetSelectedMenu('pinned');
     }
 
+    createHandler = () => {
+
+        this.setState({ 
+            mineActive: false,
+            sharedActive: false,
+            pinnedActive: false,
+            createActive: true,
+            featuredActive: false,
+
+        });
+
+        this.props.onSetSelectedMenu('create');
+    }
+
     render() {
 
-        let pageContent = <UserCollections />
+        let userPageContent = <UserCollections />
 
         if (this.props.activeMenu === 'featured') {
-            pageContent = <div>featured</div>
+            userPageContent = <FeaturedCollections />
         }
 
         if (this.props.activeMenu === 'shared') {
-            pageContent = <SharedCollections />
+            userPageContent = <SharedCollections />
         }
 
         if (this.props.activeMenu === 'pinned') {
-            pageContent = <PinnedCollections />
+            userPageContent = <PinnedCollections />
+        }
+
+        if (this.props.activeMenu === 'create') {
+            userPageContent = <CreateCollection />
         }
 
         return (
             <Grid>
                 <div>
-                    <CollectionsNav
-                        // show={this.state.showFilter}
-                        createRoute='/create_collection'
-                        mineActived={this.state.mineActive}
-                        featuredActived={this.state.featuredActive}
-                        sharedActived={this.state.sharedActive}
-                        pinnedActived={this.state.pinnedActive}
-                        mineClicked={this.mineHandler}
-                        featuredClicked={this.featuredhandler}
-                        sharedClicked={this.sharedHandler}
-                        pinnedClicked={this.pinnedHandler}
-                    />
-                </div>
-                <div className={classes.CollectionsContainer}>
-                    {pageContent}
+                    { this.state.isUnspecified ?
+                        <div className={classes.CollectionsContainer}>
+                            <SharedCollectionsBySubject />
+                        </div>
+                        : 
+                        <div>                        
+                            <div>
+                                <CollectionsNav
+                                    // show={this.state.showFilter}
+                                    // createActive='/create_collection'
+                                    createActive={this.state.featuredActive}
+                                    mineActived={this.state.mineActive}
+                                    featuredActived={this.state.featuredActive}
+                                    sharedActived={this.state.sharedActive}
+                                    pinnedActived={this.state.pinnedActive}
+                                    mineClicked={this.mineHandler}
+                                    createClicked={this.createHandler}
+                                    featuredClicked={this.featuredhandler}
+                                    sharedClicked={this.sharedHandler}
+                                    pinnedClicked={this.pinnedHandler}
+                                />
+                            </div>
+                            <div className={classes.CollectionsContainer}>
+                                {userPageContent}
+                            </div>
+                        </div>
+                    }
                 </div>
                 <ScrollButton scrollStepInPx="50" delayInMs="16.66" showUnder={160} />    
             </Grid>

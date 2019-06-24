@@ -144,7 +144,7 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                {props.children}                                    
+                {props.children}                                        
             </div> : null
         }
         { props.isPublishCollection ?

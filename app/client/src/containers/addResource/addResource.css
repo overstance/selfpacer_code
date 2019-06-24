@@ -16,7 +16,7 @@
 
 .ContentItems {
     padding: 10px;
-    background: var(--green); 
+    /* background: var(--green);  */
     padding-bottom: 10px;
 }
 
@@ -39,17 +39,20 @@
  padding: 0;
 }
 
-.AdminAction {
-    color: var(--darkBlue);
-    font-weight: 700;
-    padding-bottom: 10px;
-}
+/* */
 
 .OuterContainer {
-    background: var(--darkBlue);
+    background: var(--blue);
     padding: 20px;
     border-radius: 20px;
-    /* margin: 10px; */  
+    margin: 10px;  
+}
+
+.OuterContainer form {
+    background: var(--blue);
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
 }
 
 .OuterContainer label {
@@ -64,33 +67,6 @@
     font-weight: 400;
 }
 
-.Form {
-    background: var(--blue);
-    /* padding: 20px 0; */
-    /* border-radius: 20px; */
-    /* margin: 10px; */
-    
-}
-
-.Form label {
-    margin-top: 0px;
-    font-weight: 400;
-    font-size: small;
-}
-
-.Form select {
-    font-weight: 400;
-}
-
-.Form input {
-    font-weight: 400;
-}
-
-.Form textarea {
-    border-radius: 5px;
-    resize: none;
-}
-
 .FootNote {
     color: var(--darkBlue);
     font-size: small;
@@ -103,11 +79,4 @@
     /* line-height: 16px; */
 }
 
-.FillError {
-    color: var(--red);
-    font-size: small;
-    font-weight: 400;
-    max-width: 180px;
-    margin: auto;
-    padding: 2px;
-}
+/* */

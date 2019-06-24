@@ -1,0 +1,25 @@
+.Description {
+    color: var(--blue);
+    font-weight: 700;
+    text-align: center;
+    padding: 8px;
+    background: var(--green);
+
+}
+
+.CollectionWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.SubjectWrapper form {
+    margin: 0;
+    border-radius: 0;
+}
+
+.SubjectWrapper form label {
+    font-size: medium;
+    color: var(--green);
+}

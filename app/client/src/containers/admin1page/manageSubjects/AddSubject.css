@@ -32,16 +32,34 @@
     align-items: center;
 }
 
-.ContainerItem span {
+/* .ContainerItem span {
     display: none;
-}
+} */
 
 .ContainerItem button {
- font-size: small;
- width: 100px;
- height: 50px;
- border-radius: 25px;
- padding: 0;
+    font-size: small;
+    width: 100px;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0;
+}
+
+.ContainerItem form {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.IconContainerItem form {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.IconContainerItem button {
+    font-size: small;
+    width: 100px;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0;
 }
 
 .AdminAction {
@@ -50,7 +68,16 @@
     font-weight: 700;
 }
 
-.Form {
+/* .IconForm {
+    background: var(--blue);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+    max-width: 300px;
+    margin: 20px auto;
+} */
+
+/* .Form {
     background: var(--blue);
     padding: 20px;
     margin: 10px;
@@ -72,7 +99,6 @@
     border-radius: 5px;
     resize: none;
     height: 100px;
-    /* font-weight: 400; */
 }
 
 .Form label {
@@ -87,7 +113,7 @@
 
 .Form input {
     font-weight: 700;
-}
+} */
 
 .FillError {
     color: var(--red);

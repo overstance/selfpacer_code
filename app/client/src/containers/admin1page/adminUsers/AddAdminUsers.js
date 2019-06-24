@@ -4,6 +4,9 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
+import Form from '../../../components/UserInterface/Form/Form';
+import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class AddAdminUsers extends Component {
 
@@ -90,12 +93,13 @@ class AddAdminUsers extends Component {
     render() {
         return (
             <div className={classes.ContainerItem}>
-                <div className={classes.AdminAction}>ADD ADMIN USER</div>
-                <form
-                className={classes.Form} 
-                onSubmit={this.submitUserHandler}
+                <FormTitle isAdmin>Add Admin User</FormTitle>
+                <Form 
+                submitForm={this.submitUserHandler}
                 >
-                    <div className={classes.FillError}>{this.state.fillError}</div>
+                    <FormFeedback isFillError>
+                        {this.state.fillError}
+                    </FormFeedback>
                     <Input 
                     label={this.state.userId.label} 
                     name={this.state.userId.name}
@@ -111,19 +115,15 @@ class AddAdminUsers extends Component {
                         <Button btnType='Success'> Add </Button>    
                     }
                     { this.props.adminAddError ? 
-                        <div>
-                            <div className={classes.ErrorFeedbackInfo}>
-                                {this.props.adminAddError}
-                            </div>
-                        </div> 
+                        <FormFeedback isFailed>
+                            {this.props.adminAddError}
+                        </FormFeedback>
                         :
-                        <div>
-                            <div className={classes.AddFeedbackInfo}>
-                                {this.props.adminUserAddedFeedback}
-                            </div>
-                        </div> 
+                        <FormFeedback isSuccess>
+                            {this.props.adminUserAddedFeedback}
+                        </FormFeedback>
                     }
-                </form>
+                </Form>
             </div>                      
         )
     }

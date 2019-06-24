@@ -1,18 +1,3 @@
-.AddFeedbackInfo {
-    color: var(--green);
-    font-weight: 400;
-    padding: 5px;
-    font-size: small;
-    display: inline;
-}
-
-.ErrorFeedbackInfo {
-    color: var(--red);
-    padding: 5px;
-    font-size: small;
-    display: inline;
-}
-
 .ContentItems {
     padding: 10px;
 }
@@ -42,27 +27,6 @@
     padding: 20px 0;
 }
 
-.Form {
-    background: var(--blue);
-    padding: 20px;
-    margin: 10px 0;
-    border-radius: 20px;
-}
-
-.Form label {
-    margin-top: 0px;
-    font-weight: 400;
-    font-size: small;
-}
-
-.Form select {
-    font-weight: 700;
-}
-
-.Form input {
-    font-weight: 700;
-}
-
 .FillError {
     color: var(--red);
     font-size: small;
@@ -72,11 +36,11 @@
     padding: 2px;
 }
 
-.ChangePassword {
+/* .ChangePassword {
     text-align: center;
     cursor: pointer;
 }
 
 .ChangePassword:hover {
     text-decoration: underline;
-}
+} */

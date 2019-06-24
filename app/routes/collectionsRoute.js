@@ -33,6 +33,21 @@ module.exports = app => {
     );
   });
 
+  app.get('/api/featured_collections/:userSpec', (req, res) => {
+    Collection.find(
+      { public: true, featured: true, description: req.params.userSpec },
+      function(err, collections) {
+        if (err) {
+          console.log(err);
+          res.send(err.name);
+        } else {
+          res.send({ collections: collections });
+          // console.log(collections);
+        }
+      }
+    );
+  });
+
   app.get('/api/fetch_collection/:id', (req, res) => {
     Collection.findById(req.params.id, (err, collection) => {
       if (err) {
@@ -71,7 +86,7 @@ module.exports = app => {
     User.findById(req.params.userId, (err, user) => {
       if (err) {
         res.send(err.message);
-        console.log(err.message);
+        // console.log(err.message);
         return;
       } else {
         const pinnedCollections = user.pinnedCollections;
@@ -80,7 +95,7 @@ module.exports = app => {
           (err, collections) => {
             if (err) {
               res.send(err.message);
-              console.log(err.message);
+              // console.log(err.message);
               return;
             } else {
               res.send({ collections: collections });

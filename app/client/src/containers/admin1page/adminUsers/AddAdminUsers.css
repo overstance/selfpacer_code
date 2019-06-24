@@ -44,7 +44,7 @@
     font-weight: 700;
 }
 
-.Form {
+/* .Form {
     background: var(--blue);
     padding: 20px;
     margin: 10px;
@@ -68,7 +68,7 @@
 
 .Form input {
     font-weight: 400;
-}
+} */
 
 .FillError {
     color: var(--red);

@@ -7,6 +7,7 @@ import Button from '../../../../components/UserInterface/Button/Button';
 // import PostSubmitDailogue from '../../../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Spinner from '../../../../components/UserInterface/Spinner/Spinner';
 import Dialogue from '../../../../components/Dialogues/Dialogue/Dialogue';
+import Form from '../../../../components/UserInterface/Form/Form';
 
 class ChangePassword extends Component {
 
@@ -176,7 +177,7 @@ class ChangePassword extends Component {
         }   
     }
 
-    showFormHandler = () => {
+    showFormHandler = (event) => {
         this.setState({ showChangePasswordForm: true });
     }
 
@@ -196,9 +197,8 @@ class ChangePassword extends Component {
         }
 
         const changePasswordForm = 
-        <form
-        className={classes.Form}
-        onSubmit={this.submitChangePasswordHandler}
+        <Form
+        submitForm={this.submitChangePasswordHandler}
         >
             {errorMessage}
             {fillError}
@@ -234,7 +234,7 @@ class ChangePassword extends Component {
                 <Button btnType='Danger' disabled> Submit </Button> :
                 <Button btnType='Success'> Submit </Button>    
             }
-        </form>
+        </Form>
         
         const successDialogue = 
         <Dialogue
@@ -263,7 +263,9 @@ class ChangePassword extends Component {
 
         return ( 
             <div className={classes.ContainerItem}>
-                <div onClick={this.showFormHandler} className={classes.ChangePassword}>change your password</div>
+                <div className={classes.ChangePassword}>
+                    <Button btnType='Success' clicked={this.showFormHandler}>Change password</Button> 
+                </div>
                 { this.state.showChangePasswordForm ? <div>{content}</div> : null}
             </div>   
         );

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import classes from './AddSubjectIcon.css';
+import classes from './AddSubject.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
+import Form from '../../../components/UserInterface/Form/Form';
+import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class EditSubject extends Component {
 
@@ -237,10 +240,9 @@ class EditSubject extends Component {
     render() {
         return (
             <div className={classes.ContainerItem}>
-                <div className={classes.AdminAction}>EDIT SUBJECT</div>
-                <form 
-                className={classes.Form}
-                onSubmit={this.submitpathHandler}
+                <FormTitle isAdmin>Edit Subject</FormTitle>
+                <Form
+                submitForm={this.submitpathHandler}
                 >
                     <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
@@ -279,19 +281,15 @@ class EditSubject extends Component {
                         <Button btnType='Success'> Submit </Button>    
                     }
                     { this.props.editSubjectError ? 
-                        <div>
-                            <div className={classes.ErrorFeedbackInfo}>
-                                {this.props.editSubjectError}
-                            </div>
-                        </div> 
+                        <FormFeedback isFailed>
+                            {this.props.editSubjectError}
+                        </FormFeedback>
                         :
-                        <div>
-                            <div className={classes.AddFeedbackInfo}>
-                                {this.props.editSubjectSuccessInfo}
-                            </div>
-                        </div> 
+                        <FormFeedback isSuccess>
+                            {this.props.editSubjectSuccessInfo}
+                        </FormFeedback>
                     }
-                </form>
+                </Form>
             </div >                                 
         )
     }

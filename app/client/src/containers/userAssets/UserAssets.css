@@ -101,30 +101,6 @@
     margin: 10px;
 }
 
-/* .PostAddInfo {
-    padding: 20px;
-    font-weight: 400;
-    color: var(--green);
-    background: var(--darkBlue);
-    margin: 10px auto;
-    border-radius: 20px;
-    max-width: 400px;
-    text-align: center;
-    overflow: auto;   
-}
-
-.PostAddError {
-    padding: 20px;
-    font-weight: 400;
-    color: var(--red);
-    background: var(--darkBlue);
-    margin: 10px auto;
-    border-radius: 20px;
-    max-width: 400px;
-    text-align: center;
-    overflow: auto;   
-} */
-
 @media( max-width: 380px) {
     .Title {
        width: 200px;
@@ -137,7 +113,19 @@
     font-weight: 400;
 }
 
-.Form {
+.DialogueMessage {
+    text-align: center;
+}
+
+.DialogueMessage form {
+    margin: 10px 20px;
+}
+
+.DialogueMessage Button {
+    margin-top: 10px;
+}
+
+/* .Form {
     background: var(--blue);
     padding: 10px;
     margin: 10px 20px;
@@ -166,7 +154,7 @@
 
 .Form input {
     font-weight: 400;
-}
+} */
 
 .AddFeedbackInfo {
     color: var(--green);

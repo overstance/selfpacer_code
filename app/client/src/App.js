@@ -86,9 +86,10 @@ class App extends Component {
         {/* <Route exact path="/collections/:id" component={Collection} /> */}
         {/* <Route exact path="/create_new_collection" component={NewCollection} /> */}
         <Route exact path="/collections" component={Collections} />
+        <Route exact path="/shared_collections/:id" component={SharedCollection} />
         {/* <PrivateRoute exact path="/pinned_collections" component={PinnedCollections} /> */}
         {/* <PrivateRoute exact path="/all_shared_collections" component={AllSharedCollections} /> */}
-        <PrivateRoute exact path="/shared_collections/:id" component={SharedCollection} />
+        {/* <PrivateRoute exact path="/shared_collections/:id" component={SharedCollection} /> */}
         <PrivateRoute exact path="/collections/:id" component={UserCollection} />
         <PrivateRoute exact path="/create_collection" component={CreateNewCollection} />
 

@@ -95,20 +95,41 @@ export const fetchSharedCollectionsBySpec = ( userSpec) => async dispatch => {
 
 };
 
-/* export const fetchSharedCollections = () => async dispatch => {
+// fetch featured collections by spec.
 
-    dispatch(fetchSharedCollectionsStart());
+export const fetchFeaturedCollectionsSuccess = ( collections ) => {
+    return {
+        type: actionTypes.FETCH_FEATURED_COLLECTIONS_SUCCESS,
+        collections: collections
+    };
+};
 
-    const res = await axios.get('/api/shared_collections');
+export const fetchFeaturedCollectionsFail = ( error ) => {
+    return {
+        type: actionTypes.FETCH_FEATURED_COLLECTIONS_FAIL,
+        error: error
+    };
+};
+
+export const fetchFeaturedCollectionsStart = () => {
+    return {
+        type: actionTypes.FETCH_FEATURED_COLLECTIONS_START
+    };
+};
+
+export const fetchFeaturedCollectionsBySpec = ( userSpec) => async dispatch => {
+
+    dispatch(fetchFeaturedCollectionsStart());
+
+    const res = await axios.get(`/api/featured_collections/${userSpec}`);
 
     if (res.data.collections) {
-        // console.log(res.data.collections);
-        dispatch(fetchSharedCollectionsSuccess(res.data.collections));
+        dispatch(fetchFeaturedCollectionsSuccess(res.data.collections));
     } else {
-        dispatch(fetchSharedCollectionsFail(res.data));
+        dispatch(fetchFeaturedCollectionsFail(res.data));
     } 
 
-}; */
+};
 
 // Create new Collection
 

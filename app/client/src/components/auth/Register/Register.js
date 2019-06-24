@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import logoImage from '../../../assets/images/selfpacer_hareLogo_green.png';
-//import Logo from '../../Logo/Logo';
 import classes from './Register.css';
 import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
 import { connect } from 'react-redux';
@@ -11,8 +9,8 @@ import googleLogo from '../../../assets/images/google_PNG19635.png';
 import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
 import * as actions from '../../../store/actions/index';
-// import PostSubmitDailogue from '../../UserInterface/PostSubmitDialogue/PostSubmitDialogue';
-
+import Logo from '../../UserInterface/Logo/Logo';
+import PostActionInfo from '../../PostActionInfo/PostActionInfo';
 
 
 class Register extends Component {
@@ -387,8 +385,8 @@ class Register extends Component {
                 />
                 {RegisterInput}
                 { (!this.state.subject.valid && this.state.subject.touched)|| (!this.state.controls.name.valid && this.state.controls.name.touched) || (!this.state.controls.email.valid && this.state.controls.email.touched)|| (!this.state.controls.password.valid && this.state.controls.password.touched)|| (!this.state.controls.password2.valid && this.state.controls.password2.touched) || this.state.fillError ? 
-                <Button btnType='Danger' disabled> SIGN UP </Button> :
-                <Button btnType='Success'> SIGN UP </Button>    
+                <Button btnType='Danger' disabled> SIGN-UP </Button> :
+                <Button btnType='Success'> SIGN-UP </Button>    
                 }
                 <div className={classes.Oauth}>
                     <p>Sign up with</p>
@@ -404,11 +402,17 @@ class Register extends Component {
         </div>
 
         if (this.props.loading) {
-            formAll = <div className={classes.Spinner}><Spinner /></div>
+            formAll = 
+            <div className={classes.Register}>
+                <div className={classes.Spinner}><Spinner /></div>
+            </div>
         }
 
         if (this.props.registerSuccessInfo) {
-            formAll = <div style={{ 'color': '#8ee630', 'padding': '60px 20px'}}>{this.props.registerSuccessInfo}</div>
+            formAll = 
+            <div className={classes.Register}>
+                <PostActionInfo isSuccess>{this.props.registerSuccessInfo}</PostActionInfo> 
+            </div>
         }
 
         return (
@@ -416,11 +420,8 @@ class Register extends Component {
                 <AuthBackdrop show clicked={this.handleBack}/>
                 <div className={classes.container}>
                     <a href="/" className={classes.Logo}>
-                        {/* <img src={logoImage} alt='logo' /> */}
+                        <Logo isAuth/>
                     </a>
-                    <div className={classes.Menu}>
-                        <h2 className={classes.HeaderItem}> SIGN UP</h2>
-                    </div>
                     {formAll}
                 </div>
             </div>
@@ -433,7 +434,7 @@ Register.propTypes = {
     onClearErrors: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     errors: PropTypes.object,
-    error: PropTypes.object
+    error: PropTypes.string
   };
 
 
@@ -456,38 +457,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
-
-
-/*      return (
-            <AuthBackdrop show>
-
-                <div className={classes.Logo}>
-                    <a href="/"><img src={logoImage} alt='logo' /></a>
-                </div>
-                <div className={classes.container}>
-                    <div className={classes.Menu}>
-                        <h2 className={classes.HeaderItem}> SIGN UP</h2>
-                    </div>
-                    <div className={classes.Register}>
-                        {errorMessage}
-                        <form className={classes.Form} onSubmit={this.submitHandler}>
-
-                            {RegisterInput}
-                            <Button btnType='Success'>SIGN UP</Button>
-                            <div>
-                                <p>Sign-up  with</p>
-                                <a href="/auth/google">
-                                    <img className={classes.Google} src={googleLogo} alt='google logo' />
-                                </a>
-                                <p>or</p>
-                                <a href="/auth/facebook">
-                                    <img className={classes.Facebook} src={facebookLogo} alt='facebook logo' />
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-            </AuthBackdrop>
-        )
- */

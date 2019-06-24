@@ -1,0 +1,31 @@
+.Logo {
+    fill: var(--blue);
+    vertical-align: middle;
+}
+
+.Logo:hover {
+    fill: var(--green);
+}
+
+.SideDrawerLogo {
+    fill: var(--white);
+    display: inline-block;
+    text-align: center;
+    height: 100%;
+    width: 160px;
+    margin: 0;
+}
+
+.SideDrawerLogo:hover {
+    fill: var(--green);
+}
+
+.AuthLogo {
+    fill: var(--blue);
+    height: 100%;
+    width: 200px;
+}
+
+.AuthLogo:hover {
+    fill: var(--white);
+}

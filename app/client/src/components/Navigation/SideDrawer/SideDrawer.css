@@ -30,18 +30,6 @@
     background-color: var(--blue);
 }
 
-.SvgLogo {
-    display: inline-block;
-    text-align: center;
-    height: 100%;
-    width: 160px;
-    margin: 0;
-}
-
-.SvgLogo:hover {
-    fill: var(--green);
-}
-
 @media (min-width: 900px) {
     .SideDrawer {
         display: none;

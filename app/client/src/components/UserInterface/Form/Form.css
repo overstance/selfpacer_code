@@ -1,0 +1,25 @@
+.Form {
+    background: var(--blue);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.Form label {
+    margin-top: 0px;
+    font-weight: 400;
+    font-size: small;
+}
+
+.Form select {
+    font-weight: 700;
+}
+
+.Form input {
+    font-weight: 700;
+}
+
+.Form textarea {
+    border-radius: 5px;
+    resize: none;
+}

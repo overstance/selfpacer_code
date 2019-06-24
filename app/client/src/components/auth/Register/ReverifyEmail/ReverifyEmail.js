@@ -7,6 +7,10 @@ import Button from '../../../UserInterface/Button/Button';
 // import PostSubmitDailogue from '../../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Dialogue from '../../../Dialogues/Dialogue/Dialogue';
 import Spinner from '../../../UserInterface/Spinner/Spinner';
+import Form from '../../../UserInterface/Form/Form';
+import FormFeedback from '../../../UserInterface/Form/FormFeedback/FormFeedback';
+import GridlessPageWrapper from '../../../UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
+
 
 class ReverifyEmail extends Component {
     componentDidMount () {
@@ -107,11 +111,13 @@ class ReverifyEmail extends Component {
     render() {
 
         const reverifyForm = 
-        <form 
+        <Form 
         className={classes.Form}
-        onSubmit={this.submitHandler}
+        submitForm={this.submitHandler}
         >
-            <div className={classes.FillError}>{this.state.fillError}</div>
+            <FormFeedback isFillError>
+                {this.state.fillError}
+            </FormFeedback>
             <Input
             label={this.state.email.label} 
             name={this.state.email.name}
@@ -126,7 +132,7 @@ class ReverifyEmail extends Component {
                 <Button btnType='Danger' disabled> verify </Button> :
                 <Button btnType='Success'> verify </Button>    
             }
-        </form>
+        </Form>
         
         const successDialogue = 
         <Dialogue
@@ -166,10 +172,11 @@ class ReverifyEmail extends Component {
         }
 
         return (
-            <div className={classes.ContainerItem}>
-                <div className={classes.AdminAction}>E-mail Verification Required</div>
-                {content}
-            </div >                               
+            <GridlessPageWrapper pageTitle='E-mail Verification Required'>
+                <div className={classes.ContainerItem}>
+                    {content}
+                </div >  
+            </GridlessPageWrapper>                                
         )
     }
 };

@@ -4,9 +4,10 @@ import * as actions from '../../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../../components/UserInterface/Input/Input';
 import Button from '../../../../components/UserInterface/Button/Button';
-// import PostSubmitDailogue from '../../../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Spinner from '../../../../components/UserInterface/Spinner/Spinner';
 import Dialogue from '../../../../components/Dialogues/Dialogue/Dialogue';
+import Form from '../../../../components/UserInterface/Form/Form';
+import FormFeedback from '../../../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class EditBio extends Component {
 
@@ -140,11 +141,12 @@ class EditBio extends Component {
     render() {
 
         const editBioForm = 
-        <form 
-        className={classes.Form}
-        onSubmit={this.submitEditedProfileHandler}
+        <Form
+        submitForm={this.submitEditedProfileHandler}
         >
-            <div className={classes.FillError}>{this.state.biodataFillError}</div>
+            <FormFeedback isFillError>
+                {this.state.biodataFillError}
+            </FormFeedback>
             <Input
             label={this.state.name.label} 
             name={this.state.name.name}
@@ -170,19 +172,15 @@ class EditBio extends Component {
                 <Button btnType='Success'> Submit </Button>    
             }
             { this.props.profileEditError ? 
-                <div>
-                    <div className={classes.ErrorFeedbackInfo}>
-                        {this.props.profileEditError}
-                    </div>
-                </div> 
+                <FormFeedback isFailed>
+                    {this.props.profileEditError}
+                </FormFeedback>
                 :
-                <div>
-                    <div className={classes.AddFeedbackInfo}>
-                        {this.props.profileEditSuccessFeedback}
-                    </div>
-                </div> 
+                <FormFeedback isSuccess>
+                    {this.props.profileEditSuccessFeedback}
+                </FormFeedback>
             }
-        </form>
+        </Form>
         
         const successDialogue = 
         <Dialogue
@@ -211,7 +209,6 @@ class EditBio extends Component {
 
         return (
                 <div className={classes.ContainerItem}>
-                    <div className={classes.AdminAction}>Edit Your Profile</div>
                     {content}
                 </div >                               
         )

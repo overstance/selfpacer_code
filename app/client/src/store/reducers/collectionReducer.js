@@ -15,6 +15,10 @@ const initialState = {
     sharedCollectionsFetchErrors: null,
     sharedCollectionsLoading: null,
 
+    featuredCollections: [],
+    featuredCollectionsFetchErrors: null,
+    featuredCollectionsLoading: null,
+
     addResourceToCollectionSuccessMessage: null,
     addResourceToCollectionError: null,
 
@@ -108,7 +112,7 @@ const fetchUserCollectionsSuccess = ( state, action ) => {
     } );
 };
 
-// Fetch user collections
+// Fetch shared collections
 
 const fetchSharedCollectionsStart = ( state, action ) => {
     return updateObject( state, { sharedCollectionsLoading: true } );
@@ -125,6 +129,26 @@ const fetchSharedCollectionsSuccess = ( state, action ) => {
         sharedCollectionsLoading: false
     } );
 };
+
+// Fetch featured collections
+
+const fetchFeaturedCollectionsStart = ( state, action ) => {
+    return updateObject( state, { featuredCollectionsLoading: true } );
+};
+
+const fetchFeaturedCollectionsFail = ( state, action ) => {
+    return updateObject( state, { featuredCollectionsFetchErrors: action.error, featuredCollectionsLoading: false } );
+};
+
+const fetchFeaturedCollectionsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        featuredCollections: action.collections,
+        featuredCollectionsFetchErrors: null,
+        featuredCollectionsLoading: false
+    } );
+};
+
+
 
 // Add resource to collection
 
@@ -322,6 +346,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_SHARED_COLLECTIONS_START: return fetchSharedCollectionsStart( state, action );
         case actionTypes.FETCH_SHARED_COLLECTIONS_FAIL: return fetchSharedCollectionsFail( state, action );
         case actionTypes.FETCH_SHARED_COLLECTIONS_SUCCESS: return fetchSharedCollectionsSuccess( state, action );
+
+        case actionTypes.FETCH_FEATURED_COLLECTIONS_START: return fetchFeaturedCollectionsStart( state, action );
+        case actionTypes.FETCH_FEATURED_COLLECTIONS_FAIL: return fetchFeaturedCollectionsFail( state, action );
+        case actionTypes.FETCH_FEATURED_COLLECTIONS_SUCCESS: return fetchFeaturedCollectionsSuccess( state, action );
 
         case actionTypes.ADD_RESOURCE_TO_COLLECTION_FAIL: return addResourceToCollectionFail( state, action );
         case actionTypes.ADD_RESOURCE_TO_COLLECTION_SUCCESS: return addResourceToCollectionSuccess( state, action );

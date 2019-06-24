@@ -13,6 +13,7 @@ import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSp
 import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
 import AjaxDialogueMessage from '../../components/Dialogues/Dialogue/AjaxDialogueMessage/AjaxDialogueMessage';
 import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
+import Form from '../../components/UserInterface/Form/Form';
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -774,9 +775,8 @@ class ConfirmResource extends Component {
         if (this.state.assetToUpdateType === 'mooc') {
 
             updateForm =
-            <form 
-            className={classes.Form}
-            onSubmit={this.submitResourceHandler}
+            <Form
+            submitForm={this.submitResourceHandler}
             >
                 <div className={classes.FillError}>{this.state.fillError}</div>
                 {moocInputs}
@@ -784,7 +784,7 @@ class ConfirmResource extends Component {
                     <Button btnType='Danger' disabled> {addMoocButtonText} </Button> :
                     <Button btnType='Success'> {addMoocButtonText} </Button>    
                 }
-            </form>
+            </Form>
         }
 
         const bookElementsArray = [];
@@ -819,9 +819,8 @@ class ConfirmResource extends Component {
 
         if (this.state.assetToUpdateType === 'books') {
             updateForm =
-            <form 
-            className={classes.Form}
-            onSubmit={this.submitResourceHandler}
+            <Form
+            submitForm={this.submitResourceHandler}
             >
                 <div className={classes.FillError}>{this.state.fillError}</div>
                 {bookInputs}
@@ -829,7 +828,7 @@ class ConfirmResource extends Component {
                     <Button btnType='Danger' disabled> {addBooksButtonText} </Button> :
                     <Button btnType='Success'> {addBooksButtonText} </Button>    
                 }
-            </form>
+            </Form>
         }
 
         if (!this.props.updateAssetLoading && this.props.updateAssetSuccessInfo) {
@@ -853,14 +852,6 @@ class ConfirmResource extends Component {
         cancel={this.closeDeleteDialogue}
         confirm={this.confirmDelete}
         />
-        /*<div className={classes.DialogueMessage}>
-            <div>Delete:</div>
-            <h4>{this.state.resourceToDeleteTitle}</h4>
-            <div>
-                <span onClick={this.closeDeleteDialogue} className={classes.Cancel}>cancel</span>
-                <span onClick={this.confirmDelete} className={classes.Confirm}>delete</span>
-            </div>
-        </div> */
 
         if (this.props.deleteAssetLoading) {
             deleteForm =
@@ -958,7 +949,9 @@ class ConfirmResource extends Component {
                     closeDialogue={this.closeUpdateDialogue}
                     showDialogue={this.state.showUpdateDialogue}
                     >
-                        {updateForm}
+                        <div className={classes.DialogueMessage}>
+                            {updateForm}  
+                        </div>
                     </Dialogue>
                     : null
                 }

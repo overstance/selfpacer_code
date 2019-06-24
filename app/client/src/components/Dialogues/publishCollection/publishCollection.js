@@ -8,6 +8,7 @@ import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
 import PostActionInfo from '../../PostActionInfo/PostActionInfo';
 import Dialogue from '../../Dialogues/Dialogue/Dialogue';
+import Form from '../../UserInterface/Form/Form';
 // import { Link } from 'react-router-dom';
 
 class publishCollection extends Component {
@@ -124,9 +125,8 @@ class publishCollection extends Component {
     render () {
         
         let editForm =
-        <form 
-        className={classes.Form}
-        onSubmit={this.submitHandler}
+        <Form
+        submitForm={this.submitHandler}
         >
             <div className={classes.FillError}>{this.state.fillError}</div>
             <Input 
@@ -145,7 +145,7 @@ class publishCollection extends Component {
                 <Button btnType='Danger' disabled> Publish </Button> :
                 <Button btnType='Success'> Publish </Button>    
             }
-        </form>
+        </Form>
 
         if (this.props.publishCollectionLoading) {
             editForm =

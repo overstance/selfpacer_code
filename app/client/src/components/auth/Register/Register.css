@@ -8,7 +8,8 @@
 
 .Register {
     padding: 10px 30px;
-  }
+    background-color: var(--blue);
+}
 
 
 .ValidationErrors {
@@ -30,54 +31,26 @@
     margin: 0;
 }
 
-.HeaderItem {
-    display: inline;
-    margin: 20px;
-    color: var(--red);
-    padding-bottom: 3px;
-    border-bottom: 3px solid var(--green);
-    cursor: pointer;
-  }
-
 .container {
     position: relative;
     left: calc(50% - 210px);
-    /* top: calc(50% - 260px); */
     width: 420px;
-    /* height: 520px; */
     margin-top: 5%;
     margin-bottom: 5%;
-    /* box-shadow: 0px 0px 0px 1px var(--blue); */
     overflow-y: auto;
-    background-color: var(--darkBlue);
     border-radius: 40px;
     z-index: 200;
     margin-bottom: 5%;
-    }
+}
 
 
 .Logo {
     text-align: center;
     height: 80px;
     width: 100%;
-    background-image: url('../../../assets/images/logo-05.svg');
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 60%;
-    /* background: var(--blue); */
-    border-bottom: 2px solid var(--blue);
+    background: var(--green);
     display: block;
-}
-    
-.Logo img {
-    height: 60px;
-    padding: 10px;
-}    
-    
-.Menu {
-    padding: 10px 20px 0 20px;
-    }
+}   
 
 .Form {
     text-align: center;
@@ -90,7 +63,7 @@
    
 
 .Spinner {
-    padding-top: 5rem;
+    padding: 5rem 0;
 }
 
 .Oauth {
@@ -132,7 +105,6 @@
 
 @media (max-width: 560px) {
     .container {
-        /* display: flex; */
         width: 300px;
         left: calc(50% - 150px);
       }

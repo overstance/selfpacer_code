@@ -6,6 +6,9 @@ import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
 import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSpinner';
 import Grid from '../../components/UserInterface/Grid/Grid';
+import Form from '../../components/UserInterface/Form/Form';
+import FormTitle from '../../components/UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class AddResources extends Component {
 
@@ -889,9 +892,8 @@ class AddResources extends Component {
         }
 
         let youtubePlaylistForm = 
-        <form 
-        className={classes.Form}
-        onSubmit={this.submitResourceHandler}
+        <Form
+        submitForm={this.submitResourceHandler}
         >
             <Input 
             elementType='textarea'
@@ -907,20 +909,16 @@ class AddResources extends Component {
                 <Button btnType='Danger' disabled>{youtubePlaylistButtonText} </Button> :
                 <Button btnType='Success'>{youtubePlaylistButtonText} </Button>    
             }
-            { this.props.youtubePlaylistAddError ? 
-                        <div>
-                            <div className={classes.ErrorFeedbackInfo}>
-                                {this.props.youtubePlaylistAddError}
-                            </div>
-                        </div> 
-                        :
-                        <div>
-                            <div className={classes.AddFeedbackInfo}>
-                                {this.props.youtubePlaylistAddedFeedback}
-                            </div>
-                        </div> 
-                    }
-        </form>
+            { this.props.youtubePlaylistAddError ?
+                <FormFeedback isFailed>
+                    {this.props.youtubePlaylistAddError}
+                </FormFeedback>
+                :
+                <FormFeedback isSuccess>
+                    {this.props.youtubePlaylistAddedFeedback}
+                </FormFeedback> 
+            }
+        </Form>
 
         let youtubeVideoButtonText = 'submit';
 
@@ -929,9 +927,8 @@ class AddResources extends Component {
         }
 
         let youtubeVideoForm = 
-        <form 
-        className={classes.Form}
-        onSubmit={this.submitResourceHandler}
+        <Form
+        submitForm={this.submitResourceHandler}
         >
             <Input 
             elementType='textarea'
@@ -948,19 +945,15 @@ class AddResources extends Component {
                 <Button btnType='Success'> {youtubeVideoButtonText} </Button>    
             }
             { this.props.youtubeVideoAddError ? 
-                <div>
-                    <div className={classes.ErrorFeedbackInfo}>
-                        {this.props.youtubeVideoAddError}
-                    </div>
-                </div> 
+                <FormFeedback isFailed>
+                    {this.props.youtubeVideoAddError}
+                </FormFeedback>
                 :
-                <div>
-                    <div className={classes.AddFeedbackInfo}>
-                        {this.props.youtubeVideoAddedFeedback}
-                    </div>
-                </div> 
+                <FormFeedback isSuccess>
+                    {this.props.youtubeVideoAddedFeedback}
+                </FormFeedback> 
             }
-        </form>
+        </Form>
 
         const moocElementsArray = [];
         for (let key in this.state.mooc_controls) {
@@ -992,30 +985,24 @@ class AddResources extends Component {
         }
 
         let moocForm =
-        <form 
-        className={classes.Form}
-        onSubmit={this.submitResourceHandler}
+        <Form
+        submitForm={this.submitResourceHandler}
         >
-            {/* <div className={classes.FillError}>{this.state.fillError}</div> */}
             {moocInputs}
             { (!this.state.mooc_controls.title.valid && this.state.mooc_controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.mooc_controls.url.valid && this.state.mooc_controls.url.touched)  || (!this.state.mooc_controls.source.valid && this.state.mooc_controls.source.touched) || (!this.state.mooc_controls.videoCount.valid && this.state.mooc_controls.videoCount.touched) || (!this.state.mooc_controls.tutor.valid && this.state.mooc_controls.tutor.touched) || (!this.state.mooc_controls.enrollees.valid && this.state.mooc_controls.enrollees.touched) || (!this.state.mooc_controls.duration.valid && this.state.mooc_controls.duration.touched) || (!this.state.mooc_controls.level.valid && this.state.mooc_controls.level.touched) || this.state.fillError ? 
                 <Button btnType='Danger' disabled> {addMoocButtonText} </Button> :
                 <Button btnType='Success'> {addMoocButtonText} </Button>    
             }
             { this.props.addMoocError ? 
-                <div>
-                    <div className={classes.ErrorFeedbackInfo}>
-                        {this.props.addMoocError}
-                    </div>
-                </div> 
+                <FormFeedback isFailed>
+                    {this.props.addMoocError}
+                </FormFeedback>
                 :
-                <div>
-                    <div className={classes.AddFeedbackInfo}>
-                        {this.props.addMoocSucessInfo}
-                    </div>
-                </div> 
+                <FormFeedback isSuccess>
+                    {this.props.addMoocSucessInfo}
+                </FormFeedback>
             }
-        </form>
+        </Form>
 
         const bookElementsArray = [];
         for (let key in this.state.book_controls) {
@@ -1048,29 +1035,24 @@ class AddResources extends Component {
         }
 
         let bookForm =
-        <form 
-        className={classes.Form}
-        onSubmit={this.submitResourceHandler}
+        <Form
+        submitForm={this.submitResourceHandler}
         >
             {bookInputs}
             { (!this.state.book_controls.title.valid && this.state.book_controls.title.touched) || (!this.state.subject.valid && this.state.subject.touched) || (!this.state.book_controls.url.valid && this.state.book_controls.url.touched)  || (!this.state.book_controls.source.valid && this.state.book_controls.source.touched) || (!this.state.book_controls.author.valid && this.state.book_controls.author.touched) || this.state.fillError ? 
                 <Button btnType='Danger' disabled> {addBooksButtonText} </Button> :
                 <Button btnType='Success'> {addBooksButtonText} </Button>    
             }
-            { this.props.addBooksError ? 
-                <div>
-                    <div className={classes.ErrorFeedbackInfo}>
-                        {this.props.addBooksError}
-                    </div>
-                </div> 
+            { this.props.addBooksError ?
+                <FormFeedback isFailed>
+                    {this.props.addBooksError}
+                </FormFeedback>
                 :
-                <div>
-                    <div className={classes.AddFeedbackInfo}>
-                        {this.props.addBooksSucessInfo}
-                    </div>
-                </div> 
+                <FormFeedback isSuccess>
+                    {this.props.addBooksSucessInfo}
+                </FormFeedback>
             }
-        </form>
+        </Form>
 
 
         
@@ -1088,7 +1070,9 @@ class AddResources extends Component {
 
         let addForm = 
         <div className={classes.OuterContainer}>
-            <div className={classes.FillError}>{this.state.fillError}</div>
+            <FormFeedback isFillError>
+                {this.state.fillError}
+            </FormFeedback>
             <Input 
             label={this.state.subject.label} 
             name={this.state.subject.name}
@@ -1113,17 +1097,13 @@ class AddResources extends Component {
             />
             {platformSpecificForm}
             { this.props.error ? 
-                <div>
-                    <div className={classes.ErrorFeedbackInfo}>
-                        {this.props.error}
-                    </div>
-                </div> 
+                <FormFeedback isFailed>
+                    {this.props.error}
+                </FormFeedback>
                 :
-                <div>
-                    <div className={classes.AddFeedbackInfo}>
-                        {this.props.successMessage}
-                    </div>
-                </div> 
+                <FormFeedback isSuccess>
+                    {this.props.successMessage}
+                </FormFeedback>
             }
         </div>
 
@@ -1131,7 +1111,7 @@ class AddResources extends Component {
             <Grid>
                 <div className={classes.ContentItems}>
                     <div className={classes.ContainerItem}>
-                        <div className={classes.AdminAction}>SUBMIT A RESOURCE</div>
+                        <FormTitle>Add Resource</FormTitle>
                         {addForm}
                     </div >
                 </div>            

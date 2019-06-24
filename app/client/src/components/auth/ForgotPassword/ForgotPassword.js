@@ -4,9 +4,11 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
-// import PostSubmitDailogue from '../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Spinner from '../../UserInterface/Spinner/Spinner';
 import Dialogue from '../../Dialogues/Dialogue/Dialogue';
+import Form from '../../UserInterface/Form/Form';
+import FormFeedback from '../../UserInterface/Form/FormFeedback/FormFeedback';
+import GridlessPageWrapper from '../../UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 
 class ForgotPassword extends Component {
 
@@ -106,11 +108,12 @@ class ForgotPassword extends Component {
     render() {
 
         const editBioForm = 
-        <form 
-        className={classes.Form}
-        onSubmit={this.submitHandler}
+        <Form
+        submitForm={this.submitHandler}
         >
-            <div className={classes.FillError}>{this.state.fillError}</div>
+            <FormFeedback isFillError>
+                {this.state.fillError}
+            </FormFeedback>
             <Input
             label={this.state.email.label} 
             name={this.state.email.name}
@@ -125,7 +128,7 @@ class ForgotPassword extends Component {
                 <Button btnType='Danger' disabled> Submit </Button> :
                 <Button btnType='Success'> Submit </Button>    
             }
-        </form>
+        </Form>
         
         const successDialogue = 
         <Dialogue
@@ -151,9 +154,7 @@ class ForgotPassword extends Component {
         
         if (this.props.forgotPasswordloading) {
             content = 
-            <div className={classes.Form}>
-                <Spinner />
-            </div>
+            <Spinner isDialogue/>
         }
 
         if (this.props.emailSentInfo) {
@@ -165,10 +166,11 @@ class ForgotPassword extends Component {
         }
 
         return (
-                <div className={classes.ContainerItem}>
-                    <div className={classes.AdminAction}>Forgot Password</div>
-                    {content}
-                </div >                               
+                <GridlessPageWrapper pageTitle='Forgot Password'>
+                    <div className={classes.ContainerItem}>
+                        {content}
+                    </div>
+                </GridlessPageWrapper >                               
         )
     }
 };

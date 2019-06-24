@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
 import ButtonSpinner from '../../../components/UserInterface/ButtonSpinner/ButtonSpinner';
+import Form from '../../../components/UserInterface/Form/Form';
+import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class ManageYoutubeVideos extends Component {
 
@@ -166,10 +169,9 @@ class ManageYoutubeVideos extends Component {
         }
         return (
             <div className={classes.ContainerItem}>
-                <div className={classes.AdminAction}>ADD YOUTUBE VIDEOS</div>
-                <form 
-                className={classes.Form}
-                onSubmit={this.submitYoutubeVideoHandler}
+                <FormTitle isAdmin>Add Youtube Video</FormTitle>
+                <Form
+                submitForm={this.submitYoutubeVideoHandler}
                 >
                     <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
@@ -198,19 +200,15 @@ class ManageYoutubeVideos extends Component {
                         <Button btnType='Success'> {youtubeVideoButtonText} </Button>    
                     }
                     { this.props.youtubeVideoAddError ? 
-                        <div>
-                            <div className={classes.ErrorFeedbackInfo}>
-                                {this.props.youtubeVideoAddError}
-                            </div>
-                        </div> 
+                        <FormFeedback isFailed>
+                            {this.props.youtubeVideoAddError}
+                        </FormFeedback>
                         :
-                        <div>
-                            <div className={classes.AddFeedbackInfo}>
-                                {this.props.youtubeVideoAddedFeedback}
-                            </div>
-                        </div> 
+                        <FormFeedback isSuccess>
+                            {this.props.youtubeVideoAddedFeedback}
+                        </FormFeedback>
                     }
-                </form>
+                </Form>
             </div >                                 
         )
     }

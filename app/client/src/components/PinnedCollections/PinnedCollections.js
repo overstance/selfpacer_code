@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import classes from './PinnedCollections.css';
-// import Grid from '../UserInterface/Grid/Grid';
 import {connect} from 'react-redux';
 import SharedCollectionContainer from '../SharedCollections/sharedCollectionContainer/sharedCollectionContainer';
 import * as actions from '../../store/actions/index';
 import Spinner from '../UserInterface/Spinner/Spinner';
+import PostActionInfo from '../PostActionInfo/PostActionInfo';
+
 
 class PinnedCollections extends Component {
 
@@ -24,19 +25,18 @@ class PinnedCollections extends Component {
     render () {
 
         let userPinnedCollections = <div style={{ 'paddingTop': '2rem'}}><Spinner /></div>;
-        // let sharedCollections = <div style={{ 'paddingTop': '5rem'}}><Spinner /></div>;
 
         if (!this.props.loading) {
             if ( this.props.collections.length === 0) {
                 userPinnedCollections = 
-                 <div className={classes.PostAddInfo}>
-                     <div>You have no pinned collections.</div>
-                 </div>    
+                <PostActionInfo isSuccess>
+                    You have no pinned collections.
+                </PostActionInfo>   
             } else if (this.props.error) {
                 userPinnedCollections = 
-                 <div className={classes.PostAddInfo}>
-                     <div>{this.props.error}</div>
-                 </div>
+                <PostActionInfo isFailed>
+                    {this.props.error}
+                </PostActionInfo>
             } else {
             userPinnedCollections = this.props.collections.map( (collection, i) => (
                 <SharedCollectionContainer

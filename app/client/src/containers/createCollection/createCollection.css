@@ -13,20 +13,11 @@
     display: inline;
 }
 
-.ContentItems {
-    display: flex;
-    justify-content: space-around;  
-    flex-flow: row wrap;
-    text-align: center;
-    padding: 10px;
-    min-height: 500px;
-    /* background: var(--green);  */
-}
-
 .ContainerItem {
     padding: 5px;
     text-align: center;
     max-width: 400px;
+    margin: 20px auto;
 }
 
 /* .ContainerItem span {
@@ -41,37 +32,9 @@
  padding: 0;
 }
 
-.AdminAction {
-    color: var(--darkBlue);
-    font-weight: 700;
-    /* padding: 20px 0; */
-}
+/* */
 
-.Form {
-    background: var(--blue);
-    padding: 20px;
-    margin: 10px;
-    border-radius: 20px;
-}
-
-.Form label {
-    margin-top: 0px;
-    font-weight: 400;
-    font-size: small;
-}
-
-.Form input {
-    font-weight: 400;
-}
-
-.FillError {
-    color: var(--red);
-    font-size: small;
-    font-weight: 400;
-    max-width: 180px;
-    margin: auto;
-    padding: 2px;
-}
+/* */
 
 .ResourceLabel {
     text-align: left;

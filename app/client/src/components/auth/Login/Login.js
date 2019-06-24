@@ -11,6 +11,7 @@ import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
 import * as actions from '../../../store/actions/index';
 import { Link } from 'react-router-dom';
+import Logo from '../../UserInterface/Logo/Logo';
 
 
 class Login extends Component {
@@ -279,7 +280,10 @@ class Login extends Component {
         </div>
 
         if (this.props.loading) {
-            formAll = <div className={classes.Spinner}><Spinner /></div>
+            formAll = 
+            <div className={classes.Login}>
+                <div className={classes.Spinner}><Spinner /></div>
+            </div>
         }
 
         return (
@@ -287,11 +291,8 @@ class Login extends Component {
                 <AuthBackdrop show clicked={this.handleBack} />
                 <div className={classes.container}>
                     <a href="/" className={classes.Logo}>
-                        {/* <img src={logoImage} alt='logo' /> */}
+                        <Logo isAuth/>
                     </a>
-                    <div className={classes.Menu}>
-                        <h2 className={classes.HeaderItem}>LOG IN</h2>
-                    </div>
                     {formAll}   
                 </div>
             </div>

@@ -36,13 +36,23 @@ class SharedCollection extends Component {
         showUnpinCollectionModal: false,
         showCollectionModal: false,
         showFeatureModal: false,
-        showUnfeatureModal: false
+        showUnfeatureModal: false,
+        AuthenticateToCollectOrAdd: false,
+        showAuthRequiredModal: false
     }
 
     collectHandler = ( id, image, title ) => {
-        this.props.onSetToCollectResource(id, image, title);
-        this.props.onFetchUserCollections(this.props.userId);
-        this.setState({ showCollectionModal: true });
+        if (!this.props.isAuthenticated) {
+            this.setState({ AuthenticateToCollectOrAdd: true, showAuthRequiredModal: true});
+        } else if (this.props.isAuthenticated && this.props.userId) {
+            this.props.onSetToCollectResource(id, image, title);
+            this.props.onFetchUserCollections(this.props.userId);
+            this.setState({ showCollectionModal: true });
+        }
+    }
+
+    collectAuthDialogueCloseHandler = () => {
+        this.setState({ showAuthRequiredModal: false, AuthenticateToCollectOrAdd: false });
     }
 
     collectModalCloseHandler = () => {
@@ -128,7 +138,9 @@ class SharedCollection extends Component {
         this.props.onSetLikedResource( id );
         this.props.onResourceLiked(id, likes);
 
-        this.props.onUpdateUserLikeCount( this.props.userId, this.props.userLikeCount ); 
+        if (this.props.userId) {
+            this.props.onUpdateUserLikeCount( this.props.userId, this.props.userLikeCount ); 
+        }
     }
 
     render() {
@@ -236,23 +248,28 @@ class SharedCollection extends Component {
         let content =
         <div>
             <div className={classes.HeaderWrapper}>
-                { checkPinned.length !== 0 ? 
-                    <CollectionNav 
-                    isShared
-                    accountType={this.props.accountType}
-                    featured={this.props.clickedCollectionAttributes.featured}
-                    featureClicked={this.featuredHandler}
-                    pinned
-                    pinClicked={this.unpinCollectionHandler}
-                    /> 
-                    : 
-                    <CollectionNav 
-                    isShared
-                    accountType={this.props.accountType}
-                    featured={this.props.clickedCollectionAttributes.featured}
-                    featureClicked={this.featuredHandler}
-                    pinClicked={this.pinCollectionHandler}
-                    /> 
+                { this.props.userId && this.props.isAuthenticated ?
+                    <div>
+                        { checkPinned.length !== 0 ? 
+                            <CollectionNav 
+                            isShared
+                            accountType={this.props.accountType}
+                            featured={this.props.clickedCollectionAttributes.featured}
+                            featureClicked={this.featuredHandler}
+                            pinned
+                            pinClicked={this.unpinCollectionHandler}
+                            /> 
+                            : 
+                            <CollectionNav 
+                            isShared
+                            accountType={this.props.accountType}
+                            featured={this.props.clickedCollectionAttributes.featured}
+                            featureClicked={this.featuredHandler}
+                            pinClicked={this.pinCollectionHandler}
+                            /> 
+                        }
+                    </div> :
+                    null
                 }
                 <div className={classes.TitleColumn}>
                     <div className={classes.Title}>{this.props.clickedCollectionAttributes.title}</div>
@@ -301,6 +318,13 @@ class SharedCollection extends Component {
                 </Dialogue>    
                 : null
             }
+            {this.state.AuthenticateToCollectOrAdd ? 
+                <Dialogue
+                isAuthenticate 
+                showDialogue={this.state.showAuthRequiredModal}
+                closeDialogue={this.collectAuthDialogueCloseHandler}
+                />: null
+            }
             <AddToCollection 
                 showDialogue={this.state.showCollectionModal}
                 closeDialogue={this.collectModalCloseHandler} 
@@ -319,7 +343,7 @@ class SharedCollection extends Component {
 
 const mapStateToProps = state => {
     return {
-        // isAuthenticated: state.auth.isAuthenticated,
+        isAuthenticated: state.auth.isAuthenticated,
         accountType: state.auth.user.accountType,
         userId: state.auth.user._id,
         userPinnedCollections: state.auth.user.pinnedCollections,

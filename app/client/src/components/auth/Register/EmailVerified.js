@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Register.css';
+// import classes from './Register.css';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 // import PostSubmitDailogue from '../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';
@@ -59,9 +59,7 @@ class VerifyEmail extends Component {
         }
 
         return(
-            <div className={classes.PostSubmitContainer}>
-                <div>{content}</div>
-            </div>
+            <div>{content}</div>
         );
     }
 }

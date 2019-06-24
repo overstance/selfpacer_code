@@ -1,0 +1,24 @@
+.FillError {
+    color: var(--red);
+    font-size: small;
+    font-weight: 700;
+    max-width: 180px;
+    margin: auto;
+    padding: 2px;
+}
+
+.Success {
+    color: var(--green);
+    font-weight: 700;
+    padding: 5px;
+    font-size: small;
+    display: inline;
+}
+
+.Failed {
+    color: var(--red);
+    padding: 5px;
+    font-weight: 700;
+    font-size: small;
+    display: inline;
+}

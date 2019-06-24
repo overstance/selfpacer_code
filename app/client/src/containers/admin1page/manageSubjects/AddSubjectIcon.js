@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import classes from './AddSubjectIcon.css';
+import classes from './AddSubject.css';
 import Button from '../../../components/UserInterface/Button/Button';
 import { connect } from 'react-redux';
-import * as actions from '../../../store/actions/index'
+import * as actions from '../../../store/actions/index';
+import Form from '../../../components/UserInterface/Form/Form';
+import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
 
 class UploadSubjectimage extends Component {
 
@@ -23,11 +25,11 @@ class UploadSubjectimage extends Component {
     render() {
         return(
             <div className={classes.IconContainerItem}>
-                <div className={classes.AdminAction}>ADD SUBJECT ICON</div>
-                <form
-                className={classes.IconForm}
-                onSubmit={this.submitHandler}
-                encType="multipart/form-data">
+                <FormTitle isAdmin>Add Subject Icon</FormTitle>
+                <Form
+                submitForm={this.submitHandler}
+                encType="multipart/form-data"
+                >
                     <input 
                     id='Icon'
                     type='file'
@@ -35,7 +37,7 @@ class UploadSubjectimage extends Component {
                     onChange={this.handleUpload}
                     />
                     <Button btnType='Success'> Add </Button>
-                </form>
+                </Form>
             </div>
             
         )

@@ -22,19 +22,10 @@ a colored unlimited width fixed toolbar  */
     padding-right: 100px;
 }
 
-.SvgToolBarLogo {
+.ToolBarLogo {
     display: block;
     width: 200px;
     height: 100%;
-}
-
-.SvgLogo {
-    fill: var(--blue);
-    vertical-align: middle;
-}
-
-.SvgLogo:hover {
-    fill: var(--green);
 }
 
 .Toolbar nav {
@@ -42,7 +33,7 @@ a colored unlimited width fixed toolbar  */
 }
 
 @media (max-width: 600px) {
-    .SvgToolBarLogo {
+    .ToolBarLogo {
         width: 160px;
         height: 100%;
     }

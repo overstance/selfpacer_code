@@ -9,6 +9,9 @@ import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSp
 import Grid from '../../components/UserInterface/Grid/Grid';
 // import PostSubmitDailogue from '../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
+import Form from '../../components/UserInterface/Form/Form';
+import FormTitle from '../../components/UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class CreateCollection extends Component {
 
@@ -123,11 +126,12 @@ class CreateCollection extends Component {
         }
 
         const form = 
-        <form 
-        className={classes.Form}
-        onSubmit={this.submitResourceHandler}
+        <Form
+        submitForm={this.submitResourceHandler}
         >
-            <div className={classes.FillError}>{this.state.fillError}</div>
+            <FormFeedback isFillError>
+                {this.state.fillError}
+            </FormFeedback>
             <Input 
             label={this.state.title.label} 
             name={this.state.title.name}
@@ -155,19 +159,15 @@ class CreateCollection extends Component {
                 <Button btnType='Success'> {createCollectionButtonText} </Button>    
             }
             { this.props.error ? 
-                <div>
-                    <div className={classes.ErrorFeedbackInfo}>
-                        {this.props.error}
-                    </div>
-                </div> 
+                <FormFeedback isFailed>
+                    {this.props.error}
+                </FormFeedback>
                 :
-                <div>
-                    <div className={classes.AddFeedbackInfo}>
-                        {this.props.successMessage}
-                    </div>
-                </div> 
+                <FormFeedback isSuccess>
+                    {this.props.successMessage}
+                </FormFeedback>
             }
-        </form>
+        </Form>
 
         const successDialogue = 
         <Dialogue
@@ -188,12 +188,10 @@ class CreateCollection extends Component {
 
         return (
             <Grid>
-                <div className={classes.ContentItems}>
-                    <div className={classes.ContainerItem}>
-                        <div className={classes.AdminAction}>Create Collection</div>
-                        {content}
-                    </div >
-                </div>            
+                <div className={classes.ContainerItem}>
+                    <FormTitle>Create Collection</FormTitle>
+                    {content}
+                </div >            
             </Grid>                                 
         )
     }

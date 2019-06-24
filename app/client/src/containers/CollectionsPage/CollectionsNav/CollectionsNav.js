@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './CollectionsNav.css';
-import { Link } from 'react-router-dom';
 
 
 const collectionsNav = (props) => {
@@ -25,10 +24,10 @@ const collectionsNav = (props) => {
         featuredClasses.push(classes.Active);
     }
 
-    /* const createClasses = [classes.Create];
+    const createClasses = [classes.Create];
     if (props.createActived) {
         createClasses.push(classes.Active);
-    } */
+    }
 
     /* const lifestyleClasses = [classes.Lifestyle];
     if (props.lifestyleActived) {
@@ -42,7 +41,7 @@ const collectionsNav = (props) => {
             <li className={featuredClasses.join(' ')} onClick={props.featuredClicked}>Featured</li>
             <li className={sharedClasses.join(' ')} onClick={props.sharedClicked}>Shared</li>
             <li className={pinnedClasses.join(' ')} onClick={props.pinnedClicked}>Pinned</li>
-            <Link className={classes.Create} to={props.createRoute}>Create-new</Link>
+            <li className={createClasses.join(' ')} onClick={props.createClicked}>Create-new</li>
             {/* <li className={lifestyleClasses.join(' ')} onClick={props.lifeStyleClicked}>Life-style</li> */}
         </ul>
             // : null

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import classes from './EditProfile.css';
+// import classes from './EditProfile.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import ChangePassword from './ChangePassword/ChangePassword';
 import EditBio from './EditBio/EditBio';
+import GridlessPageWrapper from '../../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper';
 
 class EditProfile extends Component {
 
@@ -14,10 +15,6 @@ class EditProfile extends Component {
         this.props.onResetEditProfileMessages();
     }
 
-    handleBack = () => {
-        this.props.history.goBack()
-    }
-
     state = {
         showChangePasswordForm: false,
     };
@@ -25,10 +22,12 @@ class EditProfile extends Component {
     
     render() {
         return (
-            <div className={classes.ContentItems}>
+            <GridlessPageWrapper 
+            pageTitle='Edit Profile'
+            >
                 <EditBio handleBack={this.handleBack} />
                 { this.props.facebookUser || this.props.googleUser ? null : <ChangePassword handleBack={this.handleBack} />}    
-            </div>                                 
+            </GridlessPageWrapper>                                 
         )
     }
 };

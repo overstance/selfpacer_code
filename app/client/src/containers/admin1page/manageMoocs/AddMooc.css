@@ -14,7 +14,7 @@
 }
 
 .ContentItems {
-    display: flex;
+    /* display: flex; */
     justify-content: space-around;  
     flex-flow: row wrap;
     text-align: center;
@@ -36,6 +36,11 @@
  height: 50px;
  border-radius: 25px;
  padding: 0;
+}
+
+.ContainerItem form {
+    max-width: 500px;
+    margin: 20px auto;
 }
 
 .AdminAction {
@@ -80,8 +85,8 @@
     padding: 2px;
 }
 
-@media( min-width: 550px) {
+/* @media( min-width: 550px) {
     .Form {
         width: 400px;
     }
-}
+} */

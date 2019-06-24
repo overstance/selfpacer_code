@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import classes from './Admin1.css';
-// import SubHeader from '../../components/UserInterface/Subheader/SubHeader';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
-
 import AddYoutubeVideos from './youtubeVideos/AddYoutubeVideos';
 import AddYoutubePlaylists from './youtubePlaylist/AddYoutubePlaylists';
 import AddAdminUsers from './adminUsers/AddAdminUsers';
@@ -13,7 +11,7 @@ import AddMooc from './manageMoocs/AddMooc';
 import AddBooks from './manageBooks/AddBooks';
 import AddSubjectIcon from './manageSubjects/AddSubjectIcon';
 import EditSubect from './manageSubjects/EditSubject';
-import Container from '../../components/UserInterface/Container/Container';
+import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 
 class Admin1 extends Component {
 
@@ -93,8 +91,8 @@ class Admin1 extends Component {
 
     render() {
         return(
-            <Container>
-                <div >
+            <GridlessPageWrapper pageTitle='Admin1 Tools'>
+                <div className={classes.Wrapper} >
                     <div className={classes.Subheader}>
                         <Toggler 
                             subheadTitle="confirm resources"
@@ -102,12 +100,11 @@ class Admin1 extends Component {
                             link='/admin_tools/confirm_resources'
                         />
                     </div>
-                    < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
                         <Toggler 
                             toggle={this.state.manageSubjectsToggle} 
                             toggleHandler={this.manageSubjectsToggleHandler}
-                            subheadTitle="manage resources"
+                            subheadTitle="manage subject"
                         />
                         { this.state.showManageSubjects ? 
                             <div className={classes.BlockContentItems}>
@@ -116,7 +113,6 @@ class Admin1 extends Component {
                             </div>
                         : null }
                     </div>
-                    < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
                         <Toggler 
                             toggle={this.state.manageUsersToggle} 
@@ -131,7 +127,6 @@ class Admin1 extends Component {
                             </div>
                         : null }
                     </div>
-                    < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
                         <Toggler 
                             toggle={this.state.manageYoutubeVideosToggle} 
@@ -145,7 +140,6 @@ class Admin1 extends Component {
                             </div>
                         : null }
                     </div>
-                    < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
                         <Toggler 
                             toggle={this.state.manageYoutubePlaylistsToggle} 
@@ -159,7 +153,6 @@ class Admin1 extends Component {
                             </div>
                         : null }
                     </div>
-                    < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
                         <Toggler 
                             toggle={this.state.manageMoocsToggle} 
@@ -167,12 +160,11 @@ class Admin1 extends Component {
                             subheadTitle="manage courses"
                         />
                         { this.state.showManageMoocs ? 
-                            <div className={classes.ContentItems}>
+                            <div className={classes.BlockContentItems}>
                                 <AddMooc />
                             </div>
                         : null }
                     </div>
-                    < div style={{'color': 'white', 'height': '1px'}} />
                     <div className={classes.Subheader}>
                         <Toggler 
                             toggle={this.state.manageBooksToggle} 
@@ -180,14 +172,13 @@ class Admin1 extends Component {
                             subheadTitle="manage books"
                         />
                         { this.state.showManageBooks ? 
-                            <div className={classes.ContentItems}>
+                            <div className={classes.BlockContentItems}>
                                 <AddBooks />
                             </div>
                         : null }
                     </div>
-                    < div style={{'color': 'white', 'height': '1px'}} />
                 </div>
-            </Container>
+            </GridlessPageWrapper>
         )
     }
 }

@@ -8,6 +8,9 @@ import Button from '../../UserInterface/Button/Button';
 import Spinner from '../../UserInterface/Spinner/Spinner';
 // import { Link } from 'react-router-dom';
 import Dialogue from '../../Dialogues/Dialogue/Dialogue';
+import Form from '../../UserInterface/Form/Form';
+import GridlessPageWrapper from '../../UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
+import FormFeedback from '../../UserInterface/Form/FormFeedback/FormFeedback';
 
 class ResetPassword extends Component {
 
@@ -150,18 +153,26 @@ class ResetPassword extends Component {
     render() {
 
         let errorMessage = null;
-        let fillError = <div className={classes.FillError}>{this.state.fillError}</div>
+        let fillError = 
+        <FormFeedback isFillError>
+            {this.state.fillError}
+        </FormFeedback>
 
         if (this.props.resetPasswordError === 'IncorrectPasswordError') {
-            errorMessage = <div className={classes.FillError}>password incorrect</div>
+            errorMessage =
+            <FormFeedback isFillError>
+                password incorrect
+            </FormFeedback> 
         } else if (this.props.resetPasswordError) {
-            errorMessage = <div className={classes.FillError}>{this.props.resetPasswordError}</div>
+            errorMessage =
+            <FormFeedback isFillError>
+               {this.props.resetPasswordError}
+            </FormFeedback>
         }
 
         const resetPasswordForm = 
-        <form
-        className={classes.Form}
-        onSubmit={this.submitResetPasswordHandler}
+        <Form
+        submitForm={this.submitResetPasswordHandler}
         >
             {errorMessage}
             {fillError}
@@ -188,7 +199,7 @@ class ResetPassword extends Component {
                 <Button btnType='Danger' disabled> Submit </Button> :
                 <Button btnType='Success'> Submit </Button>    
             }
-        </form>
+        </Form>
         
         const successDialogue = 
         <Dialogue
@@ -229,9 +240,7 @@ class ResetPassword extends Component {
         
         if (this.props.confirmTokenLoading) {
             content = 
-            <div className={classes.Form}>
-                <Spinner />
-            </div>
+            <Spinner isDialogue/>
         }
 
         if (this.props.comfirmTokenError || !this.props.confirmTokenSuccess) {
@@ -244,9 +253,7 @@ class ResetPassword extends Component {
 
         if (this.props.resetPasswordLoading) {
             content = 
-            <div className={classes.Form}>
-                <Spinner />
-            </div>
+            <Spinner isDialogue/>
         }
 
         if( this.props.confirmTokenSuccess && this.props.resetPasswordSuccessFeedback) {
@@ -258,9 +265,11 @@ class ResetPassword extends Component {
         }
 
         return ( 
-            <div className={classes.ContainerItem}>
-                <div>{content}</div>
-            </div>   
+            <GridlessPageWrapper pageTitle='Password Reset'>
+                <div className={classes.ContainerItem}>
+                    <div>{content}</div>
+                </div>
+            </GridlessPageWrapper>   
         );
     }
 };

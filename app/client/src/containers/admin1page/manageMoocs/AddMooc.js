@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
 import ButtonSpinner from '../../../components/UserInterface/ButtonSpinner/ButtonSpinner';
+import Form from '../../../components/UserInterface/Form/Form';
+import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class AddMooc extends Component {
 
@@ -523,10 +526,9 @@ class AddMooc extends Component {
 
         return (
             <div className={classes.ContainerItem}>
-                <div className={classes.AdminAction}>ADD MOOC</div>
-                <form 
-                className={classes.Form}
-                onSubmit={this.submitHandler}
+                <FormTitle isAdmin>Add Course</FormTitle>
+                <Form
+                submitForm={this.submitHandler}
                 >
                     <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
@@ -546,19 +548,15 @@ class AddMooc extends Component {
                         <Button btnType='Success'> {addMoocButtonText} </Button>    
                     }
                     { this.props.addMoocError ? 
-                        <div>
-                            <div className={classes.ErrorFeedbackInfo}>
-                                {this.props.addMoocError}
-                            </div>
-                        </div> 
+                        <FormFeedback isFailed>
+                            {this.props.addMoocError}
+                        </FormFeedback>
                         :
-                        <div>
-                            <div className={classes.AddFeedbackInfo}>
-                                {this.props.addMoocSucessInfo}
-                            </div>
-                        </div> 
+                        <FormFeedback isSuccess>
+                            {this.props.addMoocSucessInfo}
+                        </FormFeedback> 
                     }
-                </form>
+                </Form>
             </div >                                 
         )
     }

@@ -1,7 +1,5 @@
-.Options {
-    padding: 10px 0;
-    background: var(--lightBlue);
-    color: var(--green);
+.Wrapper {
+    margin-bottom: 20px;
 }
 
 .ContentItems {
@@ -10,11 +8,13 @@
     flex-flow: row wrap;
     text-align: center;
     padding: 10px;
-    background: var(--green); 
+    border-bottom: 2px solid var(--blue);
+    /* background: var(--green);  */
 }
 
 .BlockContentItems {
     text-align: center;
     padding: 10px;
-    background: var(--green); 
+    /* background: var(--green);  */
+    border-bottom: 2px solid var(--blue);
 }

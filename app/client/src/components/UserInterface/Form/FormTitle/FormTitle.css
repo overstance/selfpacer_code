@@ -1,0 +1,11 @@
+.AdminFormTitle {
+    color: var(--darkBlue);
+    font-size: x-small;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.FormTitle {
+    color: var(--darkBlue);
+    font-weight: 700;    
+}

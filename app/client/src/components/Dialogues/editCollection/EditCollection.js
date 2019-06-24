@@ -7,6 +7,7 @@ import Button from '../../UserInterface/Button/Button';
 import Spinner from '../../UserInterface/Spinner/Spinner';
 import PostActionInfo from '../../PostActionInfo/PostActionInfo';
 import Dialogue from '../../Dialogues/Dialogue/Dialogue';
+import Form from '../../UserInterface/Form/Form';
 
 class AddToCollection extends Component {
 
@@ -160,9 +161,8 @@ class AddToCollection extends Component {
     render () {
 
         let editForm =
-        <form 
-        className={classes.Form}
-        onSubmit={this.submitHandler}
+        <Form
+        submitForm={this.submitHandler}
         >
             <div className={classes.FillError}>{this.state.fillError}</div>
             <Input 
@@ -191,7 +191,7 @@ class AddToCollection extends Component {
                 <Button btnType='Danger' disabled> Submit </Button> :
                 <Button btnType='Success'> Submit </Button>    
             }
-        </form>
+        </Form>
 
         if (this.props.editCollectionLoading) {
             editForm =
