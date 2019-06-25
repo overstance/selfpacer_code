@@ -8,19 +8,13 @@
     padding: 0px;
 }
 
-/* .Platform {
-    margin: 5px 0;
-} */
-
-.Resources {
-    /* background: whitesmoke; */
+.ResourcesContainer {
     min-height: 500px; 
-    /* padding: 0 10px; */
 }
 
-/* .Subheader {
-    border-bottom: 1px solid var(--white);
-} */
+.Resources:first-of-type {
+    margin-top: 10px;
+}
 
 .Items {
     background: var(--green);
@@ -38,42 +32,8 @@
     font-weight: 700;
 }
 
-/* .AddIcon {
-    background-color: var(--skyBlue);
-    background-image: url('../../assets/images/plus.svg');
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: 50%;
-    box-shadow: 0 0px 2px 2px rgba(0, 0, 0, 0.14);
-    width: 40px;
-    height: 40px;
-    margin: auto;
-    border-radius: 50%;
-    -webkit-transition: background-color .3s;
-    transition: background-color .3s;
-    cursor: pointer;
-}
-
-.AddIcon:hover{
-    background-color: var(--green);
-    box-shadow: none;
-} */
-
 .AddInfo{
     font-size: x-small;
     padding-top: 5px;
     color: var(--darkBlue);
 }
-
-/* .AddIconContainer {
-    padding: 10px;
-    background: var(--lightBlue);
-    text-align: center;
-    position: fixed;
-    right: 23px;
-    bottom: 23px;
-    padding-top: 15px;
-    margin-bottom: 0;
-    z-index: 997;
-} */

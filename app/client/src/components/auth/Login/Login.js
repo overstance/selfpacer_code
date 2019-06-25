@@ -282,7 +282,7 @@ class Login extends Component {
         if (this.props.loading) {
             formAll = 
             <div className={classes.Login}>
-                <div className={classes.Spinner}><Spinner /></div>
+                <Spinner isDialogue/>
             </div>
         }
 

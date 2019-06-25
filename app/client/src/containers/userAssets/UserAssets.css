@@ -106,6 +106,9 @@
        width: 200px;
     }
 }
+.Resource:first-of-type {
+    margin-top: 10px;
+}
 
 .Notype {
     padding-top: 20px;
@@ -123,61 +126,6 @@
 
 .DialogueMessage Button {
     margin-top: 10px;
-}
-
-/* .Form {
-    background: var(--blue);
-    padding: 10px;
-    margin: 10px 20px;
-    border-radius: 20px;
-    text-align: center;
-}
-
-.Form textarea {
-    border-radius: 5px;
-    resize: none;
-}
-
-.Form Button {
-    margin-top: 10px;
-}
-
-.Form label {
-    margin-top: 0px;
-    font-weight: 400;
-    font-size: small;
-}
-
-.Form select {
-    font-weight: 400;
-}
-
-.Form input {
-    font-weight: 400;
-} */
-
-.AddFeedbackInfo {
-    color: var(--green);
-    font-weight: 400;
-    padding: 5px;
-    font-size: small;
-    display: inline;
-}
-
-.ErrorFeedbackInfo {
-    color: var(--red);
-    padding: 5px;
-    font-size: small;
-    display: inline;
-}
-
-.FillError {
-    color: var(--red);
-    font-size: small;
-    font-weight: 400;
-    max-width: 180px;
-    margin: auto;
-    padding: 2px;
 }
 
 .ViewFilteredWrapper {

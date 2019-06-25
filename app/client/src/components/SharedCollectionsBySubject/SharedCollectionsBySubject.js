@@ -79,7 +79,7 @@ class SharedCollectionsBySubject extends Component {
             />
         </Form>
 
-        let sharedCollectionsBySpec = <div style={{ 'paddingTop': '2rem'}}><Spinner /></div>;
+        let sharedCollectionsBySpec = <Spinner isComponent/>;
 
         if (!this.props.sharedCollectionsLoading) {
 

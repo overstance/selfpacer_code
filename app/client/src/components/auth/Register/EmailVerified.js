@@ -24,7 +24,7 @@ class VerifyEmail extends Component {
 
     render() {
 
-        let content = <Spinner />;
+        let content = <Spinner isComponent/>;
 
         const successDialogue = 
         <Dialogue

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classes from './ConfirmResource.css';
 import * as actions from '../../../store/actions/index';
 import Spinner from '../../../components/UserInterface/Spinner/Spinner';
-import classes from './ConfirmResource.css';
 import Resource from '../../../components/Resource/Resource';
-import Container from '../../../components/UserInterface/Container/Container'
+import PostActionInfo from '../../../components/PostActionInfo/PostActionInfo';
+import GridlessPageWrapper from '../../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'
 
 
 class ConfirmResource extends Component {
@@ -26,9 +27,7 @@ class ConfirmResource extends Component {
     render() {
        
         let unconfirmedResources = 
-        <div className={classes.Container}>
-            <div className={classes.Spinner}><Spinner /></div>
-        </div>
+        <Spinner isComponent/>
 
         if (!this.props.loading) {
             unconfirmedResources = this.props.unconfirmedResources.map( (resource, i) => (
@@ -62,18 +61,18 @@ class ConfirmResource extends Component {
         
         if (!this.props.loading && this.props.unconfirmedResources.length === 0) {
             unconfirmedResources =
-            <div className={classes.PostAddInfo}>
-                <div>You have no unconfirmed resources.</div>
-            </div>
+            <PostActionInfo isSuccess>
+                You have no unconfirmed resources.
+            </PostActionInfo>
         }  
         
 
         return (
-            <Container>
-                <div style={{'padding': '10px 0'}}>
-                    {unconfirmedResources}
+            <GridlessPageWrapper pageTitle='Confirm Resources'>
+                <div classesName={classes.Resources}>
+                    {unconfirmedResources} 
                 </div>
-            </Container>  
+            </GridlessPageWrapper>  
         );
     };
 };

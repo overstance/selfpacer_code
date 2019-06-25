@@ -29,6 +29,42 @@ module.exports = app => {
     );
   });
 
+  app.get('/api/resources/:subject_title/:platform', (req, res) => {
+    if (req.params.platform === 'youtube') {
+      Resource.find(
+        {
+          confirmed: true,
+          category: req.params.subject_title,
+          source: 'youtube.com'
+        },
+        function(err, resources) {
+          if (err) {
+            console.log(err);
+            res.send(err.message);
+          } else {
+            res.send({ all: resources });
+          }
+        }
+      );
+    } else {
+      Resource.find(
+        {
+          confirmed: true,
+          category: req.params.subject_title,
+          type: req.params.platform
+        },
+        function(err, resources) {
+          if (err) {
+            console.log(err);
+            res.send(err.message);
+          } else {
+            res.send({ all: resources });
+          }
+        }
+      );
+    }
+  });
+
   app.get('/api/user_assets/:userId', (req, res) => {
     Resource.find({ user_id: req.params.userId }, (err, resources) => {
       if (err) {

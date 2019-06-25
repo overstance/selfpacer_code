@@ -4,7 +4,7 @@ import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
-import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSpinner';
+import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Grid from '../../components/UserInterface/Grid/Grid';
 import Form from '../../components/UserInterface/Form/Form';
 import FormTitle from '../../components/UserInterface/Form/FormTitle/FormTitle';
@@ -888,7 +888,7 @@ class AddResources extends Component {
         
         let youtubePlaylistButtonText = 'submit';
         if(this.props.youtubePlaylistLoading) {
-            youtubePlaylistButtonText = <ButtonSpinner />;
+            youtubePlaylistButtonText = <Spinner isButton/>;
         }
 
         let youtubePlaylistForm = 
@@ -923,7 +923,7 @@ class AddResources extends Component {
         let youtubeVideoButtonText = 'submit';
 
         if(this.props.youtubeVideoLoading) {
-            youtubeVideoButtonText = <ButtonSpinner />;
+            youtubeVideoButtonText = <Spinner isButton/>;
         }
 
         let youtubeVideoForm = 
@@ -981,7 +981,7 @@ class AddResources extends Component {
 
         let addMoocButtonText = 'submit';
         if(this.props.addMoocLoading) {
-            addMoocButtonText = <ButtonSpinner />;
+            addMoocButtonText = <Spinner isButton/>;
         }
 
         let moocForm =
@@ -1031,7 +1031,7 @@ class AddResources extends Component {
 
         let addBooksButtonText = 'submit';
         if(this.props.addBooksLoading) {
-            addBooksButtonText = <ButtonSpinner />;
+            addBooksButtonText = <Spinner isButton/>;
         }
 
         let bookForm =

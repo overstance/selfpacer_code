@@ -404,7 +404,7 @@ class Register extends Component {
         if (this.props.loading) {
             formAll = 
             <div className={classes.Register}>
-                <div className={classes.Spinner}><Spinner /></div>
+                <Spinner isDialogue/>
             </div>
         }
 

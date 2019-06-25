@@ -4,7 +4,7 @@ import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
 import Button from '../../../components/UserInterface/Button/Button';
-import ButtonSpinner from '../../../components/UserInterface/ButtonSpinner/ButtonSpinner';
+import Spinner from '../../../components/UserInterface/Spinner/Spinner';
 import Form from '../../../components/UserInterface/Form/Form';
 import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
 import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
@@ -163,7 +163,7 @@ class AddYoutubePlaylists extends Component {
     render() {
         let youtubePlaylistButtonText = 'submit';
         if(this.props.youtubePlaylistLoading) {
-            youtubePlaylistButtonText = <ButtonSpinner />;
+            youtubePlaylistButtonText = <Spinner isButton/>;
         }
         return (                   
             <div className={classes.ContainerItem}>

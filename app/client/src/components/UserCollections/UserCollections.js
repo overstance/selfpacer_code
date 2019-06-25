@@ -25,7 +25,7 @@ class UserCollections extends Component {
     
     render() {     
 
-        let userCollections = <div style={{ 'paddingTop': '2rem'}}><Spinner /></div>;
+        let userCollections = <Spinner isComponent/>;
 
         if (!this.props.loading) {
             if ( this.props.collections.length === 0) {

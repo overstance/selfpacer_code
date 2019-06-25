@@ -180,7 +180,8 @@ class Explore extends Component {
     }
 
     render() {
-        let content = <div style={{ 'paddingTop': '5rem'}}><Spinner /></div>
+        let content = 
+        <Spinner isComponent/>
 
         const allSubjects = this.props.subjects.map( subject => (
             <Subject

@@ -27,6 +27,7 @@ export {
 export {
     fetchSubjectDetails,
     fetchSubjectResources,
+    fetchResourcesByPlatform
 } from './clickedSubject';
 export {
     addAdminUser,

@@ -29,7 +29,7 @@ class Collections extends Component {
 
     render () {
 
-        let collections = <Spinner />;
+        let collections = <Spinner isComponent/>;
 
         if ( !this.props.loading ) {
 

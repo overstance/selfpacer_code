@@ -148,9 +148,7 @@ class SharedCollection extends Component {
         
        
         let userCollection = 
-        <div className={classes.Container}>
-            <div className={classes.Spinner}><Spinner /></div>
-        </div>
+        <Spinner isComponent/>
 
         if (!this.props.loading) {
             userCollection = this.props.collectedResources.map( (resource, i) => (
@@ -180,9 +178,7 @@ class SharedCollection extends Component {
             ));
         } else if (this.props.loading || this.props.collectedResources === undefined) {
             userCollection =
-            <div className={classes.Container}>
-                <div className={classes.Spinner}><Spinner /></div>
-            </div>
+            <Spinner isComponent/>
         }
         
         let checkPinned = this.props.pinnedCollectionIds.filter( collection => collection === this.props.clickedCollectionAttributes.id);

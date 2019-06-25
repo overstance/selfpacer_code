@@ -389,7 +389,7 @@ class UserCollections extends Component {
             }
         }     
 
-        let userCollections = <div style={{ 'paddingTop': '2rem'}}><Spinner /></div>;
+        let userCollections = <Spinner isComponent/>;
         // let sharedCollections = <div style={{ 'paddingTop': '5rem'}}><Spinner /></div>;
 
         if (!this.props.loading) {

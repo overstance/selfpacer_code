@@ -4,7 +4,7 @@ import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
-import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSpinner';
+import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Form from '../../components/UserInterface/Form/Form';
 import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
 import FormTitle from '../../components/UserInterface/Form/FormTitle/FormTitle';
@@ -103,7 +103,7 @@ class CreateCollection extends Component {
 
         let createCollectionButtonText = 'create';
         if(this.props.loading) {
-            createCollectionButtonText = <ButtonSpinner />;
+            createCollectionButtonText = <Spinner isButton/>;
         }
 
         const form = 

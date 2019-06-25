@@ -24,9 +24,7 @@ class Resourcepage extends Component {
     render() {
 
         let content = 
-            <div className={classes.Container}>
-                <div className={classes.Spinner}><Spinner /></div>
-            </div>
+        <Spinner isComponent/>
 
         if (this.props.clickedResource.type === 'youtube#playlist' && !this.props.loading ) {
             content = 

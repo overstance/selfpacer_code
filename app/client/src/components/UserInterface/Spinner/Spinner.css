@@ -7,6 +7,26 @@
     margin: 20px auto;
 }
 
+.ComponentContainer {
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.ButtonSpinner {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 5px solid #00000046;
+    border-right: 5px solid var(--white);
+    border-bottom: 5px solid var(--white);
+    animation: spin .3s linear infinite;
+}
+
+.ButtonSpinnerContainer {
+    display: flex;
+    justify-content: center;
+}
+
 .Spinner {
 width: 40px;
 height: 40px;

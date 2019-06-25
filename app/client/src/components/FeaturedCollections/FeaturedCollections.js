@@ -19,7 +19,7 @@ class FeaturedCollections extends Component {
 
     render () {
 
-        let featuredCollectionsBySpec = <div style={{ 'paddingTop': '2rem'}}><Spinner /></div>;
+        let featuredCollectionsBySpec = <Spinner isComponent/>;
 
         if (!this.props.featuredCollectionsLoading) {
             if (this.props.featuredCollections.length === 0 ) {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
-import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSpinner';
+import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Grid from '../../components/UserInterface/Grid/Grid';
 // import PostSubmitDailogue from '../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
@@ -122,7 +122,7 @@ class CreateCollection extends Component {
 
         let createCollectionButtonText = 'create';
         if(this.props.loading) {
-            createCollectionButtonText = <ButtonSpinner />;
+            createCollectionButtonText = <Spinner isButton/>;
         }
 
         const form = 

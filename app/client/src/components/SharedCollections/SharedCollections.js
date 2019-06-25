@@ -19,7 +19,7 @@ class SharedCollections extends Component {
 
     render () {
 
-        let sharedCollectionsBySpec = <div style={{ 'paddingTop': '2rem'}}><Spinner /></div>;
+        let sharedCollectionsBySpec = <Spinner isComponent/>;
 
         if (!this.props.sharedCollectionsLoading) {
             if (this.props.sharedCollections.length === 0 ) {

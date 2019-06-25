@@ -1,12 +1,12 @@
 .Resource {
     margin-bottom: 10px;
     outline: none;
-    box-shadow: 1px 0px 6px 0px var(--lightGray);
-}
+    box-shadow: 1px 0px 6px 0px var(--gray);
+} 
 
-/* .Resource:first-of-type {
+.Resource:first-of-type {
     margin-top: 10px;
-} */
+}
 
 .MainContainer {
     display: -ms-flexbox;

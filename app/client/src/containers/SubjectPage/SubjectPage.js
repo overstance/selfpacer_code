@@ -11,6 +11,7 @@ import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
 import AddToCollection from '../../components/Dialogues/addToCollection/addToCollection';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
 import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
+import postActionInfo from '../../components/PostActionInfo/PostActionInfo';
 
 class SubjectPage extends Component {
     
@@ -20,30 +21,39 @@ class SubjectPage extends Component {
 
         if (this.props.activeContent === 'youtube') {
             this.setState({
-                youtubeActive: true,
                 moocActive: false,
                 allActive: false,
-                booksActive: false
+                booksActive: false,
+                youtubeActive: true,
+                activeContent: 'youtube'
+                }, () => {
+                this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
             });
 
         }
 
         if (this.props.activeContent === 'mooc') {
             this.setState({
-                youtubeActive: false,
                 moocActive: true,
                 allActive: false,
-                booksActive: false
+                booksActive: false,
+                youtubeActive: false, 
+                activeContent: 'mooc'       
+            }, () => {
+                this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
             });
 
         }
 
         if (this.props.activeContent === 'books') {
             this.setState({
-                youtubeActive: false,
                 moocActive: false,
                 allActive: false,
-                booksActive: true
+                booksActive: true,
+                youtubeActive: false,
+                activeContent: 'books'        
+            }, () => {
+                this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
             });
 
         }
@@ -59,6 +69,8 @@ class SubjectPage extends Component {
         moocActive: false,
         allActive: true,
         booksActive: false,
+
+        activeContent: 'all',
 
         AuthenticateToCollectOrAdd: false,
         showAuthRequiredModal: false,
@@ -89,9 +101,11 @@ class SubjectPage extends Component {
             allActive: false,
             booksActive: false,
             youtubeActive: true,
+            activeContent: 'youtube'
+            }, () => {
+            this.props.onSetActiveContentType(this.state.activeContent);
+            this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
         });
-
-        this.props.onSetActiveContentType('youtube');
     }
 
     moocHandler = () => {
@@ -99,10 +113,12 @@ class SubjectPage extends Component {
             moocActive: true,
             allActive: false,
             booksActive: false,
-            youtubeActive: false,        
+            youtubeActive: false, 
+            activeContent: 'mooc'       
+        }, () => {
+            this.props.onSetActiveContentType(this.state.activeContent);
+            this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
         });
-
-        this.props.onSetActiveContentType('mooc');
     }
 
     allHandler = () => {
@@ -110,10 +126,11 @@ class SubjectPage extends Component {
             moocActive: false,
             allActive: true,
             booksActive: false,
-            youtubeActive: false,        
-        });
-
-        this.props.onSetActiveContentType('');
+            youtubeActive: false,
+            activeContent: 'all'        
+        }, () => {
+            this.props.onSetActiveContentType(this.state.activeContent);
+            this.props.onFetchSubjectResources(this.props.match.params.subject_title);        });
     }
 
     booksHandler = () => {
@@ -121,10 +138,12 @@ class SubjectPage extends Component {
             moocActive: false,
             allActive: false,
             booksActive: true,
-            youtubeActive: false,        
+            youtubeActive: false,
+            activeContent: 'books'        
+        }, () => {
+            this.props.onSetActiveContentType(this.state.activeContent);
+            this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
         });
-
-        this.props.onSetActiveContentType('books');
     }
 
     resourceClickedHandler = ( platform, id, views ) => {
@@ -189,8 +208,8 @@ class SubjectPage extends Component {
         const Subject = this.props.subject;
 
 
-        let subjectPath = <div className={classes.SpinnerContainer}> <Spinner /> </div>;
-        let subjectCurriculum = <div className={classes.SpinnerContainer}> <Spinner /> </div>;
+        let subjectPath = <Spinner isComponent/>;
+        let subjectCurriculum = <Spinner isComponent/>;
 
         if ( !this.props.clickedSubjectLoading ) {          
             const paths = Subject.map( subject => (subject.paths));
@@ -199,51 +218,11 @@ class SubjectPage extends Component {
             subjectCurriculum = curricula.map( (curriculum) => curriculum.map((x, i) => <li key={i}>{x}</li>));            
         }
 
-        const filterIconClasses = [classes.FilterIcon];
+        let all = <Spinner isComponent/>;
 
-        if (this.state.filterIconRotate) {
-            filterIconClasses.push(classes.Rotate180);
-        }
-
-        let all = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
-        let youtube = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
-        let mooc = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
-        let books = <div style={{ "paddingTop": "3rem"}}> <Spinner /> </div>;
-
-        if ( !this.props.allAccountingLoading && !this.props.fetchAllAccountingResourcesError ) {
-
-            const youtubeFiltered = this.props.all.filter( resource => resource.source === 'youtube.com');
-            const moocFiltered = this.props.all.filter( resource => resource.type === 'mooc');
-            const booksFiltered = this.props.all.filter( resource => resource.type === 'books');
-
+        if ( !this.props.resourceLoading && !this.props.fetchResourcesError ) {
 
             all = this.props.all.map( (resource, i) => (
-                   <Resource
-                   key={i}
-                   id={resource._id} 
-                   link={resource.link}
-                   image={resource.img}
-                   title={resource.title}
-                   likes={resource.likes}
-                   lastUpdated={resource.lastUpdated}
-                   avgRating={resource.avgRating}
-                   tutor={resource.tutor}
-                   enrollees={resource.enrollees}
-                   duration={resource.duration}
-                   level={resource.level}
-                   author={resource.author}
-                   youtubeViews={resource.youtubeviews}
-                   publishDate={resource.publishDate}
-                   source={resource.source}
-                   type={resource.type}
-                   videoCount={resource.videoCount}
-                   clicked={() => this.resourceClickedHandler(resource.type, resource._id, resource.views)}
-                   likeclicked={() => this.likeHandler( resource._id, resource.likes/* , resource.img, resource.link, resource.title */ )}
-                   collectclicked={() => this.collectHandler( resource._id, resource.img, resource.title )}
-                   />
-            ) );
-
-            youtube = youtubeFiltered.map( (resource, i) => (
                 <Resource
                 key={i}
                 id={resource._id} 
@@ -264,119 +243,15 @@ class SubjectPage extends Component {
                 type={resource.type}
                 videoCount={resource.videoCount}
                 clicked={() => this.resourceClickedHandler(resource.type, resource._id, resource.views)}
-                likeclicked={() => this.likeHandler( resource._id, resource.likes )}
+                likeclicked={() => this.likeHandler( resource._id, resource.likes/* , resource.img, resource.link, resource.title */ )}
                 collectclicked={() => this.collectHandler( resource._id, resource.img, resource.title )}
                 />
             ) );
-
-            mooc = moocFiltered.map( (resource, i) => (
-                <Resource
-                key={i}
-                id={resource._id} 
-                link={resource.link}
-                image={resource.img}
-                title={resource.title}
-                likes={resource.likes}
-                lastUpdated={resource.lastUpdated}
-                avgRating={resource.avgRating}
-                tutor={resource.tutor}
-                enrollees={resource.enrollees}
-                duration={resource.duration}
-                level={resource.level}
-                author={resource.author}
-                youtubeViews={resource.youtubeviews}
-                publishDate={resource.publishDate}
-                source={resource.source}
-                type={resource.type}
-                videoCount={resource.videoCount}
-                clicked={() => this.resourceClickedHandler(resource.type, resource._id, resource.views)}
-                likeclicked={() => this.likeHandler( resource._id, resource.likes )}
-                collectclicked={() => this.collectHandler( resource._id, resource.img, resource.title )}
-                />
-            ) );
-
-            books = booksFiltered.map( (resource, i) => (
-                <Resource
-                key={i}
-                id={resource._id} 
-                link={resource.link}
-                image={resource.img}
-                title={resource.title}
-                likes={resource.likes}
-                lastUpdated={resource.lastUpdated}
-                avgRating={resource.avgRating}
-                tutor={resource.tutor}
-                enrollees={resource.enrollees}
-                duration={resource.duration}
-                author={resource.author}
-                youtubeViews={resource.youtubeviews}
-                publishDate={resource.publishDate}
-                source={resource.source}
-                type={resource.type}
-                videoCount={resource.videoCount}
-                clicked={() => this.resourceClickedHandler(resource.type, resource._id, resource.views)}
-                likeclicked={() => this.likeHandler( resource._id, resource.likes )}
-                collectclicked={() => this.collectHandler( resource._id, resource.img, resource.title )}
-                />
-            ) );
-        }
-
-        const allContent = 
-        <div>
-            {/* <div className={classes.AddIconContainer}>
-                <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
-                <div className={classes.AddInfo}>ADD RESOURCE</div>
-            </div> */}
-            {all}
-            {this.props.fetchAllAccountingResourcesError}
-        </div>
-
-        const youtubeContent = 
-        <div>
-            {/* <div className={classes.AddIconContainer}>
-                <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
-                <div className={classes.AddInfo}>ADD YOUTUBE RESOURCE</div>
-            </div> */}
-            {youtube}
-            {this.props.fetchAllAccountingResourcesError}
-        </div>
-
-        const moocContent = 
-        <div>
-            {/* <div className={classes.AddIconContainer}>
-                <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
-                <div className={classes.AddInfo}>ADD MOOC RESOURCE</div>
-            </div> */}
-            {mooc}
-            {this.props.fetchAllAccountingResourcesError}
-        </div>
-
-        const booksContent = 
-        <div>
-            {/* <div className={classes.AddIconContainer}>
-                <div onClick={this.addResourceHandler} className={classes.AddIcon}></div>
-                <div className={classes.AddInfo}>ADD BOOK OR DOC RESOURCE</div>
-            </div> */}
-            {books}
-            {this.props.fetchAllAccountingResourcesError}
-        </div>
-
-        let pageContent = null;
-
-        if (this.state.allActive) {
-            pageContent = allContent;
-        }
-
-        if (this.state.youtubeActive) {
-            pageContent = youtubeContent;
-        }
-
-        if (this.state.moocActive) {
-            pageContent = moocContent
-        }
-
-        if (this.state.booksActive) {
-            pageContent = booksContent
+        } else if (!this.props.resourceLoading && this.props.fetchResourcesError) {
+            all = 
+            <postActionInfo isFailed>
+                {this.props.fetchResourcesError}
+            </postActionInfo>
         }
 
         return (
@@ -408,7 +283,7 @@ class SubjectPage extends Component {
                         allClicked={this.allHandler}
                         booksClicked={this.booksHandler}
                     />
-                    <div className={classes.Resources}>
+                    <div className={classes.ResourcesContainer}>
                         <div>
                             {this.state.AuthenticateToCollectOrAdd ? 
                                 <Dialogue
@@ -422,7 +297,9 @@ class SubjectPage extends Component {
                             closeDialogue={this.collectModalCloseHandler} 
                             closeModal={this.collectModalCloseHandler}
                             />
-                            {pageContent}
+                            <div className={classes.Resources}>
+                                {all}
+                            </div>
                         </div>
                     </div>
                 </div> 
@@ -443,8 +320,8 @@ const mapStateToProps = state => {
         clickedSubjectLoading: state.clickedSubject.loading,
         subject: state.clickedSubject.subject,
         all: state.clickedSubject.allResources,
-        allAccountingLoading: state.clickedSubject.allLoading,
-        fetchAllAccountingResourcesError: state.clickedSubject.fetchAllResourcesError,
+        resourceLoading: state.clickedSubject.allLoading,
+        fetchResourcesError: state.clickedSubject.fetchAllResourcesError,
 
         activeContent: state.explore.activeContentType,
 
@@ -456,11 +333,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchSubjectDetails: (subject_title) => dispatch( actions.fetchSubjectDetails(subject_title)),
+
         onFetchSubjectResources: (subject_title) => dispatch( actions.fetchSubjectResources(subject_title)),
-        // onFetchAccounting: () => dispatch( actions.fetchAccounting() ),
 
-        // onFetchAllAccounting: () => dispatch( actions.fetchAllAccounting() ),
-
+        onFetchResourcesByPlatform: (subject_title, platform) => dispatch(actions.fetchResourcesByPlatform(subject_title, platform)),
+        
         onFetchUserCollections: ( userId ) => dispatch(actions.fetchUserCollections( userId )),
 
         onSetClickedPlatform: ( platform ) => dispatch ( actions.setClickedPlatform( platform ) ),

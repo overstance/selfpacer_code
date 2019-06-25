@@ -9,7 +9,6 @@ import Resource from './userAsset/UserAsset';
 // import DeleteAssetDialogue from '../../components/Dialogues/deleteAsset/deleteAsset';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
-import ButtonSpinner from '../../components/UserInterface/ButtonSpinner/ButtonSpinner';
 import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
 import AjaxDialogueMessage from '../../components/Dialogues/Dialogue/AjaxDialogueMessage/AjaxDialogueMessage';
 import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
@@ -573,10 +572,7 @@ class ConfirmResource extends Component {
 
     render() {
        
-        let userAssets = 
-        <div className={classes.Container}>
-            <div className={classes.Spinner}><Spinner /></div>
-        </div>
+        let userAssets = <Spinner isComponent/>
 
         if (!this.props.loading && this.state.allAssets) {
 
@@ -746,7 +742,7 @@ class ConfirmResource extends Component {
 
         let addMoocButtonText = 'submit';
         if(this.props.updateAssetLoading) {
-            addMoocButtonText = <ButtonSpinner />;
+            addMoocButtonText = <Spinner isButton/>;
         }
 
         const moocElementsArray = [];
@@ -814,7 +810,7 @@ class ConfirmResource extends Component {
 
         let addBooksButtonText = 'submit';
         if(this.props.updateAssetLoading) {
-            addBooksButtonText = <ButtonSpinner />;
+            addBooksButtonText = <Spinner isButton/>;
         }
 
         if (this.state.assetToUpdateType === 'books') {

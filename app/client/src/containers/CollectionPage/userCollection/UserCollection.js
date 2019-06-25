@@ -163,9 +163,7 @@ class UserCollection extends Component {
     render() {
        
         let userCollection = 
-        <div className={classes.Container}>
-            <div className={classes.Spinner}><Spinner /></div>
-        </div>
+        <Spinner isComponent/>
 
         if (!this.props.loading && this.props.collectedResources.length > 0) {
             userCollection = this.props.collectedResources.map( (resource, i) => (
@@ -196,9 +194,7 @@ class UserCollection extends Component {
             ));
         } else if (this.props.loading || this.props.collectedResources === undefined) {
             userCollection =
-            <div className={classes.Container}>
-                <div className={classes.Spinner}><Spinner /></div>
-            </div>
+            <Spinner isComponent/>
         } else if (!this.props.loading && this.props.collectedResources.length === 0) {
             userCollection =
             <div className={classes.CollectionEmptyMessage}>
@@ -229,9 +225,7 @@ class UserCollection extends Component {
 
         if (this.props.deleteCollectionLoading) {
             content =
-            <div className={classes.Container}>
-                <div className={classes.Spinner}><Spinner /></div>
-            </div>
+            <Spinner isComponent/>
         }
 
         if (this.props.deleteCollectionSuccessInfo) {

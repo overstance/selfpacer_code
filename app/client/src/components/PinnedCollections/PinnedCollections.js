@@ -24,7 +24,7 @@ class PinnedCollections extends Component {
 
     render () {
 
-        let userPinnedCollections = <div style={{ 'paddingTop': '2rem'}}><Spinner /></div>;
+        let userPinnedCollections = <Spinner isComponent/>;
 
         if (!this.props.loading) {
             if ( this.props.collections.length === 0) {
