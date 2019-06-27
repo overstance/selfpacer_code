@@ -53,6 +53,7 @@ export {
     updateUserLikeCount,
     increaseResourceViewCount,
     fetchUserAssets,
+    fetchAdminAssetsByPlatform,
     fetchRecentlyViewedResources,
     fetchUnconfirmed,
     confirmResource,
@@ -61,7 +62,8 @@ export {
     updateMoocAsset,
     updateBookAsset,
     deleteAsset,
-    clearUpdateAssetMessages
+    clearUpdateAssetMessages,
+    updateYoutubeAsset
 } from './resource';
 
 export {

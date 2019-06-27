@@ -28,6 +28,11 @@ const initialState = {
     updateAssetSuccessInfo: null,
     updateAssetError: null,
 
+    updatingYoutubeAssetId: null,
+    updateYoutubeAssetLoading: false,
+    updatedYoutubeAsset: null,
+    updateFailedYoutubeAsset: null,
+
     deleteAssetLoading: false,
     deleteAssetSuccessInfo: null,
     deleteAssetError: null
@@ -129,6 +134,32 @@ const setAssetToupdateFields = ( state, action ) => {
     return updateObject( state, { assetToUpdateFields: action.assetToUpdateFields } );
 };
 
+// update youtube asset
+
+const updateYoutubeAssetStart = ( state, action ) => {
+    return updateObject( state,  { 
+        updateYoutubeAssetLoading: true,
+        updatingYoutubeAssetId: action.resourceId
+    });
+};
+
+const updateYoutubeAssetSuccess = ( state, action ) => {
+    return updateObject( state, {
+        updateYoutubeAssetLoading: false,
+        updatingYoutubeAssetId: null,
+        updatedYoutubeAsset: action.resourceId,
+        userAssets: action.updatedAssets
+    } );
+};
+
+const updateYoutubeAssetFail = ( state, action ) => {
+    return updateObject( state, {
+        updateYoutubeAssetLoading: false,
+        updatingYoutubeAssetId: null,
+        updateFailedYoutubeAsset: action.resourceId
+    } );
+};
+
 // update mooc asset
 
 const updateMoocAssetStart = ( state, action ) => {
@@ -138,7 +169,7 @@ const updateMoocAssetStart = ( state, action ) => {
 const updateMoocAssetSuccess = ( state, action ) => {
     return updateObject( state, {
         updateAssetSuccessInfo: action.info,
-        userAssets: action.resources,
+        userAssets: action.updatedAssets,
         updateAssetLoading: false
     } );
 };
@@ -156,7 +187,7 @@ const updateBookAssetStart = ( state, action ) => {
 const updateBookAssetSuccess = ( state, action ) => {
     return updateObject( state, {
         updateAssetSuccessInfo: action.info,
-        userAssets: action.resources,
+        userAssets: action.updatedAssets,
         updateAssetLoading: false
     } );
 };
@@ -225,6 +256,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_FAIL: return fetchUnconfirmedFail( state, action );
 
         case actionTypes.SET_ASSET_TO_UPDATE_FIELDS: return setAssetToupdateFields( state, action );
+
+        case actionTypes.UPDATE_YOUTUBE_ASSET_START: return updateYoutubeAssetStart( state, action );
+        case actionTypes.UPDATE_YOUTUBE_ASSET_SUCCESS: return updateYoutubeAssetSuccess( state, action );
+        case actionTypes.UPDATE_YOUTUBE_ASSET_FAIL: return updateYoutubeAssetFail( state, action );
 
         case actionTypes.UPDATE_MOOC_ASSET_START: return updateMoocAssetStart( state, action );
         case actionTypes.UPDATE_MOOC_ASSET_SUCCESS: return updateMoocAssetSuccess( state, action );

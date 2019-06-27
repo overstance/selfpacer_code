@@ -6,6 +6,9 @@ const resourceSchema = new Schema({
     type: Date,
     default: Date.now()
   },
+  lastEdited: {
+    type: Date
+  },
   category: String,
   publishDate: Number,
   title: String,

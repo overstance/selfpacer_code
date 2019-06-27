@@ -4,13 +4,24 @@ import PropTypes from 'prop-types';
 import LikeActionButton from '../UserInterface/ActionButtons/Like'; 
 import CollectActionButton from '../UserInterface/ActionButtons/Collect';
 import CheckActionButton from '../UserInterface/ActionButtons/Check';
-import DeleteActionButton from '../UserInterface/ActionButtons/Delete'
+import DeleteActionButton from '../UserInterface/ActionButtons/Delete';
+import UpdateActionButton from '../UserInterface/ActionButtons/Update';
+import UpdatingActionButton from '../UserInterface/ActionButtons/Updating';
 
 // import noImageIcon from '../../assets/images/image.svg';
 import {connect} from 'react-redux';
 
 class Resource extends Component {
     render () {
+
+        let updateButton =
+        <UpdateActionButton isAsset clicked={this.props.updateClicked}/>
+
+        if (this.props.updateYoutubeAssetLoading && this.props.id === this.props.updatingYoutubeAssetId) {
+            updateButton = 
+            <UpdatingActionButton />
+        }
+
         return (
             <div className={classes.Resource}>
                 <a 
@@ -90,33 +101,96 @@ class Resource extends Component {
                     </div>
                 </a>
                 <div className={classes.FeedbackRow}>
-                    <div className={classes.FeedbackContainer}>
-                        { this.props.toConfirm ? 
-                            <div className={classes.OptionFlex}>
-                                <span className={classes.DateAdded}>{'date added: ' + this.props.dateAdded}</span>
-                                <CheckActionButton clicked={this.props.confirmClicked} />
-                            </div>
-                            : 
-                            <div className={classes.DetailsColumnFlex}>
-                                { this.props.id === this.props.likedResource ?
-                                    <div className={classes.youLiked}>
-                                        <span className={classes.FeedbackText}>liked</span>
-                                    </div> : null
-                                }
-                                <div className={classes.OptionFlex}>
-                                    <LikeActionButton clicked={this.props.likeclicked} />
+                    {this.props.isAsset ?
+                        <div className={classes.AssetFeedbackContainer}>
+                            <div className={classes.Statistics}>
+                                <div className={classes.StatisticsLike}>
+                                    <div className={classes.CountAndLabel}>                                   
+                                        <div className={classes.StatisticsCount}>{this.props.likeCount}</div>
+                                        <div className={classes.StatisticsLabel}>likes</div>
+                                    </div>
+                                </div>
+                                <div className={classes.StatisticsCollections}>
+                                    <div className={classes.CountAndLabel}>
+                                        <div className={classes.StatisticsCount}>{this.props.collectCount}</div>
+                                        <div className={classes.StatisticsLabel}>collect counts</div>
+                                    </div>      
+                                </div>
+                                <div className={classes.StatisticsAssets}>
+                                    <div className={classes.CountAndLabel}>
+                                        <div className={classes.StatisticsCount}>{this.props.viewCount}</div>
+                                        <div className={classes.StatisticsLabel}>views</div>
+                                    </div>   
                                 </div>
                             </div>
-                        }
-                        { this.props.deletable ? 
-                            <div className={classes.OptionFixed}>
-                                <DeleteActionButton clicked={this.props.deleteClicked}/>
-                            </div> :
-                            <div className={classes.OptionFixed}>
-                                <CollectActionButton clicked={this.props.collectclicked} />
+                            <div className={classes.AssetOptions}>
+                                { this.props.lastEdited ?
+                                    <div className={classes.AssetLastUpdated}>
+                                        { this.props.id === this.props.updatedYoutubeAsset ?
+                                            <div className={classes.AssetUpdate}>
+                                                <span className={classes.AssetUpdateFeedbackText}>updated</span>
+                                            </div> : null
+                                        }
+                                        { this.props.id === this.props.updateFailedYoutubeAsset ?
+                                            <div className={classes.AssetUpdate}>
+                                                <span className={classes.AssetUpdateFeedbackTextError}>update error</span>
+                                            </div> : null
+                                        }
+                                        <div className={classes.AssetLastUpdatedText}>{'last-updated: ' + this.props.lastEdited}</div>
+                                    </div> :
+                                    <div className={classes.AssetLastUpdated}>
+                                        { this.props.id === this.props.updatedYoutubeAsset ?
+                                            <div className={classes.AssetUpdate}>
+                                                <span className={classes.AssetUpdateFeedbackText}>updated</span>
+                                            </div> : null
+                                        }
+                                        { this.props.id === this.props.updateFailedYoutubeAsset ?
+                                            <div className={classes.AssetUpdate}>
+                                                <span className={classes.AssetUpdateFeedbackTextError}>update error</span>
+                                            </div> : null
+                                        }
+                                        <div className={classes.AssetLastUpdatedText}>{'last-updated: ' + this.props.dateAdded}</div>
+                                    </div>
+                                }
+                                <div className={classes.AssetControls}>
+                                    <div className={classes.AssetButtonContainer}>
+                                        {updateButton}
+                                    </div>
+                                    <div className={classes.AssetButtonContainer}>
+                                        <DeleteActionButton isAsset clicked={this.props.deleteClicked}/>
+                                    </div>   
+                                </div>
                             </div>
-                        }
-                    </div>
+                        </div>
+                        :
+                        <div className={classes.FeedbackContainer}>
+                            { this.props.toConfirm ? 
+                                <div className={classes.OptionFlex}>
+                                    <span className={classes.DateAdded}>{'date added: ' + this.props.dateAdded}</span>
+                                    <CheckActionButton clicked={this.props.confirmClicked} />
+                                </div>
+                                : 
+                                <div className={classes.DetailsColumnFlex}>
+                                    { this.props.id === this.props.likedResource ?
+                                        <div className={classes.youLiked}>
+                                            <span className={classes.FeedbackText}>liked</span>
+                                        </div> : null
+                                    }
+                                    <div className={classes.OptionFlex}>
+                                        <LikeActionButton clicked={this.props.likeclicked} />
+                                    </div>
+                                </div>
+                            }
+                            { this.props.deletable ? 
+                                <div className={classes.OptionFixed}>
+                                    <DeleteActionButton clicked={this.props.deleteClicked}/>
+                                </div> :
+                                <div className={classes.OptionFixed}>
+                                    <CollectActionButton clicked={this.props.collectclicked} />
+                                </div>
+                            }
+                        </div>
+                    }
                 </div>           
             </div> 
         );
@@ -125,7 +199,11 @@ class Resource extends Component {
 
 const mapStateToProps = state => {
     return {
-        likedResource: state.explore.likedResource
+        likedResource: state.explore.likedResource,
+        updatingYoutubeAssetId: state.resource.updatingYoutubeAssetId,
+        updateYoutubeAssetLoading: state.resource.updateYoutubeAssetLoading,
+        updatedYoutubeAsset: state.resource.updatedYoutubeAsset,
+        updateFailedYoutubeAsset: state.resource.updateFailedYoutubeAsset
     };
 };
 

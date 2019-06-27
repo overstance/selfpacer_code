@@ -4,20 +4,52 @@
     cursor: pointer;
 }
 
+.IsAssetContainer {
+    border-radius: 50%;
+    background: var(--white);
+    cursor: pointer;
+}
+
+.IsUpdatingContainer {
+    border-radius: 50%;
+    background: var(--white);
+    animation: spin 1s linear infinite;
+}
+
 .Icon {
     fill: var(--blue);
     vertical-align: middle;
     padding: 6px;
+    width: 20px;
+    height: 20px;
+}
+
+.IconUpdating {
+    fill: var(--green);
+    vertical-align: middle;
+    padding: 6px;
+    width: 20px;
+    height: 20px;
 }
 
 .IconDelete {
     fill: var(--blue);
     vertical-align: middle;
     padding: 6px;  
+    width: 20px;
+    height: 20px;
 }
 
 .Container:hover {
     background: var(--blue);
+}
+
+.IsAssetContainer:hover .Icon {
+    fill: var(--green);
+}
+
+.IsAssetContainer:hover .IconDelete {
+    fill: var(--red);
 }
 
 .Container:hover .Icon {
@@ -32,4 +64,16 @@
     width: 40px !important;
     height: 40px !important;
     padding: 10px
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(1turn);
+    }
 }

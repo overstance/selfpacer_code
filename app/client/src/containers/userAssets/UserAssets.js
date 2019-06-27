@@ -4,29 +4,69 @@ import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Grid from '../../components/UserInterface/Grid/Grid';
 import classes from './UserAssets.css';
-import Resource from './userAsset/UserAsset';
-// import UpdateAssetDialogue from '../../components/Dialogues/updateAsset/updateAsset';
-// import DeleteAssetDialogue from '../../components/Dialogues/deleteAsset/deleteAsset';
+import Resource from '../../components/Resource/Resource';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
 import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
 import AjaxDialogueMessage from '../../components/Dialogues/Dialogue/AjaxDialogueMessage/AjaxDialogueMessage';
 import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
 import Form from '../../components/UserInterface/Form/Form';
+import PlatformNav from '../SubjectPage/PlatformNav/PlatformNav';
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 
-class ConfirmResource extends Component {
+class UserAssets extends Component {
     
     componentDidMount() {
         this.props.onFetchUserAssets(this.props.userId);
+
+        if (this.props.accountType === 'Administrator') {
+            if (this.props.activeContent === 'youtube') {
+                this.setState({
+                    moocActive: false,
+                    allActive: false,
+                    booksActive: false,
+                    youtubeActive: true,
+                    activeContent: 'youtube'
+                    }, () => {
+                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+                });
+    
+            }
+    
+            if (this.props.activeContent === 'mooc') {
+                this.setState({
+                    moocActive: true,
+                    allActive: false,
+                    booksActive: false,
+                    youtubeActive: false, 
+                    activeContent: 'mooc'       
+                }, () => {
+                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+                });
+    
+            }
+    
+            if (this.props.activeContent === 'books') {
+                this.setState({
+                    moocActive: false,
+                    allActive: false,
+                    booksActive: true,
+                    youtubeActive: false,
+                    activeContent: 'books'        
+                }, () => {
+                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+                });
+    
+            }
+        }
+        
     }
 
     componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
         if (this.props.assetToUpdateFields !== prevProps.assetToUpdateFields) {
 
             const moocUpdated = {
@@ -75,10 +115,7 @@ class ConfirmResource extends Component {
     }
 
     state = {
-        allAssets: true,
-        isYoutubeAssets: false,
-        isBookAssets: false,
-        isMoocAssets: false,
+
         fillError: null,
         assetToUpdateType: null,
         assetToUpdateId: null,
@@ -90,19 +127,11 @@ class ConfirmResource extends Component {
 
         showDeleteDialogue: false,
 
-        // enteredTitle: null,
-
-        title: {
-            value: '',
-            label: "title", 
-            name: "title",
-            validation: {},
-            elementConfig: {
-                placeholder: 'search asset by title'
-            },
-            valid: true,
-            touched: true   
-        },
+        youtubeActive: false,
+        moocActive: false,
+        allActive: true,
+        booksActive: false,
+        activeContent: 'all',
 
         mooc_controls: {
             videoCount: {
@@ -287,6 +316,58 @@ class ConfirmResource extends Component {
         return isValid;
     }
 
+    youtubeHandler = () => {
+        this.setState({
+            moocActive: false,
+            allActive: false,
+            booksActive: false,
+            youtubeActive: true,
+            activeContent: 'youtube'
+            }, () => {
+            this.props.onSetActiveContentType(this.state.activeContent);
+            this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+        });
+    }
+
+    moocHandler = () => {
+        this.setState({
+            moocActive: true,
+            allActive: false,
+            booksActive: false,
+            youtubeActive: false, 
+            activeContent: 'mooc'       
+        }, () => {
+            this.props.onSetActiveContentType(this.state.activeContent);
+            this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+        });
+    }
+
+    allHandler = () => {
+        this.setState({
+            moocActive: false,
+            allActive: true,
+            booksActive: false,
+            youtubeActive: false,
+            activeContent: 'all'        
+        }, () => {
+            this.props.onSetActiveContentType(this.state.activeContent);
+            this.props.onFetchUserAssets(this.props.userId)        
+        });
+    }
+
+    booksHandler = () => {
+        this.setState({
+            moocActive: false,
+            allActive: false,
+            booksActive: true,
+            youtubeActive: false,
+            activeContent: 'books'        
+        }, () => {
+            this.props.onSetActiveContentType(this.state.activeContent);
+            this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+        });
+    }
+
     closeUpdateDialogue = () => {
         this.setState({ showUpdateDialogue: false, fillError: null});
         this.props.onClearUpdateAssetMessages();
@@ -297,54 +378,57 @@ class ConfirmResource extends Component {
         this.props.onClearUpdateAssetMessages();
     }
 
-    updateResourceHandler = ( resourceId, type, duration, enrollees, level, avgRating, videoCount, lastUpdated ) => {
+    updateResourceHandler = ( resourceId, type, duration, enrollees, level, avgRating, videoCount, lastUpdated, source, youtubeId ) => {
         
-        let enrolleesCheckedAndParsed = enrollees;
-        let checkedDuration = duration;
-        let checkedVideoCount = videoCount;
-        let checkedLevel = level;
-        let checkedAvgRating = avgRating;
-        let checkedLastUpdated = lastUpdated;
-
-        if (level === undefined) {
-            checkedLevel = ''
-        }
-        
-        if (avgRating === undefined) {
-            checkedAvgRating = ''
-        }
-
-        if (lastUpdated === undefined) {
-            checkedLastUpdated = ''
-        }
-
-        if (videoCount === undefined) {
-            checkedVideoCount = ''
-        }
-
-        if (duration === undefined) {
-            checkedDuration = ''
-        }
-
-        if (enrollees === undefined) {
-            enrolleesCheckedAndParsed = ''
+        if (source === 'youtube.com') {
+            this.props.onUpdateYoutubeAsset(resourceId, type, youtubeId, this.props.userAssets);
         } else {
-            enrolleesCheckedAndParsed = parseFloat(enrollees.replace(/,/g, ''));
-        }
-        this.setState({ assetToUpdateType: type, assetToUpdateId: resourceId, showUpdateDialogue: true}, () => { console.log(this.state.assetToUpdateId, this.state.assetToUpdateType);});
-        this.props.onSetAssetToUpdateField(
-            {
-                duration: checkedDuration,
-                enrollees: enrolleesCheckedAndParsed,
-                videoCount: checkedVideoCount,
-                level: checkedLevel,
-                avgRating: checkedAvgRating,
-                lastUpdated: checkedLastUpdated
+            let enrolleesCheckedAndParsed = enrollees;
+            let checkedDuration = duration;
+            let checkedVideoCount = videoCount;
+            let checkedLevel = level;
+            let checkedAvgRating = avgRating;
+            let checkedLastUpdated = lastUpdated;
 
+            if (level === undefined) {
+                checkedLevel = ''
             }
-        );
+            
+            if (avgRating === undefined) {
+                checkedAvgRating = ''
+            }
 
-        // this.props.onConfirmResource(resourceId)
+            if (lastUpdated === undefined) {
+                checkedLastUpdated = ''
+            }
+
+            if (videoCount === undefined) {
+                checkedVideoCount = ''
+            }
+
+            if (duration === undefined) {
+                checkedDuration = ''
+            }
+
+            if (enrollees === undefined) {
+                enrolleesCheckedAndParsed = ''
+            } else {
+                enrolleesCheckedAndParsed = parseFloat(enrollees.replace(/,/g, ''));
+            }
+            this.setState({ assetToUpdateType: type, assetToUpdateId: resourceId, showUpdateDialogue: true});
+            this.props.onSetAssetToUpdateField(
+                {
+                    duration: checkedDuration,
+                    enrollees: enrolleesCheckedAndParsed,
+                    videoCount: checkedVideoCount,
+                    level: checkedLevel,
+                    avgRating: checkedAvgRating,
+                    lastUpdated: checkedLastUpdated
+
+                }
+            );
+
+        }
     }
 
     deleteResourceHandler = ( resourceId, resourceTitle ) => {
@@ -457,7 +541,8 @@ class ConfirmResource extends Component {
                     this.state.mooc_controls.lastUpdated.value, 
                     this.state.mooc_controls.avgRating.value,
                     this.props.userId,
-                    this.state.assetToUpdateId 
+                    this.state.assetToUpdateId, 
+                    this.props.userAssets 
                 );
 
                 const updated = {
@@ -503,7 +588,7 @@ class ConfirmResource extends Component {
 
             } else {
     
-                this.props.onUpdateBookAsset(this.state.book_controls.level.value, this.state.book_controls.avgRating.value, this.props.userId, this.state.assetToUpdateId );
+                this.props.onUpdateBookAsset(this.state.book_controls.level.value, this.state.book_controls.avgRating.value, this.props.userId, this.state.assetToUpdateId, this.props.userAssets );
 
                 const updated = {
                     ...this.state.book_controls,
@@ -524,66 +609,21 @@ class ConfirmResource extends Component {
         
     }
 
-    allClickedHandler = () => {
-        const titleUpdated = {
-            ...this.state.title,
-            value: ''
-        }
-        this.setState({ allAssets: true, isYoutubeAssets: false, isMoocAssets: false, isBookAssets: false, title: titleUpdated});
-    }
-
-    youtubeClickedHandler = () => {
-        const titleUpdated = {
-            ...this.state.title,
-            value: ''
-        }
-        this.setState({ allAssets: false, isYoutubeAssets: true, isMoocAssets: false, isBookAssets: false, title: titleUpdated});
-    }
-
-    moocClickedHandler = () => {
-        const titleUpdated = {
-            ...this.state.title,
-            value: ''
-        }
-        this.setState({ allAssets: false, isYoutubeAssets: false, isMoocAssets: true, isBookAssets: false, title: titleUpdated});
-    }
-
-    booksClickedHandler = () => {
-        const titleUpdated = {
-            ...this.state.title,
-            value: ''
-        }
-        this.setState({ allAssets: false, isYoutubeAssets: false, isMoocAssets: false, isBookAssets: true, title: titleUpdated});
-    }
-
-    titleChangedHandler = (event) => {
-
-        const titleUpdated = {
-            ...this.state.title,
-            value: event.target.value
-        }
-
-        this.setState({ title: titleUpdated});
-    }
-
-    /* titleChangedHandler = (event) => {
-        this.setState({ enteredTitle: event.target.value});
-    } */
-
     render() {
        
         let userAssets = <Spinner isComponent/>
 
-        if (!this.props.loading && this.state.allAssets) {
+        if (!this.props.loading) {
 
             if (this.props.userAssets.length === 0) {
                 userAssets =
-                <div className={classes.PostAddInfo}>
-                    <div>You have no added resources.</div>
-                </div>
+                <PostActionInfo isSuccess>
+                    You have no added resources.
+                </PostActionInfo>
             } else {
             userAssets = this.props.userAssets.map( (resource, i) => (
-                <Resource 
+                <Resource
+                isAsset 
                 key={i}
                 id={resource._id} 
                 link={resource.link}
@@ -605,138 +645,14 @@ class ConfirmResource extends Component {
                 likeCount={numberWithCommas(resource.likes)}
                 collectCount={numberWithCommas(resource.collectCount)}
                 viewCount={numberWithCommas(resource.views)}
-                updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
+                updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated, resource.source, resource.youtubeId )}
                 deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
                 dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
+                lastEdited={new Date(resource.dateAdded).toLocaleDateString()}
                 />
             ));
             }
-        }
-
-        if (this.state.isYoutubeAssets && !this.props.loading) {
-
-            let allYoutube = this.props.userAssets.filter( resource => resource.source  === 'youtube.com');
-
-            if ( allYoutube.length === 0) {
-                userAssets =
-                <div className={classes.PostAddInfo}>
-                    <div>You have no added Youtube resources.</div>
-                </div>
-            } else {
-            userAssets = allYoutube.map( (resource, i) => (
-                <Resource 
-                key={i}
-                id={resource._id} 
-                link={resource.link}
-                image={resource.img}
-                title={resource.title}
-                likes={resource.likes}
-                lastUpdated={resource.lastUpdated}
-                avgRating={resource.avgRating}
-                tutor={resource.tutor}
-                enrollees={resource.enrollees}
-                duration={resource.duration}
-                level={resource.level}
-                author={resource.author}
-                youtubeViews={resource.youtubeviews}
-                publishDate={resource.publishDate}
-                source={resource.source}
-                type={resource.type}
-                videoCount={resource.videoCount}
-                likeCount={numberWithCommas(resource.likes)}
-                collectCount={numberWithCommas(resource.collectCount)}
-                viewCount={numberWithCommas(resource.views)}
-                updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
-                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
-                dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
-                />
-            ));
-            }
-        };
-
-        if (this.state.isMoocAssets && !this.props.loading) {
-            
-            let allMooc = this.props.userAssets.filter( resource => resource.type  === 'mooc');
-
-            if ( allMooc.length === 0) {
-                userAssets =
-                <div className={classes.PostAddInfo}>
-                    <div>You have no added mooc resources.</div>
-                </div>
-            } else {
-            userAssets = allMooc.map( (resource, i) => (
-                <Resource 
-                key={i}
-                id={resource._id} 
-                link={resource.link}
-                image={resource.img}
-                title={resource.title}
-                likes={resource.likes}
-                lastUpdated={resource.lastUpdated}
-                avgRating={resource.avgRating}
-                tutor={resource.tutor}
-                enrollees={resource.enrollees}
-                duration={resource.duration}
-                level={resource.level}
-                author={resource.author}
-                youtubeViews={resource.youtubeviews}
-                publishDate={resource.publishDate}
-                source={resource.source}
-                type={resource.type}
-                videoCount={resource.videoCount}
-                likeCount={numberWithCommas(resource.likes)}
-                collectCount={numberWithCommas(resource.collectCount)}
-                viewCount={numberWithCommas(resource.views)}
-                updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
-                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
-                dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
-                />
-            ));
-            }
-        };
-
-        if (this.state.isBookAssets && !this.props.loading) {
-
-            let bookAssets = this.props.userAssets.filter( resource => resource.type  === 'books');
-
-            if (bookAssets.length === 0) {
-                userAssets =
-                <div className={classes.PostAddInfo}>
-                    <div>You have no added books resources.</div>
-                </div>
-            } else {
-            
-            userAssets = bookAssets.map( (resource, i) => (
-                <Resource 
-                key={i}
-                id={resource._id} 
-                link={resource.link}
-                image={resource.img}
-                title={resource.title}
-                likes={resource.likes}
-                lastUpdated={resource.lastUpdated}
-                avgRating={resource.avgRating}
-                tutor={resource.tutor}
-                enrollees={resource.enrollees}
-                duration={resource.duration}
-                level={resource.level}
-                author={resource.author}
-                youtubeViews={resource.youtubeviews}
-                publishDate={resource.publishDate}
-                source={resource.source}
-                type={resource.type}
-                videoCount={resource.videoCount}
-                likeCount={numberWithCommas(resource.likes)}
-                collectCount={numberWithCommas(resource.collectCount)}
-                viewCount={numberWithCommas(resource.views)}
-                updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
-                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
-                dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
-                />
-            ));
-            }
-        };
-          
+        } 
 
         let updateForm;
 
@@ -866,80 +782,22 @@ class ConfirmResource extends Component {
             </PostActionInfo>   
         }
 
-        let byTitle =
-        <div
-        className={classes.SearchForm}
-        >
-            <Input 
-            // label={this.state.title.label} 
-            name={this.state.title.name}
-            value={this.state.title.value}
-            elementType={'textarea'}
-            invalid={!this.state.title.valid}
-            placeholder='search asset by title'
-            shouldValidate={this.state.title.validation}
-            touched={this.state.title.touched}
-            elementConfig={this.state.title.elementConfig}
-            changed={(event) => this.titleChangedHandler(event)}
-            />
-        </div>
-
-        if ( !this.props.loading && this.state.title.value !== '') {
-            let byTitleContent = this.props.userAssets.filter( resource => resource.title === this.state.title.value);
-
-            if (byTitleContent.length === 0) {
-                userAssets =
-                <div className={classes.PostAddInfo}>
-                    <div>No resource with the entered title is found, please make sure the title is correctly entered.</div>
-                </div>
-            } else {
-                userAssets = byTitleContent.map( (resource, i) => (
-                    <Resource 
-                    key={i}
-                    id={resource._id} 
-                    link={resource.link}
-                    image={resource.img}
-                    title={resource.title}
-                    likes={resource.likes}
-                    lastUpdated={resource.lastUpdated}
-                    avgRating={resource.avgRating}
-                    tutor={resource.tutor}
-                    enrollees={resource.enrollees}
-                    duration={resource.duration}
-                    level={resource.level}
-                    author={resource.author}
-                    youtubeViews={resource.youtubeviews}
-                    publishDate={resource.publishDate}
-                    source={resource.source}
-                    type={resource.type}
-                    videoCount={resource.videoCount}
-                    likeCount={numberWithCommas(resource.likes)}
-                    collectCount={numberWithCommas(resource.collectCount)}
-                    viewCount={numberWithCommas(resource.views)}
-                    updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated )}
-                    deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
-                    dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
-                    />
-                ));
-            }
-        }
-        
-
         return (
             <Grid>
-                <div className={classes.ViewFilteredWrapper}>
-                    <div onClick={this.allClickedHandler} style={{'padding': '8px 12px'}} className={classes.ViewFiltered}>all</div>
-                    <div onClick={this.youtubeClickedHandler} className={classes.ViewFiltered}>youtube</div>
-                    <div onClick={this.moocClickedHandler} className={classes.ViewFiltered}>mooc</div>
-                    <div onClick={this.booksClickedHandler} className={classes.ViewFiltered}>books</div>
-                    {byTitle}
-                </div>
-                
-                <div>
-                    {userAssets}
-                </div>
-                {
-                    this.state.showUpdateDialogue ? 
+                { this.props.accountType === 'Administrator' ?
+                    <PlatformNav
+                        youtubeActived={this.state.youtubeActive}
+                        moocActived={this.state.moocActive}
+                        allActived={this.state.allActive}
+                        booksActived={this.state.booksActive}
+                        youtubeClicked={this.youtubeHandler}
+                        moocClicked={this.moocHandler}
+                        allClicked={this.allHandler}
+                        booksClicked={this.booksHandler}
+                    /> : null
+                }
+                <div className={classes.ResourcesContainer}>
+                    { this.state.showUpdateDialogue ? 
                     <Dialogue
                     isUpdateAsset
                     closeDialogue={this.closeUpdateDialogue}
@@ -950,18 +808,21 @@ class ConfirmResource extends Component {
                         </div>
                     </Dialogue>
                     : null
-                }
-                {
-                    this.state.showDeleteDialogue ? 
-                    <Dialogue
-                    isDeleteAsset
-                    closeDialogue={this.closeDeleteDialogue}
-                    showDialogue={this.state.showDeleteDialogue}
-                    >
-                        {deleteForm}
-                    </Dialogue>
-                    : null
-                }
+                    }
+                    { this.state.showDeleteDialogue ? 
+                        <Dialogue
+                        isDeleteAsset
+                        closeDialogue={this.closeDeleteDialogue}
+                        showDialogue={this.state.showDeleteDialogue}
+                        >
+                            {deleteForm}
+                        </Dialogue>
+                        : null
+                    }
+                    <div className={classes.Resources}>
+                        {userAssets}
+                    </div>
+                </div>
             </Grid>  
         );
     };
@@ -976,7 +837,7 @@ const mapStateToProps = state => {
         loading: state.resource.loading,
         userId: state.auth.user._id,
 
-        userType: state.auth.user.accountType,
+        accountType: state.auth.user.accountType,
 
         updateAssetLoading: state.resource.updateAssetLoading,
         updateAssetSuccessInfo: state.resource.updateAssetSuccessInfo,
@@ -992,12 +853,15 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchUserAssets: ( userId ) => dispatch(actions.fetchUserAssets( userId)),
+        onFetchAdminAssetsByPlatform: (platform) => dispatch(actions.fetchAdminAssetsByPlatform(platform)),
+        onSetActiveContentType: ( platform ) => dispatch ( actions.setActiveContentType( platform )),
         onSetAssetToUpdateField: (assetToUpdateFields ) => dispatch(actions.setAssetToUpdateField(assetToUpdateFields)),
-        onUpdateMoocAsset: (videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId) => dispatch( actions.updateMoocAsset(videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId) ),
-        onUpdateBookAsset: (level, avgRating, agent, resourceId) => dispatch( actions.updateBookAsset(level, avgRating, agent, resourceId) ),
+        onUpdateMoocAsset: (videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId, assets) => dispatch( actions.updateMoocAsset(videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId, assets) ),
+        onUpdateBookAsset: (level, avgRating, agent, resourceId, assets) => dispatch( actions.updateBookAsset(level, avgRating, agent, resourceId, assets) ),
         onDeleteAsset: (resourceId, userId) => dispatch(actions.deleteAsset(resourceId, userId)),
-        onClearUpdateAssetMessages: () => dispatch(actions.clearUpdateAssetMessages())
+        onClearUpdateAssetMessages: () => dispatch(actions.clearUpdateAssetMessages()),
+        onUpdateYoutubeAsset: (resourceId, type, youtubeId, assets) => dispatch(actions.updateYoutubeAsset(resourceId, type, youtubeId, assets))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConfirmResource);
+export default connect(mapStateToProps, mapDispatchToProps)(UserAssets);

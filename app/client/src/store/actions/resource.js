@@ -280,6 +280,24 @@ export const fetchUserAssets = ( userId ) => async(dispatch) => {
 
 }
 
+// fetch admin asset by platform
+
+export const fetchAdminAssetsByPlatform = (platform) => async(dispatch) => {
+    
+    
+    dispatch(fetchUserAssetStart());
+    const res = await axios.get(`/api/admin_assets/${platform}`);
+
+    if (res.data.resources) {
+        // console.log(res.data.resources);
+        dispatch(fetchUserAssetSuccess(res.data.resources));
+    } else {
+        // console.log(res.data)
+        dispatch(fetchUserAssetFailed( res.data ));
+    }
+
+}
+
 // Increase Resource view count
 
 export const increaseResourceViewCount = ( id, views ) => async dispatch => {
@@ -377,6 +395,71 @@ export const setAssetToUpdateField = (assetToUpdateFields) => {
     }
 }
 
+// update youtube asset
+
+export const updateYoutubeAssetStart = (resourceId) => {
+    return {
+        type: actionTypes.UPDATE_YOUTUBE_ASSET_START,
+        resourceId: resourceId
+    }
+}
+
+export const updateYoutubeAssetSuccess = (resourceId, updatedAssets) => {
+    return {
+        type: actionTypes.UPDATE_YOUTUBE_ASSET_SUCCESS,
+        resourceId: resourceId,
+        updatedAssets: updatedAssets
+    }
+}
+
+export const updateYoutubeAssetFailed = (resourceId) => {
+    return {
+        type: actionTypes.UPDATE_YOUTUBE_ASSET_FAIL,
+        resourceId: resourceId
+    }
+}
+
+export const updateYoutubeAsset = (resourceId, type, youtubeId, assets) => async dispatch => {
+    
+    dispatch(updateYoutubeAssetStart(resourceId));
+
+    if (type === 'youtube#video') {
+        const res = await axios.put(`/api/update_youtube_video_asset/${youtubeId}`);
+
+        if (res.data.resource._id === resourceId) {
+
+            const index = assets.findIndex(resource => resource._id === res.data.resource._id);
+            let updatedAssets;
+
+            if (index !== -1) {
+                updatedAssets = [...assets];
+                updatedAssets[index] = res.data.resource;
+            }
+
+            dispatch(updateYoutubeAssetSuccess(res.data.resource._id, updatedAssets));
+        } else {
+            dispatch(updateYoutubeAssetFailed(resourceId));
+        }
+    } else if (type === 'youtube#playlist') {
+        const res = await axios.put(`/api/update_youtube_playlist_asset/${youtubeId}`);
+
+        if (res.data.resource._id === resourceId) {
+
+            const index = assets.findIndex(resource => resource._id === res.data.resource._id);
+            let updatedResources;
+
+            if (index !== -1) {
+                updatedResources = [...assets];
+                updatedResources[index] = res.data.resource;
+            }
+
+            dispatch(updateYoutubeAssetSuccess(res.data.resource._id, updatedResources));
+        } else {
+            dispatch(updateYoutubeAssetFailed(resourceId));
+        }
+    }
+}
+
 // update mooc asset
 
 export const updateMoocAssetStart = () => {
@@ -385,11 +468,11 @@ export const updateMoocAssetStart = () => {
     }
 }
 
-export const updateMoocAssetSuccess = (info, resources) => {
+export const updateMoocAssetSuccess = (info, updatedAssets) => {
     return {
         type: actionTypes.UPDATE_MOOC_ASSET_SUCCESS,
         info: info,
-        resources: resources
+        updatedAssets: updatedAssets
     }
 }
 
@@ -400,7 +483,7 @@ export const updateMoocAssetFailed = (error) => {
     }
 }
 
-export const updateMoocAsset = (videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId) => async dispatch => {
+export const updateMoocAsset = (videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId, assets) => async dispatch => {
     dispatch(updateMoocAssetStart());
 
     let updateTime = lastUpdated;
@@ -427,12 +510,17 @@ export const updateMoocAsset = (videoCount, enrollees, duration, level, lastUpda
 
     const res = await axios.put('/api/update_mooc_asset', info);
 
-    if (res.data.resources) {
-        dispatch(updateMoocAssetSuccess('Asset updated.', res.data.resources));
-        // console.log(res.data);
+    if (res.data.resource._id === resourceId) {
+        const index = assets.findIndex(resource => resource._id === res.data.resource._id);
+        let updatedAssets;
+
+        if (index !== -1) {
+            updatedAssets = [...assets];
+            updatedAssets[index] = res.data.resource;
+        }
+        dispatch(updateMoocAssetSuccess('Asset updated.', updatedAssets));
     } else {
         dispatch(updateMoocAssetFailed(res.data));
-        // console.log(res.data);
     }
 }
 
@@ -444,11 +532,11 @@ export const updateBookAssetStart = () => {
     }
 }
 
-export const updateBookAssetSuccess = (info, resources) => {
+export const updateBookAssetSuccess = (info, updatedAssets) => {
     return {
         type: actionTypes.UPDATE_BOOK_ASSET_SUCCESS,
         info: info,
-        resources: resources
+        updatedAssets: updatedAssets
     }
 }
 
@@ -459,7 +547,7 @@ export const updateBookAssetFailed = (error) => {
     }
 }
 
-export const updateBookAsset = (level, avgRating, agent, resourceId) => async dispatch => {
+export const updateBookAsset = (level, avgRating, agent, resourceId, assets) => async dispatch => {
     dispatch(updateBookAssetStart());
 
     let updateLevel = level;
@@ -482,8 +570,17 @@ export const updateBookAsset = (level, avgRating, agent, resourceId) => async di
 
     const res = await axios.put('/api/update_book_asset', info);
 
-    if (res.data.resources) {
-        dispatch(updateBookAssetSuccess('Asset updated.', res.data.resources));
+    if (res.data.resource._id === resourceId) {
+        const index = assets.findIndex(resource => resource._id === res.data.resource._id);
+        let updatedAssets;
+
+        if (index !== -1) {
+            updatedAssets = [...assets];
+            updatedAssets[index] = res.data.resource;
+        }
+
+        dispatch(updateBookAssetSuccess('Asset updated.', updatedAssets));
+        
         // console.log(res.data);
     } else {
         dispatch(updateBookAssetFailed(res.data));

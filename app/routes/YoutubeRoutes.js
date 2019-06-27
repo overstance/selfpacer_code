@@ -251,4 +251,61 @@ module.exports = app => {
       }
     );
   });
+
+  app.put('/api/update_youtube_video_asset/:youtubeId', async (req, res) => {
+    const response = await youtube.videos.list({
+      id: req.params.youtubeId,
+      part: 'snippet,statistics'
+    });
+
+    if (response.data.items) {
+      const responseData = response.data.items[0];
+      Resource.findOneAndUpdate(
+        { youtubeId: responseData.id },
+        {
+          youtubeviews: responseData.statistics.viewCount,
+          youtubelikes: responseData.statistics.likeCount
+        },
+        { new: true },
+        (err, resource) => {
+          if (err) {
+            res.send(err.message);
+          } else {
+            resource.save();
+            res.send({ resource: resource });
+          }
+        }
+      );
+    } else {
+      res.send('update failed');
+    }
+  });
+
+  app.put('/api/update_youtube_playlist_asset/:youtubeId', async (req, res) => {
+    const response = await youtube.playlists.list({
+      id: req.params.youtubeId,
+      part: 'snippet,contentDetails'
+    });
+
+    if (response.data.items) {
+      const responseData = response.data.items[0];
+      Resource.findOneAndUpdate(
+        { youtubeId: responseData.id },
+        {
+          videoCount: responseData.contentDetails.itemCount
+        },
+        { new: true },
+        (err, resource) => {
+          if (err) {
+            res.send(err.message);
+          } else {
+            resource.save();
+            res.send({ resource: resource });
+          }
+        }
+      );
+    } else {
+      res.send('update failed');
+    }
+  });
 };

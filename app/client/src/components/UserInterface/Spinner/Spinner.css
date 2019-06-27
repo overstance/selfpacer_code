@@ -48,13 +48,13 @@ animation: spin .3s linear infinite;
 }
 
 @keyframes spin {
-to {
-transform: rotate(1turn);
-}
+    to {
+        transform: rotate(1turn);
+    }
 }
 
 @-webkit-keyframes spin {
-to {
--webkit-transform: rotate(1turn);
-}
+    to {
+        -webkit-transform: rotate(1turn);
+    }
 }

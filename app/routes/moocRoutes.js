@@ -55,17 +55,12 @@ module.exports = app => {
         lastUpdated: req.body.lastUpdated,
         avgRating: req.body.avgRating
       },
+      { new: true },
       (err, resource) => {
         if (err) {
           res.send(err.message);
         } else {
-          Resource.find({ user_id: req.body.agent }, (err, resources) => {
-            if (err) {
-              res.send(err.name);
-            } else {
-              res.send({ resources: resources });
-            }
-          });
+          res.send({ resource: resource });
         }
       }
     );
