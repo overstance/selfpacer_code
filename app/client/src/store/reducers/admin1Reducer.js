@@ -6,8 +6,8 @@ const initialState = {
     adminAddError: null,
     userAddedFeedback: null,
 
-    subjectToEditPath: null,
-    subjectToEditCurriculum: null,
+    subjectToEditPath: '',
+    subjectToEditCurriculum: '',
 
     editSubjectSuccessInfo: null,
     editSubjectError: null,
@@ -15,32 +15,6 @@ const initialState = {
     removedUser: {},
     adminUserRemoveError: null,
     adminUserRemovedFeedback: null,
-    
-    youtubePlaylistLoading: false,
-    addedYoutubePlaylist: {},
-    addYoutubePlaylistError: null,
-    youtubePlaylistAddedFeedback: null,
-
-    updatedYoutubePlaylists: null,
-    updateYoutubePlaylistsError: null,
-    youtubePlaylistsUpdatedFeedback: null,
-    
-    youtubeVideoLoading: false,
-    addedYoutubeVideo: {},
-    addYoutubeVideoError: null,
-    youtubeVideoAddedFeedback: null,
-
-    updatedYoutubeVideos: null,
-    updateYoutubeVideosError: null,
-    youtubeVideosUpdatedFeedback: null,
-
-    addMoocLoading: false,
-    addMoocSucessInfo: null,
-    addMoocError: null,
-
-    addBooksLoading: false,
-    addBooksSucessInfo: null,
-    addBooksError: null
 };
 
 // Add Admin User 
@@ -86,148 +60,6 @@ const adminUserRemoveFailed = ( state, action ) => {
         adminUserRemoveError: "Failed!: " + action.error
     } );
 };
-
-//Add Youtube Playlist
-
-const youtubePlaylistAddStart = ( state, action ) => {
-    return updateObject( state, {
-        addYoutubePlaylistError: null,
-        youtubePlaylistAddedFeedback: null,
-        youtubePlaylistLoading: true
-    } );
-};
-
-const youtubePlaylistAdded = ( state, action ) => {
-    return updateObject( state, {
-        youtubePlaylistAddedFeedback: action.addCount + ' item(s) added',
-        addedYoutubePlaylist: action.playlists,
-        youtubePlaylistLoading: false
-    } );
-};
-
-const youtubePlaylistAddFailed = ( state, action ) => {
-    return updateObject( state, {
-        addYoutubePlaylistError: 'Failed!: ' + action.error,
-        youtubePlaylistLoading: false
-    } );
-};
-
-//Update Youtube Playlist
-
-const youtubePlaylistsUpdateStart = ( state, action ) => {
-    return updateObject( state, {
-        updateYoutubePlaylistsError: null,
-        youtubePlaylistsUpdatedFeedback: null
-    } );
-};
-
-const youtubePlaylistsUpdated = ( state, action ) => {
-    return updateObject( state, {
-        youtubePlaylistsUpdatedFeedback: action.updateCount + ' Playlists updated',
-        updatedYoutubePlaylists: action.updatedPlaylists
-    } );
-};
-
-const youtubePlaylistsUpdatedFailed = ( state, action ) => {
-    return updateObject( state, {
-        updateYoutubePlaylistsError: 'Update Failed!: ' + action.error
-    } );
-};
-
-//Add Yotube Videos
-
-const youtubeVideoAddStart = ( state, action ) => {
-    return updateObject( state, {
-        addYoutubeVideoError: null,
-        youtubeVideoAddedFeedback: null,
-        youtubeVideoLoading: true
-    } );
-};
-
-const youtubeVideoAdded = ( state, action ) => {
-    return updateObject( state, {
-        youtubeVideoAddedFeedback: action.addCount + ' item(s) added',
-        addedYoutubeVideo: action.videos,
-        youtubeVideoLoading: false
-    } );
-};
-
-const youtubeVideoAddFailed = ( state, action ) => {
-    return updateObject( state, {
-        addYoutubeVideoError: 'Failed!: ' + action.error,
-        youtubeVideoLoading: false
-    } );
-};
-
-//Update Youtube Videos
-
-const youtubeVideosUpdateStart = ( state, action ) => {
-    return updateObject( state, {
-        updateYoutubeVideosError: null,
-        youtubeVideosUpdatedFeedback: null,
-    } );
-};
-
-const youtubeVideosUpdated = ( state, action ) => {
-    return updateObject( state, {
-        youtubeVideosUpdatedFeedback: action.updateCount + ' videos updated',
-        updatedYoutubeVideos: action.updatedVideos
-    } );
-};
-
-const youtubeVideosUpdatedFailed = ( state, action ) => {
-    return updateObject( state, {
-        updateYoutubeVideosError: 'Update Failed!: ' + action.error
-    } );
-};
-
-// ADD MOOC RESOURCE
-
-const addMoocStart = ( state, action ) => {
-    return updateObject( state, {
-        addMoocSucessInfo: null,
-        addMoocError: null,
-        addMoocLoading: true
-    });
-}
-
-const addMoocSuccess = ( state, action ) => {
-    return updateObject( state, {
-        addMoocSucessInfo: action.info,
-        addMoocLoading: false
-    });
-}
-
-const addMoocFailed = ( state, action ) => {
-    return updateObject( state, {
-        addMoocError: 'add failed!:' + action.error,
-        addMoocLoading: false
-    });
-}
-
-// ADD BOOKS RESOURCE
-
-const addBooksStart = ( state, action ) => {
-    return updateObject( state, {
-        addBooksLoading: true,
-        addBooksSucessInfo: null,
-        addBooksError: null
-    });
-}
-
-const addBooksSuccess = ( state, action ) => {
-    return updateObject( state, {
-        addBooksSucessInfo: action.info,
-        addBooksLoading: false,
-    });
-}
-
-const addBooksFailed = ( state, action ) => {
-    return updateObject( state, {
-        addBooksError: 'add failed!:' + action.error,
-        addBooksLoading: false,
-    });
-}
 
 // Fetch subject to edit path and curricula
 
@@ -301,30 +133,6 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.EDIT_SUBJECT_START: return editSubjectStart( state, action );
         case actionTypes.EDIT_SUBJECT_SUCCESS: return editSubjectSuccess( state, action );
         case actionTypes.EDIT_SUBJECT_FAIL: return editSubjectFail( state, action );
-
-        case actionTypes.YOUTUBE_PLAYLIST_ADDED: return youtubePlaylistAdded( state, action );
-        case actionTypes.YOUTUBE_PLAYLIST_ADD_START: return youtubePlaylistAddStart( state, action );
-        case actionTypes.YOUTUBE_PLAYLIST_ADD_FAILED: return youtubePlaylistAddFailed( state, action );
-
-        case actionTypes.YOUTUBE_PLAYLISTS_UPDATED: return youtubePlaylistsUpdated( state, action );
-        case actionTypes.YOUTUBE_PLAYLISTS_UPDATE_START: return youtubePlaylistsUpdateStart( state, action );
-        case actionTypes.YOUTUBE_PLAYLISTS_UPDATE_FAILED: return youtubePlaylistsUpdatedFailed( state, action );
-
-        case actionTypes.YOUTUBE_VIDEO_ADDED: return youtubeVideoAdded( state, action );
-        case actionTypes.YOUTUBE_VIDEO_ADD_START: return youtubeVideoAddStart( state, action );
-        case actionTypes.YOUTUBE_VIDEO_ADD_FAILED: return youtubeVideoAddFailed( state, action );
-
-        case actionTypes.YOUTUBE_VIDEOS_UPDATED: return youtubeVideosUpdated( state, action );
-        case actionTypes.YOUTUBE_VIDEOS_UPDATE_START: return youtubeVideosUpdateStart( state, action );
-        case actionTypes.YOUTUBE_VIDEOS_UPDATE_FAILED: return youtubeVideosUpdatedFailed( state, action );
-
-        case actionTypes.ADD_MOOC_SUCCESS: return addMoocSuccess( state, action );
-        case actionTypes.ADD_MOOC_FAILED: return addMoocFailed( state, action );
-        case actionTypes.ADD_MOOC_START: return addMoocStart( state, action );
-
-        case actionTypes.ADD_BOOKS_SUCCESS: return addBooksSuccess( state, action );
-        case actionTypes.ADD_BOOKS_FAILED: return addBooksFailed( state, action );
-        case actionTypes.ADD_BOOKS_START: return addBooksStart( state, action );
 
         case actionTypes.CLEAR_ADD_MESSAGES: return clearAddMessages( state, action );
 

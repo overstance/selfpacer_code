@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './AddYoutubePlaylists.css';
+import classes from './UpdateYoutubePlaylists.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../../components/UserInterface/Input/Input';
@@ -7,6 +7,7 @@ import Button from '../../../components/UserInterface/Button/Button';
 import Form from '../../../components/UserInterface/Form/Form';
 import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
 import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
+import Spinner from '../../../components/UserInterface/Spinner/Spinner';
 
 class UpdateYoutubePlaylists extends Component {
 
@@ -117,6 +118,12 @@ class UpdateYoutubePlaylists extends Component {
     } 
 
     render() {
+
+        let updateButtonText = 'Update';
+        if(this.props.updateYoutubePlaylistsLoading) {
+            updateButtonText = <Spinner isButton/>;
+        }
+
         return (
             <div className={classes.ContainerItem}>
                 <FormTitle isAdmin>Update Youtube Playlist</FormTitle>
@@ -136,16 +143,16 @@ class UpdateYoutubePlaylists extends Component {
                     changed={(event) => this.subjectChangedHandler(event)}
                     />
                     { !this.state.subject.valid && this.state.subject.touched ? 
-                        <Button btnType='Danger' disabled> Update </Button> :
-                        <Button btnType='Success'> Update </Button>    
+                        <Button btnType='Danger' disabled> {updateButtonText} </Button> :
+                        <Button btnType='Success'> {updateButtonText} </Button>    
                     }
-                    { this.props.youtubePlaylistsUpdateError ? 
+                    { this.props.updateYoutubePlaylistsError ? 
                         <FormFeedback isFailed>
-                            {this.props.youtubePlaylistsUpdateError}
+                            {this.props.updateYoutubePlaylistsError}
                         </FormFeedback>
                         :
                         <FormFeedback isSuccess>
-                            {this.props.youtubeVideoPlaylistsFeedback}
+                            {this.props.updateYoutubePlaylistsFeedback}
                         </FormFeedback>
                     }
                 </Form>
@@ -156,8 +163,9 @@ class UpdateYoutubePlaylists extends Component {
 
 const mapStateToProps = state => ({
     subjects: state.explore.subjects,
-    youtubeVideoPlaylistsFeedback: state.admin1.youtubePlaylistsUpdatedFeedback,
-    youtubePlaylistsUpdateError: state.admin1.updateYoutubePlaylistsError,
+    updateYoutubePlaylistsLoading: state.resource.updateYoutubePlaylistsLoading,
+    updateYoutubePlaylistsFeedback: state.resource.updateYoutubePlaylistsFeedback,
+    updateYoutubePlaylistsError: state.resource.updateYoutubePlaylistsError,
     user: state.auth.user
 });
 

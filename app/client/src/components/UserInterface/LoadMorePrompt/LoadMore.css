@@ -1,0 +1,24 @@
+.LoadMore {
+    border-style: none;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    font-weight: 700;
+    background: var(--green);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoadMore span {
+    color: var(--blue);
+    margin-right: 10px;
+}
+
+@media (max-width: 600px) {
+    .LoadMore {
+        width: 98%;
+        margin: 0 auto;
+    }
+}

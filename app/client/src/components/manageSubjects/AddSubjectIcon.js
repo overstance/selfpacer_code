@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import classes from './AddSubject.css';
-import Button from '../../../components/UserInterface/Button/Button';
+import Button from '../UserInterface/Button/Button';
 import { connect } from 'react-redux';
-import * as actions from '../../../store/actions/index';
-import Form from '../../../components/UserInterface/Form/Form';
-import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
+import * as actions from '../../store/actions/index';
+import Form from '../UserInterface/Form/Form';
+import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
 
 class UploadSubjectimage extends Component {
 

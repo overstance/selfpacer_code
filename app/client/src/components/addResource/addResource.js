@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import classes from './addResource.css';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
-import Input from '../../components/UserInterface/Input/Input';
-import Button from '../../components/UserInterface/Button/Button';
-import Spinner from '../../components/UserInterface/Spinner/Spinner';
-import Grid from '../../components/UserInterface/Grid/Grid';
-import Form from '../../components/UserInterface/Form/Form';
-import FormTitle from '../../components/UserInterface/Form/FormTitle/FormTitle';
-import FormFeedback from '../../components/UserInterface/Form/FormFeedback/FormFeedback';
+import Input from '../UserInterface/Input/Input';
+import Button from '../UserInterface/Button/Button';
+import Spinner from '../UserInterface/Spinner/Spinner';
+// import Grid from '../UserInterface/Grid/Grid';
+import Form from '../UserInterface/Form/Form';
+// import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
 
 class AddResources extends Component {
 
@@ -36,7 +36,7 @@ class AddResources extends Component {
             touched: false   
         },
         type: {
-            value: this.props.activeContentPage,
+            value: '',
             label: "select type", 
             name: "Type",
             validation: {
@@ -433,7 +433,7 @@ class AddResources extends Component {
                 this.setState({ subject: subjectUpdated, fillError: 'Please fill all fields'});
     
             } else {
-                this.props.onAddYoutubePlaylist(this.state.youtubePlaylist.value, this.state.subject.value, this.props.user._id);
+                this.props.onAddYoutubePlaylist(this.state.youtubePlaylist.value, this.state.subject.value, this.props.user._id, this.props.user.accountType);
                 const youtubeReset = {
                         ...this.state.youtubePlaylist,
                         value: '',
@@ -470,7 +470,7 @@ class AddResources extends Component {
                 this.setState({ subject: subjectUpdated, fillError: 'Please fill all fields'});
     
             } else {
-                this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value, this.props.user._id);
+                this.props.onAddYoutubeVideo(this.state.youtubeVideo.value, this.state.subject.value, this.props.user._id, this.props.user.accountType);
                 
                 const youtubeReset = {
                         ...this.state.youtubeVideo,
@@ -599,7 +599,7 @@ class AddResources extends Component {
                     this.state.mooc_controls.imageUrl.value, this.state.mooc_controls.source.value, this.state.mooc_controls.videoCount.value,
                     this.state.mooc_controls.tutor.value, this.state.mooc_controls.enrollees.value, this.state.mooc_controls.duration.value,
                     this.state.mooc_controls.level.value, this.state.mooc_controls.lastUpdated.value, this.state.mooc_controls.avgRating.value,
-                    this.props.user._id 
+                    this.props.user._id, this.props.user.accountType 
                 );
     
                 const updated = {
@@ -733,7 +733,7 @@ class AddResources extends Component {
                 this.props.onAddBooks(
                     this.state.subject.value, this.state.book_controls.title.value, this.state.book_controls.url.value,
                     this.state.book_controls.imageUrl.value, this.state.book_controls.source.value, this.state.book_controls.author.value,
-                    this.state.book_controls.level.value, this.state.book_controls.avgRating.value, this.props.user._id 
+                    this.state.book_controls.level.value, this.state.book_controls.avgRating.value, this.props.user._id, this.props.user.accountType 
                 );
     
                 const updated = {
@@ -887,7 +887,7 @@ class AddResources extends Component {
         let platformSpecificForm = <div className={classes.Notype}>Please select resource type to continue.</div>
         
         let youtubePlaylistButtonText = 'submit';
-        if(this.props.youtubePlaylistLoading) {
+        if(this.props.addYoutubePlaylistLoading) {
             youtubePlaylistButtonText = <Spinner isButton/>;
         }
 
@@ -922,7 +922,7 @@ class AddResources extends Component {
 
         let youtubeVideoButtonText = 'submit';
 
-        if(this.props.youtubeVideoLoading) {
+        if(this.props.addYoutubeVideoLoading) {
             youtubeVideoButtonText = <Spinner isButton/>;
         }
 
@@ -1108,14 +1108,11 @@ class AddResources extends Component {
         </div>
 
         return (
-            <Grid>
-                <div className={classes.ContentItems}>
-                    <div className={classes.ContainerItem}>
-                        <FormTitle>Add Resource</FormTitle>
-                        {addForm}
-                    </div >
-                </div>            
-            </Grid>                                 
+            <div className={classes.ContentItems}>
+                <div className={classes.ContainerItem}>
+                    {addForm}
+                </div >
+            </div>                                
         )
     }
 };
@@ -1126,29 +1123,29 @@ const mapStateToProps = state => ({
     activeContentPage: state.explore.activeContentType,
     activeSubjectTitle: state.clickedSubject.clickedSubjectTitle,
 
-    youtubePlaylistLoading: state.admin1.youtubePlaylistLoading,
-    youtubePlaylistAddedFeedback: state.admin1.youtubePlaylistAddedFeedback,
-    youtubePlaylistAddError: state.admin1.addYoutubePlaylistError,
+    addYoutubePlaylistLoading: state.resource.addYoutubePlaylistLoading,
+    youtubePlaylistAddedFeedback: state.resource.youtubePlaylistAddedFeedback,
+    youtubePlaylistAddError: state.resource.addYoutubePlaylistError,
 
-    youtubeVideoLoading: state.admin1.youtubeVideoLoading,
-    youtubeVideoAddedFeedback: state.admin1.youtubeVideoAddedFeedback,
-    youtubeVideoAddError: state.admin1.addYoutubeVideoError,
+    addYoutubeVideoLoading: state.resource.addYoutubeVideoLoading,
+    youtubeVideoAddedFeedback: state.resource.youtubeVideoAddedFeedback,
+    youtubeVideoAddError: state.resource.addYoutubeVideoError,
 
-    addMoocSucessInfo: state.admin1.addMoocSucessInfo,
-    addMoocError: state.admin1.addMoocError,
-    addMoocLoading: state.admin1.addMoocLoading,
+    addMoocSucessInfo: state.resource.addMoocSucessInfo,
+    addMoocError: state.resource.addMoocError,
+    addMoocLoading: state.resource.addMoocLoading,
 
-    addBooksSucessInfo: state.admin1.addBooksSucessInfo,
-    addBooksError: state.admin1.addBooksError,
-    addBooksLoading: state.admin1.addBooksLoading,
+    addBooksSucessInfo: state.resource.addBooksSucessInfo,
+    addBooksError: state.resource.addBooksError,
+    addBooksLoading: state.resource.addBooksLoading,
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddYoutubePlaylist: (playlistId, subject, user) => dispatch( actions.addYoutubePlaylist(playlistId, subject, user)),
-        onAddYoutubeVideo: (videoId, subject, user) => dispatch( actions.addYoutubeVideo(videoId, subject, user) ),
-        onAddMooc: (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) => dispatch( actions.addMooc(subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, agent) ),
-        onAddBooks: (subject, title, url, imageUrl, source, author, level, avgRating, agent) => dispatch( actions.addBooks(subject, title, url, imageUrl, source, author, level, avgRating, agent) ),
+        onAddYoutubePlaylist: (playlistId, subject, userId, userType) => dispatch( actions.addYoutubePlaylist(playlistId, subject, userId, userType)),
+        onAddYoutubeVideo: (videoId, subject, userId, userType) => dispatch( actions.addYoutubeVideo(videoId, subject, userId, userType) ),
+        onAddMooc: (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, userId, userType) => dispatch( actions.addMooc(subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, userId, userType) ),
+        onAddBooks: (subject, title, url, imageUrl, source, author, level, avgRating, userId, userType) => dispatch( actions.addBooks(subject, title, url, imageUrl, source, author, level, avgRating, userId, userType) ),
 
         onClearAddMessages: () => dispatch(actions.clearAddMessages())
     };

@@ -1,11 +1,14 @@
 .AdminFormTitle {
-    color: var(--darkBlue);
+    color: var(--blue);
     font-size: x-small;
     font-weight: 700;
     text-transform: uppercase;
+    display: inline-flex;
+    background: var(--green);
+    padding: 2px
 }
 
 .FormTitle {
-    color: var(--darkBlue);
+    color: var(--blue);
     font-weight: 700;    
 }

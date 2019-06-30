@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classes from './ConfirmResource.css';
-import * as actions from '../../../store/actions/index';
-import Spinner from '../../../components/UserInterface/Spinner/Spinner';
-import Resource from '../../../components/Resource/Resource';
-import PostActionInfo from '../../../components/PostActionInfo/PostActionInfo';
-import GridlessPageWrapper from '../../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'
+import * as actions from '../../store/actions/index';
+import Spinner from '../../components/UserInterface/Spinner/Spinner';
+import Resource from '../../components/Resource/Resource';
+import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
+import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'
 
 
 class ConfirmResource extends Component {
@@ -69,7 +69,7 @@ class ConfirmResource extends Component {
 
         return (
             <GridlessPageWrapper pageTitle='Confirm Resources'>
-                <div classesName={classes.Resources}>
+                <div className={classes.Resources}>
                     {unconfirmedResources} 
                 </div>
             </GridlessPageWrapper>  

@@ -11,13 +11,20 @@ import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
 import AddToCollection from '../../components/Dialogues/addToCollection/addToCollection';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
 import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
-import postActionInfo from '../../components/PostActionInfo/PostActionInfo';
+import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
+import LoadMorePrompt from '../../components/UserInterface/LoadMorePrompt/LoadMore';
 
 class SubjectPage extends Component {
     
    componentDidMount () {
+        window.addEventListener('scroll', this.handleScroll, true);
         this.props.onFetchSubjectDetails(this.props.match.params.subject_title);
-        this.props.onFetchSubjectResources(this.props.match.params.subject_title);
+        this.setState({pageIndex: 0});
+
+        if (this.props.activeContent === 'all') {
+            console.log(this.props.activeContent);
+            this.props.onFetchSubjectResources(this.props.match.params.subject_title, 0);
+        }
 
         if (this.props.activeContent === 'youtube') {
             this.setState({
@@ -27,7 +34,7 @@ class SubjectPage extends Component {
                 youtubeActive: true,
                 activeContent: 'youtube'
                 }, () => {
-                this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
+                this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent, 0);
             });
 
         }
@@ -40,7 +47,7 @@ class SubjectPage extends Component {
                 youtubeActive: false, 
                 activeContent: 'mooc'       
             }, () => {
-                this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
+                this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent, 0);
             });
 
         }
@@ -53,11 +60,16 @@ class SubjectPage extends Component {
                 youtubeActive: false,
                 activeContent: 'books'        
             }, () => {
-                this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
+                this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent, 0);
             });
 
         }
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll, true);
+    }
+    
   
    state = {
         showPaths: false,
@@ -74,7 +86,35 @@ class SubjectPage extends Component {
 
         AuthenticateToCollectOrAdd: false,
         showAuthRequiredModal: false,
-        showCollectionModal: false
+        showCollectionModal: false,
+
+        pageIndex: 0,
+        // showLoadMore: false
+    }
+
+    handleScroll = () => {
+        /* if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
+            this.fetchMoreData();
+        } */
+        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+            this.fetchMoreData() 
+        }
+    }
+
+    fetchMoreData(){
+        if (this.props.latestFetchLength >= 10) {
+            this.setState({
+                pageIndex: this.state.pageIndex + 1
+            }, () => {
+                console.log(this.state.pageIndex, this.props.latestFetchLength );
+                if (this.state.activeContent === 'all') {
+                    this.props.onFetchMoreResources(this.props.match.params.subject_title, this.state.pageIndex, this.props.all);
+                } else {
+                    this.props.onFetchMoreResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent, this.state.pageIndex, this.props.all);
+                }
+            })
+            
+        }      
     }
 
     pathsToggleHandler = () => {
@@ -101,10 +141,11 @@ class SubjectPage extends Component {
             allActive: false,
             booksActive: false,
             youtubeActive: true,
-            activeContent: 'youtube'
+            activeContent: 'youtube',
+            pageIndex: 0
             }, () => {
             this.props.onSetActiveContentType(this.state.activeContent);
-            this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
+            this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent, 0);
         });
     }
 
@@ -114,10 +155,11 @@ class SubjectPage extends Component {
             allActive: false,
             booksActive: false,
             youtubeActive: false, 
-            activeContent: 'mooc'       
+            activeContent: 'mooc',
+            pageIndex: 0       
         }, () => {
             this.props.onSetActiveContentType(this.state.activeContent);
-            this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
+            this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent, 0);
         });
     }
 
@@ -127,10 +169,13 @@ class SubjectPage extends Component {
             allActive: true,
             booksActive: false,
             youtubeActive: false,
-            activeContent: 'all'        
+            activeContent: 'all',
+            pageIndex: 0        
         }, () => {
             this.props.onSetActiveContentType(this.state.activeContent);
-            this.props.onFetchSubjectResources(this.props.match.params.subject_title);        });
+            this.props.onFetchSubjectResources(this.props.match.params.subject_title, 0); 
+            }
+        );
     }
 
     booksHandler = () => {
@@ -139,10 +184,11 @@ class SubjectPage extends Component {
             allActive: false,
             booksActive: true,
             youtubeActive: false,
-            activeContent: 'books'        
+            activeContent: 'books',
+            pageIndex: 0        
         }, () => {
             this.props.onSetActiveContentType(this.state.activeContent);
-            this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent);
+            this.props.onFetchResourcesByPlatform(this.props.match.params.subject_title, this.state.activeContent, 0);
         });
     }
 
@@ -249,9 +295,9 @@ class SubjectPage extends Component {
             ) );
         } else if (!this.props.resourceLoading && this.props.fetchResourcesError) {
             all = 
-            <postActionInfo isFailed>
+            <PostActionInfo isFailed>
                 {this.props.fetchResourcesError}
-            </postActionInfo>
+            </PostActionInfo>
         }
 
         return (
@@ -300,6 +346,7 @@ class SubjectPage extends Component {
                             <div className={classes.Resources}>
                                 {all}
                             </div>
+                            { this.props.fetchMoreLoading ? <LoadMorePrompt /> : null}
                         </div>
                     </div>
                 </div> 
@@ -325,6 +372,9 @@ const mapStateToProps = state => {
 
         activeContent: state.explore.activeContentType,
 
+        latestFetchLength: state.clickedSubject.latestFetchLength,
+        fetchMoreLoading: state.clickedSubject.fetchMoreLoading,
+
         settedUserRecentlyViewed: state.resource.userRecentlyViewed,
         userLikeCount: state.auth.userLikeCount
     };
@@ -334,15 +384,17 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchSubjectDetails: (subject_title) => dispatch( actions.fetchSubjectDetails(subject_title)),
 
-        onFetchSubjectResources: (subject_title) => dispatch( actions.fetchSubjectResources(subject_title)),
+        onFetchSubjectResources: (subject_title, pageIndex) => dispatch( actions.fetchSubjectResources(subject_title, pageIndex)),
+        onFetchMoreResources: (subject_title, pageIndex, resources) => dispatch(actions.fetchMoreResources(subject_title, pageIndex, resources)),
 
-        onFetchResourcesByPlatform: (subject_title, platform) => dispatch(actions.fetchResourcesByPlatform(subject_title, platform)),
+        onFetchResourcesByPlatform: (subject_title, platform, pageIndex) => dispatch(actions.fetchResourcesByPlatform(subject_title, platform, pageIndex)),
+        onFetchMoreResourcesByPlatform: (subject_title, platform, pageIndex, resources) => dispatch( actions.fetchMoreResourcesByPlatform(subject_title, platform, pageIndex, resources)),
         
         onFetchUserCollections: ( userId ) => dispatch(actions.fetchUserCollections( userId )),
 
         onSetClickedPlatform: ( platform ) => dispatch ( actions.setClickedPlatform( platform ) ),
         onSetToCollectResource: ( resourceId, image, title ) => dispatch ( actions.setToCollectResource( resourceId, image, title )),
-        onSetActiveContentType: ( platform ) => dispatch ( actions.setActiveContentType( platform )),
+        onSetActiveContentType : ( platform ) => dispatch ( actions.setActiveContentType ( platform )),
         onSetLikedResource: ( id ) => dispatch ( actions.setLikedResource( id )),
 
         onResourceLiked: ( id, likes ) => dispatch ( actions.resourceLiked( id, likes )),

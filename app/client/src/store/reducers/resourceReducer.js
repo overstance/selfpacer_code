@@ -16,6 +16,32 @@ const initialState = {
     userAssets: [],
     fetchAssetError: null,
 
+    addYoutubePlaylistLoading: false,
+    addedYoutubePlaylist: {},
+    addYoutubePlaylistError: null,
+    youtubePlaylistAddedFeedback: null,
+
+    updateYoutubePlaylistsLoading: false,
+    updateYoutubePlaylistsError: null,
+    updateYoutubePlaylistsFeedback: null,
+    
+    addYoutubeVideoLoading: false,
+    addedYoutubeVideo: {},
+    addYoutubeVideoError: null,
+    youtubeVideoAddedFeedback: null,
+
+    updateYoutubeVideosLoading: false,
+    updateYoutubeVideosError: null,
+    youtubeVideosUpdatedFeedback: null,
+
+    addMoocLoading: false,
+    addMoocSucessInfo: null,
+    addMoocError: null,
+
+    addBooksLoading: false,
+    addBooksSucessInfo: null,
+    addBooksError: null,
+
     assetToUpdateFields: {
         duration: '',
         enrollees: '',
@@ -133,6 +159,152 @@ const fetchUnconfirmedFail = ( state, action ) => {
 const setAssetToupdateFields = ( state, action ) => {
     return updateObject( state, { assetToUpdateFields: action.assetToUpdateFields } );
 };
+
+//Add Youtube Playlist
+
+const youtubePlaylistAddStart = ( state, action ) => {
+    return updateObject( state, {
+        addYoutubePlaylistError: null,
+        youtubePlaylistAddedFeedback: null,
+        addYoutubePlaylistLoading: true
+    } );
+};
+
+const youtubePlaylistAdded = ( state, action ) => {
+    return updateObject( state, {
+        youtubePlaylistAddedFeedback: action.addCount + ' item(s) added',
+        addedYoutubePlaylist: action.playlists,
+        addYoutubePlaylistLoading: false
+    } );
+};
+
+const youtubePlaylistAddFailed = ( state, action ) => {
+    return updateObject( state, {
+        addYoutubePlaylistError: 'Failed!: ' + action.error,
+        addYoutubePlaylistLoading: false
+    } );
+};
+
+//Update Youtube Playlist
+
+const youtubePlaylistsUpdateStart = ( state, action ) => {
+    return updateObject( state, {
+        updateYoutubePlaylistsLoading: true,
+        updateYoutubePlaylistsError: null,
+        updateYoutubePlaylistsFeedback: null
+    } );
+};
+
+const youtubePlaylistsUpdated = ( state, action ) => {
+    return updateObject( state, {
+        updateYoutubePlaylistsLoading: false,
+        updateYoutubePlaylistsFeedback: action.updateCount + ' Playlists updated',
+    } );
+};
+
+const youtubePlaylistsUpdatedFailed = ( state, action ) => {
+    return updateObject( state, {
+        updateYoutubePlaylistsLoading: false,
+        updateYoutubePlaylistsError: 'Update Failed!: ' + action.error
+    } );
+};
+
+//Add Yotube Videos
+
+const youtubeVideoAddStart = ( state, action ) => {
+    return updateObject( state, {
+        addYoutubeVideoError: null,
+        youtubeVideoAddedFeedback: null,
+        addYoutubeVideoLoading: true
+    } );
+};
+
+const youtubeVideoAdded = ( state, action ) => {
+    return updateObject( state, {
+        youtubeVideoAddedFeedback: action.addCount + ' item(s) added',
+        addedYoutubeVideo: action.videos,
+        addYoutubeVideoLoading: false
+    } );
+};
+
+const youtubeVideoAddFailed = ( state, action ) => {
+    return updateObject( state, {
+        addYoutubeVideoError: 'Failed!: ' + action.error,
+        addYoutubeVideoLoading: false
+    } );
+};
+
+//Update Youtube Videos
+
+const youtubeVideosUpdateStart = ( state, action ) => {
+    return updateObject( state, {
+        updateYoutubeVideosLoading: true,
+        updateYoutubeVideosError: null,
+        youtubeVideosUpdatedFeedback: null,
+    } );
+};
+
+const youtubeVideosUpdated = ( state, action ) => {
+    return updateObject( state, {
+        updateYoutubeVideosLoading: false,
+        youtubeVideosUpdatedFeedback: action.updateCount + ' videos updated',
+    } );
+};
+
+const youtubeVideosUpdatedFailed = ( state, action ) => {
+    return updateObject( state, {
+        updateYoutubeVideosLoading: false,
+        updateYoutubeVideosError: 'Update Failed!: ' + action.error
+    } );
+};
+
+// ADD MOOC RESOURCE
+
+const addMoocStart = ( state, action ) => {
+    return updateObject( state, {
+        addMoocSucessInfo: null,
+        addMoocError: null,
+        addMoocLoading: true
+    });
+}
+
+const addMoocSuccess = ( state, action ) => {
+    return updateObject( state, {
+        addMoocSucessInfo: action.info,
+        addMoocLoading: false
+    });
+}
+
+const addMoocFailed = ( state, action ) => {
+    return updateObject( state, {
+        addMoocError: 'add failed!:' + action.error,
+        addMoocLoading: false
+    });
+}
+
+// ADD BOOKS RESOURCE
+
+const addBooksStart = ( state, action ) => {
+    return updateObject( state, {
+        addBooksLoading: true,
+        addBooksSucessInfo: null,
+        addBooksError: null
+    });
+}
+
+const addBooksSuccess = ( state, action ) => {
+    return updateObject( state, {
+        addBooksSucessInfo: action.info,
+        addBooksLoading: false,
+    });
+}
+
+const addBooksFailed = ( state, action ) => {
+    return updateObject( state, {
+        addBooksError: 'add failed!:' + action.error,
+        addBooksLoading: false,
+    });
+}
 
 // update youtube asset
 
@@ -256,6 +428,30 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_FAIL: return fetchUnconfirmedFail( state, action );
 
         case actionTypes.SET_ASSET_TO_UPDATE_FIELDS: return setAssetToupdateFields( state, action );
+
+        case actionTypes.YOUTUBE_PLAYLIST_ADDED: return youtubePlaylistAdded( state, action );
+        case actionTypes.YOUTUBE_PLAYLIST_ADD_START: return youtubePlaylistAddStart( state, action );
+        case actionTypes.YOUTUBE_PLAYLIST_ADD_FAILED: return youtubePlaylistAddFailed( state, action );
+
+        case actionTypes.YOUTUBE_PLAYLISTS_UPDATED: return youtubePlaylistsUpdated( state, action );
+        case actionTypes.YOUTUBE_PLAYLISTS_UPDATE_START: return youtubePlaylistsUpdateStart( state, action );
+        case actionTypes.YOUTUBE_PLAYLISTS_UPDATE_FAILED: return youtubePlaylistsUpdatedFailed( state, action );
+
+        case actionTypes.YOUTUBE_VIDEO_ADDED: return youtubeVideoAdded( state, action );
+        case actionTypes.YOUTUBE_VIDEO_ADD_START: return youtubeVideoAddStart( state, action );
+        case actionTypes.YOUTUBE_VIDEO_ADD_FAILED: return youtubeVideoAddFailed( state, action );
+
+        case actionTypes.YOUTUBE_VIDEOS_UPDATED: return youtubeVideosUpdated( state, action );
+        case actionTypes.YOUTUBE_VIDEOS_UPDATE_START: return youtubeVideosUpdateStart( state, action );
+        case actionTypes.YOUTUBE_VIDEOS_UPDATE_FAILED: return youtubeVideosUpdatedFailed( state, action );
+
+        case actionTypes.ADD_MOOC_SUCCESS: return addMoocSuccess( state, action );
+        case actionTypes.ADD_MOOC_FAILED: return addMoocFailed( state, action );
+        case actionTypes.ADD_MOOC_START: return addMoocStart( state, action );
+
+        case actionTypes.ADD_BOOKS_SUCCESS: return addBooksSuccess( state, action );
+        case actionTypes.ADD_BOOKS_FAILED: return addBooksFailed( state, action );
+        case actionTypes.ADD_BOOKS_START: return addBooksStart( state, action );
 
         case actionTypes.UPDATE_YOUTUBE_ASSET_START: return updateYoutubeAssetStart( state, action );
         case actionTypes.UPDATE_YOUTUBE_ASSET_SUCCESS: return updateYoutubeAssetSuccess( state, action );

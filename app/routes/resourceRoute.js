@@ -15,8 +15,13 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/resources/:subject_title', (req, res) => {
-    Resource.find(
+  app.get('/api/resources/:subject_title/:pageIndex', (req, res) => {
+    let pageOptions = {
+      page: req.params.pageIndex || 0,
+      limit: 10
+    };
+
+    /* Resource.find(
       { confirmed: true, category: req.params.subject_title },
       function(err, resources) {
         if (err) {
@@ -26,42 +31,56 @@ module.exports = app => {
           res.send({ all: resources });
         }
       }
-    );
+    ); */
+
+    Resource.find({ confirmed: true, category: req.params.subject_title })
+      .skip(pageOptions.page * pageOptions.limit)
+      .limit(pageOptions.limit)
+      .exec(function(err, resources) {
+        if (err) {
+          res.send(err.message);
+          return;
+        }
+        res.send({ all: resources });
+      });
   });
 
-  app.get('/api/resources/:subject_title/:platform', (req, res) => {
+  app.get('/api/resources/:subject_title/:platform/:pageIndex', (req, res) => {
+    // console.log('route reached');
+    let pageOptions = {
+      page: req.params.pageIndex || 0,
+      limit: 10
+    };
     if (req.params.platform === 'youtube') {
-      Resource.find(
-        {
-          confirmed: true,
-          category: req.params.subject_title,
-          source: 'youtube.com'
-        },
-        function(err, resources) {
+      Resource.find({
+        confirmed: true,
+        category: req.params.subject_title,
+        source: 'youtube.com'
+      })
+        .skip(pageOptions.page * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .exec(function(err, resources) {
           if (err) {
-            console.log(err);
             res.send(err.message);
-          } else {
-            res.send({ all: resources });
+            return;
           }
-        }
-      );
+          res.send({ all: resources });
+        });
     } else {
-      Resource.find(
-        {
-          confirmed: true,
-          category: req.params.subject_title,
-          type: req.params.platform
-        },
-        function(err, resources) {
+      Resource.find({
+        confirmed: true,
+        category: req.params.subject_title,
+        type: req.params.platform
+      })
+        .skip(pageOptions.page * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .exec(function(err, resources) {
           if (err) {
-            console.log(err);
             res.send(err.message);
-          } else {
-            res.send({ all: resources });
+            return;
           }
-        }
-      );
+          res.send({ all: resources });
+        });
     }
   });
 

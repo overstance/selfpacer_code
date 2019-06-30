@@ -21,7 +21,10 @@ function numberWithCommas(x) {
 class UserAssets extends Component {
     
     componentDidMount() {
-        this.props.onFetchUserAssets(this.props.userId);
+
+        if (this.props.activeContent === 'all') {
+            this.props.onFetchUserAssets(this.props.userId);
+        }
 
         if (this.props.accountType === 'Administrator') {
             if (this.props.activeContent === 'youtube') {
@@ -431,7 +434,8 @@ class UserAssets extends Component {
         }
     }
 
-    deleteResourceHandler = ( resourceId, resourceTitle ) => {
+    deleteResourceHandler = ( resourceId, resourceTitle, lastEdited ) => {
+        // console.log(lastEdited);
         this.setState({ resourceToDeleteTitle: resourceTitle, resourceToDeleteId: resourceId, showDeleteDialogue: true});   
     }
 
@@ -646,9 +650,10 @@ class UserAssets extends Component {
                 collectCount={numberWithCommas(resource.collectCount)}
                 viewCount={numberWithCommas(resource.views)}
                 updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated, resource.source, resource.youtubeId )}
-                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
+                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title, resource.lastEdited )}
                 dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
-                lastEdited={new Date(resource.dateAdded).toLocaleDateString()}
+                lastEdited={resource.lastEdited}
+                // lastEdited={new Date(resource.lastEdited).toLocaleDateString()}
                 />
             ));
             }
@@ -833,7 +838,8 @@ const mapStateToProps = state => {
         userAssets: state.resource.userAssets,
         assetToUpdateFields: state.resource.assetToUpdateFields,
 
-                
+        activeContent: state.explore.activeContentType,
+
         loading: state.resource.loading,
         userId: state.auth.user._id,
 

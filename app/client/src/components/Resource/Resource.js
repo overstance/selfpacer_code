@@ -13,9 +13,15 @@ import {connect} from 'react-redux';
 
 class Resource extends Component {
     render () {
-
         let updateButton =
         <UpdateActionButton isAsset clicked={this.props.updateClicked}/>
+
+        let lastEditedDate = this.props.dateAdded;
+        // console.log(this.props.lastEditedDate);
+
+        if (this.props.lastEdited !== undefined) {
+            lastEditedDate = new Date(this.props.lastEdited).toLocaleDateString()
+        }
 
         if (this.props.updateYoutubeAssetLoading && this.props.id === this.props.updatingYoutubeAssetId) {
             updateButton = 
@@ -124,34 +130,19 @@ class Resource extends Component {
                                 </div>
                             </div>
                             <div className={classes.AssetOptions}>
-                                { this.props.lastEdited ?
-                                    <div className={classes.AssetLastUpdated}>
-                                        { this.props.id === this.props.updatedYoutubeAsset ?
-                                            <div className={classes.AssetUpdate}>
-                                                <span className={classes.AssetUpdateFeedbackText}>updated</span>
-                                            </div> : null
-                                        }
-                                        { this.props.id === this.props.updateFailedYoutubeAsset ?
-                                            <div className={classes.AssetUpdate}>
-                                                <span className={classes.AssetUpdateFeedbackTextError}>update error</span>
-                                            </div> : null
-                                        }
-                                        <div className={classes.AssetLastUpdatedText}>{'last-updated: ' + this.props.lastEdited}</div>
-                                    </div> :
-                                    <div className={classes.AssetLastUpdated}>
-                                        { this.props.id === this.props.updatedYoutubeAsset ?
-                                            <div className={classes.AssetUpdate}>
-                                                <span className={classes.AssetUpdateFeedbackText}>updated</span>
-                                            </div> : null
-                                        }
-                                        { this.props.id === this.props.updateFailedYoutubeAsset ?
-                                            <div className={classes.AssetUpdate}>
-                                                <span className={classes.AssetUpdateFeedbackTextError}>update error</span>
-                                            </div> : null
-                                        }
-                                        <div className={classes.AssetLastUpdatedText}>{'last-updated: ' + this.props.dateAdded}</div>
-                                    </div>
-                                }
+                                <div className={classes.AssetLastUpdated}>
+                                    { this.props.id === this.props.updatedYoutubeAsset ?
+                                        <div className={classes.AssetUpdate}>
+                                            <span className={classes.AssetUpdateFeedbackText}>updated</span>
+                                        </div> : null
+                                    }
+                                    { this.props.id === this.props.updateFailedYoutubeAsset ?
+                                        <div className={classes.AssetUpdate}>
+                                            <span className={classes.AssetUpdateFeedbackTextError}>update error</span>
+                                        </div> : null
+                                    }
+                                    <div className={classes.AssetLastUpdatedText}>{'last-updated: ' +  lastEditedDate }</div>
+                                </div>
                                 <div className={classes.AssetControls}>
                                     <div className={classes.AssetButtonContainer}>
                                         {updateButton}

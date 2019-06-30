@@ -27,17 +27,13 @@ export {
 export {
     fetchSubjectDetails,
     fetchSubjectResources,
-    fetchResourcesByPlatform
+    fetchResourcesByPlatform,
+    fetchMoreResources,
+    fetchMoreResourcesByPlatform
 } from './clickedSubject';
 export {
     addAdminUser,
     removeAdminUser,
-    addYoutubePlaylist,
-    addYoutubeVideo,
-    updateYoutubeVideos,
-    updateYoutubePlaylists,
-    addMooc,
-    addBooks,
     onAddSubjectIcon,
     fetchSelectSubjectInfo,
     editSubject,
@@ -63,7 +59,13 @@ export {
     updateBookAsset,
     deleteAsset,
     clearUpdateAssetMessages,
-    updateYoutubeAsset
+    updateYoutubeAsset,
+    addYoutubePlaylist,
+    addYoutubeVideo,
+    updateYoutubeVideos,
+    updateYoutubePlaylists,
+    addMooc,
+    addBooks,
 } from './resource';
 
 export {

@@ -1,35 +1,14 @@
-
-.AddFeedbackInfo {
-    color: var(--green);
-    font-weight: 400;
-    padding: 5px;
-    font-size: small;
-    display: inline;
-}
-
-.ErrorFeedbackInfo {
-    color: var(--red);
-    padding: 5px;
-    font-size: small;
-    display: inline;
-}
-
 .ContentItems {
     padding: 10px;
-    /* background: var(--green);  */
     padding-bottom: 10px;
 }
 
 .ContainerItem {
     padding: 5px;
     text-align: center;
-    max-width: 400px;
+    max-width: 500px;
     margin: auto;
 }
-
-/* .ContainerItem span {
-    display: none;
-} */
 
 .ContainerItem button {
  font-size: small;
@@ -38,8 +17,6 @@
  border-radius: 25px;
  padding: 0;
 }
-
-/* */
 
 .OuterContainer {
     background: var(--blue);
@@ -66,17 +43,3 @@
     color: var(--green);
     font-weight: 400;
 }
-
-.FootNote {
-    color: var(--darkBlue);
-    font-size: small;
-    font-weight: 700;
-    text-align: left;
-    padding: 15px;
-    /* background: var(--skyBlue); */
-    background: var(--green);
-    border-radius: 0 0 15px 15px;
-    /* line-height: 16px; */
-}
-
-/* */

@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import classes from './Admin1.css';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
-import AddYoutubeVideos from './youtubeVideos/AddYoutubeVideos';
-import AddYoutubePlaylists from './youtubePlaylist/AddYoutubePlaylists';
-import AddAdminUsers from './adminUsers/AddAdminUsers';
-import RemoveAdminUsers from './adminUsers/RemoveAdminUsers';
-import UpdateYoutubeVideos from './youtubeVideos/UpdateYoutubeVideos';
-import UpdateYoutubePlaylists from './youtubePlaylist/UpdateYoutubePlaylists';
-import AddMooc from './manageMoocs/AddMooc';
-import AddBooks from './manageBooks/AddBooks';
-import AddSubjectIcon from './manageSubjects/AddSubjectIcon';
-import EditSubect from './manageSubjects/EditSubject';
+import AddAdminUsers from '../../components/adminUsers/AddAdminUsers';
+import RemoveAdminUsers from '../../components/adminUsers/RemoveAdminUsers';
+import UpdateYoutubeVideos from '../../components/ManageYoutube/YoutubeVideoBulkUpdate/UpdateYoutubeVideos';
+import UpdateYoutubePlaylists from '../../components/ManageYoutube/YoutubePlaylistBulkUpdate/UpdateYoutubePlaylists';
+import AddResource from '../../components/addResource/addResource';
+import AddSubjectIcon from '../../components/manageSubjects/AddSubjectIcon';
+import EditSubect from '../../components/manageSubjects/EditSubject';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 
 class Admin1 extends Component {
@@ -22,17 +19,11 @@ class Admin1 extends Component {
         showManageUsers: false,
         manageUsersToggle: false,
 
-        showManageYoutubeVideos: false,
-        manageYoutubeVideosToggle: false,
+        showManageYoutubeUpdates: false,
+        manageYoutubeUpdatesToggle: false,
 
-        showManageYoutubePlaylists: false,
-        manageYoutubePlaylistsToggle: false,
-
-        showManageMoocs: false,
-        manageMoocsToggle: false,
-
-        showManageBooks: false,
-        manageBooksToggle: false,
+        showAddResource: false,
+        addResourceToggle: false,
     }
 
     manageSubjectsToggleHandler = () => {
@@ -53,38 +44,20 @@ class Admin1 extends Component {
         });
     }
 
-    manageYoutubeVideosToggleHandler = () => {
+    manageYoutubeUpdatesToggleHandler = () => {
         this.setState((prevState) => {
             return {
-                showManageYoutubeVideos: !prevState.showManageYoutubeVideos,
-                manageYoutubeVideosToggle: !prevState.manageYoutubeVideosToggle
+                showManageYoutubeUpdates: !prevState.showManageYoutubeUpdates,
+                manageYoutubeUpdatesToggle: !prevState.manageYoutubeUpdatesToggle
             };
         });
     }
 
-    manageYoutubePlaylistsToggleHandler = () => {
+    addResourceToggleHandler = () => {
         this.setState((prevState) => {
             return {
-                showManageYoutubePlaylists: !prevState.showManageYoutubePlaylists,
-                manageYoutubePlaylistsToggle: !prevState.manageYoutubePlaylistsToggle      
-            };
-        });
-    }
-
-    manageMoocsToggleHandler = () => {
-        this.setState((prevState) => {
-            return {
-                showManageMoocs: !prevState.showManageMoocs,
-                manageMoocsToggle: !prevState.manageMoocsToggle
-            };
-        });
-    }
-
-    manageBooksToggleHandler = () => {
-        this.setState((prevState) => {
-            return {
-                showManageBooks: !prevState.showManageBooks,
-                manageBooksToggle: !prevState.manageBooksToggle
+                showAddResource: !prevState.showAddResource,
+                addResourceToggle: !prevState.addResourceToggle
             };
         });
     }
@@ -123,57 +96,31 @@ class Admin1 extends Component {
                             <div className={classes.ContentItems}>
                                 <AddAdminUsers />
                                 <RemoveAdminUsers />
-                                {/* <AddSubjectIcon /> */}
                             </div>
                         : null }
                     </div>
                     <div className={classes.Subheader}>
                         <Toggler 
-                            toggle={this.state.manageYoutubeVideosToggle} 
-                            toggleHandler={this.manageYoutubeVideosToggleHandler}
-                            subheadTitle="manage youtube-videos"
+                            toggle={this.state.manageYoutubeUpdatesToggle} 
+                            toggleHandler={this.manageYoutubeUpdatesToggleHandler}
+                            subheadTitle="manage youtube updates"
                         />
-                        { this.state.showManageYoutubeVideos ? 
+                        { this.state.showManageYoutubeUpdates ? 
                             <div className={classes.ContentItems}>
-                                <AddYoutubeVideos />
                                 <UpdateYoutubeVideos />
-                            </div>
-                        : null }
-                    </div>
-                    <div className={classes.Subheader}>
-                        <Toggler 
-                            toggle={this.state.manageYoutubePlaylistsToggle} 
-                            toggleHandler={this.manageYoutubePlaylistsToggleHandler}
-                            subheadTitle="manage youtube-playlists"
-                        />
-                        { this.state.showManageYoutubePlaylists ? 
-                            <div className={classes.ContentItems}>
-                                <AddYoutubePlaylists />
                                 <UpdateYoutubePlaylists />
                             </div>
                         : null }
                     </div>
                     <div className={classes.Subheader}>
                         <Toggler 
-                            toggle={this.state.manageMoocsToggle} 
-                            toggleHandler={this.manageMoocsToggleHandler}
-                            subheadTitle="manage courses"
+                            toggle={this.state.addResourceToggle} 
+                            toggleHandler={this.addResourceToggleHandler}
+                            subheadTitle="add resource"
                         />
-                        { this.state.showManageMoocs ? 
+                        { this.state.showAddResource ? 
                             <div className={classes.BlockContentItems}>
-                                <AddMooc />
-                            </div>
-                        : null }
-                    </div>
-                    <div className={classes.Subheader}>
-                        <Toggler 
-                            toggle={this.state.manageBooksToggle} 
-                            toggleHandler={this.manageBooksToggleHandler}
-                            subheadTitle="manage books"
-                        />
-                        { this.state.showManageBooks ? 
-                            <div className={classes.BlockContentItems}>
-                                <AddBooks />
+                                <AddResource />
                             </div>
                         : null }
                     </div>

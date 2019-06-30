@@ -7,7 +7,7 @@ const initialState = {
     error: null,
     selectedCategory: 'all',
     clickedSubject: {},
-    activeContentType: null,
+    activeContentType: 'all',
     likedResource: null
 };
 

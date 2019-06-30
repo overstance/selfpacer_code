@@ -22,9 +22,9 @@ import CreateNewCollection from './containers/createCollection/createCollection'
 
 import Profile from './containers/profile/Profile';
 // import ResourcePage from './containers/resourcepage/Resoucepage';
-import AddResource from './containers/addResource/addResource';
+// import AddResource from './containers/addResource/addResource';
 import AdminTools from './containers/admin1page/Admin1';
-import ConfirmResource from './containers/admin1page/confirmResource/ConfirmResource';
+import ConfirmResource from './containers/confirmResource/ConfirmResource';
 import EditProfile from './containers/profile/editProfile/EditProfile';
 import ForgotPassword from './components/auth/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword/ResetPassword';
@@ -93,14 +93,12 @@ class App extends Component {
         <PrivateRoute exact path="/collections/:id" component={UserCollection} />
         <PrivateRoute exact path="/create_collection" component={CreateNewCollection} />
 
-        <PrivateRoute exact path="/add_resource" component={AddResource} />
+        {/* <PrivateRoute exact path="/add_resource" component={AddResource} /> */}
         <PrivateRoute exact path="/admin_tools/confirm_resources" component={ConfirmResource} />
         <PrivateRoute exact path="/admin_tools" component={AdminTools} />
         
         <PrivateRoute exact path="/profile/edit" component={EditProfile} />
-        <PrivateRoute exact path="/my_assets" component={UserAssets} />
-       
-        {/* <PrivateRoute exact path="/collections" component={UserCollections} /> */}
+        <PrivateRoute exact path="/user_assets" component={UserAssets} />
         <PrivateRoute exact path="/profile" component={Profile} />        
         <PrivateRoute exact path="/logout" component={Logout} />
       </Switch>

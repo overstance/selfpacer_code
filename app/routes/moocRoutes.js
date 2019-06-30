@@ -7,12 +7,11 @@ module.exports = app => {
   app.post('/api/add_mooc', (req, res) => {
     let confirmed = false;
     if (
-      req.body.agent === '5c16e8de76e09e200c039178' ||
-      req.body.agent === '5c16efcef6d0f300144d3cda'
+      req.body.userType === 'Administrator' ||
+      req.body.userType === 'Facilitator'
     ) {
       confirmed = true;
     }
-    // console.log(req.body);
 
     const newMooc = {
       category: req.body.subject,
@@ -28,8 +27,9 @@ module.exports = app => {
       level: req.body.level,
       lastUpdated: req.body.lastUpdated,
       avgRating: req.body.avgRating,
-      user_id: req.body.agent,
-      confirmed: confirmed
+      user_id: req.body.userId,
+      confirmed: confirmed,
+      lastEdited: Date.now()
     };
 
     Resource.create(newMooc, (err, resource) => {
@@ -53,7 +53,8 @@ module.exports = app => {
         duration: req.body.duration,
         level: req.body.level,
         lastUpdated: req.body.lastUpdated,
-        avgRating: req.body.avgRating
+        avgRating: req.body.avgRating,
+        lastEdited: Date.now()
       },
       { new: true },
       (err, resource) => {

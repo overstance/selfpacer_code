@@ -18,7 +18,7 @@ class NavigationItems extends Component {
                     Collections
                 </NavigationItem>
                 {this.props.isAuthenticated ? 
-                    <NavigationItem link="/my_assets" isAuthenticating={this.props.closeSideDrawer}>
+                    <NavigationItem link="/user_assets" isAuthenticating={this.props.closeSideDrawer}>
                         <svg xmlns="http://www.w3.org/2000/svg" className={classes.Icon} fill="#3A2D80" viewBox="0 0 20 20">
                             <path d="M12.5 13.125c0 .346-.28.625-.625.625h-3.75c-.345 0-.625-.279-.625-.625V11.25H0v5.625c0 1 .875 1.875 1.875 1.875h16.25c1 0 1.875-.875 1.875-1.875V11.25h-7.5v1.875zM18.125 5H15V3.125c0-1-.875-1.875-1.875-1.875h-6.25c-1 0-1.875.875-1.875 1.875V5H1.875C.875 5 0 5.875 0 6.875V10h20V6.875c0-1-.875-1.875-1.875-1.875zM12.5 5h-5V3.75h5V5z"/>
                         </svg>

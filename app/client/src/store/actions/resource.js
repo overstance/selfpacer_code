@@ -16,58 +16,6 @@ function shuffleArray(array) {
     return array;
 }
 
-
-
-/* // Add user resource
-
-export const addResourceSuccess = ( message ) => {
-    return {
-        type: actionTypes.ADD_RESOURCE_SUCCESS,
-        message: message
-    };
-};
-
-export const addResourceFail = ( error ) => {
-    return {
-        type: actionTypes.ADD_RESOURCE_FAIL,
-        error: error
-    };
-};
-
-export const addResourceStart = () => {
-    return {
-        type: actionTypes.ADD_RESOURCE_START
-    };
-};
-
-export const addResource = ( link, subject, type, user, history ) => {
-    return dispatch => {
-        dispatch(addResourceStart());
-
-        const resource = {
-            subject: subject,
-            link: link,
-            type: type,
-            userId: user._id
-        }
-
-        axios.post( '/api/add_resources', resource)
-            .then(                
-                res => {
-                const message = res.data;
-                if (res.data === 'Resource submitted!!') {
-                    dispatch(addResourceSuccess(message));
-                } else {
-                    dispatch(addResourceFail(res.data));
-                } 
-                console.log(message);
-            } )
-            .catch( err => {
-                dispatch(addResourceFail(err));
-            } );
-    };
-}; */
-
 // Fetch Clicked Resource By id Info
 
 export const fetchResourceById = ( id, platform ) => {
@@ -395,6 +343,178 @@ export const setAssetToUpdateField = (assetToUpdateFields) => {
     }
 }
 
+//Add Youtube Playlist
+
+export const youtubePlaylistAddStart = () => {
+    return {
+        type: actionTypes.YOUTUBE_PLAYLIST_ADD_START
+    };
+};
+
+export const youtubePlaylistAdded = ( playlists, addCount ) => {
+    return {
+        type: actionTypes.YOUTUBE_PLAYLIST_ADDED,
+        playlists: playlists,
+        addCount: addCount
+    };
+};
+
+export const youtubePlaylistAddFailed = ( error ) => {
+    return {
+        type: actionTypes.YOUTUBE_PLAYLIST_ADD_FAILED,
+        error: error
+    };
+};
+
+export const addYoutubePlaylist = (playlistId, subject, userId, userType) => async dispatch => {
+    
+    dispatch (youtubePlaylistAddStart());
+
+    const asset = {
+        id: playlistId,
+        userId: userId,
+        subject: subject,
+        userType: userType
+    };
+
+    const res = await axios.post('/api/add_youtube_playlist', asset);
+
+    if (res.data.seedData) {
+        dispatch(youtubePlaylistAdded(res.data.seedData, res.data.seedData.length));
+    } else if ( res.data === 'playlist not found!') {
+        dispatch(youtubePlaylistAddFailed( res.data)); 
+    } else if (res.data === 'resource already added!') {
+        dispatch(youtubePlaylistAddFailed( res.data));
+    } else {
+        dispatch(youtubePlaylistAddFailed( 'error!'));
+    }
+};
+
+//Update Youtube Playlists
+export const youtubePlaylistsUpdateStart = () => {
+    return {
+        type: actionTypes.YOUTUBE_PLAYLISTS_UPDATE_START
+    };
+};
+
+export const youtubePlaylistsUpdated = ( updateCount ) => {
+    return {
+        type: actionTypes.YOUTUBE_PLAYLISTS_UPDATED,
+        updateCount: updateCount
+    };
+};
+
+export const youtubePlaylistsUpdateFailed = ( error ) => {
+    return {
+        type: actionTypes.YOUTUBE_PLAYLISTS_UPDATE_FAILED,
+        error: error
+    };
+};
+
+export const updateYoutubePlaylists = (subject, user) => async dispatch => {
+    dispatch (youtubePlaylistsUpdateStart());
+    
+    const Admin = {
+        user: user,
+        subject: subject
+    };
+
+    const res = await axios.put('/api/update_youtube_playlists', Admin)
+
+    if (res.data.error) {
+        dispatch(youtubePlaylistsUpdateFailed( res.data.error ));
+    } else if (res.data.playlistIds) {
+        dispatch(youtubePlaylistsUpdated(res.data.playlistIds.length));
+    } else {
+        dispatch(youtubePlaylistsUpdateFailed( 'Error' ));
+    }
+};
+
+// Add Youtube Videos
+
+export const youtubeVideoAddStart = () => {
+    return {
+        type: actionTypes.YOUTUBE_VIDEO_ADD_START
+    };
+};
+
+export const youtubeVideoAdded = ( videos, addCount ) => {
+    return {
+        type: actionTypes.YOUTUBE_VIDEO_ADDED,
+        addCount: addCount,
+        videos: videos
+    };
+};
+
+export const youtubeVideoAddFailed = ( error ) => {
+    return {
+        type: actionTypes.YOUTUBE_VIDEO_ADD_FAILED,
+        error: error
+    };
+};
+
+export const addYoutubeVideo = (videoId, subject, userId, userType) => async dispatch => {
+    dispatch (youtubeVideoAddStart());
+        
+    const asset = {
+        id: videoId,
+        userId: userId,
+        userType: userType,
+        subject: subject
+    };
+
+    const res = await axios.post('/api/add_youtube_video', asset);
+    if (res.data.seedData) {
+        dispatch(youtubeVideoAdded(res.data.seedData, res.data.seedData.length));
+    } else if (res.data === 'video not found!') {
+        dispatch(youtubeVideoAddFailed( res.data));
+    } else if (res.data === 'resource already added!') {
+        dispatch(youtubeVideoAddFailed( res.data));
+    } else {
+        dispatch(youtubeVideoAddFailed( 'error!'))
+    }  
+};
+
+//Update Youtube Video
+export const youtubeVideosUpdateStart = () => {
+    return {
+        type: actionTypes.YOUTUBE_VIDEOS_UPDATE_START
+    };
+};
+
+export const youtubeVideosUpdated = ( updateCount ) => {
+    return {
+        type: actionTypes.YOUTUBE_VIDEOS_UPDATED,
+        updateCount: updateCount
+    };
+};
+
+export const youtubeVideosUpdateFailed = ( error ) => {
+    return {
+        type: actionTypes.YOUTUBE_VIDEOS_UPDATE_FAILED,
+        error: error
+    };
+};
+
+export const updateYoutubeVideos = (subject, user) => async dispatch => {
+    dispatch (youtubeVideosUpdateStart());
+    
+    const Admin = {
+        user: user,
+        subject: subject
+    };
+    
+    const res = await axios.put('/api/update_youtube_videos', Admin);
+    // console.log(res.data);
+    if (res.data.error) {
+        dispatch(youtubeVideosUpdateFailed( res.data.error ));
+    } else if (res.data.videoIds) {
+        dispatch(youtubeVideosUpdated(res.data.videoIds.length));
+    } else {
+        dispatch(youtubeVideosUpdateFailed( 'Error' ));
+    } 
+};
+
 // update youtube asset
 
 export const updateYoutubeAssetStart = (resourceId) => {
@@ -424,10 +544,11 @@ export const updateYoutubeAsset = (resourceId, type, youtubeId, assets) => async
     dispatch(updateYoutubeAssetStart(resourceId));
 
     if (type === 'youtube#video') {
-        const res = await axios.put(`/api/update_youtube_video_asset/${youtubeId}`);
-
+        // console.log(resourceId, type, youtubeId, assets)
+        const res = await axios.put(`/api/update_youtube_video_asset/${youtubeId}/${resourceId}`);
+        
         if (res.data.resource._id === resourceId) {
-
+            // console.log(res.data.resource._id);
             const index = assets.findIndex(resource => resource._id === res.data.resource._id);
             let updatedAssets;
 
@@ -438,6 +559,7 @@ export const updateYoutubeAsset = (resourceId, type, youtubeId, assets) => async
 
             dispatch(updateYoutubeAssetSuccess(res.data.resource._id, updatedAssets));
         } else {
+            // console.log(res.data);
             dispatch(updateYoutubeAssetFailed(resourceId));
         }
     } else if (type === 'youtube#playlist') {
@@ -457,6 +579,75 @@ export const updateYoutubeAsset = (resourceId, type, youtubeId, assets) => async
         } else {
             dispatch(updateYoutubeAssetFailed(resourceId));
         }
+    }
+}
+
+// ADD MOOC RESOURCE
+
+export const addMoocStart = () => {
+    return {
+        type: actionTypes.ADD_MOOC_START
+    }
+}
+
+export const addMoocSuccess = (info) => {
+    return {
+        type: actionTypes.ADD_MOOC_SUCCESS,
+        info: info
+    }
+}
+
+export const addMoocFailed = (error) => {
+    return {
+        type: actionTypes.ADD_MOOC_FAILED,
+        error: error
+    }
+}
+
+export const addMooc = (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, userId, userType) => async dispatch => {
+    dispatch(addMoocStart());
+
+    let imageLink = imageUrl;
+    let updateTime = lastUpdated;
+    let rating = avgRating;
+
+    if (imageUrl === '') {
+        imageLink = undefined
+    }
+
+    if (lastUpdated === '') {
+        updateTime = undefined
+    }
+
+    if (avgRating === '') {
+        rating = undefined
+    }
+
+    const info = {
+        subject: subject,
+        title: title,
+        url: url,
+        imageUrl: imageLink,
+        source: source,
+        videoCount: videoCount,
+        tutor: tutor,
+        enrollees: numberWithCommas(enrollees),
+        duration: duration,
+        level: level,
+        lastUpdated: updateTime,
+        avgRating: rating,
+        userId: userId,
+        userType: userType
+    }
+
+    const res = await axios.post('/api/add_mooc', info);
+
+    if (res.data.resource) {
+        dispatch(addMoocSuccess('resource added!'));
+        // console.log(res.data);
+    } else {
+        dispatch(addMoocFailed(res.data));
+        // console.log(res.data);
     }
 }
 
@@ -521,6 +712,71 @@ export const updateMoocAsset = (videoCount, enrollees, duration, level, lastUpda
         dispatch(updateMoocAssetSuccess('Asset updated.', updatedAssets));
     } else {
         dispatch(updateMoocAssetFailed(res.data));
+    }
+}
+
+// ADD BOOK RESOURCE
+
+export const addBooksStart = () => {
+    return {
+        type: actionTypes.ADD_BOOKS_START
+    }
+}
+
+export const addBooksSuccess = (info) => {
+    return {
+        type: actionTypes.ADD_BOOKS_SUCCESS,
+        info: info
+    }
+}
+
+export const addBooksFailed = (error) => {
+    return {
+        type: actionTypes.ADD_BOOKS_FAILED,
+        error: error
+    }
+}
+
+export const addBooks = (subject, title, url, imageUrl, source, author, level, avgRating, userId, userType) => async dispatch => {
+    dispatch(addBooksStart());
+
+    let imageLink = imageUrl;
+    let bookLevel = level;
+    let rating = avgRating;
+
+    if (imageUrl === '') {
+        imageLink = undefined
+    }
+
+    if (level === '') {
+        bookLevel = undefined
+    }
+
+    if (avgRating === '') {
+        rating = undefined
+    }
+
+    const info = {
+        subject: subject,
+        title: title,
+        url: url,
+        imageUrl: imageLink,
+        source: source,
+        author: author,
+        level: bookLevel,
+        avgRating: rating,
+        userId: userId,
+        userType: userType
+    }
+
+    const res = await axios.post('/api/add_books', info);
+
+    if (res.data.resource) {
+        dispatch(addBooksSuccess('resource added!'));
+        // console.log(res.data);
+    } else {
+        dispatch(addBooksFailed(res.data));
+        // console.log(res.data);
     }
 }
 

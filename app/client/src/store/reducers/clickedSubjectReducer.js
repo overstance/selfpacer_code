@@ -12,7 +12,11 @@ const initialState = {
     fetchAllResourcesError: null,
 
     allResources: [],
-    
+
+    fetchMoreLoading: false,
+    fetchMoreError: null,
+
+    latestFetchLength: 0  
 };
 
 const fetchClickedSubjectStart = ( state, action ) => {
@@ -40,12 +44,34 @@ const fetchAllStart = ( state, action ) => {
 const fetchAllSuccess = ( state, action ) => {
     return updateObject( state, {
         allResources: action.resources,
-        allLoading: false
+        allLoading: false,
+        latestFetchLength: action.resourceLength
     } );
 };
 
 const fetchAllFail = ( state, action ) => {
     return updateObject( state, { allLoading: false, fetchAllResourcesError: action.error } );
+};
+
+// fetch all
+
+const fetchMoreStart = ( state, action ) => {
+    return updateObject( state, { fetchMoreLoading: true } );
+};
+
+const fetchMoreSuccess = ( state, action ) => {
+    return updateObject( state, {
+        allResources: action.resources,
+        fetchMoreLoading: false,
+        latestFetchLength: action.resourceLength
+    } );
+};
+
+const fetchMoreFail = ( state, action ) => {
+    return updateObject( state, { 
+        fetchMoreLoading: false,
+        fetchMoreError: action.error 
+    } );
 };
 
 const reducer = ( state = initialState, action ) => {
@@ -57,6 +83,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_ALL_START: return fetchAllStart( state, action );
         case actionTypes.FETCH_ALL_SUCCESS: return fetchAllSuccess( state, action );
         case actionTypes.FETCH_ALL_FAILED: return fetchAllFail( state, action );
+
+        case actionTypes.FETCH_MORE_START: return fetchMoreStart( state, action );
+        case actionTypes.FETCH_MORE_SUCCESS: return fetchMoreSuccess( state, action );
+        case actionTypes.FETCH_MORE_FAILED: return fetchMoreFail( state, action );
 
         default: return state;
     }

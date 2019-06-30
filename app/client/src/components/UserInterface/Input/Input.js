@@ -62,7 +62,10 @@ const input = (props) => {
 input.propTypes = {
     name: PropTypes.string,
     label: PropTypes.string,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     errorMessage: PropTypes.string,
     onChange: PropTypes.func,
     elementConfig: PropTypes.object,
