@@ -37,6 +37,12 @@ export const setAuthentication = () => {
     }
 }
 
+export const clearInit = () => {
+    return {
+        type: actionTypes.CLEAR_INIT
+    }
+}
+
 export const clearAuth = () => {
     return {
         type: actionTypes.CLEAR_AUTH
@@ -115,15 +121,17 @@ export const fetchUser = () => async dispatch => {
             }
         }
 
-        dispatch(fetchUserAssetCountStart());
-        const res3 = await axios.get(`/api/user_asset_count/${userId}`)
-        
-        if (res3.data.assetCount) {
-            // console.log(res.data.resources);
-            dispatch(fetchUserAssetCountSuccess(res3.data.assetCount));
-        } else if (res3.data.error)  {
-            // console.log(res.data)
-            dispatch(fetchUserAssetCountFailed( res3.data.error ));
+        if ( res.data.accountType === 'Administrator' || res.data.accountType === 'Facilitator') {
+            dispatch(fetchUserAssetCountStart());
+            const res3 = await axios.get(`/api/user_asset_count/${userId}`)
+            
+            if (res3.data.assetCount) {
+                // console.log(res.data.resources);
+                dispatch(fetchUserAssetCountSuccess(res3.data.assetCount));
+            } else if (res3.data.error)  {
+                // console.log(res.data)
+                dispatch(fetchUserAssetCountFailed( res3.data.error ));
+            }
         }
 
         dispatch(fetchUserCollectionsStart());
@@ -144,9 +152,13 @@ export const fetchUser = () => async dispatch => {
 
 export const logout = () => async (dispatch) => {
     const res = await axios.get('/api/logout');
+    
     localStorage.removeItem('token');
     localStorage.removeItem('spec');
+    localStorage.removeItem('useContext');
+
     dispatch({ type: LOGOUT_USER, payload: res.data });
+    dispatch(clearInit());
 };
 
 export const googleAuth = () => async (dispatch) => {
@@ -167,10 +179,11 @@ export const authFail = (error) => {
 };
 
 
-export const authSuccess = (user) => {
+export const authSuccess = (user, useContext) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        user: user
+        user: user,
+        useContext: useContext
     };
 };
 
@@ -281,9 +294,18 @@ export const loginUser = (email, password, history) => {
             }
     
             if (res.data._id) {
-                localStorage.setItem("token",res.data._id);
+                let useContext ='0';
+                if (res.data.accountType === 'Facilitator') {
+                    useContext = '1'
+                } else if (res.data.accountType === 'Administrator') {
+                    useContext = '2'
+                };
+
+                localStorage.setItem("token", res.data._id);
                 localStorage.setItem("spec", res.data.specialization);
-                dispatch(authSuccess(res.data));
+                localStorage.setItem("useContext", useContext);
+
+                dispatch(authSuccess(res.data, useContext));
                 dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
                 dispatch(setUserLikeCount(res.data.likeCount));
                 dispatch(setUserPinnedCollections(res.data.pinnedCollections));
@@ -292,6 +314,7 @@ export const loginUser = (email, password, history) => {
             } else {
                 localStorage.removeItem('token');
                 localStorage.removeItem('spec');
+                localStorage.removeItem('useContext');
             };
     
             if (res.data.username || res.data.password) {

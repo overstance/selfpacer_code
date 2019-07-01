@@ -144,6 +144,26 @@
     border-right: 1px solid var(--lightGray);
 }
 
+.NoAssetStatisticsLike {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 0 0 50%;
+    max-width: 50%;
+    text-align: center;
+    border-right: 1px solid var(--lightGray);
+}
+
+.NoAssetStatisticsCollections {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 0 0 50%;
+    max-width: 50%;
+    text-align: center;
+    border-right: 1px solid var(--lightGray);
+}
+
 .StatisticsAssets {
     display: flex;
     flex-direction: column;
@@ -277,6 +297,22 @@
     }
 
     .StatisticsCollections {
+        flex: 0 0 100%;
+        max-width: 100%;
+        border-right: none; 
+        height: 80px;
+        border-bottom: 1px solid var(--lightGray);
+    }
+
+    .NoAssetStatisticsLike {
+        flex: 0 0 100%;
+        max-width: 100%;
+        border-right: none;
+        height: 80px;
+        border-bottom: 1px solid var(--lightGray);
+    }
+
+    .NoAssetStatisticsCollections {
         flex: 0 0 100%;
         max-width: 100%;
         border-right: none; 

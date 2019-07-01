@@ -12,6 +12,7 @@ const initialState = {
 
     user: {},
     userSpecialization: '',
+    useTypeContext: '0',
     error: null,
     loading: false,
     errors: {},
@@ -44,6 +45,19 @@ const setAuthentication = (state, action) => {
 const setUserSpecialization = (state, action) => {
     return updateObject(state, {userSpecialization: action.specialization});
 }
+
+const setUseContext = (state, action) => {
+    return updateObject(state, {useTypeContext: action.useTypeContext});
+}
+
+const clearInit = (state, action) => {
+    return updateObject(state, {
+        useTypeContext: '0',
+        userSpecialization: '',
+        user: {}
+    });
+}
+
 // end of initialization actions
 
 const clearAuth = ( state, action) => {
@@ -100,7 +114,8 @@ const authSuccess = (state, action) => {
         user: action.user,
         error: null,
         loading: false,
-        isAuthenticated: true
+        isAuthenticated: true,
+        useTypeContext: action.useContext
     });
 };
 
@@ -250,6 +265,8 @@ const reducer = (state = initialState, action) => {
         //initializations from local storage
         case actionTypes.SET_AUTHENTICATION: return setAuthentication(state, action);
         case actionTypes.SET_USER_SPECIALIZATION: return setUserSpecialization(state, action);
+        case actionTypes.SET_USE_CONTEXT: return setUseContext(state, action);
+        case actionTypes.CLEAR_INIT: return clearInit(state, action);
         // end of initializations
 
         case actionTypes.SET_USER: return setUser(state, action);

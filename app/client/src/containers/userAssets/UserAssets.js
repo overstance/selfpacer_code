@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
-import Grid from '../../components/UserInterface/Grid/Grid';
 import classes from './UserAssets.css';
 import Resource from '../../components/Resource/Resource';
 import Input from '../../components/UserInterface/Input/Input';
@@ -14,6 +13,7 @@ import Form from '../../components/UserInterface/Form/Form';
 import PlatformNav from '../SubjectPage/PlatformNav/PlatformNav';
 import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
 import LoadMorePrompt from '../../components/UserInterface/LoadMorePrompt/LoadMore';
+import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper';
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -23,55 +23,61 @@ function numberWithCommas(x) {
 class UserAssets extends Component {
     
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll, false);
-        // this.setState({pageIndex: 0});
 
-        if (this.props.activeContent === 'all') {
-            this.props.onFetchUserAssets(this.props.userId, 0);
-        } 
+        if (this.props.accountType === 'Administrator' || this.props.accountType === 'Facilitator') {
+            
+            window.addEventListener('scroll', this.handleScroll, false);
+            // this.setState({pageIndex: 0});
+
+            if (this.props.activeContent === 'all') {
+                this.props.onFetchUserAssets(this.props.userId, 0);
+            } 
+            
+            if (this.props.accountType === 'Administrator') {
+                if (this.props.activeContent === 'youtube') {
+                    this.setState({
+                        moocActive: false,
+                        allActive: false,
+                        booksActive: false,
+                        youtubeActive: true,
+                        activeContent: 'youtube',
+                        pageIndex: 0
+                        }, () => {
+                        this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
+                    });
         
-        if (this.props.accountType === 'Administrator') {
-            if (this.props.activeContent === 'youtube') {
-                this.setState({
-                    moocActive: false,
-                    allActive: false,
-                    booksActive: false,
-                    youtubeActive: true,
-                    activeContent: 'youtube',
-                    pageIndex: 0
+                }
+        
+                if (this.props.activeContent === 'mooc') {
+                    this.setState({
+                        moocActive: true,
+                        allActive: false,
+                        booksActive: false,
+                        youtubeActive: false, 
+                        activeContent: 'mooc'       
                     }, () => {
-                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
-                });
-    
-            }
-    
-            if (this.props.activeContent === 'mooc') {
-                this.setState({
-                    moocActive: true,
-                    allActive: false,
-                    booksActive: false,
-                    youtubeActive: false, 
-                    activeContent: 'mooc'       
-                }, () => {
-                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
-                });
-    
-            }
-    
-            if (this.props.activeContent === 'books') {
-                this.setState({
-                    moocActive: false,
-                    allActive: false,
-                    booksActive: true,
-                    youtubeActive: false,
-                    activeContent: 'books'        
-                }, () => {
-                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
-                });
-    
-            }
-        }
+                        this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
+                    });
         
+                }
+        
+                if (this.props.activeContent === 'books') {
+                    this.setState({
+                        moocActive: false,
+                        allActive: false,
+                        booksActive: true,
+                        youtubeActive: false,
+                        activeContent: 'books'        
+                    }, () => {
+                        this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
+                    });
+        
+                }
+            }
+        } else {
+            console.log(this.props.accountType);
+            this.props.history.push('/');
+        }    
     }
 
     componentDidUpdate(prevProps) {
@@ -829,7 +835,7 @@ class UserAssets extends Component {
         }
 
         return (
-            <Grid>
+            <GridlessPageWrapper pageTitle='Manage Asset'>
                 { this.props.accountType === 'Administrator' ?
                     <PlatformNav
                         youtubeActived={this.state.youtubeActive}
@@ -870,8 +876,8 @@ class UserAssets extends Component {
                     </div>
                     { this.props.fetchMoreLoading ? <LoadMorePrompt /> : null}
                 </div>
-                <ScrollButton scrollStepInPx="50" delayInMs="16.66" showUnder={160} />
-            </Grid>  
+                <ScrollButton scrollStepInPx="100" delayInMs="16.66" showUnder={160} />
+            </GridlessPageWrapper>  
         );
     };
 };

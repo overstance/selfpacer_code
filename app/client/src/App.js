@@ -8,6 +8,7 @@ import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Logout from './components/auth/Logout/Logout';
 import Explore from './containers/explore/Explore';
+import Facilitate from './containers/FacilitatorPage/Facilitate';
 
 import Collections from './containers/CollectionsPage/Collections';
 // import Collection from './containers/CollectionPage/Collection';
@@ -62,14 +63,9 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
+        <Route path="/explore" exact component={ (props) => (<Explore timestamp={new Date().toString()} {...props} /> )}/> 
         <Route path="/search" component={Search} />
-
-        <Route path="/explore/:subject_title" component={SubjectPage} />
-        <Route path="/explore" exact component={ (props) => (
-          <Explore timestamp={new Date().toString()} {...props} />
-          )} 
-        />  
-
+        <Route path="/explore/:subject_title" component={SubjectPage} /> 
         <Route exact path="/reverify_email" component={ReverifyEmail} />
         <Route exact path="/email_verify/:token" component={EmailVerified} />
         <Route exact path="/reset/:token" component={ResetPassword} />
@@ -78,29 +74,26 @@ class App extends Component {
         <Route exact path="/register" component={Register} />
         <Route exact path="/not-found" component={NotFound} />
         <Route exact path="/" component={Landing} />
-
         <Route path='/blog/:page' exact component={Blog} />
         <Route path='/blog' exact component={Blog} />
         <Route path='/blog/posts/:post' component={BlogPost} />
-
-        {/* <Route exact path="/collections/:id" component={Collection} /> */}
-        {/* <Route exact path="/create_new_collection" component={NewCollection} /> */}
         <Route exact path="/collections" component={Collections} />
         <Route exact path="/shared_collections/:id" component={SharedCollection} />
+        <PrivateRoute exact path="/collections/:id" component={UserCollection} />
+        <PrivateRoute exact path="/facilitate" component={Facilitate} />
+        <PrivateRoute exact path="/create_collection" component={CreateNewCollection} />
+        <PrivateRoute exact path="/admin_tools/confirm_resources" component={ConfirmResource} />
+        <PrivateRoute exact path="/admin_tools" component={AdminTools} />      
+        <PrivateRoute exact path="/profile/edit" component={EditProfile} />
+        <PrivateRoute exact path="/manage_assets" component={UserAssets} />
+        <PrivateRoute exact path="/profile" component={Profile} />        
+        <PrivateRoute exact path="/logout" component={Logout} />
+        {/* <Route exact path="/collections/:id" component={Collection} /> */}
+        {/* <Route exact path="/create_new_collection" component={NewCollection} /> */}
+        {/* <PrivateRoute exact path="/add_resource" component={AddResource} /> */}
         {/* <PrivateRoute exact path="/pinned_collections" component={PinnedCollections} /> */}
         {/* <PrivateRoute exact path="/all_shared_collections" component={AllSharedCollections} /> */}
         {/* <PrivateRoute exact path="/shared_collections/:id" component={SharedCollection} /> */}
-        <PrivateRoute exact path="/collections/:id" component={UserCollection} />
-        <PrivateRoute exact path="/create_collection" component={CreateNewCollection} />
-
-        {/* <PrivateRoute exact path="/add_resource" component={AddResource} /> */}
-        <PrivateRoute exact path="/admin_tools/confirm_resources" component={ConfirmResource} />
-        <PrivateRoute exact path="/admin_tools" component={AdminTools} />
-        
-        <PrivateRoute exact path="/profile/edit" component={EditProfile} />
-        <PrivateRoute exact path="/user_assets" component={UserAssets} />
-        <PrivateRoute exact path="/profile" component={Profile} />        
-        <PrivateRoute exact path="/logout" component={Logout} />
       </Switch>
     );
 

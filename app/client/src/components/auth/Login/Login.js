@@ -304,8 +304,8 @@ Login.propTypes = {
     onLoginUser: PropTypes.func.isRequired,
     onClearErrors: PropTypes.func,
     isAuthenticated: PropTypes.bool.isRequired,
-    errors: PropTypes.object,
-    error: PropTypes.object
+    /* errors: PropTypes.object,
+    error: PropTypes.object */
   };
 
 

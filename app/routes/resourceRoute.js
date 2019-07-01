@@ -46,6 +46,7 @@ module.exports = app => {
             res.send({ error: err.name });
           } else {
             let assetCount = resources.length;
+            console.log(resources, assetCount);
             res.send({ assetCount: assetCount });
           }
         }

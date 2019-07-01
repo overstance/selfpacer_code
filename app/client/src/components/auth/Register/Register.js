@@ -433,8 +433,8 @@ Register.propTypes = {
     onRegisterUser: PropTypes.func.isRequired,
     onClearErrors: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    errors: PropTypes.object,
-    error: PropTypes.string
+    /* errors: PropTypes.object,
+    error: PropTypes.string */
   };
 
 

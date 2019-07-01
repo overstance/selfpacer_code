@@ -351,7 +351,7 @@ class SubjectPage extends Component {
                         </div>
                     </div>
                 </div> 
-                <ScrollButton scrollStepInPx="50" delayInMs="16.66" showUnder={160} />             
+                <ScrollButton scrollStepInPx="100" delayInMs="16.66" showUnder={160} />             
             </Grid>
         )
     }

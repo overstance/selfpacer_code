@@ -26,6 +26,8 @@ class Profile extends Component {
             assetCount = <div className={classes.StatisticsCount}>{this.props.userAssetCount}</div>;
         }
 
+        // let statistics =
+
         return (
         <Container>
             <div className={classes.AllWrapper}>
@@ -54,20 +56,33 @@ class Profile extends Component {
                                 <div className={classes.FaclitatorButton}>Become a Facilitator</div>
                             </div>
                         </div>
-                        <div className={classes.Statistics}>
-                            <div className={classes.StatisticsLike}>
-                                <div className={classes.StatisticsCount}>{this.props.likeCount}</div>
-                                <div className={classes.StatisticsLabel}>Likes</div>
+                        { this.props.accountType === 'Administrator' || this.props.accountType === 'Facilitator' ?
+                            <div className={classes.Statistics}>
+                                <div className={classes.StatisticsLike}>
+                                    <div className={classes.StatisticsCount}>{this.props.likeCount}</div>
+                                    <div className={classes.StatisticsLabel}>Likes</div>
+                                </div>
+                                <div className={classes.StatisticsCollections}>
+                                    {collectionCount}
+                                    <div className={classes.StatisticsLabel}>Collections</div>
+                                </div>
+                                <div className={classes.StatisticsAssets}>
+                                    {assetCount}
+                                    <div className={classes.StatisticsLabel}>Assets</div>
+                                </div>
                             </div>
-                            <div className={classes.StatisticsCollections}>
-                                {collectionCount}
-                                <div className={classes.StatisticsLabel}>Collections</div>
+                            :
+                            <div className={classes.Statistics}>
+                                <div className={classes.NoAssetStatisticsLike}>
+                                    <div className={classes.StatisticsCount}>{this.props.likeCount}</div>
+                                    <div className={classes.StatisticsLabel}>Likes</div>
+                                </div>
+                                <div className={classes.NoAssetStatisticsCollections}>
+                                    {collectionCount}
+                                    <div className={classes.StatisticsLabel}>Collections</div>
+                                </div>
                             </div>
-                            <div className={classes.StatisticsAssets}>
-                                {assetCount}
-                                <div className={classes.StatisticsLabel}>Assets</div>
-                            </div>
-                        </div>
+                        }
                     </div>
                     <span className={classes.EdgeTri}>
                         <img className={classes.StarIcon} src={starIcon} alt="star icon" />
