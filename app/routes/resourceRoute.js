@@ -7,12 +7,50 @@ module.exports = app => {
   app.get('/api/unconfirmed_resources', (req, res) => {
     Resource.find({ confirmed: false }, function(err, resources) {
       if (err) {
-        console.log(err.message);
+        // console.log(err.message);
         res.send(err.message);
       } else {
         res.send({ resources: resources });
       }
     });
+  });
+
+  app.get('/api/user_asset_count/:userId', (req, res) => {
+    let userId = req.params.userId;
+    if (
+      userId === '5c16e8de76e09e200c039178' ||
+      userId === '5c16efcef6d0f300144d3cda'
+    ) {
+      Resource.find(
+        {
+          user_id: {
+            $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
+          }
+        },
+        (err, resources) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else {
+            let assetCount = resources.length;
+            res.send({ assetCount: assetCount });
+          }
+        }
+      );
+    } else {
+      Resource.find(
+        {
+          user_id: req.params.userId
+        },
+        (err, resources) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else {
+            let assetCount = resources.length;
+            res.send({ assetCount: assetCount });
+          }
+        }
+      );
+    }
   });
 
   app.get('/api/resources/:subject_title/:pageIndex', (req, res) => {
@@ -84,8 +122,12 @@ module.exports = app => {
     }
   });
 
-  app.get('/api/user_assets/:userId', (req, res) => {
+  app.get('/api/user_assets/:userId/:pageIndex', (req, res) => {
     let userId = req.params.userId;
+    let pageOptions = {
+      page: req.params.pageIndex || 0,
+      limit: 10
+    };
 
     if (
       userId === '5c16e8de76e09e200c039178' ||
@@ -96,27 +138,54 @@ module.exports = app => {
           user_id: {
             $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
           }
-        },
+        } /* ,
         (err, resources) => {
           if (err) {
             res.send(err.name);
           } else {
             res.send({ resources: resources });
           }
-        }
-      );
+        } */
+      )
+        .skip(pageOptions.page * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .exec(function(err, resources) {
+          if (err) {
+            res.send(err.name);
+            return;
+          }
+          res.send({ resources: resources });
+        });
     } else {
-      Resource.find({ user_id: req.params.userId }, (err, resources) => {
+      Resource.find(
+        {
+          user_id: req.params.userId
+        } /* , (err, resources) => {
         if (err) {
           res.send(err.name);
         } else {
           res.send({ resources: resources });
         }
-      });
+      } */
+      )
+        .skip(pageOptions.page * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .exec(function(err, resources) {
+          if (err) {
+            res.send(err.name);
+            return;
+          }
+          res.send({ resources: resources });
+        });
     }
   });
 
-  app.get('/api/admin_assets/:platform', (req, res) => {
+  app.get('/api/admin_assets/:platform/:pageIndex', (req, res) => {
+    // console.log(req.params.pageIndex, req.params.platform);
+    let pageOptions = {
+      page: req.params.pageIndex || 0,
+      limit: 10
+    };
     if (req.params.platform === 'youtube') {
       Resource.find(
         {
@@ -124,7 +193,7 @@ module.exports = app => {
             $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
           },
           source: 'youtube.com'
-        },
+        } /* ,
         function(err, resources) {
           if (err) {
             console.log(err);
@@ -132,8 +201,17 @@ module.exports = app => {
           } else {
             res.send({ resources: resources });
           }
-        }
-      );
+        } */
+      )
+        .skip(pageOptions.page * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .exec(function(err, resources) {
+          if (err) {
+            res.send(err.name);
+            return;
+          }
+          res.send({ resources: resources });
+        });
     } else {
       Resource.find(
         {
@@ -141,7 +219,7 @@ module.exports = app => {
             $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
           },
           type: req.params.platform
-        },
+        } /* ,
         function(err, resources) {
           if (err) {
             console.log(err);
@@ -149,8 +227,18 @@ module.exports = app => {
           } else {
             res.send({ resources: resources });
           }
-        }
-      );
+        } */
+      )
+        .skip(pageOptions.page * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .exec(function(err, resources) {
+          if (err) {
+            res.send(err.name);
+            // console.log(err.message);
+            return;
+          }
+          res.send({ resources: resources });
+        });
     }
   });
 
@@ -158,7 +246,7 @@ module.exports = app => {
     User.findById(req.params.userId, (err, user) => {
       if (err) {
         res.send(err.message);
-        console.log(err.message);
+        // console.log(err.message);
         return;
       } else {
         const recentlyViewed = user.recentlyViewed;
@@ -166,7 +254,7 @@ module.exports = app => {
         Resource.find({ _id: { $in: recentlyViewed } }, (err, resources) => {
           if (err) {
             res.send(err.message);
-            console.log(err.message);
+            // console.log(err.message);
             return;
           } else {
             res.send({ resources: resources });
@@ -188,7 +276,7 @@ module.exports = app => {
       updatedResource
     ) {
       if (err) {
-        console.log(err);
+        // console.log(err);
       } else {
         res.send({ resource: updatedResource });
       }
@@ -206,7 +294,7 @@ module.exports = app => {
       { recentlyViewed: req.body },
       function(err, user) {
         if (err) {
-          console.log(err);
+          // console.log(err);
           res.send(err.name);
         } else {
           res.send('userRecentlyViewedUpdated');
@@ -221,7 +309,7 @@ module.exports = app => {
       { views: req.body.resourceViews },
       (err, resource) => {
         if (err) {
-          console.log(err);
+          // console.log(err);
         } else {
           res.send(resource);
         }
@@ -235,7 +323,7 @@ module.exports = app => {
       { likeCount: req.body.newLikeCount },
       function(err, user) {
         if (err) {
-          console.log(err);
+          // console.log(err);
           res.send(err.name);
         } else {
           res.send('userLikeCountUpdated');
@@ -247,7 +335,7 @@ module.exports = app => {
   app.post('/api/increase_collect_count/:resourceToAdd', (req, res) => {
     Resource.findOne({ _id: req.params.resourceToAdd }, (err, resource) => {
       if (err) {
-        console.log(err);
+        // console.log(err);
         res.send(err);
       } else {
         const newCount = resource.collectCount + 1;
@@ -272,12 +360,12 @@ module.exports = app => {
       (err, resource) => {
         if (err) {
           res.send(err.message);
-          console.log(err.message);
+          // console.log(err.message);
         } else if (resource) {
           Resource.find({ confirmed: false }, (err, resources) => {
             if (err) {
               res.send(err.message);
-              console.log(err.message);
+              // console.log(err.message);
             } else if (resources) {
               res.send({ resources: resources });
             }
@@ -291,12 +379,12 @@ module.exports = app => {
     Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
       if (err) {
         res.send(err.message);
-        console.log(err.message);
+        // console.log(err.message);
       } else if (resource) {
         Resource.find({ confirmed: false }, (err, resources) => {
           if (err) {
             res.send(err.message);
-            console.log(err.message);
+            // console.log(err.message);
           } else if (resources) {
             res.send({ resources: resources });
           }
@@ -309,7 +397,7 @@ module.exports = app => {
     Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
       if (err) {
         res.send(err.message);
-        console.log(err.message);
+        // console.log(err.message);
       } else if (resource) {
         Resource.find({ user_id: req.params.userId }, (err, resources) => {
           if (err) {

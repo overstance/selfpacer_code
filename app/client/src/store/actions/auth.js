@@ -51,24 +51,24 @@ export const clearAllAuthMessages = () => {
 
 
 
-// initialize(fetch) user asset
+// initialize(fetch) user asset count
 
-export const fetchUserAssetStart = () => {
+export const fetchUserAssetCountStart = () => {
     return {
-        type: actionTypes.FETCH_USER_ASSET_START
+        type: actionTypes.FETCH_USER_ASSET_COUNT_START
     }
 }
 
-export const fetchUserAssetSuccess = ( userAssets ) => {
+export const fetchUserAssetCountSuccess = ( assetCount ) => {
     return {
-        type: actionTypes.FETCH_USER_ASSET_SUCCESS,
-        userAssets: userAssets
+        type: actionTypes.FETCH_USER_ASSET_COUNT_SUCCESS,
+        assetCount: assetCount
     }
 }
 
-export const fetchUserAssetFailed = ( error ) => {
+export const fetchUserAssetCountFailed = ( error ) => {
     return {
-        type: actionTypes.FETCH_USER_ASSET_FAILED,
+        type: actionTypes.FETCH_USER_ASSET_COUNT_FAIL,
         error: error
     }
 }
@@ -115,15 +115,15 @@ export const fetchUser = () => async dispatch => {
             }
         }
 
-        dispatch(fetchUserAssetStart());
-        const res3 = await axios.get(`/api/user_assets/${userId}`)
+        dispatch(fetchUserAssetCountStart());
+        const res3 = await axios.get(`/api/user_asset_count/${userId}`)
         
-        if (res3.data.resources) {
+        if (res3.data.assetCount) {
             // console.log(res.data.resources);
-            dispatch(fetchUserAssetSuccess(res3.data.resources));
-        } else {
+            dispatch(fetchUserAssetCountSuccess(res3.data.assetCount));
+        } else if (res3.data.error)  {
             // console.log(res.data)
-            dispatch(fetchUserAssetFailed( res3.data ));
+            dispatch(fetchUserAssetCountFailed( res3.data.error ));
         }
 
         dispatch(fetchUserCollectionsStart());

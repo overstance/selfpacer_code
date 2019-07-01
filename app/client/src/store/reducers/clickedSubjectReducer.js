@@ -53,7 +53,7 @@ const fetchAllFail = ( state, action ) => {
     return updateObject( state, { allLoading: false, fetchAllResourcesError: action.error } );
 };
 
-// fetch all
+// fetch more
 
 const fetchMoreStart = ( state, action ) => {
     return updateObject( state, { fetchMoreLoading: true } );

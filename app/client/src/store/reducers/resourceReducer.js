@@ -12,9 +12,17 @@ const initialState = {
     unconfirmedResources: [], 
 
     recentlyViewedResources: [],
+
+    userAssetCountLoading: false,
+    userAssetCount: 0,
+    userAssetCountError: null,
     
     userAssets: [],
     fetchAssetError: null,
+
+    fetchMoreLoading: false,
+    fetchMoreError: null,
+    latestFetchLength: 0,
 
     addYoutubePlaylistLoading: false,
     addedYoutubePlaylist: {},
@@ -63,6 +71,32 @@ const initialState = {
     deleteAssetSuccessInfo: null,
     deleteAssetError: null
 };
+
+
+// detect user asset count
+
+const userAssetCountStart = ( state, action ) => {
+    return updateObject( state, { 
+        userAssetCountLoading: true,
+        userAssetCountError: null 
+    } );
+};
+
+const userAssetCountSuccess = ( state, action ) => {
+    return updateObject( state, {
+        userAssetCount: action.assetCount,
+        userAssetCountLoading: false
+    } );
+};
+
+const userAssetCountFail = ( state, action ) => {
+    return updateObject( state, { 
+        userAssetCountLoading: false,
+        userAssetCountError: action.error 
+    } );
+};
+
+
 
 // Add user resource
 
@@ -123,13 +157,37 @@ const fetchUserAssetStart = ( state, action ) => {
 const fetchUserAssetSuccess = ( state, action ) => {
     return updateObject( state, {
         userAssets: action.userAssets,
-        loading: false
+        loading: false,
+        latestFetchLength: action.resourceLength
     } );
 };
 
 const fetchUserAssetFailed = ( state, action ) => {
     return updateObject( state, { loading: false, fetchAssetError: action.error } );
 };
+
+// fetch more assets
+
+const fetchMoreStart = ( state, action ) => {
+    return updateObject( state, { fetchMoreLoading: true } );
+};
+
+const fetchMoreSuccess = ( state, action ) => {
+    return updateObject( state, {
+        userAssets: action.userAssets,
+        fetchMoreLoading: false,
+        latestFetchLength: action.resourceLength
+    } );
+};
+
+const fetchMoreFail = ( state, action ) => {
+    return updateObject( state, { 
+        fetchMoreLoading: false,
+        fetchMoreError: action.error 
+    } );
+};
+
+
 
 // fetch user recently viewed resources
 
@@ -404,6 +462,10 @@ const deleteAssetFail = ( state, action ) => {
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
+        case actionTypes.FETCH_USER_ASSET_COUNT_START: return userAssetCountStart( state, action );
+        case actionTypes.FETCH_USER_ASSET_COUNT_SUCCESS: return userAssetCountSuccess( state, action );
+        case actionTypes.FETCH_USER_ASSET_COUNT_FAIL: return userAssetCountFail( state, action );
+
         case actionTypes.ADD_RESOURCE_START: return addResourceStart( state, action );
         case actionTypes.ADD_RESOURCE_SUCCESS: return addResourceSuccess( state, action );
         case actionTypes.ADD_RESOURCE_FAIL: return addResourceFail( state, action );
@@ -415,6 +477,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_USER_ASSET_START: return fetchUserAssetStart( state, action );
         case actionTypes.FETCH_USER_ASSET_SUCCESS: return fetchUserAssetSuccess( state, action );
         case actionTypes.FETCH_USER_ASSET_FAILED: return fetchUserAssetFailed( state, action );
+        
+        case actionTypes.FETCH_MORE_ASSETS_START: return fetchMoreStart( state, action );
+        case actionTypes.FETCH_MORE_ASSETS_SUCCESS: return fetchMoreSuccess( state, action );
+        case actionTypes.FETCH_MORE_ASSETS_FAILED: return fetchMoreFail( state, action );
 
         case actionTypes.SET_CLICKED_PLATFORM: return setClickedPlatform( state, action );
 

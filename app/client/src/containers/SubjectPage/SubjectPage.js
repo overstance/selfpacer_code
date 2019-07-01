@@ -17,12 +17,12 @@ import LoadMorePrompt from '../../components/UserInterface/LoadMorePrompt/LoadMo
 class SubjectPage extends Component {
     
    componentDidMount () {
-        window.addEventListener('scroll', this.handleScroll, true);
+        window.addEventListener('scroll', this.handleScroll, false);
         this.props.onFetchSubjectDetails(this.props.match.params.subject_title);
-        this.setState({pageIndex: 0});
+        // this.setState({pageIndex: 0});
 
         if (this.props.activeContent === 'all') {
-            console.log(this.props.activeContent);
+            // console.log(this.props.activeContent);
             this.props.onFetchSubjectResources(this.props.match.params.subject_title, 0);
         }
 
@@ -67,7 +67,7 @@ class SubjectPage extends Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll, true);
+        window.removeEventListener('scroll', this.handleScroll, false);
     }
     
   
@@ -96,7 +96,8 @@ class SubjectPage extends Component {
         /* if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
             this.fetchMoreData();
         } */
-        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 300) 
+            && !this.props.fetchMoreLoading && !this.props.resourceLoading) {
             this.fetchMoreData() 
         }
     }

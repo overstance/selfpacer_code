@@ -198,10 +198,11 @@ export const fetchUserAssetStart = () => {
     }
 }
 
-export const fetchUserAssetSuccess = ( userAssets ) => {
+export const fetchUserAssetSuccess = ( userAssets, resourceLength ) => {
     return {
         type: actionTypes.FETCH_USER_ASSET_SUCCESS,
-        userAssets: userAssets
+        userAssets: userAssets,
+        resourceLength: resourceLength
     }
 }
 
@@ -212,15 +213,17 @@ export const fetchUserAssetFailed = ( error ) => {
     }
 }
 
-export const fetchUserAssets = ( userId ) => async(dispatch) => {
+export const fetchUserAssets = ( userId, pageIndex ) => async(dispatch) => {
     
-    
+    console.log(userId, pageIndex);
+
     dispatch(fetchUserAssetStart());
-    const res = await axios.get(`/api/user_assets/${userId}`);
+    const res = await axios.get(`/api/user_assets/${userId}/${pageIndex}`);
 
     if (res.data.resources) {
         // console.log(res.data.resources);
-        dispatch(fetchUserAssetSuccess(res.data.resources));
+        let resourceLength = res.data.resources.length;
+        dispatch(fetchUserAssetSuccess(res.data.resources, resourceLength));
     } else {
         // console.log(res.data)
         dispatch(fetchUserAssetFailed( res.data ));
@@ -230,20 +233,79 @@ export const fetchUserAssets = ( userId ) => async(dispatch) => {
 
 // fetch admin asset by platform
 
-export const fetchAdminAssetsByPlatform = (platform) => async(dispatch) => {
+export const fetchAdminAssetsByPlatform = (platform, pageIndex) => async(dispatch) => {
     
     
     dispatch(fetchUserAssetStart());
-    const res = await axios.get(`/api/admin_assets/${platform}`);
+    const res = await axios.get(`/api/admin_assets/${platform}/${pageIndex}`);
 
     if (res.data.resources) {
         // console.log(res.data.resources);
-        dispatch(fetchUserAssetSuccess(res.data.resources));
+        let resourceLength = res.data.resources.length;
+        dispatch(fetchUserAssetSuccess(res.data.resources, resourceLength));
     } else {
         // console.log(res.data)
         dispatch(fetchUserAssetFailed( res.data ));
     }
 
+}
+
+//  fetch More assets
+
+export const fetchMoreAssetsStart = () => {
+    return {
+        type: actionTypes.FETCH_MORE_ASSETS_START
+    }
+}
+
+export const fetchMoreAssetsSuccess = ( userAssets, resourceLength ) => {
+    return {
+        type: actionTypes.FETCH_MORE_ASSETS_SUCCESS,
+        userAssets: userAssets,
+        resourceLength: resourceLength 
+    }
+}
+
+export const fetchMoreAssetsFailed = ( error ) => {
+    return {
+        type: actionTypes.FETCH_MORE_ASSETS_FAILED,
+        error: error 
+    }
+}
+
+
+export const fetchMoreAssets = (userId, pageIndex, assets) => async dispatch => {
+    dispatch(fetchMoreAssetsStart());
+
+    const res = await axios.get(`/api/user_assets/${userId}/${pageIndex}`);
+
+    if (res.data.resources) {
+        // const all = [...res.data.all];
+
+        // const allShuffled = shuffleArray(all);
+        let updatedResources = [...assets, ...res.data.resources]
+
+        // dispatch(fetchMoreAssetsSuccess(res.data.all));
+        let resourceLength = res.data.resources.length;
+        dispatch(fetchMoreAssetsSuccess(updatedResources, resourceLength));
+    } else dispatch(fetchMoreAssetsFailed(res.data));
+}
+
+export const fetchMoreAdminAssetsByPlatform = ( platform, pageIndex, assets) => async dispatch => {
+    // console.log( platform, pageIndex, assets);
+    dispatch(fetchMoreAssetsStart());
+
+    const res = await axios.get(`/api/admin_assets/${platform}/${pageIndex}`);
+
+    if (res.data.resources) {
+        // const all = [...res.data.all];
+
+        let updatedResources = [...assets, ...res.data.resources]
+
+        // dispatch(fetchMoreAssetsSuccess(res.data.all));
+        let resourceLength = res.data.resources.length;
+        dispatch(fetchMoreAssetsSuccess(updatedResources, resourceLength));
+    } else dispatch(fetchMoreAssetsFailed(res.data));
 }
 
 // Increase Resource view count

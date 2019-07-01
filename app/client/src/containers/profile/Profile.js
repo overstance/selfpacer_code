@@ -22,8 +22,8 @@ class Profile extends Component {
             collectionCount = <div className={classes.StatisticsCount}>{this.props.collectionCount.length}</div>
         }
 
-        if (!this.props.assetsLoading) {
-            assetCount = <div className={classes.StatisticsCount}>{this.props.userAssets.length}</div>;
+        if (!this.props.assetCountLoading) {
+            assetCount = <div className={classes.StatisticsCount}>{this.props.userAssetCount}</div>;
         }
 
         return (
@@ -95,9 +95,9 @@ const mapStateToProps = state => ({
     joinDate: state.auth.user.date,
     collectionCount: state.collection.userCollections,
     collectionLoading: state.collection.loading,
-    userAssets: state.resource.userAssets,
+    userAssetCount: state.resource.userAssetCount,
     likeCount: state.auth.userLikeCount,
-    assetsLoading: state.resource.loading,
+    assetCountLoading: state.resource.userAssetCountLoading,
     isAdmin: state.auth.isAdmin
 });
 

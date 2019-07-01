@@ -19,6 +19,8 @@ class Layout extends Component {
 
     componentDidMount = () => this.handleScroll();
 
+    // componentWillUnmount = () => this.handleScroll();
+
     state = {
         showSideDrawer: false
     }

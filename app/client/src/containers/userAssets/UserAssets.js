@@ -12,6 +12,8 @@ import AjaxDialogueMessage from '../../components/Dialogues/Dialogue/AjaxDialogu
 import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
 import Form from '../../components/UserInterface/Form/Form';
 import PlatformNav from '../SubjectPage/PlatformNav/PlatformNav';
+import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
+import LoadMorePrompt from '../../components/UserInterface/LoadMorePrompt/LoadMore';
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -21,11 +23,13 @@ function numberWithCommas(x) {
 class UserAssets extends Component {
     
     componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll, false);
+        // this.setState({pageIndex: 0});
 
         if (this.props.activeContent === 'all') {
-            this.props.onFetchUserAssets(this.props.userId);
-        }
-
+            this.props.onFetchUserAssets(this.props.userId, 0);
+        } 
+        
         if (this.props.accountType === 'Administrator') {
             if (this.props.activeContent === 'youtube') {
                 this.setState({
@@ -33,9 +37,10 @@ class UserAssets extends Component {
                     allActive: false,
                     booksActive: false,
                     youtubeActive: true,
-                    activeContent: 'youtube'
+                    activeContent: 'youtube',
+                    pageIndex: 0
                     }, () => {
-                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
                 });
     
             }
@@ -48,7 +53,7 @@ class UserAssets extends Component {
                     youtubeActive: false, 
                     activeContent: 'mooc'       
                 }, () => {
-                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
                 });
     
             }
@@ -61,7 +66,7 @@ class UserAssets extends Component {
                     youtubeActive: false,
                     activeContent: 'books'        
                 }, () => {
-                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+                    this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
                 });
     
             }
@@ -117,6 +122,10 @@ class UserAssets extends Component {
 
     }
 
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll, false);
+    }
+
     state = {
 
         fillError: null,
@@ -135,6 +144,8 @@ class UserAssets extends Component {
         allActive: true,
         booksActive: false,
         activeContent: 'all',
+
+        pageIndex: 0,
 
         mooc_controls: {
             videoCount: {
@@ -319,16 +330,43 @@ class UserAssets extends Component {
         return isValid;
     }
 
+    handleScroll = () => {
+        /* if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
+            this.fetchMoreData();
+        } */
+        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 300) 
+            && !this.props.fetchMoreLoading && !this.props.loading) {
+            this.fetchMoreData() 
+        }
+    }
+
+    fetchMoreData(){
+        if (this.props.latestFetchLength >= 10) {
+            this.setState({
+                pageIndex: this.state.pageIndex + 1
+            }, () => {
+                // console.log(this.state.pageIndex, this.props.latestFetchLength );
+                if (this.state.activeContent === 'all') {
+                    this.props.onFetchMoreAssets(this.props.userId, this.state.pageIndex, this.props.userAssets);
+                } else {
+                    this.props.onFetchMoreAdminAssetsByPlatform(this.state.activeContent, this.state.pageIndex, this.props.userAssets);
+                }
+            })
+            
+        }      
+    }
+
     youtubeHandler = () => {
         this.setState({
             moocActive: false,
             allActive: false,
             booksActive: false,
             youtubeActive: true,
-            activeContent: 'youtube'
+            activeContent: 'youtube',
+            pageIndex: 0
             }, () => {
             this.props.onSetActiveContentType(this.state.activeContent);
-            this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+            this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
         });
     }
 
@@ -338,10 +376,11 @@ class UserAssets extends Component {
             allActive: false,
             booksActive: false,
             youtubeActive: false, 
-            activeContent: 'mooc'       
+            activeContent: 'mooc',
+            pageIndex: 0       
         }, () => {
             this.props.onSetActiveContentType(this.state.activeContent);
-            this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+            this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
         });
     }
 
@@ -351,10 +390,11 @@ class UserAssets extends Component {
             allActive: true,
             booksActive: false,
             youtubeActive: false,
-            activeContent: 'all'        
+            activeContent: 'all',
+            pageIndex: 0        
         }, () => {
             this.props.onSetActiveContentType(this.state.activeContent);
-            this.props.onFetchUserAssets(this.props.userId)        
+            this.props.onFetchUserAssets(this.props.userId, 0)        
         });
     }
 
@@ -364,10 +404,11 @@ class UserAssets extends Component {
             allActive: false,
             booksActive: true,
             youtubeActive: false,
-            activeContent: 'books'        
+            activeContent: 'books',
+            pageIndex: 0        
         }, () => {
             this.props.onSetActiveContentType(this.state.activeContent);
-            this.props.onFetchAdminAssetsByPlatform(this.state.activeContent);
+            this.props.onFetchAdminAssetsByPlatform(this.state.activeContent, 0);
         });
     }
 
@@ -827,7 +868,9 @@ class UserAssets extends Component {
                     <div className={classes.Resources}>
                         {userAssets}
                     </div>
+                    { this.props.fetchMoreLoading ? <LoadMorePrompt /> : null}
                 </div>
+                <ScrollButton scrollStepInPx="50" delayInMs="16.66" showUnder={160} />
             </Grid>  
         );
     };
@@ -853,13 +896,17 @@ const mapStateToProps = state => {
         deleteAssetSuccessInfo: state.resource.deleteAssetSuccessInfo,
         deleteAssetError: state.resource.deleteAssetError,
 
+        latestFetchLength: state.resource.latestFetchLength,
+        fetchMoreLoading: state.resource.fetchMoreLoading,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchUserAssets: ( userId ) => dispatch(actions.fetchUserAssets( userId)),
-        onFetchAdminAssetsByPlatform: (platform) => dispatch(actions.fetchAdminAssetsByPlatform(platform)),
+        onFetchUserAssets: ( userId, pageIndex ) => dispatch(actions.fetchUserAssets( userId, pageIndex)),
+        onFetchAdminAssetsByPlatform: (platform, pageIndex) => dispatch(actions.fetchAdminAssetsByPlatform(platform, pageIndex)),
+        onFetchMoreAssets: (userId, pageIndex, assets) => dispatch(actions.fetchMoreAssets(userId, pageIndex, assets)),
+        onFetchMoreAdminAssetsByPlatform: (platform, pageIndex, assets) => dispatch(actions.fetchMoreAdminAssetsByPlatform(platform, pageIndex, assets)),
         onSetActiveContentType: ( platform ) => dispatch ( actions.setActiveContentType( platform )),
         onSetAssetToUpdateField: (assetToUpdateFields ) => dispatch(actions.setAssetToUpdateField(assetToUpdateFields)),
         onUpdateMoocAsset: (videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId, assets) => dispatch( actions.updateMoocAsset(videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId, assets) ),
