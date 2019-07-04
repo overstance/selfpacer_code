@@ -1,0 +1,34 @@
+.ContainerItem {
+    padding: 5px;
+}
+
+.IconContainerItem {
+    padding: 5px;
+    align-items: center;
+}
+
+.ContainerItem button {
+    font-size: small;
+    width: 100px;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0;
+}
+
+.ContainerItem form {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.IconContainerItem form {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.IconContainerItem button {
+    font-size: small;
+    width: 100px;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0;
+}

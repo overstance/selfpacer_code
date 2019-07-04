@@ -34,10 +34,14 @@ export {
 export {
     addAdminUser,
     removeAdminUser,
-    onAddSubjectIcon,
+    addSubjectIcon,
     fetchSelectSubjectInfo,
     editSubject,
-    clearAddMessages
+    clearAddMessages,
+    clearEditSubjectInfo,
+    resetAddSubjectIconState,
+    addSubject,
+    clearAddSubjectState
 } from './admin1';
 
 export {

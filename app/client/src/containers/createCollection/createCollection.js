@@ -6,12 +6,13 @@ import { connect } from 'react-redux';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
-import Grid from '../../components/UserInterface/Grid/Grid';
+// import Grid from '../../components/UserInterface/Grid/Grid';
 // import PostSubmitDailogue from '../../components/Dialogues/PostSubmitDialogue/PostSubmitDialogue';
 import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
 import Form from '../../components/UserInterface/Form/Form';
-import FormTitle from '../../components/UserInterface/Form/FormTitle/FormTitle';
+// import FormTitle from '../../components/UserInterface/Form/FormTitle/FormTitle';
 import FormFeedback from '../../components/UserInterface/Form/FormFeedback/FormFeedback';
+import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper';
 
 class CreateCollection extends Component {
 
@@ -100,7 +101,7 @@ class CreateCollection extends Component {
             
             const titleReset = {
                 ...this.state.title,
-                value: this.state.title.value
+                value: ''
             }
 
             this.setState({ title: titleReset, fillError: null});
@@ -187,12 +188,11 @@ class CreateCollection extends Component {
 
 
         return (
-            <Grid>
+            <GridlessPageWrapper pageTitle='Create Collection'>
                 <div className={classes.ContainerItem}>
-                    <FormTitle>Create Collection</FormTitle>
                     {content}
                 </div >            
-            </Grid>                                 
+            </GridlessPageWrapper>                                 
         )
     }
 };

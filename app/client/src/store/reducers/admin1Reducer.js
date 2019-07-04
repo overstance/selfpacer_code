@@ -6,11 +6,23 @@ const initialState = {
     adminAddError: null,
     userAddedFeedback: null,
 
+    fetchSubjectToEditError: null,
+
     subjectToEditPath: '',
     subjectToEditCurriculum: '',
+    subjectToEditIconPath: '',
 
     editSubjectSuccessInfo: null,
     editSubjectError: null,
+    editSubjectLoading: false,
+
+    addSubjectSuccessInfo: null,
+    addSubjectError: null,
+    addSubjectLoading: false,
+
+    addSubjectIconLoading: false,
+    addSubjectIconError: null,
+    addSubjectIconSuccessInfo: null,
     
     removedUser: {},
     adminUserRemoveError: null,
@@ -62,11 +74,23 @@ const adminUserRemoveFailed = ( state, action ) => {
 };
 
 // Fetch subject to edit path and curricula
+const fetchSubjectToEditStart = ( state, action ) => {
+    return updateObject( state, {
+        fetchSubjectToEditError: null
+    });
+}
+
+const fetchSubjectToEditFail = ( state, action ) => {
+    return updateObject( state, {
+        fetchSubjectToEditError: action.error
+    });
+}
 
 const fetchSubjectToEditSuccess = ( state, action ) => {
     return updateObject( state, {
         subjectToEditPath: action.path,
-        subjectToEditCurriculum: action.curriculum
+        subjectToEditCurriculum: action.curriculum,
+        subjectToEditIconPath: action.iconPath
     });
 }
 
@@ -74,6 +98,7 @@ const fetchSubjectToEditSuccess = ( state, action ) => {
 
 const editSubjectStart = ( state, action ) => {
     return updateObject( state, {
+        editSubjectLoading: true,
         editSubjectError: null,
         editSubjectSuccessInfo: null,
         subjectToEditPath: null,
@@ -83,13 +108,76 @@ const editSubjectStart = ( state, action ) => {
 
 const editSubjectSuccess = ( state, action ) => {
     return updateObject( state, {
+        editSubjectLoading: false,
         editSubjectSuccessInfo: action.successInfo
     });
 }
 
 const editSubjectFail = ( state, action ) => {
     return updateObject( state, {
+        editSubjectLoading: false,
         editSubjectError: 'error: ' + action.error
+    });
+}
+
+// add subject icon
+
+const addSubjectIconStart = ( state, action ) => {
+    return updateObject( state, {
+        addSubjectIconLoading: true
+    });
+}
+
+const addSubjectIconSuccess = ( state, action ) => {
+    return updateObject( state, {
+        addSubjectIconLoading: false,
+        addSubjectIconSuccessInfo: action.info,
+    });
+}
+
+const addSubjectIconFail = ( state, action ) => {
+    return updateObject( state, {
+        addSubjectIconLoading: false,
+        addSubjectIconError: action.error
+    });
+}
+
+const resetAddSubjectIconState = ( state, action ) => {
+    return updateObject( state, {
+        addSubjectIconLoading: false,
+        addSubjectIconError: null,
+        addSubjectIconSuccessInfo: null,
+    });
+}
+
+// add new subject
+const addSubjectStart = ( state, action ) => {
+    return updateObject( state, {
+        addSubjectSuccessInfo: null,
+        addSubjectError: null,
+        addSubjectLoading: true,
+    });
+}
+
+const addSubjectSuccess = ( state, action ) => {
+    return updateObject( state, {
+        addSubjectSuccessInfo: action.successInfo,
+        addSubjectLoading: false,
+    });
+}
+
+const addSubjectFail = ( state, action ) => {
+    return updateObject( state, {
+        addSubjectError: action.error,
+        addSubjectLoading: false,
+    });
+}
+
+const clearAddSubjectState = ( state, action ) => {
+    return updateObject( state, {
+        addSubjectSuccessInfo: null,
+        addSubjectError: null,
+        addSubjectLoading: false,
     });
 }
 
@@ -102,18 +190,19 @@ const clearAddMessages = ( state, action ) => {
     editSubjectError: null,
     adminUserRemoveError: null,
     adminUserRemovedFeedback: null,
-    addYoutubePlaylistError: null,
-    youtubePlaylistAddedFeedback: null,
-    updateYoutubePlaylistsError: null,
-    youtubePlaylistsUpdatedFeedback: null,
-    addYoutubeVideoError: null,
-    youtubeVideoAddedFeedback: null,
-    updateYoutubeVideosError: null,
-    youtubeVideosUpdatedFeedback: null,
-    addMoocSucessInfo: null,
-    addMoocError: null,
-    addBooksSucessInfo: null,
-    addBooksError: null
+    fetchSubjectToEditError: null
+    });
+}
+
+
+
+// clear edit subject info
+
+const clearEditSubjectInfo = ( state, action ) => {
+    return updateObject( state, {
+        subjectToEditPath: '',
+        subjectToEditCurriculum: '',
+        subjectToEditIconPath: '',
     });
 }
 
@@ -128,13 +217,27 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADMIN_USER_REMOVED: return adminUserRemoved( state, action );
         case actionTypes.ADMIN_USER_REMOVED_FAILED: return adminUserRemoveFailed( state, action );
 
+        case actionTypes.FETCH_SUBJECT_TO_EDIT_START: return fetchSubjectToEditStart( state, action );
         case actionTypes.FETCH_SUBJECT_TO_EDIT_SUCCESS: return fetchSubjectToEditSuccess( state, action );
+        case actionTypes.FETCH_SUBJECT_TO_EDIT_FAIL: return fetchSubjectToEditFail( state, action );
 
         case actionTypes.EDIT_SUBJECT_START: return editSubjectStart( state, action );
         case actionTypes.EDIT_SUBJECT_SUCCESS: return editSubjectSuccess( state, action );
         case actionTypes.EDIT_SUBJECT_FAIL: return editSubjectFail( state, action );
 
+        case actionTypes.ADD_SUBJECT_START: return addSubjectStart( state, action );
+        case actionTypes.ADD_SUBJECT_SUCCESS: return addSubjectSuccess( state, action );
+        case actionTypes.ADD_SUBJECT_FAIL: return addSubjectFail( state, action );
+        case actionTypes.CLEAR_ADD_SUBJECT_STATE: return clearAddSubjectState( state, action );
+
+        case actionTypes.ADD_SUBJECT_ICON_START: return addSubjectIconStart( state, action );
+        case actionTypes.ADD_SUBJECT_ICON_SUCCESS: return addSubjectIconSuccess( state, action );
+        case actionTypes.ADD_SUBJECT_ICON_FAIL: return addSubjectIconFail( state, action );
+        case actionTypes.RESET_ADD_SUBJECT_ICON_STATE: return resetAddSubjectIconState( state, action ); 
+
         case actionTypes.CLEAR_ADD_MESSAGES: return clearAddMessages( state, action );
+
+        case actionTypes.CLEAR_EDIT_SUBJECT_INFO: return clearEditSubjectInfo( state, action );
 
         default: return state;
     }

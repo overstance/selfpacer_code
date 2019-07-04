@@ -6,7 +6,7 @@ const subjectSchema = new Schema({
   category: String,
   src: String,
   alt: String,
-  to: String,
+  /* to: String, */
   paths: Array,
   curriculum: Array,
   views: {

@@ -9,53 +9,17 @@ import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
 import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
 import Spinner from '../UserInterface/Spinner/Spinner';
 
-class EditSubject extends Component {
+class AddSubject extends Component {
 
-    /* componentDidMount() {
-        this.props.onFetchSubjects();
-    } */
     componentWillUnmount () {
-        this.props.onClearEditSubjectInfo();
-    }
-
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.subjectToEditPath !== prevProps.subjectToEditPath) {
-            const pathUpdated = {
-                ...this.state.path,
-                value: this.props.subjectToEditPath
-            }
-    
-            this.setState({ path: pathUpdated });
-        }
-
-        if (this.props.subjectToEditCurriculum !== prevProps.subjectToEditCurriculum) {
-    
-            const curriculumUpdated = {
-                ...this.state.curriculum,
-                value: this.props.subjectToEditCurriculum
-            }
-
-            this.setState({ curriculum: curriculumUpdated});
-        }
-
-        if (this.props.subjectToEditIconPath !== prevProps.subjectToEditIconPath) {
-    
-            const iconPathUpdated = {
-                ...this.state.iconPath,
-                value: this.props.subjectToEditIconPath
-            }
-
-            this.setState({ iconPath: iconPathUpdated});
-        }
-
+        this.props.onClearAddSubjectState();
     }
 
     state = {
         fillError: null,
         subject: {
             value: '',
-            label: "subject", 
+            label: "title", 
             name: "subject",
             validation: {
                 required: true
@@ -63,8 +27,66 @@ class EditSubject extends Component {
             valid: false,
             touched: false   
         },
+        category: {
+            value: '',
+            label: "category", 
+            name: "category",
+            validation: {
+                required: true
+            },
+            elementConfig: { 
+                options: [ 
+                    {
+                        value: '',
+                        displayValue: ''
+                    },
+                    {
+                        value: 'Creative',
+                        displayValue: 'Creative'
+                    },
+                    {
+                        value: 'Business',
+                        displayValue: 'Business'
+                    },
+                    {
+                        value: 'Technology',
+                        displayValue: 'Technology'
+                    },
+                    {
+                        value: 'Science',
+                        displayValue: 'Science'
+                    },
+                    {
+                        value: 'Life-style',
+                        displayValue: 'Life-style'
+                    }
+                ]
+            },
+            valid: false,
+            touched: false   
+        },
+        iconPath: {
+            value: '/images/image-file-name',
+            label: "icon path", 
+            name: "IconPath",
+            validation: {
+                required: true
+            },
+            valid: false,
+            touched: false,
+        },
+        iconAlt: {
+            value: '',
+            label: "icon description", 
+            name: "IconAlt",
+            validation: {
+                required: true
+            },
+            valid: false,
+            touched: false,
+        },
         path: {
-            value: this.props.subjectToEditPath,
+            value: '',
             label: "paths", 
             name: "path",
             validation: {
@@ -74,19 +96,9 @@ class EditSubject extends Component {
             touched: false,
         },
         curriculum: {
-            value: this.props.subjectToEditCurriculum,
+            value: '',
             label: "study topics", 
             name: "Curriculum",
-            validation: {
-                required: true
-            },
-            valid: false,
-            touched: false,
-        },
-        iconPath: {
-            value: this.props.subjectToEditIconPath,
-            label: "icon path", 
-            name: "IconPath",
             validation: {
                 required: true
             },
@@ -130,7 +142,7 @@ class EditSubject extends Component {
     submitpathHandler = (event) => {
         event.preventDefault();
 
-        if ( this.props.editSubjectSuccessInfo && !this.state.subject.touched) {
+        if ( this.props.addSubjectSuccessInfo && !this.state.subject.touched) {
             const subjectUpdated = {
                 ...this.state.subject,
                 touched: true,
@@ -145,6 +157,30 @@ class EditSubject extends Component {
                 valid: false
             }
             this.setState({ subject: subjectUpdated, fillError: 'Please fill all fields'});
+
+        } else if ( this.state.category.value === '') {
+            const categoryUpdated = {
+                ...this.state.category,
+                touched: true,
+                valid: false
+            }
+            this.setState({ category: categoryUpdated, fillError: 'Please fill all fields'});
+
+        } else if ( this.state.iconPath.value === '') {
+            const iconPathUpdated = {
+                ...this.state.iconPath,
+                touched: true,
+                valid: false
+            }
+            this.setState({ iconPath: iconPathUpdated, fillError: 'Please fill all fields'});
+
+        } else if ( this.state.iconAlt.value === '') {
+            const iconAltUpdated = {
+                ...this.state.iconAlt,
+                touched: true,
+                valid: false
+            }
+            this.setState({ iconAlt: iconAltUpdated, fillError: 'Please fill all fields'});
 
         } else if (this.state.path.value === '') {
             const pathUpdated = {
@@ -162,19 +198,29 @@ class EditSubject extends Component {
             }
             this.setState({ curriculum: curriculumUpdated, fillError: 'Please fill all fields'});
 
-        } else if ( this.state.iconPath.value === '') {
-            const iconPathUpdated = {
-                ...this.state.iconPath,
-                touched: true,
-                valid: false
-            }
-            this.setState({ iconPath: iconPathUpdated, fillError: 'Please fill all fields'});
-
         } else {
-            this.props.onEditSubject( this.state.subject.value, this.state.path.value, this.state.curriculum.value, this.state.iconPath.value);
+            this.props.onAddSubject( this.state.subject.value, this.state.category.value, this.state.iconPath.value, this.state.iconAlt.value, this.state.path.value, this.state.curriculum.value);
             
             const subjectReset = {
                 ...this.state.subject,
+                value: '',
+                touched: false
+            }
+
+            const categoryReset = {
+                ...this.state.category,
+                value: '',
+                touched: false
+            }
+
+            const iconPathReset = {
+                ...this.state.iconPath,
+                value: '',
+                touched: false
+            }
+
+            const iconAltReset = {
+                ...this.state.iconAlt,
                 value: '',
                 touched: false
             }
@@ -190,14 +236,15 @@ class EditSubject extends Component {
                 value: '',
                 touched: false
             }
-
-            const iconPathReset = {
-                ...this.state.iconPath,
-                value: '',
-                touched: false
-            }
             
-            this.setState({ subject: subjectReset, path: pathReset, curriculum: curriculumReset, iconPath: iconPathReset});
+            this.setState({ 
+                subject: subjectReset, 
+                category: categoryReset, 
+                iconPath: iconPathReset, 
+                iconAlt: iconAltReset, 
+                path: pathReset, 
+                curriculum: curriculumReset
+            });
         }
         
     }
@@ -211,32 +258,17 @@ class EditSubject extends Component {
             touched: true
         }
 
-        this.setState({ subject: subjectUpdatedpdated, fillError: null}, () => {
-            if (this.state.subject.value !== '') {
-                this.props.onFetchSelectSubjectInfo( this.state.subject.value );
+        this.setState({ subject: subjectUpdatedpdated, fillError: null});
+    }
 
-                const pathUpdated = {
-                    ...this.state.path,
-                    valid: true,
-                    touched: false
-                }
-        
-                const curriculumUpdated = {
-                    ...this.state.curriculum,
-                    valid: true,
-                    touched: false
-                }
-
-                const iconPathUpdated = {
-                    ...this.state.iconPath,
-                    valid: true,
-                    touched: false
-                }
-
-                this.setState({ path: pathUpdated, curriculum: curriculumUpdated, iconPath: iconPathUpdated });
-                
-            }
-        });
+    categoryChangedHandler = (event) => {
+        const updated = {
+            ...this.state.category,
+            value: event.target.value,
+            valid: this.checkValidity(event.target.value, this.state.category.validation),
+            touched: true
+        }
+        this.setState({ category: updated, fillError: null});      
     }
 
     pathChangedHandler = (event) => {
@@ -271,58 +303,73 @@ class EditSubject extends Component {
        
     }
 
-    elementConfig = () => {
-        let elementConfig = {};
-        
-        const subjects = this.props.subjects.map( subject => subject.title );
-
-        const subjectSort = subjects.sort();
-
-        const temp = subjectSort.map( subject => {
-            return {
-                value: subject,
-                displayValue: subject
-            }
-        })
-
-        temp.unshift({ value: '', displayValue: ''});
-
-        elementConfig.options = temp;
-
-        return elementConfig;
-    } 
+    iconAltChangedHandler = (event) => {
+        const updated = {
+            ...this.state.iconAlt,
+            value: event.target.value,
+            valid: this.checkValidity(event.target.value, this.state.iconAlt.validation),
+            touched: true
+        }
+        this.setState({ iconAlt: updated, fillError: null});
+       
+    }
 
     render() {
 
         let formButtonText = 'Submit';
-        if(this.props.editSubjectLoading) {
+        if(this.props.addSubjectLoading) {
             formButtonText = <Spinner isButton/>;
         }
 
         return (
             <div className={classes.ContainerItem}>
-                <FormTitle isAdmin>Edit Subject</FormTitle>
+                <FormTitle isAdmin>Add Subject</FormTitle>
                 <Form
                 submitForm={this.submitpathHandler}
                 >
                     <FormFeedback isFillError>
                         {this.state.fillError}
                     </FormFeedback>
-                    {this.props.fetchSubjectToEditError ? 
-                        <FormFeedback isFillError>
-                            {this.props.fetchSubjectToEditError}
-                        </FormFeedback> : null
-                    }
                     <Input 
                     label={this.state.subject.label} 
                     name={this.state.subject.name}
                     value={this.state.subject.value}
-                    elementType='select'
+                    elementcategory='input'
                     invalid={!this.state.subject.valid}
                     shouldValidate={this.state.subject.validation}
                     touched={this.state.subject.touched}
-                    elementConfig={this.elementConfig()}
                     changed={(event) => this.subjectChangedHandler(event)}
+                    />
+                    <Input 
+                    label={this.state.category.label} 
+                    name={this.state.category.name}
+                    value={this.state.category.value}
+                    elementType='select'
+                    invalid={!this.state.category.valid}
+                    shouldValidate={this.state.category.validation}
+                    touched={this.state.category.touched}
+                    elementConfig={this.state.category.elementConfig}
+                    changed={(event) => this.categoryChangedHandler(event)}
+                    />
+                    <Input 
+                    label={this.state.iconPath.label} 
+                    name={this.state.iconPath.name}
+                    value={this.state.iconPath.value}
+                    elementType={'input'}
+                    invalid={!this.state.iconPath.valid}
+                    shouldValidate={this.state.iconPath.validation}
+                    touched={this.state.iconPath.touched}
+                    changed={(event) => this.iconPathChangedHandler(event)}
+                    />
+                    <Input 
+                    label={this.state.iconAlt.label} 
+                    name={this.state.iconAlt.name}
+                    value={this.state.iconAlt.value}
+                    elementType={'input'}
+                    invalid={!this.state.iconAlt.valid}
+                    shouldValidate={this.state.iconAlt.validation}
+                    touched={this.state.iconAlt.touched}
+                    changed={(event) => this.iconAltChangedHandler(event)}
                     />
                     <Input 
                     label={this.state.path.label} 
@@ -344,31 +391,24 @@ class EditSubject extends Component {
                     touched={this.state.curriculum.touched}
                     changed={(event) => this.curriculumChangedHandler(event)}
                     />
-                    <Input 
-                    label={this.state.iconPath.label} 
-                    name={this.state.iconPath.name}
-                    value={this.state.iconPath.value}
-                    elementType={'input'}
-                    invalid={!this.state.iconPath.valid}
-                    shouldValidate={this.state.iconPath.validation}
-                    touched={this.state.iconPath.touched}
-                    changed={(event) => this.iconPathChangedHandler(event)}
-                    />
-                    { (!this.state.path.valid && this.state.path.touched) ||
-                      (!this.state.subject.valid && this.state.subject.touched) || 
-                      (!this.state.curriculum.valid && this.state.curriculum.touched) || 
+                    {  
                       (!this.state.iconPath.valid && this.state.iconPath.touched) || 
+                      (!this.state.iconAlt.valid && this.state.iconAlt.touched) ||
+                      (!this.state.subject.valid && this.state.subject.touched) || 
+                      (!this.state.category.valid && this.state.category.touched) ||
+                      (!this.state.path.valid && this.state.path.touched) || 
+                      (!this.state.curriculum.valid && this.state.curriculum.touched) || 
                       this.state.fillError ? 
                         <Button btnType='Danger' disabled> {formButtonText} </Button> :
                         <Button btnType='Success'> {formButtonText} </Button>    
                     }
-                    { this.props.editSubjectError ? 
+                    { this.props.addSubjectError ? 
                         <FormFeedback isFailed>
-                            {this.props.editSubjectError}
+                            {this.props.addSubjectError}
                         </FormFeedback>
                         :
                         <FormFeedback isSuccess>
-                            {this.props.editSubjectSuccessInfo}
+                            {this.props.addSubjectSuccessInfo}
                         </FormFeedback>
                     }
                 </Form>
@@ -378,24 +418,17 @@ class EditSubject extends Component {
 };
 
 const mapStateToProps = state => ({
-    subjects: state.explore.subjects,
-    editSubjectSuccessInfo: state.admin1.editSubjectSuccessInfo,
-    fetchSubjectToEditError: state.admin1.fetchSubjectToEditError,
-    editSubjectLoading: state.admin1.editSubjectLoading,
-    editSubjectError: state.admin1.editSubjectError,
-    subjectToEditPath: state.admin1.subjectToEditPath,
-    subjectToEditCurriculum: state.admin1.subjectToEditCurriculum,
-    subjectToEditIconPath: state.admin1.subjectToEditIconPath,
+    addSubjectSuccessInfo: state.admin1.addSubjectSuccessInfo,
+    addSubjectLoading: state.admin1.addSubjectLoading,
+    addSubjectError: state.admin1.addSubjectError,
     user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onFetchSelectSubjectInfo: (subject) => dispatch( actions.fetchSelectSubjectInfo(subject)),
-        onEditSubject: ( subject, path, curriculum, iconPath ) => dispatch( actions.editSubject( subject, path, curriculum, iconPath ) ),
-        onClearEditSubjectInfo: () => dispatch( actions.clearEditSubjectInfo())
+        onAddSubject: ( subjectTitle, category, iconPath, iconAlt, path, curriculum ) => dispatch( actions.addSubject( subjectTitle, category, iconPath, iconAlt, path, curriculum ) ),
+        onClearAddSubjectState: () => dispatch( actions.clearAddSubjectState())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditSubject);
+export default connect(mapStateToProps, mapDispatchToProps)(AddSubject);

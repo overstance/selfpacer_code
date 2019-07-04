@@ -8,6 +8,7 @@ import UpdateYoutubePlaylists from '../../components/ManageYoutube/YoutubePlayli
 import AddResource from '../../components/addResource/addResource';
 import AddSubjectIcon from '../../components/manageSubjects/AddSubjectIcon';
 import EditSubect from '../../components/manageSubjects/EditSubject';
+import AddSubject from '../../components/manageSubjects/AddSubject';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 
 class Admin1 extends Component {
@@ -90,6 +91,7 @@ class Admin1 extends Component {
                             <div className={classes.BlockContentItems}>
                                 <AddSubjectIcon />
                                 <EditSubect />
+                                <AddSubject />
                             </div>
                         : null }
                     </div>

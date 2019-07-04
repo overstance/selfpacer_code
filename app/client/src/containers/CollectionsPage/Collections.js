@@ -179,7 +179,7 @@ class Collections extends Component {
                                 <CollectionsNav
                                     // show={this.state.showFilter}
                                     // createActive='/create_collection'
-                                    createActive={this.state.featuredActive}
+                                    createActived={this.state.createActive}
                                     mineActived={this.state.mineActive}
                                     featuredActived={this.state.featuredActive}
                                     sharedActived={this.state.sharedActive}

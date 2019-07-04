@@ -14,7 +14,6 @@ class CreateCollection extends Component {
 
     componentWillUnmount() {
         this.props.onResetCollectionMessages();
-        this.props.onClearResourceToCollect();
     }
 
     state = {
@@ -77,11 +76,11 @@ class CreateCollection extends Component {
             this.setState({ fillError: 'Please fill all fields' });
 
         } else {
-            this.props.onCreateCollection(this.state.title.value, this.props.user, this.props.resourceToCollect.id);
+            this.props.onCreateCollection(this.state.title.value, this.props.user, '');
             
             const titleReset = {
                 ...this.state.title,
-                value: this.state.title.value
+                value: ''
             }
 
             this.setState({ title: titleReset, fillError: null});
@@ -121,20 +120,7 @@ class CreateCollection extends Component {
             shouldValidate={this.state.title.validation}
             touched={this.state.title.touched}
             changed={(event) => this.titleChangedHandler(event)}
-            />
-            { this.props.resourceToCollect.id === '' ? null : 
-                <div className={classes.ResourceLabel}>Resource To Add: </div>
-            }
-            { this.props.resourceToCollect.id === '' ? null :
-                <div className={classes.ResourceContainer}>
-                    <div className={classes.ResourceImgColumn}>
-                        <img src={this.props.resourceToCollect.img} alt='resource' /> 
-                    </div>
-                    <div className={classes.ResourceTitleColumn}>
-                        <div className={classes.ResourceTitle}>{this.props.resourceToCollect.title}</div>
-                    </div>   
-                </div>     
-            }                      
+            />                   
             { (!this.state.title.valid && this.state.title.touched)  ? 
                 <Button btnType='Danger' disabled> {createCollectionButtonText} </Button> :
                 <Button btnType='Success'> {createCollectionButtonText} </Button>    
@@ -177,15 +163,13 @@ const mapStateToProps = state => ({
     successMessage: state.collection.successMessage,
     loading: state.collection.loading,
     error: state.collection.error,
-    user: state.auth.user,
-    resourceToCollect: state.collection.resourceToCollect
+    user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         onCreateCollection: (title, user, resourceToAdd) => dispatch( actions.createCollection(title, user, resourceToAdd) ),
-        onResetCollectionMessages: () => dispatch(actions.resetCollectionMessages() ),
-        onClearResourceToCollect: () => dispatch(actions.clearResourceToCollect())
+        onResetCollectionMessages: () => dispatch(actions.resetCollectionMessages() )
     };
 };
 
