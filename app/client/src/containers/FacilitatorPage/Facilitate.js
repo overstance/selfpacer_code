@@ -26,7 +26,7 @@ class Facilitator extends Component {
         <div>Non Facilitator Page Arrived</div>;
 
         let facilitatorTools = 
-        <GridlessPageWrapper>
+        <GridlessPageWrapper pageTitle='Facilitate'>
             <div className={classes.Wrapper} >
                 <div className={classes.Subheader}>
                     <Toggler 
@@ -48,7 +48,7 @@ class Facilitator extends Component {
                     : null }
                 </div>
             </div>
-        </GridlessPageWrapper>
+        </GridlessPageWrapper>;
 
         let pageContent;
 

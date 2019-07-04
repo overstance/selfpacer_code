@@ -9,9 +9,17 @@ import AddResource from '../../components/addResource/addResource';
 import AddSubjectIcon from '../../components/manageSubjects/AddSubjectIcon';
 import EditSubect from '../../components/manageSubjects/EditSubject';
 import AddSubject from '../../components/manageSubjects/AddSubject';
+import DeleteSubject from '../../components/manageSubjects/DeleteSubject';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
+import { connect } from 'react-redux';
 
 class Admin1 extends Component {
+
+    componentDidMount() {
+        if (this.props.useTypeContext !== '2') {
+            this.props.history.push('/');
+        }
+    }
 
     state = {
         showManageSubjects: false,
@@ -92,6 +100,7 @@ class Admin1 extends Component {
                                 <AddSubjectIcon />
                                 <EditSubect />
                                 <AddSubject />
+                                <DeleteSubject />
                             </div>
                         : null }
                     </div>
@@ -139,4 +148,11 @@ class Admin1 extends Component {
     }
 }
 
-export default Admin1;
+const mapStateToProps = state => {
+    return {
+        useTypeContext: state.auth.useTypeContext,
+    };
+};
+
+
+export default connect(mapStateToProps)(Admin1);

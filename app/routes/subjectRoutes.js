@@ -160,4 +160,18 @@ module.exports = app => {
     // console.log(req.body.file);
     res.send('file added');
   });
+
+  app.delete('/api/delete_subject/:subjectTitle', (req, res) => {
+    Subject.findOneAndDelete(
+      { title: req.params.subjectTitle },
+      (err, subject) => {
+        if (err) {
+          res.send({ error: err.name });
+          // console.log(err.message);
+        } else if (subject) {
+          res.send({ subject: subject });
+        }
+      }
+    );
+  });
 };

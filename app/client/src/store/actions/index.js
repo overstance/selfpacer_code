@@ -41,7 +41,9 @@ export {
     clearEditSubjectInfo,
     resetAddSubjectIconState,
     addSubject,
-    clearAddSubjectState
+    clearAddSubjectState,
+    deleteSubject,
+    clearDeleteSubjectInfo
 } from './admin1';
 
 export {

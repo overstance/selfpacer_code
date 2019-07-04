@@ -285,6 +285,45 @@ export const addSubject = ( subjectTitle, category, iconPath, iconAlt, path, cur
     }
 }
 
+//  delete subject
+export const deleteSubjectStart = () => {
+    return {
+        type: actionTypes.DELETE_SUBJECT_START,
+    }
+}
+
+export const deleteSubjectSuccess = ( successInfo ) => {
+    return {
+        type: actionTypes.DELETE_SUBJECT_SUCCESS,
+        successInfo: successInfo
+    }
+}
+
+export const deleteSubjectFail = ( error) => {
+    return {
+        type: actionTypes.DELETE_SUBJECT_FAIL,
+        error: error
+    }
+}
+
+export const clearDeleteSubjectInfo = () => {
+    return {
+        type: actionTypes.CLEAR_DELETE_SUBJECT_INFO
+    }
+}
+
+export const deleteSubject = ( subjectTitle ) => async dispatch => {
+    dispatch( deleteSubjectStart());
+
+    const res = await axios.delete(`/api/delete_subject/${subjectTitle}`);
+
+    if (res.data.subject) {
+        console.log(res.data.subject)
+        dispatch( deleteSubjectSuccess('subject deleted'));
+    } else if (res.data.error){
+        dispatch( deleteSubjectFail(res.data.error));
+    }
+}
 
 
 // clear all add messages

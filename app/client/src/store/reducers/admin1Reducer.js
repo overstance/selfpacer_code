@@ -20,6 +20,10 @@ const initialState = {
     addSubjectError: null,
     addSubjectLoading: false,
 
+    deleteSubjectSuccessInfo: null,
+    deleteSubjectError: null,
+    deleteSubjectLoading: false,
+
     addSubjectIconLoading: false,
     addSubjectIconError: null,
     addSubjectIconSuccessInfo: null,
@@ -181,6 +185,37 @@ const clearAddSubjectState = ( state, action ) => {
     });
 }
 
+// delete new subject
+const deleteSubjectStart = ( state, action ) => {
+    return updateObject( state, {
+        deleteSubjectSuccessInfo: null,
+        deleteSubjectError: null,
+        deleteSubjectLoading: true,
+    });
+}
+
+const deleteSubjectSuccess = ( state, action ) => {
+    return updateObject( state, {
+        deleteSubjectSuccessInfo: action.successInfo,
+        deleteSubjectLoading: false,
+    });
+}
+
+const deleteSubjectFail = ( state, action ) => {
+    return updateObject( state, {
+        deleteSubjectError: action.error,
+        deleteSubjectLoading: false,
+    });
+}
+
+const clearDeleteSubjectInfo = ( state, action ) => {
+    return updateObject( state, {
+        deleteSubjectSuccessInfo: null,
+        deleteSubjectError: null,
+        deleteSubjectLoading: false,
+    });
+}
+
 // clear all admin add messages
 
 const clearAddMessages = ( state, action ) => {
@@ -230,10 +265,17 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADD_SUBJECT_FAIL: return addSubjectFail( state, action );
         case actionTypes.CLEAR_ADD_SUBJECT_STATE: return clearAddSubjectState( state, action );
 
+        case actionTypes.DELETE_SUBJECT_START: return deleteSubjectStart( state, action );
+        case actionTypes.DELETE_SUBJECT_SUCCESS: return deleteSubjectSuccess( state, action );
+        case actionTypes.DELETE_SUBJECT_FAIL: return deleteSubjectFail( state, action );
+        case actionTypes.CLEAR_DELETE_SUBJECT_INFO: return clearDeleteSubjectInfo( state, action );
+
         case actionTypes.ADD_SUBJECT_ICON_START: return addSubjectIconStart( state, action );
         case actionTypes.ADD_SUBJECT_ICON_SUCCESS: return addSubjectIconSuccess( state, action );
         case actionTypes.ADD_SUBJECT_ICON_FAIL: return addSubjectIconFail( state, action );
-        case actionTypes.RESET_ADD_SUBJECT_ICON_STATE: return resetAddSubjectIconState( state, action ); 
+        case actionTypes.RESET_ADD_SUBJECT_ICON_STATE: return resetAddSubjectIconState( state, action );
+        
+        
 
         case actionTypes.CLEAR_ADD_MESSAGES: return clearAddMessages( state, action );
 

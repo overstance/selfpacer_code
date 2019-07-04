@@ -148,7 +148,7 @@ class AddSubject extends Component {
                 touched: true,
                 valid: false
             }
-            this.setState({ subject: subjectUpdated, fillError: 'Edit New'});
+            this.setState({ subject: subjectUpdated, fillError: 'Add New'});
 
         } else if ( this.state.subject.value === '') {
             const subjectUpdated = {
