@@ -10,7 +10,8 @@ module.exports = app => {
     let confirmed = false;
     if (
       req.body.userType === 'Administrator' ||
-      req.body.userType === 'Facilitator'
+      /* req.body.userType === 'Facilitator' || */
+      req.body.userType === 'ChiefAdmin'
     ) {
       confirmed = true;
     }

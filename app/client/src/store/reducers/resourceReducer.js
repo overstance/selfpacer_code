@@ -5,11 +5,15 @@ const initialState = {
     error: null,
     successMessage: null,
     loading: false,
+
     clickedResource: {},
     clickedResourcePlatform: null,
     userRecentlyViewed: null,
 
-    unconfirmedResources: [], 
+    unconfirmedResources: [],
+    unconfirmredLoading: false, 
+    fetchMoreUnconfirmedLoading: false,
+    unconfirmedLatestFetchLength: 0,
 
     recentlyViewedResources: [],
 
@@ -198,18 +202,37 @@ const fetchRecentlyViewedResources = ( state, action ) => {
 // fetch unconfirmed resources
 
 const fetchUnconfirmedStart = ( state, action ) => {
-    return updateObject( state, { loading: true } );
+    return updateObject( state, { unconfirmredLoading: true } );
 };
 
 const fetchUnconfirmedSuccess = ( state, action ) => {
     return updateObject( state, {
         unconfirmedResources: action.resources,
-        loading: false
+        unconfirmedLatestFetchLength: action.resourceLength,
+        unconfirmredLoading: false
     } );
 };
 
 const fetchUnconfirmedFail = ( state, action ) => {
-    return updateObject( state, { loading: false } );
+    return updateObject( state, { unconfirmredLoading: false } );
+};
+
+// fetch more unconfirmed resources
+
+const fetchMoreUnconfirmedStart = ( state, action ) => {
+    return updateObject( state, { fetchMoreUnconfirmedLoading: true } );
+};
+
+const fetchMoreUnconfirmedSuccess = ( state, action ) => {
+    return updateObject( state, {
+        unconfirmedResources: action.resources,
+        unconfirmedLatestFetchLength: action.resourceLength,
+        fetchMoreUnconfirmedLoading: false
+    } );
+};
+
+const fetchMoreUnconfirmedFail = ( state, action ) => {
+    return updateObject( state, { fetchMoreUnconfirmedLoading: false } );
 };
 
 // set asset to update fields
@@ -492,6 +515,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_START: return fetchUnconfirmedStart( state, action );
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_SUCCESS: return fetchUnconfirmedSuccess( state, action );
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_FAIL: return fetchUnconfirmedFail( state, action );
+
+        case actionTypes.FETCH_MORE_UNCONFIRMED_RESOURCES_START: return fetchMoreUnconfirmedStart( state, action );
+        case actionTypes.FETCH_MORE_UNCONFIRMED_RESOURCES_SUCCESS: return fetchMoreUnconfirmedSuccess( state, action );
+        case actionTypes.FETCH_MORE_UNCONFIRMED_RESOURCES_FAIL: return fetchMoreUnconfirmedFail( state, action );
 
         case actionTypes.SET_ASSET_TO_UPDATE_FIELDS: return setAssetToupdateFields( state, action );
 

@@ -56,7 +56,10 @@ class Profile extends Component {
                                 <div className={classes.FaclitatorButton}>Become a Facilitator</div>
                             </div>
                         </div>
-                        { this.props.accountType === 'Administrator' || this.props.accountType === 'Facilitator' ?
+                        { 
+                            this.props.accountType === 'Administrator' ||
+                            this.props.accountType === 'Facilitator' ||
+                            this.props.accountType === 'ChiefAdmin' ?
                             <div className={classes.Statistics}>
                                 <div className={classes.StatisticsLike}>
                                     <div className={classes.StatisticsCount}>{this.props.likeCount}</div>

@@ -90,7 +90,7 @@ class Resource extends Component {
                             }
                             { this.props.videoCount ? 
                                 <div className={classes.DetailsColumnFlex}>
-                                    <div className={classes.Type}>VIDEOCOUNT:<span>{this.props.videoCount}</span></div>
+                                    <div className={classes.Type}>LECTURECOUNT:<span>{this.props.videoCount}</span></div>
                                 </div> : null
                             }
                             { this.props.youtubeViews ?
@@ -101,6 +101,11 @@ class Resource extends Component {
                             { this.props.author ?
                                 <div className={classes.DetailsColumnFlex}>
                                     <div className={classes.Type}>AUTHOR:<span>{this.props.author}</span></div>
+                                </div> : null
+                            }
+                            { this.props.isAsset || this.props.isConfirmResources ?
+                                <div className={classes.DetailsColumnFlex}>
+                                    <div className={classes.Type}>SUBJECT:<span>{this.props.category}</span></div>
                                 </div> : null
                             }   
                         </div>

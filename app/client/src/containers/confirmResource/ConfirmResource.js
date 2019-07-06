@@ -6,15 +6,49 @@ import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Resource from '../../components/Resource/Resource';
 import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'
-
+import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
+import LoadMorePrompt from '../../components/UserInterface/LoadMorePrompt/LoadMore';
 
 class ConfirmResource extends Component {
     
     componentDidMount() {
-        this.props.onFetchUnconfirmed();
+        if ( this.props.useTypeContext === '0' || this.props.useTypeContext === '1') {
+            this.props.history.push('/');
+        } else {
+            window.addEventListener('scroll', this.handleScroll, false);
+
+            this.props.onFetchUnconfirmed(0);
+        }       
     }
 
-    state = {}
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll, false);
+    }
+
+    state = {
+        pageIndex: 0
+    }
+
+    handleScroll = () => {
+        /* if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight) {
+            this.fetchMoreData();
+        } */
+        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 300) 
+            && !this.props.fetchMoreLoading && !this.props.loading) {
+            this.fetchMoreData() 
+        }
+    }
+
+    fetchMoreData(){
+        if (this.props.latestFetchLength >= 10) {
+            this.setState({
+                pageIndex: this.state.pageIndex + 1
+            }, () => {
+                this.props.onFetchMoreUnconfirmed(this.state.pageIndex, this.props.unconfirmedResources);
+            })
+            
+        }      
+    }
 
     confirmResourceHandler = ( resourceId ) => {
         this.props.onConfirmResource(resourceId)
@@ -31,7 +65,8 @@ class ConfirmResource extends Component {
 
         if (!this.props.loading) {
             unconfirmedResources = this.props.unconfirmedResources.map( (resource, i) => (
-                <Resource 
+                <Resource
+                isConfirmResources 
                 key={i}
                 id={resource._id} 
                 link={resource.link}
@@ -48,6 +83,7 @@ class ConfirmResource extends Component {
                 youtubeViews={resource.youtubeviews}
                 publishDate={resource.publishDate}
                 source={resource.source}
+                category={resource.category}
                 type={resource.type}
                 videoCount={resource.videoCount}
                 confirmClicked={() => this.confirmResourceHandler( resource._id )}
@@ -72,6 +108,8 @@ class ConfirmResource extends Component {
                 <div className={classes.Resources}>
                     {unconfirmedResources} 
                 </div>
+                { this.props.fetchMoreLoading ? <LoadMorePrompt /> : null}
+                <ScrollButton scrollStepInPx="100" delayInMs="16.66" showUnder={160} />
             </GridlessPageWrapper>  
         );
     };
@@ -80,15 +118,19 @@ class ConfirmResource extends Component {
 const mapStateToProps = state => {
     return {
         unconfirmedResources: state.resource.unconfirmedResources,
-        loading: state.resource.loading,
+        loading: state.resource.unconfirmredLoading,
+        useTypeContext: state.auth.useTypeContext,
+        fetchMoreLoading: state.resource.fetchMoreUnconfirmedLoading,
+        latestFetchLength: state.resource.unconfirmedLatestFetchLength,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchUnconfirmed: () => dispatch(actions.fetchUnconfirmed()),
+        onFetchUnconfirmed: (pageIndex) => dispatch(actions.fetchUnconfirmed(pageIndex)),
         onConfirmResource: (resourceId) => dispatch(actions.confirmResource(resourceId)),
-        onDeleteUnconfirmedResource: (resourceId) => dispatch(actions.deleteUnconfirmedResource(resourceId))
+        onDeleteUnconfirmedResource: (resourceId) => dispatch(actions.deleteUnconfirmedResource(resourceId)),
+        onFetchMoreUnconfirmed: (pageIndex, unconfirmedResources) => dispatch(actions.fetchMoreUnconfirmed( pageIndex, unconfirmedResources))
     };
 };
 

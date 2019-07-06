@@ -1,14 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-//const google = require('googleapis');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys');
-const seedDB = require('./seed/seedSubjects');
-const seedYoutube = require('./seed/seedAccounting');
 require('./models/User');
 require('./services/passport');
+// const seedDB = require('./seed/seedSubjects');
+// const seedYoutube = require('./seed/seedAccounting');
+// const reSubjectMotionGraphics = require('./seed/reSubjectMotionGraphics');
+// const reSubjectDatabase = require('./seed/reSubjectDatabase');
+// const seedBookResource = require('./seed/seedBookResource');
 
 const authRoutes = require('./routes/authRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
@@ -34,6 +36,9 @@ app.use(bodyParser.json());
 
 //seedDB();
 //seedYoutube();
+// reSubjectMotionGraphics();
+// reSubjectDatabase();
+// seedBookResource();
 
 app.use(
   cookieSession({

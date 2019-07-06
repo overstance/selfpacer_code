@@ -350,10 +350,12 @@ export const fetchUnconfirmedStart = () => {
    } 
 }
 
-export const fetchUnconfirmedSuccess = (resources) => {
+export const fetchUnconfirmedSuccess = (resources, resourceLength) => {
     return {
      type: actionTypes.FETCH_UNCONFIRMED_RESOURCES_SUCCESS,
-     resources: resources
+     resources: resources,
+     resourceLength: resourceLength
+
     } 
 }
 
@@ -363,17 +365,55 @@ export const fetchUnconfirmedFail = () => {
     } 
 }
 
-export const fetchUnconfirmed = () => async dispatch => {
+export const fetchUnconfirmed = (pageIndex) => async dispatch => {
     dispatch(fetchUnconfirmedStart());
 
-    const res = await axios.get('/api/unconfirmed_resources');
+    const res = await axios.get(`/api/unconfirmed_resources/${pageIndex}`);
 
     if (res.data.resources) {
-        dispatch(fetchUnconfirmedSuccess(res.data.resources));
+        let resourceLength = res.data.resources.length;
+        dispatch(fetchUnconfirmedSuccess(res.data.resources, resourceLength));
     } else {
         dispatch(fetchUnconfirmedFail());  
     }
 }
+
+// fetch more Unconfirmed Resources
+
+export const fetchMoreUnconfirmedStart = () => {
+    return {
+     type: actionTypes.FETCH_MORE_UNCONFIRMED_RESOURCES_START
+    } 
+ }
+ 
+ export const fetchMoreUnconfirmedSuccess = (resources, resourceLength) => {
+     return {
+      type: actionTypes.FETCH_MORE_UNCONFIRMED_RESOURCES_SUCCESS,
+      resources: resources,
+      resourceLength: resourceLength
+ 
+     } 
+ }
+ 
+ export const fetchMoreUnconfirmedFail = () => {
+     return {
+         type: actionTypes.FETCH_MORE_UNCONFIRMED_RESOURCES_FAIL
+     } 
+ }
+ 
+ export const fetchMoreUnconfirmed = (pageIndex, unconfirmedResources) => async dispatch => {
+     dispatch(fetchMoreUnconfirmedStart());
+ 
+     const res = await axios.get(`/api/unconfirmed_resources/${pageIndex}`);
+ 
+     if (res.data.resources) {
+        let updatedResources = [...unconfirmedResources, ...res.data.resources]
+        let resourceLength = res.data.resources.length;
+        dispatch(fetchMoreUnconfirmedSuccess(updatedResources, resourceLength));
+     } else {
+         dispatch(fetchMoreUnconfirmedFail());  
+     }
+ }
 
 export const confirmResource = (resourceId) => async dispatch => {
     // dispatch(fetchUnconfirmedStart());

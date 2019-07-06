@@ -44,7 +44,11 @@ module.exports = app => {
           const subject = req.body.subject;
 
           let confirmed = false;
-          if (userType === 'Administrator' || userType === 'Facilitator') {
+          if (
+            userType === 'Administrator' ||
+            /* userType === 'Facilitator' || */
+            userType === 'ChiefAdmin'
+          ) {
             confirmed = true;
           }
 
@@ -185,7 +189,11 @@ module.exports = app => {
           const subject = req.body.subject;
 
           let confirmed = false;
-          if (userType === 'Administrator' || userType === 'Facilitator') {
+          if (
+            userType === 'Administrator' ||
+            /* userType === 'Facilitator' || */
+            userType === 'ChiefAdmin'
+          ) {
             confirmed = true;
           }
 

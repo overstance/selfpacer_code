@@ -57,7 +57,7 @@ class Explore extends Component {
             });
         }
 
-        if (this.props.selectedCategory === 'lifeSyle') {
+        if (this.props.selectedCategory === 'lifeStyle') {
             this.setState({ 
                 allActive: false,
                 creativeActive: false,

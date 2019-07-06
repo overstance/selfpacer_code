@@ -60,6 +60,7 @@ export {
     fetchMoreAssets,
     fetchRecentlyViewedResources,
     fetchUnconfirmed,
+    fetchMoreUnconfirmed,
     confirmResource,
     deleteUnconfirmedResource,
     setAssetToUpdateField,

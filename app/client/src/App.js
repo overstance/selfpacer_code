@@ -15,7 +15,7 @@ import SharedCollection from './containers/CollectionPage/sharedCollection/Share
 import UserAssets from './containers/userAssets/UserAssets';
 import CreateNewCollection from './containers/createCollection/createCollection';
 import Profile from './containers/profile/Profile';
-import AdminTools from './containers/admin1page/Admin1';
+import AdminTools from './containers/ChiefAdminPage/ChiefAdmin';
 import ConfirmResource from './containers/confirmResource/ConfirmResource';
 import EditProfile from './containers/profile/editProfile/EditProfile';
 import ForgotPassword from './components/auth/ForgotPassword/ForgotPassword';

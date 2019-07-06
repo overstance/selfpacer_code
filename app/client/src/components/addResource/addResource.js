@@ -146,7 +146,7 @@ class AddResources extends Component {
             videoCount: {
                 elementType: 'input',
                 elementConfig: {
-                    label: "video count",
+                    label: "lecture count",
                     labelspan: '(number with no commas)*'
                 },
                 value: '', 

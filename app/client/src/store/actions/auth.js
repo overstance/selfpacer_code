@@ -121,7 +121,7 @@ export const fetchUser = () => async dispatch => {
             }
         }
 
-        if ( res.data.accountType === 'Administrator' || res.data.accountType === 'Facilitator') {
+        if ( res.data.accountType === 'Administrator' || res.data.accountType === 'Facilitator' || res.data.accountType === 'ChiefAdmin') {
             dispatch(fetchUserAssetCountStart());
             const res3 = await axios.get(`/api/user_asset_count/${userId}`)
             
@@ -299,6 +299,8 @@ export const loginUser = (email, password, history) => {
                     useContext = '1'
                 } else if (res.data.accountType === 'Administrator') {
                     useContext = '2'
+                } else if (res.data.accountType === 'ChiefAdmin') {
+                    useContext = '3'
                 };
 
                 localStorage.setItem("token", res.data._id);

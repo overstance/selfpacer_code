@@ -24,7 +24,10 @@ class UserAssets extends Component {
     
     componentDidMount() {
 
-        if (this.props.accountType === 'Administrator' || this.props.accountType === 'Facilitator') {
+        if ( 
+            this.props.accountType === 'ChiefAdmin' || 
+            this.props.accountType === 'Administrator' || 
+            this.props.accountType === 'Facilitator') {
             
             window.addEventListener('scroll', this.handleScroll, false);
             // this.setState({pageIndex: 0});
@@ -33,7 +36,7 @@ class UserAssets extends Component {
                 this.props.onFetchUserAssets(this.props.userId, 0);
             } 
             
-            if (this.props.accountType === 'Administrator') {
+            if (this.props.accountType === 'Administrator' || this.props.accountType === 'ChiefAdmin') {
                 if (this.props.activeContent === 'youtube') {
                     this.setState({
                         moocActive: false,
@@ -75,7 +78,7 @@ class UserAssets extends Component {
                 }
             }
         } else {
-            console.log(this.props.accountType);
+            // console.log(this.props.accountType);
             this.props.history.push('/');
         }    
     }
@@ -691,6 +694,7 @@ class UserAssets extends Component {
                 youtubeViews={resource.youtubeviews}
                 publishDate={resource.publishDate}
                 source={resource.source}
+                category={resource.category}
                 type={resource.type}
                 videoCount={resource.videoCount}
                 likeCount={numberWithCommas(resource.likes)}
@@ -836,7 +840,7 @@ class UserAssets extends Component {
 
         return (
             <GridlessPageWrapper pageTitle='Manage Asset'>
-                { this.props.accountType === 'Administrator' ?
+                { this.props.accountType === 'Administrator' || this.props.accountType === 'ChiefAdmin' ?
                     <PlatformNav
                         youtubeActived={this.state.youtubeActive}
                         moocActived={this.state.moocActive}

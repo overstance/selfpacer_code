@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Admin1.css';
+import classes from './ChiefAdmin.css';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
 import AddAdminUsers from '../../components/adminUsers/AddAdminUsers';
 import RemoveAdminUsers from '../../components/adminUsers/RemoveAdminUsers';
@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 class Admin1 extends Component {
 
     componentDidMount() {
-        if (this.props.useTypeContext !== '2') {
+        if (this.props.useTypeContext !== '3') {
             this.props.history.push('/');
         }
     }
@@ -151,6 +151,7 @@ class Admin1 extends Component {
 const mapStateToProps = state => {
     return {
         useTypeContext: state.auth.useTypeContext,
+        userId: state.auth.user._id
     };
 };
 

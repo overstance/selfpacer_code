@@ -4,25 +4,45 @@ const Resource = require('../models/Resource');
 const User = mongoose.model('users');
 
 module.exports = app => {
-  app.get('/api/unconfirmed_resources', (req, res) => {
-    Resource.find({ confirmed: false }, function(err, resources) {
+  app.get('/api/unconfirmed_resources/:pageIndex', (req, res) => {
+    let pageOptions = {
+      page: req.params.pageIndex || 0,
+      limit: 10
+    };
+    Resource.find(
+      {
+        confirmed: false
+      } /* , function(err, resources) {
       if (err) {
         // console.log(err.message);
         res.send(err.message);
       } else {
         res.send({ resources: resources });
       }
-    });
+    } */
+    )
+      .skip(pageOptions.page * pageOptions.limit)
+      .limit(pageOptions.limit)
+      .exec(function(err, resources) {
+        if (err) {
+          // console.log(err.message);
+          res.send(err.message);
+        } else {
+          res.send({ resources: resources });
+        }
+      });
   });
 
   app.get('/api/user_asset_count/:userId', (req, res) => {
     let userId = req.params.userId;
     if (
+      /* check if user is an administrator with the following user ids */
       userId === '5c16e8de76e09e200c039178' ||
       userId === '5c16efcef6d0f300144d3cda'
     ) {
       Resource.find(
         {
+          confirmed: true,
           user_id: {
             $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
           }
@@ -39,6 +59,7 @@ module.exports = app => {
     } else {
       Resource.find(
         {
+          confirmed: true,
           user_id: req.params.userId
         },
         (err, resources) => {
