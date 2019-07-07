@@ -184,15 +184,30 @@
     align-items: center;
 }
 
-.youLiked {
+.ResourceFeedBack {
     display: flex;
     align-items: center;
     text-align: left;
     overflow-x: hidden;
 }
 
-.youLiked span {
+.ResourceFeedBack span {
     color: var(--green);
+    animation: slideRight 0.2s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 0 10px 10px 0;
+    background: var(--blue);
+}
+
+.ResourceFeedBackError {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    overflow-x: hidden;
+}
+
+.ResourceFeedBackError span {
+    color: var(--red);
     animation: slideRight 0.2s ease-in-out;
     padding: 5px 10px;
     border-radius: 0 10px 10px 0;

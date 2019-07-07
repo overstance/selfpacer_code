@@ -107,7 +107,7 @@ class SubjectPage extends Component {
             this.setState({
                 pageIndex: this.state.pageIndex + 1
             }, () => {
-                console.log(this.state.pageIndex, this.props.latestFetchLength );
+                // console.log(this.state.pageIndex, this.props.latestFetchLength );
                 if (this.state.activeContent === 'all') {
                     this.props.onFetchMoreResources(this.props.match.params.subject_title, this.state.pageIndex, this.props.all);
                 } else {

@@ -484,13 +484,13 @@ class UserAssets extends Component {
         }
     }
 
-    deleteResourceHandler = ( resourceId, resourceTitle, lastEdited ) => {
+    deleteResourceHandler = ( resourceId, resourceTitle ) => {
         // console.log(lastEdited);
         this.setState({ resourceToDeleteTitle: resourceTitle, resourceToDeleteId: resourceId, showDeleteDialogue: true});   
     }
 
     confirmDelete = () => {
-        this.props.onDeleteAsset(this.state.resourceToDeleteId, this.props.userId);   
+        this.props.onDeleteAsset(this.state.resourceToDeleteId, this.props.userAssets);   
     }
 
     moocInputChangedHandler = (event, controlName) => {
@@ -701,7 +701,7 @@ class UserAssets extends Component {
                 collectCount={numberWithCommas(resource.collectCount)}
                 viewCount={numberWithCommas(resource.views)}
                 updateClicked={() => this.updateResourceHandler( resource._id, resource.type, resource.duration, resource.enrollees, resource.level, resource.avgRating, resource.videoCount, resource.lastUpdated, resource.source, resource.youtubeId )}
-                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title, resource.lastEdited )}
+                deleteClicked={() => this.deleteResourceHandler( resource._id, resource.title )}
                 dateAdded={new Date(resource.dateAdded).toLocaleDateString()}
                 lastEdited={resource.lastEdited}
                 // lastEdited={new Date(resource.lastEdited).toLocaleDateString()}
@@ -921,7 +921,7 @@ const mapDispatchToProps = dispatch => {
         onSetAssetToUpdateField: (assetToUpdateFields ) => dispatch(actions.setAssetToUpdateField(assetToUpdateFields)),
         onUpdateMoocAsset: (videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId, assets) => dispatch( actions.updateMoocAsset(videoCount, enrollees, duration, level, lastUpdated, avgRating, agent, resourceId, assets) ),
         onUpdateBookAsset: (level, avgRating, agent, resourceId, assets) => dispatch( actions.updateBookAsset(level, avgRating, agent, resourceId, assets) ),
-        onDeleteAsset: (resourceId, userId) => dispatch(actions.deleteAsset(resourceId, userId)),
+        onDeleteAsset: (resourceId, userAssets) => dispatch(actions.deleteAsset(resourceId, userAssets)),
         onClearUpdateAssetMessages: () => dispatch(actions.clearUpdateAssetMessages()),
         onUpdateYoutubeAsset: (resourceId, type, youtubeId, assets) => dispatch(actions.updateYoutubeAsset(resourceId, type, youtubeId, assets))
     };

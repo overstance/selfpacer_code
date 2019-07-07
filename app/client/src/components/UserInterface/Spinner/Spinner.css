@@ -32,6 +32,16 @@
     animation: spin .3s linear infinite;
 }
 
+.ActionButtonSpinner {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 5px solid #00000046;
+    border-right: 5px solid var(--blue);
+    border-bottom: 5px solid var(--blue);
+    animation: spin .3s linear infinite;
+}
+
 .ButtonSpinnerContainer {
     display: flex;
     justify-content: center;

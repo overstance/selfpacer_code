@@ -3,7 +3,11 @@ import React from 'react';
 import classes from './Spinner.css';
 
 const spinner = (props) => ( 
-                props.isDialogue || props.isComponent || props.isButton || props.isLoadMore ?
+                props.isDialogue ||
+                props.isComponent || 
+                props.isButton || 
+                props.isLoadMore ||
+                props.isActionButton ?
                 <div>
                         { props.isDialogue ?
                                 <div className={classes.DialogueContainer}>
@@ -31,6 +35,12 @@ const spinner = (props) => (
                         { props.isLoadMore ?
                                 <div className={classes.ButtonSpinnerContainer}>
                                         <div className={classes.LoadMoreSpinner}></div>     
+                                </div> :
+                                null
+                        }
+                        { props.isActionButton ?
+                                <div className={classes.ButtonSpinnerContainer}>
+                                        <div className={classes.ActionButtonSpinner}></div>     
                                 </div> :
                                 null
                         }

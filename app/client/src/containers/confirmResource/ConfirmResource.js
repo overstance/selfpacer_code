@@ -51,11 +51,11 @@ class ConfirmResource extends Component {
     }
 
     confirmResourceHandler = ( resourceId ) => {
-        this.props.onConfirmResource(resourceId)
+        this.props.onConfirmResource(resourceId, this.props.unconfirmedResources)
     }
 
     deleteUnconfirmedResourceHandler = ( resourceId ) => {
-        this.props.onDeleteUnconfirmedResource(resourceId)    
+        this.props.onDeleteUnconfirmedResource(resourceId, this.props.unconfirmedResources)    
     }
 
     render() {
@@ -66,7 +66,7 @@ class ConfirmResource extends Component {
         if (!this.props.loading) {
             unconfirmedResources = this.props.unconfirmedResources.map( (resource, i) => (
                 <Resource
-                isConfirmResources 
+                /* isConfirmResources */ 
                 key={i}
                 id={resource._id} 
                 link={resource.link}
@@ -118,7 +118,11 @@ class ConfirmResource extends Component {
 const mapStateToProps = state => {
     return {
         unconfirmedResources: state.resource.unconfirmedResources,
-        loading: state.resource.unconfirmredLoading,
+        loading: state.resource.unconfirmedLoading,
+        confirmResourceLoading: state.resource.confirmResourceLoading,
+        confirmResourceError: state.resource.confirmResourceError,
+        deleteUnconfirmedError: state.resource.deleteUnconfirmedError,
+        deleteUnconfirmedLoading: state.resource.deleteUnconfirmedLoading,
         useTypeContext: state.auth.useTypeContext,
         fetchMoreLoading: state.resource.fetchMoreUnconfirmedLoading,
         latestFetchLength: state.resource.unconfirmedLatestFetchLength,
@@ -128,8 +132,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchUnconfirmed: (pageIndex) => dispatch(actions.fetchUnconfirmed(pageIndex)),
-        onConfirmResource: (resourceId) => dispatch(actions.confirmResource(resourceId)),
-        onDeleteUnconfirmedResource: (resourceId) => dispatch(actions.deleteUnconfirmedResource(resourceId)),
+        onConfirmResource: (resourceId, unconfirmedResources) => dispatch(actions.confirmResource(resourceId, unconfirmedResources)),
+        onDeleteUnconfirmedResource: (resourceId, unconfirmedResources) => dispatch(actions.deleteUnconfirmedResource(resourceId, unconfirmedResources)),
         onFetchMoreUnconfirmed: (pageIndex, unconfirmedResources) => dispatch(actions.fetchMoreUnconfirmed( pageIndex, unconfirmedResources))
     };
 };

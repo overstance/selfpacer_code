@@ -189,6 +189,7 @@ class UserCollection extends Component {
                 clicked={() => this.resourceClickedHandler(resource._id, resource.views)}
                 likeclicked={() => this.likeHandler( resource._id, resource.likes )}
                 deletable
+                isCollection
                 deleteClicked={() => this.confirmDeleteHandler( resource._id, resource.title )}
                 />
             ));

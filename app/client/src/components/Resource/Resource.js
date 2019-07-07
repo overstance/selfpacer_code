@@ -7,6 +7,7 @@ import CheckActionButton from '../UserInterface/ActionButtons/Check';
 import DeleteActionButton from '../UserInterface/ActionButtons/Delete';
 import UpdateActionButton from '../UserInterface/ActionButtons/Update';
 import UpdatingActionButton from '../UserInterface/ActionButtons/Updating';
+import ProcessingActionButton from '../UserInterface/ActionButtons/Processing';
 
 // import noImageIcon from '../../assets/images/image.svg';
 import {connect} from 'react-redux';
@@ -15,6 +16,12 @@ class Resource extends Component {
     render () {
         let updateButton =
         <UpdateActionButton isAsset clicked={this.props.updateClicked}/>
+
+        let confirmButton =
+        <CheckActionButton clicked={this.props.confirmClicked} />;
+
+        let deleteUnConfirmed =
+        <DeleteActionButton clicked={this.props.deleteClicked}/>;
 
         let lastEditedDate = this.props.dateAdded;
         // console.log(this.props.lastEditedDate);
@@ -26,6 +33,16 @@ class Resource extends Component {
         if (this.props.updateYoutubeAssetLoading && this.props.id === this.props.updatingYoutubeAssetId) {
             updateButton = 
             <UpdatingActionButton />
+        }
+
+        if (this.props.confirmResourceLoading && this.props.id === this.props.confirmingResourceId) {
+            confirmButton = 
+            <ProcessingActionButton />
+        }
+
+        if (this.props.deleteUnconfirmedLoading && this.props.id === this.props.deletingUnconfirmedId) {
+            deleteUnConfirmed = 
+            <ProcessingActionButton />
         }
 
         return (
@@ -103,7 +120,7 @@ class Resource extends Component {
                                     <div className={classes.Type}>AUTHOR:<span>{this.props.author}</span></div>
                                 </div> : null
                             }
-                            { this.props.isAsset || this.props.isConfirmResources ?
+                            { this.props.isAsset || this.props.toConfirm ?
                                 <div className={classes.DetailsColumnFlex}>
                                     <div className={classes.Type}>SUBJECT:<span>{this.props.category}</span></div>
                                 </div> : null
@@ -163,13 +180,27 @@ class Resource extends Component {
                             { this.props.toConfirm ? 
                                 <div className={classes.OptionFlex}>
                                     <span className={classes.DateAdded}>{'date added: ' + this.props.dateAdded}</span>
-                                    <CheckActionButton clicked={this.props.confirmClicked} />
+                                    {confirmButton}
                                 </div>
                                 : 
                                 <div className={classes.DetailsColumnFlex}>
                                     { this.props.id === this.props.likedResource ?
-                                        <div className={classes.youLiked}>
-                                            <span className={classes.FeedbackText}>liked</span>
+                                        <div className={classes.ResourceFeedBack}>
+                                            <span /* className={classes.FeedbackText} */>liked</span>
+                                        </div> : null
+                                    }
+                                    { 
+                                        this.props.id === this.props.confirmingResourceId &&
+                                        this.props.confirmResourceError ?
+                                        <div className={classes.ResourceFeedBackError}>
+                                            <span /* className={classes.FeedbackText} */>{this.props.confirmResourceError}</span>
+                                        </div> : null
+                                    }
+                                    { 
+                                        this.props.id === this.props.deletingUnconfirmedId &&
+                                        this.props.deleteUnconfirmedError ?
+                                        <div className={classes.ResourceFeedBackError}>
+                                            <span /* className={classes.FeedbackText} */>{this.props.deleteUnconfirmedError}</span>
                                         </div> : null
                                     }
                                     <div className={classes.OptionFlex}>
@@ -179,7 +210,12 @@ class Resource extends Component {
                             }
                             { this.props.deletable ? 
                                 <div className={classes.OptionFixed}>
-                                    <DeleteActionButton clicked={this.props.deleteClicked}/>
+                                    { this.props.toConfirm ?
+                                        deleteUnConfirmed : null
+                                    }
+                                    { this.props.isCollection ?
+                                        <DeleteActionButton clicked={this.props.deleteClicked}/> : null
+                                    }
                                 </div> :
                                 <div className={classes.OptionFixed}>
                                     <CollectActionButton clicked={this.props.collectclicked} />
@@ -196,10 +232,19 @@ class Resource extends Component {
 const mapStateToProps = state => {
     return {
         likedResource: state.explore.likedResource,
+
         updatingYoutubeAssetId: state.resource.updatingYoutubeAssetId,
         updateYoutubeAssetLoading: state.resource.updateYoutubeAssetLoading,
         updatedYoutubeAsset: state.resource.updatedYoutubeAsset,
-        updateFailedYoutubeAsset: state.resource.updateFailedYoutubeAsset
+        updateFailedYoutubeAsset: state.resource.updateFailedYoutubeAsset,
+
+        confirmResourceLoading: state.resource.confirmResourceLoading,
+        confirmResourceError: state.resource.confirmResourceError,
+        confirmingResourceId: state.resource.confirmingResourceId,
+
+        deleteUnconfirmedLoading: state.resource.deleteUnconfirmedLoading,
+        deleteUnconfirmedError: state.resource.deleteUnconfirmedError,
+        deletingUnconfirmedId: state.resource.deletingUnconfirmedId
     };
 };
 

@@ -16,6 +16,17 @@
     animation: spin 1s linear infinite;
 }
 
+.IsProcessingContainer {
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--blue);
+    vertical-align: middle;
+    padding: 6px;
+    width: 20px;
+    height: 20px;
+    /* animation: spin 1s linear infinite; */
+}
+
 .Icon {
     fill: var(--blue);
     vertical-align: middle;

@@ -157,6 +157,7 @@ module.exports = app => {
     ) {
       Resource.find(
         {
+          confirmed: true,
           user_id: {
             $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
           }
@@ -181,6 +182,7 @@ module.exports = app => {
     } else {
       Resource.find(
         {
+          confirmed: true,
           user_id: req.params.userId
         } /* , (err, resources) => {
         if (err) {
@@ -211,6 +213,7 @@ module.exports = app => {
     if (req.params.platform === 'youtube') {
       Resource.find(
         {
+          confirmed: true,
           user_id: {
             $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
           },
@@ -237,6 +240,7 @@ module.exports = app => {
     } else {
       Resource.find(
         {
+          confirmed: true,
           user_id: {
             $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
           },
@@ -381,53 +385,33 @@ module.exports = app => {
       { confirmed: true },
       (err, resource) => {
         if (err) {
-          res.send(err.message);
+          res.send({ error: err.name });
           // console.log(err.message);
         } else if (resource) {
-          Resource.find({ confirmed: false }, (err, resources) => {
-            if (err) {
-              res.send(err.message);
-              // console.log(err.message);
-            } else if (resources) {
-              res.send({ resources: resources });
-            }
-          });
+          res.send({ resource: resource });
         }
       }
     );
   });
 
-  app.delete('/api/delete_resource/:resourceId', (req, res) => {
+  app.delete('/api/delete_unconfirmed_resource/:resourceId', (req, res) => {
     Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
       if (err) {
-        res.send(err.message);
+        res.send({ error: err.name });
         // console.log(err.message);
       } else if (resource) {
-        Resource.find({ confirmed: false }, (err, resources) => {
-          if (err) {
-            res.send(err.message);
-            // console.log(err.message);
-          } else if (resources) {
-            res.send({ resources: resources });
-          }
-        });
+        res.send({ resource: resource });
       }
     });
   });
 
-  app.delete('/api/delete_asset/:resourceId/:userId', (req, res) => {
+  app.delete('/api/delete_asset/:resourceId', (req, res) => {
     Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
       if (err) {
-        res.send(err.message);
+        res.send({ error: err.message });
         // console.log(err.message);
       } else if (resource) {
-        Resource.find({ user_id: req.params.userId }, (err, resources) => {
-          if (err) {
-            res.send(err.name);
-          } else {
-            res.send({ resources: resources });
-          }
-        });
+        res.send({ resource: resource });
       }
     });
   });

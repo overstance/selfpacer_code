@@ -11,9 +11,17 @@ const initialState = {
     userRecentlyViewed: null,
 
     unconfirmedResources: [],
-    unconfirmredLoading: false, 
+    unconfirmedLoading: false, 
     fetchMoreUnconfirmedLoading: false,
     unconfirmedLatestFetchLength: 0,
+
+    confirmResourceLoading: false,
+    confirmResourceError: null,
+    confirmingResourceId: null,
+
+    deleteUnconfirmedLoading: false,
+    deleteUnconfirmedError: null,
+    deletingUnconfirmedId: null,
 
     recentlyViewedResources: [],
 
@@ -202,19 +210,19 @@ const fetchRecentlyViewedResources = ( state, action ) => {
 // fetch unconfirmed resources
 
 const fetchUnconfirmedStart = ( state, action ) => {
-    return updateObject( state, { unconfirmredLoading: true } );
+    return updateObject( state, { unconfirmedLoading: true } );
 };
 
 const fetchUnconfirmedSuccess = ( state, action ) => {
     return updateObject( state, {
         unconfirmedResources: action.resources,
         unconfirmedLatestFetchLength: action.resourceLength,
-        unconfirmredLoading: false
+        unconfirmedLoading: false
     } );
 };
 
 const fetchUnconfirmedFail = ( state, action ) => {
-    return updateObject( state, { unconfirmredLoading: false } );
+    return updateObject( state, { unconfirmedLoading: false } );
 };
 
 // fetch more unconfirmed resources
@@ -234,6 +242,56 @@ const fetchMoreUnconfirmedSuccess = ( state, action ) => {
 const fetchMoreUnconfirmedFail = ( state, action ) => {
     return updateObject( state, { fetchMoreUnconfirmedLoading: false } );
 };
+
+// Confirm Resource
+
+const confirmResourceStart = ( state, action ) => {
+    return updateObject( state, { 
+        confirmResourceLoading: true,
+        confirmingResourceId: action.resourceId,
+        confirmResourceError: null 
+    } );
+};
+
+const confirmResourceSuccess = ( state, action ) => {
+    return updateObject( state, {
+        unconfirmedResources: action.updatedResources,
+        confirmResourceLoading: false,
+        confirmingResourceId: null
+    } );
+};
+
+const confirmResourceFail = ( state, action ) => {
+    return updateObject( state, { 
+        confirmResourceLoading: false,
+        confirmResourceError: action.error
+    } );
+};
+
+// Delete Unconfirmed 
+
+const deleteUnconfirmedStart = ( state, action ) => {
+    return updateObject( state, { 
+        deleteUnconfirmedLoading: true,
+        deletingUnconfirmedId: action.resourceId,
+        deleteUnconfirmedError: null
+    } );
+};
+
+const deleteUnconfirmedSuccess = ( state, action ) => {
+    return updateObject( state, {
+        unconfirmedResources: action.updatedResources,
+        deleteUnconfirmedLoading: false
+    } );
+};
+
+const deleteUnconfirmedFail = ( state, action ) => {
+    return updateObject( state, { 
+        deleteUnconfirmedLoading: false,
+        deleteUnconfirmedError: action.error
+    } );
+};
+
 
 // set asset to update fields
 
@@ -519,6 +577,14 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_MORE_UNCONFIRMED_RESOURCES_START: return fetchMoreUnconfirmedStart( state, action );
         case actionTypes.FETCH_MORE_UNCONFIRMED_RESOURCES_SUCCESS: return fetchMoreUnconfirmedSuccess( state, action );
         case actionTypes.FETCH_MORE_UNCONFIRMED_RESOURCES_FAIL: return fetchMoreUnconfirmedFail( state, action );
+
+        case actionTypes.CONFIRM_RESOURCE_START: return confirmResourceStart( state, action );
+        case actionTypes.CONFIRM_RESOURCE_SUCCESS: return confirmResourceSuccess( state, action );
+        case actionTypes.CONFIRM_RESOURCE_FAIL: return confirmResourceFail( state, action );
+
+        case actionTypes.DELETE_UNCONFIRMED_START: return deleteUnconfirmedStart( state, action );
+        case actionTypes.DELETE_UNCONFIRMED_SUCCESS: return deleteUnconfirmedSuccess( state, action );
+        case actionTypes.DELETE_UNCONFIRMED_FAIL: return deleteUnconfirmedFail( state, action );
 
         case actionTypes.SET_ASSET_TO_UPDATE_FIELDS: return setAssetToupdateFields( state, action );
 

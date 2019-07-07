@@ -52,7 +52,7 @@ class Facilitator extends Component {
 
         let pageContent;
 
-        if (this.props.useTypeContext === '2' || this.props.useTypeContext === '1') {
+        if (this.props.useTypeContext === '3' || this.props.useTypeContext === '2' || this.props.useTypeContext === '1') {
             pageContent = facilitatorTools;
         } else {
             pageContent = nonfacilitatorPage
