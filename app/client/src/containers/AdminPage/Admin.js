@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import classes from './ChiefAdmin.css';
+import classes from './Admin.css';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
-import AddAdminUsers from '../../components/adminUsers/AddAdminUsers';
-import RemoveAdminUsers from '../../components/adminUsers/RemoveAdminUsers';
+import AddAdminUsers from '../../components/ManageUsers/AddAdminUsers';
+import RemoveAdminUsers from '../../components/ManageUsers/RemoveAdminUsers';
+import AddFacilitator from '../../components/ManageUsers/AddFacilitator';
+import RemoveFacilitator from '../../components/ManageUsers/RemoveFacilitator';
 import UpdateYoutubeVideos from '../../components/ManageYoutube/YoutubeVideoBulkUpdate/UpdateYoutubeVideos';
 import UpdateYoutubePlaylists from '../../components/ManageYoutube/YoutubePlaylistBulkUpdate/UpdateYoutubePlaylists';
 import AddResource from '../../components/addResource/addResource';
@@ -12,13 +14,18 @@ import AddSubject from '../../components/manageSubjects/AddSubject';
 import DeleteSubject from '../../components/manageSubjects/DeleteSubject';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
-class Admin1 extends Component {
+class Admin extends Component {
 
     componentDidMount() {
-        if (this.props.useTypeContext !== '3') {
+        if (this.props.useTypeContext === '0' || this.props.useTypeContext === '1') {
             this.props.history.push('/');
         }
+    }
+
+    componentWillUnmount () {
+        this.props.onClearAllAdminMessages();
     }
 
     state = {
@@ -73,7 +80,7 @@ class Admin1 extends Component {
 
     render() {
         return(
-            <GridlessPageWrapper pageTitle='Admin1 Tools'>
+            <GridlessPageWrapper pageTitle='Admin Tools'>
                 <div className={classes.Wrapper} >
                     <div className={classes.Subheader}>
                         <Toggler 
@@ -112,8 +119,14 @@ class Admin1 extends Component {
                         />
                         { this.state.showManageUsers ? 
                             <div className={classes.ContentItems}>
-                                <AddAdminUsers />
-                                <RemoveAdminUsers />
+                                { this.props.accountType === 'ChiefAdmin' ?
+                                    <AddAdminUsers /> : null
+                                }
+                                { this.props.accountType === 'ChiefAdmin' ?
+                                    <RemoveAdminUsers /> : null
+                                }
+                                <AddFacilitator />
+                                <RemoveFacilitator />
                             </div>
                         : null }
                     </div>
@@ -151,9 +164,16 @@ class Admin1 extends Component {
 const mapStateToProps = state => {
     return {
         useTypeContext: state.auth.useTypeContext,
-        userId: state.auth.user._id
+        userId: state.auth.user._id,
+        accountType: state.auth.user.accountType
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onClearAllAdminMessages: () => dispatch(actions.clearAllAdminMessages())
     };
 };
 
 
-export default connect(mapStateToProps)(Admin1);
+export default connect(mapStateToProps,  mapDispatchToProps)(Admin);

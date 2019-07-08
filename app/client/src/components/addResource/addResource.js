@@ -19,9 +19,9 @@ class AddResources extends Component {
         // this.props.onFetchUser();
     } */
 
-    componentWillUnmount() {
+    /* componentWillUnmount() {
         this.props.onClearAddMessages();
-    }
+    } */
 
     state = {
         fillError: null,
@@ -1147,7 +1147,7 @@ const mapDispatchToProps = dispatch => {
         onAddMooc: (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, userId, userType) => dispatch( actions.addMooc(subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, userId, userType) ),
         onAddBooks: (subject, title, url, imageUrl, source, author, level, avgRating, userId, userType) => dispatch( actions.addBooks(subject, title, url, imageUrl, source, author, level, avgRating, userId, userType) ),
 
-        onClearAddMessages: () => dispatch(actions.clearAddMessages())
+        // onClearAddMessages: () => dispatch(actions.clearAddMessages())
     };
 };
 

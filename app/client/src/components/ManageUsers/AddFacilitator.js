@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './AddAdminUsers.css';
+import classes from './ManageUsers.css';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../UserInterface/Input/Input';
@@ -7,12 +7,13 @@ import Button from '../UserInterface/Button/Button';
 import Form from '../UserInterface/Form/Form';
 import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
 import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
+import Spinner from '../UserInterface/Spinner/Spinner';
 
-class RemoveAdminUsers extends Component {
+class Facilitator extends Component {
 
     state = {
-        fillError: null,
         userId: {
+            fillError: null,
             value: '',
             label: 'Enter User Id',
             name: 'userId',
@@ -68,7 +69,7 @@ class RemoveAdminUsers extends Component {
 
         this.setState({ fillError: 'Please fill all fields' });
         } else {
-            this.props.onRemoveAdminUser(this.state.userId.value);
+            this.props.onAddFacilitator(this.state.userId.value, 'Facilitator');
             const updated = {
                 ...this.state.userId,
                 value: '',
@@ -91,34 +92,42 @@ class RemoveAdminUsers extends Component {
     }
 
     render() {
+
+        let formButtonText = 'Add';
+        if(this.props.addFacilitatorLoading) {
+            formButtonText = <Spinner isButton/>;
+        }
+
         return (
             <div className={classes.ContainerItem}>
-                <FormTitle isAdmin>Remove Admin User</FormTitle>
-                <Form
+                <FormTitle isAdmin>Add Facilitator</FormTitle>
+                <Form 
                 submitForm={this.submitUserHandler}
                 >
-                    <div className={classes.FillError}>{this.state.fillError}</div>
+                    <FormFeedback isFillError>
+                        {this.state.fillError}
+                    </FormFeedback>
                     <Input 
                     label={this.state.userId.label} 
                     name={this.state.userId.name}
-                    value={this.state.userId.value}
                     elementType={'textarea'}
+                    value={this.state.userId.value}
                     invalid={!this.state.userId.valid}
                     shouldValidate={this.state.userId.validation}
                     touched={this.state.userId.touched}
                     changed={(event) => this.adminUserInputChangedHandler(event)}
                     />
                     { !this.state.userId.valid && this.state.userId.touched ? 
-                        <Button btnType='Danger' disabled> Remove </Button> :
-                        <Button btnType='Success'> Remove </Button>    
+                        <Button btnType='Danger' disabled> {formButtonText} </Button> :
+                        <Button btnType='Success'> {formButtonText} </Button>    
                     }
-                    { this.props.adminUserRemoveError ? 
+                    { this.props.addFacilitatorError ? 
                         <FormFeedback isFailed>
-                            {this.props.adminUserRemoveError}
+                            {this.props.addFacilitatorError}
                         </FormFeedback>
                         :
                         <FormFeedback isSuccess>
-                            {this.props.adminUserRemovedFeedback}
+                            {this.props.addFacilitatorSuccessInfo}
                         </FormFeedback>
                     }
                 </Form>
@@ -128,14 +137,16 @@ class RemoveAdminUsers extends Component {
 };
 
 const mapStateToProps = state => ({
-    adminUserRemovedFeedback: state.admin1.adminUserRemovedFeedback,
-    adminUserRemoveError: state.admin1.adminUserRemoveError,
+    addFacilitatorLoading: state.admin1.addFacilitatorLoading,
+    addFacilitatorSuccessInfo: state.admin1.addFacilitatorSuccessInfo,
+    addFacilitatorError: state.admin1.addFacilitatorError,
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRemoveAdminUser: ( user_id ) => dispatch( actions.removeAdminUser( user_id ))
+        onAddFacilitator: ( user_id, newAccountType ) => dispatch( actions.addAdminOrFacilitator( user_id, newAccountType ))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RemoveAdminUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(Facilitator);
+

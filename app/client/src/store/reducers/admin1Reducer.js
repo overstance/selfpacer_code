@@ -2,9 +2,13 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
 
 const initialState = {
-    updatedUser: {},
-    adminAddError: null,
-    userAddedFeedback: null,
+    addAdminUserLoading: false,
+    addAdminError: null,
+    addAdminSuccessInfo: null,
+
+    addFacilitatorLoading: false,
+    addFacilitatorSuccessInfo: null,
+    addFacilitatorError: null,
 
     fetchSubjectToEditError: null,
 
@@ -28,52 +32,107 @@ const initialState = {
     addSubjectIconError: null,
     addSubjectIconSuccessInfo: null,
     
-    removedUser: {},
-    adminUserRemoveError: null,
-    adminUserRemovedFeedback: null,
+    removeAdminLoading: false,
+    removeAdminError: null,
+    removeAdminSuccessInfo: null,
+
+    removeFacilitatorLoading: false,
+    removeFacilitatorError: null,
+    removeFacilitatorSuccessInfo: null
 };
 
 // Add Admin User 
-
-const adminUserAdded = ( state, action ) => {
+const addAdminStart = ( state, action ) => {
     return updateObject( state, {
-        updatedUser: action.updatedUser,
-        userAddedFeedback: "User added!",      
+        addAdminUserLoading: true,
+        addAdminSuccessInfo: null,
+        addAdminError: null
     } );
 };
 
-const adminAddStart = ( state, action ) => {
+const addAdminSuccess = ( state, action ) => {
     return updateObject( state, {
-        userAddedFeedback: null,
-        adminAddError: null
+        addAdminUserLoading: false,
+        addAdminSuccessInfo: action.successInfo,      
     } );
 };
 
-const adminAddFailed = ( state, action ) => {
+const addAdminFail = ( state, action ) => {
     return updateObject( state, {
-        adminAddError: "Failed!: " + action.error
+        addAdminUserLoading: false,
+        addAdminError: "Failed!: " + action.error
+    } );
+};
+
+// Add facilitator
+
+const addFacilitatorStart = ( state, action ) => {
+    return updateObject( state, {
+        addFacilitatorLoading: true,
+        addFacilitatorSuccessInfo: null,
+        addFacilitatorError: null,
+    } );
+};
+
+const addFacilitatorSuccess = ( state, action ) => {
+    return updateObject( state, {
+        addFacilitatorLoading: false,
+        addFacilitatorSuccessInfo: action.successInfo     
+    } );
+};
+
+const addFacilitatorFail = ( state, action ) => {
+    return updateObject( state, {
+        addFacilitatorLoading: false,
+        addFacilitatorError:  "Failed!: " + action.error
     } );
 };
 
 //Remove Admin User
 
-const adminUserRemoved = ( state, action ) => {
+const removeAdminSuccess = ( state, action ) => {
     return updateObject( state, {
-        removedUser: action.updatedUser,
-        adminUserRemovedFeedback: "User removed!",      
+        removeAdminLoading: false,
+        removeAdminSuccessInfo: action.successInfo     
     } );
 };
 
-const adminUserRemoveStart = ( state, action ) => {
+const removeAdminStart = ( state, action ) => {
     return updateObject( state, {
-        adminUserRemovedFeedback: null,
-        adminUserRemoveError: null
+        removeAdminLoading: true,
+        removeAdminSuccessInfo: null,
+        removeAdminError: null
     } );
 };
 
-const adminUserRemoveFailed = ( state, action ) => {
+const removeAdminFail = ( state, action ) => {
     return updateObject( state, {
-        adminUserRemoveError: "Failed!: " + action.error
+        removeAdminError: "Failed!: " + action.error,
+        removeAdminLoading: false
+    } );
+};
+
+// remove facilitator
+
+const removeFacilitatorSuccess = ( state, action ) => {
+    return updateObject( state, {
+        removeFacilitatorLoading: false,
+        removeFacilitatorSuccessInfo: action.successInfo     
+    } );
+};
+
+const removeFacilitatorStart = ( state, action ) => {
+    return updateObject( state, {
+        removeFacilitatorLoading: true,
+        removeFacilitatorSuccessInfo: null,
+        removeFacilitatorError: null
+    } );
+};
+
+const removeFacilitatorFail = ( state, action ) => {
+    return updateObject( state, {
+        removeFacilitatorError: "Failed!: " + action.error,
+        removeFacilitatorLoading: false
     } );
 };
 
@@ -218,14 +277,15 @@ const clearDeleteSubjectInfo = ( state, action ) => {
 
 // clear all admin add messages
 
-const clearAddMessages = ( state, action ) => {
+const clearAllAdminMessages = ( state, action ) => {
     return updateObject( state, {
-    adminAddError: null,
+    addAdminError: null,
     editSubjectSuccessInfo: null,
     editSubjectError: null,
-    adminUserRemoveError: null,
-    adminUserRemovedFeedback: null,
-    fetchSubjectToEditError: null
+    removeAdminError: null,
+    removeAdminSuccessInfo: null,
+    fetchSubjectToEditError: null,
+    addFacilitatorSuccessInfo: null,
     });
 }
 
@@ -244,13 +304,21 @@ const clearEditSubjectInfo = ( state, action ) => {
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
-        case actionTypes.ADMIN_USER_ADDED: return adminUserAdded( state, action );
-        case actionTypes.ADMIN_ADD_START: return adminAddStart( state, action );
-        case actionTypes.ADMIN_ADD_FAILED: return adminAddFailed( state, action );
+        case actionTypes.ADD_ADMIN_SUCCESS: return addAdminSuccess( state, action );
+        case actionTypes.ADD_ADMIN_START: return addAdminStart( state, action );
+        case actionTypes.ADD_ADMIN_FAIL: return addAdminFail( state, action );
 
-        case actionTypes.ADMIN_USER_REMOVE_START: return adminUserRemoveStart( state, action );
-        case actionTypes.ADMIN_USER_REMOVED: return adminUserRemoved( state, action );
-        case actionTypes.ADMIN_USER_REMOVED_FAILED: return adminUserRemoveFailed( state, action );
+        case actionTypes.ADD_FACILITATOR_START: return addFacilitatorStart( state, action );
+        case actionTypes.ADD_FACILITATOR_SUCCESS: return addFacilitatorSuccess( state, action );
+        case actionTypes.ADD_FACILITATOR_FAIL: return addFacilitatorFail( state, action );
+
+        case actionTypes.REMOVE_ADMIN_START: return removeAdminStart( state, action );
+        case actionTypes.REMOVE_ADMIN_SUCCESS: return removeAdminSuccess( state, action );
+        case actionTypes.REMOVE_ADMIN_FAIL: return removeAdminFail( state, action );
+
+        case actionTypes.REMOVE_FACILITATOR_START: return removeFacilitatorStart( state, action );
+        case actionTypes.REMOVE_FACILITATOR_SUCCESS: return removeFacilitatorSuccess( state, action );
+        case actionTypes.REMOVE_FACILITATOR_FAIL: return removeFacilitatorFail( state, action );
 
         case actionTypes.FETCH_SUBJECT_TO_EDIT_START: return fetchSubjectToEditStart( state, action );
         case actionTypes.FETCH_SUBJECT_TO_EDIT_SUCCESS: return fetchSubjectToEditSuccess( state, action );
@@ -277,7 +345,7 @@ const reducer = ( state = initialState, action ) => {
         
         
 
-        case actionTypes.CLEAR_ADD_MESSAGES: return clearAddMessages( state, action );
+        case actionTypes.CLEAR_ALL_ADMIN_MESSAGES: return clearAllAdminMessages( state, action );
 
         case actionTypes.CLEAR_EDIT_SUBJECT_INFO: return clearEditSubjectInfo( state, action );
 

@@ -1,98 +1,138 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-//Add AdminUser
-
-export const addAdminUser = (user_id, newAccountType) => {
-    return dispatch => {
-        dispatch (AdminAddStart());
-        const newAdminUser = {
-            userId: user_id,
-            newAccountType: newAccountType
-        };
-
-        axios.post('/api/add_admin_user', newAdminUser)
-            .then(res => {
-
-                if (res.data.updatedUser) {
-                    dispatch(adminUserAdded(res.data.updatedUser));
-                    // history.push('/profile');
-                    // return;
-                } else {
-                    dispatch(adminAddFailed(res.data));
-                }
-            })
-            .catch(err => 
-                dispatch(adminAddFailed(err))               
-            );        
-    }
-};
+//Add AdminUser or Facilitator
 
 export const AdminAddStart = () => {
     return {
-        type: actionTypes.ADMIN_ADD_START
+        type: actionTypes.ADD_ADMIN_START
     };
 };
 
-export const adminUserAdded = ( updatedUser ) => {
+export const adminUserAdded = ( successInfo ) => {
     return {
-        type: actionTypes.ADMIN_USER_ADDED,
-        updatedUser: updatedUser
+        type: actionTypes.ADD_ADMIN_SUCCESS,
+        successInfo: successInfo
     };
 };
 
 export const adminAddFailed = ( error ) => {
     return {
-        type: actionTypes.ADMIN_ADD_FAILED,
+        type: actionTypes.ADD_ADMIN_FAIL,
         error: error
     };
+};
+
+export const addFacilitatorStart = () => {
+    return {
+        type: actionTypes.ADD_FACILITATOR_START
+    };
+};
+
+export const addFacilitatorSuccess = ( successInfo ) => {
+    return {
+        type: actionTypes.ADD_FACILITATOR_SUCCESS,
+        successInfo: successInfo
+    };
+};
+
+export const addFacilitatorFail = ( error ) => {
+    return {
+        type: actionTypes.ADD_FACILITATOR_FAIL,
+        error: error
+    };
+}
+
+export const addAdminOrFacilitator = (user_id, newAccountType) => async dispatch => {
+    if (newAccountType === 'Administrator') {
+        dispatch (AdminAddStart());
+    } else if (newAccountType === 'Facilitator') {
+        dispatch (addFacilitatorStart());
+    }
+    
+    const info = {
+        userId: user_id,
+        newAccountType: newAccountType
+    };
+
+    const res = await axios.post('/api/add_admin_or_facilitator', info)
+    if (res.data.updatedUser && newAccountType === 'Administrator' ) {
+        dispatch(adminUserAdded('Admin User Added'));
+    } else if (res.data.updatedUser && newAccountType === 'Facilitator') {
+        dispatch(addFacilitatorSuccess('Facilitator Added'));
+    } else if (res.data.error && newAccountType === 'Administrator') {
+        dispatch(adminAddFailed(res.data.error))
+    } else if (res.data.error && newAccountType === 'Facilitator') {
+        dispatch(addFacilitatorFail(res.data.error))
+    }
 };
 
 // Remove Admin user
 
-export const removeAdminUser = (user_id) => {
-    return dispatch => {
-        dispatch (adminUserRemoveStart());
-        const adminUser = {
-            userId: user_id
-        };
-
-        axios.post('/api/remove_admin_user', adminUser)
-            .then(res => {
-
-                if (res.data.updatedUser) {
-                    dispatch(adminUserRemoved(res.data.updatedUser));
-                    // history.push('/profile');
-                    // return;
-                } else {
-                    console.log(res.data);
-                    dispatch(adminUserRemoveFailed(res.data));
-                }
-            })
-            .catch(err => 
-                dispatch(adminUserRemoveFailed(err))               
-            );        
-    }
-};
-
-export const adminUserRemoveStart = () => {
+export const removeAdminStart = () => {
     return {
-        type: actionTypes.ADMIN_USER_REMOVE_START
+        type: actionTypes.REMOVE_ADMIN_START
     };
 };
 
-export const adminUserRemoved = ( updatedUser ) => {
+export const removeAdminSuccess = ( successInfo ) => {
     return {
-        type: actionTypes.ADMIN_USER_REMOVED,
-        updatedUser: updatedUser
+        type: actionTypes.REMOVE_ADMIN_SUCCESS,
+        successInfo: successInfo
     };
 };
 
-export const adminUserRemoveFailed = ( error ) => {
+export const removeAdminFail = ( error ) => {
     return {
-        type: actionTypes.ADMIN_USER_REMOVED_FAILED,
+        type: actionTypes.REMOVE_ADMIN_FAIL,
         error: error
     };
+};
+
+export const removeAdmin = (userId) => async dispatch => {
+
+    dispatch(removeAdminStart());
+    const res = await axios.post(`/api/remove_admin/${userId}`);
+    if (res.data.updatedUser) {
+        dispatch(removeAdminSuccess('Admin Removed'));
+    } else if (res.data.error) {    
+        dispatch(removeAdminFail(res.data.error));
+    } 
+
+};
+
+// Remove Facilitator
+
+export const removeFacilitatorStart = () => {
+    return {
+        type: actionTypes.REMOVE_FACILITATOR_START
+    };
+};
+
+export const removeFacilitatorSuccess = ( successInfo ) => {
+    return {
+        type: actionTypes.REMOVE_FACILITATOR_SUCCESS,
+        successInfo: successInfo
+    };
+};
+
+export const removeFacilitatorFail = ( error ) => {
+    return {
+        type: actionTypes.REMOVE_FACILITATOR_FAIL,
+        error: error
+    };
+};
+
+export const removeFacilitator = (userId) => async dispatch => {
+
+    dispatch(removeFacilitatorStart());
+    const res = await axios.post(`/api/remove_facilitator/${userId}`);
+    if (res.data.updatedUser) {
+        dispatch(removeFacilitatorSuccess('Facilitator Removed'));
+    } else if (res.data.error) {    
+        dispatch(removeFacilitatorFail(res.data.error));
+    }
+
 };
 
 // Add subject Icon
@@ -328,9 +368,9 @@ export const deleteSubject = ( subjectTitle ) => async dispatch => {
 
 // clear all add messages
 
-export const clearAddMessages = () => {
+export const clearAllAdminMessages = () => {
     return {
-        type: actionTypes.CLEAR_ADD_MESSAGES
+        type: actionTypes.CLEAR_ALL_ADMIN_MESSAGES
     }
 }
 

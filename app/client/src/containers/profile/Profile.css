@@ -174,9 +174,9 @@
 }
 
 .StatisticsCount {
-    font-size: 40px;
-    color: var(--red);
-    overflow-x: auto;
+    font-size: xx-large;
+    color: var(--green);
+    /* overflow-x: auto; */
 }
 
 .StatisticsLabel {

@@ -38,13 +38,18 @@ module.exports = app => {
     if (
       /* check if user is an administrator with the following user ids */
       userId === '5c16e8de76e09e200c039178' ||
-      userId === '5c16efcef6d0f300144d3cda'
+      userId === '5c16efcef6d0f300144d3cda' ||
+      userId === '5d227bbb58790b1c7006b0d3'
     ) {
       Resource.find(
         {
           confirmed: true,
           user_id: {
-            $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
+            $in: [
+              '5c16e8de76e09e200c039178',
+              '5c16efcef6d0f300144d3cda',
+              '5d227bbb58790b1c7006b0d3'
+            ]
           }
         },
         (err, resources) => {
@@ -67,7 +72,7 @@ module.exports = app => {
             res.send({ error: err.name });
           } else {
             let assetCount = resources.length;
-            console.log(resources, assetCount);
+            // console.log(resources, assetCount);
             res.send({ assetCount: assetCount });
           }
         }
@@ -152,14 +157,20 @@ module.exports = app => {
     };
 
     if (
+      /*check if user is ad administrator */
       userId === '5c16e8de76e09e200c039178' ||
-      userId === '5c16efcef6d0f300144d3cda'
+      userId === '5c16efcef6d0f300144d3cda' ||
+      userId === '5d227bbb58790b1c7006b0d3'
     ) {
       Resource.find(
         {
           confirmed: true,
           user_id: {
-            $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
+            $in: [
+              '5c16e8de76e09e200c039178',
+              '5c16efcef6d0f300144d3cda',
+              '5d227bbb58790b1c7006b0d3'
+            ]
           }
         } /* ,
         (err, resources) => {

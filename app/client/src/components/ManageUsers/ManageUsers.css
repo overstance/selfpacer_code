@@ -1,0 +1,15 @@
+.ContainerItem {
+    padding: 5px;
+}
+
+.ContainerItem span {
+    display: none;
+}
+
+.ContainerItem button {
+ font-size: small;
+ width: 100px;
+ height: 50px;
+ border-radius: 25px;
+ padding: 0;
+}

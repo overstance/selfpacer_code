@@ -248,7 +248,7 @@ module.exports = app => {
     });
   });
 
-  app.post('/api/add_admin_user', (req, res) => {
+  app.post('/api/add_admin_or_facilitator', (req, res) => {
     //console.log(req.body);
 
     // let id = req.body.userId;
@@ -259,7 +259,7 @@ module.exports = app => {
       function(err, updatedUser) {
         if (err) {
           // console.log(err.name);
-          res.send(err.name);
+          res.send({ error: err.name });
         } else {
           res.send({ updatedUser: updatedUser });
         }
@@ -267,14 +267,29 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/remove_admin_user', (req, res) => {
+  app.post('/api/remove_admin/:userId', (req, res) => {
     User.findOneAndUpdate(
-      { _id: req.body.userId },
-      { isAdmin: false },
+      { _id: req.params.userId },
+      { accountType: 'User' },
       function(err, updatedUser) {
         if (err) {
           // console.log(err.name);
-          res.send(err.name);
+          res.send({ error: err.name });
+        } else {
+          res.send({ updatedUser: updatedUser });
+        }
+      }
+    );
+  });
+
+  app.post('/api/remove_facilitator/:userId', (req, res) => {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { accountType: 'User' },
+      function(err, updatedUser) {
+        if (err) {
+          // console.log(err.name);
+          res.send({ error: err.name });
         } else {
           res.send({ updatedUser: updatedUser });
         }

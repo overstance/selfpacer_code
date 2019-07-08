@@ -15,8 +15,8 @@ class Profile extends Component {
 
     render() {
 
-        let collectionCount = <div className={classes.StatisticsCount}>< Spinner /></div>;
-        let assetCount = <div className={classes.StatisticsCount}>< Spinner /></div>;
+        let collectionCount = <div className={classes.StatisticsCount}>< Spinner isLoadMore /></div>;
+        let assetCount = <div className={classes.StatisticsCount}>< Spinner isLoadMore /></div>;
         
         if (!this.props.collectionLoading) {
             collectionCount = <div className={classes.StatisticsCount}>{this.props.collectionCount.length}</div>
@@ -52,9 +52,12 @@ class Profile extends Component {
                                     Edit
                                 </Link>
                             </div>
-                            <div className={classes.Facilitator}>
-                                <div className={classes.FaclitatorButton}>Become a Facilitator</div>
-                            </div>
+                            { this.props.accountType === 'User' ?
+                                <div className={classes.Facilitator}>
+                                    <div className={classes.FaclitatorButton}>Become a Facilitator</div>
+                                </div>
+                                : null
+                            }
                         </div>
                         { 
                             this.props.accountType === 'Administrator' ||
@@ -62,7 +65,7 @@ class Profile extends Component {
                             this.props.accountType === 'ChiefAdmin' ?
                             <div className={classes.Statistics}>
                                 <div className={classes.StatisticsLike}>
-                                    <div className={classes.StatisticsCount}>{this.props.likeCount}</div>
+                                    <div className={classes.StatisticsCount}>{this.props.likeCount ? this.props.likeCount : 0}</div>
                                     <div className={classes.StatisticsLabel}>Likes</div>
                                 </div>
                                 <div className={classes.StatisticsCollections}>
@@ -93,7 +96,7 @@ class Profile extends Component {
                 </div>
                 <div className={classes.LogoutPanelWrapper}>
                     <div className={classes.AuthContainer}>
-                        {this.props.userId === "5c16e8de76e09e200c039178" || this.props.userId === "5c16efcef6d0f300144d3cda" ? <Link className={classes.AdminTools} to='/admin_tools'>Admin Tools</Link> : null}
+                        {this.props.accountType === "ChiefAdmin" || this.props.accountType === "Administrator" ? <Link className={classes.AdminTools} to='/admin_tools'>Admin Tools</Link> : null}
                         <Link className={classes.Logout} to='/logout'>Log Out</Link>
                     </div>
                     <div className={classes.DeleteAccount}> Delete Account</div>

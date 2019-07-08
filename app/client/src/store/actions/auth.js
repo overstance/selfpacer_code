@@ -124,14 +124,13 @@ export const fetchUser = () => async dispatch => {
         if ( res.data.accountType === 'Administrator' || res.data.accountType === 'Facilitator' || res.data.accountType === 'ChiefAdmin') {
             dispatch(fetchUserAssetCountStart());
             const res3 = await axios.get(`/api/user_asset_count/${userId}`)
-            
-            if (res3.data.assetCount) {
-                // console.log(res.data.resources);
+            // console.log(res3.data.assetCount);
+            if (res3.data.assetCount >= 0) {
                 dispatch(fetchUserAssetCountSuccess(res3.data.assetCount));
             } else if (res3.data.error)  {
                 // console.log(res.data)
                 dispatch(fetchUserAssetCountFailed( res3.data.error ));
-            }
+            } 
         }
 
         dispatch(fetchUserCollectionsStart());
