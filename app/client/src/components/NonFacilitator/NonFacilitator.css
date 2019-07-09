@@ -1,0 +1,109 @@
+.Header {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: var(--blue);
+    
+}
+
+.Header div {
+    color: var(--green);
+    font-size: x-large;
+    font-weight: 700;
+    padding: 20px;
+}
+
+.Container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    border-bottom: 2px solid var(--blue);
+}
+
+.Art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 50%;
+    padding-bottom: 10px;
+}
+
+.TextArea {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 0 0 50%;
+}
+
+.Text {
+    color: var(--blue);
+    width: 360px;
+    font-size: large;
+    font-weight: bold;
+    background: var(--green);
+    padding: 10px;
+}
+
+.TextArea span {
+    padding-right: 10px;
+}
+
+.Container svg {
+    width: 280px;
+    height: 200px;
+}
+
+.FormContainer {
+    padding: 5px;
+    text-align: center;
+    padding: 20px;
+    background: var(--green);
+    margin-bottom: 20px;
+}
+
+.FormContainer label {
+    text-align: center;
+}
+
+.FormContainer span {
+    padding-left: 5px;
+    display: block;
+}
+.FormContainer form {
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.FormContainer button {
+ font-size: small;
+ width: 100px;
+ height: 50px;
+ border-radius: 25px;
+ padding: 0;
+}
+
+@media(max-width: 900px) {
+    .Art {
+        flex: 0 0 100%;
+    }
+
+    .TextArea {
+        flex: 0 0 100%;
+        justify-content: center;
+    }
+
+    .Text {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+@media(max-width: 600px) {
+    .Text {
+        font-size: medium;
+    }
+}
+

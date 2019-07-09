@@ -536,6 +536,22 @@ const deleteAssetFail = ( state, action ) => {
     return updateObject( state, { deleteAssetLoading: false, deleteAssetError: action.error } );
 };
 
+// clear all add resource messages
+
+const clearAddResourceMessages = ( state, action ) => {
+    return updateObject( state, { 
+        addYoutubePlaylistError: null,
+        youtubePlaylistAddedFeedback: null,
+        addYoutubeVideoError: null,
+        youtubeVideoAddedFeedback: null,
+        addMoocSucessInfo: null,
+        addMoocError: null,
+        addBooksSucessInfo: null,
+        addBooksError: null 
+    } );
+};
+
+
 
 
 
@@ -629,6 +645,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.DELETE_ASSET_FAIL: return deleteAssetFail( state, action );
 
         case actionTypes.CLEAR_UPDATE_ASSET_MESSAGE: return clearUpdateAssetMessages( state, action );
+
+        case actionTypes.CLEAR_ADD_RESOURCE_MESSAGES: return clearAddResourceMessages( state, action );
 
         default: return state;
     }

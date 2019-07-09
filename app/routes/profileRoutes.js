@@ -41,4 +41,20 @@ module.exports = app => {
       }
     });
   });
+
+  app.put('/api/become_facilitator', (req, res) => {
+    User.findByIdAndUpdate(
+      req.body.userId,
+      { workUrl: req.body.workUrl, dateOfFacilitateApplication: Date.now() },
+      { new: true },
+      (err, user) => {
+        if (err) {
+          res.send({ error: err.name });
+        } else {
+          // console.log(user);
+          res.send({ user: user });
+        }
+      }
+    );
+  });
 };

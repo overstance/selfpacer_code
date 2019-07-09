@@ -44,12 +44,14 @@ module.exports = app => {
           const subject = req.body.subject;
 
           let confirmed = false;
+          let isAdmin = false;
           if (
             userType === 'Administrator' ||
             /* userType === 'Facilitator' || */
             userType === 'ChiefAdmin'
           ) {
             confirmed = true;
+            isAdmin = true;
           }
 
           const response = await youtube.playlists.list({
@@ -80,6 +82,7 @@ module.exports = app => {
                 videoCount: seed.contentDetails.itemCount,
                 user_id: userId,
                 confirmed: confirmed,
+                isAdmin: isAdmin,
                 lastEdited: Date.now()
               };
             });
@@ -189,12 +192,14 @@ module.exports = app => {
           const subject = req.body.subject;
 
           let confirmed = false;
+          let isAdmin = false;
           if (
             userType === 'Administrator' ||
             /* userType === 'Facilitator' || */
             userType === 'ChiefAdmin'
           ) {
             confirmed = true;
+            isAdmin = true;
           }
 
           const response = await youtube.videos.list({
@@ -231,6 +236,7 @@ module.exports = app => {
                 youtubelikes: numberWithCommas(seed.statistics.likeCount),
                 user_id: userId,
                 confirmed: confirmed,
+                isAdmin: isAdmin,
                 lastEdited: Date.now()
               };
             });

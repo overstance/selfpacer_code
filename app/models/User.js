@@ -40,6 +40,8 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
+  workUrl: String,
+  dateOfFacilitateApplication: Date,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   verifyEmailToken: String

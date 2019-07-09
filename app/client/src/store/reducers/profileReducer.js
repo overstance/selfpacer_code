@@ -5,9 +5,14 @@ const initialState = {
     profileEditSuccessFeedback: null,
     profileEditError: null,
     profileEditLoading: false,
+
     changePasswordError: null,
     changePasswordSuccessFeedback: null,
-    changePasswordLoading: false
+    changePasswordLoading: false,
+
+    becomeFacilitatorError: null,
+    becomeFacilitatorSuccessInfo: null,
+    becomeFacilitatorLoading: false
 }
 
 const profileEditSuccess = ( state, action ) => {
@@ -54,6 +59,29 @@ const changePasswordFailed = ( state, action ) => {
     });
 }
 
+// become a facilitator application
+
+const becomeFacilitatorStart = ( state, action ) => {
+    return updateObject( state, {
+        becomeFacilitatorError: null,
+        becomeFacilitatorLoading: true
+    });
+}
+
+const becomeFacilitatorSuccess = ( state, action ) => {
+    return updateObject( state, {
+        becomeFacilitatorSuccessInfo: action.successMessage,
+        becomeFacilitatorLoading: false
+    });
+}
+
+const becomeFacilitatorFailed = ( state, action ) => {
+    return updateObject( state, {
+        becomeFacilitatorError: action.error,
+        becomeFacilitatorLoading: false
+    });
+}
+
 const resetEditProfileMessages = ( state, action ) => {
     return updateObject( state, {
         changePasswordError: null,
@@ -72,6 +100,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.CHANGE_PASSWORD_START: return changePasswordStart( state, action);
         case actionTypes.CHANGE_PASSWORD_SUCCESS: return changePasswordSuccess( state, action);
         case actionTypes.CHANGE_PASSWORD_FAILED: return changePasswordFailed( state, action);
+
+        case actionTypes.BECOME_FACILITATOR_START: return becomeFacilitatorStart( state, action);
+        case actionTypes.BECOME_FACILITATOR_SUCCESS: return becomeFacilitatorSuccess( state, action);
+        case actionTypes.BECOME_FACILITATOR_FAILED: return becomeFacilitatorFailed( state, action);
 
         case actionTypes.RESET_EDIT_PROFILE_MESSAGES: return resetEditProfileMessages( state, action);
 

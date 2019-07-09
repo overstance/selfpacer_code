@@ -8,12 +8,14 @@ module.exports = app => {
     // console.log(req.body);
 
     let confirmed = false;
+    let isAdmin = false;
     if (
       req.body.userType === 'Administrator' ||
       /* req.body.userType === 'Facilitator' || */
       req.body.userType === 'ChiefAdmin'
     ) {
       confirmed = true;
+      isAdmin = true;
     }
 
     const newBook = {
@@ -28,6 +30,7 @@ module.exports = app => {
       avgRating: req.body.avgRating,
       user_id: req.body.userId,
       confirmed: confirmed,
+      isAdmin: isAdmin,
       lastEdited: Date.now()
     };
 

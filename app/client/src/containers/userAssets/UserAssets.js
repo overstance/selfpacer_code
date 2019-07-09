@@ -24,19 +24,18 @@ class UserAssets extends Component {
     
     componentDidMount() {
 
-        if ( 
-            this.props.accountType === 'ChiefAdmin' || 
-            this.props.accountType === 'Administrator' || 
-            this.props.accountType === 'Facilitator') {
-            
+        if (this.props.useTypeContext === '0') {
+            // console.log(this.props.accountType);
+            this.props.history.push('/');  
+        } else {
             window.addEventListener('scroll', this.handleScroll, false);
             // this.setState({pageIndex: 0});
 
             if (this.props.activeContent === 'all') {
-                this.props.onFetchUserAssets(this.props.userId, 0);
+                this.props.onFetchUserAssets(this.props.userId, this.props.useTypeContext, 0);
             } 
             
-            if (this.props.accountType === 'Administrator' || this.props.accountType === 'ChiefAdmin') {
+            if (this.props.useTypeContext === '2' || this.props.useTypeContext === '3') {
                 if (this.props.activeContent === 'youtube') {
                     this.setState({
                         moocActive: false,
@@ -77,9 +76,6 @@ class UserAssets extends Component {
         
                 }
             }
-        } else {
-            // console.log(this.props.accountType);
-            this.props.history.push('/');
         }    
     }
 
@@ -237,7 +233,8 @@ class UserAssets extends Component {
             lastUpdated: {
                 elementType: 'input',
                 elementConfig: {
-                    label: "last Updated"
+                    label: "last Updated",
+                    labelspan:'(mm/yyyy)'
                 },
                 value: this.props.assetToUpdateFields.lastUpdated,
                 validation: {},
@@ -356,7 +353,7 @@ class UserAssets extends Component {
             }, () => {
                 // console.log(this.state.pageIndex, this.props.latestFetchLength );
                 if (this.state.activeContent === 'all') {
-                    this.props.onFetchMoreAssets(this.props.userId, this.state.pageIndex, this.props.userAssets);
+                    this.props.onFetchMoreAssets(this.props.userId, this.props.useTypeContext, this.state.pageIndex, this.props.userAssets);
                 } else {
                     this.props.onFetchMoreAdminAssetsByPlatform(this.state.activeContent, this.state.pageIndex, this.props.userAssets);
                 }
@@ -403,7 +400,7 @@ class UserAssets extends Component {
             pageIndex: 0        
         }, () => {
             this.props.onSetActiveContentType(this.state.activeContent);
-            this.props.onFetchUserAssets(this.props.userId, 0)        
+            this.props.onFetchUserAssets(this.props.userId, this.props.useTypeContext, 0)        
         });
     }
 
@@ -895,6 +892,7 @@ const mapStateToProps = state => {
 
         loading: state.resource.loading,
         userId: state.auth.user._id,
+        useTypeContext: state.auth.useTypeContext,
 
         accountType: state.auth.user.accountType,
 
@@ -913,9 +911,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchUserAssets: ( userId, pageIndex ) => dispatch(actions.fetchUserAssets( userId, pageIndex)),
+        onFetchUserAssets: ( userId, useTypeContext, pageIndex ) => dispatch(actions.fetchUserAssets( userId, useTypeContext, pageIndex)),
         onFetchAdminAssetsByPlatform: (platform, pageIndex) => dispatch(actions.fetchAdminAssetsByPlatform(platform, pageIndex)),
-        onFetchMoreAssets: (userId, pageIndex, assets) => dispatch(actions.fetchMoreAssets(userId, pageIndex, assets)),
+        onFetchMoreAssets: (userId, useTypeContext, pageIndex, assets) => dispatch(actions.fetchMoreAssets(userId, useTypeContext, pageIndex, assets)),
         onFetchMoreAdminAssetsByPlatform: (platform, pageIndex, assets) => dispatch(actions.fetchMoreAdminAssetsByPlatform(platform, pageIndex, assets)),
         onSetActiveContentType: ( platform ) => dispatch ( actions.setActiveContentType( platform )),
         onSetAssetToUpdateField: (assetToUpdateFields ) => dispatch(actions.setAssetToUpdateField(assetToUpdateFields)),

@@ -28,56 +28,10 @@ module.exports = app => {
           // console.log(err.message);
           res.send(err.message);
         } else {
+          // console.log(resources);
           res.send({ resources: resources });
         }
       });
-  });
-
-  app.get('/api/user_asset_count/:userId', (req, res) => {
-    let userId = req.params.userId;
-    if (
-      /* check if user is an administrator with the following user ids */
-      userId === '5c16e8de76e09e200c039178' ||
-      userId === '5c16efcef6d0f300144d3cda' ||
-      userId === '5d227bbb58790b1c7006b0d3'
-    ) {
-      Resource.find(
-        {
-          confirmed: true,
-          user_id: {
-            $in: [
-              '5c16e8de76e09e200c039178',
-              '5c16efcef6d0f300144d3cda',
-              '5d227bbb58790b1c7006b0d3'
-            ]
-          }
-        },
-        (err, resources) => {
-          if (err) {
-            res.send({ error: err.name });
-          } else {
-            let assetCount = resources.length;
-            res.send({ assetCount: assetCount });
-          }
-        }
-      );
-    } else {
-      Resource.find(
-        {
-          confirmed: true,
-          user_id: req.params.userId
-        },
-        (err, resources) => {
-          if (err) {
-            res.send({ error: err.name });
-          } else {
-            let assetCount = resources.length;
-            // console.log(resources, assetCount);
-            res.send({ assetCount: assetCount });
-          }
-        }
-      );
-    }
   });
 
   app.get('/api/resources/:subject_title/:pageIndex', (req, res) => {
@@ -149,29 +103,83 @@ module.exports = app => {
     }
   });
 
-  app.get('/api/user_assets/:userId/:pageIndex', (req, res) => {
-    let userId = req.params.userId;
+  app.get('/api/user_asset_count/:userId/:accountType', (req, res) => {
+    // let userId = req.params.userId;
+    let accountType = req.params.accountType;
+    if (
+      /* check if user is an administrator with the following user ids 
+      userId === '5c16e8de76e09e200c039178' ||
+      userId === '5c16efcef6d0f300144d3cda' ||
+      userId === '5d227bbb58790b1c7006b0d3' */
+      accountType === 'Administrator' ||
+      accountType === 'ChiefAdmin'
+    ) {
+      Resource.find(
+        {
+          confirmed: true,
+          isAdmin: true
+          /* user_id: {
+            $in: [
+              '5c16e8de76e09e200c039178',
+              '5c16efcef6d0f300144d3cda',
+              '5d227bbb58790b1c7006b0d3'
+            ]
+          } */
+        },
+        (err, resources) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else {
+            let assetCount = resources.length;
+            res.send({ assetCount: assetCount });
+          }
+        }
+      );
+    } else {
+      Resource.find(
+        {
+          confirmed: true,
+          user_id: req.params.userId
+        },
+        (err, resources) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else {
+            let assetCount = resources.length;
+            // console.log(resources, assetCount);
+            res.send({ assetCount: assetCount });
+          }
+        }
+      );
+    }
+  });
+
+  app.get('/api/user_assets/:userId/:useTypeContext/:pageIndex', (req, res) => {
+    // let userId = req.params.userId;
     let pageOptions = {
       page: req.params.pageIndex || 0,
       limit: 10
     };
 
     if (
-      /*check if user is ad administrator */
+      /*check if user is ad administrator 
       userId === '5c16e8de76e09e200c039178' ||
       userId === '5c16efcef6d0f300144d3cda' ||
-      userId === '5d227bbb58790b1c7006b0d3'
+      userId === '5d227bbb58790b1c7006b0d3'*/
+      req.params.useTypeContext === '2' ||
+      req.params.useTypeContext === '3'
     ) {
       Resource.find(
         {
           confirmed: true,
-          user_id: {
+          isAdmin: true
+          /* user_id: {
             $in: [
               '5c16e8de76e09e200c039178',
               '5c16efcef6d0f300144d3cda',
               '5d227bbb58790b1c7006b0d3'
             ]
-          }
+          } */
         } /* ,
         (err, resources) => {
           if (err) {
@@ -225,9 +233,10 @@ module.exports = app => {
       Resource.find(
         {
           confirmed: true,
-          user_id: {
-            $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
-          },
+          /* user_id: {
+              $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
+            } */
+          isAdmin: true,
           source: 'youtube.com'
         } /* ,
         function(err, resources) {
@@ -252,9 +261,10 @@ module.exports = app => {
       Resource.find(
         {
           confirmed: true,
-          user_id: {
+          /* user_id: {
             $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
-          },
+          }, */
+          isAdmin: true,
           type: req.params.platform
         } /* ,
         function(err, resources) {

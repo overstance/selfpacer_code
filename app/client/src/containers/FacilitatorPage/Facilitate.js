@@ -4,6 +4,7 @@ import Toggler from '../../components/UserInterface/Toggler/Toggler';
 import AddResource from '../../components/addResource/addResource';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 import { connect } from 'react-redux';
+import NonFacilitator from '../../components/NonFacilitator/NonFacilitator';
 
 class Facilitator extends Component {
 
@@ -23,7 +24,7 @@ class Facilitator extends Component {
 
     render() {
         let nonfacilitatorPage = 
-        <div>Non Facilitator Page Arrived</div>;
+        <NonFacilitator />
 
         let facilitatorTools = 
         <GridlessPageWrapper pageTitle='Facilitate'>

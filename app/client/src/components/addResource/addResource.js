@@ -19,9 +19,9 @@ class AddResources extends Component {
         // this.props.onFetchUser();
     } */
 
-    /* componentWillUnmount() {
-        this.props.onClearAddMessages();
-    } */
+    componentWillUnmount() {
+        this.props.onClearAddResourceMessages();
+    }
 
     state = {
         fillError: null,
@@ -236,7 +236,8 @@ class AddResources extends Component {
             lastUpdated: {
                 elementType: 'input',
                 elementConfig: {
-                    label: "publish date or last Updated"
+                    label: "last Updated",
+                    labelspan:'(mm/yyyy)'
                 },
                 value: '',
                 validation: {},
@@ -794,7 +795,7 @@ class AddResources extends Component {
                 this.setState({fillError: 'please select category'});
             } else {   
                 this.setState({ subject: updated, fillError: null});
-                this.props.onClearAddMessages();
+                this.props.onClearAddResourceMessages();
             }
         });
         
@@ -808,7 +809,7 @@ class AddResources extends Component {
             touched: true
         }
         this.setState({ type: updated, fillError: null}, () => {
-            this.props.onClearAddMessages();
+            this.props.onClearAddResourceMessages();
         });      
     }
 
@@ -1147,7 +1148,7 @@ const mapDispatchToProps = dispatch => {
         onAddMooc: (subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, userId, userType) => dispatch( actions.addMooc(subject, title, url, imageUrl, source, videoCount, tutor, enrollees, duration, level, lastUpdated, avgRating, userId, userType) ),
         onAddBooks: (subject, title, url, imageUrl, source, author, level, avgRating, userId, userType) => dispatch( actions.addBooks(subject, title, url, imageUrl, source, author, level, avgRating, userId, userType) ),
 
-        // onClearAddMessages: () => dispatch(actions.clearAddMessages())
+        onClearAddResourceMessages: () => dispatch(actions.clearAddResourceMessages())
     };
 };
 

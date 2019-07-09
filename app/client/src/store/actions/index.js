@@ -76,6 +76,7 @@ export {
     updateYoutubePlaylists,
     addMooc,
     addBooks,
+    clearAddResourceMessages
 } from './resource';
 
 export {
@@ -113,7 +114,8 @@ export {
 export {
     editProfile,
     changePassword,
-    resetEditProfileMessages
+    resetEditProfileMessages,
+    becomeFacilitator
 } from './profile';
 
 

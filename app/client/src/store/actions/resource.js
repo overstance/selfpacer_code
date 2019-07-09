@@ -213,12 +213,12 @@ export const fetchUserAssetFailed = ( error ) => {
     }
 }
 
-export const fetchUserAssets = ( userId, pageIndex ) => async(dispatch) => {
+export const fetchUserAssets = ( userId, useTypeContext, pageIndex ) => async(dispatch) => {
     
     // console.log(userId, pageIndex);
 
     dispatch(fetchUserAssetStart());
-    const res = await axios.get(`/api/user_assets/${userId}/${pageIndex}`);
+    const res = await axios.get(`/api/user_assets/${userId}/${useTypeContext}/${pageIndex}`);
 
     if (res.data.resources) {
         // console.log(res.data.resources);
@@ -274,10 +274,10 @@ export const fetchMoreAssetsFailed = ( error ) => {
 }
 
 
-export const fetchMoreAssets = (userId, pageIndex, assets) => async dispatch => {
+export const fetchMoreAssets = (userId, useTypeContext, pageIndex, assets) => async dispatch => {
     dispatch(fetchMoreAssetsStart());
 
-    const res = await axios.get(`/api/user_assets/${userId}/${pageIndex}`);
+    const res = await axios.get(`/api/user_assets/${userId}/${useTypeContext}/${pageIndex}`);
 
     if (res.data.resources) {
         // const all = [...res.data.all];
@@ -369,7 +369,7 @@ export const fetchUnconfirmed = (pageIndex) => async dispatch => {
     dispatch(fetchUnconfirmedStart());
 
     const res = await axios.get(`/api/unconfirmed_resources/${pageIndex}`);
-
+    // console.log(res.data.resources);
     if (res.data.resources) {
         let resourceLength = res.data.resources.length;
         dispatch(fetchUnconfirmedSuccess(res.data.resources, resourceLength));
@@ -1037,5 +1037,11 @@ export const deleteAsset = ( resourceId, userAssets ) => async dispatch => {
     } else if (res.data.error) {
         dispatch(deleteAssetFailed(res.data.error));
         // console.log(res.data);
+    }
+}
+
+export const clearAddResourceMessages = () => {
+    return {
+        type: actionTypes.CLEAR_ADD_RESOURCE_MESSAGES
     }
 }

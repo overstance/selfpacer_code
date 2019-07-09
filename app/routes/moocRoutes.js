@@ -6,12 +6,14 @@ const User = mongoose.model('users');
 module.exports = app => {
   app.post('/api/add_mooc', (req, res) => {
     let confirmed = false;
+    let isAdmin = false;
     if (
       req.body.userType === 'Administrator' ||
       /* req.body.userType === 'Facilitator' || */
       req.body.userType === 'ChiefAdmin'
     ) {
       confirmed = true;
+      isAdmin = true;
     }
 
     const newMooc = {
@@ -30,6 +32,7 @@ module.exports = app => {
       avgRating: req.body.avgRating,
       user_id: req.body.userId,
       confirmed: confirmed,
+      isAdmin: isAdmin,
       lastEdited: Date.now()
     };
 

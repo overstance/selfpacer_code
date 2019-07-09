@@ -11,6 +11,7 @@ require('./services/passport');
 // const reSubjectMotionGraphics = require('./seed/reSubjectMotionGraphics');
 // const reSubjectDatabase = require('./seed/reSubjectDatabase');
 // const seedBookResource = require('./seed/seedBookResource');
+// const appendIsAdmin = require('./seed/appendIsAdmin');
 
 const authRoutes = require('./routes/authRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
@@ -39,6 +40,7 @@ app.use(bodyParser.json());
 // reSubjectMotionGraphics();
 // reSubjectDatabase();
 // seedBookResource();
+// appendIsAdmin();
 
 app.use(
   cookieSession({

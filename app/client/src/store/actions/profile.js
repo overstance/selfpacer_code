@@ -99,4 +99,44 @@ export const changePassword = (oldPassword, newPassword, user) => async (dispatc
     }
 };
 
+// become a facilitator application
+
+export const becomeFacilitatorStart = () => {
+    return {
+        type: actionTypes.BECOME_FACILITATOR_START
+    }
+}
+
+export const becomeFacilitatorSuccess = ( successMessage ) => {
+    return {
+        type: actionTypes.BECOME_FACILITATOR_SUCCESS,
+        successMessage: successMessage
+    }
+}
+
+export const becomeFacilitatorFailed = ( error ) => {
+    return {
+        type: actionTypes.BECOME_FACILITATOR_FAILED,
+        error: error
+    }
+}
+
+export const becomeFacilitator = (workUrl, userId) => async dispatch => {
+    dispatch(becomeFacilitatorStart());
+
+    const info = {
+        workUrl: workUrl,
+        userId: userId
+    };
+
+    const res = await axios.put('/api/become_facilitator', info);
+    // console.log(res.data);
+
+    if (res.data.user._id === userId) {
+        dispatch(becomeFacilitatorSuccess('Application successful!'));
+    } else if (res.data.error) {
+        dispatch(becomeFacilitatorFailed(res.data.error));
+    }
+};
+
 
