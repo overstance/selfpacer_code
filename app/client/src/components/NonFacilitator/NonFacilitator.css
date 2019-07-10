@@ -51,6 +51,17 @@
     padding-right: 10px;
 }
 
+.FormInstruction {
+    font-size: small;
+    color: var(--white);
+}
+
+.FormInstruction span {
+    padding-left: 5px;
+    color: var(--green);
+    display: block;
+}
+
 .Container svg {
     width: 280px;
     height: 200px;
@@ -68,10 +79,11 @@
     text-align: center;
 }
 
-.FormContainer span {
+/* .FormContainer span {
     padding-left: 5px;
     display: block;
-}
+} */
+
 .FormContainer form {
     max-width: 500px;
     margin: 20px auto;

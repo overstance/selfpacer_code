@@ -38,7 +38,21 @@ const initialState = {
 
     removeFacilitatorLoading: false,
     removeFacilitatorError: null,
-    removeFacilitatorSuccessInfo: null
+    removeFacilitatorSuccessInfo: null,
+
+    facilitateApplicants: [],
+    fetchFacilitateApplicantsLoading: false,
+    latestFetchFaciliteApplicantLength: 0,
+    fetchMoreFacilitateApplicantsLoading: false,
+    fetchFacilitateApplicantsError: null,
+
+    approveFacilitatorLoading: false,
+    approveFaclitatorError: null,
+    applicantToApproveId: null,
+
+    disapproveFacilitatorLoading: false,
+    disapproveFaclitatorError: null,
+    applicantToDisapproveId: null
 };
 
 // Add Admin User 
@@ -275,6 +289,30 @@ const clearDeleteSubjectInfo = ( state, action ) => {
     });
 }
 
+// fetch facilitate applicants
+
+const fetchFacilitatorApplicantsStart = ( state, action ) => {
+    return updateObject( state, {
+        fetchFacilitateApplicantsLoading: true,
+        fetchFacilitateApplicantsError: null
+    });
+}
+
+const fetchFacilitatorApplicantsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        facilitateApplicants: action.applicants,
+        fetchFacilitateApplicantsLoading: false,
+        latestFetchFaciliteApplicantLength: action.applicantsLength
+    });
+}
+
+const fetchFacilitatorApplicantsFail = ( state, action ) => {
+    return updateObject( state, {
+        fetchFacilitateApplicantsLoading: false,
+        fetchFacilitateApplicantsError: action.error
+    });
+}
+
 // clear all admin add messages
 
 const clearAllAdminMessages = ( state, action ) => {
@@ -327,6 +365,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.EDIT_SUBJECT_START: return editSubjectStart( state, action );
         case actionTypes.EDIT_SUBJECT_SUCCESS: return editSubjectSuccess( state, action );
         case actionTypes.EDIT_SUBJECT_FAIL: return editSubjectFail( state, action );
+
+        case actionTypes.FETCH_FACILITATE_APPLICANTS_START: return fetchFacilitatorApplicantsStart( state, action );
+        case actionTypes.FETCH_FACILITATE_APPLICANTS_SUCCESS: return fetchFacilitatorApplicantsSuccess( state, action );
+        case actionTypes.FETCH_FACILITATE_APPLICANTS_FAIL: return fetchFacilitatorApplicantsFail( state, action );
 
         case actionTypes.ADD_SUBJECT_START: return addSubjectStart( state, action );
         case actionTypes.ADD_SUBJECT_SUCCESS: return addSubjectSuccess( state, action );

@@ -9,18 +9,9 @@ module.exports = app => {
       page: req.params.pageIndex || 0,
       limit: 10
     };
-    Resource.find(
-      {
-        confirmed: false
-      } /* , function(err, resources) {
-      if (err) {
-        // console.log(err.message);
-        res.send(err.message);
-      } else {
-        res.send({ resources: resources });
-      }
-    } */
-    )
+    Resource.find({
+      confirmed: false
+    })
       .skip(pageOptions.page * pageOptions.limit)
       .limit(pageOptions.limit)
       .exec(function(err, resources) {

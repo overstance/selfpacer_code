@@ -121,16 +121,25 @@ export const becomeFacilitatorFailed = ( error ) => {
     }
 }
 
-export const becomeFacilitator = (workUrl, userId) => async dispatch => {
+export const becomeFacilitator = (workUrl1, workUrl2, userId) => async dispatch => {
     dispatch(becomeFacilitatorStart());
 
-    const info = {
-        workUrl: workUrl,
+    let secondUrl = workUrl2;
+
+    if ( workUrl2 === '' ) {
+        secondUrl = undefined;
+    }
+
+
+ 
+    let info = {
+        workUrl1: workUrl1,
+        secondUrl: secondUrl,
         userId: userId
     };
 
     const res = await axios.put('/api/become_facilitator', info);
-    // console.log(res.data);
+    console.log(res.data);
 
     if (res.data.user._id === userId) {
         dispatch(becomeFacilitatorSuccess('Application successful!'));

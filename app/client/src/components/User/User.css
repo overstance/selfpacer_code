@@ -1,0 +1,453 @@
+.User {
+    margin-bottom: 10px;
+    outline: none;
+    box-shadow: 1px 0px 6px 0px var(--gray);
+}
+
+.User:first-of-type {
+    margin-top: 10px;
+}
+
+.MainContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    background: var(--white);
+}
+
+.InfoContainer {
+    display: flex;
+    flex-flow: column;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+
+.WorkUrl {/* 
+ display: flex;
+ flex-wrap: nowrap; */
+ padding-left: 40px;
+ text-decoration: none;
+}
+
+.UrlsContainer {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+
+.Title {
+    margin: 0px;
+    background-color: var(--white);
+    padding: 15px 10px 15px 0;
+    text-align: left;
+    color: var(--blue);
+    font-weight: 700;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    text-decoration: underline;
+    text-decoration-color: var(--blue);
+    text-decoration-line: 2px;
+}
+
+
+.Title:hover {
+    color: var(--green);
+    text-decoration: none;
+}
+
+.LinkIcon {
+    display: block;
+    width:30px;
+    height: 30px;
+    background-image: url('../../assets/images/link.svg');
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+
+
+.DetailsContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 5px 0;
+    background: var(--white);
+}
+
+.ImgColumn {
+    width: 100px;
+    text-align: center;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+
+.NoImageColumn {
+    width: 100px;
+    text-align: center;
+    background-image: url('../../assets/images/image.svg');
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-color: var(--blue);
+}
+
+.ResourceImg {
+    width: 100px;
+    vertical-align: top;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.DetailsColumnFlex {
+    display: flex;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+
+
+.Type {
+    color: var(--darkBlue);
+    font-weight: 700;
+    font-size: x-small;
+    text-align: left;
+    padding-left: 40px;
+}
+
+.Type span {
+    color: var(--blue);
+    background: var(--green);
+    margin-left: 4px;
+    font-size: small;
+
+}
+
+.FeedbackRow {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+
+.FeedbackContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background: var(--white);
+    align-items: center;
+}
+
+.FeedbackText {
+    font-size: small;
+    color: var(--darkBlue);
+    font-weight: 400;
+}
+
+.DateAdded {
+    font-size: small;
+    color: var(--blue);
+    font-weight: 700;
+    margin-right: 10px;
+    background: var(--green);
+}
+
+.OptionFixed {
+    text-align: right;
+    padding: 5px 10px 5px 0;
+    display: flex;
+}
+
+.OptionFlex {
+    text-align: right;
+    padding: 5px 10px;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.ResourceFeedBack {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    overflow-x: hidden;
+}
+
+.ResourceFeedBack span {
+    color: var(--green);
+    animation: slideRight 0.2s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 0 10px 10px 0;
+    background: var(--blue);
+}
+
+.ResourceFeedBackError {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    overflow-x: hidden;
+}
+
+.ResourceFeedBackError span {
+    color: var(--red);
+    animation: slideRight 0.2s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 0 10px 10px 0;
+    background: var(--blue);
+}
+
+.AssetUpdate {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    overflow-x: hidden;
+    padding-top: 5px;
+}
+
+.AssetUpdateFeedbackText {
+    font-size: small;
+    color: var(--blue);
+    font-weight: 700;
+    animation: slideRight 0.2s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 0 10px 10px 0;
+    background: var(--white);
+}
+
+.AssetUpdateFeedbackTextError {
+    font-size: small;
+    color: var(--red);
+    font-weight: 700;
+    animation: slideRight 0.2s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 0 10px 10px 0;
+    background: var(--white);
+}
+
+/* .AssetUpdate span {
+    color: var(--blue);
+    font-weight: 700;
+    animation: slideRight 0.2s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 0 10px 10px 0;
+    background: var(--white);
+} */
+
+.AssetFeedbackContainer {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background: var(--blue);
+    padding: 5px 0 0;
+}
+
+.AssetLastUpdated {
+    font-size: small;
+    color: var(--green);
+    font-weight: 400;
+    /* padding: 0 10px; */
+    text-align: right;
+    margin: auto 0;
+}
+
+.AssetLastUpdatedText {
+    padding: 5px 10px;
+}
+
+.AssetOptions {
+    flex: 0 0 100%;
+    max-width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+}
+
+.AssetControls {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.AssetButtonContainer {
+    text-align: right;
+    padding: 5px 10px 5px 0;
+    display: flex;
+}
+
+.Statistics {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    flex: 0 0 100%;
+    max-width: 100%;
+    height: 100%;
+    border-bottom: 1px solid var(--darkBlue);
+}
+
+.StatisticsLike {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 0 0 33%;
+    max-width: 33%;
+    text-align: center;
+    border-right: 1.4px solid var(--darkestBlue);
+    /* height: 100%; */
+    padding-bottom: 5px;
+    align-items: center;
+}
+
+.StatisticsCollections {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 0 0 33%;
+    max-width: 33%;
+    text-align: center;
+    border-right: 1.4px solid var(--darkestBlue);
+    /* height: 100%; */
+    padding-bottom: 5px;
+    align-items: center;
+}
+
+.StatisticsAssets {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 0 0 33%;
+    max-width: 33%;
+    text-align: center;
+    border-right: 1.4px solid var(--darkestBlue);
+    /* height: 100%; */
+    padding-bottom: 5px;
+    align-items: center;
+}
+
+.StatisticsCount {
+    /* font-size: 40px; */
+    color: var(--green);
+    overflow-x: auto;
+    font-weight: 400;
+    font-size: large;
+}
+
+.StatisticsLabel {
+    color: var(--white);
+    font-weight: 700;
+    font-size: small;
+}
+
+@keyframes slideRight {
+    0% {transform:translateX(-50px); }
+    100%{transform: translateX(0px);}
+}
+
+@media all and (max-width: 600px) {
+    .Type span {
+        font-size: x-small;
+    }
+
+    .StatisticsLike {
+        flex: 0 0 100%;
+        max-width: 100%;
+        border-right: none;
+        height: 40px;
+        border-bottom: 1px solid var(--darkBlue);
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .StatisticsCollections {
+        flex: 0 0 100%;
+        max-width: 100%;
+        border-right: none; 
+        height: 40px;
+        border-bottom: 1px solid var(--darkBlue);
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .StatisticsAssets {
+        flex: 0 0 100%;
+        max-width: 100%;
+        height: 40px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .StatisticsCount {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 50%;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .StatisticsLabel {
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 50%;
+        text-align: left
+    }
+
+    .CountAndLabel {
+        display: flex;
+        display: flex;
+        align-items: center;
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+    }
+
+    .FeedBackIconLike {
+        margin-left: 10px;
+    }
+
+    .FeedBackIconCollect {
+        margin-left: 10px; 
+    }
+
+    .FeedBackIconView {
+        margin-left: 10px;
+    }
+
+    .Type {
+        padding-left: 10px;    
+    }
+
+    .TitlePlusLinkIcon {
+        padding-left: 10px;
+    }
+
+    .Source {
+        padding-left: 10px;
+    }
+
+    .ResourceImg {
+        width: 80px;
+    }
+}

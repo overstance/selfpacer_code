@@ -25,6 +25,7 @@ import ReverifyEmail from './components/auth/Register/ReverifyEmail/ReverifyEmai
 import SubjectPage from './containers/SubjectPage/SubjectPage'; 
 import Blog from './containers/blog/Blog';
 import BlogPost from './containers/blog/BlogPost';
+import FacilitateApplicants from './containers/ViewFacilitateApplicants/FacilitateApplicants';
 
 const Landing = () => <h2>
   Landing page component
@@ -75,6 +76,7 @@ class App extends Component {
         <PrivateRoute exact path="/admin_tools" component={AdminTools} />      
         <PrivateRoute exact path="/profile/edit" component={EditProfile} />
         <PrivateRoute exact path="/manage_assets" component={UserAssets} />
+        <PrivateRoute exact path="/facilitate_applicants" component={FacilitateApplicants} />
         <PrivateRoute exact path="/profile" component={Profile} />        
         <PrivateRoute exact path="/logout" component={Logout} />
 

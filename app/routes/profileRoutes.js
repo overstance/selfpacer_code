@@ -45,7 +45,12 @@ module.exports = app => {
   app.put('/api/become_facilitator', (req, res) => {
     User.findByIdAndUpdate(
       req.body.userId,
-      { workUrl: req.body.workUrl, dateOfFacilitateApplication: Date.now() },
+      {
+        workUrl1: req.body.workUrl1,
+        workUrl2: req.body.secondUrl,
+        isFacilitateApplicant: true,
+        dateOfFacilitateApplication: Date.now()
+      },
       { new: true },
       (err, user) => {
         if (err) {

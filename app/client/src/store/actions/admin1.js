@@ -365,6 +365,41 @@ export const deleteSubject = ( subjectTitle ) => async dispatch => {
     }
 }
 
+//  fetch facilitate applicants
+export const fetchFacilitateApplicantsStart = () => {
+    return {
+        type: actionTypes.FETCH_FACILITATE_APPLICANTS_START,
+    }
+}
+
+export const fetchFacilitateApplicantsSuccess = ( applicants, applicantsLength ) => {
+    return {
+        type: actionTypes.FETCH_FACILITATE_APPLICANTS_SUCCESS,
+        applicants: applicants,
+        applicantsLength: applicantsLength
+    }
+}
+
+export const fetchFacilitateApplicantsFail = ( error) => {
+    return {
+        type: actionTypes.FETCH_FACILITATE_APPLICANTS_FAIL,
+        error: error
+    }
+}
+
+export const fetchFacilitateApplicants = (pageIndex) => async dispatch => {
+    dispatch( fetchFacilitateApplicantsStart());
+
+    const res = await axios.get(`/api/fetch_facilitator_applicants/${pageIndex}`);
+
+    if (res.data.applicants) {
+        let applicantsLength = res.data.applicants.length
+        dispatch( fetchFacilitateApplicantsSuccess(res.data.applicants, applicantsLength));
+    } else if (res.data.error){
+        dispatch( fetchFacilitateApplicantsFail(res.data.error));
+    }
+}
+
 
 // clear all add messages
 

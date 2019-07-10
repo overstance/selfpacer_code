@@ -44,7 +44,9 @@ export {
     addSubject,
     clearAddSubjectState,
     deleteSubject,
-    clearDeleteSubjectInfo
+    clearDeleteSubjectInfo,
+    fetchFacilitateApplicants,
+    fetchMoreFacilitateApplicants
 } from './admin1';
 
 export {

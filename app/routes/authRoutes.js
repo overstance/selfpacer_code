@@ -54,6 +54,26 @@ module.exports = app => {
     res.send(req.user);
   });
 
+  app.get('/api/fetch_facilitator_applicants/:pageIndex', (req, res) => {
+    let pageOptions = {
+      page: req.params.pageIndex || 0,
+      limit: 10
+    };
+    User.find({
+      accountType: 'User',
+      isFacilitateApplicant: true
+    })
+      .skip(pageOptions.page * pageOptions.limit)
+      .limit(pageOptions.limit)
+      .exec((err, applicants) => {
+        if (err) {
+          res.send({ error: err.message });
+        } else {
+          res.send({ applicants: applicants });
+        }
+      });
+  });
+
   app.post('/api/register', (req, res) => {
     const { errors, isValid } = validateRegisterInput(req.body);
 

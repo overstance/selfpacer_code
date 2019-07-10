@@ -14,15 +14,26 @@ import * as actions from '../../store/actions/index';
 class NonFacilitator extends Component {
 
     state = {
-        workUrl: {
+        workUrl1: {
             fillError: null,
             value: '',
-            label: 'Enter Url(s) to your works:',
-            labelspan:'can be a web address or social media page or channel*',
-            name: 'workUrl',
+            label: 'Url1',
+            labelspan: '*',
+            name: 'workUrl1',
             validation: {
                 required: true,
-                /* isUrl: true */
+                isUrl: true
+            },
+            valid: false,
+            touched: false,
+        },
+        workUrl2: {
+            fillError: null,
+            value: '',
+            label: 'Url2',
+            name: 'workUrl2',
+            validation: {
+                isUrl: true
             },
             valid: false,
             touched: false,
@@ -68,36 +79,64 @@ class NonFacilitator extends Component {
     submitUserHandler = (event) => {
         event.preventDefault();
 
-        if (!this.state.workUrl.touched || this.state.workUrl.value === '') {
+        if (!this.state.workUrl1.touched || this.state.workUrl1.value === '') {
             const updated = {
-                ...this.state.workUrl,
+                ...this.state.workUrl1,
                 touched: true,
                 valid: false
             }
-        this.setState({ workUrl: updated});
+        this.setState({ workUrl1: updated});
 
-        this.setState({ fillError: 'Please enter url' });
+        this.setState({ fillError: 'Please enter url1' });
         } else {
-            this.props.onBecomeFacilitator(this.state.workUrl.value, this.props.userId);
-            const updated = {
-                ...this.state.workUrl,
+            this.props.onBecomeFacilitator(this.state.workUrl1.value, this.state.workUrl2.value, this.props.userId);
+            const workUrl1Updated = {
+                ...this.state.workUrl1,
                 value: '',
                 touched: false
             }
-            this.setState({ workUrl: updated});
+
+            const workUrl2Updated = {
+                ...this.state.workUrl2,
+                value: '',
+                touched: false
+            }
+            this.setState({ workUrl1: workUrl1Updated, workUrl2: workUrl2Updated});
         }
         
     };
 
     
-    inputChangedHandler = (event) => {
+    input1ChangedHandler = (event) => {
         const updated = {
-            ...this.state.workUrl,
+            ...this.state.workUrl1,
             value: event.target.value,
-            valid: this.checkValidity(event.target.value, this.state.workUrl.validation),
+            valid: this.checkValidity(event.target.value, this.state.workUrl1.validation),
             touched: true
         }
-        this.setState({ workUrl: updated});   
+        this.setState({ workUrl1: updated, fillError: null });   
+    }
+
+    input2ChangedHandler = (event) => {
+
+        if (event.target.value === '' ) {
+            
+            const updated = {
+                ...this.state.workUrl2,
+                value: event.target.value,
+                valid: true,
+                touched: true
+            }
+            this.setState({ workUrl2: updated, fillError: null });
+        } else {
+            const updated = {
+                ...this.state.workUrl2,
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.workUrl2.validation),
+                touched: true
+            }
+            this.setState({ workUrl2: updated, fillError: null });
+        }   
     }
 
     render() {
@@ -111,21 +150,38 @@ class NonFacilitator extends Component {
         <Form 
         submitForm={this.submitUserHandler}
         >
+            <div className={classes.FormInstruction}>
+                Enter 1 or 2 urls to your works: 
+                <span>
+                    can be a web-address or link to social media 
+                    page or channel
+                </span>
+            </div>
             <FormFeedback isFillError>
                 {this.state.fillError}
             </FormFeedback>
             <Input 
-            label={this.state.workUrl.label}
-            labelspan={this.state.workUrl.labelspan} 
-            name={this.state.workUrl.name}
+            label={this.state.workUrl1.label}
+            labelspan={this.state.workUrl1.labelspan} 
+            name={this.state.workUrl1.name}
             elementType={'textarea'}
-            value={this.state.workUrl.value}
-            invalid={!this.state.workUrl.valid}
-            shouldValidate={this.state.workUrl.validation}
-            touched={this.state.workUrl.touched}
-            changed={(event) => this.inputChangedHandler(event)}
+            value={this.state.workUrl1.value}
+            invalid={!this.state.workUrl1.valid}
+            shouldValidate={this.state.workUrl1.validation}
+            touched={this.state.workUrl1.touched}
+            changed={(event) => this.input1ChangedHandler(event)}
             />
-            { !this.state.workUrl.valid && this.state.workUrl.touched ? 
+            <Input 
+            label={this.state.workUrl2.label} 
+            name={this.state.workUrl2.name}
+            elementType={'textarea'}
+            value={this.state.workUrl2.value}
+            invalid={!this.state.workUrl2.valid}
+            shouldValidate={this.state.workUrl2.validation}
+            touched={this.state.workUrl2.touched}
+            changed={(event) => this.input2ChangedHandler(event)}
+            />
+            { (!this.state.workUrl1.valid && this.state.workUrl1.touched) || (!this.state.workUrl2.valid && this.state.workUrl2.touched)  ? 
                 <Button btnType='Danger' disabled> {formButtonText} </Button> :
                 <Button btnType='Success'> {formButtonText} </Button>    
             }
@@ -140,7 +196,7 @@ class NonFacilitator extends Component {
             }
         </Form>
 
-        if (this.props.workUrl) {
+        if (this.props.workUrl1 || this.props.workUrl2 ) {
             form = 
             <PostActionInfo isSuccess>
                 You already submitted a facilitator
@@ -180,7 +236,7 @@ class NonFacilitator extends Component {
                             </span> 
                             <span>
                             Add and manage your educational resources
-                            to enrich our resource lists to equip users
+                            to enrich our resource lists. Help equip our users
                             and recieve feedback on your work.
                             </span>
                         </div>
@@ -268,7 +324,8 @@ class NonFacilitator extends Component {
 
 const mapStateToProps = state => ({
     userId: state.auth.user._id,
-    workUrl: state.auth.user.workUrl,
+    workUrl1: state.auth.user.workUrl1,
+    workUrl2: state.auth.user.workUrl2,
     becomeFacilitatorSuccessInfo: state.profile.becomeFacilitatorSuccessInfo,
     becomeFacilitatorError: state.profile.becomeFacilitatorError,
     becomeFacilitatorLoading: state.profile.becomeFacilitatorLoading
@@ -276,7 +333,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onBecomeFacilitator: ( workUrl, userId ) => dispatch( actions.becomeFacilitator( workUrl, userId ))
+        onBecomeFacilitator: ( workUrl1, workUrl2, userId ) => dispatch( actions.becomeFacilitator( workUrl1, workUrl2, userId ))
     };
 };
 

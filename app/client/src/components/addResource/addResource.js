@@ -834,32 +834,62 @@ class AddResources extends Component {
     }
 
     moocInputChangedHandler = (event, controlName) => {
-        const updated = {
-            ...this.state.mooc_controls,
-            [controlName]: {
-                ...this.state.mooc_controls[controlName],
-                value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.mooc_controls[controlName].validation),
-                touched: true
-            }
-        };
 
-        this.setState({ mooc_controls: updated, fillError: null });
+        if (!this.state.mooc_controls[controlName].validation.required && event.target.value === '') {
+            // console.log('not required');
+            const updated = {
+                ...this.state.mooc_controls,
+                [controlName]: {
+                    ...this.state.mooc_controls[controlName],
+                    value: event.target.value,
+                    valid: true,
+                    touched: true
+                }
+            };
+
+            this.setState({ mooc_controls: updated, fillError: null });
+        } else {
+            const updated = {
+                ...this.state.mooc_controls,
+                [controlName]: {
+                    ...this.state.mooc_controls[controlName],
+                    value: event.target.value,
+                    valid: this.checkValidity(event.target.value, this.state.mooc_controls[controlName].validation),
+                    touched: true
+                }
+            };
+
+            this.setState({ mooc_controls: updated, fillError: null });
+        }
     }
 
     bookInputChangedHandler = (event, controlName) => {
-        const updated = {
-            ...this.state.book_controls,
-            [controlName]: {
-                ...this.state.book_controls[controlName],
-                value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.book_controls[controlName].validation),
-                touched: true
-            }
-        };
 
-        this.setState({ book_controls: updated, fillError: null });
-
+        if (!this.state.book_controls[controlName].validation.required && event.target.value === '') {
+            const updated = {
+                ...this.state.book_controls,
+                [controlName]: {
+                    ...this.state.book_controls[controlName],
+                    value: event.target.value,
+                    valid: true,
+                    touched: true
+                }
+            };
+    
+            this.setState({ book_controls: updated, fillError: null });
+        } else {
+            const updated = {
+                ...this.state.book_controls,
+                [controlName]: {
+                    ...this.state.book_controls[controlName],
+                    value: event.target.value,
+                    valid: this.checkValidity(event.target.value, this.state.book_controls[controlName].validation),
+                    touched: true
+                }
+            };
+    
+            this.setState({ book_controls: updated, fillError: null });
+        }
     }
 
     elementConfig = () => {
@@ -1097,6 +1127,9 @@ class AddResources extends Component {
             changed={(event) => this.typeChangedHandler(event)}
             />
             {platformSpecificForm}
+            <FormFeedback isFillError>
+                {this.state.fillError}
+            </FormFeedback>
             { this.props.error ? 
                 <FormFeedback isFailed>
                     {this.props.error}
