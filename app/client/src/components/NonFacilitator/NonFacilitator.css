@@ -9,6 +9,15 @@
     
 }
 
+.ApprovalNotice {
+    background: var(--green);
+    padding: 20px;
+    color: var(--blue);
+    font-size: large;
+    font-weight: 700;
+    border-bottom: 2px solid var(--blue);
+}
+
 .Header div {
     color: var(--green);
     font-size: x-large;

@@ -87,7 +87,9 @@ const resetEditProfileMessages = ( state, action ) => {
         changePasswordError: null,
         changePasswordSuccessFeedback: null,
         profileEditSuccessFeedback: null,
-        profileEditError: null
+        profileEditError: null,
+        becomeFacilitatorError: null,
+        becomeFacilitatorSuccessInfo: null
     });
 }
 

@@ -12,7 +12,7 @@ class User extends Component {
         let confirmButton =
         <CheckActionButton clicked={this.props.approve} />;
 
-        if (this.props.id === this.props.applicantToApproveId && this.props.approveFacilitatorLoading) {
+        if (this.props.id === this.props.applicantToApproveId && this.props.approveFacilitateApplicantLoading) {
             confirmButton = 
             <ProcessingActionButton />
         }
@@ -20,7 +20,7 @@ class User extends Component {
         let cancelButton =
         <CancelActionButton clicked={this.props.disapprove}/>;
 
-        if (this.props.id === this.props.applicantToDisapproveId && this.props.disapproveFacilitatorLoading) {
+        if (this.props.id === this.props.applicantToDisapproveId && this.props.disapproveFacilitateApplicantLoading) {
             cancelButton =
             <ProcessingActionButton />
         }
@@ -77,16 +77,16 @@ class User extends Component {
                         <div className={classes.DetailsColumnFlex}>
                             { 
                                 this.props.id === this.props.applicantToApproveId &&
-                                this.props.approveFaclitatorError ?
+                                this.props.approveFacilitateApplicantError ?
                                 <div className={classes.ResourceFeedBackError}>
-                                    <span>{this.props.approveFaclitatorError}</span>
+                                    <span>{this.props.approveFacilitateApplicantError}</span>
                                 </div> : null
                             }
                             { 
                                 this.props.id === this.props.applicantToDisapproveId &&
-                                this.props.disapproveFaclitatorError ?
+                                this.props.disapproveFacilitateApplicantError ?
                                 <div className={classes.ResourceFeedBackError}>
-                                    <span>{this.props.disapproveFaclitatorError}</span>
+                                    <span>{this.props.disapproveFacilitateApplicantError}</span>
                                 </div> : null
                             }
                             <div className={classes.OptionFlex}>
@@ -105,12 +105,12 @@ class User extends Component {
 
 const mapStateToProps = state => {
     return {
-        approveFacilitatorLoading: state.admin1.approveFacilitatorLoading,
-        approveFaclitatorError: state.admin1.approveFaclitatorError,
+        approveFacilitateApplicantLoading: state.admin1.approveFacilitateApplicantLoading,
+        approveFacilitateApplicantError: state.admin1.approveFacilitateApplicantError,
         applicantToApproveId: state.admin1.applicantToApproveId,
 
-        disapproveFacilitatorLoading: state.admin1.disapproveFacilitatorLoading,
-        disapproveFaclitatorError: state.admin1.disapproveFaclitatorError,
+        disapproveFacilitateApplicantLoading: state.admin1.disapproveFacilitateApplicantLoading,
+        disapproveFacilitateApplicantError: state.admin1.disapproveFacilitateApplicantError,
         applicantToDisapproveId: state.admin1.applicantToDisapproveId
     };
 };

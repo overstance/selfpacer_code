@@ -46,12 +46,12 @@ const initialState = {
     fetchMoreFacilitateApplicantsLoading: false,
     fetchFacilitateApplicantsError: null,
 
-    approveFacilitatorLoading: false,
-    approveFaclitatorError: null,
+    approveFacilitateApplicantLoading: false,
+    approveFacilitateApplicantError: null,
     applicantToApproveId: null,
 
-    disapproveFacilitatorLoading: false,
-    disapproveFaclitatorError: null,
+    disapproveFacilitateApplicantLoading: false,
+    disapproveFacilitateApplicantError: null,
     applicantToDisapproveId: null
 };
 
@@ -99,6 +99,56 @@ const addFacilitatorFail = ( state, action ) => {
     return updateObject( state, {
         addFacilitatorLoading: false,
         addFacilitatorError:  "Failed!: " + action.error
+    } );
+};
+
+// approve facilitate applicant
+
+const approveFacilitateApplicantStart = ( state, action ) => {
+    return updateObject( state, {
+        approveFacilitateApplicantLoading: true,
+        approveFacilitateApplicantError: null,
+        applicantToApproveId: action.userId
+    } );
+};
+
+const approveFacilitateApplicantSuccess = ( state, action ) => {
+    return updateObject( state, {
+        approveFacilitateApplicantLoading: false,
+        facilitateApplicants: action.updatedApplicants,
+        applicantToApproveId: null     
+    } );
+};
+
+const approveFacilitateApplicantFail = ( state, action ) => {
+    return updateObject( state, {
+        approveFacilitateApplicantLoading: false,
+        approveFacilitateApplicantError: action.error
+    } );
+};
+
+// disapprove facilitate applicant
+
+const disapproveFacilitateApplicantStart = ( state, action ) => {
+    return updateObject( state, {
+        disapproveFacilitateApplicantLoading: true,
+        disapproveFacilitateApplicantError: null,
+        applicantToDisapproveId: action.userId
+    } );
+};
+
+const disapproveFacilitateApplicantSuccess = ( state, action ) => {
+    return updateObject( state, {
+        disapproveFacilitateApplicantLoading: false,
+        facilitateApplicants: action.updatedApplicants,
+        applicantToDisapproveId: null     
+    } );
+};
+
+const disapproveFacilitateApplicantFail = ( state, action ) => {
+    return updateObject( state, {
+        disapproveFacilitateApplicantLoading: false,
+        disapproveFacilitateApplicantError: action.error
     } );
 };
 
@@ -291,14 +341,14 @@ const clearDeleteSubjectInfo = ( state, action ) => {
 
 // fetch facilitate applicants
 
-const fetchFacilitatorApplicantsStart = ( state, action ) => {
+const fetchFacilitateApplicantsStart = ( state, action ) => {
     return updateObject( state, {
         fetchFacilitateApplicantsLoading: true,
         fetchFacilitateApplicantsError: null
     });
 }
 
-const fetchFacilitatorApplicantsSuccess = ( state, action ) => {
+const fetchFacilitateApplicantsSuccess = ( state, action ) => {
     return updateObject( state, {
         facilitateApplicants: action.applicants,
         fetchFacilitateApplicantsLoading: false,
@@ -306,9 +356,33 @@ const fetchFacilitatorApplicantsSuccess = ( state, action ) => {
     });
 }
 
-const fetchFacilitatorApplicantsFail = ( state, action ) => {
+const fetchFacilitateApplicantsFail = ( state, action ) => {
     return updateObject( state, {
         fetchFacilitateApplicantsLoading: false,
+        fetchFacilitateApplicantsError: action.error
+    });
+}
+
+// fetch more facilitate applicants
+
+const fetchMoreFacilitateApplicantsStart = ( state, action ) => {
+    return updateObject( state, {
+        fetchMoreFacilitateApplicantsLoading: true,
+        fetchFacilitateApplicantsError: null
+    });
+}
+
+const fetchMoreFacilitateApplicantsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        facilitateApplicants: action.applicants,
+        fetchMoreFacilitateApplicantsLoading: false,
+        latestFetchFaciliteApplicantLength: action.applicantsLength
+    });
+}
+
+const fetchMoreFacilitateApplicantsFail = ( state, action ) => {
+    return updateObject( state, {
+        fetchMoreFacilitateApplicantsLoading: false,
         fetchFacilitateApplicantsError: action.error
     });
 }
@@ -350,6 +424,14 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADD_FACILITATOR_SUCCESS: return addFacilitatorSuccess( state, action );
         case actionTypes.ADD_FACILITATOR_FAIL: return addFacilitatorFail( state, action );
 
+        case actionTypes.APPROVE_FACILITATE_APPLICANT_START: return approveFacilitateApplicantStart( state, action );
+        case actionTypes.APPROVE_FACILITATE_APPLICANT_SUCCESS: return approveFacilitateApplicantSuccess( state, action );
+        case actionTypes.APPROVE_FACILITATE_APPLICANT_FAIL: return approveFacilitateApplicantFail( state, action );
+
+        case actionTypes.DISAPPROVE_FACILITATE_APPLICANT_START: return disapproveFacilitateApplicantStart( state, action );
+        case actionTypes.DISAPPROVE_FACILITATE_APPLICANT_SUCCESS: return disapproveFacilitateApplicantSuccess( state, action );
+        case actionTypes.DISAPPROVE_FACILITATE_APPLICANT_FAIL: return disapproveFacilitateApplicantFail( state, action );
+
         case actionTypes.REMOVE_ADMIN_START: return removeAdminStart( state, action );
         case actionTypes.REMOVE_ADMIN_SUCCESS: return removeAdminSuccess( state, action );
         case actionTypes.REMOVE_ADMIN_FAIL: return removeAdminFail( state, action );
@@ -366,9 +448,13 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.EDIT_SUBJECT_SUCCESS: return editSubjectSuccess( state, action );
         case actionTypes.EDIT_SUBJECT_FAIL: return editSubjectFail( state, action );
 
-        case actionTypes.FETCH_FACILITATE_APPLICANTS_START: return fetchFacilitatorApplicantsStart( state, action );
-        case actionTypes.FETCH_FACILITATE_APPLICANTS_SUCCESS: return fetchFacilitatorApplicantsSuccess( state, action );
-        case actionTypes.FETCH_FACILITATE_APPLICANTS_FAIL: return fetchFacilitatorApplicantsFail( state, action );
+        case actionTypes.FETCH_FACILITATE_APPLICANTS_START: return fetchFacilitateApplicantsStart( state, action );
+        case actionTypes.FETCH_FACILITATE_APPLICANTS_SUCCESS: return fetchFacilitateApplicantsSuccess( state, action );
+        case actionTypes.FETCH_FACILITATE_APPLICANTS_FAIL: return fetchFacilitateApplicantsFail( state, action );
+
+        case actionTypes.FETCH_MORE_FACILITATE_APPLICANTS_START: return fetchMoreFacilitateApplicantsStart( state, action );
+        case actionTypes.FETCH_MORE_FACILITATE_APPLICANTS_SUCCESS: return fetchMoreFacilitateApplicantsSuccess( state, action );
+        case actionTypes.FETCH_MORE_FACILITATE_APPLICANTS_FAIL: return fetchMoreFacilitateApplicantsFail( state, action );
 
         case actionTypes.ADD_SUBJECT_START: return addSubjectStart( state, action );
         case actionTypes.ADD_SUBJECT_SUCCESS: return addSubjectSuccess( state, action );

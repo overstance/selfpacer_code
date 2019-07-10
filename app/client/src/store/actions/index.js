@@ -46,7 +46,9 @@ export {
     deleteSubject,
     clearDeleteSubjectInfo,
     fetchFacilitateApplicants,
-    fetchMoreFacilitateApplicants
+    fetchMoreFacilitateApplicants,
+    approveFacilitateApplicant,
+    disapproveFacilitateApplicant
 } from './admin1';
 
 export {

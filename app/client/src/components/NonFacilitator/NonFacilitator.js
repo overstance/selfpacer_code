@@ -12,6 +12,10 @@ import PostActionInfo from '../PostActionInfo/PostActionInfo';
 import * as actions from '../../store/actions/index';
 
 class NonFacilitator extends Component {
+    
+    componentWillUnmount() {
+        this.props.onResetEditProfileMessages();
+    }
 
     state = {
         workUrl1: {
@@ -222,6 +226,13 @@ class NonFacilitator extends Component {
                 <div className={classes.Header}>
                     <div>Help Build the Future of Work and Education</div>
                 </div>
+                { this.props.accountType === 'Facilitator' && this.props.useTypeContext === '0' ?
+                    <div className={classes.ApprovalNotice}>
+                        Yay! Your facilitator application had been approved. 
+                        Please log out and log in again to start facilitating.
+                    </div>
+                    : null
+                }
                 <div className={classes.Container}>
                     <div className={classes.Art}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="#3a2d80">
@@ -287,7 +298,7 @@ class NonFacilitator extends Component {
                     <div className={classes.TextArea}>
                         <div className={classes.Text}>
                             <span>
-                            Are you a writer, designer, or developer?
+                            Are you a writer, creative, or developer?
                             </span> 
                             <span>
                             You can contribute editorially to publications
@@ -324,6 +335,8 @@ class NonFacilitator extends Component {
 
 const mapStateToProps = state => ({
     userId: state.auth.user._id,
+    accountType: state.auth.user.accountType,
+    useTypeContext: state.auth.useTypeContext,
     workUrl1: state.auth.user.workUrl1,
     workUrl2: state.auth.user.workUrl2,
     becomeFacilitatorSuccessInfo: state.profile.becomeFacilitatorSuccessInfo,
@@ -333,7 +346,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onBecomeFacilitator: ( workUrl1, workUrl2, userId ) => dispatch( actions.becomeFacilitator( workUrl1, workUrl2, userId ))
+        onBecomeFacilitator: ( workUrl1, workUrl2, userId ) => dispatch( actions.becomeFacilitator( workUrl1, workUrl2, userId )),
+        onResetEditProfileMessages: () => dispatch( actions.resetEditProfileMessages())
     };
 };
 

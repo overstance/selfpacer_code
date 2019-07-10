@@ -5,8 +5,13 @@ import AddResource from '../../components/addResource/addResource';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 import { connect } from 'react-redux';
 import NonFacilitator from '../../components/NonFacilitator/NonFacilitator';
+import * as actions from '../../store/actions/index';
 
 class Facilitator extends Component {
+
+    componentDidMount() {
+        this.props.onFetchUser();
+    }
 
     state = {
         showAddResource: false,
@@ -69,4 +74,10 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(Facilitator);
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchUser: () => dispatch(actions.fetchUser())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Facilitator);

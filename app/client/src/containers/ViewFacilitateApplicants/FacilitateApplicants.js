@@ -47,12 +47,12 @@ class FacilitateApplicants extends Component {
         }      
     }
 
-    confirmResourceHandler = ( resourceId ) => {
-        this.props.onConfirmResource(resourceId, this.props.facilitateApplicants)
+    approveHandler = ( userId ) => {
+        this.props.onApproveFacilitateApplicant(userId, this.props.facilitateApplicants)
     }
 
-    deleteUnconfirmedResourceHandler = ( resourceId ) => {
-        this.props.onDeleteUnconfirmedResource(resourceId, this.props.facilitateApplicants)    
+    disapproveHandler = ( userId ) => {
+        this.props.onDisapproveFacilitateApplicant(userId, this.props.facilitateApplicants)    
     }
 
     render() {
@@ -72,8 +72,8 @@ class FacilitateApplicants extends Component {
                 workUrl2={user.workUrl2}
                 applicationDate={new Date(user.dateOfFacilitateApplication).toLocaleDateString()}
                 joinDate={new Date(user.date).toLocaleDateString()}                
-                // confirmClicked={() => this.confirmResourceHandler( resource._id )}
-                // deleteClicked={() => this.deleteUnconfirmedResourceHandler( resource._id )}
+                approve={() => this.approveHandler( user._id )}
+                disapprove={() => this.disapproveHandler( user._id )}
                 />
             ));
         }
@@ -119,9 +119,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchFacilitateApplicants: (pageIndex) => dispatch(actions.fetchFacilitateApplicants(pageIndex)),
         onFetchMoreFacilitateApplicants: (pageIndex, facilitateApplicants) => dispatch(actions.fetchMoreFacilitateApplicants(pageIndex, facilitateApplicants)),
-        /* onConfirmResource: (resourceId, facilitateApplicants) => dispatch(actions.confirmResource(resourceId, facilitateApplicants)),
-        onDeleteUnconfirmedResource: (resourceId, facilitateApplicants) => dispatch(actions.deleteUnconfirmedResource(resourceId, facilitateApplicants)),
-        onFetchMoreUnconfirmed: (pageIndex, facilitateApplicants) => dispatch(actions.fetchMoreUnconfirmed( pageIndex, facilitateApplicants)) */
+        onApproveFacilitateApplicant: (userId, facilitateApplicants) => dispatch(actions.approveFacilitateApplicant(userId, facilitateApplicants)),
+        onDisapproveFacilitateApplicant: (userId, facilitateApplicants) => dispatch(actions.disapproveFacilitateApplicant(userId, facilitateApplicants))
     };
 };
 

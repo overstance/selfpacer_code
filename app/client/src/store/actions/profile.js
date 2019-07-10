@@ -139,7 +139,7 @@ export const becomeFacilitator = (workUrl1, workUrl2, userId) => async dispatch 
     };
 
     const res = await axios.put('/api/become_facilitator', info);
-    console.log(res.data);
+    // console.log(res.data);
 
     if (res.data.user._id === userId) {
         dispatch(becomeFacilitatorSuccess('Application successful!'));

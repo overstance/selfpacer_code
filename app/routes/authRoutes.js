@@ -305,7 +305,13 @@ module.exports = app => {
   app.post('/api/remove_facilitator/:userId', (req, res) => {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { accountType: 'User' },
+      {
+        accountType: 'User',
+        isFacilitateApplicant: false,
+        workUrl1: undefined,
+        workUrl2: undefined,
+        dateOfFacilitateApplication: undefined
+      },
       function(err, updatedUser) {
         if (err) {
           // console.log(err.name);

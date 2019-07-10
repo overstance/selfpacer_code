@@ -400,6 +400,119 @@ export const fetchFacilitateApplicants = (pageIndex) => async dispatch => {
     }
 }
 
+// fetch more facilitate applicants
+
+export const fetchMoreFacilitateApplicantsStart = () => {
+    return {
+        type: actionTypes.FETCH_MORE_FACILITATE_APPLICANTS_START,
+    }
+}
+
+export const fetchMoreFacilitateApplicantsSuccess = ( applicants, applicantsLength ) => {
+    return {
+        type: actionTypes.FETCH_MORE_FACILITATE_APPLICANTS_SUCCESS,
+        applicants: applicants,
+        applicantsLength: applicantsLength
+    }
+}
+
+export const fetchMoreFacilitateApplicantsFail = ( error) => {
+    return {
+        type: actionTypes.FETCH_MORE_FACILITATE_APPLICANTS_FAIL,
+        error: error
+    }
+}
+
+export const fetchMoreFacilitateApplicants = (pageIndex, facilitateApplicants) => async dispatch => {
+    dispatch( fetchMoreFacilitateApplicantsStart());
+
+    const res = await axios.get(`/api/fetch_facilitator_applicants/${pageIndex}`);
+
+    if (res.data.applicants) {
+        let UpdatedApplicants = [...facilitateApplicants, ...res.data.applicants]
+        let applicantsLength = res.data.applicants.length
+        dispatch( fetchMoreFacilitateApplicantsSuccess(UpdatedApplicants, applicantsLength));
+    } else if (res.data.error){
+        dispatch( fetchMoreFacilitateApplicantsFail(res.data.error));
+    }
+}
+
+// approve facilitate applicant
+
+export const approveFacilitateApplicantStart = (userId) => {
+    return {
+        type: actionTypes.APPROVE_FACILITATE_APPLICANT_START,
+        userId: userId
+    };
+};
+
+export const approveFacilitateApplicantSuccess = (updatedApplicants) => {
+    return {
+        type: actionTypes.APPROVE_FACILITATE_APPLICANT_SUCCESS,
+        updatedApplicants: updatedApplicants
+    };
+};
+
+export const approveFacilitateApplicantFail = ( error ) => {
+    return {
+        type: actionTypes.APPROVE_FACILITATE_APPLICANT_FAIL,
+        error: error
+    };
+}
+
+export const approveFacilitateApplicant = (userId, facilitateApplicants) => async dispatch => {
+    
+    dispatch(approveFacilitateApplicantStart(userId));
+    const info = {
+        userId: userId,
+        newAccountType: 'Facilitator'
+    };
+
+    const res = await axios.post('/api/add_admin_or_facilitator', info)
+    if (res.data.updatedUser._id === userId) {
+        let updatedApplicants = facilitateApplicants.filter( applicant => applicant._id !== userId)
+        dispatch(approveFacilitateApplicantSuccess(updatedApplicants));
+    }  else if (res.data.error) {
+        dispatch(approveFacilitateApplicantFail(res.data.error))
+    }
+};
+
+// disapprove facilitate applicant
+
+export const disapproveFacilitateApplicantStart = (userId) => {
+    return {
+        type: actionTypes.DISAPPROVE_FACILITATE_APPLICANT_START,
+        userId: userId
+    };
+};
+
+export const disapproveFacilitateApplicantSuccess = (updatedApplicants) => {
+    return {
+        type: actionTypes.DISAPPROVE_FACILITATE_APPLICANT_SUCCESS,
+        updatedApplicants: updatedApplicants
+    };
+};
+
+export const disapproveFacilitateApplicantFail = ( error ) => {
+    return {
+        type: actionTypes.DISAPPROVE_FACILITATE_APPLICANT_FAIL,
+        error: error
+    };
+}
+
+export const disapproveFacilitateApplicant = (userId, facilitateApplicants) => async dispatch => {
+    
+    dispatch(disapproveFacilitateApplicantStart(userId));
+    
+    const res = await axios.post(`/api/remove_facilitator/${userId}`)
+    if (res.data.updatedUser._id === userId) {
+        let updatedApplicants = facilitateApplicants.filter( applicant => applicant._id !== userId)
+        dispatch(disapproveFacilitateApplicantSuccess(updatedApplicants));
+    }  else if (res.data.error) {
+        dispatch(disapproveFacilitateApplicantFail(res.data.error))
+    }
+};
+
 
 // clear all add messages
 
