@@ -1,7 +1,8 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-// Add Youtube Videos
+
+// Edit Profile
 
 export const profileEditStart = () => {
     return {
@@ -22,16 +23,13 @@ export const profileEditFailed = ( error ) => {
         error: error
     };
 };
-
-    
-    export const resetEditProfileMessages = () => {
+   
+export const resetEditProfileMessages = () => {
     return {
         type: actionTypes.RESET_EDIT_PROFILE_MESSAGES
     }
 }
 
-
-// Edit Profile
 
 export const editProfile = (name, specialization1, user) => {
     return dispatch => {

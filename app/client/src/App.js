@@ -23,8 +23,8 @@ import ResetPassword from './components/auth/ResetPassword/ResetPassword';
 import EmailVerified from './components/auth/Register/EmailVerified';
 import ReverifyEmail from './components/auth/Register/ReverifyEmail/ReverifyEmail';
 import SubjectPage from './containers/SubjectPage/SubjectPage'; 
-import Blog from './containers/blog/Blog';
-import BlogPost from './containers/blog/BlogPost';
+import Blog from './containers/BlogHome/BlogHome';
+import BlogPost from './containers/BlogPost/BlogPost';
 import FacilitateApplicants from './containers/ViewFacilitateApplicants/FacilitateApplicants';
 
 const Landing = () => <h2>

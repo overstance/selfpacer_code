@@ -10,6 +10,7 @@ import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
 import Spinner from '../UserInterface/Spinner/Spinner';
 import PostActionInfo from '../PostActionInfo/PostActionInfo';
 import * as actions from '../../store/actions/index';
+import Dialogue from '../Dialogues/Dialogue/Dialogue';
 
 class NonFacilitator extends Component {
     
@@ -227,10 +228,16 @@ class NonFacilitator extends Component {
                     <div>Help Build the Future of Work and Education</div>
                 </div>
                 { this.props.accountType === 'Facilitator' && this.props.useTypeContext === '0' ?
-                    <div className={classes.ApprovalNotice}>
+                    <Dialogue
+                    isPostSubmitDialogue
+                    showDialogue
+                    withLink
+                    to='/logout'
+                    buttonText='log-out'
+                    >
                         Yay! Your facilitator application had been approved. 
                         Please log out and log in again to start facilitating.
-                    </div>
+                    </Dialogue>
                     : null
                 }
                 <div className={classes.Container}>

@@ -8,5 +8,6 @@ module.exports = {
   mongoURI: process.env.MONGO_URI,
   cookieKey: process.env.COOKIE_KEY,
   youtubeAPI: process.env.YOUTUBE_API,
-  sendgridKey: process.env.SENDGRID_KEY
+  sendgridKey: process.env.SENDGRID_KEY,
+  butterApi: process.env.BUTTER_API
 };

@@ -122,4 +122,9 @@ export {
     becomeFacilitator
 } from './profile';
 
+export {
+    fetchBlogPosts,
+    fetchBlogPost
+} from './blog'
+
 
