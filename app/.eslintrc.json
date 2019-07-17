@@ -17,10 +17,12 @@
         "sourceType": "module"
     },
     "plugins": [
-        "prettier"
+        "prettier",
+        "react-hooks"
     ],
     "rules": {
         "no-console": "off",
+        "react-hooks/rules-of-hooks": "error",
         "indent": [
             "error",
             2
