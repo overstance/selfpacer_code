@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './sharedCollectionContainer.css';
+import classes from './sharedCollectionContainer.module.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 

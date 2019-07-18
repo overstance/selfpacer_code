@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import classes from './NonFacilitator.css';
+import classes from './NonFacilitator.module.css';
 import Container from '../UserInterface/Container/Container';
 import { connect } from 'react-redux';
 import Input from '../UserInterface/Input/Input';

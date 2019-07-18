@@ -112,8 +112,11 @@ export const fetchUser = () => async dispatch => {
         dispatch(setUserPinnedCollections(res.data.pinnedCollections));
 
         if ( res.data.recentlyViewed.length > 0 ) {
-            let userId = res.data._id;
-            const res2 = await axios.get(`/api/recently_viewed/${userId}`);
+            // let userId = res.data._id;
+
+            // const res2 = await axios.get(`/api/recently_viewed/${userId}`);
+
+            const res2 = await axios.get('/api/recently_viewed', { params: {userId: userId}} );
     
             if ( res2.data.resources) {
                 dispatch(fetchRecentlyViewedSuccess(res2.data.resources));
@@ -124,7 +127,11 @@ export const fetchUser = () => async dispatch => {
         if ( res.data.accountType === 'Administrator' || res.data.accountType === 'Facilitator' || res.data.accountType === 'ChiefAdmin') {
             dispatch(fetchUserAssetCountStart());
             let accountType = res.data.accountType
-            const res3 = await axios.get(`/api/user_asset_count/${userId}/${accountType}`)
+            // const res3 = await axios.get(`/api/user_asset_count/${userId}/${accountType}`)
+            const res3 = await axios.get('/api/user_asset_count', { params: {
+             userId: userId,
+             accountType: accountType   
+            }});
             // console.log(res3.data.assetCount);
             if (res3.data.assetCount >= 0) {
                 dispatch(fetchUserAssetCountSuccess(res3.data.assetCount));
@@ -135,7 +142,7 @@ export const fetchUser = () => async dispatch => {
         }
 
         dispatch(fetchUserCollectionsStart());
-        const res4 = await axios.get(`/api/collections/${userId}`);
+        const res4 = await axios.get('/api/user_collections', { params: {userId: userId}});
 
         if (res4.data.collections) {
             dispatch(fetchUserCollectionsSuccess(res4.data.collections));
@@ -228,7 +235,7 @@ export const emailVerified = ( token ) => async dispatch => {
 
     console.log(token);
 
-    const res = await axios.get(`/api/email_verified/${token}`);
+    const res = await axios.get('/api/email_verified', { params: {token: token}});
 
     if (res.data._id) {
         console.log(res.data);
@@ -396,7 +403,7 @@ export const confirmResetTokenFailed = ( error ) => {
 export const confirmResetToken = (token) => async dispatch => {
     dispatch(confirmResetTokenStart());
 
-    const res = await axios.get(`/api/reset_password/${token}`);
+    const res = await axios.get('/api/reset_password', { params: { token: token}});
     // const res = await axios.get(`/api/user_assets/${userId}`);
 
     // console.log(res.data);
@@ -434,10 +441,11 @@ export const resetPassword = ( newPassword, token ) => async dispatch => {
     dispatch( resetPasswordStart());
 
     const userInfo = {
-        newPassword: newPassword
+        newPassword: newPassword,
+        token: token
     }
 
-    const res = await axios.post(`/api/reset_password/${token}`, userInfo);
+    const res = await axios.post('/api/reset_password', userInfo);
 
     if ( res.data.user ) {
         dispatch( resetPasswordSuccess('Password reset successful.'));

@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './SearchbarToggle.css';
+import classes from './SearchbarToggle.module.css';
 import searchIcon from '../../../assets/images/baseline-search-24px.svg';
 
 const searchbarToggle = (props) => (

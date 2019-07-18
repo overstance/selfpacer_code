@@ -11,17 +11,6 @@ const middleware = require('../middlewares');
 const Resource = require('../models/Resource');
 
 module.exports = app => {
-  /* app.get('/api/youtube_accounting/:id', (req, res) => {
-    Resource.findOne({ _id: req.params.id }, function(err, resource) {
-      if (err) {
-        console.log(err);
-        res.send(err.name);
-      } else {
-        res.send({ resource: resource });
-      }
-    });
-  }); */
-
   app.post('/api/add_youtube_playlist', (req, res) => {
     Resource.find(
       {
@@ -336,50 +325,47 @@ module.exports = app => {
     );
   });
 
-  app.put(
-    '/api/update_youtube_video_asset/:youtubeId/:resourceId',
-    async (req, res) => {
-      const response = await youtube.videos.list({
-        id: req.params.youtubeId,
-        part: 'snippet,statistics'
-      });
+  app.put('/api/update_youtube_video_asset', async (req, res) => {
+    const response = await youtube.videos.list({
+      id: req.body.youtubeId,
+      part: 'snippet,statistics'
+    });
 
-      function numberWithCommas(x) {
-        return x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      }
-
-      if (response.data.items) {
-        const responseData = response.data.items[0];
-        // console.log(req.params.youtubeId, req.params.resourceId);
-        Resource.findOneAndUpdate(
-          {
-            youtubeId: responseData.id,
-            _id: req.params.resourceId
-          },
-          {
-            youtubeviews: numberWithCommas(responseData.statistics.viewCount),
-            youtubelikes: numberWithCommas(responseData.statistics.likeCount),
-            lastEdited: Date.now()
-          },
-          { new: true },
-          (err, resource) => {
-            if (err) {
-              res.send(err.message);
-            } else {
-              // resource.save();
-              res.send({ resource: resource });
-            }
-          }
-        );
-      } else {
-        res.send('update failed');
-      }
+    function numberWithCommas(x) {
+      return x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-  );
 
-  app.put('/api/update_youtube_playlist_asset/:youtubeId', async (req, res) => {
+    if (response.data.items) {
+      const responseData = response.data.items[0];
+      // console.log(req.body.youtubeId, req.body.resourceId);
+      Resource.findOneAndUpdate(
+        {
+          youtubeId: responseData.id,
+          _id: req.body.resourceId
+        },
+        {
+          youtubeviews: numberWithCommas(responseData.statistics.viewCount),
+          youtubelikes: numberWithCommas(responseData.statistics.likeCount),
+          lastEdited: Date.now()
+        },
+        { new: true },
+        (err, resource) => {
+          if (err) {
+            res.send(err.message);
+          } else {
+            // resource.save();
+            res.send({ resource: resource });
+          }
+        }
+      );
+    } else {
+      res.send('update failed');
+    }
+  });
+
+  app.put('/api/update_youtube_playlist_asset', async (req, res) => {
     const response = await youtube.playlists.list({
-      id: req.params.youtubeId,
+      id: req.body.youtubeId,
       part: 'snippet,contentDetails'
     });
 

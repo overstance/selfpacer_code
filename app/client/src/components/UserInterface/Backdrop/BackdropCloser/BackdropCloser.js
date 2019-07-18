@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './BackdropCloser.css';
+import classes from './BackdropCloser.module.css';
 import clearIcon from '../../../../assets/images/baseline-clear-24px.svg';
 
 

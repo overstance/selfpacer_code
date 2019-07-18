@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './createCollection.css';
+import classes from './createCollection.module.css';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../components/UserInterface/Input/Input';

@@ -4,9 +4,9 @@ const Resource = require('../models/Resource');
 const User = mongoose.model('users');
 
 module.exports = app => {
-  app.get('/api/unconfirmed_resources/:pageIndex', (req, res) => {
+  app.get('/api/unconfirmed_resources', (req, res) => {
     let pageOptions = {
-      page: req.params.pageIndex || 0,
+      page: req.query.pageIndex || 0,
       limit: 10
     };
     Resource.find({
@@ -25,9 +25,9 @@ module.exports = app => {
       });
   });
 
-  app.get('/api/resources/:subject_title/:pageIndex', (req, res) => {
+  app.get('/api/resources', (req, res) => {
     let pageOptions = {
-      page: req.params.pageIndex || 0,
+      page: req.query.pageIndex || 0,
       limit: 10
     };
 
@@ -43,7 +43,7 @@ module.exports = app => {
       }
     ); */
 
-    Resource.find({ confirmed: true, category: req.params.subject_title })
+    Resource.find({ confirmed: true, category: req.query.subject_title })
       .skip(pageOptions.page * pageOptions.limit)
       .limit(pageOptions.limit)
       .exec(function(err, resources) {
@@ -55,16 +55,16 @@ module.exports = app => {
       });
   });
 
-  app.get('/api/resources/:subject_title/:platform/:pageIndex', (req, res) => {
+  app.get('/api/resources_by_platform', (req, res) => {
     // console.log('route reached');
     let pageOptions = {
-      page: req.params.pageIndex || 0,
+      page: req.query.pageIndex || 0,
       limit: 10
     };
-    if (req.params.platform === 'youtube') {
+    if (req.query.platform === 'youtube') {
       Resource.find({
         confirmed: true,
-        category: req.params.subject_title,
+        category: req.query.subject_title,
         source: 'youtube.com'
       })
         .skip(pageOptions.page * pageOptions.limit)
@@ -79,8 +79,8 @@ module.exports = app => {
     } else {
       Resource.find({
         confirmed: true,
-        category: req.params.subject_title,
-        type: req.params.platform
+        category: req.query.subject_title,
+        type: req.query.platform
       })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
@@ -94,9 +94,9 @@ module.exports = app => {
     }
   });
 
-  app.get('/api/user_asset_count/:userId/:accountType', (req, res) => {
+  app.get('/api/user_asset_count', (req, res) => {
     // let userId = req.params.userId;
-    let accountType = req.params.accountType;
+    let accountType = req.query.accountType;
     if (
       /* check if user is an administrator with the following user ids 
       userId === '5c16e8de76e09e200c039178' ||
@@ -130,7 +130,7 @@ module.exports = app => {
       Resource.find(
         {
           confirmed: true,
-          user_id: req.params.userId
+          user_id: req.query.userId
         },
         (err, resources) => {
           if (err) {
@@ -145,41 +145,17 @@ module.exports = app => {
     }
   });
 
-  app.get('/api/user_assets/:userId/:useTypeContext/:pageIndex', (req, res) => {
-    // let userId = req.params.userId;
+  app.get('/api/fetch_user_assets', (req, res) => {
     let pageOptions = {
-      page: req.params.pageIndex || 0,
+      page: req.query.pageIndex || 0,
       limit: 10
     };
 
-    if (
-      /*check if user is ad administrator 
-      userId === '5c16e8de76e09e200c039178' ||
-      userId === '5c16efcef6d0f300144d3cda' ||
-      userId === '5d227bbb58790b1c7006b0d3'*/
-      req.params.useTypeContext === '2' ||
-      req.params.useTypeContext === '3'
-    ) {
-      Resource.find(
-        {
-          confirmed: true,
-          isAdmin: true
-          /* user_id: {
-            $in: [
-              '5c16e8de76e09e200c039178',
-              '5c16efcef6d0f300144d3cda',
-              '5d227bbb58790b1c7006b0d3'
-            ]
-          } */
-        } /* ,
-        (err, resources) => {
-          if (err) {
-            res.send(err.name);
-          } else {
-            res.send({ resources: resources });
-          }
-        } */
-      )
+    if (req.query.useTypeContext === '2' || req.query.useTypeContext === '3') {
+      Resource.find({
+        confirmed: true,
+        isAdmin: true
+      })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
         .exec(function(err, resources) {
@@ -190,18 +166,10 @@ module.exports = app => {
           res.send({ resources: resources });
         });
     } else {
-      Resource.find(
-        {
-          confirmed: true,
-          user_id: req.params.userId
-        } /* , (err, resources) => {
-        if (err) {
-          res.send(err.name);
-        } else {
-          res.send({ resources: resources });
-        }
-      } */
-      )
+      Resource.find({
+        confirmed: true,
+        user_id: req.query.userId
+      })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
         .exec(function(err, resources) {
@@ -214,31 +182,17 @@ module.exports = app => {
     }
   });
 
-  app.get('/api/admin_assets/:platform/:pageIndex', (req, res) => {
-    // console.log(req.params.pageIndex, req.params.platform);
+  app.get('/api/fetch_admin_assets_by_platform', (req, res) => {
     let pageOptions = {
-      page: req.params.pageIndex || 0,
+      page: req.query.pageIndex || 0,
       limit: 10
     };
-    if (req.params.platform === 'youtube') {
-      Resource.find(
-        {
-          confirmed: true,
-          /* user_id: {
-              $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
-            } */
-          isAdmin: true,
-          source: 'youtube.com'
-        } /* ,
-        function(err, resources) {
-          if (err) {
-            console.log(err);
-            res.send(err.message);
-          } else {
-            res.send({ resources: resources });
-          }
-        } */
-      )
+    if (req.query.platform === 'youtube') {
+      Resource.find({
+        confirmed: true,
+        isAdmin: true,
+        source: 'youtube.com'
+      })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
         .exec(function(err, resources) {
@@ -249,30 +203,16 @@ module.exports = app => {
           res.send({ resources: resources });
         });
     } else {
-      Resource.find(
-        {
-          confirmed: true,
-          /* user_id: {
-            $in: ['5c16e8de76e09e200c039178', '5c16efcef6d0f300144d3cda']
-          }, */
-          isAdmin: true,
-          type: req.params.platform
-        } /* ,
-        function(err, resources) {
-          if (err) {
-            console.log(err);
-            res.send(err.message);
-          } else {
-            res.send({ resources: resources });
-          }
-        } */
-      )
+      Resource.find({
+        confirmed: true,
+        isAdmin: true,
+        type: req.query.platform
+      })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
         .exec(function(err, resources) {
           if (err) {
             res.send(err.name);
-            // console.log(err.message);
             return;
           }
           res.send({ resources: resources });
@@ -280,8 +220,8 @@ module.exports = app => {
     }
   });
 
-  app.get('/api/recently_viewed/:userId', (req, res) => {
-    User.findById(req.params.userId, (err, user) => {
+  app.get('/api/recently_viewed', (req, res) => {
+    User.findById(req.query.userId, (err, user) => {
       if (err) {
         res.send(err.message);
         // console.log(err.message);
@@ -321,27 +261,24 @@ module.exports = app => {
     });
   });
 
-  app.post('/api/user_liked_resources/:userId', (req, res) => {
+  app.put('/api/update_user_liked_resources', (req, res) => {
     // console.log(req.body);
     // console.log(req.params.userId);
 
     // let query = { _id: req.body.userId };
 
     User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { recentlyViewed: req.body },
+      { _id: req.body.userId },
+      { recentlyViewed: req.body.updatedRecentlyViewedResources },
       function(err, user) {
-        if (err) {
-          // console.log(err);
-          res.send(err.name);
-        } else {
+        if (user) {
           res.send('userRecentlyViewedUpdated');
         }
       }
     );
   });
 
-  app.post('/api/increase_resourceviews', (req, res) => {
+  app.put('/api/increase_resourceviews', (req, res) => {
     Resource.findOneAndUpdate(
       { _id: req.body.resourceId },
       { views: req.body.resourceViews },
@@ -355,23 +292,20 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/update_user_liked_count/:userId', (req, res) => {
+  app.put('/api/update_user_like_count', (req, res) => {
     User.findOneAndUpdate(
-      { _id: req.params.userId },
+      { _id: req.body.userId },
       { likeCount: req.body.newLikeCount },
       function(err, user) {
-        if (err) {
-          // console.log(err);
-          res.send(err.name);
-        } else {
+        if (user) {
           res.send('userLikeCountUpdated');
         }
       }
     );
   });
 
-  app.post('/api/increase_collect_count/:resourceToAdd', (req, res) => {
-    Resource.findOne({ _id: req.params.resourceToAdd }, (err, resource) => {
+  app.post('/api/increase_collect_count', (req, res) => {
+    Resource.findOne({ _id: req.body.resourceToAdd }, (err, resource) => {
       if (err) {
         // console.log(err);
         res.send(err);
@@ -406,8 +340,8 @@ module.exports = app => {
     );
   });
 
-  app.delete('/api/delete_unconfirmed_resource/:resourceId', (req, res) => {
-    Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
+  app.delete('/api/delete_unconfirmed_resource', (req, res) => {
+    Resource.findByIdAndDelete(req.query.resourceId, (err, resource) => {
       if (err) {
         res.send({ error: err.name });
         // console.log(err.message);
@@ -417,8 +351,8 @@ module.exports = app => {
     });
   });
 
-  app.delete('/api/delete_asset/:resourceId', (req, res) => {
-    Resource.findByIdAndDelete(req.params.resourceId, (err, resource) => {
+  app.delete('/api/delete_asset', (req, res) => {
+    Resource.findByIdAndDelete(req.query.resourceId, (err, resource) => {
       if (err) {
         res.send({ error: err.message });
         // console.log(err.message);

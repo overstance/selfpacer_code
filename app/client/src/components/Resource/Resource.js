@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Resource.css';
+import classes from './Resource.module.css';
 import PropTypes from 'prop-types';
 import LikeActionButton from '../UserInterface/ActionButtons/Like'; 
 import CollectActionButton from '../UserInterface/ActionButtons/Collect';

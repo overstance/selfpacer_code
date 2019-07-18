@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './FormTitle.css';
+import classes from './FormTitle.module.css';
 
 const formTitle = (props) => (
     props.isAdmin ? 

@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './ActionButtons.css';
+import classes from './ActionButtons.module.css';
 
 const checkActionButton = (props) => {
 

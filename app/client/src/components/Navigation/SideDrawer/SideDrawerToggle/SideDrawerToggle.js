@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './SideDrawerToggle.css';
+import classes from './SideDrawerToggle.module.css';
 
 const sideDrawerToggle = (props) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={classes.SideDrawerToggle} onClick={props.clicked} viewBox="0 0 32 32">

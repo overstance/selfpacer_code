@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './floatingButton.css';
+import classes from './floatingButton.module.css';
 
 
 const floatingButton = (props) => {

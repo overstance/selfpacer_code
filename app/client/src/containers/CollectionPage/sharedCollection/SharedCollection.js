@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import Spinner from '../../../components/UserInterface/Spinner/Spinner';
-import classes from './SharedCollection.css';
+import classes from './SharedCollection.module.css';
 import Grid from '../../../components/UserInterface/Grid/Grid';
 import Resource from '../../../components/Resource/Resource';
 import AddToCollection from '../../../components/Dialogues/addToCollection/addToCollection';

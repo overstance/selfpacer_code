@@ -5,7 +5,7 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function shuffleArray(array) {
+/* function shuffleArray(array) {
     let i = array.length - 1;
     for (; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -14,11 +14,11 @@ function shuffleArray(array) {
         array[j] = temp;
     }
     return array;
-}
+} */
 
 // Fetch Clicked Resource By id Info
 
-export const fetchResourceById = ( id, platform ) => {
+/* export const fetchResourceById = ( id, platform ) => {
     return dispatch => {
         dispatch(fetchResourceByIdStart());
 
@@ -62,7 +62,7 @@ export const fetchResourceByIdFail = ( error ) => {
         type: actionTypes.FETCH_RESOURCE_BY_ID_FAIL,
         error: error
     };
-};
+}; */
 
 
 // set Clicked Platform
@@ -103,53 +103,39 @@ export const updateUserRecentlyViewedResources = ( recentlyViewed ) => {
     };
 };
 
-export const updateUserRecentlyViewed = (id, viewedResources, userId) => {
-    // console.log(category);
-    return dispatch => {
+export const updateUserRecentlyViewed = (id, viewedResources, userId) => async dispatch => {
 
-        if (viewedResources.length === 10) {
-            
-            let temp = viewedResources;
+    if (viewedResources.length === 10) {
+        
+        let temp = viewedResources;
 
-            temp.shift();
+        temp.shift();
 
-            temp.push(id)
+        temp.push(id)
 
-            const updatedRecentlyViewedResources = temp;
+        const updatedRecentlyViewedResources = temp;
 
-            // console.log(updatedRecentlyViewedResources);
+        // console.log(updatedRecentlyViewedResources);
 
-            axios.post(`/api/user_liked_resources/${userId}`, updatedRecentlyViewedResources)
-            .then(res => {
-                // console.log(res.data);
-                if (res.data === 'userRecentlyViewedUpdated') {
-                    dispatch( updateUserRecentlyViewedResources( updatedRecentlyViewedResources ));
-                }
-
-            })
-            .catch(error => {console.log(error)}
-            );
+        const res = await axios.put('/api/update_user_liked_resources', {updatedRecentlyViewedResources: updatedRecentlyViewedResources, userId: userId})
+        
+        if (res.data === 'userRecentlyViewedUpdated') {
+            dispatch( updateUserRecentlyViewedResources( updatedRecentlyViewedResources ));
         }
+    } else if (viewedResources.length < 10) {
+        
+        let temp = viewedResources;
 
-        if (viewedResources.length < 10) {
-            
-            let temp = viewedResources;
+        temp.push(id);
 
-            temp.push(id);
+        const updatedRecentlyViewedResources = temp;
 
-            const updatedRecentlyViewedResources = temp;
+        // console.log(updatedRecentlyViewedResources);
 
-            // console.log(updatedRecentlyViewedResources);
-
-            axios.post(`/api/user_liked_resources/${userId}`, updatedRecentlyViewedResources)
-            .then(res => {
-                if (res.data === 'userRecentlyViewedUpdated') {
-                    dispatch( updateUserRecentlyViewedResources( updatedRecentlyViewedResources ));
-                }
-                // console.log(res.data);
-            })
-            .catch(error => {console.log(error)}
-            );
+        const res = await axios.put('/api/update_user_liked_resources', {updatedRecentlyViewedResources: updatedRecentlyViewedResources, userId: userId})
+        
+        if (res.data === 'userRecentlyViewedUpdated') {
+            dispatch( updateUserRecentlyViewedResources( updatedRecentlyViewedResources ));
         }
     }
 };
@@ -163,31 +149,18 @@ export const updateUserLikedCount = ( newLikeCount ) => {
     };
 };
 
-export const updateUserLikeCount = ( userId, userLikeCount ) => {
-    // console.log(userId, userLikeCount);
+export const updateUserLikeCount = ( userId, userLikeCount ) => async dispatch => {
 
-    return dispatch => {
-        const updatedLikeCount = {
-            newLikeCount: userLikeCount + 1
+        const info = {
+            newLikeCount: userLikeCount + 1,
+            userId: userId
         }
 
-        // console.log(updatedLikeCount);
-
-        axios.post(`/api/update_user_liked_count/${userId}`, updatedLikeCount)
-        .then(res => {
-            // console.log(res.data);
-            if (res.data === 'userLikeCountUpdated') {
-                
-                const newLikeCount = userLikeCount + 1;
-
-                // console.log(newLikeCount);
-
-                dispatch( updateUserLikedCount( newLikeCount ));
-            }
-        })
-        .catch(error => {console.log(error)}
-        );       
-    }
+        const res = await axios.put('/api/update_user_like_count', info)
+        if (res.data === 'userLikeCountUpdated') {        
+            const newLikeCount = userLikeCount + 1;
+            dispatch( updateUserLikedCount( newLikeCount ));
+        }
 };
 
 // Fetch user assets(user added resources)
@@ -218,7 +191,11 @@ export const fetchUserAssets = ( userId, useTypeContext, pageIndex ) => async(di
     // console.log(userId, pageIndex);
 
     dispatch(fetchUserAssetStart());
-    const res = await axios.get(`/api/user_assets/${userId}/${useTypeContext}/${pageIndex}`);
+    const res = await axios.get('/api/fetch_user_assets', { params: {
+        userId: userId,
+        useTypeContext: useTypeContext,
+        pageIndex: pageIndex
+    }});
 
     if (res.data.resources) {
         // console.log(res.data.resources);
@@ -237,7 +214,10 @@ export const fetchAdminAssetsByPlatform = (platform, pageIndex) => async(dispatc
     
     
     dispatch(fetchUserAssetStart());
-    const res = await axios.get(`/api/admin_assets/${platform}/${pageIndex}`);
+    const res = await axios.get('/api/fetch_admin_assets_by_platform', { params: {
+        platform: platform,
+        pageIndex: pageIndex
+    }});
 
     if (res.data.resources) {
         // console.log(res.data.resources);
@@ -277,15 +257,15 @@ export const fetchMoreAssetsFailed = ( error ) => {
 export const fetchMoreAssets = (userId, useTypeContext, pageIndex, assets) => async dispatch => {
     dispatch(fetchMoreAssetsStart());
 
-    const res = await axios.get(`/api/user_assets/${userId}/${useTypeContext}/${pageIndex}`);
+    const res = await axios.get('/api/fetch_user_assets', { params: {
+        userId: userId,
+        useTypeContext: useTypeContext,
+        pageIndex: pageIndex
+    }});
 
     if (res.data.resources) {
-        // const all = [...res.data.all];
-
-        // const allShuffled = shuffleArray(all);
         let updatedResources = [...assets, ...res.data.resources]
 
-        // dispatch(fetchMoreAssetsSuccess(res.data.all));
         let resourceLength = res.data.resources.length;
         dispatch(fetchMoreAssetsSuccess(updatedResources, resourceLength));
     } else dispatch(fetchMoreAssetsFailed(res.data));
@@ -295,7 +275,10 @@ export const fetchMoreAdminAssetsByPlatform = ( platform, pageIndex, assets) => 
     // console.log( platform, pageIndex, assets);
     dispatch(fetchMoreAssetsStart());
 
-    const res = await axios.get(`/api/admin_assets/${platform}/${pageIndex}`);
+    const res = await axios.get('/api/fetch_admin_assets_by_platform', { params: {
+        platform: platform,
+        pageIndex: pageIndex
+    }});
 
     if (res.data.resources) {
         // const all = [...res.data.all];
@@ -318,11 +301,11 @@ export const increaseResourceViewCount = ( id, views ) => async dispatch => {
 
     // console.log(resource);
 
-    await axios.post('/api/increase_resourceviews', resource); 
+    await axios.put('/api/increase_resourceviews', resource); 
 
 }
 
-// fetch recently viewed resources
+/* // fetch recently viewed resources
 
 export const fetchRecentlyViewedSuccess = ( resources ) => {
     return {
@@ -340,7 +323,7 @@ export const fetchRecentlyViewedResources = (userId) => async dispatch => {
             dispatch(fetchRecentlyViewedSuccess(shuffledResources));
             // console.log(res2.data.resources);
         }
-}
+} */
 
 // fetch Unconfirmed Resources
 
@@ -368,7 +351,7 @@ export const fetchUnconfirmedFail = () => {
 export const fetchUnconfirmed = (pageIndex) => async dispatch => {
     dispatch(fetchUnconfirmedStart());
 
-    const res = await axios.get(`/api/unconfirmed_resources/${pageIndex}`);
+    const res = await axios.get('/api/unconfirmed_resources', { params: { pageIndex: pageIndex}});
     // console.log(res.data.resources);
     if (res.data.resources) {
         let resourceLength = res.data.resources.length;
@@ -404,7 +387,7 @@ export const fetchMoreUnconfirmedStart = () => {
  export const fetchMoreUnconfirmed = (pageIndex, unconfirmedResources) => async dispatch => {
      dispatch(fetchMoreUnconfirmedStart());
  
-     const res = await axios.get(`/api/unconfirmed_resources/${pageIndex}`);
+     const res = await axios.get('/api/unconfirmed_resources', { params: { pageIndex: pageIndex}});
  
      if (res.data.resources) {
         let updatedResources = [...unconfirmedResources, ...res.data.resources]
@@ -474,7 +457,7 @@ export const deleteUnconfirmedFail = (error) => {
 
 export const deleteUnconfirmedResource = (resourceId, unconfirmedResources) => async dispatch => {
     dispatch(deleteUnconfirmedStart(resourceId));
-    const res = await axios.delete(`/api/delete_unconfirmed_resource/${resourceId}`);
+    const res = await axios.delete('/api/delete_unconfirmed_resource', { params: { resourceId: resourceId }});
 
     if (res.data.resource._id === resourceId) {
         let updatedResources = unconfirmedResources.filter( resource => resource._id !== resourceId)
@@ -695,7 +678,7 @@ export const updateYoutubeAsset = (resourceId, type, youtubeId, assets) => async
 
     if (type === 'youtube#video') {
         // console.log(resourceId, type, youtubeId, assets)
-        const res = await axios.put(`/api/update_youtube_video_asset/${youtubeId}/${resourceId}`);
+        const res = await axios.put('/api/update_youtube_video_asset', { youtubeId: youtubeId, resourceId: resourceId });
         
         if (res.data.resource._id === resourceId) {
             // console.log(res.data.resource._id);
@@ -713,7 +696,7 @@ export const updateYoutubeAsset = (resourceId, type, youtubeId, assets) => async
             dispatch(updateYoutubeAssetFailed(resourceId));
         }
     } else if (type === 'youtube#playlist') {
-        const res = await axios.put(`/api/update_youtube_playlist_asset/${youtubeId}`);
+        const res = await axios.put('/api/update_youtube_playlist_asset', { youtubeId: youtubeId });
 
         if (res.data.resource._id === resourceId) {
 
@@ -1028,7 +1011,7 @@ export const deleteAssetFailed = (error) => {
 export const deleteAsset = ( resourceId, userAssets ) => async dispatch => {
     dispatch(deleteAssetStart());
 
-    const res = await axios.delete(`/api/delete_asset/${resourceId}`);
+    const res = await axios.delete('/api/delete_asset', { params: { resourceId: resourceId }});
 
     if (res.data.resource._id === resourceId) {
         let updatedAssets = userAssets.filter(asset => asset._id !== resourceId)

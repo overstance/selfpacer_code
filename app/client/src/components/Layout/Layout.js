@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
-import classes from './Layout.css';
+import classes from './Layout.module.css';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
 import Footer from '../Navigation/Footer/Footer';

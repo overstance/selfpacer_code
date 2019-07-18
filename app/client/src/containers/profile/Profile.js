@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Profile.css';
+import classes from './Profile.module.css';
 import Container from '../../components/UserInterface/Container/Container';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';

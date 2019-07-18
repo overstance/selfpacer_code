@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classes from './Register.css';
+import classes from './Register.module.css';
 import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
 import { connect } from 'react-redux';
 import Spinner from '../../UserInterface/Spinner/Spinner';

@@ -24,7 +24,7 @@ export const fetchSubjectsStart = () => {
 export const fetchSubjects = () => async dispatch => {
     dispatch(fetchSubjectsStart());
 
-    const res = await axios.get( '/api/fetch_subject' );
+    const res = await axios.get( '/api/fetch_subjects' );
 
     // console.log(res.data);
 

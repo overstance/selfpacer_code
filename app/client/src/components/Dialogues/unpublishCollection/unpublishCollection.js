@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './unpublishCollection.css';
+import classes from './unpublishCollection.module.css';
 import Modal from '../../UserInterface/Modal/Modal';
 import { connect } from 'react-redux';
 import Spinner from '../../UserInterface/Spinner/Spinner';

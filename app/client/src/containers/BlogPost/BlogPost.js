@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
-import classes from './BlogPost.css';
+import classes from './BlogPost.module.css';
 import Grid from '../../components/UserInterface/Grid/Grid';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';

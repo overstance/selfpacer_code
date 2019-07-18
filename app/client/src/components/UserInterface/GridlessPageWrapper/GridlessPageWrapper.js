@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './GridlessPageWrapper.css';
+import classes from './GridlessPageWrapper.module.css';
 import Container from '../Container/Container';
 
 const gridlessPageWrapper = (props) => (

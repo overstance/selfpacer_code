@@ -9,8 +9,8 @@ module.exports = app => {
     res.send({ posts: response.data });
   });
 
-  app.get('/api/blog_posts/:slug', async (req, res) => {
-    const response = await butter.post.retrieve(req.params.slug);
+  app.get('/api/blog_post', async (req, res) => {
+    const response = await butter.post.retrieve(req.query.slug);
     // console.log(response.data);
     res.send({ post: response.data });
   });

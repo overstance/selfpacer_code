@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './ExploreHeaderNav.css';
+import classes from './ExploreHeaderNav.module.css';
 
 
 const exploreHeaderNav = (props) => {

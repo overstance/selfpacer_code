@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classes from './FacilitateApplicants.css';
+import classes from './FacilitateApplicants.module.css';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import User from '../../components/User/User';

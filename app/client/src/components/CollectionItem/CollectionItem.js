@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './CollectionItem.css'
+import classes from './CollectionItem.module.css'
 
 
 

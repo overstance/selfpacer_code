@@ -5,7 +5,7 @@ export {
     emailVerified,
     reverifyEmail,
     clearReverifyEmailError,
-    setAuthRedirectPath,
+    // setAuthRedirectPath,
     clearErrors,
     logout,
     forgotPassword,
@@ -22,7 +22,7 @@ export {
     setActiveContentType,
     setSelectedCategory,
     setLikedResource,
-    setClickedSubjectTitle
+    // setClickedSubjectTitle
 } from './explore';
 export {
     fetchSubjectDetails,
@@ -52,8 +52,8 @@ export {
 } from './admin1';
 
 export {
-    addResource,
-    fetchResourceById,
+    // addResource,
+    // fetchResourceById,
     setClickedPlatform,
     resourceLiked,
     updateUserRecentlyViewed,
@@ -63,7 +63,7 @@ export {
     fetchMoreAdminAssetsByPlatform,
     fetchAdminAssetsByPlatform,
     fetchMoreAssets,
-    fetchRecentlyViewedResources,
+    // fetchRecentlyViewedResources,
     fetchUnconfirmed,
     fetchMoreUnconfirmed,
     confirmResource,
@@ -85,7 +85,7 @@ export {
 
 export {
     setSelectedMenu,
-    fetchToCollectResource,
+    // fetchToCollectResource,
     createCollection,
     setToCollectResource,
     resetCollectionMessages,

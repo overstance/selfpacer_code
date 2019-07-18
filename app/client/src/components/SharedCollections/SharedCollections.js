@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './SharedCollections.css';
+import classes from './SharedCollections.module.css';
 import {connect} from 'react-redux';
 import SharedCollectionContainer from './sharedCollectionContainer/sharedCollectionContainer';
 import * as actions from '../../store/actions/index';

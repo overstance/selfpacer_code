@@ -61,10 +61,10 @@ export const fetchBlogPostFail = (error) => {
 export const fetchBlogPost = (slug) => async dispatch => {
     dispatch(fetchBlogPostStart());
 
-    const res = await axios.get(`/api/blog_posts/${slug}`);
-
+    const res = await axios.get('/api/blog_post', {params: { slug: slug }});
+    // console.log(res.data.post);
     if (res.data.post) {
-        console.log(res.data.post);
+        // console.log(res.data.post);
         dispatch(fetchBlogPostSuccess(res.data.post));
     } else {
         dispatch(fetchBlogPostFail('error occured while fetching blog post!'));

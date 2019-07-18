@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import classes from './Register.css';
+// import classes from './Register.module.css';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 // import PostSubmitDailogue from '../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';

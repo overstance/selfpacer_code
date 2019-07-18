@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './User.css';
+import classes from './User.module.css';
 // import PropTypes from 'prop-types';
 import CheckActionButton from '../UserInterface/ActionButtons/Check';
 import CancelActionButton from '../UserInterface/ActionButtons/Cancel';

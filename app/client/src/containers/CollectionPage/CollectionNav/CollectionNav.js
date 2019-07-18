@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './CollectionNav.css'; 
+import classes from './CollectionNav.module.css'; 
 
 
 const collectionNav = (props) => {
@@ -36,7 +36,7 @@ const collectionNav = (props) => {
         <div>
             {props.isShared ? 
                 <div className={classes.FlexContainer}>
-                    { props.accountType === 'Administrator' ?  
+                    { props.accountType === 'Administrator' || 'ChiefAdmin' ?  
                         <div 
                         className={classes.Feature}
                         onClick={props.featureClicked}

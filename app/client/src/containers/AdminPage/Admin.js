@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Admin.css';
+import classes from './Admin.module.css';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
 import AddAdminUsers from '../../components/ManageUsers/AddAdminUsers';
 import RemoveAdminUsers from '../../components/ManageUsers/RemoveAdminUsers';

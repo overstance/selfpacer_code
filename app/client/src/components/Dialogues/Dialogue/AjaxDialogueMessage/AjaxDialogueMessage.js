@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './AjaxDialogueMessage.css';
+import classes from './AjaxDialogueMessage.module.css';
 
 const ajaxDialogueMessage = (props) => (
     <div className={classes.DialogueMessage}>

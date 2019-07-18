@@ -6,8 +6,8 @@ const Resource = require('../models/Resource');
 const User = mongoose.model('users');
 
 module.exports = app => {
-  app.get('/api/collections/:userId', (req, res) => {
-    Collection.find({ user_id: req.params.userId }, function(err, collections) {
+  app.get('/api/user_collections', (req, res) => {
+    Collection.find({ user_id: req.query.userId }, function(err, collections) {
       if (err) {
         console.log(err);
         res.send(err.name);
@@ -18,9 +18,24 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/shared_collections/:userSpec', (req, res) => {
+  app.get('/api/shared_collections', (req, res) => {
+    Collection.find({ public: true, description: req.query.userSpec }, function(
+      err,
+      collections
+    ) {
+      if (err) {
+        console.log(err);
+        res.send(err.name);
+      } else {
+        res.send({ collections: collections });
+        // console.log(collections);
+      }
+    });
+  });
+
+  app.get('/api/featured_collections', (req, res) => {
     Collection.find(
-      { public: true, description: req.params.userSpec },
+      { public: true, featured: true, description: req.query.userSpec },
       function(err, collections) {
         if (err) {
           console.log(err);
@@ -33,23 +48,8 @@ module.exports = app => {
     );
   });
 
-  app.get('/api/featured_collections/:userSpec', (req, res) => {
-    Collection.find(
-      { public: true, featured: true, description: req.params.userSpec },
-      function(err, collections) {
-        if (err) {
-          console.log(err);
-          res.send(err.name);
-        } else {
-          res.send({ collections: collections });
-          // console.log(collections);
-        }
-      }
-    );
-  });
-
-  app.get('/api/fetch_collection/:id', (req, res) => {
-    Collection.findById(req.params.id, (err, collection) => {
+  app.get('/api/fetch_collection', (req, res) => {
+    Collection.findById(req.query.id, (err, collection) => {
       if (err) {
         res.send(err.message);
         console.log(err.message);
@@ -71,8 +71,8 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/fetch_collection_attributes/:id', (req, res) => {
-    Collection.findById(req.params.id, (err, collection) => {
+  app.get('/api/fetch_collection_attributes', (req, res) => {
+    Collection.findById(req.query.id, (err, collection) => {
       if (collection) {
         res.send({ collection: collection });
         // console.log(collection);
@@ -82,8 +82,8 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/fetch_user_pinned_collections/:userId', (req, res) => {
-    User.findById(req.params.userId, (err, user) => {
+  app.get('/api/fetch_user_pinned_collections', (req, res) => {
+    User.findById(req.query.userId, (err, user) => {
       if (err) {
         res.send(err.message);
         // console.log(err.message);
@@ -264,10 +264,10 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/feature_collection/:collectionId', (req, res) => {
+  app.put('/api/feature_collection', (req, res) => {
     // console.log('featured route reached');
     Collection.findByIdAndUpdate(
-      req.params.collectionId,
+      req.body.collectionId,
       { featured: true },
       { new: true },
       (err, collection) => {
@@ -279,10 +279,10 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/unfeature_collection/:collectionId', (req, res) => {
+  app.put('/api/unfeature_collection', (req, res) => {
     // console.log('featured route reached');
     Collection.findByIdAndUpdate(
-      req.params.collectionId,
+      req.body.collectionId,
       { featured: false },
       { new: true },
       (err, collection) => {
@@ -294,9 +294,9 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/delete_collection', (req, res) => {
+  app.delete('/api/delete_collection', (req, res) => {
     Collection.findByIdAndRemove(
-      req.body.id,
+      req.query.id,
       { public: false },
       (err, collection) => {
         if (err) {
@@ -308,9 +308,9 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/change_update_time/:collectionId', (req, res) => {
+  app.post('/api/change_update_time', (req, res) => {
     Collection.findOneAndUpdate(
-      { _id: req.params.collectionId },
+      { _id: req.body.collectionId },
       { lastUpdated: Date.now() },
       (err, resource) => {
         if (resource) {

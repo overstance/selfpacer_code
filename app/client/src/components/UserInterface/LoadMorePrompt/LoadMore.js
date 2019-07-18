@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './LoadMore.css';
+import classes from './LoadMore.module.css';
 import Spinner from '../Spinner/Spinner';
 
 const loadMore = (props) => ( 

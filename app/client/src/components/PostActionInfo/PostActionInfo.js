@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './PostActionInfo.css';
+import classes from './PostActionInfo.module.css';
 
 
 const postActionInfo = (props) => (

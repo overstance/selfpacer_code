@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Facilitate.css';
+import classes from './Facilitate.module.css';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
 import AddResource from '../../components/addResource/addResource';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 

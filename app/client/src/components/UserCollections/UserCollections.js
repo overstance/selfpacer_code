@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './UserCollections.css';
+import classes from './UserCollections.module.css';
 import {connect} from 'react-redux';
 import UserCollectionContainer from './userCollectionContainer/userCollectionContainer';
 import * as actions from '../../store/actions/index';
@@ -72,7 +72,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
     return {
         onFetchUserCollections: (userId) => dispatch( actions.fetchUserCollections(userId)),
-        onFetchRecentlyViewedResources: (userId) => dispatch(actions.fetchRecentlyViewedResources(userId)),
+        // onFetchRecentlyViewedResources: (userId) => dispatch(actions.fetchRecentlyViewedResources(userId)),
         onClearMessages: () => dispatch( actions.clearAddToCollectionMessages()),
         onSetClickedCollectionAttributes: ( attributes ) => dispatch(actions.setClickedCollectionAttributes( attributes ))
     };

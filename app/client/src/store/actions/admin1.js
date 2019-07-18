@@ -92,7 +92,7 @@ export const removeAdminFail = ( error ) => {
 export const removeAdmin = (userId) => async dispatch => {
 
     dispatch(removeAdminStart());
-    const res = await axios.post(`/api/remove_admin/${userId}`);
+    const res = await axios.post('/api/remove_admin', { userId: userId });
     if (res.data.updatedUser) {
         dispatch(removeAdminSuccess('Admin Removed'));
     } else if (res.data.error) {    
@@ -126,7 +126,7 @@ export const removeFacilitatorFail = ( error ) => {
 export const removeFacilitator = (userId) => async dispatch => {
 
     dispatch(removeFacilitatorStart());
-    const res = await axios.post(`/api/remove_facilitator/${userId}`);
+    const res = await axios.post('/api/remove_facilitator', { userId: userId });
     if (res.data.updatedUser) {
         dispatch(removeFacilitatorSuccess('Facilitator Removed'));
     } else if (res.data.error) {    
@@ -208,7 +208,7 @@ export const fetchSubjectToEditFail = (error) => {
 
 export const fetchSelectSubjectInfo = ( subject ) => async dispatch => {
     dispatch(fetchSubjectToEditStart());
-     const res = await axios.get(`/api/fetch_subject_info/${subject}`)
+     const res = await axios.get('/api/fetch_subject_info', { params: { subject: subject}})
 
 
      if(res.data.title === subject) {
@@ -355,10 +355,10 @@ export const clearDeleteSubjectInfo = () => {
 export const deleteSubject = ( subjectTitle ) => async dispatch => {
     dispatch( deleteSubjectStart());
 
-    const res = await axios.delete(`/api/delete_subject/${subjectTitle}`);
+    const res = await axios.delete('/api/delete_subject', {params: { subjectTitle: subjectTitle }});
 
     if (res.data.subject) {
-        console.log(res.data.subject)
+        // console.log(res.data.subject)
         dispatch( deleteSubjectSuccess('subject deleted'));
     } else if (res.data.error){
         dispatch( deleteSubjectFail(res.data.error));
@@ -390,7 +390,7 @@ export const fetchFacilitateApplicantsFail = ( error) => {
 export const fetchFacilitateApplicants = (pageIndex) => async dispatch => {
     dispatch( fetchFacilitateApplicantsStart());
 
-    const res = await axios.get(`/api/fetch_facilitator_applicants/${pageIndex}`);
+    const res = await axios.get('/api/fetch_facilitator_applicants', { params: { pageIndex: pageIndex}});
 
     if (res.data.applicants) {
         let applicantsLength = res.data.applicants.length
@@ -426,7 +426,7 @@ export const fetchMoreFacilitateApplicantsFail = ( error) => {
 export const fetchMoreFacilitateApplicants = (pageIndex, facilitateApplicants) => async dispatch => {
     dispatch( fetchMoreFacilitateApplicantsStart());
 
-    const res = await axios.get(`/api/fetch_facilitator_applicants/${pageIndex}`);
+    const res = await axios.get('/api/fetch_facilitator_applicants', { params: { pageIndex: pageIndex}});
 
     if (res.data.applicants) {
         let UpdatedApplicants = [...facilitateApplicants, ...res.data.applicants]
@@ -504,7 +504,7 @@ export const disapproveFacilitateApplicant = (userId, facilitateApplicants) => a
     
     dispatch(disapproveFacilitateApplicantStart(userId));
     
-    const res = await axios.post(`/api/remove_facilitator/${userId}`)
+    const res = await axios.post('/api/remove_facilitator', { userId: userId })
     if (res.data.updatedUser._id === userId) {
         let updatedApplicants = facilitateApplicants.filter( applicant => applicant._id !== userId)
         dispatch(disapproveFacilitateApplicantSuccess(updatedApplicants));

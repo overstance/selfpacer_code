@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import classes from './EditProfile.css';
+// import classes from './EditProfile.module.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import ChangePassword from './ChangePassword/ChangePassword';

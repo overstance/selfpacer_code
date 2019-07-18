@@ -74,7 +74,7 @@ dbe2357251566edc2c97e962c8ec7e1f
    </div>
 </div>
 
-//search css
+//search.module.css
 .search {
   width: 100%;
   position: relative

@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import classes from './addToCollection.css';
+import classes from './addToCollection.module.css';
 import Modal from '../../UserInterface/Modal/Modal';
 // import { Link } from 'react-router-dom';
 import Collection from './collection/Collection';

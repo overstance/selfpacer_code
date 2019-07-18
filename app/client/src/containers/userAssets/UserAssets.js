@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
-import classes from './UserAssets.css';
+import classes from './UserAssets.module.css';
 import Resource from '../../components/Resource/Resource';
 import Input from '../../components/UserInterface/Input/Input';
 import Button from '../../components/UserInterface/Button/Button';

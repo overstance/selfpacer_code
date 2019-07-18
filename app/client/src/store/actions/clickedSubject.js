@@ -38,7 +38,7 @@ export const fetchSubjectDetails = (subject_title) => {
     return dispatch => {
         dispatch(fetchClickedSubjectStart());
 
-        axios.get(`/api/subject/${subject_title}`)
+        axios.get('/api/subject', {params: { subject_title: subject_title}})
             .then(                
                 res => {
                 const clickedSubject = [...res.data.subjects];
@@ -74,7 +74,7 @@ export const fetchAllFailed = ( error ) => {
 export const fetchSubjectResources = (subject_title, pageIndex) => async dispatch => {
     dispatch(fetchAllStart());
 
-    const res = await axios.get(`/api/resources/${subject_title}/${pageIndex}`);
+    const res = await axios.get('/api/resources', { params: {subject_title: subject_title, pageIndex: pageIndex}});
 
     if (res.data.all) {
         // const all = [...res.data.all];
@@ -93,7 +93,7 @@ export const fetchResourcesByPlatform = (subject_title, platform, pageIndex) => 
 
     // console.log('action reached');
 
-    const res = await axios.get(`/api/resources/${subject_title}/${platform}/${pageIndex}`);
+    const res = await axios.get('/api/resources_by_platform', { params: { subject_title: subject_title, platform: platform, pageIndex: pageIndex}});
 
     if (res.data.all) {
         // const all = [...res.data.all];
@@ -129,7 +129,7 @@ export const fetchMoreFailed = ( error ) => {
 export const fetchMoreResources = (subject_title, pageIndex, resources) => async dispatch => {
     dispatch(fetchMoreStart());
 
-    const res = await axios.get(`/api/resources/${subject_title}/${pageIndex}`);
+    const res = await axios.get('/api/resources', { params: {subject_title: subject_title, pageIndex: pageIndex}});
 
     if (res.data.all) {
         // const all = [...res.data.all];
@@ -146,7 +146,7 @@ export const fetchMoreResources = (subject_title, pageIndex, resources) => async
 export const fetchMoreResourcesByPlatform = (subject_title, platform, pageIndex, resources) => async dispatch => {
     dispatch(fetchMoreStart());
 
-    const res = await axios.get(`/api/resources/${subject_title}/${platform}/${pageIndex}`);
+    const res = await axios.get('/api/resources_by_platform', { params: { subject_title: subject_title, platform: platform, pageIndex: pageIndex}});
 
     if (res.data.all) {
         // const all = [...res.data.all];

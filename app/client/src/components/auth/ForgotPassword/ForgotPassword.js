@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './ForgotPassword.css';
+import classes from './ForgotPassword.module.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../UserInterface/Input/Input';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
-import classes from './Resourcepage.css';
+import classes from './Resourcepage.module.css';
 // import AuthBackdrop from '../../components/UserInterface/Backdrop/AuthBackdrop';
 import Grid from '../../components/UserInterface/Grid/Grid';
 import Button from '../../components/UserInterface/Button/Button';

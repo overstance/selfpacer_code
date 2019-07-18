@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import classes from './ScrollButton.css';
+import classes from './ScrollButton.module.css';
 
 class ScrollButton extends Component {
 

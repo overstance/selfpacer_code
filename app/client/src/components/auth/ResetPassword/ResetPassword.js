@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './ResetPassword.css';
+import classes from './ResetPassword.module.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
 import Input from '../../UserInterface/Input/Input';

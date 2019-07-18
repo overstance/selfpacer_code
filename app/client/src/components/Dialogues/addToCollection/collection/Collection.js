@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Collection.css';
+import classes from './Collection.module.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Spinner from '../../../UserInterface/Spinner/Spinner';

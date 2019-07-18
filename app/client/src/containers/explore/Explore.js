@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classes from './Explore.css';
+import classes from './Explore.module.css';
 import ExploreHeaderNav from './ExploreHeaderNav/ExploreHeaderNav';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Subject from './Subject/Subject';

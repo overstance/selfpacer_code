@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Grid.css';
+import classes from './Grid.module.css';
 import Container from '../Container/Container';
 import Ad728By90 from '../../../assets/art/head-art/ad_728X90.png';
 import Ad468By60 from '../../../assets/art/head-art/ad_468X60.png';

@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './CollectionsNav.css';
+import classes from './CollectionsNav.module.css';
 
 
 const collectionsNav = (props) => {

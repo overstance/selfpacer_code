@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Toggler.css';
+import classes from './Toggler.module.css';
 import {Link} from 'react-router-dom';
 
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import classes from './SubjectPage.css';
+import classes from './SubjectPage.module.css';
 import {connect} from 'react-redux';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import PlatformNav from './PlatformNav/PlatformNav';

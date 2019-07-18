@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './ManageSubject.css';
+import classes from './ManageSubject.module.css';
 import Button from '../UserInterface/Button/Button';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';

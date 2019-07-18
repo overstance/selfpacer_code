@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './userCollectionContainer.css';
+import classes from './userCollectionContainer.module.css';
 import { Link } from 'react-router-dom';
 
 const userCollectionContainer = (props) => (

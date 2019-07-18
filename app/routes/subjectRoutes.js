@@ -21,7 +21,7 @@ const Subject = require('../models/Subject');
 // const User_resource = require('../models/User_resource');
 
 module.exports = app => {
-  app.get('/api/fetch_subject', (req, res) => {
+  app.get('/api/fetch_subjects', (req, res) => {
     Subject.find({}, function(err, allSubject) {
       if (err) {
         console.log(err);
@@ -33,8 +33,8 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/fetch_subject_info/:subject', (req, res) => {
-    Subject.findOne({ title: req.params.subject }, (err, subject) => {
+  app.get('/api/fetch_subject_info', (req, res) => {
+    Subject.findOne({ title: req.query.subject }, (err, subject) => {
       if (err) {
         console.log(err);
         res.send({ error: err.name });
@@ -88,8 +88,8 @@ module.exports = app => {
     });
   });
 
-  app.get('/api/subject/:subject_title', (req, res) => {
-    Subject.find({ title: req.params.subject_title }, function(
+  app.get('/api/subject', (req, res) => {
+    Subject.find({ title: req.query.subject_title }, function(
       err,
       clickedSubject
     ) {
@@ -161,9 +161,9 @@ module.exports = app => {
     res.send('file added');
   });
 
-  app.delete('/api/delete_subject/:subjectTitle', (req, res) => {
+  app.delete('/api/delete_subject', (req, res) => {
     Subject.findOneAndDelete(
-      { title: req.params.subjectTitle },
+      { title: req.query.subjectTitle },
       (err, subject) => {
         if (err) {
           res.send({ error: err.name });

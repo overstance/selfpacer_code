@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './NavigationItems.css';
+import classes from './NavigationItems.module.css';
 import NavigationItem from './NavigationItem/NavigationItem';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';

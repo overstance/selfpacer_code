@@ -54,9 +54,9 @@ module.exports = app => {
     res.send(req.user);
   });
 
-  app.get('/api/fetch_facilitator_applicants/:pageIndex', (req, res) => {
+  app.get('/api/fetch_facilitator_applicants', (req, res) => {
     let pageOptions = {
-      page: req.params.pageIndex || 0,
+      page: req.query.pageIndex || 0,
       limit: 10
     };
     User.find({
@@ -242,10 +242,10 @@ module.exports = app => {
     );
   });
 
-  app.get('/api/email_verified/:token', (req, res) => {
+  app.get('/api/email_verified', (req, res) => {
     // console.log(req.params.token);
     User.findOne({
-      verifyEmailToken: req.params.token
+      verifyEmailToken: req.query.token
     }).then(user => {
       if (!user) {
         res.send('Email verify token is invalid or has expired.');
@@ -287,9 +287,9 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/remove_admin/:userId', (req, res) => {
+  app.post('/api/remove_admin', (req, res) => {
     User.findOneAndUpdate(
-      { _id: req.params.userId },
+      { _id: req.body.userId },
       { accountType: 'User' },
       function(err, updatedUser) {
         if (err) {
@@ -302,9 +302,9 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/remove_facilitator/:userId', (req, res) => {
+  app.post('/api/remove_facilitator', (req, res) => {
     User.findOneAndUpdate(
-      { _id: req.params.userId },
+      { _id: req.body.userId },
       {
         accountType: 'User',
         isFacilitateApplicant: false,
@@ -412,10 +412,10 @@ module.exports = app => {
     );
   });
 
-  app.get('/api/reset_password/:token', (req, res) => {
+  app.get('/api/reset_password', (req, res) => {
     User.findOne(
       {
-        resetPasswordToken: req.params.token,
+        resetPasswordToken: req.query.token,
         resetPasswordExpires: { $gt: Date.now() }
       },
       (err, user) => {
@@ -432,9 +432,9 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/reset_password/:token', (req, res) => {
+  app.post('/api/reset_password', (req, res) => {
     User.findOne({
-      resetPasswordToken: req.params.token,
+      resetPasswordToken: req.body.token,
       resetPasswordExpires: { $gt: Date.now() }
     }).then(user => {
       // console.log(user);

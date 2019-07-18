@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './RightNavigationItems.css';
+import classes from './RightNavigationItems.module.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as actions from '../../../store/actions/index';

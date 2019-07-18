@@ -48,7 +48,7 @@ export const fetchUserCollections = ( userId ) => async dispatch => {
 
     dispatch(fetchUserCollectionsStart());
 
-    const res = await axios.get(`/api/collections/${userId}`);
+    const res = await axios.get('/api/user_collections', { params: { userId: userId }});
 
     if (res.data.collections) {
         dispatch(fetchUserCollectionsSuccess(res.data.collections));
@@ -84,7 +84,7 @@ export const fetchSharedCollectionsBySpec = ( userSpec) => async dispatch => {
 
     dispatch(fetchSharedCollectionsStart());
 
-    const res = await axios.get(`/api/shared_collections/${userSpec}`);
+    const res = await axios.get('/api/shared_collections', { params: { userSpec: userSpec }});
 
     if (res.data.collections) {
         // console.log(res.data.collections);
@@ -121,7 +121,7 @@ export const fetchFeaturedCollectionsBySpec = ( userSpec) => async dispatch => {
 
     dispatch(fetchFeaturedCollectionsStart());
 
-    const res = await axios.get(`/api/featured_collections/${userSpec}`);
+    const res = await axios.get('/api/featured_collections', { params: { userSpec: userSpec }});
 
     if (res.data.collections) {
         dispatch(fetchFeaturedCollectionsSuccess(res.data.collections));
@@ -231,11 +231,11 @@ export const addResourceToCollection = ( collectionId, collectionResources, reso
         if (res.data === 'Resource Collected!') {
             dispatch(addResourceToCollectionSuccess(res.data));
 
-            const res2 = await axios.post(`/api/increase_collect_count/${resourceToAdd}`);
+            const res2 = await axios.post('/api/increase_collect_count', {resourceToAdd: resourceToAdd});
             
             if (res2.data) {
                 // console.log(res2.data);
-                const res3 = await axios.post(`/api/change_update_time/${collectionId}`);
+                const res3 = await axios.post('/api/change_update_time', {collectionId: collectionId});
                 
                 if (res3.data) {
                     return;
@@ -307,7 +307,7 @@ export const fetchCollectionByIdFail = ( error ) => {
 export const fetchCollectionById = ( id ) => async dispatch => {
     dispatch (fetchCollectionByIdStart());
 
-    const res = await axios.get(`/api/fetch_collection/${id}`);
+    const res = await axios.get('/api/fetch_collection', {params: { id: id }});
 
     // console.log(res.data);
     if (res.data.resources) {
@@ -342,7 +342,7 @@ export const fetchCollectionAttributesSuccess = ( attributes ) => {
 export const fetchCollectionAttributes = ( id ) => async dispatch => {
     // dispatch (fetchCollectionAttributesStart());
 
-    const res = await axios.get(`/api/fetch_collection_attributes/${id}`);
+    const res = await axios.get('/api/fetch_collection_attributes', { params: { id: id }});
 
     // console.log(res.data);
     if (res.data.collection) {
@@ -398,7 +398,7 @@ export const deleteCollectionItem = ( resourceId, collectionId, history) => asyn
         // console.log('second route starts');
         const id = collectionId;
 
-        const res2 = await axios.get(`/api/fetch_collection/${id}`);
+        const res2 = await axios.get('/api/fetch_collection', {params: { id: id }});
 
         if (res2.data.resources) {
             // console.log('second route successful');
@@ -587,11 +587,7 @@ export const deleteCollectionFail = ( error ) => {
 export const deleteCollection = ( collectionId ) => async dispatch => {
     dispatch(deleteCollectionStart());
 
-    const info = {
-        id: collectionId
-    }
-
-    const res = await axios.post('/api/delete_collection', info);
+    const res = await axios.delete('/api/delete_collection', { params: {id: collectionId} });
 
     if ( res.data.collection._id === collectionId ) {
         // console.log(res.data.collection);
@@ -694,7 +690,7 @@ export const featureCollection = ( collectionId ) => async dispatch => {
 
     // console.log('front featured route reached');
 
-    const res = await axios.post(`/api/feature_collection/${collectionId}`);
+    const res = await axios.put('/api/feature_collection', {collectionId: collectionId});
 
     if (res.data.collection) {
         // console.log(res.data.collection)
@@ -717,7 +713,7 @@ export const unfeatureCollection = ( collectionId ) => async dispatch => {
 
     // console.log('front featured route reached');
 
-    const res = await axios.post(`/api/unfeature_collection/${collectionId}`);
+    const res = await axios.put('/api/unfeature_collection', { collectionId: collectionId });
 
     if (res.data.collection) {
         // console.log(res.data.collection)
@@ -760,7 +756,7 @@ export const fetchUserPinnedCollections = (userId) => async dispatch => {
 
     dispatch(fetchUserPinnedCollectionsStart());
 
-    const res = await axios.get(`/api/fetch_user_pinned_collections/${userId}`);
+    const res = await axios.get('/api/fetch_user_pinned_collections', { params: { userId: userId}});
 
     if (res.data.collections) {
         dispatch(fetchUserPinnedCollectionsSuccess(res.data.collections));

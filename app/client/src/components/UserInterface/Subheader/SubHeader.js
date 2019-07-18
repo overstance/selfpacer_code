@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './SubHeader.css';
+import classes from './SubHeader.module.css';
 import filterIcon from '../../../assets/images/angle-down.svg';
 import {Link} from 'react-router-dom';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classes from './Subject.css';
+import classes from './Subject.module.css';
 import { Link } from 'react-router-dom';
 
 

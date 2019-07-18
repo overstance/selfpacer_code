@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './CollectionsNav.css';
+import classes from './CollectionsNav.module.css';
 import { Link } from 'react-router-dom';
 
 

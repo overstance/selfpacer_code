@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './PlatformNav.css'; 
+import classes from './PlatformNav.module.css'; 
 
 
 const platformNav = (props) => {

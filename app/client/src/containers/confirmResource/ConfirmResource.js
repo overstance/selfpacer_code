@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classes from './ConfirmResource.css';
+import classes from './ConfirmResource.module.css';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Resource from '../../components/Resource/Resource';

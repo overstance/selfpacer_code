@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './SearchBar.css';
+import classes from './SearchBar.module.css';
 //import searchIcon from '../../assets/images/baseline-search-24px.svg';
 
 

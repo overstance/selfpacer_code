@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Dialogue.css';
+import classes from './Dialogue.module.css';
 import Modal from '../../UserInterface/Modal/Modal';
 import { Link } from 'react-router-dom';
 

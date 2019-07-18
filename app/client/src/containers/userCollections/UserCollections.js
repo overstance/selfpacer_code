@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './UserCollections.css';
+import classes from './UserCollections.module.css';
 import Grid from '../../components/UserInterface/Grid/Grid';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';

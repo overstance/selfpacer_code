@@ -1,6 +1,6 @@
 import React from 'react';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import classes from './SideDrawer.css';
+import classes from './SideDrawer.module.css';
 import NavBackdrop from '../../UserInterface/Backdrop/NavBackdrop';
 import Aux from '../../../hoc/Auxiliary';
 import { Link } from 'react-router-dom';
