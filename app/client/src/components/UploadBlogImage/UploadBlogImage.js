@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './ManageSubject.module.css';
+import classes from './UploadBlogImage.module.css';
 import Button from '../UserInterface/Button/Button';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -7,42 +7,42 @@ import Form from '../UserInterface/Form/Form';
 import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
 import Spinner from '../UserInterface/Spinner/Spinner';
 import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
+// import Input from '../UserInterface/Input/Input';
 
-class UploadSubjectIcon extends Component {
+class UploadBlogImage extends Component {
 
     componentWillUnmount() {
-        this.props.onResetAddIconState();
+        this.props.onClearUploadBlogImageState();
     }
 
-    state = {
-        Icon: null,
+    state = {  
         fillError: null,
+        Image: null,
     }
 
     handleUpload = (e) => {
-        // console.log(e.target.files[0]);
-        this.setState({ Icon: e.target.files[0], fillError: null });
+        this.setState({ Image: e.target.files[0], fillError: null });
     };
 
     submitHandler = (event) => {
         event.preventDefault();
-        if (!this.state.Icon) {
+        if (!this.state.Image) {
             this.setState({ fillError: 'No file added!'})
         } else {
-            this.props.onAddSubjectIcon(this.state.Icon); 
-            this.setState({ fillError: null, /* Icon: null */});
+            this.props.onUploadBlogImage(this.state.Image); 
+            this.setState({ fillError: null});
         }             
     }
 
     render() {
-        let formButtonText = 'Add';
-        if(this.props.addSubjectIconLoading) {
+        let formButtonText = 'Submit';
+        if(this.props.uploadBlogImageLoading) {
             formButtonText = <Spinner isButton/>;
         }
 
         return(
             <div className={classes.ContainerItem}>
-                <FormTitle isAdmin>Add Subject Icon</FormTitle>
+                <FormTitle isAdmin>Upload Image</FormTitle>
                 <Form
                 submitForm={this.submitHandler}
                 encType="multipart/form-data"
@@ -51,22 +51,22 @@ class UploadSubjectIcon extends Component {
                         {this.state.fillError}
                     </FormFeedback>
                     <input 
-                    id='Icon'
+                    id='Image'
                     type='file'
-                    name='Icon'
+                    name='Image'
                     onChange={this.handleUpload}
                     />
-                    {this.state.fillError ?
+                    { this.state.fillError ?
                         <Button btnType='Danger'  disabled> {formButtonText} </Button> :
                         <Button btnType='Success'> {formButtonText} </Button>
                     }
-                    { this.props.addSubjectIconError ? 
+                    { this.props.uploadBlogImageError ? 
                         <FormFeedback isFailed>
-                            {this.props.addSubjectIconError}
+                            {this.props.uploadBlogImageError}
                         </FormFeedback>
                         :
                         <FormFeedback isSuccess>
-                            {this.props.addSubjectIconSuccessInfo}
+                            {this.props.uploadBlogImageSuccessInfo}
                         </FormFeedback>
                     }
                 </Form>
@@ -76,16 +76,17 @@ class UploadSubjectIcon extends Component {
 }
 
 const mapStateToProps = state => ({
-    addSubjectIconLoading: state.admin1.addSubjectIconLoading,
-    addSubjectIconError: state.admin1.addSubjectIconError,
-    addSubjectIconSuccessInfo: state.admin1.addSubjectIconSuccessInfo
+    uploadBlogImageLoading: state.blog.uploadBlogImageLoading,
+    uploadBlogImageError: state.blog.uploadBlogImageError,
+    uploadBlogImageSuccessInfo: state.blog.uploadBlogImageSuccessInfo,
+    uploadedBlogImage: state.blog.uploadedBlogImage
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddSubjectIcon: ( file ) => dispatch( actions.addSubjectIcon( file )),
-        onResetAddIconState: () => dispatch( actions.resetAddSubjectIconState())
+        onUploadBlogImage: ( imageFile ) => dispatch( actions.uploadBlogImage( imageFile )),
+        onClearUploadBlogImageState: () => dispatch( actions.clearUploadBlogImageState())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UploadSubjectIcon);
+export default connect(mapStateToProps, mapDispatchToProps)(UploadBlogImage);

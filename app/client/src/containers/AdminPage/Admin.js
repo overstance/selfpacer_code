@@ -8,9 +8,11 @@ import RemoveFacilitator from '../../components/ManageUsers/RemoveFacilitator';
 import UpdateYoutubeVideos from '../../components/ManageYoutube/YoutubeVideoBulkUpdate/UpdateYoutubeVideos';
 import UpdateYoutubePlaylists from '../../components/ManageYoutube/YoutubePlaylistBulkUpdate/UpdateYoutubePlaylists';
 import AddResource from '../../components/addResource/addResource';
-import AddSubjectIcon from '../../components/manageSubjects/AddSubjectIcon';
+// import AddSubjectIcon from '../../components/manageSubjects/AddSubjectIcon';
 import EditSubect from '../../components/manageSubjects/EditSubject';
 import AddSubject from '../../components/manageSubjects/AddSubject';
+import UploadBlogImage from '../../components/UploadBlogImage/UploadBlogImage';
+import UploadWebBlogImage from '../../components/UploadBlogImage/UploadWebBlogImage';
 import DeleteSubject from '../../components/manageSubjects/DeleteSubject';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 import { connect } from 'react-redux';
@@ -111,10 +113,12 @@ class Admin extends Component {
                         />
                         { this.state.showManageSubjects ? 
                             <div className={classes.BlockContentItems}>
-                                <AddSubjectIcon />
+                                {/* <AddSubjectIcon /> */}
                                 <EditSubect />
                                 <AddSubject />
                                 <DeleteSubject />
+                                <UploadBlogImage />
+                                <UploadWebBlogImage />
                             </div>
                         : null }
                     </div>

@@ -124,7 +124,10 @@ export {
 
 export {
     fetchBlogPosts,
-    fetchBlogPost
+    fetchBlogPost,
+    uploadBlogImage,
+    uploadWebBlogImage,
+    clearUploadBlogImageState
 } from './blog'
 
 

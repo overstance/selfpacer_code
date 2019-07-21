@@ -11,9 +11,9 @@ import Spinner from '../UserInterface/Spinner/Spinner';
 
 class AddAdminUsers extends Component {
 
-    state = {
+    state = { 
+        fillError: null,
         userId: {
-            fillError: null,
             value: '',
             label: 'Enter User Id',
             name: 'userId',

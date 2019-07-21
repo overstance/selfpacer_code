@@ -1,7 +1,5 @@
 const passport = require('passport');
 const mongoose = require('mongoose');
-/* const LocalStrategy = require('passport-local');
-const passportLocalMongoose = require('passport-local-mongoose'); */
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 const async = require('async');
@@ -94,9 +92,6 @@ module.exports = app => {
           console.log(err);
           return res.send(err);
         }
-        /* passport.authenticate('local')(req, res, () => {
-          return res.json(req.user);
-        }); */
         async.waterfall(
           [
             function(done) {
@@ -105,15 +100,12 @@ module.exports = app => {
                   console.log(err);
                 }
                 var token = buf.toString('hex');
-
-                // console.log(token);
                 done(err, token);
               });
             },
             function(token, done) {
               User.findOne({ email: req.body.email }, function(err, user) {
                 if (err) {
-                  // console.log('no user');
                   res.send('err.name');
                   console.log(err);
                   return;

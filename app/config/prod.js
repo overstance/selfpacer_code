@@ -9,5 +9,8 @@ module.exports = {
   cookieKey: process.env.COOKIE_KEY,
   youtubeAPI: process.env.YOUTUBE_API,
   sendgridKey: process.env.SENDGRID_KEY,
-  butterApi: process.env.BUTTER_API
+  butterApi: process.env.BUTTER_API,
+  cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
+  cloudinaryKey: process.env.CLOUDINARY_KEY,
+  cloudinarySecret: process.env.CLOUDINARY_SECRET
 };
