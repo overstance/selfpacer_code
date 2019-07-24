@@ -1,0 +1,96 @@
+.editorContainer {
+  margin: 0em;
+  padding: 2em;
+  border-left: #f6f7fb solid 2px;
+  color: #2C3A51;
+  text-align: left;
+  position: relative;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  order: 2;
+  height: 100vh;
+  flex: 1 1 auto;
+  flex-basis: 60%;
+  min-width: 60%;
+  max-width: 100%;
+  background: #FBFAFA;
+  align-items: center;
+  align-self: stretch
+}
+
+.editors {
+  border: none;
+  border-radius: 4px;
+  padding: 1em 1.5em 3em 1.5em;
+  margin: -0.2em 0.6em 1em 0.6em;
+  font-family: "Helvetica";
+  line-height: 1.4;
+  color: #2C3A51;
+  font-size: 16px;
+  text-align: left;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  min-height: 36%;
+  overflow-x:hidden;
+  overflow-y:auto;
+  position: relative;
+  height: 40vh;
+  font-size: 90%;
+}
+
+.editors img {
+  width: 100%;
+}
+
+.toolbar {
+  border: #f6f7fb solid 2px;
+  text-align: center;
+  /* font-family: 'IBM Plex Sans', sans-serif; */
+  background-color: #dedcdc;
+  margin: 0.5em 0.5em 0em 0.5em;
+  padding: 0.5em;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+}
+
+.styleButton {
+  padding: 6px 12px;
+  background: white;
+  border: none;
+  color: #ff595a;
+  margin: 0.35em;
+  max-width: 35px;
+  min-width: 30px;
+  /* font-family: 'IBM Plex Sans', sans-serif; */
+  font-size: 13px;
+  height: 2.25em;
+}
+
+.styleButtonActive {
+  background-color: #feb47b;
+  color: white;
+} 
+
+.bold {
+  font-weight: 800;
+}
+  
+.italic {
+  font-style: italic;
+}
+  
+.underline {
+  text-decoration: underline;
+}
+
+.select {
+  padding: 0.5em;
+  background: white;
+  border: none;
+  color: #ff595a;
+  margin: 0.35em;
+  border-radius: 6px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;;
+  height: 2.25em;
+}

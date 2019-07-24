@@ -8,6 +8,27 @@
     --gray: #cccccc;
 }
 
+.richEditor-code-block, div.richEditor-code-block {
+    color: #90caf9;
+    line-height: 1.2;
+    padding: 3px;
+    margin-left: 4px;
+    background-color: black;
+    font-family: "Andale Mono";
+    font-size: 13px;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    display: block;
+  
+}
+
+.richEditor-blockquote {
+    font-size: large;
+    color: red;
+    border-left: 3px solid red;
+    padding-left: 10px;
+}
+
 
 html, body {
     margin: 0;

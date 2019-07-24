@@ -169,6 +169,17 @@ const dialogue = (props) => (
                 {props.children}                                
             </div> : null
         }
+        { props.isUploadBlogImage ?
+            <div>
+                <div className={classes.DialogueTitleHead}>
+                    <div className={classes.DialogueTitleColumn}>
+                        <h5>Upload Blog Image</h5>
+                    </div>
+                    <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
+                </div>
+                {props.children}                                
+            </div> : null
+        }
     </Modal>
 );
 

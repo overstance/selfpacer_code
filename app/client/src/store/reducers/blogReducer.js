@@ -19,10 +19,10 @@ const initialState = {
     uploadBlogImageSuccessInfo: null,
     uploadedBlogImage: {},
 
-    uploadWebBlogImageLoading: false,
+    /* uploadWebBlogImageLoading: false,
     uploadWebBlogImageError: null,
     uploadWebBlogImageSuccessInfo: null,
-    uploadedWebBlogImage: {}
+    uploadedWebBlogImage: {} */
 }
 
 const fetchBlogPostsStart = ( state, action ) => {
@@ -96,7 +96,7 @@ const uploadBlogImageFail = ( state, action ) => {
 
 // upload web blog image
 
-const uploadWebBlogImageStart = ( state, action ) => {
+/* const uploadWebBlogImageStart = ( state, action ) => {
     return updateObject( state, {
         uploadWebBlogImageLoading: true,
         uploadWebBlogImageError: null,
@@ -117,16 +117,16 @@ const uploadWebBlogImageFail = ( state, action ) => {
         uploadWebBlogImageLoading: false,
         uploadWebBlogImageError: action.error
     })
-}
+} */
 
 const clearUploadBlogImageState = ( state, action ) => {
     return updateObject( state, {
         uploadBlogImageError: null,
         uploadBlogImageSuccessInfo: null,
         uploadedBlogImage: {},
-        uploadWebBlogImageError: null,
+        /* uploadWebBlogImageError: null,
         uploadWebBlogImageSuccessInfo: null,
-        uploadedWebBlogImage: {}
+        uploadedWebBlogImage: {} */
     })
 }
 
@@ -144,9 +144,9 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.UPLOAD_BLOG_IMAGE_SUCCESS: return uploadBlogImageSuccess(state, action);
         case actionTypes.UPLOAD_BLOG_IMAGE_FAIL: return uploadBlogImageFail(state, action);
 
-        case actionTypes.UPLOAD_WEB_BLOG_IMAGE_START: return uploadWebBlogImageStart(state, action);
+        /* case actionTypes.UPLOAD_WEB_BLOG_IMAGE_START: return uploadWebBlogImageStart(state, action);
         case actionTypes.UPLOAD_WEB_BLOG_IMAGE_SUCCESS: return uploadWebBlogImageSuccess(state, action);
-        case actionTypes.UPLOAD_WEB_BLOG_IMAGE_FAIL: return uploadWebBlogImageFail(state, action);
+        case actionTypes.UPLOAD_WEB_BLOG_IMAGE_FAIL: return uploadWebBlogImageFail(state, action); */
 
         case actionTypes.CLEAR_UPLOAD_BLOG_IMAGE_STATE: return clearUploadBlogImageState(state, action);
 

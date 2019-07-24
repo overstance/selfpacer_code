@@ -107,6 +107,13 @@ class Admin extends Component {
                     </div>
                     <div className={classes.Subheader}>
                         <Toggler 
+                            subheadTitle="editor"
+                            isLink
+                            link='/editor'
+                        />
+                    </div>
+                    <div className={classes.Subheader}>
+                        <Toggler 
                             toggle={this.state.manageSubjectsToggle} 
                             toggleHandler={this.manageSubjectsToggleHandler}
                             subheadTitle="manage subject"

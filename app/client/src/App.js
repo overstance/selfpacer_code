@@ -26,6 +26,7 @@ import SubjectPage from './containers/SubjectPage/SubjectPage';
 import Blog from './containers/BlogHome/BlogHome';
 import BlogPost from './containers/BlogPost/BlogPost';
 import FacilitateApplicants from './containers/ViewFacilitateApplicants/FacilitateApplicants';
+import RichEditor from './components/RichEditor/RichEditor';
 
 const Landing = () => <h2>
   Landing page component
@@ -79,6 +80,7 @@ class App extends Component {
         <PrivateRoute exact path="/facilitate_applicants" component={FacilitateApplicants} />
         <PrivateRoute exact path="/profile" component={Profile} />        
         <PrivateRoute exact path="/logout" component={Logout} />
+        <PrivateRoute exact path="/editor" component={RichEditor} />
 
         <Route component={NotFound} />
       </Switch>

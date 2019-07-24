@@ -112,7 +112,7 @@ export const uploadBlogImage = (imageFile) => async dispatch => {
 
 // upload web blog image
 
-export const uploadWebBlogImageStart = () => {
+/* export const uploadWebBlogImageStart = () => {
     return {
         type: actionTypes.UPLOAD_WEB_BLOG_IMAGE_START
     }
@@ -131,18 +131,18 @@ export const uploadWebBlogImageFail = (error) => {
         type: actionTypes.UPLOAD_WEB_BLOG_IMAGE_FAIL,
         error: error
     }
-}
+} */
 
 export const uploadWebBlogImage = (imageUrl) => async dispatch => {
-    dispatch(uploadWebBlogImageStart());
+    dispatch(uploadBlogImageStart());
     // console.log(imageUrl);
     const res = await axios.post('/api/upload_web_blog_image', { imageUrl: imageUrl });
     if (res.data.uploadedImage) {
-        dispatch(uploadWebBlogImageSuccess(res.data.uploadedImage, 'upload successful'));
+        dispatch(uploadBlogImageSuccess(res.data.uploadedImage, 'upload successful'));
     } else if (res.data.error) {
-        dispatch(uploadWebBlogImageFail(res.data.error));
+        dispatch(uploadBlogImageFail(res.data.error));
     } else {
-        dispatch(uploadWebBlogImageFail('unkown error occured!'));
+        dispatch(uploadBlogImageFail('unkown error occured!'));
     }
 }
 
