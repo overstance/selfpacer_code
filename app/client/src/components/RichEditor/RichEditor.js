@@ -93,8 +93,10 @@ class PageContainer extends Component {
     const editorState = this.state.editorState;
     // const urlValue = window.prompt('Paste Image Link');
     const urlValue = this.props.uploadedBlogImage.meta.secure_url;
+    const sourceValue = this.props.uploadedBlogImage.source;
+    const captionValue = this.props.uploadedBlogImage.caption;
     const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', {src: urlValue});
+    const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', {src: urlValue, source: sourceValue, caption: captionValue});
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
     const newEditorState = EditorState.set(editorState, {currentContent: contentStateWithEntity}, 'create-entity');
     this.setState({

@@ -28,6 +28,30 @@ class UploadWebBlogImage extends Component {
             },
             valid: false,
             touched: false,
+        },
+        source: {
+            value: '',
+            label: 'Enter Image Origin',
+            labelspan: '(2 to 30 char.)',
+            name: 'source',
+            validation: {
+                minLength:2,
+                maxLength: 30
+            },
+            valid: false,
+            touched: false,
+        },
+        caption: {
+            value: '',
+            label: 'Enter Image Caption',
+            labelspan: '(6 to 100 char.)',
+            name: 'caption',
+            validation: {
+                minLength:6,
+                maxLength: 100
+            },
+            valid: false,
+            touched: false,
         }
     }
 
@@ -41,8 +65,21 @@ class UploadWebBlogImage extends Component {
             isValid = value.trim() !== '' && isValid;
         }
 
-        if (rules.isUrl) {
-            const pattern = /^(ftp|http|https):\/\/[^ "]+$/
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
             isValid = pattern.test(value) && isValid
         }
 
@@ -59,6 +96,46 @@ class UploadWebBlogImage extends Component {
         this.setState({ imageUrl: updated, fillError: null});   
     }
 
+    sourceChangedHandler = (event) => {
+        if (event.target.value === '') {
+            const updated = {
+                ...this.state.source,
+                value: event.target.value,
+                valid: true,
+                touched: true
+            }
+            this.setState({ source: updated})
+        } else {
+            const updated = {
+                ...this.state.source,
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.source.validation),
+                touched: true
+            }
+            this.setState({ source: updated});
+        }       
+    }
+
+    captionChangedHandler = (event) => {
+        if (event.target.value === '') {
+            const updated = {
+                ...this.state.caption,
+                value: event.target.value,
+                valid: true,
+                touched: true
+            }
+            this.setState({ caption: updated})
+        } else {
+            const updated = {
+                ...this.state.caption,
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.caption.validation),
+                touched: true
+            }
+            this.setState({ caption: updated});
+        }       
+    }
+
     submitHandler = (event) => {
         event.preventDefault();
 
@@ -70,7 +147,7 @@ class UploadWebBlogImage extends Component {
             }
         this.setState({ imageUrl: updated, fillError: 'Please enter web url'});
         } else {
-            this.props.onUploadWebBlogImage(this.state.imageUrl.value); 
+            this.props.onUploadWebBlogImage(this.state.imageUrl.value, this.state.source.value, this.state.caption.value); 
             this.setState({ fillError: null});
         }             
     }
@@ -100,7 +177,29 @@ class UploadWebBlogImage extends Component {
                 touched={this.state.imageUrl.touched}
                 changed={(event) => this.imageUrlChangeHandler(event)}
                 />
-                { (!this.state.imageUrl.valid && this.state.imageUrl.touched) || this.state.fillError ?
+                <Input 
+                label={this.state.source.label} 
+                labelspan={this.state.source.labelspan}
+                name={this.state.source.name}
+                elementType={'textarea'}
+                value={this.state.source.value}
+                invalid={!this.state.source.valid}
+                shouldValidate={this.state.source.validation}
+                touched={this.state.source.touched}
+                changed={(event) => this.sourceChangedHandler(event)}
+                />
+                <Input 
+                label={this.state.caption.label} 
+                labelspan={this.state.caption.labelspan}
+                name={this.state.caption.name}
+                elementType={'textarea'}
+                value={this.state.caption.value}
+                invalid={!this.state.caption.valid}
+                shouldValidate={this.state.caption.validation}
+                touched={this.state.caption.touched}
+                changed={(event) => this.captionChangedHandler(event)}
+                />
+                { (!this.state.imageUrl.valid && this.state.imageUrl.touched) || (!this.state.source.valid && this.state.source.touched) || (!this.state.caption.valid && this.state.caption.touched) || this.state.fillError ?
                     <Button btnType='Danger'  disabled> {formButtonText} </Button> :
                     <Button btnType='Success'> {formButtonText} </Button>
                 }
@@ -142,7 +241,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onUploadWebBlogImage: ( imageUrl ) => dispatch( actions.uploadWebBlogImage( imageUrl )),
+        onUploadWebBlogImage: ( imageUrl, source, caption ) => dispatch( actions.uploadWebBlogImage( imageUrl, source, caption )),
         onClearUploadBlogImageState: () => dispatch( actions.clearUploadBlogImageState())
     };
 };

@@ -13,8 +13,10 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                {props.children}                               
-            </div> : null
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>
+             </div> : null
         }
         { props.isUnfeature ?
             <div>
@@ -24,7 +26,9 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>       
-                {props.children}                             
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                             
             </div> : null
         }
         {   props.isAuthenticate ?
@@ -35,11 +39,13 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                <div className={classes.DialogueMessage}>
-                    <div>Please </div>
-                    <div><Link to='/login'>log-in</Link> or <Link to='/register'>sign-up</Link></div>
-                    <div>to collect Resource.</div>
-                </div>                                    
+                <div className={classes.BodyWrapper}>
+                    <div className={classes.DialogueMessage}>
+                        <div>Please </div>
+                        <div><Link to='/login'>log-in</Link> or <Link to='/register'>sign-up</Link></div>
+                        <div>to collect Resource.</div>
+                    </div> 
+                </div>                                     
             </div> : null
         }
         {   props.isCollectionEmpty ?
@@ -50,11 +56,13 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                <div className={classes.DialogueMessage}>
-                    <div>
-                        Can't share empty collection. Please Add resources to this collection to publish it.
+                <div className={classes.BodyWrapper}>
+                    <div className={classes.DialogueMessage}>
+                        <div>
+                            Can't share empty collection. Please Add resources to this collection to publish it.
+                        </div>
                     </div>
-                </div>                                    
+                </div>                                      
             </div> : null
         }
         {   props.isDeleteAsset ?
@@ -65,7 +73,9 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                {props.children}                                    
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                                    
             </div> : null
         }
         {   props.isDeleteCollection ?
@@ -76,14 +86,16 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                <div className={classes.DialogueMessage}>
-                    <div>Delete:</div>
-                    <h4>{props.collectionTitle}</h4>
-                    <div>
-                        <span onClick={props.cancelDelete} className={classes.Confirm}>cancel</span>
-                        <span onClick={props.confirmDelete} className={classes.Cancel}>delete</span>
-                    </div>
-                </div>                              
+                <div className={classes.BodyWrapper}>
+                    <div className={classes.DialogueMessage}>
+                        <div>Delete:</div>
+                        <h4>{props.collectionTitle}</h4>
+                        <div>
+                            <span onClick={props.cancelDelete} className={classes.Confirm}>cancel</span>
+                            <span onClick={props.confirmDelete} className={classes.Cancel}>delete</span>
+                        </div>
+                    </div>  
+                </div>                               
             </div> : null
         }
         {   props.isDeleteCollectionItem ?
@@ -94,14 +106,16 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                <div className={classes.DialogueMessage}>
-                    <div>Delete:</div>
-                    <h4>{props.itemTitle}</h4> 
-                    <div>
-                        <span onClick={props.cancelDelete} className={classes.Confirm}>cancel</span>
-                        <span onClick={props.confirmDelete} className={classes.Cancel}>delete</span>
+                <div className={classes.BodyWrapper}>
+                    <div className={classes.DialogueMessage}>
+                        <div>Delete:</div>
+                        <h4>{props.itemTitle}</h4> 
+                        <div>
+                            <span onClick={props.cancelDelete} className={classes.Confirm}>cancel</span>
+                            <span onClick={props.confirmDelete} className={classes.Cancel}>delete</span>
+                        </div>
                     </div>
-                </div>                                    
+                </div>                                      
             </div> : null
         }
         {   props.isPinCollection ?
@@ -112,7 +126,9 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                {props.children}                                
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                                
             </div> : null
         }
         {   props.isUnpinCollection ? 
@@ -123,17 +139,20 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                {props.children}                               
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                               
             </div> : null
         }
         { props.isPostSubmitDialogue ? 
             <div>
-                <div className={classes.DialogueMessage}>
-                    <div>{props.children}</div>
-                    { props.withGoBackButton ? <span className={classes.Confirm} onClick={props.handleBack}>go back</span> : null}
-                    {props.withLink ? <Link to={props.to}>{props.buttonText}</Link> : null }
-                </div>
-                 
+                <div className={classes.BodyWrapper}>
+                    <div className={classes.DialogueMessage}>
+                        <div>{props.children}</div>
+                        { props.withGoBackButton ? <span className={classes.Confirm} onClick={props.handleBack}>go back</span> : null}
+                        {props.withLink ? <Link to={props.to}>{props.buttonText}</Link> : null }
+                    </div>
+                </div>     
             </div> : null
         }
         { props.isUpdateAsset ? 
@@ -144,7 +163,9 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                {props.children}                                        
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                                        
             </div> : null
         }
         { props.isPublishCollection ?
@@ -155,7 +176,9 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                {props.children}                                   
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                                  
             </div> : null
         }
         { props.isEditCollection ?
@@ -166,7 +189,9 @@ const dialogue = (props) => (
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>
-                {props.children}                                
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                                
             </div> : null
         }
         { props.isUploadBlogImage ?
@@ -175,9 +200,14 @@ const dialogue = (props) => (
                     <div className={classes.DialogueTitleColumn}>
                         <h5>Upload Blog Image</h5>
                     </div>
-                    <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
+                    { props.uploadSuccessful ?
+                        null:
+                        <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
+                    }
                 </div>
-                {props.children}                                
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                                
             </div> : null
         }
     </Modal>

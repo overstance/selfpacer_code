@@ -8,6 +8,9 @@ const imageSchema = new Schema({
   caption: {
     type: String
   },
+  source: {
+    type: String
+  },
   imageType: {
     type: String
   }

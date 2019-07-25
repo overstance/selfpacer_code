@@ -11,10 +11,10 @@
     /* left: 15%; */
     /* top: 30%; */
     top: calc(50% - 150px);
-    max-height: 300px;
+    /* max-height: 300px; */
     box-sizing: border-box;
     transition: all 0.3s ease-out;
-    overflow-y: auto;
+    /* overflow-y: auto; */
 }
 
 .Modal::-webkit-scrollbar-track

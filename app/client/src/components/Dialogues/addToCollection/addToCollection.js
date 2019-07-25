@@ -16,11 +16,13 @@ class AddToCollection extends Component {
                         </div>
                         <div onClick={this.props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                     </div>
-                    <div className={classes.DialogueMessage}>
-                        <div>
-                            <Collection />
-                        </div>
-                    </div>                                    
+                    <div className={classes.BodyWrapper}>
+                        <div className={classes.DialogueMessage}>
+                            <div>
+                                <Collection />
+                            </div>
+                        </div> 
+                    </div>                                     
                 </div>
             </Modal>
         )

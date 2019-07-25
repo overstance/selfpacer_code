@@ -71,7 +71,9 @@ module.exports = app => {
         } else {
           let newImage = new Image({
             meta: image,
-            imageType: 'blogImage'
+            imageType: 'blogImage',
+            source: req.body.source,
+            caption: req.body.caption
           });
 
           newImage.save(function(err) {
@@ -81,6 +83,26 @@ module.exports = app => {
               res.send({ uploadedImage: newImage });
             }
           });
+        }
+      }
+    );
+  });
+
+  app.put('/api/add_image_attributes', (req, res) => {
+    // console.log(req.body.caption, req.body.source);
+    Image.findByIdAndUpdate(
+      req.body.imageId,
+      {
+        caption: req.body.caption,
+        source: req.body.source
+      },
+      { new: true },
+      (err, updatedImage) => {
+        if (err) {
+          res.send({ err: err.message });
+        } else {
+          // console.log(updatedImage);
+          res.send({ uploadedImage: updatedImage });
         }
       }
     );

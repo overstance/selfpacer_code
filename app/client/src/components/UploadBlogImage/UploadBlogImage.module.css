@@ -61,6 +61,8 @@
 
 .fileInput {
     color: var(--white);
+    display: block;
+    margin: auto;
 }
 
 .embedButton {

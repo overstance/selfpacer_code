@@ -45,6 +45,7 @@ class UploadOption extends Component {
             isUploadBlogImage
             closeDialogue={this.props.closeDialogue}
             showDialogue={this.props.showDialogue}
+            uploadSuccessful={this.props.uploadBlogImageSuccessInfo}
             >
                 <div className={classes.DialogueMessage}>
                     {   
