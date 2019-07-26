@@ -1,0 +1,47 @@
+.listItem {
+    padding: 1.1em;
+    font-size: 13px;
+    letter-spacing: .5px;
+    border-bottom: #f5efef solid 1px;
+    min-height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #484545;
+}
+
+.listItem:hover {
+    background: #FBF1F1;
+}
+
+.draftListContainer {
+    position: relative;
+    margin: 1em 0em;
+    padding: 1em 0em 1em 0em;
+    flex-basis: 30%;
+    text-align: left;
+    /* overflow-y: auto;
+    overflow-x: hidden;
+    height: 70vh; */
+    order: 1;
+    flex-shrink: 1;
+}
+
+.listsHeader {
+    font-size: 20px;
+    text-align: center;
+    padding: 1.5em 1em;
+    margin: 0.75em;
+    color: #585656;
+    position: sticky;
+    top: 0;
+    align-items: center  
+}
+
+.draftList {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 68vh;
+    margin: 0.5em 0 0.5em 0.5em;
+}

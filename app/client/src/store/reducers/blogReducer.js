@@ -19,6 +19,16 @@ const initialState = {
     uploadBlogImageSuccessInfo: null,
     uploadedBlogImage: {},
 
+    allDrafts: [],
+    loadAllBlogDraftsError: null,
+    loadAllBlogDraftsLoading: false,
+
+    createBlogDraftError: null,
+    createBlogDraftLoading: false,
+
+    updateBlogDraftError: null,
+    updateBlogDraftLoading: false,
+
     /* uploadWebBlogImageLoading: false,
     uploadWebBlogImageError: null,
     uploadWebBlogImageSuccessInfo: null,
@@ -94,39 +104,82 @@ const uploadBlogImageFail = ( state, action ) => {
     })
 }
 
-// upload web blog image
+// load all blog drafts
 
-/* const uploadWebBlogImageStart = ( state, action ) => {
+const loadAllBlogDraftsStart = ( state, action ) => {
     return updateObject( state, {
-        uploadWebBlogImageLoading: true,
-        uploadWebBlogImageError: null,
-        uploadWebBlogImageSuccessInfo: null
+        loadAllBlogDraftsLoading: true,
+        loadAllBlogDraftsError: null
     })
 }
 
-const uploadWebBlogImageSuccess = ( state, action ) => {
+const loadAllBlogDraftsSuccess = ( state, action ) => {
     return updateObject( state, {
-        uploadWebBlogImageLoading: false,
-        uploadedWebBlogImage: action.uploadedImage,
-        uploadWebBlogImageSuccessInfo: action.successInfo
+        loadAllBlogDraftsLoading: false,
+        allDrafts: action.blogDrafts
     })
 }
 
-const uploadWebBlogImageFail = ( state, action ) => {
+const loadAllBlogDraftsFail = ( state, action ) => {
     return updateObject( state, {
-        uploadWebBlogImageLoading: false,
-        uploadWebBlogImageError: action.error
+        loadAllBlogDraftsLoading: false,
+        loadAllBlogDraftsError: action.error
     })
-} */
+}
+
+// create blog draft
+
+const createBlogDraftStart = ( state, action ) => {
+    return updateObject( state, {
+        createBlogDraftLoading: true,
+        createBlogDraftError: null
+    })
+}
+
+const createBlogDraftSuccess = ( state, action ) => {
+    return updateObject( state, {
+        createBlogDraftLoading: false,
+        allDrafts: action.blogDrafts
+    })
+}
+
+const createBlogDraftFail = ( state, action ) => {
+    return updateObject( state, {
+        createBlogDraftLoading: false,
+        createBlogDraftError: action.error
+    })
+}
+
+// update blog draft
+
+const updateBlogDraftStart = ( state, action ) => {
+    return updateObject( state, {
+        updateBlogDraftLoading: true,
+        updateBlogDraftError: null
+    })
+}
+
+const updateBlogDraftSuccess = ( state, action ) => {
+    return updateObject( state, {
+        updateBlogDraftLoading: false,
+        allDrafts: action.blogDrafts
+    })
+}
+
+const updateBlogDraftFail = ( state, action ) => {
+    return updateObject( state, {
+        updateBlogDraftLoading: false,
+        updateBlogDraftError: action.error
+    })
+}
+
+// clear upload blog image
 
 const clearUploadBlogImageState = ( state, action ) => {
     return updateObject( state, {
         uploadBlogImageError: null,
         uploadBlogImageSuccessInfo: null,
-        uploadedBlogImage: {},
-        /* uploadWebBlogImageError: null,
-        uploadWebBlogImageSuccessInfo: null,
-        uploadedWebBlogImage: {} */
+        uploadedBlogImage: {}
     })
 }
 
@@ -144,9 +197,17 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.UPLOAD_BLOG_IMAGE_SUCCESS: return uploadBlogImageSuccess(state, action);
         case actionTypes.UPLOAD_BLOG_IMAGE_FAIL: return uploadBlogImageFail(state, action);
 
-        /* case actionTypes.UPLOAD_WEB_BLOG_IMAGE_START: return uploadWebBlogImageStart(state, action);
-        case actionTypes.UPLOAD_WEB_BLOG_IMAGE_SUCCESS: return uploadWebBlogImageSuccess(state, action);
-        case actionTypes.UPLOAD_WEB_BLOG_IMAGE_FAIL: return uploadWebBlogImageFail(state, action); */
+        case actionTypes.LOAD_ALL_BLOG_DRAFTS_START: return loadAllBlogDraftsStart(state, action);
+        case actionTypes.LOAD_ALL_BLOG_DRAFTS_SUCCESS: return loadAllBlogDraftsSuccess(state, action);
+        case actionTypes.LOAD_ALL_BLOG_DRAFTS_FAIL: return loadAllBlogDraftsFail(state, action);
+
+        case actionTypes.CREATE_BLOG_DRAFT_START: return createBlogDraftStart(state, action);
+        case actionTypes.CREATE_BLOG_DRAFT_SUCCESS: return createBlogDraftSuccess(state, action);
+        case actionTypes.CREATE_BLOG_DRAFT_FAIL: return createBlogDraftFail(state, action);
+
+        case actionTypes.UPDATE_BLOG_DRAFT_START: return updateBlogDraftStart(state, action);
+        case actionTypes.UPDATE_BLOG_DRAFT_SUCCESS: return updateBlogDraftSuccess(state, action);
+        case actionTypes.UPDATE_BLOG_DRAFT_FAIL: return updateBlogDraftFail(state, action);
 
         case actionTypes.CLEAR_UPLOAD_BLOG_IMAGE_STATE: return clearUploadBlogImageState(state, action);
 

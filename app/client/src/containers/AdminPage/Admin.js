@@ -107,9 +107,9 @@ class Admin extends Component {
                     </div>
                     <div className={classes.Subheader}>
                         <Toggler 
-                            subheadTitle="editor"
+                            subheadTitle="blog drafts"
                             isLink
-                            link='/editor'
+                            link='/blog_drafts'
                         />
                     </div>
                     <div className={classes.Subheader}>

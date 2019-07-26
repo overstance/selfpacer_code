@@ -135,29 +135,6 @@ export const uploadBlogImage = (imageFile, source, caption) => async dispatch =>
     }
 }
 
-// upload web blog image
-
-/* export const uploadWebBlogImageStart = () => {
-    return {
-        type: actionTypes.UPLOAD_WEB_BLOG_IMAGE_START
-    }
-}
-
-export const uploadWebBlogImageSuccess = (uploadedImage, successInfo) => {
-    return {
-        type: actionTypes.UPLOAD_WEB_BLOG_IMAGE_SUCCESS,
-        uploadedImage: uploadedImage,
-        successInfo: successInfo
-    }
-}
-
-export const uploadWebBlogImageFail = (error) => {
-    return {
-        type: actionTypes.UPLOAD_WEB_BLOG_IMAGE_FAIL,
-        error: error
-    }
-} */
-
 export const uploadWebBlogImage = (imageUrl, source, caption) => async dispatch => {
     dispatch(uploadBlogImageStart());
     // console.log(imageUrl);
@@ -185,6 +162,122 @@ export const uploadWebBlogImage = (imageUrl, source, caption) => async dispatch 
 export const clearUploadBlogImageState = () => {
     return {
         type: actionTypes.CLEAR_UPLOAD_BLOG_IMAGE_STATE
+    }
+}
+
+// fetch All Blog Drafts
+
+export const loadAllBlogDraftsStart = () => {
+    return {
+        type: actionTypes.LOAD_ALL_BLOG_DRAFTS_START
+    }
+}
+
+export const loadAllBlogDraftsSuccess = (blogDrafts) => {
+    return {
+        type: actionTypes.LOAD_ALL_BLOG_DRAFTS_SUCCESS,
+        blogDrafts: blogDrafts
+    }
+}
+
+export const loadAllBlogDraftsFail = (error) => {
+    return {
+        type: actionTypes.LOAD_ALL_BLOG_DRAFTS_FAIL,
+        error: error
+    }
+}
+
+export const loadAllBlogDrafts = () => async dispatch => {
+    dispatch(loadAllBlogDraftsStart());
+
+    const res = await axios.get('/api/fetch_blog_drafts');
+    // console.log(res.data.post);
+    if (res.data.blogDrafts) {
+        console.log(res.data.blogDrafts);
+        dispatch(loadAllBlogDraftsSuccess(res.data.blogDrafts));
+    } else if (res.data.error){
+        dispatch(loadAllBlogDraftsFail(res.data.error));
+    }
+}
+
+// create Blog Drafts
+
+export const createBlogDraftStart = () => {
+    return {
+        type: actionTypes.CREATE_BLOG_DRAFT_START
+    }
+}
+
+export const createBlogDraftSuccess = (blogDrafts) => {
+    return {
+        type: actionTypes.CREATE_BLOG_DRAFT_SUCCESS,
+        blogDrafts: blogDrafts
+    }
+}
+
+export const createBlogDraftFail = (error) => {
+    return {
+        type: actionTypes.CREATE_BLOG_DRAFT_FAIL,
+        error: error
+    }
+}
+
+export const createBlogDraft = (title, content, htmlContent, allDrafts) => async dispatch => {
+    dispatch(createBlogDraftStart());
+    console.log(htmlContent);
+    const res = await axios.post('/api/create_blog_draft', { title: title, content: content, htmlContent: htmlContent});
+    // console.log(res.data.post);
+    if (res.data.newDraft) {
+        console.log(res.data.newDraft);
+        let newDraft = res.data.newDraft;
+        let updatedDrafts = [...allDrafts, newDraft]
+        dispatch(createBlogDraftSuccess(updatedDrafts));
+        console.log(updatedDrafts);
+    } else if (res.data.error){
+        dispatch(createBlogDraftFail(res.data.error));
+    }
+}
+
+// update Blog Drafts
+
+export const updateBlogDraftStart = () => {
+    return {
+        type: actionTypes.UPDATE_BLOG_DRAFT_START
+    }
+}
+
+export const updateBlogDraftSuccess = (blogDrafts) => {
+    return {
+        type: actionTypes.UPDATE_BLOG_DRAFT_SUCCESS,
+        blogDrafts: blogDrafts
+    }
+}
+
+export const updateBlogDraftFail = (error) => {
+    return {
+        type: actionTypes.UPDATE_BLOG_DRAFT_FAIL,
+        error: error
+    }
+}
+
+export const updateBlogDraft = (draftId, title, content, htmlContent, allDrafts) => async dispatch => {
+    dispatch(updateBlogDraftStart());
+    
+    const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, content: content, htmlContent: htmlContent});
+    console.log(res.data);
+    if (res.data.updatedDraft._id === draftId) {
+        console.log(res.data.updatedDraft);
+        const index = allDrafts.findIndex(draft => draft._id === res.data.updatedDraft._id);
+        let updatedDrafts;
+
+        if (index !== -1) {
+            updatedDrafts = [...allDrafts];
+            updatedDrafts[index] = res.data.updatedDraft;
+        }
+        dispatch(updateBlogDraftSuccess(updatedDrafts));
+        console.log(updatedDrafts);
+    } else if (res.data.error){
+        dispatch(updateBlogDraftFail(res.data.error));
     }
 }
 

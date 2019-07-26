@@ -1,0 +1,20 @@
+.headline {
+    text-align: center;
+    background: linear-gradient(to top, #ff5370, #ff595a);
+    font-size: 110%;
+    /* padding: 1em; */
+    color: white;
+    padding: 0.8em 0;
+}
+
+.pageComponents {
+    display: inline-flex;
+    overflow: hidden;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  
+}
+  

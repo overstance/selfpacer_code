@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import classes from './RichEditor.module.css';
-import { EditorState, RichUtils, AtomicBlockUtils } from 'draft-js';
+import { EditorState, RichUtils, AtomicBlockUtils, convertToRaw, convertFromRaw, CompositeDecorator } from 'draft-js';
 import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 import Editor from "draft-js-plugins-editor";
 import createHighlightPlugin from './plugins/highlightPlugin';
 import basicTextStylePlugin from './plugins/basicTextStylePlugin';
@@ -9,7 +10,7 @@ import addLinkPlugin from './plugins/addLinkPlugin';
 import { mediaBlockRenderer } from './entities/mediaBlockRenderer'
 import {InlineStyles} from './inlineStyles/inlineStyles';
 import { styleMap, getBlockStyle, /* BLOCK_TYPES, */ BlockStyleControls } from './blockStyles/blockStyles';
-
+import {stateToHTML} from 'draft-js-export-html';
 import BlogImageUploadOption from '../UploadBlogImage/UploadOption';
 
 const highlightPlugin = createHighlightPlugin();
@@ -20,6 +21,7 @@ class PageContainer extends Component {
     this.state = {
       editorState: EditorState.createEmpty(),
       showUploadModal: false,
+      noteTitle: ''
     };
 
     this.plugins = [
@@ -29,10 +31,54 @@ class PageContainer extends Component {
     ];
   }
 
+  componentDidMount() {
+    let displayedNote = this.props.displayedNote
+    if (typeof displayedNote == "object") {
+      // let rawContentFromFile = displayedNote
+      this.setState({
+        editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.displayedNote.content)), this.decorator())
+      })
+    } else {
+      this.setState({
+        noteTitle: "",
+        editorState: EditorState.createEmpty(this.decorator())
+      })
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.displayedNote !== this.props.displayedNote) {
+      let displayedNote = this.props.displayedNote
+      if (typeof displayedNote == "object") {
+        // let rawContentFromFile = displayedNote
+        let persistedTitle = displayedNote.title
+        this.setState({
+          editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.displayedNote.content))),
+          noteTitle: persistedTitle
+        })
+      } else {
+        this.setState({
+          noteTitle: "",
+          editorState: EditorState.createEmpty()
+        })
+
+      }
+    }
+  }
+
   onChange = (editorState) => {
     this.setState({
       editorState
     })
+  }
+
+  handleKeyCommand = (command) => {
+    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return 'handled';
+    }
+    return 'not-handled';
   }
 
   toggleInlineStyle = (style) => {
@@ -41,6 +87,41 @@ class PageContainer extends Component {
 
   toggleBlockType = (blockType) => {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+  };
+
+  decorator = () => new CompositeDecorator([
+    {
+      strategy: this.linkStrategy,
+      component: this.Link,
+    },
+  ]);
+
+  linkStrategy = (contentBlock, callback, contentState) => {
+    contentBlock.findEntityRanges(
+      (character) => {
+        const entityKey = character.getEntity();
+        return (
+          entityKey !== null &&
+          contentState.getEntity(entityKey).getType() === 'LINK'
+        );
+      },
+      callback
+    );
+  };
+
+
+  Link = (props) => {
+    const { contentState, entityKey } = props;
+    const { url } = contentState.getEntity(entityKey).getData();
+    return (
+      <a
+        className="link"
+        rel="noopener noreferrer"
+        target="_blank"
+        aria-label={url}
+        href={url}
+        >{props.children}</a>
+    );
   };
 
   isAddingOrUpdatingLink = () => {
@@ -117,19 +198,44 @@ class PageContainer extends Component {
       this.setState({ showUploadModal: false });
   }
 
+  captureTitle = (event) => {
+    event.preventDefault()
+    let value = event.target.value
+    this.setState({
+      noteTitle: value
+    })
+  }
 
-  handleKeyCommand = (command) => {
-    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
-    if (newState) {
-      this.onChange(newState);
-      return 'handled';
+  submitEditor = () => {
+    let displayedNote = this.props.displayedNote;
+    let contentState = this.state.editorState.getCurrentContent();
+    let htmlContent = stateToHTML(contentState);
+    let note = {title: this.state.noteTitle, content: convertToRaw(contentState)}
+    if (this.state.noteTitle === "" || (note.content.blocks.length <= 1 && note.content.blocks[0].depth === 0 && note.content.blocks[0].text === "")) {
+      alert("Note cannot be saved if title or content is blank")
+    } else {
+      note["content"] = JSON.stringify(note.content)
+      this.setState({
+        noteTitle: "",
+        editorState: EditorState.createEmpty()
+      }, () => displayedNote === "new" ? this.props.onCreateBlogDraft(note.title, note.content, htmlContent, this.props.drafts) : this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.content, htmlContent, this.props.drafts))
     }
-    return 'not-handled';
   }
 
   render() {
+    if (!this.props.displayedNote) {
+      return <div>Loading...</div>
+    }
     return (
       <div className={classes.editorContainer}>
+        <div className={classes.editorHeader}>
+          <span /* className="noteTitle" */>
+            <input type="text" placeholder="Title" name="noteTitle" className={classes.noteTitle} value={this.state.noteTitle} onChange={this.captureTitle}/>
+          </span>
+          <button className={classes.submitNote} onClick={this.submitEditor}>
+            Save
+          </button>
+        </div>
         <div className={classes.toolbar}>
             <button id="link_url" onClick = {this.isAddingOrUpdatingLink} className={classes.styleButton}>
               {/* <i className="material-icons">attach_file</i> */}
@@ -174,7 +280,16 @@ class PageContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  uploadedBlogImage: state.blog.uploadedBlogImage
+  uploadedBlogImage: state.blog.uploadedBlogImage,
+  drafts: state.blog.allDrafts
 });
 
-export default connect(mapStateToProps/* , mapDispatchToProps */)(PageContainer);
+const mapDispatchToProps = (dispatch) => {
+  //   return bindActionCreators(Actions, dispatch);
+      return {
+          onCreateBlogDraft: ( title, content, htmlContent, allDrafts ) => dispatch(actions.createBlogDraft( title, content, htmlContent, allDrafts )),
+          onUpdateBlogDraft: ( draftId, title, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, content, htmlContent, allDrafts )), 
+      }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageContainer);

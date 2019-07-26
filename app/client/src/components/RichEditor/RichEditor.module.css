@@ -18,6 +18,39 @@
   align-self: stretch
 }
 
+.editorHeader {
+  font-size: 1.25em;
+  text-align: left;
+}
+
+.noteTitle {
+  font-size: 14.5px;
+  line-height: 20px;
+  height: 20px;
+  letter-spacing: 0.7px;
+  font-family: "Open Sans";
+  border-bottom: #f6f7fb solid 2px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 80%;
+  position: inline;
+  padding: 0.5em;
+  margin-left: 0.6em
+}
+
+.submitNote {
+  border-radius: 10px;
+  font-size: 13px;
+  /* float: right; */
+  display: inline;
+  padding: 0.5em;
+  color: white;
+  border: none;
+  background-color:#ff5370;
+  margin: 0.35em;
+}
+
 .editors {
   border: none;
   border-radius: 4px;
@@ -36,6 +69,10 @@
   position: relative;
   height: 40vh;
   font-size: 90%;
+}
+
+.editors a {
+  color: blue;
 }
 
 .editors img {
