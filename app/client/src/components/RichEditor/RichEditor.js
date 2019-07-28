@@ -209,7 +209,43 @@ class PageContainer extends Component {
   submitEditor = () => {
     let displayedNote = this.props.displayedNote;
     let contentState = this.state.editorState.getCurrentContent();
-    let htmlContent = stateToHTML(contentState);
+    /* const options = {
+      blockRenderers: {
+           'atomic:image': (block) => {
+               const data = block.getData();
+               const src = data.get("src");
+               const source = data.get("source");
+               console.log(src, source);
+               const caption = block.getText();
+               return `<figure><img src="${src}"/><figcaption>${caption}</figcaption><figcaption>${source}</figcaption></figure>`;
+          },
+      },
+    }; */
+    let options = {
+      blockRenderers: {
+        atomic: (block) => {
+          let data = contentState.getEntity(block.getEntityAt(0)).getData();
+          let type = contentState.getEntity(block.getEntityAt(0)).getType();
+          // console.log(type);
+          if (type === 'image') {
+            const src = data.src;
+            const source = data.source;
+            const caption = data.caption;
+
+            if (!source && !caption) {
+              return `<figure><img src="${src}"/></figure>`;
+            } else if (source && !caption) {
+              return `<figure><img src="${src}"/><figcaption>${source}</figcaption>`;
+            } else if (!source && caption) {
+              return `<figure><img src="${src}"/><figcaption>${caption}</figcaption></figure>`;
+            } else {
+              return `<figure><img src="${src}"/><figcaption>${source}</figcaption><figcaption>${caption}</figcaption></figure>`;
+            }
+          }
+        },
+      },
+    };
+    let htmlContent = stateToHTML(contentState, options);
     let note = {title: this.state.noteTitle, content: convertToRaw(contentState)}
     if (this.state.noteTitle === "" || (note.content.blocks.length <= 1 && note.content.blocks[0].depth === 0 && note.content.blocks[0].text === "")) {
       alert("Note cannot be saved if title or content is blank")

@@ -5,7 +5,7 @@ export const mediaBlockRenderer = (block) => {
   if (block.getType() === 'atomic') {
     return {
       component: Media,
-      editable: false,
+      editable: false
     };
   }
 
@@ -42,6 +42,13 @@ const Image = (props) => {
     <figure>
       <img alt="embedded media" src={props.src} />
       <figcaption>{props.source}</figcaption>
+    </figure>
+    return element;
+  } else if (!!props.src && !!props.caption) {
+    let element =
+    <figure>
+      <img alt="embedded media" src={props.src} />
+      <figcaption>{props.caption}</figcaption>
     </figure>
     return element;
   } else if (!!props.src) {

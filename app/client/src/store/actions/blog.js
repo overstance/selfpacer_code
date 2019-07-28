@@ -193,7 +193,7 @@ export const loadAllBlogDrafts = () => async dispatch => {
     const res = await axios.get('/api/fetch_blog_drafts');
     // console.log(res.data.post);
     if (res.data.blogDrafts) {
-        console.log(res.data.blogDrafts);
+        // console.log(res.data.blogDrafts);
         dispatch(loadAllBlogDraftsSuccess(res.data.blogDrafts));
     } else if (res.data.error){
         dispatch(loadAllBlogDraftsFail(res.data.error));
@@ -224,15 +224,15 @@ export const createBlogDraftFail = (error) => {
 
 export const createBlogDraft = (title, content, htmlContent, allDrafts) => async dispatch => {
     dispatch(createBlogDraftStart());
-    console.log(htmlContent);
+    // console.log(htmlContent);
     const res = await axios.post('/api/create_blog_draft', { title: title, content: content, htmlContent: htmlContent});
     // console.log(res.data.post);
     if (res.data.newDraft) {
-        console.log(res.data.newDraft);
+        // console.log(res.data.newDraft);
         let newDraft = res.data.newDraft;
-        let updatedDrafts = [...allDrafts, newDraft]
+        let updatedDrafts = [newDraft, ...allDrafts];
         dispatch(createBlogDraftSuccess(updatedDrafts));
-        console.log(updatedDrafts);
+        // console.log(updatedDrafts);
     } else if (res.data.error){
         dispatch(createBlogDraftFail(res.data.error));
     }
@@ -264,7 +264,7 @@ export const updateBlogDraft = (draftId, title, content, htmlContent, allDrafts)
     dispatch(updateBlogDraftStart());
     
     const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, content: content, htmlContent: htmlContent});
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.updatedDraft._id === draftId) {
         console.log(res.data.updatedDraft);
         const index = allDrafts.findIndex(draft => draft._id === res.data.updatedDraft._id);
@@ -275,7 +275,7 @@ export const updateBlogDraft = (draftId, title, content, htmlContent, allDrafts)
             updatedDrafts[index] = res.data.updatedDraft;
         }
         dispatch(updateBlogDraftSuccess(updatedDrafts));
-        console.log(updatedDrafts);
+        // console.log(updatedDrafts);
     } else if (res.data.error){
         dispatch(updateBlogDraftFail(res.data.error));
     }

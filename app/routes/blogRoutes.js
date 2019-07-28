@@ -46,12 +46,6 @@ module.exports = app => {
   });
 
   app.put('/api/update_blog_draft', (req, res) => {
-    /* const newBlogDraft = {
-      title: req.body.title,
-      content: req.body.content,
-      createdOn: Date.now(),
-      updatedOn: Date.now()
-    }; */
     BlogDraft.findByIdAndUpdate(
       req.body.draftId,
       {
