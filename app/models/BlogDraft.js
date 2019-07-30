@@ -11,10 +11,33 @@ const blogDraftSchema = new Schema({
   title: {
     type: String
   },
+  description: {
+    type: String
+  },
+  featuredImage: {
+    type: Object
+  },
+  featuredImageUrl: {
+    type: String
+  },
   createdOn: {
     type: Date
   },
+  category: {
+    type: String
+  },
+  Tags: {
+    type: Array
+  },
+  status: {
+    type: Boolean,
+    default: false
+  },
+  author: { type: Schema.Types.ObjectId, ref: 'User' },
   updatedOn: {
+    type: Date
+  },
+  publishedOn: {
     type: Date
   }
 });

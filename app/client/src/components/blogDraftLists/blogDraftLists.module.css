@@ -16,26 +16,33 @@
 
 .draftListContainer {
     position: relative;
-    margin: 1em 0em;
-    padding: 1em 0em 1em 0em;
-    flex-basis: 30%;
+    /* margin: 1em 0em; */
+    /* padding: 1em 0em 1em 0em; */
+    /* flex-basis: 30%; */
+    flex: 0 0 30%;
+    max-width: 30%;
     text-align: left;
     /* overflow-y: auto;
     overflow-x: hidden;
     height: 70vh; */
     order: 1;
-    flex-shrink: 1;
+    /* flex-shrink: 1; */
 }
 
 .listsHeader {
     font-size: 20px;
     text-align: center;
-    padding: 1.5em 1em;
-    margin: 0.75em;
-    color: #585656;
-    position: sticky;
+    height: 60px;
+    display: flex;
+    padding: 5px;
+    box-sizing: border-box;
+    /* margin: 0.75em; */
+    /* color: #585656; */
+    background: var(--gray);
+    /* position: sticky; */
     top: 0;
-    align-items: center  
+    align-items: center;
+    justify-content: center;  
 }
 
 .draftList {
@@ -43,5 +50,26 @@
     overflow-y: auto;
     overflow-x: hidden;
     height: 68vh;
+    /* height: 100%; */
     margin: 0.5em 0 0.5em 0.5em;
+}
+
+.addNewButton {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--white);
+    background-image: url('../../assets/images/plus.svg');
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.addNewButton:hover {
+    background-color: var(--green);
 }

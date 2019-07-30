@@ -1,6 +1,8 @@
 .editorContainer {
   margin: 0em;
-  padding: 2em;
+  /* padding: 2em; */
+  padding: 0 10px;
+  padding-bottom: 10px;
   border-left: #f6f7fb solid 2px;
   color: #2C3A51;
   text-align: left;
@@ -8,14 +10,18 @@
   overflow-y: hidden;
   overflow-x: hidden;
   order: 2;
-  height: 100vh;
-  flex: 1 1 auto;
+  /* height: 100vh; */
+  /* flex: 1 1 auto;
   flex-basis: 60%;
   min-width: 60%;
-  max-width: 100%;
-  background: #FBFAFA;
+  max-width: 100%; */
+  flex: 0 0 70%;
+  max-width: 70%;
+  /* background: #FBFAFA; */
+  background: var(--gray);
   align-items: center;
-  align-self: stretch
+  align-self: stretch;
+  box-sizing: border-box;
 }
 
 .editorHeader {
@@ -23,20 +29,51 @@
   text-align: left;
 }
 
-.noteTitle {
+.editorHeader textarea {
+  height: 60px;
+  resize: none;
+}
+
+.draftInputWrapper {
+  display: flex;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.draftInput {
   font-size: 14.5px;
   line-height: 20px;
   height: 20px;
   letter-spacing: 0.7px;
-  font-family: "Open Sans";
+  /* font-family: "Open Sans"; */
+  font-family: 'PT Mono', monospace;
   border-bottom: #f6f7fb solid 2px;
   border-top: none;
   border-left: none;
   border-right: none;
-  width: 80%;
+  width: 100%;
   position: inline;
   padding: 0.5em;
-  margin-left: 0.6em
+  border-radius: 4px;
+  /* margin-left: 0.6em */
+}
+
+.draftTitleInput {
+  font-size: 14.5px;
+  line-height: 20px;
+  height: 20px;
+  letter-spacing: 0.7px;
+  /* font-family: "Open Sans"; */
+  font-family: 'PT Mono', monospace;
+  border-bottom: #f6f7fb solid 2px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 100%;
+  /* position: inline; */
+  padding: 0.5em;
+  border-radius: 4px 0 0 4px;
+  /* margin-left: 0.6em */
 }
 
 .submitNote {
@@ -53,17 +90,19 @@
 
 .editors {
   border: none;
-  border-radius: 4px;
+  /* border-radius: 4px; */
+  border-radius: 0 0 4px 4px;
   padding: 1em 1.5em 3em 1.5em;
-  margin: -0.2em 0.6em 1em 0.6em;
-  font-family: "Helvetica";
+  /* margin: -0.2em 0.6em 1em 0.6em; */
+  /* font-family: "Helvetica"; */
+  font-family: 'PT Mono', monospace;
   line-height: 1.4;
   color: #2C3A51;
   font-size: 16px;
   text-align: left;
   background-color: white;
   box-shadow: 0 0 5px rgba(0,0,0,.1);
-  min-height: 36%;
+  /* min-height: 36%; */
   overflow-x:hidden;
   overflow-y:auto;
   position: relative;
@@ -80,14 +119,15 @@
 }
 
 .toolbar {
-  border: #f6f7fb solid 2px;
+  border: var(--white) solid 2px;
   text-align: center;
   /* font-family: 'IBM Plex Sans', sans-serif; */
-  background-color: #dedcdc;
-  margin: 0.5em 0.5em 0em 0.5em;
+  background-color: var(--gray);
+  /* margin: 0.5em 0.5em 0em 0.5em; */
   padding: 0.5em;
-  border-radius: 4px;
-  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  /* border-radius: 4px; */
+  border-radius: 4px 4px 0 0;
+  /* box-shadow: 0 0 5px rgba(0,0,0,.1); */
 }
 
 .styleButton {
@@ -127,7 +167,76 @@
   color: #ff595a;
   margin: 0.35em;
   border-radius: 6px;
-  font-family: 'IBM Plex Sans', sans-serif;
+  /* font-family: 'IBM Plex Sans', sans-serif; */
   font-size: 13px;;
   height: 2.25em;
 }
+
+.editorControls {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  height: 60px;
+  align-items: center;
+  /* padding: 0 10px 10px 0; */
+}
+
+.editorControls button {
+  padding: 0 10px;
+  width: 100%;
+  border-radius: 10px;
+  height: 30px;
+  margin: 0 5px;
+  border-style: none;
+  cursor: pointer;
+  font-weight: 700;
+  /* color: var(--blue); */
+}
+
+.saveButton, .publishButton, .deleteButton {
+  display: inline-flex;
+}
+
+.saveButton button {
+  background: var(--white);
+  color: var(--red);
+}
+
+.publishButton button {
+  background: var(--green);
+  color: var(--blue);
+}
+
+.deleteButton button {
+  background: var(--red);
+  color: var(--white);
+}
+
+.addFeaturedImageButton {
+  display: inline-flex;
+}
+
+.addFeaturedImageButton button {
+  background: var(--blue);
+  color: var(--white);
+  /* padding: 0 10px; */
+  /* width: 100%; */
+  border-radius: 0 4px 4px 0;
+  /* height: 30px; */
+  /* margin: 0 5px; */
+  border-style: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.titleFieldWrapper {
+  display: flex;
+  width: 100%;
+}
+
+.heroImage {
+  width: 100%
+}
+
+

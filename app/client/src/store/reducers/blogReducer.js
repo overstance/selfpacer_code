@@ -29,6 +29,8 @@ const initialState = {
     updateBlogDraftError: null,
     updateBlogDraftLoading: false,
 
+    // newBlogHeroImageUrl: ''
+
     /* uploadWebBlogImageLoading: false,
     uploadWebBlogImageError: null,
     uploadWebBlogImageSuccessInfo: null,

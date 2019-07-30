@@ -12,6 +12,9 @@ import {InlineStyles} from './inlineStyles/inlineStyles';
 import { styleMap, getBlockStyle, /* BLOCK_TYPES, */ BlockStyleControls } from './blockStyles/blockStyles';
 import {stateToHTML} from 'draft-js-export-html';
 import BlogImageUploadOption from '../UploadBlogImage/UploadOption';
+// import Button from '../UserInterface/Button/Button';
+// import Spinner from '../UserInterface/Spinner/Spinner';
+// import Input from '../UserInterface/Input/Input';
 
 const highlightPlugin = createHighlightPlugin();
 
@@ -21,7 +24,14 @@ class PageContainer extends Component {
     this.state = {
       editorState: EditorState.createEmpty(),
       showUploadModal: false,
-      noteTitle: ''
+      noteTitle: '',
+      description: '',
+      blogHeroImage: {
+        url: '',
+        source: '',
+        caption: ''
+      },
+      uploadingHeroImage: false
     };
 
     this.plugins = [
@@ -36,11 +46,20 @@ class PageContainer extends Component {
     if (typeof displayedNote == "object") {
       // let rawContentFromFile = displayedNote
       this.setState({
-        editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.displayedNote.content)), this.decorator())
+        editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.displayedNote.content)), this.decorator()),
+        noteTitle: displayedNote.title,
+        blogHeroImage: displayedNote.featuredImage,
+        description: displayedNote.description
       })
     } else {
       this.setState({
         noteTitle: "",
+        blogHeroImage: {
+          url: '',
+          source: '',
+          caption: ''
+        },
+        description: '',
         editorState: EditorState.createEmpty(this.decorator())
       })
     }
@@ -51,14 +70,24 @@ class PageContainer extends Component {
       let displayedNote = this.props.displayedNote
       if (typeof displayedNote == "object") {
         // let rawContentFromFile = displayedNote
-        let persistedTitle = displayedNote.title
+        let persistedTitle = displayedNote.title;
+        let persistedHeroImage = displayedNote.featuredImage;
+        let persistedDescription = displayedNote.description;
         this.setState({
           editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.displayedNote.content))),
-          noteTitle: persistedTitle
+          noteTitle: persistedTitle,
+          blogHeroImage: persistedHeroImage,
+          description: persistedDescription
         })
       } else {
         this.setState({
           noteTitle: "",
+          blogHeroImage: {
+            url: '',
+            source: '',
+            caption: ''
+          },
+          description: '',
           editorState: EditorState.createEmpty()
         })
 
@@ -171,27 +200,44 @@ class PageContainer extends Component {
 
   onAddImage = (e) => {
     e.preventDefault();
-    const editorState = this.state.editorState;
-    // const urlValue = window.prompt('Paste Image Link');
-    const urlValue = this.props.uploadedBlogImage.meta.secure_url;
-    const sourceValue = this.props.uploadedBlogImage.source;
-    const captionValue = this.props.uploadedBlogImage.caption;
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', {src: urlValue, source: sourceValue, caption: captionValue});
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(editorState, {currentContent: contentStateWithEntity}, 'create-entity');
-    this.setState({
-      editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '),
-      showUploadModal: false
-    }, () => {
-      setTimeout(() => this.focus(), 0);
-    });
+    console.log(this.state.uploadingHeroImage);
+    if (this.state.uploadingHeroImage) {
+      this.setState({
+        blogHeroImage: {
+          url: this.props.uploadedBlogImage.meta.secure_url,
+          source: this.props.uploadedBlogImage.source,
+          caption: this.props.uploadedBlogImage.caption,
+        },
+        showUploadModal: false,
+        uploadingHeroImage: false
+      });
+    } else {
+      const editorState = this.state.editorState;
+      // const urlValue = window.prompt('Paste Image Link');
+      const urlValue = this.props.uploadedBlogImage.meta.secure_url;
+      const sourceValue = this.props.uploadedBlogImage.source;
+      const captionValue = this.props.uploadedBlogImage.caption;
+      const contentState = editorState.getCurrentContent();
+      const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', {src: urlValue, source: sourceValue, caption: captionValue});
+      const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+      const newEditorState = EditorState.set(editorState, {currentContent: contentStateWithEntity}, 'create-entity');
+      this.setState({
+        editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' '),
+        showUploadModal: false
+      }, () => {
+        setTimeout(() => this.focus(), 0);
+      });
+    }
   }
 
   focus = () => this.refs.editor.focus();
 
   uploadImageHandler = () => {
     this.setState({ showUploadModal: true});
+  }
+
+  uploadHeroImage = () => {
+    this.setState({ showUploadModal: true, uploadingHeroImage: true}, () => { console.log(this.state.uploadingHeroImage)});
   }
 
   uploadModalCloseHandler = () => {
@@ -206,21 +252,25 @@ class PageContainer extends Component {
     })
   }
 
+  /* captureblogHeroImage = (event) => {
+    event.preventDefault()
+    let value = event.target.value
+    this.setState({
+      blogHeroImage: value
+    })
+  } */
+
+  captureDescription = (event) => {
+    event.preventDefault()
+    let value = event.target.value
+    this.setState({
+      description: value
+    })
+  }
+
   submitEditor = () => {
     let displayedNote = this.props.displayedNote;
     let contentState = this.state.editorState.getCurrentContent();
-    /* const options = {
-      blockRenderers: {
-           'atomic:image': (block) => {
-               const data = block.getData();
-               const src = data.get("src");
-               const source = data.get("source");
-               console.log(src, source);
-               const caption = block.getText();
-               return `<figure><img src="${src}"/><figcaption>${caption}</figcaption><figcaption>${source}</figcaption></figure>`;
-          },
-      },
-    }; */
     let options = {
       blockRenderers: {
         atomic: (block) => {
@@ -246,15 +296,25 @@ class PageContainer extends Component {
       },
     };
     let htmlContent = stateToHTML(contentState, options);
-    let note = {title: this.state.noteTitle, content: convertToRaw(contentState)}
+    let note = {
+      title: this.state.noteTitle,
+      heroImage: this.state.blogHeroImage,
+      description: this.state.description, 
+      content: convertToRaw(contentState)
+    }
     if (this.state.noteTitle === "" || (note.content.blocks.length <= 1 && note.content.blocks[0].depth === 0 && note.content.blocks[0].text === "")) {
       alert("Note cannot be saved if title or content is blank")
     } else {
-      note["content"] = JSON.stringify(note.content)
-      this.setState({
+      note["content"] = JSON.stringify(note.content);
+      if ( displayedNote === 'new') {
+        this.props.onCreateBlogDraft(note.title, note.heroImage, note.description, note.content, htmlContent, this.props.drafts);
+      } else {
+        this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.heroImage, note.description, note.content, htmlContent, this.props.drafts);
+      }
+      /* this.setState({
         noteTitle: "",
         editorState: EditorState.createEmpty()
-      }, () => displayedNote === "new" ? this.props.onCreateBlogDraft(note.title, note.content, htmlContent, this.props.drafts) : this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.content, htmlContent, this.props.drafts))
+      }, () => displayedNote === "new" ? this.props.onCreateBlogDraft(note.title, note.content, htmlContent, this.props.drafts) : this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.content, htmlContent, this.props.drafts)) */
     }
   }
 
@@ -262,33 +322,92 @@ class PageContainer extends Component {
     if (!this.props.displayedNote) {
       return <div>Loading...</div>
     }
+
+    let saveButtonText = 'Save';
+    if(this.props.createBlogDraftLoading || this.props.updateBlogDraftLoading) {
+        saveButtonText = 'Saving...';
+    }
+
+    // let heroImageproperties = this.state.blogHeroImage;
     return (
       <div className={classes.editorContainer}>
+        <div className={classes.editorControls}>
+          <div className={classes.saveButton}>
+            <button onClick={this.submitEditor}> {saveButtonText} </button>
+          </div>
+          <div className={classes.publishButton}>
+            <button> Publish </button>
+          </div>
+          <div className={classes.deleteButton}>
+            <button> Delete </button>
+          </div>
+        </div>
         <div className={classes.editorHeader}>
-          <span /* className="noteTitle" */>
-            <input type="text" placeholder="Title" name="noteTitle" className={classes.noteTitle} value={this.state.noteTitle} onChange={this.captureTitle}/>
-          </span>
-          <button className={classes.submitNote} onClick={this.submitEditor}>
-            Save
-          </button>
+          { this.props.displayedNote !== 'new' && this.state.blogHeroImage.url !== '' ?
+            <div className={classes.draftInputWrapper}>
+              <input 
+              type="text" 
+              placeholder="Title" 
+              name="noteTitle" 
+              className={classes.draftInput} 
+              value={this.state.noteTitle} 
+              onChange={this.captureTitle}
+              />
+            </div> :
+            <div className={classes.draftInputWrapper}>
+                <div className={classes.titleFieldWrapper}>
+                  <input 
+                  type="text" 
+                  placeholder="Title" 
+                  name="noteTitle" 
+                  className={classes.draftTitleInput} 
+                  value={this.state.noteTitle} 
+                  onChange={this.captureTitle}
+                  />
+                </div>
+                <div className={classes.addFeaturedImageButton}>
+                  <button onClick={this.uploadHeroImage}> Hero-Image </button>
+                </div>
+            </div> 
+          }
+          { this.state.blogHeroImage.url !== '' ?
+            <div /* className={classes.draftInputWrapper} */>
+              <img src={this.state.blogHeroImage.url} alt='featured' className={classes.heroImage}/>
+            </div>
+            : null
+          }
+          {/* { this.props.displayedNote !== 'new' && this.state.blogHeroImage.url !== '' ? */}
+            {/* <div>there's featured image</div> : 
+            <div className={classes.draftInputWrapper}>
+              <div className={classes.draftInput}>{'Hero Image Url:' + this.state.blogHeroImage.url}</div>
+            </div> */}
+          {/* } */}
+          <div className={classes.draftInputWrapper}>
+            <textarea 
+            placeholder="Description" 
+            name="description" 
+            className={classes.draftInput}
+            value={this.state.description} 
+            onChange={this.captureDescription}
+            />
+          </div>
         </div>
         <div className={classes.toolbar}>
             <button id="link_url" onClick = {this.isAddingOrUpdatingLink} className={classes.styleButton}>
-              {/* <i className="material-icons">attach_file</i> */}
               Li
             </button>
             <button /* onClick={this.onAddImage} */ onClick={this.uploadImageHandler} className={classes.styleButton}>
               {/* <i className="material-icons">photo</i> */}
               Im
           </button>
-            <InlineStyles 
-            editorState={this.state.editorState} 
-            onToggle={this.toggleInlineStyle}
-            />
-            <BlockStyleControls
-            editorState={this.state.editorState}
-            onToggle={this.toggleBlockType}
-            />
+          <InlineStyles 
+          editorState={this.state.editorState} 
+          onToggle={this.toggleInlineStyle}
+          />
+          <BlockStyleControls
+          editorState={this.state.editorState}
+          onToggle={this.toggleBlockType}
+          />
         </div>  
         <div className={classes.editors}>
           <Editor
@@ -317,14 +436,19 @@ class PageContainer extends Component {
 
 const mapStateToProps = state => ({
   uploadedBlogImage: state.blog.uploadedBlogImage,
-  drafts: state.blog.allDrafts
+  drafts: state.blog.allDrafts,
+  createBlogDraftError: state.blog.createBlogDraftError,
+  createBlogDraftLoading: state.blog.createBlogDraftLoading,
+  updateBlogDraftError: state.blog.updateBlogDraftError,
+  updateBlogDraftLoading: state.blog.updateBlogDraftLoading,
+  // blogHeroImageUrl: state.blog.blogHeroImageUrl
 });
 
 const mapDispatchToProps = (dispatch) => {
   //   return bindActionCreators(Actions, dispatch);
       return {
-          onCreateBlogDraft: ( title, content, htmlContent, allDrafts ) => dispatch(actions.createBlogDraft( title, content, htmlContent, allDrafts )),
-          onUpdateBlogDraft: ( draftId, title, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, content, htmlContent, allDrafts )), 
+          onCreateBlogDraft: ( title, heroImage, description, content, htmlContent, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, description, content, htmlContent, allDrafts )),
+          onUpdateBlogDraft: ( draftId, title, heroImage, description, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, heroImage, description, content, htmlContent, allDrafts )), 
       }
   }
 

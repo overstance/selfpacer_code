@@ -37,9 +37,7 @@ class CreateBlogDrafts extends Component {
 		let target_id = event.target.id
 		let selected = ""
 		if (target_id !== "new") {
-			selected =  this.props.drafts.find(draft => draft._id === target_id)
-            // selected = this.props.drafts.filter((draft => ( draft._id === target_id)))
-            // console.log(selected, target_id);
+			selected =  this.props.drafts.find(draft => draft._id === target_id);
 		} else {
 			selected = "new"
 		}

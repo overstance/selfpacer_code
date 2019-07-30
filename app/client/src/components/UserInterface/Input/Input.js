@@ -17,6 +17,7 @@ const input = (props) => {
                 className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 value={props.value}
+                placeholder={props.placeholder}
                 name={props.name}
                 onChange={props.changed} />;
             break;
@@ -24,6 +25,7 @@ const input = (props) => {
             inputElement = <textarea
                 className={inputClasses.join(' ')}
                 {...props.elementConfig}
+                placeholder={props.placeholder}
                 value={props.value}
                 onChange={props.changed} />;
             break;
@@ -32,6 +34,7 @@ const input = (props) => {
                 <select
                     className={inputClasses.join(' ')}
                     value={props.value}
+                    placeholder={props.placeholder}
                     onChange={props.changed}>
                     {props.elementConfig.options.map((option, i) => (
                         <option key={i} value={option.value}>

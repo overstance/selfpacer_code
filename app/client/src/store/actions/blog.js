@@ -222,17 +222,17 @@ export const createBlogDraftFail = (error) => {
     }
 }
 
-export const createBlogDraft = (title, content, htmlContent, allDrafts) => async dispatch => {
+export const createBlogDraft = (title, heroImage, description, content, htmlContent, allDrafts) => async dispatch => {
     dispatch(createBlogDraftStart());
     // console.log(htmlContent);
-    const res = await axios.post('/api/create_blog_draft', { title: title, content: content, htmlContent: htmlContent});
+    const res = await axios.post('/api/create_blog_draft', { title: title, heroImage: heroImage, description: description, content: content, htmlContent: htmlContent});
     // console.log(res.data.post);
     if (res.data.newDraft) {
         // console.log(res.data.newDraft);
         let newDraft = res.data.newDraft;
         let updatedDrafts = [newDraft, ...allDrafts];
         dispatch(createBlogDraftSuccess(updatedDrafts));
-        // console.log(updatedDrafts);
+        console.log(updatedDrafts);
     } else if (res.data.error){
         dispatch(createBlogDraftFail(res.data.error));
     }
@@ -260,10 +260,10 @@ export const updateBlogDraftFail = (error) => {
     }
 }
 
-export const updateBlogDraft = (draftId, title, content, htmlContent, allDrafts) => async dispatch => {
+export const updateBlogDraft = (draftId, title, heroImage, description, content, htmlContent, allDrafts) => async dispatch => {
     dispatch(updateBlogDraftStart());
     
-    const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, content: content, htmlContent: htmlContent});
+    const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, heroImage: heroImage, description: description, content: content, htmlContent: htmlContent});
     // console.log(res.data);
     if (res.data.updatedDraft._id === draftId) {
         console.log(res.data.updatedDraft);

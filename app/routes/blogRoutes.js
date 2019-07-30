@@ -30,6 +30,8 @@ module.exports = app => {
   app.post('/api/create_blog_draft', (req, res) => {
     const newBlogDraft = {
       title: req.body.title,
+      featuredImage: req.body.heroImage,
+      description: req.body.description,
       content: req.body.content,
       htmlContent: req.body.htmlContent,
       createdOn: Date.now(),
@@ -50,6 +52,8 @@ module.exports = app => {
       req.body.draftId,
       {
         title: req.body.title,
+        featuredImage: req.body.heroImage,
+        description: req.body.description,
         content: req.body.content,
         htmlContent: req.body.htmlContent,
         updatedOn: Date.now()

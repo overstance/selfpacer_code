@@ -21,9 +21,12 @@ class DraftListContainer extends Component {
         if (this.props.drafts.length > 0) {
             return(
                 <div className={classes.draftListContainer}>
-                    <span className={classes.listsHeader}>
-                        All Drafts <button onClick={this.props.selectDraft} id="new"> + </button>
-                    </span>
+                    <div className={classes.listsHeader}>
+                        <div>
+                            <span>All Drafts</span>
+                            <span className={classes.addNewButton} onClick={this.props.selectDraft} id="new"/>
+                        </div>    
+                    </div>
 
                     <div className={classes.draftList}>
                         {this.listAllDrafts()}
@@ -32,7 +35,11 @@ class DraftListContainer extends Component {
             )
         } else {
             return (
-                <div>No drafts Saved Yet</div>
+                <div className={classes.draftListContainer}>
+                    <div className={classes.listsHeader}>
+                        <div>No drafts Saved Yet</div>    
+                    </div>
+                </div>    
             )
         }}
     }
