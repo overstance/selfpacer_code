@@ -5,7 +5,10 @@ export const mediaBlockRenderer = (block) => {
   if (block.getType() === 'atomic') {
     return {
       component: Media,
-      editable: false
+      editable: false,
+      /* props: {
+        imageBlockSelected: imageBlockSelected
+      } */
     };
   }
 
@@ -18,23 +21,12 @@ const Audio = (props) => {
 };
 
 const Image = (props) => {
-  /* if (!!props.src) {
-    return <img alt="embedded media" src={props.src} />;
-  } else if (!!props.src && !!props.source) {
-    let element =
-    <figure>
-      <img alt="embedded media" src={props.src} />
-      <figcaption>{props.source}</figcaption>
-    </figure>
-    return element;
-  } */
-  // console.log({props});
   if (!!props.src && !!props.source && !!props.caption) {
     let element =
     <figure>
       <img alt="embedded media" src={props.src} />
       <figcaption>{props.source}</figcaption>
-      <figcaption>{props.caption}</figcaption>
+      <div>{props.caption}</div>
     </figure>
     return element;
   } else if (!!props.src && !!props.source) {
@@ -48,7 +40,7 @@ const Image = (props) => {
     let element =
     <figure>
       <img alt="embedded media" src={props.src} />
-      <figcaption>{props.caption}</figcaption>
+      <div>{props.caption}</div>
     </figure>
     return element;
   } else if (!!props.src) {
@@ -58,30 +50,34 @@ const Image = (props) => {
 };
 
 const Video = (props) => {
-  // return <iframe controls src={props.src} />;
-
-  // note: requires embed url from embed code
   return <iframe title="embedded media" src={props.src} frameborder="0" allow="autoplay; encrypted-media"></iframe>
 };
 
-const Media = (props) => {
-  const entity = props.contentState.getEntity(
-    props.block.getEntityAt(0)
-  );
-  const {src} = entity.getData();
-  const {source} = entity.getData();
-  const {caption} = entity.getData();
-  const type = entity.getType();
+class Media extends React.Component {
 
-  let media;
-  if (type === 'audio') {
-    media = <Audio src={src} />;
-  } else if (type === 'image') {
-    media = <Image src={src} source={source} caption={caption}/>;
-  } else if (type === 'video') {
-    media = <Video src={src} />;
+  render() {
+    const {block, contentState} = this.props;
+    // const {imageBlockSelected} = this.props.blockProps;
+    const type = contentState.getEntity(block.getEntityAt(0)).getType();
+    const data = contentState.getEntity(block.getEntityAt(0)).getData();
+    const src = data.src;
+    const source = data.source;
+    const caption = data.caption;
+    // const publicId = data.publicId;
+
+    let media;
+    if (type === 'audio') {
+      media = <Audio src={src} />;
+    } else if (type === 'image') {
+      media = 
+      <Image 
+        src={src} source={source} 
+        caption={caption} 
+      />
+      
+    } else if (type === 'video') {
+      media = <Video src={src} />;
+    }
+    return media;
   }
-
-
-  return media;
 };

@@ -28,9 +28,12 @@ class PageContainer extends Component {
       description: '',
       blogHeroImage: {
         url: '',
+        publicId: '',
         source: '',
-        caption: ''
+        caption: '',
+        id: ''
       },
+      fillError: null,
       uploadingHeroImage: false
     };
 
@@ -56,8 +59,10 @@ class PageContainer extends Component {
         noteTitle: "",
         blogHeroImage: {
           url: '',
+          publicId: '',
           source: '',
-          caption: ''
+          caption: '',
+          id: ''
         },
         description: '',
         editorState: EditorState.createEmpty(this.decorator())
@@ -84,8 +89,10 @@ class PageContainer extends Component {
           noteTitle: "",
           blogHeroImage: {
             url: '',
+            publicId: '',
             source: '',
-            caption: ''
+            caption: '',
+            id: ''
           },
           description: '',
           editorState: EditorState.createEmpty()
@@ -97,7 +104,8 @@ class PageContainer extends Component {
 
   onChange = (editorState) => {
     this.setState({
-      editorState
+      editorState,
+      fillError: null
     })
   }
 
@@ -200,25 +208,27 @@ class PageContainer extends Component {
 
   onAddImage = (e) => {
     e.preventDefault();
-    console.log(this.state.uploadingHeroImage);
+    // console.log(this.state.uploadingHeroImage);
     if (this.state.uploadingHeroImage) {
       this.setState({
         blogHeroImage: {
           url: this.props.uploadedBlogImage.meta.secure_url,
+          publicId: this.props.uploadedBlogImage.meta.public_id,
           source: this.props.uploadedBlogImage.source,
           caption: this.props.uploadedBlogImage.caption,
+          id: this.props.uploadedBlogImage._id
         },
         showUploadModal: false,
         uploadingHeroImage: false
       });
     } else {
       const editorState = this.state.editorState;
-      // const urlValue = window.prompt('Paste Image Link');
       const urlValue = this.props.uploadedBlogImage.meta.secure_url;
+      const publicIdValue = this.props.uploadedBlogImage.meta.public_id;
       const sourceValue = this.props.uploadedBlogImage.source;
       const captionValue = this.props.uploadedBlogImage.caption;
       const contentState = editorState.getCurrentContent();
-      const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', {src: urlValue, source: sourceValue, caption: captionValue});
+      const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', {src: urlValue, source: sourceValue, publicId: publicIdValue, caption: captionValue});
       const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
       const newEditorState = EditorState.set(editorState, {currentContent: contentStateWithEntity}, 'create-entity');
       this.setState({
@@ -237,7 +247,7 @@ class PageContainer extends Component {
   }
 
   uploadHeroImage = () => {
-    this.setState({ showUploadModal: true, uploadingHeroImage: true}, () => { console.log(this.state.uploadingHeroImage)});
+    this.setState({ showUploadModal: true, uploadingHeroImage: true});
   }
 
   uploadModalCloseHandler = () => {
@@ -248,23 +258,17 @@ class PageContainer extends Component {
     event.preventDefault()
     let value = event.target.value
     this.setState({
-      noteTitle: value
+      noteTitle: value,
+      fillError: null
     })
   }
-
-  /* captureblogHeroImage = (event) => {
-    event.preventDefault()
-    let value = event.target.value
-    this.setState({
-      blogHeroImage: value
-    })
-  } */
 
   captureDescription = (event) => {
     event.preventDefault()
     let value = event.target.value
     this.setState({
-      description: value
+      description: value,
+      fillError: null
     })
   }
 
@@ -287,9 +291,9 @@ class PageContainer extends Component {
             } else if (source && !caption) {
               return `<figure><img src="${src}"/><figcaption>${source}</figcaption>`;
             } else if (!source && caption) {
-              return `<figure><img src="${src}"/><figcaption>${caption}</figcaption></figure>`;
+              return `<figure><img src="${src}"/><div>${caption}</div></figure>`;
             } else {
-              return `<figure><img src="${src}"/><figcaption>${source}</figcaption><figcaption>${caption}</figcaption></figure>`;
+              return `<figure><img src="${src}"/><figcaption>${source}</figcaption><div>${caption}</div></figure>`;
             }
           }
         },
@@ -302,8 +306,8 @@ class PageContainer extends Component {
       description: this.state.description, 
       content: convertToRaw(contentState)
     }
-    if (this.state.noteTitle === "" || (note.content.blocks.length <= 1 && note.content.blocks[0].depth === 0 && note.content.blocks[0].text === "")) {
-      alert("Note cannot be saved if title or content is blank")
+    if (this.state.noteTitle === "" || this.state.description === '' || (note.content.blocks.length <= 1 && note.content.blocks[0].depth === 0 && note.content.blocks[0].text === "")) {
+      this.setState({fillError: 'draft is not completely filled'});
     } else {
       note["content"] = JSON.stringify(note.content);
       if ( displayedNote === 'new') {
@@ -311,11 +315,21 @@ class PageContainer extends Component {
       } else {
         this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.heroImage, note.description, note.content, htmlContent, this.props.drafts);
       }
-      /* this.setState({
-        noteTitle: "",
-        editorState: EditorState.createEmpty()
-      }, () => displayedNote === "new" ? this.props.onCreateBlogDraft(note.title, note.content, htmlContent, this.props.drafts) : this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.content, htmlContent, this.props.drafts)) */
     }
+  }
+
+  deleteHeroImage = () => {
+    // console.log(this.state.blogHeroImage);
+    this.props.onDeleteHeroImage(this.state.blogHeroImage.publicId, this.state.blogHeroImage.id);
+    this.setState({
+      blogHeroImage: {
+        url: '',
+        publicId: '',
+        source: '',
+        caption: '',
+        id: ''
+      }
+    });
   }
 
   render() {
@@ -328,7 +342,6 @@ class PageContainer extends Component {
         saveButtonText = 'Saving...';
     }
 
-    // let heroImageproperties = this.state.blogHeroImage;
     return (
       <div className={classes.editorContainer}>
         <div className={classes.editorControls}>
@@ -342,6 +355,9 @@ class PageContainer extends Component {
             <button> Delete </button>
           </div>
         </div>
+        { this.state.fillError ? <div className={classes.fillError}>{this.state.fillError}</div> : null}
+        { this.props.createBlogDraftError ? <div className={classes.fillError}>{this.props.createBlogDraftError}</div> : null}
+        { this.props.updateBlogDraftError ? <div className={classes.fillError}>{this.props.updateBlogDraftError}</div> : null}
         <div className={classes.editorHeader}>
           { this.props.displayedNote !== 'new' && this.state.blogHeroImage.url !== '' ?
             <div className={classes.draftInputWrapper}>
@@ -371,17 +387,20 @@ class PageContainer extends Component {
             </div> 
           }
           { this.state.blogHeroImage.url !== '' ?
-            <div /* className={classes.draftInputWrapper} */>
+            <figure>
               <img src={this.state.blogHeroImage.url} alt='featured' className={classes.heroImage}/>
-            </div>
+              {this.state.blogHeroImage.source && this.state.blogHeroImage.source !== '' ? 
+                <figcaption>{this.state.blogHeroImage.source}</figcaption> : null
+              }
+              {this.state.blogHeroImage.caption && this.state.blogHeroImage.caption !== '' ? 
+                <div>{this.state.blogHeroImage.caption}</div> : null
+              }
+              <div className={classes.deleteHeroImage}>
+                <button onClick={this.deleteHeroImage}>Delete</button>
+              </div>  
+            </figure>
             : null
           }
-          {/* { this.props.displayedNote !== 'new' && this.state.blogHeroImage.url !== '' ? */}
-            {/* <div>there's featured image</div> : 
-            <div className={classes.draftInputWrapper}>
-              <div className={classes.draftInput}>{'Hero Image Url:' + this.state.blogHeroImage.url}</div>
-            </div> */}
-          {/* } */}
           <div className={classes.draftInputWrapper}>
             <textarea 
             placeholder="Description" 
@@ -393,12 +412,12 @@ class PageContainer extends Component {
           </div>
         </div>
         <div className={classes.toolbar}>
-            <button id="link_url" onClick = {this.isAddingOrUpdatingLink} className={classes.styleButton}>
-              Li
-            </button>
-            <button /* onClick={this.onAddImage} */ onClick={this.uploadImageHandler} className={classes.styleButton}>
-              {/* <i className="material-icons">photo</i> */}
-              Im
+          <button id="link_url" onClick = {this.isAddingOrUpdatingLink} className={classes.styleButton}>
+            Li
+          </button>
+          <button /* onClick={this.onAddImage} */ onClick={this.uploadImageHandler} className={classes.styleButton}>
+            {/* <i className="material-icons">photo</i> */}
+            Im
           </button>
           <InlineStyles 
           editorState={this.state.editorState} 
@@ -412,6 +431,7 @@ class PageContainer extends Component {
         <div className={classes.editors}>
           <Editor
             editorState={this.state.editorState}
+            imageBlockSelected={this.imageBlockSelected}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             plugins={this.plugins}
@@ -449,6 +469,7 @@ const mapDispatchToProps = (dispatch) => {
       return {
           onCreateBlogDraft: ( title, heroImage, description, content, htmlContent, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, description, content, htmlContent, allDrafts )),
           onUpdateBlogDraft: ( draftId, title, heroImage, description, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, heroImage, description, content, htmlContent, allDrafts )), 
+          onDeleteHeroImage: (imagePublicId, imageId) => dispatch(actions.deleteHeroImage(imagePublicId, imageId))
       }
   }
 

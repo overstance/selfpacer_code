@@ -30,8 +30,8 @@ const blogDraftSchema = new Schema({
     type: Array
   },
   status: {
-    type: Boolean,
-    default: false
+    type: String,
+    default: 'draft'
   },
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   updatedOn: {

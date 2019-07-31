@@ -136,11 +136,12 @@
   border: none;
   color: #ff595a;
   margin: 0.35em;
-  max-width: 35px;
-  min-width: 30px;
+  /* max-width: 35px; */
+  /* min-width: 30px; */
   /* font-family: 'IBM Plex Sans', sans-serif; */
   font-size: 13px;
   height: 2.25em;
+  cursor: pointer;
 }
 
 .styleButtonActive {
@@ -194,6 +195,24 @@
   /* color: var(--blue); */
 }
 
+.deleteHeroImage button {
+  padding: 0 10px;
+  width: 100%;
+  border-radius: 10px;
+  height: 30px;
+  margin: 0 5px;
+  border-style: none;
+  cursor: pointer;
+  font-weight: 700;
+  background: var(--red);
+  color: var(--white);
+}
+
+.deleteHeroImage {
+  display: inline-flex;
+  padding: 5px 0;
+}
+
 .saveButton, .publishButton, .deleteButton {
   display: inline-flex;
 }
@@ -237,6 +256,32 @@
 
 .heroImage {
   width: 100%
+}
+
+
+.fillError {
+  color: var(--red);
+  font-size: small;
+  font-weight: bold;
+  text-align: center;
+}
+
+.editors figure {
+  margin: 0;
+}
+
+.editorHeader figure {
+  margin: 0 0 5px;
+}
+
+.editorHeader figcaption, .editors figcaption {
+  font-size: small;
+  font-family: 'Comfortaa', cursive;
+}
+
+.editorHeader figure div, .editors figure div {
+  font-size: small;
+  font-family: 'Comfortaa', cursive;
 }
 
 

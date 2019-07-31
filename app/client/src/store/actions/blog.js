@@ -266,7 +266,7 @@ export const updateBlogDraft = (draftId, title, heroImage, description, content,
     const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, heroImage: heroImage, description: description, content: content, htmlContent: htmlContent});
     // console.log(res.data);
     if (res.data.updatedDraft._id === draftId) {
-        console.log(res.data.updatedDraft);
+        // console.log(res.data.updatedDraft);
         const index = allDrafts.findIndex(draft => draft._id === res.data.updatedDraft._id);
         let updatedDrafts;
 
@@ -279,5 +279,11 @@ export const updateBlogDraft = (draftId, title, heroImage, description, content,
     } else if (res.data.error){
         dispatch(updateBlogDraftFail(res.data.error));
     }
+}
+
+export const deleteHeroImage = (imagePublicId, imageId) => async dispatch => {
+    // dispatch(updateBlogDraftStart());
+    
+    /* const res = await */ axios.delete('/api/delete_blog_image', {params: { imagePublicId: imagePublicId, imageId: imageId }});
 }
 

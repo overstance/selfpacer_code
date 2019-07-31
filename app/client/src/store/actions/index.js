@@ -130,7 +130,8 @@ export {
     clearUploadBlogImageState,
     loadAllBlogDrafts,
     createBlogDraft,
-    updateBlogDraft
+    updateBlogDraft,
+    deleteHeroImage
 } from './blog'
 
 

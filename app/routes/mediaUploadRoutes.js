@@ -107,4 +107,12 @@ module.exports = app => {
       }
     );
   });
+
+  app.delete('/api/delete_blog_image', (req, res) => {
+    Image.findByIdAndDelete(req.query.imageId, err => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
 };
