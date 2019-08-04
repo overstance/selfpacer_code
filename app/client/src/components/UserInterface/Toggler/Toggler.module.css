@@ -87,6 +87,20 @@
     transition: ease .3s;
 }
 
+/* .Toggle */
+
+.ToggleButtonLink {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-left: 12px solid var(--blue);
+    border-bottom: 6px solid transparent;
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 26px;
+}
+
 .Toggle {
   transition: ease .3s;
   top: 2px;

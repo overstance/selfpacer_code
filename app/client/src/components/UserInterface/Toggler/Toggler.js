@@ -21,8 +21,9 @@ const toggler = (props) => {
                         <div className={classes.Title}>{props.subheadTitle}</div>
                     </div>
                     <Link to={props.link} /* onClick={props.toggleHandler} */ className={classes.ToggleButtonContainer}>
-                        <div className={toggleBGClasses.join(' ')}>
-                            <div className={toggleButtonClasses.join(' ')}></div>
+                        <div /* className={toggleBGClasses.join(' ')} */ className={classes.ToggleButtonBG}>
+                            {/* <div className={toggleButtonClasses.join(' ')}></div> */}
+                            <div className={classes.ToggleButtonLink}></div>
                         </div>
                     </Link>
                 </div> :

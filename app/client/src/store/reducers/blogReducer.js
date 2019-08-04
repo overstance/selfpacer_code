@@ -29,12 +29,19 @@ const initialState = {
     updateBlogDraftError: null,
     updateBlogDraftLoading: false,
 
-    // newBlogHeroImageUrl: ''
+    editBlogCategoriesSuccessInfo: null,
+    editBlogCategoriesLoading: false,
+    editBlogCategoriesError: null,
+    blogCategoriesArray: [],
+    blogCategories: '',
+    categoriesId: '',
 
-    /* uploadWebBlogImageLoading: false,
-    uploadWebBlogImageError: null,
-    uploadWebBlogImageSuccessInfo: null,
-    uploadedWebBlogImage: {} */
+    editBlogTagsSuccessInfo: null,
+    editBlogTagsLoading: false,
+    editBlogTagsError: null,
+    blogTagsArray: [],
+    blogTags: '',
+    tagsId: '',
 }
 
 const fetchBlogPostsStart = ( state, action ) => {
@@ -185,6 +192,85 @@ const clearUploadBlogImageState = ( state, action ) => {
     })
 }
 
+// initialize blog categories
+
+const initializeCategoriesSuccess = ( state, action ) => {
+    return updateObject( state, {
+        blogCategoriesArray: action.categoriesArray,
+        blogCategories: action.categoriesToString,
+        categoriesId: action.id,
+    })
+}
+
+// initialize blog tags
+
+const initializeTagsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        blogTagsArray: action.tagsArray,
+        blogTags: action.tagsToString,
+        tagsId: action.id,
+    })
+}
+
+// edit Blog categories
+
+const editBlogCategoriesStart = ( state, action ) => {
+    return updateObject( state, {
+        editBlogCategoriesLoading: true,
+        editBlogCategoriesError: null
+    })
+}
+
+const editBlogCategoriesSuccess = ( state, action ) => {
+    return updateObject( state, {
+        blogCategoriesArray: action.categoriesArray,
+        blogCategories: action.categoriesToString,
+        editBlogCategoriesSuccessInfo: action.successMessage,
+        editBlogCategoriesLoading: false
+    })
+}
+
+const editBlogCategoriesFail = ( state, action ) => {
+    return updateObject( state, {
+        editBlogCategoriesLoading: false,
+        editBlogCategoriesError: action.error
+    })
+}
+
+// edit Blog tags
+
+const editBlogTagsStart = ( state, action ) => {
+    return updateObject( state, {
+        editBlogTagsLoading: true,
+        editBlogTagsError: null
+    })
+}
+
+const editBlogTagsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        blogTagsArray: action.tagsArray,
+        blogTags: action.tagsToString,
+        editBlogTagsSuccessInfo: action.successMessage,
+        editBlogTagsLoading: false
+    })
+}
+
+const editBlogTagsFail = ( state, action ) => {
+    return updateObject( state, {
+        editBlogTagsLoading: false,
+        editBlogTagsError: action.error
+    })
+}
+
+const clearEditBlogFiltersInfo = ( state, action ) => {
+    return updateObject( state, {
+        editBlogCategoriesSuccessInfo: null,
+        editBlogCategoriesError: null,
+        editBlogTagsSuccessInfo: null,
+        editBlogTagsError: null,
+    })
+}
+
 const reducer = ( state = initialState, action ) => {
     switch (action.type) {
         case actionTypes.FETCH_BLOG_POSTS_START: return fetchBlogPostsStart(state, action);
@@ -212,6 +298,19 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.UPDATE_BLOG_DRAFT_FAIL: return updateBlogDraftFail(state, action);
 
         case actionTypes.CLEAR_UPLOAD_BLOG_IMAGE_STATE: return clearUploadBlogImageState(state, action);
+
+        case actionTypes.INITIALIZE_BLOG_CATEGORIES_SUCCESS: return initializeCategoriesSuccess(state, action);
+        case actionTypes.INITIALIZE_BLOG_TAGS_SUCCESS: return initializeTagsSuccess(state, action);
+
+        case actionTypes.EDIT_BLOG_CATEGORIES_START: return editBlogCategoriesStart(state, action);
+        case actionTypes.EDIT_BLOG_CATEGORIES_SUCCESS: return editBlogCategoriesSuccess(state, action);
+        case actionTypes.EDIT_BLOG_CATEGORIES_FAIL: return editBlogCategoriesFail(state, action);
+
+        case actionTypes.EDIT_BLOG_TAGS_START: return editBlogTagsStart(state, action);
+        case actionTypes.EDIT_BLOG_TAGS_SUCCESS: return editBlogTagsSuccess(state, action);
+        case actionTypes.EDIT_BLOG_TAGS_FAIL: return editBlogTagsFail(state, action);
+
+        case actionTypes.CLEAR_EDIT_BLOG_FILTERS_INFO: return clearEditBlogFiltersInfo(state, action);
 
         default: return state;
     }

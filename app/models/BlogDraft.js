@@ -26,7 +26,7 @@ const blogDraftSchema = new Schema({
   category: {
     type: String
   },
-  Tags: {
+  tags: {
     type: Array
   },
   status: {
@@ -39,7 +39,12 @@ const blogDraftSchema = new Schema({
   },
   publishedOn: {
     type: Date
-  }
+  },
+  publishYear: String,
+  publishMonth: String,
+  publishDay: String,
+  displayDate: String,
+  slug: String
 });
 
 module.exports = mongoose.model('blogDrafts', blogDraftSchema);

@@ -287,3 +287,174 @@ export const deleteHeroImage = (imagePublicId, imageId) => async dispatch => {
     /* const res = await */ axios.delete('/api/delete_blog_image', {params: { imagePublicId: imagePublicId, imageId: imageId }});
 }
 
+// initialize blog Categories
+
+export const initializeCategoriesSuccess = (categoriesArray, categoriesToString, id) => {
+    return {
+        type: actionTypes.INITIALIZE_BLOG_CATEGORIES_SUCCESS,
+        categoriesArray: categoriesArray,
+        categoriesToString: categoriesToString,
+        id: id
+    }
+}
+
+export const initializeCategories = () => async dispatch => {
+    
+    const res = await axios.get('/api/initialize_blog_categories');
+
+    if(res.data.categories) {
+        let categoriesArray = res.data.categories.categories;
+        let categoriesToString = categoriesArray.join();
+        let id = res.data.categories._id;
+        dispatch(initializeCategoriesSuccess(categoriesArray, categoriesToString, id))
+        // console.log(categoriesArray, categoriesToString, id);
+    }
+}
+
+// Initialize blog tags
+
+export const initializeTagsSuccess = (tagsArray, tagsToString, id) => {
+    return {
+        type: actionTypes.INITIALIZE_BLOG_TAGS_SUCCESS,
+        tagsArray: tagsArray,
+        tagsToString: tagsToString,
+        id: id
+    }
+}
+
+export const initializeTags = () => async dispatch => {
+    // dispatch(initializeCategorySuccessful());
+    
+    const res = await axios.get('/api/initialize_blog_tags');
+
+    if(res.data.tags) {
+        let tagsArray = res.data.tags.tags;
+        let tagsToString = tagsArray.join();
+        let id = res.data.tags._id;
+        dispatch(initializeTagsSuccess(tagsArray, tagsToString, id))
+        // console.log(tagsArray, tagsToString, id);
+    }
+}
+
+// Edit blog category
+
+export const editBlogCategoriesStart = () => {
+    return {
+        type: actionTypes.EDIT_BLOG_CATEGORIES_START
+    }
+}
+
+export const editBlogCategoriesSuccess = (categoriesArray, categoriesToString, successMessage) => {
+    return {
+        type: actionTypes.EDIT_BLOG_CATEGORIES_SUCCESS,
+        categoriesArray: categoriesArray,
+        categoriesToString: categoriesToString,
+        successMessage: successMessage
+    }
+}
+
+export const editBlogCategoriesFail = (error) => {
+    return {
+        type: actionTypes.EDIT_BLOG_CATEGORIES_FAIL,
+        error: error
+    }
+}
+
+export const editBlogCategories = (blogCategories, id) => async dispatch => {
+    dispatch(editBlogCategoriesStart());
+
+    const categoriesArray = blogCategories.split(',');
+
+    const res = await axios.put('/api/edit_blog_categories', { categoriesArray: categoriesArray, id: id});
+    console.log(res.data);
+    if (res.data.categories/* ._id === id */) {
+        let categoriesArray = res.data.categories.categories
+        let categoriesToString = categoriesArray.join();
+        let successMessage = 'categories updated'
+
+        dispatch(editBlogCategoriesSuccess(categoriesArray, categoriesToString, successMessage))
+    } else if (res.data.error) {
+        dispatch(editBlogCategoriesFail(res.data.error));
+    }  
+}
+
+// Edit blog tags
+
+export const editBlogTagsStart = () => {
+    return {
+        type: actionTypes.EDIT_BLOG_TAGS_START
+    }
+}
+
+export const editBlogTagsSuccess = (tagsArray, tagsToString, successMessage) => {
+    return {
+        type: actionTypes.EDIT_BLOG_TAGS_SUCCESS,
+        tagsArray: tagsArray,
+        tagsToString: tagsToString,
+        successMessage: successMessage
+    }
+}
+
+export const editBlogTagsFail = (error) => {
+    return {
+        type: actionTypes.EDIT_BLOG_TAGS_FAIL,
+        error: error
+    }
+}
+
+export const editBlogTags = (blogTags, id) => async dispatch => {
+    dispatch(editBlogTagsStart());
+
+    const tagsArray = blogTags.split(',');
+
+    const res = await axios.put('/api/edit_blog_tags', { tagsArray: tagsArray, id: id});
+    console.log(res.data);
+    if (res.data.tags/* ._id === id */) {
+        let tagsArray = res.data.tags.tags
+        let tagsToString = tagsArray.join();
+        let successMessage = 'categories updated'
+
+        dispatch(editBlogTagsSuccess(tagsArray, tagsToString, successMessage))
+    } else if (res.data.error) {
+        dispatch(editBlogTagsFail(res.data.error));
+    }  
+}
+
+//  clear edit blog filters messages
+
+export const clearEditBlogFiltersInfo = () => {
+    return {
+        type: actionTypes.CLEAR_EDIT_BLOG_FILTERS_INFO
+    }
+}
+
+// fetch Blog categories
+
+export const fetchBlogCategories = () => async dispatch => {
+
+    const res = await axios.get('/api/fetch_blog_categories');
+    // console.log(res.data);
+    if (res.data.categories) {
+        let categoriesArray = res.data.categories.categories
+        let categoriesToString = categoriesArray.join();
+        let categoriesId = res.data.categories._id;
+
+        dispatch(initializeCategoriesSuccess(categoriesArray, categoriesToString, categoriesId))
+    } 
+}
+
+// fetch Blog tags
+
+export const fetchBlogTags = () => async dispatch => {
+
+    const res = await axios.get('/api/fetch_blog_tags');
+    // console.log(res.data);
+    if (res.data.tags) {
+        let tagsArray = res.data.tags.tags
+        let tagsToString = tagsArray.join();
+        let tagsId = res.data.tags._id
+
+        dispatch(initializeTagsSuccess(tagsArray, tagsToString, tagsId))
+    } 
+}
+

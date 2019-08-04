@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import RichEditor from '../../components/RichEditor/RichEditor';
+import RichEditor from '../../components/BlogEditor/BlogEditor';
 import DraftLists from '../../components/blogDraftLists/ListsContainer';
 import { connect } from 'react-redux';
-import classes from './CreateBlogDrafts.module.css';
+import classes from './ManageBlogDrafts.module.css';
 // import * as actions from '../../store/actions/index';
 
-class CreateBlogDrafts extends Component {
+class ManageBlogDrafts extends Component {
     constructor(props) {
 		super(props)
 
@@ -23,14 +23,14 @@ class CreateBlogDrafts extends Component {
 		})
 	}
 
-	componentDidUpdate(prevProps, prevState) {
+	/* componentDidUpdate(prevProps, prevState) {
 
 		if (prevProps.drafts.length !== this.props.drafts.length) {
 			this.setState({
 				displayedNote: "new"
 			})
 		}
-	}
+	} */
 
 	selectDraft = (event) => {
 
@@ -77,4 +77,4 @@ const mapStateToProps = state => {
     }
 } */
 
-export default connect(mapStateToProps, /* mapDispatchToProps */)(CreateBlogDrafts)
+export default connect(mapStateToProps, /* mapDispatchToProps */)(ManageBlogDrafts)

@@ -17,12 +17,19 @@ import DeleteSubject from '../../components/manageSubjects/DeleteSubject';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
+import InitializedBlogCategories from '../../components/manageBlogFilters/InitializeCategories';
+import InitializeBlogTags from '../../components/manageBlogFilters/InitializeTags';
+import EditBlogCategories from '../../components/manageBlogFilters/EditCategories';
+import EditBlogTags from '../../components/manageBlogFilters/EditTags';
 
 class Admin extends Component {
 
     componentDidMount() {
         if (this.props.useTypeContext === '0' || this.props.useTypeContext === '1') {
             this.props.history.push('/');
+        } else {
+            this.props.onFetchBlogCategories();
+            this.props.onFetchBlogTags();
         }
     }
 
@@ -37,6 +44,9 @@ class Admin extends Component {
         showManageUsers: false,
         manageUsersToggle: false,
 
+        showManageBlogFilters: false,
+        manageBlogFiltersToggle: false,
+
         showManageYoutubeUpdates: false,
         manageYoutubeUpdatesToggle: false,
 
@@ -49,6 +59,15 @@ class Admin extends Component {
             return {
                 showManageSubjects: !prevState.showManageSubjects,
                 manageSubjectsToggle: !prevState.manageSubjectsToggle
+            };
+        });
+    }
+
+    manageBlogFiltersToggleHandler = () => {
+        this.setState((prevState) => {
+            return {
+                showManageBlogFilters: !prevState.showManageBlogFilters,
+                manageBlogFiltersToggle: !prevState.manageBlogFiltersToggle
             };
         });
     }
@@ -107,10 +126,25 @@ class Admin extends Component {
                     </div>
                     <div className={classes.Subheader}>
                         <Toggler 
-                            subheadTitle="blog drafts"
+                            subheadTitle="manage blog drafts"
                             isLink
                             link='/blog_drafts'
                         />
+                    </div>
+                    <div className={classes.Subheader}>
+                        <Toggler 
+                            toggle={this.state.manageBlogFiltersToggle} 
+                            toggleHandler={this.manageBlogFiltersToggleHandler}
+                            subheadTitle="manage blog filters"
+                        />
+                        { this.state.showManageBlogFilters ? 
+                            <div className={classes.BlockContentItems}>
+                                <InitializedBlogCategories />
+                                <InitializeBlogTags />
+                                <EditBlogCategories />
+                                <EditBlogTags />
+                            </div>
+                        : null }
                     </div>
                     <div className={classes.Subheader}>
                         <Toggler 
@@ -189,7 +223,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onClearAllAdminMessages: () => dispatch(actions.clearAllAdminMessages())
+        onClearAllAdminMessages: () => dispatch(actions.clearAllAdminMessages()),
+        onFetchBlogCategories: () => dispatch(actions.fetchBlogCategories()),
+        onFetchBlogTags: () => dispatch(actions.fetchBlogTags())
     };
 };
 

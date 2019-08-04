@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import classes from '../RichEditor.module.css';
+import classes from '../BlogEditor.module.css';
 
 class HeadingStyleDropdown extends Component {
 

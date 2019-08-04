@@ -131,7 +131,14 @@ export {
     loadAllBlogDrafts,
     createBlogDraft,
     updateBlogDraft,
-    deleteHeroImage
+    deleteHeroImage,
+    editBlogCategories,
+    editBlogTags,
+    initializeCategories,
+    initializeTags,
+    clearEditBlogFiltersInfo,
+    fetchBlogCategories,
+    fetchBlogTags
 } from './blog'
 
 

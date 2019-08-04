@@ -1,5 +1,5 @@
 import React from "react";
-import classes from '../RichEditor.module.css';
+import classes from '../BlogEditor.module.css';
 /* import { EditorState, Editor, RichUtils, AtomicBlockUtils } from "draft-js";
 import {
   styleMap,

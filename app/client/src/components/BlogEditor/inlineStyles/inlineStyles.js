@@ -1,6 +1,6 @@
 import React from "react";
 // import { EditorState, Editor, RichUtils, AtomicBlockUtils } from "draft-js";
-import classes from '../RichEditor.module.css';
+import classes from '../BlogEditor.module.css';
 import StyleButton from "../styleButton/styleButton";
 
 /* const highlightLabel = () => {

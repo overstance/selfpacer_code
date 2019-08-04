@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './RichEditor.module.css';
+import classes from './BlogEditor.module.css';
 import { EditorState, RichUtils, AtomicBlockUtils, convertToRaw, convertFromRaw, CompositeDecorator } from 'draft-js';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -431,7 +431,6 @@ class PageContainer extends Component {
         <div className={classes.editors}>
           <Editor
             editorState={this.state.editorState}
-            imageBlockSelected={this.imageBlockSelected}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             plugins={this.plugins}
