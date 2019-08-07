@@ -222,10 +222,10 @@ export const createBlogDraftFail = (error) => {
     }
 }
 
-export const createBlogDraft = (title, heroImage, description, content, htmlContent, allDrafts) => async dispatch => {
+export const createBlogDraft = (title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts) => async dispatch => {
     dispatch(createBlogDraftStart());
     // console.log(htmlContent);
-    const res = await axios.post('/api/create_blog_draft', { title: title, heroImage: heroImage, description: description, content: content, htmlContent: htmlContent});
+    const res = await axios.post('/api/create_blog_draft', { title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, description: description, content: content, htmlContent: htmlContent});
     // console.log(res.data.post);
     if (res.data.newDraft) {
         // console.log(res.data.newDraft);
@@ -260,10 +260,10 @@ export const updateBlogDraftFail = (error) => {
     }
 }
 
-export const updateBlogDraft = (draftId, title, heroImage, description, content, htmlContent, allDrafts) => async dispatch => {
+export const updateBlogDraft = (draftId, title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts) => async dispatch => {
     dispatch(updateBlogDraftStart());
     
-    const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, heroImage: heroImage, description: description, content: content, htmlContent: htmlContent});
+    const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, description: description, content: content, htmlContent: htmlContent});
     // console.log(res.data);
     if (res.data.updatedDraft._id === draftId) {
         // console.log(res.data.updatedDraft);
@@ -455,6 +455,23 @@ export const fetchBlogTags = () => async dispatch => {
         let tagsId = res.data.tags._id
 
         dispatch(initializeTagsSuccess(tagsArray, tagsToString, tagsId))
+    } 
+}
+
+// fetch authors
+
+export const fetchAuthorsSuccess = (authors) => {
+    return {
+        type: actionTypes.FETCH_AUTHORS_SUCCESS,
+        authors: authors
+    }
+}
+export const fetchAuthors = () => async dispatch => {
+
+    const res = await axios.get('/api/fetch_authors');
+    console.log(res.data);
+    if (res.data.authors) {
+        dispatch(fetchAuthorsSuccess(res.data.authors))
     } 
 }
 

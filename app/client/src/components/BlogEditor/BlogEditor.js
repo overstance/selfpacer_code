@@ -12,6 +12,7 @@ import {InlineStyles} from './inlineStyles/inlineStyles';
 import { styleMap, getBlockStyle, /* BLOCK_TYPES, */ BlockStyleControls } from './blockStyles/blockStyles';
 import {stateToHTML} from 'draft-js-export-html';
 import BlogImageUploadOption from '../UploadBlogImage/UploadOption';
+import TagButton from './tagButton/tagButton';
 // import Button from '../UserInterface/Button/Button';
 // import Spinner from '../UserInterface/Spinner/Spinner';
 // import Input from '../UserInterface/Input/Input';
@@ -26,6 +27,7 @@ class PageContainer extends Component {
       showUploadModal: false,
       noteTitle: '',
       description: '',
+      slug: '',
       blogHeroImage: {
         url: '',
         publicId: '',
@@ -33,7 +35,11 @@ class PageContainer extends Component {
         caption: '',
         id: ''
       },
+      category: '',
+      tags: [],
+      author: '',
       fillError: null,
+      tagDuplicateError: null,
       uploadingHeroImage: false
     };
 
@@ -45,6 +51,9 @@ class PageContainer extends Component {
   }
 
   componentDidMount() {
+    this.props.onFetchBlogCategories();
+    this.props.onFetchBlogTags();
+    this.props.onFetchAuthors();
     let displayedNote = this.props.displayedNote
     if (typeof displayedNote == "object") {
       // let rawContentFromFile = displayedNote
@@ -52,7 +61,11 @@ class PageContainer extends Component {
         editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.displayedNote.content)), this.decorator()),
         noteTitle: displayedNote.title,
         blogHeroImage: displayedNote.featuredImage,
-        description: displayedNote.description
+        description: displayedNote.description,
+        slug: displayedNote.slug,
+        category: displayedNote.category,
+        tags: displayedNote.tags,
+        author: displayedNote.author
       })
     } else {
       this.setState({
@@ -65,6 +78,10 @@ class PageContainer extends Component {
           id: ''
         },
         description: '',
+        slug: '',
+        category: '',
+        tags: [],
+        author: '',
         editorState: EditorState.createEmpty(this.decorator())
       })
     }
@@ -78,11 +95,20 @@ class PageContainer extends Component {
         let persistedTitle = displayedNote.title;
         let persistedHeroImage = displayedNote.featuredImage;
         let persistedDescription = displayedNote.description;
+        let persistedSlug = displayedNote.slug;
+        let persistedCategory = displayedNote.category;
+        let persistedTags = displayedNote.tags;
+        let persistedAuthor = displayedNote.author;
+
         this.setState({
           editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.displayedNote.content))),
           noteTitle: persistedTitle,
           blogHeroImage: persistedHeroImage,
-          description: persistedDescription
+          description: persistedDescription,
+          slug: persistedSlug,
+          category: persistedCategory,
+          tags: persistedTags,
+          author: persistedAuthor
         })
       } else {
         this.setState({
@@ -94,7 +120,11 @@ class PageContainer extends Component {
             caption: '',
             id: ''
           },
+          slug: '',
           description: '',
+          category: '',
+          tags: [],
+          author: '',
           editorState: EditorState.createEmpty()
         })
 
@@ -243,7 +273,7 @@ class PageContainer extends Component {
   focus = () => this.refs.editor.focus();
 
   uploadImageHandler = () => {
-    this.setState({ showUploadModal: true});
+    this.setState({ showUploadModal: true, uploadingHeroImage: false});
   }
 
   uploadHeroImage = () => {
@@ -270,6 +300,50 @@ class PageContainer extends Component {
       description: value,
       fillError: null
     })
+  }
+
+  captureSlug = (event) => {
+    event.preventDefault();
+    let value = event.target.value
+    this.setState({
+      slug: value,
+      fillError: null
+    })
+  }
+
+  captureCategory = (event) => {
+    event.preventDefault();
+    let value = event.target.value;
+    this.setState({
+      category: value,
+      fillError: null
+    })
+  }
+
+  captureTags = (event) => {
+    event.preventDefault();
+    let value = event.target.value;
+    let blogTagsArray = this.state.tags;
+
+    let checkSelected = blogTagsArray.find( tag => tag === value);
+
+    if (checkSelected) {
+      this.setState({ tagDuplicateError: 'tag already selected'});
+    } else if ( value === '' ) {
+      this.setState({ tagDuplicateError: 'please select tag'});
+    } else {
+      blogTagsArray.push(value);
+      this.setState({ tags: blogTagsArray, tagDuplicateError: null }, () => { console.log(this.state.tags)});
+    }
+  }
+
+  captureAuthor = (event) => {
+    event.preventDefault();
+    let value = event.target.value;
+    this.setState({
+      author: value,
+      fillError: null
+    }, () => console.log(this.state.author))
   }
 
   submitEditor = () => {
@@ -304,16 +378,27 @@ class PageContainer extends Component {
       title: this.state.noteTitle,
       heroImage: this.state.blogHeroImage,
       description: this.state.description, 
+      slug: this.state.slug,
+      category: this.state.category,
+      tags: this.state.tags,
+      author: this.state.author,
       content: convertToRaw(contentState)
     }
-    if (this.state.noteTitle === "" || this.state.description === '' || (note.content.blocks.length <= 1 && note.content.blocks[0].depth === 0 && note.content.blocks[0].text === "")) {
-      this.setState({fillError: 'draft is not completely filled'});
+    if(
+        this.state.noteTitle === "" || 
+        this.state.description === '' || 
+        this.state.slug === '' ||
+        this.state.category === '' ||
+        this.state.author === '' || 
+        (note.content.blocks.length <= 1 && note.content.blocks[0].depth === 0 && note.content.blocks[0].text === "")
+      ) {
+      this.setState({fillError: '*draft is not completely filled'});
     } else {
       note["content"] = JSON.stringify(note.content);
       if ( displayedNote === 'new') {
-        this.props.onCreateBlogDraft(note.title, note.heroImage, note.description, note.content, htmlContent, this.props.drafts);
+        this.props.onCreateBlogDraft(note.title, note.heroImage, note.slug, note.category, note.tags, note.author, note.description, note.content, htmlContent, this.props.drafts);
       } else {
-        this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.heroImage, note.description, note.content, htmlContent, this.props.drafts);
+        this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.heroImage, note.slug, note.category, note.tags, note.author, note.description, note.content, htmlContent, this.props.drafts);
       }
     }
   }
@@ -332,6 +417,12 @@ class PageContainer extends Component {
     });
   }
 
+  removeTag = (tag) => {
+    let blogTagsArray = this.state.tags
+    let updatedTags = blogTagsArray.filter( filter => filter !== tag);
+    this.setState({ tags: updatedTags}, () => { console.log(this.state.tags)})
+  }
+
   render() {
     if (!this.props.displayedNote) {
       return <div>Loading...</div>
@@ -340,6 +431,21 @@ class PageContainer extends Component {
     let saveButtonText = 'Save';
     if(this.props.createBlogDraftLoading || this.props.updateBlogDraftLoading) {
         saveButtonText = 'Saving...';
+    }
+
+    let blogTagsArray = this.state.tags;
+    let blogTags;
+
+    if ( blogTagsArray.length === 0) {
+      blogTags = null;
+    } else {
+      blogTags = blogTagsArray.map( (tag, i) => (
+        <TagButton
+        tagLabel={tag}
+        key={i}
+        removeTagClicked={() => this.removeTag(tag)}
+        />
+      ))
     }
 
     return (
@@ -363,7 +469,7 @@ class PageContainer extends Component {
             <div className={classes.draftInputWrapper}>
               <input 
               type="text" 
-              placeholder="Title" 
+              placeholder="Title*" 
               name="noteTitle" 
               className={classes.draftInput} 
               value={this.state.noteTitle} 
@@ -374,7 +480,7 @@ class PageContainer extends Component {
                 <div className={classes.titleFieldWrapper}>
                   <input 
                   type="text" 
-                  placeholder="Title" 
+                  placeholder="Title*" 
                   name="noteTitle" 
                   className={classes.draftTitleInput} 
                   value={this.state.noteTitle} 
@@ -403,12 +509,48 @@ class PageContainer extends Component {
           }
           <div className={classes.draftInputWrapper}>
             <textarea 
-            placeholder="Description" 
+            placeholder="Description*" 
             name="description" 
             className={classes.draftInput}
             value={this.state.description} 
             onChange={this.captureDescription}
             />
+          </div>
+          <div className={classes.draftInputWrapper}>
+            <input 
+            placeholder="Title-Slug*" 
+            name="slug" 
+            className={classes.draftInput}
+            value={this.state.slug} 
+            onChange={this.captureSlug}
+            />
+          </div>
+          <div className={classes.draftInputWrapper}>
+            <select className={classes.draftInput} value={this.state.category} onChange={this.captureCategory}>
+              <option value=''>Select Category*</option>
+              {this.props.blogCategoriesArray.map((category, index) => {
+                return <option key={index} value={category}>{category}</option>
+              })}
+            </select>
+          </div>
+          <div className={classes.draftTagInputWrapper}>
+            { this.state.tagDuplicateError ? <div className={classes.fillError}>{this.state.tagDuplicateError}</div> : null}
+            <div className={classes.tagWrapperTitle}>Tags:</div>
+            <div className={classes.tagsContainer}>{blogTags}</div>
+            <select className={classes.draftTagInput} /* value={this.state.tags} */ onChange={this.captureTags}>
+              <option value=''>Select Tags</option>
+              {this.props.blogTagsArray.map((tags, index) => {
+                return <option key={index} value={tags}>{tags}</option>
+              })}
+            </select>
+          </div>
+          <div className={classes.draftInputWrapper}>
+            <select className={classes.draftInput} value={this.state.author} onChange={this.captureAuthor}>
+              <option value=''>Select Author*</option>
+              {this.props.authors.map((author, index) => {
+                return <option key={index} value={author._id}>{author._id + ":" + author.name}</option>
+              })}
+            </select>
           </div>
         </div>
         <div className={classes.toolbar}>
@@ -460,14 +602,20 @@ const mapStateToProps = state => ({
   createBlogDraftLoading: state.blog.createBlogDraftLoading,
   updateBlogDraftError: state.blog.updateBlogDraftError,
   updateBlogDraftLoading: state.blog.updateBlogDraftLoading,
+  blogCategoriesArray: state.blog.blogCategoriesArray,
+  blogTagsArray: state.blog.blogTagsArray,
+  authors: state.blog.authors
   // blogHeroImageUrl: state.blog.blogHeroImageUrl
 });
 
 const mapDispatchToProps = (dispatch) => {
   //   return bindActionCreators(Actions, dispatch);
       return {
-          onCreateBlogDraft: ( title, heroImage, description, content, htmlContent, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, description, content, htmlContent, allDrafts )),
-          onUpdateBlogDraft: ( draftId, title, heroImage, description, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, heroImage, description, content, htmlContent, allDrafts )), 
+          onFetchBlogCategories: () => dispatch(actions.fetchBlogCategories()),
+          onFetchBlogTags: () => dispatch(actions.fetchBlogTags()),
+          onFetchAuthors: () => dispatch(actions.fetchAuthors()),
+          onCreateBlogDraft: ( title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts )),
+          onUpdateBlogDraft: ( draftId, title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts )), 
           onDeleteHeroImage: (imagePublicId, imageId) => dispatch(actions.deleteHeroImage(imagePublicId, imageId))
       }
   }

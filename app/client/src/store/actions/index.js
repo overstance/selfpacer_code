@@ -138,7 +138,8 @@ export {
     initializeTags,
     clearEditBlogFiltersInfo,
     fetchBlogCategories,
-    fetchBlogTags
+    fetchBlogTags,
+    fetchAuthors
 } from './blog'
 
 

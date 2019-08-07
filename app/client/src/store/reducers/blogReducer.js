@@ -42,6 +42,8 @@ const initialState = {
     blogTagsArray: [],
     blogTags: '',
     tagsId: '',
+
+    authors: []
 }
 
 const fetchBlogPostsStart = ( state, action ) => {
@@ -271,6 +273,12 @@ const clearEditBlogFiltersInfo = ( state, action ) => {
     })
 }
 
+const fetchAuthorsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        authors: action.authors
+    })
+}
+
 const reducer = ( state = initialState, action ) => {
     switch (action.type) {
         case actionTypes.FETCH_BLOG_POSTS_START: return fetchBlogPostsStart(state, action);
@@ -311,6 +319,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.EDIT_BLOG_TAGS_FAIL: return editBlogTagsFail(state, action);
 
         case actionTypes.CLEAR_EDIT_BLOG_FILTERS_INFO: return clearEditBlogFiltersInfo(state, action);
+
+        case actionTypes.FETCH_AUTHORS_SUCCESS: return fetchAuthorsSuccess(state, action);
 
         default: return state;
     }

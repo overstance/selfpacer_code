@@ -43,7 +43,7 @@
 .draftInput {
   font-size: 14.5px;
   line-height: 20px;
-  height: 20px;
+  /* height: 20px; */
   letter-spacing: 0.7px;
   /* font-family: "Open Sans"; */
   font-family: 'PT Mono', monospace;
@@ -280,6 +280,61 @@
 .editorHeader figure div, .editors figure div {
   font-size: small;
   font-family: 'Comfortaa', cursive;
+}
+
+.tagButton {
+  background: var(--gray);
+  padding: 6px;
+  margin: 6px;
+  border-radius: 6px;
+  font-family: 'PT Mono', monospace;
+  font-size: medium;
+}
+
+.removeTag {
+  background: var(--white);
+  padding: 0 10px;
+  margin-left: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; 
+}
+
+.draftTagInputWrapper {
+  /* font-family: 'PT Mono', monospace; */
+  background: var(--white);
+  /* display: flex; */
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.draftTagInput {
+  font-size: 14.5px;
+  line-height: 20px;
+  /* height: 20px; */
+  letter-spacing: 0.7px;
+  /* font-family: "Open Sans"; */
+  font-family: 'PT Mono', monospace;
+  border: 2px solid var(--gray);
+  width: 100%;
+  position: inline;
+  padding: 0.5em;
+  border-radius: 4px;
+  /* margin-left: 0.6em */
+}
+
+.tagWrapperTitle {
+  font-family: 'PT Mono', monospace;
+  font-size: medium;
+  padding-left: 6px;
 }
 
 

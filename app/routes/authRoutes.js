@@ -451,6 +451,22 @@ module.exports = app => {
       });
     });
   });
+
+  app.get('/api/fetch_authors', (req, res) => {
+    User.find(
+      {
+        accountType: { $in: ['ChiefAdmin', 'Administartor', 'Facilitator'] },
+        isAuthor: true
+      },
+      (err, authors) => {
+        if (err) {
+          res.send(err.message);
+        } else if (authors) {
+          res.send({ authors: authors });
+        }
+      }
+    );
+  });
 };
 
 /*

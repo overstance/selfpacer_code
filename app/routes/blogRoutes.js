@@ -33,6 +33,10 @@ module.exports = app => {
     const newBlogDraft = {
       title: req.body.title,
       featuredImage: req.body.heroImage,
+      slug: req.body.slug,
+      category: req.body.category,
+      tags: req.body.tags,
+      author: req.body.author,
       description: req.body.description,
       content: req.body.content,
       htmlContent: req.body.htmlContent,
@@ -55,6 +59,10 @@ module.exports = app => {
       {
         title: req.body.title,
         featuredImage: req.body.heroImage,
+        slug: req.body.slug,
+        category: req.body.category,
+        tags: req.body.tags,
+        author: req.body.author,
         description: req.body.description,
         content: req.body.content,
         htmlContent: req.body.htmlContent,

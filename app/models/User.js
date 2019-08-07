@@ -47,6 +47,14 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
+  isAuthor: {
+    type: Boolean,
+    default: false
+  },
+  isEditor: {
+    type: Boolean,
+    default: false
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   verifyEmailToken: String
