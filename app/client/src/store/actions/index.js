@@ -48,7 +48,13 @@ export {
     fetchFacilitateApplicants,
     fetchMoreFacilitateApplicants,
     approveFacilitateApplicant,
-    disapproveFacilitateApplicant
+    disapproveFacilitateApplicant,
+    fetchUserByAttribute,
+    clearFetchUserByAttributeInfo,
+    addAuthorOrEditor,
+    clearAddAuthorOrEditorInfo,
+    removeAuthorOrEditor,
+    clearRemoveAuthorOrEditorInfo
 } from './admin1';
 
 export {

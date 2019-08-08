@@ -1,10 +1,12 @@
 .ContainerItem {
-    padding: 5px;
+    /* padding: 5px; */
+    max-width: 500px;
+    margin: auto;
 }
 
-.ContainerItem span {
+/* .ContainerItem span {
     display: none;
-}
+} */
 
 .ContainerItem button {
  font-size: small;
@@ -12,4 +14,23 @@
  height: 50px;
  border-radius: 25px;
  padding: 0;
+}
+
+.fetchedUserContainer {
+    background: var(--gray);
+}
+
+.fetchedUser {
+    /* width: 100%; */
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--blue);
+    /* margin-bottom: 10px; */
+    padding: 10px;
+    font-size: small;
+    font-weight: bold;
+}
+
+.fetchedUser span {
+    margin-right: 5px;
 }

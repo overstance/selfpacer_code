@@ -16,7 +16,7 @@ class FacilitateApplicants extends Component {
             this.props.history.push('/');
         } else {
             window.addEventListener('scroll', this.handleScroll, false);
-
+            window.scroll(0, 0);
             this.props.onFetchFacilitateApplicants(0);
         }       
     }

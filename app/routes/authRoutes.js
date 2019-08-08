@@ -467,6 +467,104 @@ module.exports = app => {
       }
     );
   });
+
+  app.get('/api/fetch_user_by_attribute', (req, res) => {
+    if (req.query.type === 'name') {
+      User.find({ name: req.query.attribute }, (err, user) => {
+        if (err) {
+          res.send({ error: err.name });
+        } else if (user) {
+          res.send({ user: user });
+        }
+      });
+    } else if (req.query.type === 'email') {
+      User.find({ email: req.query.attribute }, (err, user) => {
+        if (err) {
+          res.send({ error: err.name });
+        } else if (user) {
+          res.send({ user: user });
+        }
+      });
+    }
+  });
+
+  app.put('/api/add_author_or_editor', (req, res) => {
+    if (req.body.type === 'author') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          accountType: 'Facilitator',
+          isAuthor: true,
+          twitterUrl: req.body.twitterUrl,
+          facebookUrl: req.body.facebookUrl,
+          linkedinUrl: req.body.linkedinUrl
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    } else if (req.body.type === 'editor') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          accountType: 'Facilitator',
+          isEditor: true,
+          twitterUrl: req.body.twitterUrl,
+          facebookUrl: req.body.facebookUrl,
+          linkedinUrl: req.body.linkedinUrl
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    }
+  });
+
+  app.put('/api/remove_author_or_editor', (req, res) => {
+    if (req.body.type === 'author') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          accountType: 'Facilitator',
+          isAuthor: false
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    } else if (req.body.type === 'editor') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          accountType: 'Facilitator',
+          isEditor: false
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    }
+  });
 };
 
 /*

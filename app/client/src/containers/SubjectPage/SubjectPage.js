@@ -18,6 +18,7 @@ class SubjectPage extends Component {
     
    componentDidMount () {
         window.addEventListener('scroll', this.handleScroll, false);
+        window.scroll(0, 0);
         this.props.onFetchSubjectDetails(this.props.match.params.subject_title);
         // this.setState({pageIndex: 0});
 
@@ -69,7 +70,6 @@ class SubjectPage extends Component {
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll, false);
     }
-    
   
    state = {
         showPaths: false,
@@ -302,7 +302,7 @@ class SubjectPage extends Component {
         }
 
         return (
-            <Grid>
+            <Grid pageIndex={this.state.pageIndex}>
                 <div className={classes.Subheader}>
                     <Toggler 
                         toggle={this.state.pathIconToggle} 

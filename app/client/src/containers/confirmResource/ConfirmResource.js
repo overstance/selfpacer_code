@@ -16,6 +16,7 @@ class ConfirmResource extends Component {
             this.props.history.push('/');
         } else {
             window.addEventListener('scroll', this.handleScroll, false);
+            window.scroll(0, 0);
 
             this.props.onFetchUnconfirmed(0);
         }       

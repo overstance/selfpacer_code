@@ -16,7 +16,8 @@ import Dialogue from '../../../components/Dialogues/Dialogue/Dialogue';
 class UserCollection extends Component {
 
     componentDidMount() {
-
+        window.addEventListener('scroll', this.handleScroll, false);
+        window.scroll(0, 0);
         if (this.props.match.params.id) {
 
           this.props.onFetchCollectionById(this.props.match.params.id);
@@ -31,6 +32,7 @@ class UserCollection extends Component {
 
     componentWillUnmount() {
         this.props.onClearDeleteCollectionMessages();
+        window.removeEventListener('scroll', this.handleScroll, false);
     }
 
     state = {

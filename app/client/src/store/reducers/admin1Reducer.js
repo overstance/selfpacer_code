@@ -52,7 +52,20 @@ const initialState = {
 
     disapproveFacilitateApplicantLoading: false,
     disapproveFacilitateApplicantError: null,
-    applicantToDisapproveId: null
+    applicantToDisapproveId: null,
+
+    fetchUserByAttributeSuccessInfo: null,
+    fetchUserByAttributeError: null,
+    fetchUserByAttributeLoading: false,
+    fetchedUser: [],
+
+    addAuthorOrEditorSuccessInfo: null,
+    addAuthorOrEditorError: null,
+    addAuthorOrEditorLoading: false,
+
+    removeAuthorOrEditorSuccessInfo: null,
+    removeAuthorOrEditorError: null,
+    removeAuthorOrEditorLoading: false
 };
 
 // Add Admin User 
@@ -398,6 +411,21 @@ const clearAllAdminMessages = ( state, action ) => {
     removeAdminSuccessInfo: null,
     fetchSubjectToEditError: null,
     addFacilitatorSuccessInfo: null,
+    deleteSubjectSuccessInfo: null,
+    deleteSubjectError: null,
+    addSubjectIconError: null,
+    addSubjectIconSuccessInfo: null,
+    removeFacilitatorError: null,
+    removeFacilitatorSuccessInfo: null,
+    fetchFacilitateApplicantsError: null,
+    approveFacilitateApplicantError: null,
+    applicantToDisapproveId: null,
+    fetchUserByAttributeSuccessInfo: null,
+    fetchUserByAttributeError: null,
+    addAuthorOrEditorSuccessInfo: null,
+    addAuthorOrEditorError: null,
+    removeAuthorOrEditorSuccessInfo: null,
+    removeAuthorOrEditorError: null
     });
 }
 
@@ -413,6 +441,96 @@ const clearEditSubjectInfo = ( state, action ) => {
     });
 }
 
+// fetch user by attribute
+const fetchUserByAttributeStart = ( state, action ) => {
+    return updateObject( state, {
+        fetchUserByAttributeSuccessInfo: null,
+        fetchUserByAttributeError: null,
+        fetchUserByAttributeLoading: true,
+    });
+}
+
+const fetchUserByAttributeSuccess = ( state, action ) => {
+    return updateObject( state, {
+        fetchUserByAttributeSuccessInfo: action.successInfo,
+        fetchUserByAttributeLoading: false,
+        fetchedUser: action.user
+    });
+}
+
+const fetchUserByAttributeFail = ( state, action ) => {
+    return updateObject( state, {
+        fetchUserByAttributeError: action.error,
+        fetchUserByAttributeLoading: false,
+    });
+}
+
+const clearFetchUserByAttributeInfo = ( state, action ) => {
+    return updateObject( state, {
+        fetchUserByAttributeSuccessInfo: null,
+        fetchUserByAttributeError: null,
+    });
+}
+
+// add author or editor
+const addAuthorOrEditorStart = ( state, action ) => {
+    return updateObject( state, {
+        addAuthorOrEditorSuccessInfo: null,
+        addAuthorOrEditorError: null,
+        addAuthorOrEditorLoading: true,
+    });
+}
+
+const addAuthorOrEditorSuccess = ( state, action ) => {
+    return updateObject( state, {
+        addAuthorOrEditorSuccessInfo: action.successInfo,
+        addAuthorOrEditorLoading: false
+    });
+}
+
+const addAuthorOrEditorFail = ( state, action ) => {
+    return updateObject( state, {
+        addAuthorOrEditorError: action.error,
+        addAuthorOrEditorLoading: false,
+    });
+}
+
+const clearAddAuthorOrEditorInfo = ( state, action ) => {
+    return updateObject( state, {
+        addAuthorOrEditorSuccessInfo: null,
+        addAuthorOrEditorError: null,
+    });
+}
+
+// add author or editor
+const removeAuthorOrEditorStart = ( state, action ) => {
+    return updateObject( state, {
+        removeAuthorOrEditorSuccessInfo: null,
+        removeAuthorOrEditorError: null,
+        removeAuthorOrEditorLoading: true,
+    });
+}
+
+const removeAuthorOrEditorSuccess = ( state, action ) => {
+    return updateObject( state, {
+        removeAuthorOrEditorSuccessInfo: action.successInfo,
+        removeAuthorOrEditorLoading: false
+    });
+}
+
+const removeAuthorOrEditorFail = ( state, action ) => {
+    return updateObject( state, {
+        removeAuthorOrEditorError: action.error,
+        removeAuthorOrEditorLoading: false,
+    });
+}
+
+const clearRemoveAuthorOrEditorInfo = ( state, action ) => {
+    return updateObject( state, {
+        removeAuthorOrEditorSuccessInfo: null,
+        removeAuthorOrEditorError: null,
+    });
+}
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
@@ -471,7 +589,20 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.ADD_SUBJECT_ICON_FAIL: return addSubjectIconFail( state, action );
         case actionTypes.RESET_ADD_SUBJECT_ICON_STATE: return resetAddSubjectIconState( state, action );
         
-        
+        case actionTypes.FETCH_USER_BY_ATTRIBUTE_START: return fetchUserByAttributeStart( state, action );
+        case actionTypes.FETCH_USER_BY_ATTRIBUTE_SUCCESS: return fetchUserByAttributeSuccess( state, action );
+        case actionTypes.FETCH_USER_BY_ATTRIBUTE_FAIL: return fetchUserByAttributeFail( state, action );
+        case actionTypes.CLEAR_FETCH_USER_BY_ATTRIBUTE_INFO: return clearFetchUserByAttributeInfo( state, action );
+
+        case actionTypes.ADD_AUTHOR_OR_EDITOR_START: return addAuthorOrEditorStart( state, action );
+        case actionTypes.ADD_AUTHOR_OR_EDITOR_SUCCESS: return addAuthorOrEditorSuccess( state, action );
+        case actionTypes.ADD_AUTHOR_OR_EDITOR_FAIL: return addAuthorOrEditorFail( state, action );
+        case actionTypes.CLEAR_ADD_AUTHOR_OR_EDITOR_INFO: return clearAddAuthorOrEditorInfo( state, action );
+
+        case actionTypes.REMOVE_AUTHOR_OR_EDITOR_START: return removeAuthorOrEditorStart( state, action );
+        case actionTypes.REMOVE_AUTHOR_OR_EDITOR_SUCCESS: return removeAuthorOrEditorSuccess( state, action );
+        case actionTypes.REMOVE_AUTHOR_OR_EDITOR_FAIL: return removeAuthorOrEditorFail( state, action );
+        case actionTypes.CLEAR_REMOVE_AUTHOR_OR_EDITOR_INFO: return clearRemoveAuthorOrEditorInfo( state, action );
 
         case actionTypes.CLEAR_ALL_ADMIN_MESSAGES: return clearAllAdminMessages( state, action );
 

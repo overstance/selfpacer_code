@@ -30,6 +30,7 @@ class UserAssets extends Component {
         } else {
             window.addEventListener('scroll', this.handleScroll, false);
             // this.setState({pageIndex: 0});
+            window.scroll(0, 0);
 
             if (this.props.activeContent === 'all') {
                 this.props.onFetchUserAssets(this.props.userId, this.props.useTypeContext, 0);

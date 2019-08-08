@@ -51,6 +51,9 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
+  twitterUrl: String,
+  facebookUrl: String,
+  linkedinUrl: String,
   isEditor: {
     type: Boolean,
     default: false

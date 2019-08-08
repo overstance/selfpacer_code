@@ -5,14 +5,13 @@ import AddAdminUsers from '../../components/ManageUsers/AddAdminUsers';
 import RemoveAdminUsers from '../../components/ManageUsers/RemoveAdminUsers';
 import AddFacilitator from '../../components/ManageUsers/AddFacilitator';
 import RemoveFacilitator from '../../components/ManageUsers/RemoveFacilitator';
-import UpdateYoutubeVideos from '../../components/ManageYoutube/YoutubeVideoBulkUpdate/UpdateYoutubeVideos';
-import UpdateYoutubePlaylists from '../../components/ManageYoutube/YoutubePlaylistBulkUpdate/UpdateYoutubePlaylists';
+import UpdateYoutubeVideos from '../../components/ManageYoutube/UpdateYoutubeVideos';
+import UpdateYoutubePlaylists from '../../components/ManageYoutube/UpdateYoutubePlaylists';
 import AddResource from '../../components/addResource/addResource';
 // import AddSubjectIcon from '../../components/manageSubjects/AddSubjectIcon';
 import EditSubect from '../../components/manageSubjects/EditSubject';
 import AddSubject from '../../components/manageSubjects/AddSubject';
-import UploadBlogImage from '../../components/UploadBlogImage/UploadBlogImage';
-import UploadWebBlogImage from '../../components/UploadBlogImage/UploadWebBlogImage';
+import FetchUserByAttribute from '../../components/ManageUsers/FetchUserByAttribute';
 import DeleteSubject from '../../components/manageSubjects/DeleteSubject';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 import { connect } from 'react-redux';
@@ -21,6 +20,8 @@ import InitializedBlogCategories from '../../components/manageBlogFilters/Initia
 import InitializeBlogTags from '../../components/manageBlogFilters/InitializeTags';
 import EditBlogCategories from '../../components/manageBlogFilters/EditCategories';
 import EditBlogTags from '../../components/manageBlogFilters/EditTags';
+import AddAuthorOrEditor from '../../components/ManageUsers/AddAuthorOrEditor';
+import RemoveAuthorOrEditor from '../../components/ManageUsers/RemoveAuthorOrEditor';
 
 class Admin extends Component {
 
@@ -158,8 +159,6 @@ class Admin extends Component {
                                 <EditSubect />
                                 <AddSubject />
                                 <DeleteSubject />
-                                <UploadBlogImage />
-                                <UploadWebBlogImage />
                             </div>
                         : null }
                     </div>
@@ -170,7 +169,10 @@ class Admin extends Component {
                             subheadTitle="manage users"
                         />
                         { this.state.showManageUsers ? 
-                            <div className={classes.ContentItems}>
+                            <div /* className={classes.ContentItems} */className={classes.BlockContentItems}>
+                                <FetchUserByAttribute />
+                                <AddAuthorOrEditor />
+                                <RemoveAuthorOrEditor />
                                 { this.props.accountType === 'ChiefAdmin' ?
                                     <AddAdminUsers /> : null
                                 }
@@ -189,7 +191,7 @@ class Admin extends Component {
                             subheadTitle="manage youtube updates"
                         />
                         { this.state.showManageYoutubeUpdates ? 
-                            <div className={classes.ContentItems}>
+                            <div /* className={classes.ContentItems} */className={classes.BlockContentItems}>
                                 <UpdateYoutubeVideos />
                                 <UpdateYoutubePlaylists />
                             </div>

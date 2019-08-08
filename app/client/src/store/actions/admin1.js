@@ -522,4 +522,151 @@ export const clearAllAdminMessages = () => {
     }
 }
 
+// fetch user by attribute
+
+export const fetchUserByAttributeStart = () => {
+    return {
+        type: actionTypes.FETCH_USER_BY_ATTRIBUTE_START
+    };
+};
+
+export const fetchUserByAttributeSuccess = (user, successInfo) => {
+    return {
+        type: actionTypes.FETCH_USER_BY_ATTRIBUTE_SUCCESS,
+        user: user,
+        successInfo: successInfo
+    };
+};
+
+export const fetchUserByAttributeFail = ( error ) => {
+    return {
+        type: actionTypes.FETCH_USER_BY_ATTRIBUTE_FAIL,
+        error: error
+    };
+}
+
+export const fetchUserByAttribute = (type, attribute) => async dispatch => {
+    
+    dispatch(fetchUserByAttributeStart());
+    
+    const res = await axios.get('/api/fetch_user_by_attribute', { params: {type: type, attribute: attribute}})
+    if (res.data.user) { 
+        if (res.data.user.length === 0) {
+            dispatch(fetchUserByAttributeSuccess([], 'No User Found!'));
+        } else {
+            dispatch(fetchUserByAttributeSuccess(res.data.user, 'fetch successful'));
+        }    
+    }  else if (res.data.error) {
+        dispatch(fetchUserByAttributeFail(res.data.error))
+    }
+};
+
+export const clearFetchUserByAttributeInfo = () => {
+    return {
+        type: actionTypes.CLEAR_FETCH_USER_BY_ATTRIBUTE_INFO
+    }
+}
+
+// add author or editor
+
+export const addAuthorOrEditorStart = () => {
+    return {
+        type: actionTypes.ADD_AUTHOR_OR_EDITOR_START
+    };
+};
+
+export const addAuthorOrEditorSuccess = (successInfo) => {
+    return {
+        type: actionTypes.ADD_AUTHOR_OR_EDITOR_SUCCESS,
+        successInfo: successInfo
+    };
+};
+
+export const addAuthorOrEditorFail = ( error ) => {
+    return {
+        type: actionTypes.ADD_AUTHOR_OR_EDITOR_FAIL,
+        error: error
+    };
+}
+
+export const addAuthorOrEditor = (type, userId, twitterUrl, facebookUrl, linkedinUrl) => async dispatch => {
+    
+    dispatch(addAuthorOrEditorStart());
+
+    let twitter = twitterUrl;
+    let facebook = facebookUrl;
+    let linkedin = linkedinUrl;
+    
+    if (twitterUrl === '') {
+        twitter = undefined
+    }
+
+    if (facebookUrl === '') {
+        facebook = undefined
+    }
+
+    if ( linkedinUrl === '') {
+        linkedin = undefined
+    }
+
+    console.log(type, userId, twitter, facebook, linkedin);
+    
+    const res = await axios.put('/api/add_author_or_editor', { type: type, userId: userId, twitterUrl: twitter, facebookUrl: facebook, linkedinUrl: linkedin})
+    if (res.data.user) { 
+        console.log(res.data.user);
+        dispatch(addAuthorOrEditorSuccess('user role updated'));    
+    }  else if (res.data.error) {
+        dispatch(addAuthorOrEditorFail(res.data.error))
+    }
+};
+
+export const clearAddAuthorOrEditorInfo = () => {
+    return {
+        type: actionTypes.CLEAR_ADD_AUTHOR_OR_EDITOR_INFO
+    }
+}
+
+// remove author or editor
+
+export const removeAuthorOrEditorStart = () => {
+    return {
+        type: actionTypes.REMOVE_AUTHOR_OR_EDITOR_START
+    };
+};
+
+export const removeAuthorOrEditorSuccess = (successInfo) => {
+    return {
+        type: actionTypes.REMOVE_AUTHOR_OR_EDITOR_SUCCESS,
+        successInfo: successInfo
+    };
+};
+
+export const removeAuthorOrEditorFail = ( error ) => {
+    return {
+        type: actionTypes.REMOVE_AUTHOR_OR_EDITOR_FAIL,
+        error: error
+    };
+}
+
+export const removeAuthorOrEditor = (type, userId) => async dispatch => {
+    
+    dispatch(removeAuthorOrEditorStart());
+
+    console.log(type, userId);
+    
+    const res = await axios.put('/api/remove_author_or_editor', { type: type, userId: userId})
+    if (res.data.user) { 
+        console.log(res.data.user);
+        dispatch(removeAuthorOrEditorSuccess('user role updated'));    
+    }  else if (res.data.error) {
+        dispatch(removeAuthorOrEditorFail(res.data.error))
+    }
+};
+
+export const clearRemoveAuthorOrEditorInfo = () => {
+    return {
+        type: actionTypes.CLEAR_REMOVE_AUTHOR_OR_EDITOR_INFO
+    }
+}
+
 

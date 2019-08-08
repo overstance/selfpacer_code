@@ -469,7 +469,7 @@ export const fetchAuthorsSuccess = (authors) => {
 export const fetchAuthors = () => async dispatch => {
 
     const res = await axios.get('/api/fetch_authors');
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.authors) {
         dispatch(fetchAuthorsSuccess(res.data.authors))
     } 

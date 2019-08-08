@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import classes from './UpdateYoutubeVideos.module.css';
-import * as actions from '../../../store/actions/index';
+import classes from './Youtube.module.css';
+import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
-import Input from '../../../components/UserInterface/Input/Input';
-import Button from '../../../components/UserInterface/Button/Button';
-import Form from '../../../components/UserInterface/Form/Form';
-import FormTitle from '../../../components/UserInterface/Form/FormTitle/FormTitle';
-import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
-import Spinner from '../../../components/UserInterface/Spinner/Spinner';
+import Input from '../UserInterface/Input/Input';
+import Button from '../UserInterface/Button/Button';
+import Form from '../UserInterface/Form/Form';
+import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
+import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
+import Spinner from '../UserInterface/Spinner/Spinner';
 
-class UpdateYoutubeVideos extends Component {
+class UpdateYoutubePlaylists extends Component {
 
     /* componentDidMount() {
         this.props.onFetchSubjects();
-        // this.props.onFetchAccountingVideos();
     } */
 
     state = {
@@ -61,7 +60,7 @@ class UpdateYoutubeVideos extends Component {
         return isValid;
     }
 
-    submitYoutubeVideoHandler = (event) => {
+    submitYoutubePlaylistsHandler = (event) => {
         event.preventDefault();
 
         if (!this.state.subject.touched || this.state.subject.value === '') {
@@ -74,7 +73,7 @@ class UpdateYoutubeVideos extends Component {
 
             this.setState({ fillError: 'Please fill all fields' });
         } else {
-            this.props.onUpdateYoutubeVideos(this.state.subject.value, this.props.user);
+            this.props.onUpdateYoutubePlaylists(this.state.subject.value, this.props.user);
             
             const subjectReset = {
                 ...this.state.subject,
@@ -121,15 +120,15 @@ class UpdateYoutubeVideos extends Component {
     render() {
 
         let updateButtonText = 'Update';
-        if(this.props.updateYoutubeVideosLoading) {
+        if(this.props.updateYoutubePlaylistsLoading) {
             updateButtonText = <Spinner isButton/>;
         }
 
         return (
             <div className={classes.ContainerItem}>
-                <FormTitle isAdmin>Update Youtube Video</FormTitle>
+                <FormTitle isAdmin>Update Youtube Playlist</FormTitle>
                 <Form
-                submitForm={this.submitYoutubeVideoHandler}
+                submitForm={this.submitYoutubePlaylistsHandler}
                 >
                     <div className={classes.FillError}>{this.state.fillError}</div>
                     <Input 
@@ -147,13 +146,13 @@ class UpdateYoutubeVideos extends Component {
                         <Button btnType='Danger' disabled> {updateButtonText} </Button> :
                         <Button btnType='Success'> {updateButtonText} </Button>    
                     }
-                    { this.props.youtubeVideoUpdateError ? 
+                    { this.props.updateYoutubePlaylistsError ? 
                         <FormFeedback isFailed>
-                            {this.props.youtubeVideoUpdateError}
+                            {this.props.updateYoutubePlaylistsError}
                         </FormFeedback>
                         :
                         <FormFeedback isSuccess>
-                            {this.props.youtubeVideoUpdatedFeedback}
+                            {this.props.updateYoutubePlaylistsFeedback}
                         </FormFeedback>
                     }
                 </Form>
@@ -164,17 +163,17 @@ class UpdateYoutubeVideos extends Component {
 
 const mapStateToProps = state => ({
     subjects: state.explore.subjects,
-    updateYoutubeVideosLoading: state.resource.updateYoutubeVideosLoading,
-    youtubeVideoUpdatedFeedback: state.resource.youtubeVideosUpdatedFeedback,
-    youtubeVideoUpdateError: state.resource.updateYoutubeVideosError,
+    updateYoutubePlaylistsLoading: state.resource.updateYoutubePlaylistsLoading,
+    updateYoutubePlaylistsFeedback: state.resource.updateYoutubePlaylistsFeedback,
+    updateYoutubePlaylistsError: state.resource.updateYoutubePlaylistsError,
     user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         // onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onUpdateYoutubeVideos: (subject, user) => dispatch( actions.updateYoutubeVideos(subject, user) )
+        onUpdateYoutubePlaylists: (subject, user) => dispatch( actions.updateYoutubePlaylists(subject, user) )
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) (UpdateYoutubeVideos);
+export default connect(mapStateToProps, mapDispatchToProps) (UpdateYoutubePlaylists);
