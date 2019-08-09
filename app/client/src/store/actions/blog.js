@@ -222,10 +222,10 @@ export const createBlogDraftFail = (error) => {
     }
 }
 
-export const createBlogDraft = (title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts) => async dispatch => {
+export const createBlogDraft = (title, heroImage, slug, category, tags, author, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts) => async dispatch => {
     dispatch(createBlogDraftStart());
     // console.log(htmlContent);
-    const res = await axios.post('/api/create_blog_draft', { title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, description: description, content: content, htmlContent: htmlContent});
+    const res = await axios.post('/api/create_blog_draft', { title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, description: description, content: content, htmlContent: htmlContent, editorInChargeId: editorInChargeId, editorInChargeName: editorInChargeName});
     // console.log(res.data.post);
     if (res.data.newDraft) {
         // console.log(res.data.newDraft);

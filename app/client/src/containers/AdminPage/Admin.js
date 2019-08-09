@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import classes from './Admin.module.css';
 import Toggler from '../../components/UserInterface/Toggler/Toggler';
-import AddAdminUsers from '../../components/ManageUsers/AddAdminUsers';
-import RemoveAdminUsers from '../../components/ManageUsers/RemoveAdminUsers';
+import AddAdminUsers from '../../components/ManageUsers/AddAdminUser';
+import RemoveAdminUsers from '../../components/ManageUsers/RemoveAdminUser';
 import AddFacilitator from '../../components/ManageUsers/AddFacilitator';
 import RemoveFacilitator from '../../components/ManageUsers/RemoveFacilitator';
 import UpdateYoutubeVideos from '../../components/ManageYoutube/UpdateYoutubeVideos';
@@ -173,10 +173,10 @@ class Admin extends Component {
                                 <FetchUserByAttribute />
                                 <AddAuthorOrEditor />
                                 <RemoveAuthorOrEditor />
-                                { this.props.accountType === 'ChiefAdmin' ?
+                                { this.props.accountType === 'Head Administrator' || this.props.accountType === 'Senior Administrator' ?
                                     <AddAdminUsers /> : null
                                 }
-                                { this.props.accountType === 'ChiefAdmin' ?
+                                { this.props.accountType === 'Head Administrator' || this.props.accountType === 'Senior Administrator' ?
                                     <RemoveAdminUsers /> : null
                                 }
                                 <AddFacilitator />

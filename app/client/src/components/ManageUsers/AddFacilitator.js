@@ -69,7 +69,7 @@ class Facilitator extends Component {
 
         this.setState({ fillError: 'Please fill all fields' });
         } else {
-            this.props.onAddFacilitator(this.state.userId.value, 'Facilitator');
+            this.props.onAddFacilitator(this.state.userId.value);
             const updated = {
                 ...this.state.userId,
                 value: '',
@@ -144,7 +144,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddFacilitator: ( user_id, newAccountType ) => dispatch( actions.addAdminOrFacilitator( user_id, newAccountType ))
+        onAddFacilitator: ( user_id ) => dispatch( actions.addFacilitator( user_id ))
     };
 };
 

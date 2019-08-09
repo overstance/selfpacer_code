@@ -41,6 +41,16 @@ class Facilitator extends Component {
                         link='/manage_assets'
                     />
                 </div>
+                { this.props.user.accountType === 'Editor' && this.props.user.isEditor ?
+                    <div className={classes.Subheader}>
+                        <Toggler 
+                            subheadTitle="manage blog drafts"
+                            isLink
+                            link='/blog_drafts'
+                        />
+                    </div>
+                    : null
+                }
                 <div className={classes.Subheader}>
                     <Toggler 
                         toggle={this.state.addResourceToggle} 
@@ -58,7 +68,7 @@ class Facilitator extends Component {
 
         let pageContent;
 
-        if (this.props.useTypeContext === '3' || this.props.useTypeContext === '2' || this.props.useTypeContext === '1') {
+        if (this.props.useTypeContext === '5' || this.props.useTypeContext === '4' || this.props.useTypeContext === '3' || this.props.useTypeContext === '2' || this.props.useTypeContext === '1') {
             pageContent = facilitatorTools;
         } else {
             pageContent = nonfacilitatorPage
@@ -71,6 +81,7 @@ class Facilitator extends Component {
 const mapStateToProps = state => {
     return {
         useTypeContext: state.auth.useTypeContext,
+        user: state.auth.user
     };
 };
 

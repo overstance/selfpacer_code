@@ -24,7 +24,7 @@ class UserAssets extends Component {
     
     componentDidMount() {
 
-        if (this.props.useTypeContext === '0') {
+        if (this.props.useTypeContext === '0' || this.props.useTypeContext === '2') {
             // console.log(this.props.accountType);
             this.props.history.push('/');  
         } else {
@@ -36,7 +36,7 @@ class UserAssets extends Component {
                 this.props.onFetchUserAssets(this.props.userId, this.props.useTypeContext, 0);
             } 
             
-            if (this.props.useTypeContext === '2' || this.props.useTypeContext === '3') {
+            if (this.props.useTypeContext === '3' || this.props.useTypeContext === '4' || this.props.useTypeContext === '5') {
                 if (this.props.activeContent === 'youtube') {
                     this.setState({
                         moocActive: false,
@@ -838,7 +838,7 @@ class UserAssets extends Component {
 
         return (
             <GridlessPageWrapper pageTitle='Manage Asset'>
-                { this.props.accountType === 'Administrator' || this.props.accountType === 'ChiefAdmin' ?
+                { this.props.accountType === 'Administrator' || this.props.accountType === 'Senior Administrator' || this.props.accountType === 'Head Administrator' ?
                     <PlatformNav
                         youtubeActived={this.state.youtubeActive}
                         moocActived={this.state.moocActive}

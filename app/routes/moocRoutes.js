@@ -9,8 +9,8 @@ module.exports = app => {
     let isAdmin = false;
     if (
       req.body.userType === 'Administrator' ||
-      /* req.body.userType === 'Facilitator' || */
-      req.body.userType === 'ChiefAdmin'
+      req.body.userType === 'Head Administrator' ||
+      req.body.userType === 'Senior Administrator'
     ) {
       confirmed = true;
       isAdmin = true;

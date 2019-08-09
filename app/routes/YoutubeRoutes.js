@@ -36,8 +36,8 @@ module.exports = app => {
           let isAdmin = false;
           if (
             userType === 'Administrator' ||
-            /* userType === 'Facilitator' || */
-            userType === 'ChiefAdmin'
+            userType === 'Senior Administrator' ||
+            userType === 'Head Administrator'
           ) {
             confirmed = true;
             isAdmin = true;
@@ -184,8 +184,8 @@ module.exports = app => {
           let isAdmin = false;
           if (
             userType === 'Administrator' ||
-            /* userType === 'Facilitator' || */
-            userType === 'ChiefAdmin'
+            userType === 'Senior Administrator' ||
+            userType === 'Head Administrator'
           ) {
             confirmed = true;
             isAdmin = true;

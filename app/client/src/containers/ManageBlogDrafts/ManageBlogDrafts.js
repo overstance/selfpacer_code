@@ -18,10 +18,21 @@ class ManageBlogDrafts extends Component {
     } */
 
 	componentDidMount() {
+		if ( this.props.useTypeContext === '0' || this.props.useTypeContext === '1') {
+			this.props.history.push('/');
+		}
+
+		window.addEventListener('scroll', this.handleScroll, false);
+		window.scroll(0, 0);
+			
 		this.setState({
 			displayedNote: "new"
 		})
 	}
+
+	componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll, false);
+    }
 
 	/* componentDidUpdate(prevProps, prevState) {
 
@@ -65,7 +76,8 @@ class ManageBlogDrafts extends Component {
 
 const mapStateToProps = state => {
     return {
-        drafts: state.blog.allDrafts,
+		drafts: state.blog.allDrafts,
+		useTypeContext: state.auth.useTypeContext,
 		// displayedNote: state.drafts.displayedNote
     }
 }

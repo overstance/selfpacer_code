@@ -396,7 +396,7 @@ class PageContainer extends Component {
     } else {
       note["content"] = JSON.stringify(note.content);
       if ( displayedNote === 'new') {
-        this.props.onCreateBlogDraft(note.title, note.heroImage, note.slug, note.category, note.tags, note.author, note.description, note.content, htmlContent, this.props.drafts);
+        this.props.onCreateBlogDraft(note.title, note.heroImage, note.slug, note.category, note.tags, note.author, note.description, note.content, htmlContent, this.props.user._id, this.props.user.name, this.props.drafts);
       } else {
         this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.heroImage, note.slug, note.category, note.tags, note.author, note.description, note.content, htmlContent, this.props.drafts);
       }
@@ -552,23 +552,29 @@ class PageContainer extends Component {
               })}
             </select>
           </div>
+          <div className={classes.draftInputWrapper}>
+            <div className={classes.draftInput}>
+              {'Editor: ' + this.props.displayedNote.editorInChargeName}
+            </div>
+          </div>
         </div>
         <div className={classes.toolbar}>
-          <button id="link_url" onClick = {this.isAddingOrUpdatingLink} className={classes.styleButton}>
+          {/* <div id="link_url" onClick = {this.isAddingOrUpdatingLink} className={classes.styleButton}>
             Li
-          </button>
-          <button /* onClick={this.onAddImage} */ onClick={this.uploadImageHandler} className={classes.styleButton}>
-            {/* <i className="material-icons">photo</i> */}
+          </div>
+          <div onClick={this.uploadImageHandler} className={classes.styleButton}>
             Im
-          </button>
+          </div> */}
           <InlineStyles 
+          addLinkClicked={this.isAddingOrUpdatingLink}
+          addImageClicked={this.uploadImageHandler}
           editorState={this.state.editorState} 
           onToggle={this.toggleInlineStyle}
           />
           <BlockStyleControls
           editorState={this.state.editorState}
           onToggle={this.toggleBlockType}
-          />
+          /> 
         </div>  
         <div className={classes.editors}>
           <Editor
@@ -604,7 +610,9 @@ const mapStateToProps = state => ({
   updateBlogDraftLoading: state.blog.updateBlogDraftLoading,
   blogCategoriesArray: state.blog.blogCategoriesArray,
   blogTagsArray: state.blog.blogTagsArray,
-  authors: state.blog.authors
+  authors: state.blog.authors,
+  useTypeContext: state.auth.useTypeContext,
+  user: state.auth.user
   // blogHeroImageUrl: state.blog.blogHeroImageUrl
 });
 
@@ -614,7 +622,7 @@ const mapDispatchToProps = (dispatch) => {
           onFetchBlogCategories: () => dispatch(actions.fetchBlogCategories()),
           onFetchBlogTags: () => dispatch(actions.fetchBlogTags()),
           onFetchAuthors: () => dispatch(actions.fetchAuthors()),
-          onCreateBlogDraft: ( title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts )),
+          onCreateBlogDraft: ( title, heroImage, slug, category, tags, author, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, slug, category, tags, author, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts )),
           onUpdateBlogDraft: ( draftId, title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts )), 
           onDeleteHeroImage: (imagePublicId, imageId) => dispatch(actions.deleteHeroImage(imagePublicId, imageId))
       }

@@ -32,8 +32,9 @@ export {
     fetchMoreResourcesByPlatform
 } from './clickedSubject';
 export {
-    addAdminOrFacilitator,
+    addAdminUser,
     removeAdmin,
+    addFacilitator,
     removeFacilitator,
     addSubjectIcon,
     fetchSelectSubjectInfo,

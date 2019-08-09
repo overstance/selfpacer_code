@@ -40,6 +40,8 @@ module.exports = app => {
       description: req.body.description,
       content: req.body.content,
       htmlContent: req.body.htmlContent,
+      editorInChargeId: req.body.editorInChargeId,
+      editorInChargeName: req.body.editorInChargeName,
       createdOn: Date.now(),
       updatedOn: Date.now()
     };

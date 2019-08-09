@@ -60,7 +60,10 @@ const userSchema = new Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  verifyEmailToken: String
+  verifyEmailToken: String,
+  accountDeactivated: Boolean,
+  deactivationDate: Date,
+  reactivationDate: Date
 });
 
 userSchema.plugin(passportLocalMongoose);

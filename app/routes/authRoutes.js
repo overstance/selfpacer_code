@@ -260,7 +260,7 @@ module.exports = app => {
     });
   });
 
-  app.post('/api/add_admin_or_facilitator', (req, res) => {
+  app.put('/api/add_admin_user', (req, res) => {
     //console.log(req.body);
 
     // let id = req.body.userId;
@@ -279,10 +279,10 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/remove_admin', (req, res) => {
+  app.put('/api/remove_admin_user', (req, res) => {
     User.findOneAndUpdate(
       { _id: req.body.userId },
-      { accountType: 'User' },
+      { accountType: req.body.newAccountType },
       function(err, updatedUser) {
         if (err) {
           // console.log(err.name);
@@ -294,7 +294,23 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/remove_facilitator', (req, res) => {
+  app.put('/api/add_facilitator', (req, res) => {
+    User.findOneAndUpdate(
+      { _id: req.body.userId },
+      {
+        accountType: 'Facilitator'
+      },
+      function(err, updatedUser) {
+        if (err) {
+          res.send({ error: err.name });
+        } else {
+          res.send({ updatedUser: updatedUser });
+        }
+      }
+    );
+  });
+
+  app.put('/api/remove_facilitator', (req, res) => {
     User.findOneAndUpdate(
       { _id: req.body.userId },
       {
@@ -455,7 +471,9 @@ module.exports = app => {
   app.get('/api/fetch_authors', (req, res) => {
     User.find(
       {
-        accountType: { $in: ['ChiefAdmin', 'Administartor', 'Facilitator'] },
+        accountType: {
+          $in: ['Head Administrator', 'Editor', 'Administartor', 'Facilitator']
+        },
         isAuthor: true
       },
       (err, authors) => {
@@ -493,7 +511,6 @@ module.exports = app => {
       User.findByIdAndUpdate(
         req.body.userId,
         {
-          accountType: 'Facilitator',
           isAuthor: true,
           twitterUrl: req.body.twitterUrl,
           facebookUrl: req.body.facebookUrl,
@@ -512,11 +529,7 @@ module.exports = app => {
       User.findByIdAndUpdate(
         req.body.userId,
         {
-          accountType: 'Facilitator',
-          isEditor: true,
-          twitterUrl: req.body.twitterUrl,
-          facebookUrl: req.body.facebookUrl,
-          linkedinUrl: req.body.linkedinUrl
+          isEditor: true
         },
         { new: true },
         (err, user) => {
@@ -535,7 +548,6 @@ module.exports = app => {
       User.findByIdAndUpdate(
         req.body.userId,
         {
-          accountType: 'Facilitator',
           isAuthor: false
         },
         { new: true },
@@ -551,7 +563,6 @@ module.exports = app => {
       User.findByIdAndUpdate(
         req.body.userId,
         {
-          accountType: 'Facilitator',
           isEditor: false
         },
         { new: true },

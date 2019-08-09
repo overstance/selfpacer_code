@@ -16,6 +16,7 @@ class AddAuthorOrEditor extends Component {
 
     state = {
         fillError: null,
+        isEditorRole: false,
         type: {
             value: '',
             label: "select role*", 
@@ -163,15 +164,25 @@ class AddAuthorOrEditor extends Component {
     }
 
     typeChangedHandler = (event) => {
-
-        const typeUpdatedpdated = {
-            ...this.state.type,
-            value: event.target.value,
-            valid: this.checkValidity(event.target.value, this.state.type.validation),
-            touched: true
-        }
-
-        this.setState({ type: typeUpdatedpdated, fillError: null});
+        if (event.target.value === 'editor') {
+            const typeUpdatedpdated = {
+                ...this.state.type,
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.type.validation),
+                touched: true
+            }
+    
+            this.setState({ type: typeUpdatedpdated, isEditorRole: true, fillError: null});
+        } else {
+            const typeUpdatedpdated = {
+                ...this.state.type,
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.type.validation),
+                touched: true
+            }
+    
+            this.setState({ type: typeUpdatedpdated, isEditorRole: false, fillError: null});
+        }    
     }
 
     userIdChangedHandler = (event) => {
@@ -207,7 +218,7 @@ class AddAuthorOrEditor extends Component {
 
     facebookUrlChangedHandler = (event) => {
 
-        if (event.target.event === '') {
+        if (event.target.value === '') {
             const updated = {
                 ...this.state.facebookUrl,
                 value: event.target.value,
@@ -284,36 +295,42 @@ class AddAuthorOrEditor extends Component {
                     touched={this.state.userId.touched}
                     changed={(event) => this.userIdChangedHandler(event)}
                     />
-                    <Input 
-                    label={this.state.twitterUrl.label} 
-                    name={this.state.twitterUrl.name}
-                    value={this.state.twitterUrl.value}
-                    elementType={'textarea'}
-                    invalid={!this.state.twitterUrl.valid}
-                    shouldValidate={this.state.twitterUrl.validation}
-                    touched={this.state.twitterUrl.touched}
-                    changed={(event) => this.twitterUrlChangedHandler(event)}
-                    />
-                    <Input 
-                    label={this.state.facebookUrl.label} 
-                    name={this.state.facebookUrl.name}
-                    value={this.state.facebookUrl.value}
-                    elementType={'textarea'}
-                    invalid={!this.state.facebookUrl.valid}
-                    shouldValidate={this.state.facebookUrl.validation}
-                    touched={this.state.facebookUrl.touched}
-                    changed={(event) => this.facebookUrlChangedHandler(event)}
-                    />
-                    <Input 
-                    label={this.state.linkedinUrl.label} 
-                    name={this.state.linkedinUrl.name}
-                    value={this.state.linkedinUrl.value}
-                    elementType={'textarea'}
-                    invalid={!this.state.linkedinUrl.valid}
-                    shouldValidate={this.state.linkedinUrl.validation}
-                    touched={this.state.linkedinUrl.touched}
-                    changed={(event) => this.linkedinUrlChangedHandler(event)}
-                    />
+                    { this.state.isEditorRole ? null :
+                        <Input 
+                        label={this.state.twitterUrl.label} 
+                        name={this.state.twitterUrl.name}
+                        value={this.state.twitterUrl.value}
+                        elementType={'textarea'}
+                        invalid={!this.state.twitterUrl.valid}
+                        shouldValidate={this.state.twitterUrl.validation}
+                        touched={this.state.twitterUrl.touched}
+                        changed={(event) => this.twitterUrlChangedHandler(event)}
+                        />
+                    }
+                    { this.state.isEditorRole ? null :
+                        <Input 
+                        label={this.state.facebookUrl.label} 
+                        name={this.state.facebookUrl.name}
+                        value={this.state.facebookUrl.value}
+                        elementType={'textarea'}
+                        invalid={!this.state.facebookUrl.valid}
+                        shouldValidate={this.state.facebookUrl.validation}
+                        touched={this.state.facebookUrl.touched}
+                        changed={(event) => this.facebookUrlChangedHandler(event)}
+                        />
+                    }
+                    { this.state.isEditorRole ? null :
+                        <Input 
+                        label={this.state.linkedinUrl.label} 
+                        name={this.state.linkedinUrl.name}
+                        value={this.state.linkedinUrl.value}
+                        elementType={'textarea'}
+                        invalid={!this.state.linkedinUrl.valid}
+                        shouldValidate={this.state.linkedinUrl.validation}
+                        touched={this.state.linkedinUrl.touched}
+                        changed={(event) => this.linkedinUrlChangedHandler(event)}
+                        />
+                    }
                     { (!this.state.userId.valid && this.state.userId.touched) ||
                       (!this.state.type.valid && this.state.type.touched) ||
                       (!this.state.twitterUrl.valid && this.state.twitterUrl.touched) ||

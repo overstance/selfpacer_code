@@ -44,7 +44,9 @@ const blogDraftSchema = new Schema({
   publishMonth: String,
   publishDay: String,
   displayDate: String,
-  slug: String
+  slug: String,
+  editorInChargeId: String,
+  editorInChargeName: String
 });
 
 module.exports = mongoose.model('blogDrafts', blogDraftSchema);

@@ -36,7 +36,7 @@ const collectionNav = (props) => {
         <div>
             {props.isShared ? 
                 <div className={classes.FlexContainer}>
-                    { props.accountType === 'Administrator' || 'ChiefAdmin' ?  
+                    { props.accountType === 'Administrator' || props.accountType === 'Senior Administrator' || props.accountType === 'Head Administrator' ?  
                         <div 
                         className={classes.Feature}
                         onClick={props.featureClicked}

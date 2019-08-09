@@ -1,7 +1,8 @@
 import React from "react";
 // import { EditorState, Editor, RichUtils, AtomicBlockUtils } from "draft-js";
 import StyleButton from "../styleButton/styleButton";
-import HeadingStyleDropDown from './HeadingStyleDropDown'
+import HeadingStyleDropDown from './HeadingStyleDropDown';
+import classes from '../BlogEditor.module.css';
 
 
 export const styleMap = {
@@ -52,10 +53,12 @@ export const BlockStyleControls = props => {
 		.getType();
 
 	return (
-		<span /* className="RichEditor-controls" */>
-
-      <HeadingStyleDropDown blockTypeHeadings={BLOCK_TYPE_HEADINGS} active={blockType} onToggle={props.onToggle} />
-
+		<div className={classes.blockStyles}>
+			<HeadingStyleDropDown 
+			blockTypeHeadings={BLOCK_TYPE_HEADINGS} 
+			active={blockType} 
+			onToggle={props.onToggle} 
+			/>
 			{BLOCK_TYPES.map(type => (
 				<StyleButton
 					key={type.label}
@@ -65,6 +68,6 @@ export const BlockStyleControls = props => {
 					style={type.style}
 				/>
 			))}
-		</span>
+		</div>
 	);
 };

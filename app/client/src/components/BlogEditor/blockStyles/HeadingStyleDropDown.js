@@ -9,24 +9,25 @@ class HeadingStyleDropdown extends Component {
   }
 
   render() {
-    let backgroundClasses = [classes.styleButton];
+    let backgroundClasses = [classes.blockSelect];
 
-    if (this.props.active) {
-        backgroundClasses = [classes.styleButton, classes.styleButtonActive];
+    if (this.props.active === 'header-one' || 
+        this.props.active === 'header-two' || 
+        this.props.active === 'header-three' ||
+        this.props.active === 'header-four' ||
+        this.props.active === 'header-five' ) {
+        backgroundClasses = [classes.blockSelect, classes.blockSelectActive];
     }
-    /* let className = "RichEditor-styleButton";
-    if (this.props.active) {
-      className += " RichEditor-activeButton";
-    } */
+    
     return (
-      <span>
-      <select className={classes.select} value={this.props.active} onChange={this.onToggle}>
-        <option value=''>Heading Levels</option>
-        {this.props.blockTypeHeadings.map((heading, index) => {
-          return <option key={index} className={backgroundClasses.join(' ')} value={heading.style}>{heading.label}</option>
-        })}
-      </select>
-    </span>
+      <div className={classes.blockTypeHeadings}>
+        <select className={backgroundClasses.join(' ')} value={this.props.active} onChange={this.onToggle}>
+          <option value=''>Heading Levels</option>
+          {this.props.blockTypeHeadings.map((heading, index) => {
+            return <option key={index} /* className={backgroundClasses.join(' ')} */ value={heading.style}>{heading.label}</option>
+          })}
+        </select>
+    </div>
     )
   }
 }

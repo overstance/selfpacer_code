@@ -103,7 +103,8 @@ module.exports = app => {
       userId === '5c16efcef6d0f300144d3cda' ||
       userId === '5d227bbb58790b1c7006b0d3' */
       accountType === 'Administrator' ||
-      accountType === 'ChiefAdmin'
+      accountType === 'Head Administrator' ||
+      accountType === 'Senior Administrator'
     ) {
       Resource.find(
         {
@@ -151,7 +152,11 @@ module.exports = app => {
       limit: 10
     };
 
-    if (req.query.useTypeContext === '2' || req.query.useTypeContext === '3') {
+    if (
+      req.query.useTypeContext === '3' ||
+      req.query.useTypeContext === '4' ||
+      req.query.useTypeContext === '5'
+    ) {
       Resource.find({
         confirmed: true,
         isAdmin: true

@@ -9,10 +9,44 @@ import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
 import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
 import Spinner from '../UserInterface/Spinner/Spinner';
 
-class AddAdminUsers extends Component {
+class AddAdminUser extends Component {
 
     state = { 
         fillError: null,
+        type: {
+            value: '',
+            label: "select higher role*", 
+            name: "type",
+            validation: {
+                required: true
+            },
+            elementConfig: { 
+                options: [ 
+                    {
+                        value: '',
+                        displayValue: ''
+                    },
+                    {
+                        value: 'Facilitator',
+                        displayValue: 'Facilitator'
+                    },
+                    {
+                        value: 'Editor',
+                        displayValue: 'Editor'
+                    },
+                    {
+                        value: 'Administrator',
+                        displayValue: 'Administrator'
+                    },
+                    {
+                        value: 'Senior Administrator',
+                        displayValue: 'Senior Administrator'
+                    }
+                ]
+            },
+            valid: false,
+            touched: false   
+        },
         userId: {
             value: '',
             label: 'Enter User Id',
@@ -35,24 +69,6 @@ class AddAdminUsers extends Component {
             isValid = value.trim() !== '' && isValid;
         }
 
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
         return isValid;
     }
 
@@ -65,11 +81,18 @@ class AddAdminUsers extends Component {
                 touched: true,
                 valid: false
             }
-        this.setState({ userId: updated});
 
-        this.setState({ fillError: 'Please fill all fields' });
+            this.setState({ fillError: 'Please fill all fields', userId: updated });
+        } else if (!this.state.type.touched || this.state.type.value === '') {
+            const updated = {
+                ...this.state.type,
+                touched: true,
+                valid: false
+            }
+
+            this.setState({ fillError: 'Please fill all fields', type: updated });
         } else {
-            this.props.onAddAdminUser(this.state.userId.value, 'Administrator');
+            this.props.onAddAdminUser(this.state.userId.value, this.state.type.value);
             const updated = {
                 ...this.state.userId,
                 value: '',
@@ -79,6 +102,17 @@ class AddAdminUsers extends Component {
         }
         
     };
+
+    typeChangedHandler = (event) => {
+        const typeUpdatedpdated = {
+            ...this.state.type,
+            value: event.target.value,
+            valid: this.checkValidity(event.target.value, this.state.type.validation),
+            touched: true
+        }
+
+        this.setState({ type: typeUpdatedpdated, isEditorRole: false, fillError: null});   
+    }
 
     
     adminUserInputChangedHandler = (event) => {
@@ -107,6 +141,17 @@ class AddAdminUsers extends Component {
                     <FormFeedback isFillError>
                         {this.state.fillError}
                     </FormFeedback>
+                    <Input 
+                    label={this.state.type.label} 
+                    name={this.state.type.name}
+                    value={this.state.type.value}
+                    elementType='select'
+                    invalid={!this.state.type.valid}
+                    shouldValidate={this.state.type.validation}
+                    touched={this.state.type.touched}
+                    elementConfig={this.state.type.elementConfig}
+                    changed={(event) => this.typeChangedHandler(event)}
+                    />
                     <Input 
                     label={this.state.userId.label} 
                     name={this.state.userId.name}
@@ -144,9 +189,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddAdminUser: ( user_id, newAccountType ) => dispatch( actions.addAdminOrFacilitator( user_id, newAccountType ))
+        onAddAdminUser: ( user_id, newAccountType ) => dispatch( actions.addAdminUser( user_id, newAccountType ))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddAdminUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(AddAdminUser);
 

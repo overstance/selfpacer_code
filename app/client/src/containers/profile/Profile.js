@@ -62,7 +62,8 @@ class Profile extends Component {
                         { 
                             this.props.accountType === 'Administrator' ||
                             this.props.accountType === 'Facilitator' ||
-                            this.props.accountType === 'ChiefAdmin' ?
+                            this.props.accountType === 'Senior Administrator' ||
+                            this.props.accountType === 'Head Administrator' ?
                             <div className={classes.Statistics}>
                                 <div className={classes.StatisticsLike}>
                                     <div className={classes.StatisticsCount}>{this.props.likeCount ? this.props.likeCount : 0}</div>
@@ -96,7 +97,7 @@ class Profile extends Component {
                 </div>
                 <div className={classes.LogoutPanelWrapper}>
                     <div className={classes.AuthContainer}>
-                        {this.props.accountType === "ChiefAdmin" || this.props.accountType === "Administrator" ? <Link className={classes.AdminTools} to='/admin_tools'>Admin Tools</Link> : null}
+                        {this.props.accountType === "Head Administrator" || this.props.accountType === "Senior Administrator" || this.props.accountType === "Administrator" ? <Link className={classes.AdminTools} to='/admin_tools'>Admin Tools</Link> : null}
                         <Link className={classes.Logout} to='/logout'>Log Out</Link>
                     </div>
                     <div className={classes.DeleteAccount}> Delete Account</div>

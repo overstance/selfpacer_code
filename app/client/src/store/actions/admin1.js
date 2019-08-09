@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-//Add AdminUser or Facilitator
+//Add AdminUser
 
 export const AdminAddStart = () => {
     return {
@@ -23,47 +23,19 @@ export const adminAddFailed = ( error ) => {
     };
 };
 
-export const addFacilitatorStart = () => {
-    return {
-        type: actionTypes.ADD_FACILITATOR_START
-    };
-};
-
-export const addFacilitatorSuccess = ( successInfo ) => {
-    return {
-        type: actionTypes.ADD_FACILITATOR_SUCCESS,
-        successInfo: successInfo
-    };
-};
-
-export const addFacilitatorFail = ( error ) => {
-    return {
-        type: actionTypes.ADD_FACILITATOR_FAIL,
-        error: error
-    };
-}
-
-export const addAdminOrFacilitator = (user_id, newAccountType) => async dispatch => {
-    if (newAccountType === 'Administrator') {
-        dispatch (AdminAddStart());
-    } else if (newAccountType === 'Facilitator') {
-        dispatch (addFacilitatorStart());
-    }
+export const addAdminUser = (user_id, newAccountType) => async dispatch => {
+    dispatch (AdminAddStart());
     
     const info = {
         userId: user_id,
         newAccountType: newAccountType
     };
 
-    const res = await axios.post('/api/add_admin_or_facilitator', info)
-    if (res.data.updatedUser && newAccountType === 'Administrator' ) {
-        dispatch(adminUserAdded('Admin User Added'));
-    } else if (res.data.updatedUser && newAccountType === 'Facilitator') {
-        dispatch(addFacilitatorSuccess('Facilitator Added'));
-    } else if (res.data.error && newAccountType === 'Administrator') {
+    const res = await axios.put('/api/add_admin_user', info)
+    if (res.data.updatedUser) {
+        dispatch(adminUserAdded(`${newAccountType + ' '} User Added`));
+    } else if (res.data.error) {
         dispatch(adminAddFailed(res.data.error))
-    } else if (res.data.error && newAccountType === 'Facilitator') {
-        dispatch(addFacilitatorFail(res.data.error))
     }
 };
 
@@ -89,16 +61,48 @@ export const removeAdminFail = ( error ) => {
     };
 };
 
-export const removeAdmin = (userId) => async dispatch => {
+export const removeAdmin = (user_id, newAccountType) => async dispatch => {
 
     dispatch(removeAdminStart());
-    const res = await axios.post('/api/remove_admin', { userId: userId });
+    const res = await axios.put('/api/remove_admin_user', { userId: user_id, newAccountType: newAccountType });
     if (res.data.updatedUser) {
-        dispatch(removeAdminSuccess('Admin Removed'));
+        dispatch(removeAdminSuccess(`${'User Added as ' + newAccountType }`));
     } else if (res.data.error) {    
         dispatch(removeAdminFail(res.data.error));
     } 
 
+};
+
+export const addFacilitatorStart = () => {
+    return {
+        type: actionTypes.ADD_FACILITATOR_START
+    };
+};
+
+export const addFacilitatorSuccess = ( successInfo ) => {
+    return {
+        type: actionTypes.ADD_FACILITATOR_SUCCESS,
+        successInfo: successInfo
+    };
+};
+
+export const addFacilitatorFail = ( error ) => {
+    return {
+        type: actionTypes.ADD_FACILITATOR_FAIL,
+        error: error
+    };
+}
+
+export const addFacilitator = (user_id) => async dispatch => {
+    dispatch (addFacilitatorStart());
+
+    const res = await axios.put('/api/add_facilitator', {userId: user_id})
+
+    if (res.data.updatedUser) {
+        dispatch(addFacilitatorSuccess('Facilitator Added'));
+    } else if (res.data.error) {
+        dispatch(addFacilitatorFail(res.data.error))
+    }
 };
 
 // Remove Facilitator
@@ -126,7 +130,7 @@ export const removeFacilitatorFail = ( error ) => {
 export const removeFacilitator = (userId) => async dispatch => {
 
     dispatch(removeFacilitatorStart());
-    const res = await axios.post('/api/remove_facilitator', { userId: userId });
+    const res = await axios.put('/api/remove_facilitator', { userId: userId });
     if (res.data.updatedUser) {
         dispatch(removeFacilitatorSuccess('Facilitator Removed'));
     } else if (res.data.error) {    
@@ -134,6 +138,7 @@ export const removeFacilitator = (userId) => async dispatch => {
     }
 
 };
+
 
 // Add subject Icon
 
@@ -609,11 +614,11 @@ export const addAuthorOrEditor = (type, userId, twitterUrl, facebookUrl, linkedi
         linkedin = undefined
     }
 
-    console.log(type, userId, twitter, facebook, linkedin);
+    // console.log(type, userId, twitter, facebook, linkedin);
     
     const res = await axios.put('/api/add_author_or_editor', { type: type, userId: userId, twitterUrl: twitter, facebookUrl: facebook, linkedinUrl: linkedin})
     if (res.data.user) { 
-        console.log(res.data.user);
+        // console.log(res.data.user);
         dispatch(addAuthorOrEditorSuccess('user role updated'));    
     }  else if (res.data.error) {
         dispatch(addAuthorOrEditorFail(res.data.error))
@@ -652,11 +657,11 @@ export const removeAuthorOrEditor = (type, userId) => async dispatch => {
     
     dispatch(removeAuthorOrEditorStart());
 
-    console.log(type, userId);
+    // console.log(type, userId);
     
     const res = await axios.put('/api/remove_author_or_editor', { type: type, userId: userId})
     if (res.data.user) { 
-        console.log(res.data.user);
+        // console.log(res.data.user);
         dispatch(removeAuthorOrEditorSuccess('user role updated'));    
     }  else if (res.data.error) {
         dispatch(removeAuthorOrEditorFail(res.data.error))
