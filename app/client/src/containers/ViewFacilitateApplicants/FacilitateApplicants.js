@@ -12,7 +12,11 @@ import LoadMorePrompt from '../../components/UserInterface/LoadMorePrompt/LoadMo
 class FacilitateApplicants extends Component {
     
     componentDidMount() {
-        if ( this.props.useTypeContext === '0' || this.props.useTypeContext === '1' || this.props.useTypeContext === '2') {
+        if ( this.props.useTypeContext === '0' ||
+             this.props.useTypeContext === '1' ||
+             this.props.useTypeContext === '2' ||
+             this.props.useTypeContext === '3.2' ||
+             this.props.useTypeContext === '3.3') {
             this.props.history.push('/');
         } else {
             window.addEventListener('scroll', this.handleScroll, false);

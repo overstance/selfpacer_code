@@ -237,11 +237,7 @@
 .addFeaturedImageButton button {
   background: var(--blue);
   color: var(--white);
-  /* padding: 0 10px; */
-  /* width: 100%; */
   border-radius: 0 4px 4px 0;
-  /* height: 30px; */
-  /* margin: 0 5px; */
   border-style: none;
   cursor: pointer;
   font-weight: 700;
@@ -335,6 +331,20 @@
   font-family: 'PT Mono', monospace;
   font-size: medium;
   padding-left: 6px;
+}
+
+@media(max-width: 600px) {
+  .editorContainer {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media(max-width: 380px) {
+  .inlineStyles, .blockStyles {
+    width: 200px;
+    margin: 0 auto;
+  }
 }
 
 

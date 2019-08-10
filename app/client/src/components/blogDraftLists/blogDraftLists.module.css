@@ -15,18 +15,11 @@
 }
 
 .draftListContainer {
-    position: relative;
-    /* margin: 1em 0em; */
-    /* padding: 1em 0em 1em 0em; */
-    /* flex-basis: 30%; */
+    /* position: relative; */
     flex: 0 0 30%;
     max-width: 30%;
     text-align: left;
-    /* overflow-y: auto;
-    overflow-x: hidden;
-    height: 70vh; */
     order: 1;
-    /* flex-shrink: 1; */
 }
 
 .listsHeader {
@@ -73,3 +66,15 @@
 .addNewButton:hover {
     background-color: var(--green);
 }
+
+@media(max-width: 600px) {
+    .draftListContainer {
+        flex: 0 0 100%;
+        max-width: 100%
+    }
+
+    .draftList {
+        height: 300px;
+    }
+}
+

@@ -159,6 +159,10 @@ class FetchUserByAttribute extends Component {
                 accountType={user.accountType}
                 isAuthor={user.isAuthor}
                 isEditor={user.isEditor}
+                isUserManager={user.isUserManager}
+                isAssetManager={user.isAssetManager}
+                isResearcher={user.isResearcher}
+                isArtist={user.isArtist}
                 />    
             ))
         }

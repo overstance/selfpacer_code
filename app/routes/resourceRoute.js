@@ -153,7 +153,7 @@ module.exports = app => {
     };
 
     if (
-      req.query.useTypeContext === '3' ||
+      req.query.useTypeContext === '3.2' ||
       req.query.useTypeContext === '4' ||
       req.query.useTypeContext === '5'
     ) {

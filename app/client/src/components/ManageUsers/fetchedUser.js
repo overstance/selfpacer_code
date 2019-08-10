@@ -9,7 +9,11 @@ const fetchedUser = (props) => (
         <span>{ 'specialization: ' + props.specialization + ';'}</span>
         <span>{ 'accountType: ' + props.accountType + ';'}</span>
         <span>{ 'isAuthor: ' + props.isAuthor + ';'}</span> 
-        <span>{ 'isEditor: ' + props.isEditor + ';'}</span>  
+        <span>{ 'isEditor: ' + props.isEditor + ';'}</span>
+        <span>{ 'isArtist: ' + props.isArtist + ';'}</span>
+        <span>{ 'isResearcher: ' + props.isResearcher + ';'}</span>
+        <span>{ 'isAssetManager: ' + props.isAssetManager + ';'}</span>
+        <span>{ 'isUserManager: ' + props.isUserManager + ';'}</span>  
     </div>   
 )
 

@@ -15,7 +15,7 @@ class AddAdminUser extends Component {
         fillError: null,
         type: {
             value: '',
-            label: "select higher role*", 
+            label: "select user level*", 
             name: "type",
             validation: {
                 required: true
@@ -25,6 +25,10 @@ class AddAdminUser extends Component {
                     {
                         value: '',
                         displayValue: ''
+                    },
+                    {
+                        value: 'User',
+                        displayValue: 'User'
                     },
                     {
                         value: 'Facilitator',
@@ -134,7 +138,7 @@ class AddAdminUser extends Component {
 
         return (
             <div className={classes.ContainerItem}>
-                <FormTitle isAdmin>Add Admin User</FormTitle>
+                <FormTitle isAdmin>Add Or Remove Admin</FormTitle>
                 <Form 
                 submitForm={this.submitUserHandler}
                 >

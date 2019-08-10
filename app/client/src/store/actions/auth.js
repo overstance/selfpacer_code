@@ -307,8 +307,12 @@ export const loginUser = (email, password, history) => {
                     useContext = '1'
                 } else if (res.data.accountType === 'Editor') {
                     useContext = '2'
-                } else if (res.data.accountType === 'Administrator') {
-                    useContext = '3'
+                } else if (res.data.accountType === 'Administrator' && res.data.isUserManager) {
+                    useContext = '3.1'
+                } else if (res.data.accountType === 'Administrator' && res.data.isAssetManager) {
+                    useContext = '3.2'
+                } else if (res.data.accountType === 'Administrator' && res.data.isEditor) {
+                    useContext = '3.3'
                 } else if (res.data.accountType === 'Senior Administrator') {
                     useContext = '4'
                 } else if (res.data.accountType === 'Head Administrator') {

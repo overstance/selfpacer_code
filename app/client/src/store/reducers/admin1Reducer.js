@@ -32,9 +32,9 @@ const initialState = {
     addSubjectIconError: null,
     addSubjectIconSuccessInfo: null,
     
-    removeAdminLoading: false,
+    /* removeAdminLoading: false,
     removeAdminError: null,
-    removeAdminSuccessInfo: null,
+    removeAdminSuccessInfo: null, */
 
     removeFacilitatorLoading: false,
     removeFacilitatorError: null,
@@ -59,13 +59,13 @@ const initialState = {
     fetchUserByAttributeLoading: false,
     fetchedUser: [],
 
-    addAuthorOrEditorSuccessInfo: null,
-    addAuthorOrEditorError: null,
-    addAuthorOrEditorLoading: false,
+    addAdminTypeSuccessInfo: null,
+    addAdminTypeError: null,
+    addAdminTypeLoading: false,
 
-    removeAuthorOrEditorSuccessInfo: null,
-    removeAuthorOrEditorError: null,
-    removeAuthorOrEditorLoading: false
+    removeAdminTypeSuccessInfo: null,
+    removeAdminTypeError: null,
+    removeAdminTypeLoading: false
 };
 
 // Add Admin User 
@@ -165,7 +165,7 @@ const disapproveFacilitateApplicantFail = ( state, action ) => {
     } );
 };
 
-//Remove Admin User
+/* //Remove Admin User
 
 const removeAdminSuccess = ( state, action ) => {
     return updateObject( state, {
@@ -187,7 +187,7 @@ const removeAdminFail = ( state, action ) => {
         removeAdminError: "Failed!: " + action.error,
         removeAdminLoading: false
     } );
-};
+}; */
 
 // remove facilitator
 
@@ -407,8 +407,8 @@ const clearAllAdminMessages = ( state, action ) => {
     addAdminError: null,
     editSubjectSuccessInfo: null,
     editSubjectError: null,
-    removeAdminError: null,
-    removeAdminSuccessInfo: null,
+    /* removeAdminError: null,
+    removeAdminSuccessInfo: null, */
     fetchSubjectToEditError: null,
     addFacilitatorSuccessInfo: null,
     deleteSubjectSuccessInfo: null,
@@ -422,10 +422,10 @@ const clearAllAdminMessages = ( state, action ) => {
     applicantToDisapproveId: null,
     fetchUserByAttributeSuccessInfo: null,
     fetchUserByAttributeError: null,
-    addAuthorOrEditorSuccessInfo: null,
-    addAuthorOrEditorError: null,
-    removeAuthorOrEditorSuccessInfo: null,
-    removeAuthorOrEditorError: null
+    addAdminTypeSuccessInfo: null,
+    addAdminTypeError: null,
+    removeAdminTypeSuccessInfo: null,
+    removeAdminTypeError: null
     });
 }
 
@@ -473,62 +473,62 @@ const clearFetchUserByAttributeInfo = ( state, action ) => {
 }
 
 // add author or editor
-const addAuthorOrEditorStart = ( state, action ) => {
+const addAdminTypeStart = ( state, action ) => {
     return updateObject( state, {
-        addAuthorOrEditorSuccessInfo: null,
-        addAuthorOrEditorError: null,
-        addAuthorOrEditorLoading: true,
+        addAdminTypeSuccessInfo: null,
+        addAdminTypeError: null,
+        addAdminTypeLoading: true,
     });
 }
 
-const addAuthorOrEditorSuccess = ( state, action ) => {
+const addAdminTypeSuccess = ( state, action ) => {
     return updateObject( state, {
-        addAuthorOrEditorSuccessInfo: action.successInfo,
-        addAuthorOrEditorLoading: false
+        addAdminTypeSuccessInfo: action.successInfo,
+        addAdminTypeLoading: false
     });
 }
 
-const addAuthorOrEditorFail = ( state, action ) => {
+const addAdminTypeFail = ( state, action ) => {
     return updateObject( state, {
-        addAuthorOrEditorError: action.error,
-        addAuthorOrEditorLoading: false,
+        addAdminTypeError: action.error,
+        addAdminTypeLoading: false,
     });
 }
 
 const clearAddAuthorOrEditorInfo = ( state, action ) => {
     return updateObject( state, {
-        addAuthorOrEditorSuccessInfo: null,
-        addAuthorOrEditorError: null,
+        addAdminTypeSuccessInfo: null,
+        addAdminTypeError: null,
     });
 }
 
 // add author or editor
-const removeAuthorOrEditorStart = ( state, action ) => {
+const removeAdminTypeStart = ( state, action ) => {
     return updateObject( state, {
-        removeAuthorOrEditorSuccessInfo: null,
-        removeAuthorOrEditorError: null,
-        removeAuthorOrEditorLoading: true,
+        removeAdminTypeSuccessInfo: null,
+        removeAdminTypeError: null,
+        removeAdminTypeLoading: true,
     });
 }
 
-const removeAuthorOrEditorSuccess = ( state, action ) => {
+const removeAdminTypeSuccess = ( state, action ) => {
     return updateObject( state, {
-        removeAuthorOrEditorSuccessInfo: action.successInfo,
-        removeAuthorOrEditorLoading: false
+        removeAdminTypeSuccessInfo: action.successInfo,
+        removeAdminTypeLoading: false
     });
 }
 
-const removeAuthorOrEditorFail = ( state, action ) => {
+const removeAdminTypeFail = ( state, action ) => {
     return updateObject( state, {
-        removeAuthorOrEditorError: action.error,
-        removeAuthorOrEditorLoading: false,
+        removeAdminTypeError: action.error,
+        removeAdminTypeLoading: false,
     });
 }
 
-const clearRemoveAuthorOrEditorInfo = ( state, action ) => {
+const clearRemoveAdminTypeInfo = ( state, action ) => {
     return updateObject( state, {
-        removeAuthorOrEditorSuccessInfo: null,
-        removeAuthorOrEditorError: null,
+        removeAdminTypeSuccessInfo: null,
+        removeAdminTypeError: null,
     });
 }
 
@@ -550,9 +550,9 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.DISAPPROVE_FACILITATE_APPLICANT_SUCCESS: return disapproveFacilitateApplicantSuccess( state, action );
         case actionTypes.DISAPPROVE_FACILITATE_APPLICANT_FAIL: return disapproveFacilitateApplicantFail( state, action );
 
-        case actionTypes.REMOVE_ADMIN_START: return removeAdminStart( state, action );
+        /* case actionTypes.REMOVE_ADMIN_START: return removeAdminStart( state, action );
         case actionTypes.REMOVE_ADMIN_SUCCESS: return removeAdminSuccess( state, action );
-        case actionTypes.REMOVE_ADMIN_FAIL: return removeAdminFail( state, action );
+        case actionTypes.REMOVE_ADMIN_FAIL: return removeAdminFail( state, action ); */
 
         case actionTypes.REMOVE_FACILITATOR_START: return removeFacilitatorStart( state, action );
         case actionTypes.REMOVE_FACILITATOR_SUCCESS: return removeFacilitatorSuccess( state, action );
@@ -594,15 +594,15 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_USER_BY_ATTRIBUTE_FAIL: return fetchUserByAttributeFail( state, action );
         case actionTypes.CLEAR_FETCH_USER_BY_ATTRIBUTE_INFO: return clearFetchUserByAttributeInfo( state, action );
 
-        case actionTypes.ADD_AUTHOR_OR_EDITOR_START: return addAuthorOrEditorStart( state, action );
-        case actionTypes.ADD_AUTHOR_OR_EDITOR_SUCCESS: return addAuthorOrEditorSuccess( state, action );
-        case actionTypes.ADD_AUTHOR_OR_EDITOR_FAIL: return addAuthorOrEditorFail( state, action );
-        case actionTypes.CLEAR_ADD_AUTHOR_OR_EDITOR_INFO: return clearAddAuthorOrEditorInfo( state, action );
+        case actionTypes.ADD_ADMIN_TYPE_START: return addAdminTypeStart( state, action );
+        case actionTypes.ADD_ADMIN_TYPE_SUCCESS: return addAdminTypeSuccess( state, action );
+        case actionTypes.ADD_ADMIN_TYPE_FAIL: return addAdminTypeFail( state, action );
+        case actionTypes.CLEAR_ADD_ADMIN_TYPE_INFO: return clearAddAuthorOrEditorInfo( state, action );
 
-        case actionTypes.REMOVE_AUTHOR_OR_EDITOR_START: return removeAuthorOrEditorStart( state, action );
-        case actionTypes.REMOVE_AUTHOR_OR_EDITOR_SUCCESS: return removeAuthorOrEditorSuccess( state, action );
-        case actionTypes.REMOVE_AUTHOR_OR_EDITOR_FAIL: return removeAuthorOrEditorFail( state, action );
-        case actionTypes.CLEAR_REMOVE_AUTHOR_OR_EDITOR_INFO: return clearRemoveAuthorOrEditorInfo( state, action );
+        case actionTypes.REMOVE_ADMIN_TYPE_START: return removeAdminTypeStart( state, action );
+        case actionTypes.REMOVE_ADMIN_TYPE_SUCCESS: return removeAdminTypeSuccess( state, action );
+        case actionTypes.REMOVE_ADMIN_TYPE_FAIL: return removeAdminTypeFail( state, action );
+        case actionTypes.CLEAR_REMOVE_ADMIN_TYPE_INFO: return clearRemoveAdminTypeInfo( state, action );
 
         case actionTypes.CLEAR_ALL_ADMIN_MESSAGES: return clearAllAdminMessages( state, action );
 

@@ -33,7 +33,7 @@ export {
 } from './clickedSubject';
 export {
     addAdminUser,
-    removeAdmin,
+    /* removeAdmin, */
     addFacilitator,
     removeFacilitator,
     addSubjectIcon,
@@ -52,10 +52,10 @@ export {
     disapproveFacilitateApplicant,
     fetchUserByAttribute,
     clearFetchUserByAttributeInfo,
-    addAuthorOrEditor,
+    addAdminType,
     clearAddAuthorOrEditorInfo,
-    removeAuthorOrEditor,
-    clearRemoveAuthorOrEditorInfo
+    removeAdminType,
+    clearRemoveAdminTypeInfo
 } from './admin1';
 
 export {

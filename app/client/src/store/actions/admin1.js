@@ -61,7 +61,7 @@ export const removeAdminFail = ( error ) => {
     };
 };
 
-export const removeAdmin = (user_id, newAccountType) => async dispatch => {
+/* export const removeAdmin = (user_id, newAccountType) => async dispatch => {
 
     dispatch(removeAdminStart());
     const res = await axios.put('/api/remove_admin_user', { userId: user_id, newAccountType: newAccountType });
@@ -71,7 +71,7 @@ export const removeAdmin = (user_id, newAccountType) => async dispatch => {
         dispatch(removeAdminFail(res.data.error));
     } 
 
-};
+}; */
 
 export const addFacilitatorStart = () => {
     return {
@@ -574,29 +574,29 @@ export const clearFetchUserByAttributeInfo = () => {
 
 // add author or editor
 
-export const addAuthorOrEditorStart = () => {
+export const addAdminTypeStart = () => {
     return {
-        type: actionTypes.ADD_AUTHOR_OR_EDITOR_START
+        type: actionTypes.ADD_ADMIN_TYPE_START
     };
 };
 
-export const addAuthorOrEditorSuccess = (successInfo) => {
+export const addAdminTypeSuccess = (successInfo) => {
     return {
-        type: actionTypes.ADD_AUTHOR_OR_EDITOR_SUCCESS,
+        type: actionTypes.ADD_ADMIN_TYPE_SUCCESS,
         successInfo: successInfo
     };
 };
 
-export const addAuthorOrEditorFail = ( error ) => {
+export const addAdminTypeFail = ( error ) => {
     return {
-        type: actionTypes.ADD_AUTHOR_OR_EDITOR_FAIL,
+        type: actionTypes.ADD_ADMIN_TYPE_FAIL,
         error: error
     };
 }
 
-export const addAuthorOrEditor = (type, userId, twitterUrl, facebookUrl, linkedinUrl) => async dispatch => {
+export const addAdminType = (type, userId, twitterUrl, facebookUrl, linkedinUrl) => async dispatch => {
     
-    dispatch(addAuthorOrEditorStart());
+    dispatch(addAdminTypeStart());
 
     let twitter = twitterUrl;
     let facebook = facebookUrl;
@@ -616,61 +616,61 @@ export const addAuthorOrEditor = (type, userId, twitterUrl, facebookUrl, linkedi
 
     // console.log(type, userId, twitter, facebook, linkedin);
     
-    const res = await axios.put('/api/add_author_or_editor', { type: type, userId: userId, twitterUrl: twitter, facebookUrl: facebook, linkedinUrl: linkedin})
+    const res = await axios.put('/api/add_admin_type', { type: type, userId: userId, twitterUrl: twitter, facebookUrl: facebook, linkedinUrl: linkedin})
     if (res.data.user) { 
         // console.log(res.data.user);
-        dispatch(addAuthorOrEditorSuccess('user role updated'));    
+        dispatch(addAdminTypeSuccess('user role updated'));    
     }  else if (res.data.error) {
-        dispatch(addAuthorOrEditorFail(res.data.error))
+        dispatch(addAdminTypeFail(res.data.error))
     }
 };
 
 export const clearAddAuthorOrEditorInfo = () => {
     return {
-        type: actionTypes.CLEAR_ADD_AUTHOR_OR_EDITOR_INFO
+        type: actionTypes.CLEAR_ADD_ADMIN_TYPE_INFO
     }
 }
 
 // remove author or editor
 
-export const removeAuthorOrEditorStart = () => {
+export const removeAdminTypeStart = () => {
     return {
-        type: actionTypes.REMOVE_AUTHOR_OR_EDITOR_START
+        type: actionTypes.REMOVE_ADMIN_TYPE_START
     };
 };
 
-export const removeAuthorOrEditorSuccess = (successInfo) => {
+export const removeAdminTypeSuccess = (successInfo) => {
     return {
-        type: actionTypes.REMOVE_AUTHOR_OR_EDITOR_SUCCESS,
+        type: actionTypes.REMOVE_ADMIN_TYPE_SUCCESS,
         successInfo: successInfo
     };
 };
 
-export const removeAuthorOrEditorFail = ( error ) => {
+export const removeAdminTypeFail = ( error ) => {
     return {
-        type: actionTypes.REMOVE_AUTHOR_OR_EDITOR_FAIL,
+        type: actionTypes.REMOVE_ADMIN_TYPE_FAIL,
         error: error
     };
 }
 
-export const removeAuthorOrEditor = (type, userId) => async dispatch => {
+export const removeAdminType = (type, userId) => async dispatch => {
     
-    dispatch(removeAuthorOrEditorStart());
+    dispatch(removeAdminTypeStart());
 
     // console.log(type, userId);
     
-    const res = await axios.put('/api/remove_author_or_editor', { type: type, userId: userId})
+    const res = await axios.put('/api/remove_admin_type', { type: type, userId: userId})
     if (res.data.user) { 
         // console.log(res.data.user);
-        dispatch(removeAuthorOrEditorSuccess('user role updated'));    
+        dispatch(removeAdminTypeSuccess('user role updated'));    
     }  else if (res.data.error) {
-        dispatch(removeAuthorOrEditorFail(res.data.error))
+        dispatch(removeAdminTypeFail(res.data.error))
     }
 };
 
-export const clearRemoveAuthorOrEditorInfo = () => {
+export const clearRemoveAdminTypeInfo = () => {
     return {
-        type: actionTypes.CLEAR_REMOVE_AUTHOR_OR_EDITOR_INFO
+        type: actionTypes.CLEAR_REMOVE_ADMIN_TYPE_INFO
     }
 }
 

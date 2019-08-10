@@ -18,7 +18,10 @@ class ManageBlogDrafts extends Component {
     } */
 
 	componentDidMount() {
-		if ( this.props.useTypeContext === '0' || this.props.useTypeContext === '1') {
+		if ( this.props.useTypeContext === '0' ||
+			 this.props.useTypeContext === '1'||
+			 this.props.useTypeContext === '3.1'||
+			 this.props.useTypeContext === '3.2') {
 			this.props.history.push('/');
 		}
 
@@ -62,7 +65,7 @@ class ManageBlogDrafts extends Component {
     return (
       <div>
         <div className={classes.headline}>
-          <h1>Draft.js Demo</h1>
+          <h1>Blog Drafts</h1>
         </div>
 
         <div className={classes.pageComponents}>

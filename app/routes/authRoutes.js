@@ -261,25 +261,6 @@ module.exports = app => {
   });
 
   app.put('/api/add_admin_user', (req, res) => {
-    //console.log(req.body);
-
-    // let id = req.body.userId;
-
-    User.findOneAndUpdate(
-      { _id: req.body.userId },
-      { accountType: req.body.newAccountType },
-      function(err, updatedUser) {
-        if (err) {
-          // console.log(err.name);
-          res.send({ error: err.name });
-        } else {
-          res.send({ updatedUser: updatedUser });
-        }
-      }
-    );
-  });
-
-  app.put('/api/remove_admin_user', (req, res) => {
     User.findOneAndUpdate(
       { _id: req.body.userId },
       { accountType: req.body.newAccountType },
@@ -506,7 +487,7 @@ module.exports = app => {
     }
   });
 
-  app.put('/api/add_author_or_editor', (req, res) => {
+  app.put('/api/add_admin_type', (req, res) => {
     if (req.body.type === 'author') {
       User.findByIdAndUpdate(
         req.body.userId,
@@ -540,10 +521,70 @@ module.exports = app => {
           }
         }
       );
+    } else if (req.body.type === 'user manager') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          isUserManager: true
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    } else if (req.body.type === 'asset manager') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          isAssetManager: true
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    } else if (req.body.type === 'artist') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          isArtist: true
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    } else if (req.body.type === 'researcher') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          isResearcher: true
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
     }
   });
 
-  app.put('/api/remove_author_or_editor', (req, res) => {
+  app.put('/api/remove_admin_type', (req, res) => {
     if (req.body.type === 'author') {
       User.findByIdAndUpdate(
         req.body.userId,
@@ -564,6 +605,66 @@ module.exports = app => {
         req.body.userId,
         {
           isEditor: false
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    } else if (req.body.type === 'user manager') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          isUserManager: false
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    } else if (req.body.type === 'asset manager') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          isAssetManager: false
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    } else if (req.body.type === 'artist') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          isArtist: false
+        },
+        { new: true },
+        (err, user) => {
+          if (err) {
+            res.send({ error: err.name });
+          } else if (user) {
+            res.send({ user: user });
+          }
+        }
+      );
+    } else if (req.body.type === 'researcher') {
+      User.findByIdAndUpdate(
+        req.body.userId,
+        {
+          isResearcher: false
         },
         { new: true },
         (err, user) => {

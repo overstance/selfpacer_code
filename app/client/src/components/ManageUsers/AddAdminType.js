@@ -9,14 +9,14 @@ import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
 import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
 import Spinner from '../UserInterface/Spinner/Spinner';
 
-class AddAuthorOrEditor extends Component {
+class AddAdminType extends Component {
     componentWillUnmount () {
-        this.props.onClearAddAuthorOrEditorInfo();
+        this.props.onClearAddAdminTypeInfo();
     }
 
     state = {
         fillError: null,
-        isEditorRole: false,
+        isAuthorRole: false,
         type: {
             value: '',
             label: "select role*", 
@@ -37,6 +37,22 @@ class AddAuthorOrEditor extends Component {
                     {
                         value: 'editor',
                         displayValue: 'editor'
+                    },
+                    {
+                        value: 'user manager',
+                        displayValue: 'user manager'
+                    },
+                    {
+                        value: 'asset manager',
+                        displayValue: 'asset manager'
+                    },
+                    {
+                        value: 'artist',
+                        displayValue: 'artist'
+                    },
+                    {
+                        value: 'researcher',
+                        displayValue: 'researcher'
                     }
                 ]
             },
@@ -107,7 +123,7 @@ class AddAuthorOrEditor extends Component {
     submitForm = (event) => {
         event.preventDefault();
 
-        if ( this.props.addAuthorOrEditorSuccessInfo && !this.state.type.touched) {
+        if ( this.props.addAdminTypeSuccessInfo && !this.state.type.touched) {
             const typeUpdated = {
                 ...this.state.type,
                 touched: true,
@@ -132,7 +148,7 @@ class AddAuthorOrEditor extends Component {
             this.setState({ userId: userIdUpdated, fillError: 'Please fill asterisked fields'});
 
         } else {
-            this.props.onAddAuthorOrEditor(this.state.type.value, this.state.userId.value, this.state.twitterUrl.value, this.state.facebookUrl.value, this.state.linkedinUrl.value);
+            this.props.onAddAdminType(this.state.type.value, this.state.userId.value, this.state.twitterUrl.value, this.state.facebookUrl.value, this.state.linkedinUrl.value);
 
             const userIdReset = {
                 ...this.state.userId,
@@ -164,7 +180,7 @@ class AddAuthorOrEditor extends Component {
     }
 
     typeChangedHandler = (event) => {
-        if (event.target.value === 'editor') {
+        if (event.target.value === 'author') {
             const typeUpdatedpdated = {
                 ...this.state.type,
                 value: event.target.value,
@@ -172,7 +188,7 @@ class AddAuthorOrEditor extends Component {
                 touched: true
             }
     
-            this.setState({ type: typeUpdatedpdated, isEditorRole: true, fillError: null});
+            this.setState({ type: typeUpdatedpdated, isAuthorRole: true, fillError: null});
         } else {
             const typeUpdatedpdated = {
                 ...this.state.type,
@@ -181,7 +197,7 @@ class AddAuthorOrEditor extends Component {
                 touched: true
             }
     
-            this.setState({ type: typeUpdatedpdated, isEditorRole: false, fillError: null});
+            this.setState({ type: typeUpdatedpdated, isAuthorRole: false, fillError: null});
         }    
     }
 
@@ -261,13 +277,13 @@ class AddAuthorOrEditor extends Component {
     render() {
 
         let formButtonText = 'Submit';
-        if(this.props.addAuthorOrEditorLoading) {
+        if(this.props.addAdminTypeLoading) {
             formButtonText = <Spinner isButton/>;
         }
 
         return (
             <div className={classes.ContainerItem}>
-                <FormTitle isAdmin>Add Author Or Editor</FormTitle>
+                <FormTitle isAdmin>Add Admin Type</FormTitle>
                 <Form
                 submitForm={this.submitForm}
                 >
@@ -295,7 +311,7 @@ class AddAuthorOrEditor extends Component {
                     touched={this.state.userId.touched}
                     changed={(event) => this.userIdChangedHandler(event)}
                     />
-                    { this.state.isEditorRole ? null :
+                    { this.state.isAuthorRole ?
                         <Input 
                         label={this.state.twitterUrl.label} 
                         name={this.state.twitterUrl.name}
@@ -306,8 +322,9 @@ class AddAuthorOrEditor extends Component {
                         touched={this.state.twitterUrl.touched}
                         changed={(event) => this.twitterUrlChangedHandler(event)}
                         />
+                        : null
                     }
-                    { this.state.isEditorRole ? null :
+                    { this.state.isAuthorRole ?
                         <Input 
                         label={this.state.facebookUrl.label} 
                         name={this.state.facebookUrl.name}
@@ -318,8 +335,9 @@ class AddAuthorOrEditor extends Component {
                         touched={this.state.facebookUrl.touched}
                         changed={(event) => this.facebookUrlChangedHandler(event)}
                         />
+                        : null
                     }
-                    { this.state.isEditorRole ? null :
+                    { this.state.isAuthorRole ?
                         <Input 
                         label={this.state.linkedinUrl.label} 
                         name={this.state.linkedinUrl.name}
@@ -330,6 +348,7 @@ class AddAuthorOrEditor extends Component {
                         touched={this.state.linkedinUrl.touched}
                         changed={(event) => this.linkedinUrlChangedHandler(event)}
                         />
+                        : null
                     }
                     { (!this.state.userId.valid && this.state.userId.touched) ||
                       (!this.state.type.valid && this.state.type.touched) ||
@@ -340,13 +359,13 @@ class AddAuthorOrEditor extends Component {
                         <Button btnType='Danger' disabled> {formButtonText} </Button> :
                         <Button btnType='Success'> {formButtonText} </Button>    
                     }
-                    { this.props.addAuthorOrEditorError ? 
+                    { this.props.addAdminTypeError ? 
                         <FormFeedback isFailed>
-                            {this.props.addAuthorOrEditorError}
+                            {this.props.addAdminTypeError}
                         </FormFeedback>
                         :
                         <FormFeedback isSuccess>
-                            {this.props.addAuthorOrEditorSuccessInfo}
+                            {this.props.addAdminTypeSuccessInfo}
                         </FormFeedback>
                     }
                 </Form>
@@ -356,16 +375,16 @@ class AddAuthorOrEditor extends Component {
 };
 
 const mapStateToProps = state => ({
-    addAuthorOrEditorSuccessInfo: state.admin1.addAuthorOrEditorSuccessInfo,
-    addAuthorOrEditorError: state.admin1.addAuthorOrEditorError,
-    addAuthorOrEditorLoading: state.admin1.addAuthorOrEditorLoading
+    addAdminTypeSuccessInfo: state.admin1.addAdminTypeSuccessInfo,
+    addAdminTypeError: state.admin1.addAdminTypeError,
+    addAdminTypeLoading: state.admin1.addAdminTypeLoading
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddAuthorOrEditor: ( type, userId, twitterUrl, facebookUrl, linkedinUrl ) => dispatch( actions.addAuthorOrEditor( type, userId, twitterUrl, facebookUrl, linkedinUrl ) ),
-        onClearAddAuthorOrEditorInfo: () => dispatch(actions.clearAddAuthorOrEditorInfo())
+        onAddAdminType: ( type, userId, twitterUrl, facebookUrl, linkedinUrl ) => dispatch( actions.addAdminType( type, userId, twitterUrl, facebookUrl, linkedinUrl ) ),
+        onClearAddAdminTypeInfo: () => dispatch(actions.clearAddAuthorOrEditorInfo())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddAuthorOrEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(AddAdminType);

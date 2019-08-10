@@ -24,7 +24,11 @@ class UserAssets extends Component {
     
     componentDidMount() {
 
-        if (this.props.useTypeContext === '0' || this.props.useTypeContext === '2') {
+        if (this.props.useTypeContext === '0' ||
+            this.props.useTypeContext === '2'||
+            this.props.useTypeContext === '3'||
+            this.props.useTypeContext === '3.1'||
+            this.props.useTypeContext === '3.3') {
             // console.log(this.props.accountType);
             this.props.history.push('/');  
         } else {
@@ -36,7 +40,9 @@ class UserAssets extends Component {
                 this.props.onFetchUserAssets(this.props.userId, this.props.useTypeContext, 0);
             } 
             
-            if (this.props.useTypeContext === '3' || this.props.useTypeContext === '4' || this.props.useTypeContext === '5') {
+            if (this.props.useTypeContext === '3.2' ||
+                 this.props.useTypeContext === '4' || 
+                 this.props.useTypeContext === '5') {
                 if (this.props.activeContent === 'youtube') {
                     this.setState({
                         moocActive: false,

@@ -9,13 +9,16 @@ import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
 import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
 import Spinner from '../UserInterface/Spinner/Spinner';
 
-class RemoveAdminUser extends Component {
+class RemoveAdminType extends Component {
+    componentWillUnmount () {
+        this.props.onClearRemoveAdminTypeInfo();
+    }
 
-    state = { 
+    state = {
         fillError: null,
         type: {
             value: '',
-            label: "select lower role*", 
+            label: "select role*", 
             name: "type",
             validation: {
                 required: true
@@ -27,20 +30,28 @@ class RemoveAdminUser extends Component {
                         displayValue: ''
                     },
                     {
-                        value: 'User',
-                        displayValue: 'User'
+                        value: 'author',
+                        displayValue: 'author'
                     },
                     {
-                        value: 'Facilitator',
-                        displayValue: 'Facilitator'
+                        value: 'editor',
+                        displayValue: 'editor'
                     },
                     {
-                        value: 'Editor',
-                        displayValue: 'Editor'
+                        value: 'user manager',
+                        displayValue: 'user manager'
                     },
                     {
-                        value: 'Administrator',
-                        displayValue: 'Administrator'
+                        value: 'asset manager',
+                        displayValue: 'asset manager'
+                    },
+                    {
+                        value: 'artist',
+                        displayValue: 'artist'
+                    },
+                    {
+                        value: 'researcher',
+                        displayValue: 'researcher'
                     }
                 ]
             },
@@ -49,8 +60,8 @@ class RemoveAdminUser extends Component {
         },
         userId: {
             value: '',
-            label: 'Enter User Id',
-            name: 'userId',
+            label: "userId*", 
+            name: "userId",
             validation: {
                 required: true
             },
@@ -69,41 +80,58 @@ class RemoveAdminUser extends Component {
             isValid = value.trim() !== '' && isValid;
         }
 
+        if (rules.isUrl) {
+            const pattern = /^(ftp|http|https):\/\/[^ "]+$/
+            isValid = pattern.test(value) && isValid
+        }
+
         return isValid;
     }
 
-    submitUserHandler = (event) => {
+
+    submitForm = (event) => {
         event.preventDefault();
 
-        if (!this.state.userId.touched || this.state.userId.value === '') {
-            const updated = {
-                ...this.state.userId,
-                touched: true,
-                valid: false
-            }
-
-            this.setState({ fillError: 'Please fill all fields', userId: updated });
-        } else if (!this.state.type.touched || this.state.type.value === '') {
-            const updated = {
+        if ( this.props.removeAdminTypeSuccessInfo && !this.state.type.touched) {
+            const typeUpdated = {
                 ...this.state.type,
                 touched: true,
                 valid: false
             }
+            this.setState({ type: typeUpdated, fillError: 'Edit New'});
 
-            this.setState({ fillError: 'Please fill all fields', type: updated });
+        } else if ( this.state.type.value === '') {
+            const typeUpdated = {
+                ...this.state.type,
+                touched: true,
+                valid: false
+            }
+            this.setState({ type: typeUpdated, fillError: 'Please fill asterisked fields'});
+
+        } else if (this.state.userId.value === '') {
+            const userIdUpdated = {
+                ...this.state.userId,
+                touched: true,
+                valid: false
+            }
+            this.setState({ userId: userIdUpdated, fillError: 'Please fill asterisked fields'});
+
         } else {
-            this.props.onRemoveAdminUser(this.state.userId.value, this.state.type.value);
-            const updated = {
+            this.props.onRemoveAdminType(this.state.type.value, this.state.userId.value);
+
+            const userIdReset = {
                 ...this.state.userId,
                 value: '',
                 touched: false
             }
-            this.setState({ userId: updated});
+            
+            this.setState({ userId: userIdReset });
         }
         
-    };
+    }
 
     typeChangedHandler = (event) => {
+
         const typeUpdatedpdated = {
             ...this.state.type,
             value: event.target.value,
@@ -111,32 +139,31 @@ class RemoveAdminUser extends Component {
             touched: true
         }
 
-        this.setState({ type: typeUpdatedpdated, isEditorRole: false, fillError: null});   
+        this.setState({ type: typeUpdatedpdated, fillError: null});
     }
 
-    
-    adminUserInputChangedHandler = (event) => {
+    userIdChangedHandler = (event) => {
         const updated = {
             ...this.state.userId,
             value: event.target.value,
             valid: this.checkValidity(event.target.value, this.state.userId.validation),
-            touched: true
+            touched: true,   
         }
-        this.setState({ userId: updated});   
+        this.setState({ userId: updated, fillError: null});  
     }
 
     render() {
 
-        let formButtonText = 'Add';
-        if(this.props.removeAdminLoading) {
+        let formButtonText = 'Remove';
+        if(this.props.removeAdminTypeLoading) {
             formButtonText = <Spinner isButton/>;
         }
 
         return (
             <div className={classes.ContainerItem}>
-                <FormTitle isAdmin>Remove Admin User</FormTitle>
-                <Form 
-                submitForm={this.submitUserHandler}
+                <FormTitle isAdmin>Remove Admin Type</FormTitle>
+                <Form
+                submitForm={this.submitForm}
                 >
                     <FormFeedback isFillError>
                         {this.state.fillError}
@@ -155,43 +182,45 @@ class RemoveAdminUser extends Component {
                     <Input 
                     label={this.state.userId.label} 
                     name={this.state.userId.name}
-                    elementType={'textarea'}
                     value={this.state.userId.value}
+                    elementType={'textarea'}
                     invalid={!this.state.userId.valid}
                     shouldValidate={this.state.userId.validation}
                     touched={this.state.userId.touched}
-                    changed={(event) => this.adminUserInputChangedHandler(event)}
+                    changed={(event) => this.userIdChangedHandler(event)}
                     />
-                    { !this.state.userId.valid && this.state.userId.touched ? 
+                    { (!this.state.userId.valid && this.state.userId.touched) ||
+                      (!this.state.type.valid && this.state.type.touched) ||
+                      this.state.fillError ? 
                         <Button btnType='Danger' disabled> {formButtonText} </Button> :
                         <Button btnType='Success'> {formButtonText} </Button>    
                     }
-                    { this.props.removeAdminError ? 
+                    { this.props.removeAdminTypeError ? 
                         <FormFeedback isFailed>
-                            {this.props.removeAdminError}
+                            {this.props.removeAdminTypeError}
                         </FormFeedback>
                         :
                         <FormFeedback isSuccess>
-                            {this.props.removeAdminSuccessInfo}
+                            {this.props.removeAdminTypeSuccessInfo}
                         </FormFeedback>
                     }
                 </Form>
-            </div>                      
+            </div >                                 
         )
     }
 };
 
 const mapStateToProps = state => ({
-    removeAdminLoading: state.admin1.removeAdminLoading,
-    removeAdminSuccessInfo: state.admin1.removeAdminSuccessInfo,
-    removeAdminError: state.admin1.removeAdminError,
+    removeAdminTypeSuccessInfo: state.admin1.removeAdminTypeSuccessInfo,
+    removeAdminTypeError: state.admin1.removeAdminTypeError,
+    removeAdminTypeLoading: state.admin1.removeAdminTypeLoading
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRemoveAdminUser: ( user_id, newAccountType ) => dispatch( actions.removeAdmin( user_id, newAccountType ))
+        onRemoveAdminType: ( type, userId ) => dispatch( actions.removeAdminType( type, userId ) ),
+        onClearRemoveAdminTypeInfo: () => dispatch(actions.clearRemoveAdminTypeInfo())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RemoveAdminUser);
-
+export default connect(mapStateToProps, mapDispatchToProps)(RemoveAdminType);

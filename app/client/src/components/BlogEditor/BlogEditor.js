@@ -454,12 +454,25 @@ class PageContainer extends Component {
           <div className={classes.saveButton}>
             <button onClick={this.submitEditor}> {saveButtonText} </button>
           </div>
-          <div className={classes.publishButton}>
-            <button> Publish </button>
-          </div>
-          <div className={classes.deleteButton}>
-            <button> Delete </button>
-          </div>
+          { this.props.user.isEditor && 
+            ( this.props.user.accountType === 'Senior Administrator' || 
+              this.props.user.accountType === 'Head Administrator'
+            ) ?
+            <div className={classes.publishButton}>
+              <button> Publish </button>
+            </div>
+            : null
+          }
+          { this.props.user.isEditor && 
+            (this.props.user.accountType === 'Administrator' ||
+             this.props.user.accountType === 'Senior Administrator' || 
+             this.props.user.accountType === 'Head Administrator'
+            ) ?
+            <div className={classes.deleteButton}>
+              <button> Delete </button>
+            </div>
+            : null
+          }
         </div>
         { this.state.fillError ? <div className={classes.fillError}>{this.state.fillError}</div> : null}
         { this.props.createBlogDraftError ? <div className={classes.fillError}>{this.props.createBlogDraftError}</div> : null}
@@ -611,7 +624,6 @@ const mapStateToProps = state => ({
   blogCategoriesArray: state.blog.blogCategoriesArray,
   blogTagsArray: state.blog.blogTagsArray,
   authors: state.blog.authors,
-  useTypeContext: state.auth.useTypeContext,
   user: state.auth.user
   // blogHeroImageUrl: state.blog.blogHeroImageUrl
 });

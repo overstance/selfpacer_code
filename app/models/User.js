@@ -51,6 +51,22 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
+  isArtist: {
+    type: Boolean,
+    default: false
+  },
+  isResearcher: {
+    type: Boolean,
+    default: false
+  },
+  isAssetManager: {
+    type: Boolean,
+    default: false
+  },
+  isUserManager: {
+    type: Boolean,
+    default: false
+  },
   twitterUrl: String,
   facebookUrl: String,
   linkedinUrl: String,
