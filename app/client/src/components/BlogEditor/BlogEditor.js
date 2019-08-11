@@ -392,7 +392,7 @@ class PageContainer extends Component {
         this.state.author === '' || 
         (note.content.blocks.length <= 1 && note.content.blocks[0].depth === 0 && note.content.blocks[0].text === "")
       ) {
-      this.setState({fillError: '*draft is not completely filled'});
+      this.setState({fillError: 'please fill all asterisked fields'});
     } else {
       note["content"] = JSON.stringify(note.content);
       if ( displayedNote === 'new') {
@@ -478,106 +478,127 @@ class PageContainer extends Component {
         { this.props.createBlogDraftError ? <div className={classes.fillError}>{this.props.createBlogDraftError}</div> : null}
         { this.props.updateBlogDraftError ? <div className={classes.fillError}>{this.props.updateBlogDraftError}</div> : null}
         <div className={classes.editorHeader}>
+          { this.props.displayedNote !== 'new' ? <label>{'last updated: ' + new Date(this.props.displayedNote.updatedOn).toLocaleDateString()}</label> : null}
           { this.props.displayedNote !== 'new' && this.state.blogHeroImage.url !== '' ?
-            <div className={classes.draftInputWrapper}>
-              <input 
-              type="text" 
-              placeholder="Title*" 
-              name="noteTitle" 
-              className={classes.draftInput} 
-              value={this.state.noteTitle} 
-              onChange={this.captureTitle}
-              />
+            <div>
+              <label>title*:</label>
+              <div className={classes.draftInputWrapper}>
+                <input 
+                type="text" 
+                placeholder="title" 
+                name="noteTitle" 
+                className={classes.draftInput} 
+                value={this.state.noteTitle} 
+                onChange={this.captureTitle}
+                />
+              </div>
             </div> :
-            <div className={classes.draftInputWrapper}>
-                <div className={classes.titleFieldWrapper}>
-                  <input 
-                  type="text" 
-                  placeholder="Title*" 
-                  name="noteTitle" 
-                  className={classes.draftTitleInput} 
-                  value={this.state.noteTitle} 
-                  onChange={this.captureTitle}
-                  />
-                </div>
-                <div className={classes.addFeaturedImageButton}>
-                  <button onClick={this.uploadHeroImage}> Hero-Image </button>
-                </div>
-            </div> 
+            <div>
+              <label>title*:</label>
+              <div className={classes.draftInputWrapper}>
+                  <div className={classes.titleFieldWrapper}> 
+                    <input 
+                    type="text" 
+                    placeholder="title" 
+                    name="noteTitle" 
+                    className={classes.draftTitleInput} 
+                    value={this.state.noteTitle} 
+                    onChange={this.captureTitle}
+                    />
+                  </div>
+                  <div className={classes.addFeaturedImageButton}>
+                    <button onClick={this.uploadHeroImage}> Hero-Image </button>
+                  </div>
+              </div> 
+            </div>
           }
           { this.state.blogHeroImage.url !== '' ?
-            <figure>
-              <img src={this.state.blogHeroImage.url} alt='featured' className={classes.heroImage}/>
-              {this.state.blogHeroImage.source && this.state.blogHeroImage.source !== '' ? 
-                <figcaption>{this.state.blogHeroImage.source}</figcaption> : null
-              }
-              {this.state.blogHeroImage.caption && this.state.blogHeroImage.caption !== '' ? 
-                <div>{this.state.blogHeroImage.caption}</div> : null
-              }
-              <div className={classes.deleteHeroImage}>
-                <button onClick={this.deleteHeroImage}>Delete</button>
-              </div>  
-            </figure>
+            <div className={classes.heroImageWrapper}>
+              <label>Featured Image</label>
+              <figure>
+                <img src={this.state.blogHeroImage.url} alt='featured' className={classes.heroImage}/>
+                {this.state.blogHeroImage.source && this.state.blogHeroImage.source !== '' ? 
+                  <figcaption>{this.state.blogHeroImage.source}</figcaption> : null
+                }
+                {this.state.blogHeroImage.caption && this.state.blogHeroImage.caption !== '' ? 
+                  <div>{this.state.blogHeroImage.caption}</div> : null
+                }
+                <div className={classes.deleteHeroImage}>
+                  <button onClick={this.deleteHeroImage}>Delete</button>
+                </div>  
+              </figure>
+            </div>
             : null
           }
-          <div className={classes.draftInputWrapper}>
-            <textarea 
-            placeholder="Description*" 
-            name="description" 
-            className={classes.draftInput}
-            value={this.state.description} 
-            onChange={this.captureDescription}
-            />
-          </div>
-          <div className={classes.draftInputWrapper}>
-            <input 
-            placeholder="Title-Slug*" 
-            name="slug" 
-            className={classes.draftInput}
-            value={this.state.slug} 
-            onChange={this.captureSlug}
-            />
-          </div>
-          <div className={classes.draftInputWrapper}>
-            <select className={classes.draftInput} value={this.state.category} onChange={this.captureCategory}>
-              <option value=''>Select Category*</option>
-              {this.props.blogCategoriesArray.map((category, index) => {
-                return <option key={index} value={category}>{category}</option>
-              })}
-            </select>
-          </div>
-          <div className={classes.draftTagInputWrapper}>
-            { this.state.tagDuplicateError ? <div className={classes.fillError}>{this.state.tagDuplicateError}</div> : null}
-            <div className={classes.tagWrapperTitle}>Tags:</div>
-            <div className={classes.tagsContainer}>{blogTags}</div>
-            <select className={classes.draftTagInput} /* value={this.state.tags} */ onChange={this.captureTags}>
-              <option value=''>Select Tags</option>
-              {this.props.blogTagsArray.map((tags, index) => {
-                return <option key={index} value={tags}>{tags}</option>
-              })}
-            </select>
-          </div>
-          <div className={classes.draftInputWrapper}>
-            <select className={classes.draftInput} value={this.state.author} onChange={this.captureAuthor}>
-              <option value=''>Select Author*</option>
-              {this.props.authors.map((author, index) => {
-                return <option key={index} value={author._id}>{author._id + ":" + author.name}</option>
-              })}
-            </select>
-          </div>
-          <div className={classes.draftInputWrapper}>
-            <div className={classes.draftInput}>
-              {'Editor: ' + this.props.displayedNote.editorInChargeName}
+          <div>
+            <label>description*:</label>
+            <div className={classes.draftInputWrapper}> 
+              <textarea 
+              placeholder="description" 
+              name="description" 
+              className={classes.draftInput}
+              value={this.state.description} 
+              onChange={this.captureDescription}
+              />
             </div>
           </div>
+          <div>
+            <label>title-slug*:</label>
+            <div className={classes.draftInputWrapper}>
+              <input 
+              placeholder="title-slug" 
+              name="slug" 
+              className={classes.draftInput}
+              value={this.state.slug} 
+              onChange={this.captureSlug}
+              />
+            </div>
+          </div>
+          <div>
+            <label>category*:</label>  
+            <div className={classes.draftInputWrapper}>
+              <select className={classes.draftInput} value={this.state.category} onChange={this.captureCategory}>
+                <option value=''>select category</option>
+                {this.props.blogCategoriesArray.map((category, index) => {
+                  return <option key={index} value={category}>{category}</option>
+                })}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label>tags:</label>
+            <div className={classes.draftTagInputWrapper}>
+              { this.state.tagDuplicateError ? <div className={classes.fillError}>{this.state.tagDuplicateError}</div> : null}
+              <div className={classes.tagsContainer}>{blogTags}</div>
+              <select className={classes.draftTagInput} /* value={this.state.tags} */ onChange={this.captureTags}>
+                <option value=''>select tags</option>
+                {this.props.blogTagsArray.map((tags, index) => {
+                  return <option key={index} value={tags}>{tags}</option>
+                })}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label>author*:</label>
+            <div className={classes.draftInputWrapper}>
+              <select className={classes.draftInput} value={this.state.author} onChange={this.captureAuthor}>
+                <option value=''>select author</option>
+                {this.props.authors.map((author, index) => {
+                  return <option key={index} value={author._id}>{author._id + ":" + author.name}</option>
+                })}
+              </select>
+            </div>
+          </div>
+          {this.props.displayedNote !== 'new' ?
+            <div className={classes.draftInputWrapper}>
+              <div className={classes.draftInput}>
+                {'Editor: ' + this.props.displayedNote.editorInChargeName}
+              </div>
+            </div>
+            : null
+          }
         </div>
         <div className={classes.toolbar}>
-          {/* <div id="link_url" onClick = {this.isAddingOrUpdatingLink} className={classes.styleButton}>
-            Li
-          </div>
-          <div onClick={this.uploadImageHandler} className={classes.styleButton}>
-            Im
-          </div> */}
           <InlineStyles 
           addLinkClicked={this.isAddingOrUpdatingLink}
           addImageClicked={this.uploadImageHandler}

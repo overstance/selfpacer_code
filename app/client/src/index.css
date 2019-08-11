@@ -5,16 +5,17 @@
     --red: #de3535;
     --orange: #ebbe17;
     --white: #ffffff;
-    --gray: #cccccc;
+    /* --gray: #cccccc; */
+    --gray: #dfdfdf;
 }
 
 .richEditor-code-block, div.richEditor-code-block {
-    color: #90caf9;
+    color: var(--gray);
     line-height: 1.2;
-    padding: 3px;
+    padding: 4px;
     margin-left: 4px;
-    background-color: black;
-    font-family: "Andale Mono";
+    background-color: var(--blue);
+    font-weight: bold;
     font-size: 13px;
     box-sizing: border-box;
     white-space: pre-wrap;
@@ -23,9 +24,9 @@
 }
 
 .richEditor-blockquote {
-    font-size: large;
-    color: red;
-    border-left: 3px solid red;
+    /* font-size: large; */
+    color: var(--red);
+    border-left: 3px solid var(--red);
     padding-left: 10px;
 }
 
@@ -33,7 +34,5 @@
 html, body {
     margin: 0;
     padding: 0;
-    /*font-family: 'Open Sans', sans-serif;*/
-    /* font-family: 'Ubuntu', sans-serif; */
     font-family: 'Comfortaa', cursive;
 }

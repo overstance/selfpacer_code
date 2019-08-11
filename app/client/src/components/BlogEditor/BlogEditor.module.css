@@ -248,6 +248,12 @@
   width: 100%;
 }
 
+.heroImageWrapper {
+  background: white;
+  padding: 4px;
+  border-radius: 4px;
+}
+
 .heroImage {
   width: 100%
 }
@@ -266,6 +272,12 @@
 
 .editorHeader figure {
   margin: 0 0 5px;
+}
+
+.editorHeader label {
+  font-size: small;
+  font-weight: bold;
+  color: var(--blue);
 }
 
 .editorHeader figcaption, .editors figcaption {

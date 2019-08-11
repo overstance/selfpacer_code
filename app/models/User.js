@@ -67,6 +67,14 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
+  isCounselor: {
+    type: Boolean,
+    default: false
+  },
+  isCourseProvider: {
+    type: Boolean,
+    default: false
+  },
   twitterUrl: String,
   facebookUrl: String,
   linkedinUrl: String,

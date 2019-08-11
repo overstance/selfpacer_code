@@ -52,6 +52,14 @@ class RemoveAdminType extends Component {
                     {
                         value: 'researcher',
                         displayValue: 'researcher'
+                    },
+                    {
+                        value: 'counselor',
+                        displayValue: 'counselor'
+                    },
+                    {
+                        value: 'course provider',
+                        displayValue: 'course provider'
                     }
                 ]
             },

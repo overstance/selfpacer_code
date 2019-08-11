@@ -417,7 +417,7 @@ class Register extends Component {
 
         return (
             <div className={classes.UniversalWrapper}>
-                <AuthBackdrop show clicked={this.handleBack}/>
+                <AuthBackdrop show /* clicked={this.handleBack} *//>
                 <div className={classes.container}>
                     <a href="/" className={classes.Logo}>
                         <Logo isAuth/>

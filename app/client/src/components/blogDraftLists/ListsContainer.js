@@ -12,12 +12,20 @@ class DraftListContainer extends Component {
     }
 
     listAllDrafts = () => {
-        return this.props.drafts.sort((a,b) => new Date(b.updatedOn) - new Date(a.updatedOn)).map((draft, i) => {
-        return <ListItem selectDraft={this.props.selectDraft} id={draft._id} key={i} draft={draft} title={draft.title}/>
-        })
+        if ( this.props.user.isEditor && (this.props.user.accountType === 'Administrator' || this.props.user.accountType === 'Senior Administrator' || this.props.user.accountType === 'Head Administrator')) {
+            return this.props.drafts.sort((a,b) => new Date(b.updatedOn) - new Date(a.updatedOn)).map((draft, i) => (
+            <ListItem selectDraft={this.props.selectDraft} id={draft._id} key={i} draft={draft} title={draft.title}/>
+            ))
+        } else {
+            let filterDraftsByEditor = this.props.drafts.filter( draft => draft.editorInChargeId === this.props.user._id);
+            return filterDraftsByEditor.sort((a,b) => new Date(b.updatedOn) - new Date(a.updatedOn)).map((draft, i) => (
+            <ListItem selectDraft={this.props.selectDraft} id={draft._id} key={i} draft={draft} title={draft.title}/>
+            ))
+        }
     }
 
     render() {
+
         if (this.props.drafts.length > 0) {
             return(
                 <div className={classes.draftListContainer}>
@@ -47,7 +55,8 @@ class DraftListContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        drafts: state.blog.allDrafts
+        drafts: state.blog.allDrafts,
+        user: state.auth.user
     }
 }
 
