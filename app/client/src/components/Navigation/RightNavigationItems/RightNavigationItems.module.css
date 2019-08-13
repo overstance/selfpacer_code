@@ -9,7 +9,7 @@
 }
 
 .SearchIcon:hover {
-    fill: var(--green);
+    fill: var(--white);
 }
 
 .NavigationItems {
@@ -32,12 +32,12 @@
 .User {
     height: 32px;
     width: 32px;
-    fill: var(--green);
+    fill: var(--blue);
     vertical-align: middle;
 }
 
 .User:hover {
-    fill: var(--blue);
+    fill: var(--white);
 }
 
 @media (max-width: 600px) {

@@ -52,7 +52,7 @@
 }
 
 .FloatingButton:hover {
-    border: 2px solid var(--darkBlue);
+    border: 2px solid var(--lightBlue);
 }
 
 .MiniButtonContainer {

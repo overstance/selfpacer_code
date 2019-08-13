@@ -25,6 +25,7 @@
     padding-right: 20px;
     flex: 0 0 50%;
     max-width: 50%;
+    margin-bottom: 16px;
     border-right: 1px solid var(--lightGray);
 }
 
@@ -61,7 +62,7 @@
     padding: 5px 20px;
     margin: 5px auto;
     color: var(--white);
-    background: var(--darkBlue);
+    background: var(--blue);
     border-radius: 20px;
     display: inline-block;
     cursor: pointer;
@@ -69,12 +70,13 @@
 }
 
 .BiodataEditButton:hover {
-    background: var(--blue);
+    background: var(--green);
 }
 
 .BiodataInfo div {
-    color: var(--darkBlue);
+    color: var(--red);
     line-height: 25px;
+    font-weight: bold;
 }
 
 .BiodataInfo span {
@@ -102,7 +104,7 @@
     border-radius: 20px;
     padding: 10px;
     font-weight: 700;
-    color: var(--darkBlue);
+    color: var(--lightBlue);
     cursor: pointer;
     width: 100%;
     background: var(--green);
@@ -112,7 +114,7 @@
 }
 
 .FaclitatorButton:hover {
-    background: var(--darkBlue);
+    background: var(--lightBlue);
     color: var(--white);
 }
 
@@ -122,6 +124,8 @@
     flex-direction: row;
     flex: 0 0 50%;
     max-width: 50%;
+    background: var(--gray);
+    border-radius: 4px;
 }
 
 .StatisticsLike {
@@ -175,12 +179,12 @@
 
 .StatisticsCount {
     font-size: xx-large;
-    color: var(--green);
+    color: var(--red);
     /* overflow-x: auto; */
 }
 
 .StatisticsLabel {
-    color: var(--gray);
+    color: var(--blue);
 }
 
 .EdgeTri {
@@ -335,9 +339,9 @@
         text-align: center;
     }
 
-    .BiodataInfo div {
+    /* .BiodataInfo div {
         text-align: center;
-    }
+    } */
 
     .BiodataInfo span {
         display: inline-block;

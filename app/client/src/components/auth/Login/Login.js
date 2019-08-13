@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
 // import logoImage from '../../../assets/images/selfpacer_hareLogo_green.png';
 import classes from './Login.module.css';
-import facebookLogo from '../../../assets/images/Facebook-2-512.png';
-import googleLogo from '../../../assets/images/google_PNG19635.png';
+// import facebookLogo from '../../../assets/images/Facebook-2-512.png';
+// import googleLogo from '../../../assets/images/google_PNG19635.png';
 import { connect } from 'react-redux';
 import Spinner from '../../UserInterface/Spinner/Spinner';
 import Input from '../../UserInterface/Input/Input';
@@ -265,7 +265,7 @@ class Login extends Component {
                 <Button btnType='Danger' disabled> LOG IN </Button> :
                 <Button btnType='Success'> LOG IN </Button>    
                 }
-                <div className={classes.Oauth}>
+                {/* <div className={classes.Oauth}>
                     <p>Log in with</p>
                     <a className={classes.Google} href='/auth/google'>
                         <img src={googleLogo} alt='google logo' />
@@ -274,7 +274,7 @@ class Login extends Component {
                     <a className={classes.Facebook} href="/auth/facebook">
                         <img src={facebookLogo} alt='facebook logo' />
                     </a>
-                </div>
+                </div> */}
                 <Link to='/forgot_password' className={classes.ForgotPassword}>forgot password?</Link>
             </form>
         </div>

@@ -8,6 +8,10 @@
     margin-top: 10px;
 }
 
+.Resource:last-of-type {
+    margin-bottom: 0;
+}
+
 .MainContainer {
     display: -ms-flexbox;
     display: flex;
@@ -117,7 +121,7 @@
 
 
 .Type {
-    color: var(--darkBlue);
+    color: var(--lightBlue);
     font-weight: 700;
     font-size: x-small;
     text-align: left;
@@ -152,7 +156,7 @@
 
 .FeedbackText {
     font-size: small;
-    color: var(--darkBlue);
+    color: var(--lightBlue);
     font-weight: 400;
 }
 
@@ -301,7 +305,7 @@
     flex: 0 0 100%;
     max-width: 100%;
     height: 100%;
-    border-bottom: 1px solid var(--darkBlue);
+    border-bottom: 1px solid var(--lightBlue);
 }
 
 .StatisticsLike {
@@ -372,7 +376,7 @@
         max-width: 100%;
         border-right: none;
         height: 40px;
-        border-bottom: 1px solid var(--darkBlue);
+        border-bottom: 1px solid var(--lightBlue);
         flex-direction: row;
         align-items: center;
         justify-content: space-evenly;
@@ -383,7 +387,7 @@
         max-width: 100%;
         border-right: none; 
         height: 40px;
-        border-bottom: 1px solid var(--darkBlue);
+        border-bottom: 1px solid var(--lightBlue);
         flex-direction: row;
         align-items: center;
         justify-content: space-evenly;

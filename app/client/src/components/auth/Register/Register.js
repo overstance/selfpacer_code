@@ -4,8 +4,9 @@ import classes from './Register.module.css';
 import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
 import { connect } from 'react-redux';
 import Spinner from '../../UserInterface/Spinner/Spinner';
-import facebookLogo from '../../../assets/images/Facebook-2-512.png';
-import googleLogo from '../../../assets/images/google_PNG19635.png';
+// import facebookLogo from '../../../assets/images/Facebook-2-512.png';
+// import googleLogo from '../../../assets/images/google_PNG19635.png';
+import { Link } from 'react-router-dom';
 import Input from '../../UserInterface/Input/Input';
 import Button from '../../UserInterface/Button/Button';
 import * as actions from '../../../store/actions/index';
@@ -388,7 +389,7 @@ class Register extends Component {
                 <Button btnType='Danger' disabled> SIGN-UP </Button> :
                 <Button btnType='Success'> SIGN-UP </Button>    
                 }
-                <div className={classes.Oauth}>
+                {/* <div className={classes.Oauth}>
                     <p>Sign up with</p>
                     <a className={classes.Google} href='/auth/google'>
                         <img src={googleLogo} alt='google logo' />
@@ -397,7 +398,8 @@ class Register extends Component {
                     <a className={classes.Facebook} href="/auth/facebook">
                         <img src={facebookLogo} alt='facebook logo' />
                     </a>
-                </div>
+                </div> */}
+                <Link to='/login' className={classes.goToLogIn}>go to Log-In</Link>
             </form>
         </div>
 

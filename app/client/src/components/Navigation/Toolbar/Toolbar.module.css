@@ -16,6 +16,8 @@ a colored unlimited width fixed toolbar  */
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
+    background: var(--green);
+    padding: 10px;
 }
 
 .LogoContainer {

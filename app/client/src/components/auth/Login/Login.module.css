@@ -100,7 +100,7 @@
  }
 
  .ForgotPassword {
-    color: var(--white);
+    color: var(--green);
     margin-top: 10px;
     display: block;
     text-decoration: underline;
@@ -108,7 +108,7 @@
  }
 
  .ForgotPassword:hover {
-    color: var(--skyBlue);
+    color: var(--white);
  }
    
 @media (max-width: 560px) {

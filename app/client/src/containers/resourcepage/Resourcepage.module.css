@@ -32,7 +32,7 @@
     max-width: 200px;
     margin: auto;
     padding-top: 20px;
-    color: var(--darkBlue);
+    color: var(--lightBlue);
     font-size: large;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .Type {
-    color: var(--darkBlue);
+    color: var(--lightBlue);
     font-weight: 400;
     padding: 5px;
     text-align: left;
@@ -81,7 +81,7 @@
 
 .FeedbackText {
     font-size: small;
-    color: var(--darkBlue);
+    color: var(--lightBlue);
 }
 
 .FeedBackIconCollect {

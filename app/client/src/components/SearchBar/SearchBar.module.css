@@ -62,7 +62,7 @@
   font-weight: 700;
   text-decoration: none;
   transition: all 0.5s ease;
-  background-color: var(--darkBlue);
+  background-color: var(--lightBlue);
   background-image: linear-gradient(45deg, var(--skyBlue) 0%, var(--skyBlue) 55%, var(--blue) 90%);
   background-position: 100% 0;
   background-size: 200% 200%;
