@@ -2,16 +2,17 @@
     padding: 1.1em;
     font-size: 13px;
     letter-spacing: .5px;
-    border-bottom: #f5efef solid 1px;
+    border-bottom: 1px solid var(--gray);
     min-height: 24px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    color: #484545;
+    color: var(--blue);
+    font-weight: bold;
 }
 
 .listItem:hover {
-    background: #FBF1F1;
+    background: var(--green);
 }
 
 .draftListContainer {
@@ -29,6 +30,7 @@
     padding: 5px;
     box-sizing: border-box;
     background: var(--gray);
+    color: var(--blue);
     top: 0;
     align-items: center;
     justify-content: center;  

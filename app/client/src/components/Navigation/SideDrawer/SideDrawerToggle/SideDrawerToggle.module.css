@@ -1,3 +1,10 @@
+.toggleWrapper {
+    flex: 0 0 30%;
+    max-width: 30%;
+    display: flex;
+    justify-content: flex-start;
+}
+
 .SideDrawerToggle {
     width: 32px;
     height: 32px;
@@ -9,8 +16,12 @@
     fill: var(--white);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
     .SideDrawerToggle {
+        display: none;
+    }
+
+    .toggleWrapper {
         display: none;
     }
 }

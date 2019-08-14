@@ -15,6 +15,26 @@ class Grid extends Component {
             attachedClasses = [classes.HeadBar, classes.ExplorePage];
         }
 
+        if (this.props.page_category === 'Business') {
+            attachedClasses = [classes.HeadBar, classes.BusinessPage];
+        }
+
+        if (this.props.page_category === 'Creative') {
+            attachedClasses = [classes.HeadBar, classes.CreativePage];
+        }
+
+        if (this.props.page_category === 'Technology') {
+            attachedClasses = [classes.HeadBar, classes.TechnologyPage];
+        }
+
+        if (this.props.page_category === 'Life-style') {
+            attachedClasses = [classes.HeadBar, classes.LifeStylePage];
+        }
+
+        if (this.props.page_category === 'Science') {
+            attachedClasses = [classes.HeadBar, classes.SciencePage];
+        }
+
         return (
         <Container>
             <div className={classes.wrapper}>

@@ -13,7 +13,7 @@
     align-items: center;
     height: 160px;
     /* margin: 0 0 8px 0; */
-    border-bottom: 2px solid var(--lightBlue);
+    /* border-bottom: 2px solid var(--lightBlue); */
     background-color: var(--blue);
 }
 
@@ -32,7 +32,27 @@
 }
 
 .ExplorePage {
-    background-image: url('../../../assets/art/head-art/site-head-art_and_ad-banners-UI_explore.png');
+    background-image: url('../../../assets/art/head-art/head_banner_explore.png');
+} 
+
+.BusinessPage {
+    background-image: url('../../../assets/art/head-art/head_banner_business.png');
+} 
+
+.CreativePage {
+    background-image: url('../../../assets/art/head-art/head_banner_creative.png');
+} 
+
+.TechnologyPage {
+    background-image: url('../../../assets/art/head-art/head_banner_tech.png');
+} 
+
+.LifeStylePage {
+    background-image: url('../../../assets/art/head-art/head_banner_life-style.png');
+} 
+
+.SciencePage {
+    background-image: url('../../../assets/art/head-art/head_banner_science.png');
 } 
 
 .Median {

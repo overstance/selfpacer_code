@@ -13,9 +13,6 @@ import { styleMap, getBlockStyle, /* BLOCK_TYPES, */ BlockStyleControls } from '
 import {stateToHTML} from 'draft-js-export-html';
 import BlogImageUploadOption from '../UploadBlogImage/UploadOption';
 import TagButton from './tagButton/tagButton';
-// import Button from '../UserInterface/Button/Button';
-// import Spinner from '../UserInterface/Spinner/Spinner';
-// import Input from '../UserInterface/Input/Input';
 
 const highlightPlugin = createHighlightPlugin();
 
@@ -333,7 +330,7 @@ class PageContainer extends Component {
       this.setState({ tagDuplicateError: 'please select tag'});
     } else {
       blogTagsArray.push(value);
-      this.setState({ tags: blogTagsArray, tagDuplicateError: null }, () => { console.log(this.state.tags)});
+      this.setState({ tags: blogTagsArray, tagDuplicateError: null });
     }
   }
 
@@ -343,7 +340,7 @@ class PageContainer extends Component {
     this.setState({
       author: value,
       fillError: null
-    }, () => console.log(this.state.author))
+    })
   }
 
   submitEditor = () => {
@@ -392,13 +389,33 @@ class PageContainer extends Component {
         this.state.author === '' || 
         (note.content.blocks.length <= 1 && note.content.blocks[0].depth === 0 && note.content.blocks[0].text === "")
       ) {
-      this.setState({fillError: 'please fill all asterisked fields'});
+      this.setState({fillError: 'please fill all asterisked fields and draft body'});
     } else {
       note["content"] = JSON.stringify(note.content);
+      let authors = this.props.authors;
+      let author = authors.find( author => author._id === note.author);
+      let authorName = author.name;
+
       if ( displayedNote === 'new') {
-        this.props.onCreateBlogDraft(note.title, note.heroImage, note.slug, note.category, note.tags, note.author, note.description, note.content, htmlContent, this.props.user._id, this.props.user.name, this.props.drafts);
+        this.props.onCreateBlogDraft(note.title, note.heroImage, note.slug, note.category, note.tags, note.author, authorName, note.description, note.content, htmlContent, this.props.user._id, this.props.user.name, this.props.drafts);
+        this.setState({
+          noteTitle: "",
+          blogHeroImage: {
+            url: '',
+            publicId: '',
+            source: '',
+            caption: '',
+            id: ''
+          },
+          slug: '',
+          description: '',
+          category: '',
+          tags: [],
+          author: '',
+          editorState: EditorState.createEmpty()
+        })
       } else {
-        this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.heroImage, note.slug, note.category, note.tags, note.author, note.description, note.content, htmlContent, this.props.drafts);
+        this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.heroImage, note.slug, note.category, note.tags, note.author, authorName, note.description, note.content, htmlContent, this.props.drafts);
       }
     }
   }
@@ -423,6 +440,51 @@ class PageContainer extends Component {
     this.setState({ tags: updatedTags}, () => { console.log(this.state.tags)})
   }
 
+  deleteDraft = () => {
+    let draftId = this.props.displayedNote._id;
+    this.props.onDeleteBlogDraft(draftId, this.props.drafts);
+
+    this.setState({
+      noteTitle: "",
+      blogHeroImage: {
+        url: '',
+        publicId: '',
+        source: '',
+        caption: '',
+        id: ''
+      },
+      slug: '',
+      description: '',
+      category: '',
+      tags: [],
+      author: '',
+      editorState: EditorState.createEmpty()
+    })
+  }
+
+  publishDraft = () => {
+    let draftId = this.props.displayedNote._id;
+    let publishedOn = this.props.displayedNote.publishedOn;
+    this.props.onPublishBlogDraft(draftId, publishedOn, this.props.drafts);
+
+    this.setState({
+      noteTitle: "",
+      blogHeroImage: {
+        url: '',
+        publicId: '',
+        source: '',
+        caption: '',
+        id: ''
+      },
+      slug: '',
+      description: '',
+      category: '',
+      tags: [],
+      author: '',
+      editorState: EditorState.createEmpty()
+    })
+  }
+
   render() {
     if (!this.props.displayedNote) {
       return <div>Loading...</div>
@@ -431,6 +493,16 @@ class PageContainer extends Component {
     let saveButtonText = 'Save';
     if(this.props.createBlogDraftLoading || this.props.updateBlogDraftLoading) {
         saveButtonText = 'Saving...';
+    }
+
+    let deleteButtonText = 'Delete';
+    if(this.props.deleteBlogDraftLoading) {
+        deleteButtonText = 'Deleting...';
+    }
+
+    let publishButtonText = 'Publish';
+    if(this.props.publishBlogDraftLoading) {
+        publishButtonText = 'Publishing...';
     }
 
     let blogTagsArray = this.state.tags;
@@ -457,9 +529,9 @@ class PageContainer extends Component {
           { this.props.user.isEditor && 
             ( this.props.user.accountType === 'Senior Administrator' || 
               this.props.user.accountType === 'Head Administrator'
-            ) ?
+            ) && this.props.displayedNote !== 'new' ?
             <div className={classes.publishButton}>
-              <button> Publish </button>
+              <button onClick={this.publishDraft}> {publishButtonText} </button>
             </div>
             : null
           }
@@ -467,15 +539,17 @@ class PageContainer extends Component {
             (this.props.user.accountType === 'Administrator' ||
              this.props.user.accountType === 'Senior Administrator' || 
              this.props.user.accountType === 'Head Administrator'
-            ) ?
+            ) && this.props.displayedNote !== 'new' ?
             <div className={classes.deleteButton}>
-              <button> Delete </button>
+              <button onClick={this.deleteDraft}> {deleteButtonText} </button>
             </div>
             : null
           }
         </div>
         { this.state.fillError ? <div className={classes.fillError}>{this.state.fillError}</div> : null}
         { this.props.createBlogDraftError ? <div className={classes.fillError}>{this.props.createBlogDraftError}</div> : null}
+        { this.props.publishBlogDraftError ? <div className={classes.fillError}>{this.props.publishBlogDraftError}</div> : null}
+        { this.props.deleteBlogDraftError ? <div className={classes.fillError}>{this.props.deleteBlogDraftError}</div> : null}
         { this.props.updateBlogDraftError ? <div className={classes.fillError}>{this.props.updateBlogDraftError}</div> : null}
         <div className={classes.editorHeader}>
           { this.props.displayedNote !== 'new' ? <label>{'last updated: ' + new Date(this.props.displayedNote.updatedOn).toLocaleDateString()}</label> : null}
@@ -642,6 +716,10 @@ const mapStateToProps = state => ({
   createBlogDraftLoading: state.blog.createBlogDraftLoading,
   updateBlogDraftError: state.blog.updateBlogDraftError,
   updateBlogDraftLoading: state.blog.updateBlogDraftLoading,
+  deleteBlogDraftError: state.blog.deleteBlogDraftError,
+  deleteBlogDraftLoading: state.blog.deleteBlogDraftLoading,
+  publishBlogDraftError: state.blog.publishBlogDraftError,
+  publishBlogDraftLoading: state.blog.publishBlogDraftLoading,
   blogCategoriesArray: state.blog.blogCategoriesArray,
   blogTagsArray: state.blog.blogTagsArray,
   authors: state.blog.authors,
@@ -655,9 +733,11 @@ const mapDispatchToProps = (dispatch) => {
           onFetchBlogCategories: () => dispatch(actions.fetchBlogCategories()),
           onFetchBlogTags: () => dispatch(actions.fetchBlogTags()),
           onFetchAuthors: () => dispatch(actions.fetchAuthors()),
-          onCreateBlogDraft: ( title, heroImage, slug, category, tags, author, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, slug, category, tags, author, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts )),
-          onUpdateBlogDraft: ( draftId, title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts )), 
-          onDeleteHeroImage: (imagePublicId, imageId) => dispatch(actions.deleteHeroImage(imagePublicId, imageId))
+          onCreateBlogDraft: ( title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts )),
+          onUpdateBlogDraft: ( draftId, title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, allDrafts )), 
+          onDeleteHeroImage: (imagePublicId, imageId) => dispatch(actions.deleteHeroImage(imagePublicId, imageId)),
+          onDeleteBlogDraft: (draftId, drafts) => dispatch(actions.deleteBlogDraft(draftId, drafts)),
+          onPublishBlogDraft: (draftId, publishedOn, drafts) => dispatch(actions.publishBlogDraft(draftId, publishedOn, drafts))
       }
   }
 

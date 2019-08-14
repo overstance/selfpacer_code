@@ -30,7 +30,7 @@
     background-color: var(--blue);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
     .SideDrawer {
         display: none;
     }

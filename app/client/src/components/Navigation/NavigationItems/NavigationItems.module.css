@@ -9,7 +9,7 @@
 }
 
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
     .NavigationItems {
         flex-flow: row-reverse;
         padding: 0px;

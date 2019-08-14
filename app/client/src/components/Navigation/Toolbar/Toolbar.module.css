@@ -21,7 +21,11 @@ a colored unlimited width fixed toolbar  */
 }
 
 .LogoContainer {
-    padding-right: 100px;
+    /* padding-right: 120px; */
+    flex: 0 0 30%;
+    max-width: 30%;
+    display: flex;
+    justify-content: center;
 }
 
 .ToolBarLogo {
@@ -34,6 +38,13 @@ a colored unlimited width fixed toolbar  */
     height: 100%;
 }
 
+@media (max-width: 900px) {
+    .LogoContainer {
+        flex: 0 0 40%;
+        max-width: 40%;
+    }
+}
+
 @media (max-width: 600px) {
     .ToolBarLogo {
         width: 160px;
@@ -43,6 +54,13 @@ a colored unlimited width fixed toolbar  */
     .Toolbar {
         padding: 0 16px;    
     }
+}
+
+.DesktopOnly {
+    flex: 0 0 40%;
+    max-width: 40%;
+    display: flex;
+    justify-content: flex-start;
 }
 
 

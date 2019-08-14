@@ -17,8 +17,9 @@
     flex-flow: row;
     align-items: center;
     height: 100%;
-    /* width: 80px; */
     justify-content: flex-end;
+    flex: 0 0 30%;
+    max-width: 30%;
 }
 
 .ItemContainer {

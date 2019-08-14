@@ -81,7 +81,7 @@
     text-align: center;
     padding: 20px;
     background: var(--green);
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .FormContainer label {

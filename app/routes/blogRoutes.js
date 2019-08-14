@@ -20,7 +20,7 @@ module.exports = app => {
   });
 
   app.get('/api/fetch_blog_drafts', (req, res) => {
-    BlogDraft.find({}, (err, blogDrafts) => {
+    BlogDraft.find({ status: 'draft' }, (err, blogDrafts) => {
       if (err) {
         res.send({ error: err.message });
       } else {
@@ -37,6 +37,7 @@ module.exports = app => {
       category: req.body.category,
       tags: req.body.tags,
       author: req.body.author,
+      authorName: req.body.authorName,
       description: req.body.description,
       content: req.body.content,
       htmlContent: req.body.htmlContent,
@@ -65,6 +66,7 @@ module.exports = app => {
         category: req.body.category,
         tags: req.body.tags,
         author: req.body.author,
+        authorName: req.body.authorName,
         description: req.body.description,
         content: req.body.content,
         htmlContent: req.body.htmlContent,
@@ -79,6 +81,73 @@ module.exports = app => {
         }
       }
     );
+  });
+
+  app.delete('/api/delete_blog_draft', (req, res) => {
+    BlogDraft.findByIdAndDelete(req.query.id, (err, draft) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send('Draft Deleted');
+      }
+    });
+  });
+
+  app.put('/api/publish_blog_draft', (req, res) => {
+    if (req.body.publishedOn === undefined || req.body.publishedOn === null) {
+      function fixDigit(val) {
+        return val.toString().length === 1 ? '0' + val : val.toString();
+      }
+
+      let date = new Date();
+      // console.log(now.getFullYear());
+      let year = date.getFullYear().toString();
+
+      let month = fixDigit(date.getMonth() + 1);
+
+      let day = fixDigit(date.getDate());
+
+      var options = { month: 'long' };
+      let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(
+        date
+      );
+
+      let displayDate = monthInLetter + ' ' + day + ', ' + year;
+      BlogDraft.findByIdAndUpdate(
+        req.body.id,
+        {
+          publishedOn: date,
+          publishYear: year,
+          publishMonth: month,
+          publishDay: day,
+          displayDate: displayDate,
+          status: 'published'
+        },
+        { new: true },
+        (err, draft) => {
+          if (err) {
+            res.send({ error: err.message });
+          } else if (draft) {
+            res.send({ publishedDraft: draft });
+          }
+        }
+      );
+    } else {
+      BlogDraft.findByIdAndUpdate(
+        req.body.id,
+        {
+          status: 'published'
+        },
+        { new: true },
+        (err, draft) => {
+          if (err) {
+            res.send({ error: err.message });
+          } else if (draft) {
+            res.send({ publishedDraft: draft });
+          }
+        }
+      );
+    }
   });
 
   app.get('/api/initialize_blog_categories', (req, res) => {

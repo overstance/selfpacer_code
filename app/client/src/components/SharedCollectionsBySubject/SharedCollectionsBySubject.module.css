@@ -17,6 +17,7 @@
 .SubjectWrapper form {
     margin: 0;
     border-radius: 0;
+    background: var(--lightBlue);
 }
 
 .SubjectWrapper form label {

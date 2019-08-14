@@ -138,6 +138,8 @@ export {
     loadAllBlogDrafts,
     createBlogDraft,
     updateBlogDraft,
+    deleteBlogDraft,
+    publishBlogDraft,
     deleteHeroImage,
     editBlogCategories,
     editBlogTags,

@@ -34,6 +34,7 @@ const blogDraftSchema = new Schema({
     default: 'draft'
   },
   author: { type: Schema.Types.ObjectId, ref: 'User' },
+  authorName: String,
   updatedOn: {
     type: Date
   },
@@ -46,7 +47,11 @@ const blogDraftSchema = new Schema({
   displayDate: String,
   slug: String,
   editorInChargeId: String,
-  editorInChargeName: String
+  editorInChargeName: String,
+  views: {
+    type: Number,
+    default: 0
+  }
 });
 
 module.exports = mongoose.model('blogDrafts', blogDraftSchema);

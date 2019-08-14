@@ -29,7 +29,7 @@
     fill: var(--white);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
     .NavigationItem {
         margin: 0;
         display: flex;

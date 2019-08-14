@@ -6,6 +6,7 @@ const initialState = {
     loading: false,
 
     clickedSubjectTitle: '',
+    clickedSubjectCategory: '',
     error: null,
 
     allLoading: false,
@@ -27,6 +28,7 @@ const fetchClickedSubjectSuccess = ( state, action ) => {
     return updateObject( state, {
         subject: action.clickedSubject,
         clickedSubjectTitle: action.clickedSubject[0].title,
+        clickedSubjectCategory: action.clickedSubject[0].category,
         loading: false
     } );
 };

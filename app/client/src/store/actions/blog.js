@@ -222,17 +222,17 @@ export const createBlogDraftFail = (error) => {
     }
 }
 
-export const createBlogDraft = (title, heroImage, slug, category, tags, author, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts) => async dispatch => {
+export const createBlogDraft = (title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts) => async dispatch => {
     dispatch(createBlogDraftStart());
     // console.log(htmlContent);
-    const res = await axios.post('/api/create_blog_draft', { title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, description: description, content: content, htmlContent: htmlContent, editorInChargeId: editorInChargeId, editorInChargeName: editorInChargeName});
+    const res = await axios.post('/api/create_blog_draft', { title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, authorName: authorName, description: description, content: content, htmlContent: htmlContent, editorInChargeId: editorInChargeId, editorInChargeName: editorInChargeName});
     // console.log(res.data.post);
     if (res.data.newDraft) {
         // console.log(res.data.newDraft);
         let newDraft = res.data.newDraft;
         let updatedDrafts = [newDraft, ...allDrafts];
         dispatch(createBlogDraftSuccess(updatedDrafts));
-        console.log(updatedDrafts);
+        // console.log(updatedDrafts);
     } else if (res.data.error){
         dispatch(createBlogDraftFail(res.data.error));
     }
@@ -260,10 +260,10 @@ export const updateBlogDraftFail = (error) => {
     }
 }
 
-export const updateBlogDraft = (draftId, title, heroImage, slug, category, tags, author, description, content, htmlContent, allDrafts) => async dispatch => {
+export const updateBlogDraft = (draftId, title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, allDrafts) => async dispatch => {
     dispatch(updateBlogDraftStart());
     
-    const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, description: description, content: content, htmlContent: htmlContent});
+    const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, authorName: authorName, description: description, content: content, htmlContent: htmlContent});
     // console.log(res.data);
     if (res.data.updatedDraft._id === draftId) {
         // console.log(res.data.updatedDraft);
@@ -281,10 +281,78 @@ export const updateBlogDraft = (draftId, title, heroImage, slug, category, tags,
     }
 }
 
+// delete Blog Drafts
+
+export const deleteBlogDraftStart = () => {
+    return {
+        type: actionTypes.DELETE_BLOG_DRAFT_START
+    }
+}
+
+export const deleteBlogDraftSuccess = (updatedDrafts) => {
+    return {
+        type: actionTypes.DELETE_BLOG_DRAFT_SUCCESS,
+        updatedDrafts: updatedDrafts
+    }
+}
+
+export const deleteBlogDraftFail = (error) => {
+    return {
+        type: actionTypes.DELETE_BLOG_DRAFT_FAIL,
+        error: error
+    }
+}
+
+export const deleteBlogDraft = (draftId, drafts) => async dispatch => {
+    dispatch(deleteBlogDraftStart());
+    const res = await axios.delete('/api/delete_blog_draft', { params: {id: draftId}});
+    if (res.data === 'Draft Deleted') {
+        let updatedDrafts = drafts.filter( draft => draft._id !== draftId);
+        dispatch(deleteBlogDraftSuccess(updatedDrafts));
+    } else if (res.data.error){
+        dispatch(deleteBlogDraftFail(res.data.error));
+    }
+}
+
+// publish Blog Drafts
+
+export const publishBlogDraftStart = () => {
+    return {
+        type: actionTypes.PUBLISH_BLOG_DRAFT_START
+    }
+}
+
+export const publishBlogDraftSuccess = (updatedDrafts) => {
+    return {
+        type: actionTypes.PUBLISH_BLOG_DRAFT_SUCCESS,
+        updatedDrafts: updatedDrafts
+    }
+}
+
+export const publishBlogDraftFail = (error) => {
+    return {
+        type: actionTypes.PUBLISH_BLOG_DRAFT_FAIL,
+        error: error
+    }
+}
+
+export const publishBlogDraft = (draftId, publishedOn, drafts) => async dispatch => {
+    dispatch(publishBlogDraftStart());
+    // console.log(draftId);
+    const res = await axios.put('/api/publish_blog_draft', {id: draftId, publishedOn: publishedOn});
+    if (res.data.publishedDraft) {
+        // console.log(res.data.publishedDraft);
+        let updatedDrafts = drafts.filter( draft => draft._id !== draftId);
+        dispatch(publishBlogDraftSuccess(updatedDrafts));
+    } else if (res.data.error){
+        dispatch(publishBlogDraftFail(res.data.error));
+    }
+}
+
+//  delete hero image
+
 export const deleteHeroImage = (imagePublicId, imageId) => async dispatch => {
-    // dispatch(updateBlogDraftStart());
-    
-    /* const res = await */ axios.delete('/api/delete_blog_image', {params: { imagePublicId: imagePublicId, imageId: imageId }});
+    axios.delete('/api/delete_blog_image', {params: { imagePublicId: imagePublicId, imageId: imageId }});
 }
 
 // initialize blog Categories

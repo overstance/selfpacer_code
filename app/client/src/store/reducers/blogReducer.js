@@ -29,6 +29,12 @@ const initialState = {
     updateBlogDraftError: null,
     updateBlogDraftLoading: false,
 
+    deleteBlogDraftError: null,
+    deleteBlogDraftLoading: false,
+
+    publishBlogDraftError: null,
+    publishBlogDraftLoading: false,
+
     editBlogCategoriesSuccessInfo: null,
     editBlogCategoriesLoading: false,
     editBlogCategoriesError: null,
@@ -184,6 +190,52 @@ const updateBlogDraftFail = ( state, action ) => {
     })
 }
 
+// delete blog draft
+
+const deleteBlogDraftStart = ( state, action ) => {
+    return updateObject( state, {
+        deleteBlogDraftLoading: true,
+        deleteBlogDraftError: null
+    })
+}
+
+const deleteBlogDraftSuccess = ( state, action ) => {
+    return updateObject( state, {
+        deleteBlogDraftLoading: false,
+        allDrafts: action.updatedDrafts
+    })
+}
+
+const deleteBlogDraftFail = ( state, action ) => {
+    return updateObject( state, {
+        deleteBlogDraftLoading: false,
+        deleteBlogDraftError: action.error
+    })
+}
+
+// publish blog draft
+
+const publishBlogDraftStart = ( state, action ) => {
+    return updateObject( state, {
+        publishBlogDraftLoading: true,
+        publishBlogDraftError: null
+    })
+}
+
+const publishBlogDraftSuccess = ( state, action ) => {
+    return updateObject( state, {
+        publishBlogDraftLoading: false,
+        allDrafts: action.updatedDrafts
+    })
+}
+
+const publishBlogDraftFail = ( state, action ) => {
+    return updateObject( state, {
+        publishBlogDraftLoading: false,
+        publishBlogDraftError: action.error
+    })
+}
+
 // clear upload blog image
 
 const clearUploadBlogImageState = ( state, action ) => {
@@ -304,6 +356,14 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.UPDATE_BLOG_DRAFT_START: return updateBlogDraftStart(state, action);
         case actionTypes.UPDATE_BLOG_DRAFT_SUCCESS: return updateBlogDraftSuccess(state, action);
         case actionTypes.UPDATE_BLOG_DRAFT_FAIL: return updateBlogDraftFail(state, action);
+
+        case actionTypes.DELETE_BLOG_DRAFT_START: return deleteBlogDraftStart(state, action);
+        case actionTypes.DELETE_BLOG_DRAFT_SUCCESS: return deleteBlogDraftSuccess(state, action);
+        case actionTypes.DELETE_BLOG_DRAFT_FAIL: return deleteBlogDraftFail(state, action);
+
+        case actionTypes.PUBLISH_BLOG_DRAFT_START: return publishBlogDraftStart(state, action);
+        case actionTypes.PUBLISH_BLOG_DRAFT_SUCCESS: return publishBlogDraftSuccess(state, action);
+        case actionTypes.PUBLISH_BLOG_DRAFT_FAIL: return publishBlogDraftFail(state, action);
 
         case actionTypes.CLEAR_UPLOAD_BLOG_IMAGE_STATE: return clearUploadBlogImageState(state, action);
 

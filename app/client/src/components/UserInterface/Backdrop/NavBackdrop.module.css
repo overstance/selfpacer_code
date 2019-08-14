@@ -9,7 +9,7 @@
     min-height: 100%;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
     .Backdrop {
         display: none;
     }
