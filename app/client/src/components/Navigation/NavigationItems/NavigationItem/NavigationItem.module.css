@@ -8,7 +8,7 @@
 .NavigationItem a {
     color: var(--blue);
     font-weight: bold;
-    font-size: larger;
+    font-size: medium;
     text-decoration: none;
     box-sizing: border-box; 
     display: inline-flex;
@@ -41,7 +41,7 @@
     .NavigationItem a {
         padding-right: 15px;
         flex-direction: column;
-        font-size: medium;
+        font-size: 14px;
     }
     
 }
