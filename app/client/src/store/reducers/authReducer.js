@@ -35,6 +35,8 @@ const initialState = {
     resetPasswordLoading: false,
 
     userLikeCount: null,
+
+    isBlogPage: false
 };
 
 // initialization actions
@@ -55,6 +57,18 @@ const clearInit = (state, action) => {
         useTypeContext: '0',
         userSpecialization: '',
         user: {}
+    });
+}
+
+const setIsBlogPage = (state, action) => {
+    return updateObject(state, {
+        isBlogPage: true
+    });
+}
+
+const unsetIsBlogPage = (state, action) => {
+    return updateObject(state, {
+        isBlogPage: false
     });
 }
 
@@ -304,6 +318,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_USER_LIKE_COUNT: return updateUserLikedCount( state, action );
 
         case actionTypes.CLEAR_ALL_AUTH_MESSAGES: return clearAllAuthMessages( state, action);
+
+        case actionTypes.SET_IS_BLOG_PAGE: return setIsBlogPage( state, action);
+        case actionTypes.UNSET_IS_BLOG_PAGE: return unsetIsBlogPage( state, action);
 
         default:
             return state;

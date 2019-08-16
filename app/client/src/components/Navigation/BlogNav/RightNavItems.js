@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './RightNavigationItems.module.css';
+import classes from './blogNav.module.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import * as actions from '../../../store/actions/index';
@@ -9,8 +9,8 @@ class RightNavigationItems extends Component {
 
     render() {
         return(
-            <div className={classes.NavigationItems}>
-                {   this.props.isAuthenticated /* && !this.props.showSideDrawer */ ? 
+            <div className={classes.RightNavItems}>
+                {   this.props.isAuthenticated ? 
                     <div className={classes.ItemContainer}>
                         <Link to="/profile">  
                             <svg xmlns="http://www.w3.org/2000/svg" className={classes.User} viewBox="0 0 32 32">
@@ -18,10 +18,19 @@ class RightNavigationItems extends Component {
                             </svg>
                         </Link> 
                     </div>                
-                    : null
+                    : 
+                    // null
+                    <div className={classes.ItemContainer}>
+                        <Link to="/login">  
+                            <span>Log In</span>
+                        </Link> 
+                        <Link to="/register">  
+                            <span>Sign Up</span>
+                        </Link>
+                    </div>
                 }
                 <div className={classes.ItemContainer}>
-                    <Link to="/search">
+                    <Link to="/blog_search">
                         <svg xmlns="http://www.w3.org/2000/svg" className={classes.SearchIcon} viewBox="0 0 32 32">
                             <path d="M26.061 23.939l-5.23-5.231c.972-1.398 1.501-3.054 1.501-4.792 0-4.64-3.775-8.416-8.415-8.416-4.639 0-8.414 3.775-8.416 8.417.002 4.64 3.776 8.416 8.414 8.416l.003-1.5v1.5c1.739 0 3.395-.529 4.792-1.503l5.23 5.231c.292.293.676.439 1.06.439s.768-.146 1.061-.439c.585-.586.585-1.536 0-2.122zm-12.144-4.607h-.004c-2.983 0-5.411-2.43-5.413-5.416.002-2.986 2.431-5.416 5.416-5.416 2.986 0 5.415 2.429 5.415 5.416 0 1.447-.563 2.808-1.586 3.831-1.022 1.022-2.382 1.585-3.828 1.585z"/>
                         </svg>

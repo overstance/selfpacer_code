@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import butter from './butter-client';
-import Grid from '../../components/UserInterface/Grid/Grid';
+import Container from '../../components/UserInterface/Container/Container';
+// import Grid from '../../components/UserInterface/Grid/Grid';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -18,6 +19,13 @@ class BlogHome extends Component {
     const resp = await butter.post.list({ page: page, page_size: 10 })
     this.setState(resp.data);
   } */
+  UNSAFE_componentWillMount() {
+    this.props.onSetIsBlogPage()
+  }
+
+  componentWillUnmount() {
+    this.props.onUnsetIsBlogPage()
+  }
 
   componentDidMount() {
     this.props.onFetchBlogPosts();
@@ -46,9 +54,9 @@ class BlogHome extends Component {
     }
 
     return (
-      <Grid>
+      <Container>
         {posts}
-      </Grid>
+      </Container>
     )
   }
 };
@@ -63,7 +71,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchBlogPosts: () => dispatch(actions.fetchBlogPosts())
+    onFetchBlogPosts: () => dispatch(actions.fetchBlogPosts()),
+    onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
+    onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage())
   };
 };
 

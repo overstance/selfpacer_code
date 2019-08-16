@@ -14,7 +14,9 @@ export {
     resetPassword,
     setAuthentication,
     clearAuth,
-    clearAllAuthMessages
+    clearAllAuthMessages,
+    setIsBlogPage,
+    unsetIsBlogPage
 } from './auth';
 export {
     fetchSubjects,

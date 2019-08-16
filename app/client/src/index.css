@@ -6,6 +6,7 @@
     --orange: #f2be22;
     --white: #ffffff;
     --gray: #dfdfdf;
+    --black: #000000;
 }
 
 .richEditor-code-block, div.richEditor-code-block {
@@ -35,3 +36,7 @@ html, body {
     padding: 0;
     font-family: 'Comfortaa', cursive;
 }
+
+/* font-family: 'Patua One', cursive;
+font-family: 'Roboto', sans-serif;
+font-family: 'Merriweather', serif; */

@@ -55,6 +55,18 @@ export const clearAllAuthMessages = () => {
     }
 }
 
+export const setIsBlogPage = () => {
+    return {
+        type: actionTypes.SET_IS_BLOG_PAGE
+    }
+}
+
+export const unsetIsBlogPage = () => {
+    return {
+        type: actionTypes.UNSET_IS_BLOG_PAGE
+    }
+}
+
 
 
 // initialize(fetch) user asset count

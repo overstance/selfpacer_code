@@ -37,6 +37,10 @@ const Search = () => <h1>
   Search component
 </h1>
 
+const BlogSearch = () => <h1>
+  Search component
+</h1>
+
 const NotFound = ({ location }) => (
   <div>
     <h3>No match for <code>{location.pathname}</code></h3>
@@ -56,6 +60,7 @@ class App extends Component {
       <Switch>
         <Route path="/explore" exact component={ (props) => (<Explore timestamp={new Date().toString()} {...props} /> )}/> 
         <Route path="/search" component={Search} />
+        <Route path="/blog_search" component={BlogSearch} />
         <Route path="/explore/:subject_title" component={SubjectPage} /> 
         <Route exact path="/reverify_email" component={ReverifyEmail} />
         <Route exact path="/email_verify/:token" component={EmailVerified} />
@@ -88,7 +93,7 @@ class App extends Component {
     );
 
     return (
-      <Layout>
+      <Layout pageType={this.props.pageType}>
         {routes}
       </Layout>
     );

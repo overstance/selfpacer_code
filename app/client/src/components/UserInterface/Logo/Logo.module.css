@@ -33,3 +33,13 @@
 .AuthLogo:hover {
     fill: var(--white);
 }
+
+.BlogLogo {
+    fill: var(--white);
+    height: 100%;
+    width: 140px;
+}
+
+.BlogLogo:hover {
+    fill: var(--green);
+}

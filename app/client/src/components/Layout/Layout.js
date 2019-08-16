@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
+import BlogTopToolBar from '../Navigation/BlogNav/topToolBar';
 import classes from './Layout.module.css';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
@@ -46,15 +47,21 @@ class Layout extends Component {
 
     render() {
         return (
-            <div className={classes.Site}>
+            <div className={classes.Site} /* pageType={this.props.pageType} */>
                 {/* <div ref={this.myScrollRef}></div> */}
                 <div className={classes.Content}>
-                    <Toolbar
-                        isAuth={this.props.isAuthenticated}
-                        sideDrawerToggleClicked={this.sideDrawertoggleHandler}
-                        searchbarToggleClicked={this.searchbarToggleHandler}
-                        exploreRefresh={this.onExploreRefresh}
-                    />
+                    {this.props.isBlogPage ? 
+                        <BlogTopToolBar
+                        isAuth={this.props.isAuthenticated} 
+                        /> 
+                        :
+                        <Toolbar
+                            isAuth={this.props.isAuthenticated}
+                            sideDrawerToggleClicked={this.sideDrawertoggleHandler}
+                            searchbarToggleClicked={this.searchbarToggleHandler}
+                            exploreRefresh={this.onExploreRefresh}
+                        />
+                    }
                     <SideDrawer
                         isAuth={this.props.isAuthenticated}
                         open={this.state.showSideDrawer}
@@ -81,7 +88,8 @@ const mapStateToProps = state => {
     return {
         userId: state.auth.user._id,
         isAuthenticated: state.auth.isAuthenticated,
-        userName: state.auth.user.name
+        userName: state.auth.user.name,
+        isBlogPage: state.auth.isBlogPage
     }
 };
 
