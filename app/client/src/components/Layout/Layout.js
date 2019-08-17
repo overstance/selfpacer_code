@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
-import BlogTopToolBar from '../Navigation/BlogNav/topToolBar';
+import BlogToolBar from '../Navigation/BlogNav/toolBar';
 import classes from './Layout.module.css';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
 import Footer from '../Navigation/Footer/Footer';
 import * as actions from '../../store/actions/index';
+import BlogSectionMenuDrawer from '../Navigation/BlogNav/blogSectionMenuDrawer'
 
 
 class Layout extends Component {
@@ -28,7 +29,8 @@ class Layout extends Component {
     } */
 
     state = {
-        showSideDrawer: false
+        showSideDrawer: false,
+        showBlogSectionMenu: false
     }
 
     sideDrawerClosedHandler = () => {
@@ -45,14 +47,25 @@ class Layout extends Component {
         });
     }
 
+    sectionMenuToggleHandler = () => {
+        this.setState((prevState) => {
+            return { showBlogSectionMenu: !prevState.showBlogSectionMenu}
+        })
+    }
+
+    sectionMenuCloseHandler = () => {
+        this.setState({ showBlogSectionMenu: false});
+    }
+
     render() {
         return (
             <div className={classes.Site} /* pageType={this.props.pageType} */>
                 {/* <div ref={this.myScrollRef}></div> */}
                 <div className={classes.Content}>
                     {this.props.isBlogPage ? 
-                        <BlogTopToolBar
+                        <BlogToolBar
                         isAuth={this.props.isAuthenticated} 
+                        sectionMenuClicked={this.sectionMenuToggleHandler}
                         /> 
                         :
                         <Toolbar
@@ -62,14 +75,24 @@ class Layout extends Component {
                             exploreRefresh={this.onExploreRefresh}
                         />
                     }
-                    <SideDrawer
-                        isAuth={this.props.isAuthenticated}
-                        open={this.state.showSideDrawer}
-                        closed={this.sideDrawerClosedHandler}
-                        onAuth={this.authenticatingHandler}
-                        userName={this.props.userName}
-                        showSideDrawer={this.state.showSideDrawer}
-                    />
+                    { this.props.isBlogPage ? null :
+                        <SideDrawer
+                            isAuth={this.props.isAuthenticated}
+                            open={this.state.showSideDrawer}
+                            closed={this.sideDrawerClosedHandler}
+                            onAuth={this.authenticatingHandler}
+                            userName={this.props.userName}
+                            showSideDrawer={this.state.showSideDrawer}
+                        />
+                    }
+                    { this.props.isBlogPage ?
+                        <BlogSectionMenuDrawer 
+                        onMenuSelect={this.sectionMenuCloseHandler}
+                        open={this.state.showBlogSectionMenu}
+                        closed={this.sectionMenuCloseHandler}
+                        />
+                        : null
+                    }
                     <main>
                         {this.props.children}
                     </main>

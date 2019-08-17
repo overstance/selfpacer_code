@@ -1,6 +1,8 @@
 .Container {
     width: 100%;
     background-color: var(--blue);
+    z-index: 90;
+    position: relative
 }
 
 .Toolbar {
@@ -18,10 +20,11 @@
 }
 
 .SearchIcon {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     vertical-align: middle;
     fill:var(--white);
+    padding-left: 12px
 }
 
 .SearchIcon:hover {
@@ -44,10 +47,10 @@
 .ItemContainer span {
     font-family: 'Roboto', sans-serif;
     color: var(--blue);
-    padding: 6px;
+    padding: 7px;
     background: var(--white);
     border-radius: 8px;
-    margin: 0 4px;
+    margin-left: 12px;
     font-size: small;
     font-weight: bold;
 }
@@ -61,7 +64,7 @@
     width: 32px;
     fill: var(--white);
     vertical-align: middle;
-    padding-right: 6px;
+    /* padding-right: 6px; */
 }
 
 .User:hover {
@@ -108,6 +111,108 @@
     padding-left: 6px;
 }
 
+.LowerToolBar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--blue);
+    z-index: 200;
+    position: relative;
+    background: var(--white);
+}
+
+.LowerToolBar a, .LowerToolBar span {
+    color: var(--blue);
+    font-size: small;
+    text-decoration: none;
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    flex: 0 0 20%;
+    max-width: 20%
+}
+
+.LowerToolBar a:hover {
+    color: var(--green);
+}
+
+.LowerToolBar a:hover svg {
+    fill: var(--green);
+}
+
+.LowerToolBar span:hover {
+    color: var(--green);
+}
+
+.LowerToolBar span:hover svg{
+    fill: var(--green);
+}
+
+.LowerToolBar svg {
+    fill: var(--blue);
+    width: 20px;
+    padding-bottom: 4px;
+}
+
+.SectionMenuDrawer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    background-color: var(--gray);
+    box-sizing: border-box;
+    transition: transform 0.1s ease-out;
+    margin-top: 60px;
+}
+
+.Open {
+    transform: translateY(0);
+}
+
+.Close {
+    transform: translateY(-100%);
+}
+
+.Backdrop {
+    width: 100%;
+    position: absolute;
+    z-index: 50;
+    left: 0;
+    top: 0;
+    min-height: 100%;
+}
+
+.SectionMenuItems {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.SectionMenuItems a {
+    text-decoration: none;
+    padding: 20px;
+    color: var(--blue);
+    display: block;
+    width: 100px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.SectionMenuItems a:hover,
+.SectionMenuItems a:active,
+.SectionMenuItems a.active {
+    color: var(--red);
+}
+
+
+
 @media(max-width: 784px) {
     .SearchIcon {
         display: none;
@@ -115,5 +220,19 @@
 
     .MainNavItems {
         display: none;
+    }
+
+    .User {
+        padding-right: 0;
+    }
+
+    .SectionMenuDrawer {
+        margin-top: 120px;
+    }
+}
+
+@media(min-width: 785px) {
+    .LowerToolBar {
+        display: none
     }
 }

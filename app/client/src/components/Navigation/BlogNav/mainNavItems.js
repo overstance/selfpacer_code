@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const mainNavItems = (props) => (
     <div className={classes.MainNavItems}>
-        <NavLink to="/collections" exact>Blog-Home</NavLink>
+        <NavLink to="/collections" exact>Home</NavLink>
         <NavLink to="/collections" exact>Popular</NavLink>
         <NavLink to="/collections" exact>Latest</NavLink>
         <span onClick={props.sectionClicked}>
