@@ -3,6 +3,7 @@ import RichEditor from '../../components/BlogEditor/BlogEditor';
 import DraftLists from '../../components/blogDraftLists/ListsContainer';
 import { connect } from 'react-redux';
 import classes from './ManageBlogDrafts.module.css';
+import Container from '../../components/UserInterface/Container/Container';
 // import * as actions from '../../store/actions/index';
 
 class ManageBlogDrafts extends Component {
@@ -63,16 +64,15 @@ class ManageBlogDrafts extends Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <div className={classes.headline}>
           <h1>Blog Drafts</h1>
         </div>
-
         <div className={classes.pageComponents}>
             <DraftLists selectDraft={this.selectDraft}/>
             <RichEditor displayedNote={this.state.displayedNote}/>
         </div>
-      </div>
+      </Container>
     );
   }
 }

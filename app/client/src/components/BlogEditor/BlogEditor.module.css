@@ -8,8 +8,8 @@
   overflow-y: hidden;
   overflow-x: hidden;
   order: 2;
-  flex: 0 0 70%;
-  max-width: 70%;
+  flex: 0 0 65%;
+  max-width: 65%;
   background: var(--gray);
   align-items: center;
   align-self: stretch;
@@ -92,7 +92,7 @@
 }
 
 .editors a {
-  color: blue;
+  color: var(--blue);
 }
 
 .editors img {
@@ -128,7 +128,7 @@
 .styleButton {
   padding: 8px;
   border-radius: 8px;
-  background: white;
+  background: var(--white);
   margin: 0.35em;
   font-size: 13px;
   width: 22px;
@@ -249,8 +249,8 @@
 }
 
 .heroImageWrapper {
-  background: white;
-  padding: 4px;
+  background: var(--white);
+  padding: 20px;
   border-radius: 4px;
 }
 

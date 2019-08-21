@@ -128,6 +128,7 @@ module.exports = app => {
           if (err) {
             res.send({ error: err.message });
           } else if (draft) {
+            // console.log(draft);
             res.send({ publishedDraft: draft });
           }
         }

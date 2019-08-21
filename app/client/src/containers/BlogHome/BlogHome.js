@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import classes from './blogHome.module.css';
+// import { Link } from 'react-router-dom';
 // import butter from './butter-client';
 import Container from '../../components/UserInterface/Container/Container';
 // import Grid from '../../components/UserInterface/Grid/Grid';
-import Spinner from '../../components/UserInterface/Spinner/Spinner';
+// import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
+import FeaturedBlogs from '../../components/blogHomeComponents/featuredBlogs/FeaturedBlogs';
 
 class BlogHome extends Component {
   /* state = {
@@ -27,13 +29,13 @@ class BlogHome extends Component {
     this.props.onUnsetIsBlogPage()
   }
 
-  componentDidMount() {
+  /* componentDidMount() {
     this.props.onFetchBlogPosts();
-  }
+  } */
 
   render () {
     // const { next_page, previous_page } = this.state.meta
-    let posts = <Spinner isComponent/>
+    /* let posts = <Spinner isComponent/>
 
     if (!this.props.loading && !this.props.error) {
       posts =
@@ -51,11 +53,14 @@ class BlogHome extends Component {
       <section>
         {this.props.error}
       </section>
-    }
+    } */
 
     return (
       <Container>
-        {posts}
+        {/* {posts} */}
+        <div className={classes.blogHomeWrapper}>
+          <FeaturedBlogs />
+        </div>
       </Container>
     )
   }

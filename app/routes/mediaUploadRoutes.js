@@ -30,11 +30,15 @@ module.exports = app => {
         imageFile,
         {
           folder: 'blog_imgs/local/',
-          tags: 'local'
+          tags: 'local',
+          aspect_ratio: '16:9',
+          width: 720,
+          crop: 'fill'
+          // transformation: { aspect_ratio: '16:9', crop: 'fill' }
         },
         (error, image) => {
           if (error) {
-            res.send({ error: err.message });
+            res.send({ error: error.message });
             return;
           } else {
             let newImage = new Image({
@@ -62,11 +66,14 @@ module.exports = app => {
       imageUrl,
       {
         folder: 'blog_imgs/web/',
-        tags: 'web'
+        tags: 'web',
+        aspect_ratio: '16:9',
+        width: 720,
+        crop: 'fill'
       },
       (error, image) => {
         if (error) {
-          res.send({ error: err.message });
+          res.send({ error: error.message });
           return;
         } else {
           let newImage = new Image({
