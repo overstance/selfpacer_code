@@ -10,7 +10,7 @@ const featuredCover = (props) => (
             </Link>            
             { props.source ? <figcaption>{props.source}</figcaption> : null}
         </figure>
-        <div className={classes.featuredCoverInfo}>
+        <div>
             <div className={classes.featuredCoverCategory}>
                 <Link to={`/blog/${props.category}`}>
                     {props.category}

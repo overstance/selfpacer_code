@@ -40,19 +40,21 @@
 .ItemContainer a {
     display: inline-block;
     text-decoration: none;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Merriweather Sans', sans-serif;
     color: var(--white);
 }
 
 .ItemContainer span {
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Merriweather Sans', sans-serif;
     color: var(--blue);
     padding: 7px;
     background: var(--white);
     border-radius: 8px;
     margin-left: 12px;
     font-size: small;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .ItemContainer span:hover {
@@ -130,7 +132,8 @@
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Merriweather Sans', sans-serif;
     cursor: pointer;
     flex: 0 0 20%;
     max-width: 20%
@@ -202,7 +205,8 @@
     color: var(--blue);
     display: block;
     width: 100px;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Merriweather Sans', sans-serif;
 }
 
 .SectionMenuItems a:hover,

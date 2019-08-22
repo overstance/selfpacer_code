@@ -10,6 +10,7 @@ class Grid extends Component {
     render() {
 
         let attachedClasses = [classes.HeadBar];
+        let headBarAdClasses = [classes.HeadBarAdvert]
 
         if (this.props.page_category === 'Explore') {
             attachedClasses = [classes.HeadBar, classes.ExplorePage];
@@ -35,11 +36,16 @@ class Grid extends Component {
             attachedClasses = [classes.HeadBar, classes.SciencePage];
         }
 
+        if (!this.props.page_category) {
+            headBarAdClasses = [classes.HeadBarAdvert, classes.OtherPageCategories]
+        }
+
+
         return (
         <Container>
             <div className={classes.wrapper}>
                 <div className={attachedClasses.join(' ')} page_category={this.props.page_category}>
-                    <div className={classes.HeadBarAdvert}>
+                    <div className={headBarAdClasses.join(' ')}>
                         <img className={classes.LongAdvert} src={Ad728By90} alt='advert' />
                         <img className={classes.ShortAdvert} src={Ad320By100} alt='mobile advert' />
                     </div>

@@ -2,26 +2,30 @@ import React from 'react';
 import classes from './featuredBlogs.module.css';
 import { Link } from 'react-router-dom';
 
-const featuredSmall = (props) => (
-    <article className={classes.featuredSmall}>
+const featuredLarge = (props) => (
+    <article className={classes.featuredLarge}>
         <figure>
             <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
-                <div style={{'backgroundImage': `url(${props.featureImageUrl})`}} className={classes.featuredSmallImage}></div>
+                <img src={props.featureImageUrl} alt='featured blog' />
             </Link>
+            { props.source ? <figcaption>{props.source}</figcaption> : null}
         </figure>
         <div>
-            <div className={classes.featuredSmallCategory}>
+            <div className={classes.featuredLargeCategory}>
                 <Link to={`/blog/${props.category}`}>
                     {props.category}
                 </Link>    
             </div>
-            <div className={classes.featuredSmallTitle}>
+            <div className={classes.featuredLargeTitle}>
                 <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
                     {props.title}
                 </Link>
             </div>
-        </div>      
+            <div className={classes.featuredLargeDescription}>
+                {props.description}
+            </div>
+        </div>    
     </article>
 );
 
-export default featuredSmall;
+export default featuredLarge;

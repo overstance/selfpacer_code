@@ -14,7 +14,7 @@
     height: 160px;
     /* margin: 0 0 8px 0; */
     /* border-bottom: 2px solid var(--lightBlue); */
-    background-color: var(--blue);
+    background-color: var(--white);
 }
 
 .ShortAdvert {
@@ -55,6 +55,11 @@
     background-image: url('../../../assets/art/head-art/head_banner_science.png');
 } 
 
+.OtherPageCategories {
+    padding-right: 0;
+    text-align: center;
+}
+
 .Median {
     display: flex;  
     flex-flow: row wrap;
@@ -89,7 +94,7 @@
 }
 
 .SideBar {
-    background: var(--gray);
+    /* background: var(--gray); */
     width: 360px;
 }
 
