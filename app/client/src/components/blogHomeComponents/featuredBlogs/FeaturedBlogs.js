@@ -276,6 +276,21 @@ class FeaturedBlogs extends Component {
             />
         ));
 
+        let featuredLargeToSmall = large.map((blog, i) => (
+            <FeaturedSmall
+                key={i} 
+                publishYear={blog.publishYear}
+                publishMonth={blog.publishMonth}
+                publishDay={blog.publishDay}
+                source={blog.featuredImage.source}
+                featureImageUrl={blog.featuredImage.url}
+                category={blog.category}
+                title={blog.title}
+                description={blog.description}
+                slug={blog.slug}
+            />
+        ));
+
         return (
             <section className={classes.featuredBlogsSection}>
                 <div className={classes.featuredSectionTop}>
@@ -294,6 +309,9 @@ class FeaturedBlogs extends Component {
                     <div className={classes.adMedium} />
                 </div>
                 <div className={classes.featuredSectionMiddle}>
+                    <div className={classes.featuredSmallMiddleContainer}>
+                        {featuredSmall}
+                    </div>
                     <div className={classes.featuredMediumMiddleContainer}>
                         {featuredMedium}
                     </div>
@@ -306,6 +324,11 @@ class FeaturedBlogs extends Component {
                 <div className={classes.featuredSectionBottomAd}>
                     <div className={classes.adFull} />
                     <div className={classes.adMedium} />
+                </div>
+                <div className={classes.featuredSectionBottomost}>
+                    <div className={classes.featuredSmallBottommostContainer}>
+                        {featuredLargeToSmall}
+                    </div>
                 </div>
             </section>
         );

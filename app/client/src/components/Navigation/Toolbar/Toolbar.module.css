@@ -9,6 +9,13 @@ a colored unlimited width fixed toolbar  */
     background-color: var(--blue);
 } */
 
+.Container {
+    width: 100%;
+    background-color: var(--green);
+    z-index: 90;
+    position: relative
+}
+
 .Toolbar {
     height: 80px;
     width: 100%;
@@ -16,7 +23,7 @@ a colored unlimited width fixed toolbar  */
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    background: var(--green);
+    /* background: var(--green); */
     padding: 10px;
 }
 

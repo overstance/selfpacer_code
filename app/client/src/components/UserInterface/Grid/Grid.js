@@ -1,53 +1,18 @@
 import React, { Component } from 'react';
 import classes from './Grid.module.css';
-import Container from '../Container/Container';
-import Ad728By90 from '../../../assets/art/head-art/ad_728X90.png';
-import Ad468By60 from '../../../assets/art/head-art/ad_468X60.png';
-import Ad320By100 from '../../../assets/art/head-art/ad_320X100.png'; 
+import Container from '../Container/Container'; 
 
 class Grid extends Component {
 
     render() {
 
-        let attachedClasses = [classes.HeadBar];
-        let headBarAdClasses = [classes.HeadBarAdvert]
-
-        if (this.props.page_category === 'Explore') {
-            attachedClasses = [classes.HeadBar, classes.ExplorePage];
-        }
-
-        if (this.props.page_category === 'Business') {
-            attachedClasses = [classes.HeadBar, classes.BusinessPage];
-        }
-
-        if (this.props.page_category === 'Creative') {
-            attachedClasses = [classes.HeadBar, classes.CreativePage];
-        }
-
-        if (this.props.page_category === 'Technology') {
-            attachedClasses = [classes.HeadBar, classes.TechnologyPage];
-        }
-
-        if (this.props.page_category === 'Life-style') {
-            attachedClasses = [classes.HeadBar, classes.LifeStylePage];
-        }
-
-        if (this.props.page_category === 'Science') {
-            attachedClasses = [classes.HeadBar, classes.SciencePage];
-        }
-
-        if (!this.props.page_category) {
-            headBarAdClasses = [classes.HeadBarAdvert, classes.OtherPageCategories]
-        }
-
-
         return (
         <Container>
             <div className={classes.wrapper}>
-                <div className={attachedClasses.join(' ')} page_category={this.props.page_category}>
-                    <div className={headBarAdClasses.join(' ')}>
-                        <img className={classes.LongAdvert} src={Ad728By90} alt='advert' />
-                        <img className={classes.ShortAdvert} src={Ad320By100} alt='mobile advert' />
+                <div className={classes.HeadBar} /* page_category={this.props.page_category} */>
+                    <div className={classes.HeadBarAdvert}>
+                        <div className={classes.adFull} />
+                        <div className={classes.adMedium} />
                     </div>
                 </div>
                 <div className={classes.Median}>
@@ -58,8 +23,8 @@ class Grid extends Component {
                 </div>
                 <div className={classes.FootBar}>
                     <div className={classes.FootBarAdvert}>
-                        <img className={classes.LongAdvert} src={Ad468By60} alt='advert' />
-                        <img className={classes.ShortAdvert} src={Ad320By100} alt='mobile advert' />
+                        <div className={classes.adFull} />
+                        <div className={classes.adMedium} />
                     </div>
                 </div>   
             </div>

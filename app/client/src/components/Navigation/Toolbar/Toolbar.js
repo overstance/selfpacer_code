@@ -17,7 +17,7 @@ in Toolbar.module.css and enable margin-top for .Content class in Layout.module.
 
 
 const toolbar = (props) => (
-    // <div className={classes.Container}>
+    <div className={classes.Container}>
         <Container>
             <header className={classes.Toolbar}>
                 <SideDrawerToggle clicked={props.sideDrawerToggleClicked} />
@@ -36,7 +36,7 @@ const toolbar = (props) => (
                 />
             </header>
         </Container>
-    // </div>
+    </div>
 );
 
 export default toolbar;

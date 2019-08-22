@@ -11,53 +11,36 @@
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     align-items: center;
-    height: 160px;
-    /* margin: 0 0 8px 0; */
-    /* border-bottom: 2px solid var(--lightBlue); */
-    background-color: var(--white);
+    border-bottom: 1px solid var(--gray);
+    margin-bottom: 8px;
 }
 
-.ShortAdvert {
-    display: none;
+.adFull {
+    width: 728px;
+    height: 90px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../../assets/art/head-art/ad_728X90.png');
+    margin: auto;
 }
 
-.HeadBarAdvert {
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-    text-align: right;
-    padding-right: 32px;
+.adMedium {
+    width: 320px;
+    height: 100px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../../assets/art/head-art/ad_320X100.png');
+    margin: auto;
 }
 
-.ExplorePage {
-    background-image: url('../../../assets/art/head-art/head_banner_explore.png');
-} 
-
-.BusinessPage {
-    background-image: url('../../../assets/art/head-art/head_banner_business.png');
-} 
-
-.CreativePage {
-    background-image: url('../../../assets/art/head-art/head_banner_creative.png');
-} 
-
-.TechnologyPage {
-    background-image: url('../../../assets/art/head-art/head_banner_tech.png');
-} 
-
-.LifeStylePage {
-    background-image: url('../../../assets/art/head-art/head_banner_life-style.png');
-} 
-
-.SciencePage {
-    background-image: url('../../../assets/art/head-art/head_banner_science.png');
-} 
-
-.OtherPageCategories {
-    padding-right: 0;
-    text-align: center;
+.HeadBarAdvert, .FootBarAdvert {
+    width: 100%;
+    margin: 20px auto;
+    box-sizing: border-box;
 }
 
 .Median {
@@ -80,22 +63,20 @@
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     align-items: center;
-    height: 160px;
-    margin: 0 0 8px 0;
-}
-
-.FootBarAdvert {
-    -ms-flex-preferred-size: 0;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    max-width: 100%;
-    text-align: center;
+    border-top: 1px solid var(--gray);
+    margin-top: 8px;
 }
 
 .SideBar {
-    /* background: var(--gray); */
     width: 360px;
+    border-left: 1px solid var(--gray);
+    margin-left: 8px;
+}
+
+@media(min-width: 901px) {
+    .adMedium {
+        display: none;
+    }
 }
 
 @media all and (max-width: 900px) {
@@ -108,18 +89,14 @@
         display: none;
     }
 
-    .LongAdvert {
+    .adFull {
         display: none;
-    }
-
-    .ShortAdvert {
-        display: inline-block;
     }
 }
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
     .HeadBarAdvert {
         text-align: center;
         padding: 0;
     }
-}
+} */

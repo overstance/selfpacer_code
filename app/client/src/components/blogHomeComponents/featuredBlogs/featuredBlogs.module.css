@@ -10,13 +10,13 @@
 
 .featuredSectionTopAd {
     width: 100%;
-    padding: 30px;
+    margin: 30px auto;
     box-sizing: border-box;
 }
 
 .featuredSectionBottomAd {
     width: 100%;
-    padding: 30px;
+    margin: 30px auto;
     box-sizing: border-box;
 }
 
@@ -32,13 +32,13 @@
 }
 
 .adMedium {
-    width: 320px;
-    height: 100px;
+    width: 300px;
+    height: 250px;
     background-position-x: center;
     background-position-y: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background: url('../../../assets/art/head-art/ad_320X100.png');
+    background: url('../../../assets/art/head-art/banner_ad300X250.png');
     margin: auto;
 }
 
@@ -51,6 +51,10 @@
     border-bottom: 1px solid var(--gray);
     border-top: 1px solid var(--gray);
     padding: 16px 0;
+}
+
+.featuredSectionBottomost {
+    display: none;
 }
 
 .featuredBlogsSection img {
@@ -167,12 +171,14 @@
 
 .featuredMediumMiddleContainer {
     display: flex;
-    /* flex: 0 0 25%;
-    max-width: 25%; */
     flex-flow: row;
     box-sizing: border-box;
     padding: 16px 0;
     border-top: 1px solid var(--gray);
+}
+
+.featuredSmallMiddleContainer {
+    display: none;
 }
 
 .featuredMedium {
@@ -198,6 +204,14 @@
     padding-left: 16px;
     box-sizing: border-box;
     border-left: 1px solid var(--gray);
+}
+
+.featuredSmallBottommostContainer {
+    display: flex;
+    flex-flow: column;
+    box-sizing: border-box;
+    padding: 16px 0;
+    border-top: 1px solid var(--gray);
 }
 
 .featuredSmall {
@@ -347,5 +361,60 @@
     .featuredMedium figure {
         padding-left: 0;
         max-width: 100%;
+    }
+
+    .featuredMediumInfo {
+        max-width: 100%;
+    }
+}
+
+@media(min-width: 577px) {
+    
+}
+
+@media(max-width: 576px) {
+    .featuredCoverContainer {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .featuredMediumMiddleContainer {
+        flex-flow: column;
+        border-bottom: 1px solid var(--gray);
+    }
+
+    .featuredMedium {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--gray);
+        box-sizing: border-box;
+    }
+    
+    .featuredMedium:first-of-type {
+        border-right:none;
+    }
+
+    .featuredMedium:last-of-type {
+        border-bottom: none;
+    }
+
+    .featuredSectionBottom {
+        display: none;
+    }
+
+    .featuredSectionBottomost {
+        display: block;
+    }
+
+    .featuredSmallContainer {
+        display: none;
+    }
+
+    .featuredSmallMiddleContainer {
+        display: flex;
+        flex-flow: column;
+        box-sizing: border-box;
+        padding: 16px 0;
+        border-top: 1px solid var(--gray);
     }
 }
