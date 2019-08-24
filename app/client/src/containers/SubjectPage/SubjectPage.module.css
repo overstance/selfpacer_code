@@ -1,14 +1,7 @@
 .ResourcesContainer {
     min-height: 500px; 
+    padding: 0 8px;
 }
-
-.Resources:first-of-type {
-    margin-top: 10px;
-}
-
-/* .Subheader {
-    border-bottom: 1px solid var(--white);
-} */
 
 .Items {
     background: var(--green);

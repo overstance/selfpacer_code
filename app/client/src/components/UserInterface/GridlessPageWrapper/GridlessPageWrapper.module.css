@@ -5,4 +5,12 @@
     padding: 30px;
     font-size: larger;
     font-weight: 700;
+    margin-top: 8px;
+    border-bottom: 1px solid var(--white);
+}
+
+@media(max-width: 1280px) {
+    .Header {
+        margin-top: 0;
+    }
 }

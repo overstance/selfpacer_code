@@ -8,6 +8,7 @@ import Container from '../../components/UserInterface/Container/Container';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import FeaturedBlogs from '../../components/blogHomeComponents/featuredBlogs/FeaturedBlogs';
+import LatestSection from '../../components/blogHomeComponents/latestSection/LatestSection';
 
 class BlogHome extends Component {
   /* state = {
@@ -60,6 +61,7 @@ class BlogHome extends Component {
         {/* {posts} */}
         <div className={classes.blogHomeWrapper}>
           <FeaturedBlogs />
+          <LatestSection />
         </div>
       </Container>
     )

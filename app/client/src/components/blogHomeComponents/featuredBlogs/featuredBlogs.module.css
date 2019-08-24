@@ -326,10 +326,6 @@
     }
 }
 
-@media(min-width: 785px) {
-    
-}
-
 @media(max-width: 784px) {
 
     .featuredLargeContainer {
@@ -366,10 +362,6 @@
     .featuredMediumInfo {
         max-width: 100%;
     }
-}
-
-@media(min-width: 577px) {
-    
 }
 
 @media(max-width: 576px) {
