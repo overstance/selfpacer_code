@@ -41,13 +41,13 @@
     display: inline-block;
     text-decoration: none;
     /* font-family: 'Roboto', sans-serif; */
-    font-family: 'Merriweather Sans', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     color: var(--white);
 }
 
 .ItemContainer span {
     /* font-family: 'Roboto', sans-serif; */
-    font-family: 'Merriweather Sans', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     color: var(--blue);
     padding: 7px;
     background: var(--white);
@@ -133,7 +133,7 @@
     flex-wrap: nowrap;
     align-items: center;
     /* font-family: 'Roboto', sans-serif; */
-    font-family: 'Merriweather Sans', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     cursor: pointer;
     flex: 0 0 20%;
     max-width: 20%
@@ -205,8 +205,8 @@
     color: var(--blue);
     display: block;
     width: 100px;
-    /* font-family: 'Roboto', sans-serif; */
-    font-family: 'Merriweather Sans', sans-serif;
+    font-weight: bold;
+    font-family: 'PT Sans', sans-serif;
 }
 
 .SectionMenuItems a:hover,

@@ -51,7 +51,7 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
-  isArtist: {
+  isDesigner: {
     type: Boolean,
     default: false
   },

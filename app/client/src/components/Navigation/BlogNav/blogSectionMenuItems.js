@@ -10,7 +10,7 @@ const blogSectionMenuItems = (props) => {
         {name: 'Science', link: '/blog/science'},
         {name: 'Technology', link: '/blog/technology'},
         {name: 'Life-Style', link: '/blog/life-style'},
-        {name: 'reviews', link: '/blog/reviews'},
+        {name: 'Reviews', link: '/blog/reviews'},
         {name: 'Videos', link: '/blog/videos'},
         {name: 'Podcasts', link: '/blog/podcasts'}
     ];
