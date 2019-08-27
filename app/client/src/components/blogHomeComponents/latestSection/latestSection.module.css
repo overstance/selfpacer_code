@@ -1,12 +1,43 @@
 .latestSection {
-    margin: 0 8px;
+    padding: 16px 0;
+}
+
+.latestSectionTop {
+    /* margin: 0 16px; */
     display: flex;
     /* border-top: 1px solid var(--gray); */
-    padding: 16px 0;
 }
 
 .latestSectionSideAd {
     margin: 16px auto;
+}
+
+.latestSectionBottomAd {
+    width: 100%;
+    margin: 32px auto;
+    box-sizing: border-box;
+}
+
+.adFull {
+    width: 728px;
+    height: 90px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../../assets/art/head-art/ad_728X90.png');
+    margin: auto;
+}
+
+.adMedium {
+    width: 300px;
+    height: 250px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../../assets/art/head-art/banner_ad300X250.png');
+    margin: auto;
 }
 
 .adFullSide {
@@ -111,6 +142,10 @@
     /* border-right: 1px solid var(--gray); */
 }
 
+.facilitatorBottomContainer {
+    display: none;
+}
+
 .facilitatorSideContainer {
     display: none;
 }
@@ -123,6 +158,10 @@
     padding-left: 16px;
     box-sizing: border-box;
     /* border-left: 1px solid var(--gray); */
+}
+
+.popularBlogBottomContainer {
+    display: none;
 }
 
 .latestVideoContainer {
@@ -141,23 +180,8 @@
     display: flex;
 }
 
-/* .latestBlog:last-of-type {
-    border-bottom: 1px solid var(--gray);
-} */
-
-.latestVideo {
-    padding: 16px 0;
-    border-top: 1px solid var(--gray);
-    box-sizing: border-box;
-    /* display: flex; */
-}
-
-.latestVideo:first-of-type {
-    border-top: none;
-}
-
 .latestVideoTitle {
-    font-size: 20px;
+    font-size: 16px;
     padding: 16px 0;
 }
 
@@ -180,8 +204,25 @@
     transform: translateY(-50%);
 }
 
+.latestVideoLarge {
+    display: flex;
+    flex-flow: row nowrap
+}
+
+.latestVideos1 {
+    flex: 0 0 70%;
+    max-width: 70%;
+    padding-right: 16px;
+    box-sizing: border-box;
+}
+
+.latestVideos2to3 {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
 .latestPodcast {
-    padding: 16px 0;
+    padding-bottom: 16px;
     /* border-top: 1px solid var(--gray); */
     box-sizing: border-box;
     /* display: flex; */
@@ -214,7 +255,7 @@
 .latestBlog figure {
     flex: 0 0 50%;
     max-width: 50%;
-    padding: 0 16px 16px 0;
+    padding-right: 16px;
     box-sizing: border-box;
 }
 
@@ -223,7 +264,7 @@
     max-width: 50%;
 }
 
-.latestBlogPublihDate {
+.latestBlogPublishDate {
     color: var(--black);
     font-family: 'PT sans', sans-serif;
     font-size: 14px;
@@ -244,6 +285,10 @@
     flex-flow: column;
     padding: 16px 0;
     box-sizing: border-box;
+}
+
+.popularBlog:first-of-type {
+    padding-top: 0;
 }
 
 .popularBlogTitle {
@@ -272,7 +317,7 @@
     width: 100%;
     display: flex;
     flex-flow: row;
-    padding: 16px 0;
+    padding-bottom: 16px;
     box-sizing: border-box;
 }
 
@@ -289,9 +334,9 @@
     font-family: 'PT Sans', sans-serif;
 }
 
-.facilitator figure {
+/* .facilitator figure {
     padding-left: 8px;
-}
+} */
 
 .facilitatorImage {
     border-radius: 50%;
@@ -324,99 +369,142 @@
     }
 
     .latestBlogContainer {
-        flex: 0 0 55%;
-        max-width: 55%;
+        flex: 0 0 65%;
+        max-width: 65%;
         padding-left: 0;
     }
 
     .popularBlogContainer {
-        flex: 0 0 45%;
-        max-width: 45%;
+        flex: 0 0 35%;
+        max-width: 35%;
     }
 }
 
 @media(min-width: 977px) {
-
+    .adMedium {
+        display: none;
+    }
 }
 
-/* @media(max-width: 976px) {
-
-    .latestBlogContainer {
-        padding-left: 0
+@media(max-width: 976px) {
+    .adFull {
+        display: none;
     }
 
-    .facilitatorContainer {
-        display: none
+    .latestSectionSideAd {
+        display: none;
+    }
+
+    .latestBlogContainer {
+        flex: 0 0 60%;
+        max-width: 60%;
+        padding-left: 0;
+        padding-bottom: 16px;
     }
 
     .popularBlogContainer {
-        flex: 0 0 50%;
-        max-width: 50%;
+        flex: 0 0 40%;
+        max-width: 40%;
     }
 
-    .facilitator figure {
-        display: block;
-    }
-
-    .facilitator {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .latestBlog {
-        padding: 0 16px;
-        border-top: none;
-        box-sizing: border-box;
-    }
-    
-    .latestBlog:first-of-type {
-        padding-left: 0;
-        border-right:1px solid var(--gray);
-    }
-
-    .latestBlog:last-of-type {
-        padding-right: 0;
-    }
 }
 
 @media(max-width: 784px) {
 
-    .latestBlog {
-        display: block;
+    .latestBlogTitle {
+        font-size: 20px;
     }
 
-    .latestBlog figure {
-        padding-left: 0;
-        max-width: 100%;
+    .latestVideos2to3 .latestVideo:last-of-type {
+        padding-left: 16px;
     }
 
-    .latestBlogInfo {
+    .latestVideoLarge {
+        flex-flow: column;
+    }
+
+    .latestVideos1 {
+        flex: 0 0 100%;
         max-width: 100%;
+        padding-right: 0;
+        box-sizing: border-box;
+    }
+    
+    .latestVideos2to3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+    }
+}
+
+@media(min-width: 577px) {
+    .latestSectionBottomost {
+        display: none;
     }
 }
 
 @media(max-width: 576px) {
-    .latestBlogContainer {
-        flex: 0 0 100%;
-        max-width: 100%;
-        padding: 0;
-    }
-
-    .latestBlog {
-        padding: 16px 0;
-        border-bottom: 1px solid var(--gray);
-        box-sizing: border-box;
-    }
-    
-    .latestBlog:first-of-type {
-        border-right:none;
-    }
-
-    .latestBlog:last-of-type {
-        border-bottom: none;
-    }
 
     .popularBlogContainer {
         display: none;
     }
-} */
+
+    .latestBlogContainer {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .latestVideo:last-of-type {
+        padding-left: 0;
+    }
+
+    .latestBlog figure {
+        flex: 0 0 30%;
+        max-width: 30%;
+    }
+    
+    .latestBlogInfo {
+        flex: 0 0 70%;
+        max-width: 70%;
+    }
+
+    .latestPodcast {
+        display: flex;
+        border-bottom: 1px solid var(--gray);
+    }
+    
+    .latestPodcast figure div {
+        width: 78px;
+        height: 78px;
+        padding-top: 0;
+    }
+
+    .latestPodcastTitle {
+        padding: 0 16px;
+    }
+
+    .facilitatorBottomContainer, 
+    .popularBlogBottomContainer {
+        display: block;
+    }
+
+    .facilitatorsBottom {
+        display: flex;
+        overflow-x: auto;
+    }
+
+    .facilitator {
+        flex: 0 0 80%;
+        max-width: 80%;
+    }
+
+    .facilitatorImage {
+        border-radius: 5%;
+    }
+
+    .facilitatorInfo {
+        padding-left: 16px;
+        margin: 0;
+    }
+} 

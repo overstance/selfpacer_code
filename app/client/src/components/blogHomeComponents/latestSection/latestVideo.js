@@ -14,12 +14,10 @@ const latestVideo = (props) => (
                 </div>
             </Link>    
         </figure>
-        <div className={classes.latestVideoInfo}>
-            <div className={classes.latestVideoTitle}>
-                <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
-                    {props.title}
-                </Link>
-            </div>
+        <div className={classes.latestVideoTitle}>
+            <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
+                {props.title}
+            </Link>
         </div>    
     </article>
 );

@@ -21,7 +21,7 @@ const latestBlog = (props) => (
                     {props.title}
                 </Link>
             </div>
-            <div className={classes.latestBlogPublihDate}>
+            <div className={classes.latestBlogPublishDate}>
                 {props.displayDate}
             </div>
         </div>    
