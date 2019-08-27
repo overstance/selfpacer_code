@@ -51,7 +51,7 @@
     font-family: 'Squada One', cursive;
     text-transform: uppercase;
     color: var(--black);
-    font-size: 20px;
+    font-size: 24px;
 }
 
 .sectionSubheadMore {
@@ -75,12 +75,16 @@
 }
 
 .popularBlogTitle a:hover, 
-.latestBlogTitle a:hover {
+.latestBlogTitle a:hover,
+.latestVideoTitle a:hover,
+.latestPodcastTitle a:hover {
     color: var(--black);
 }
 
 .popularBlogTitle a, 
-.latestBlogTitle a {
+.latestBlogTitle a,
+.latestVideoTitle a,
+.latestPodcastTitle {
     font-family: 'Baloo', cursive;
     color: var(--blue);
     text-transform: capitalize;
@@ -107,6 +111,10 @@
     /* border-right: 1px solid var(--gray); */
 }
 
+.facilitatorSideContainer {
+    display: none;
+}
+
 .popularBlogContainer {
     display: flex;
     flex: 0 0 30%;
@@ -117,12 +125,90 @@
     /* border-left: 1px solid var(--gray); */
 }
 
+.latestVideoContainer {
+    width: 100%;
+}
+
+.latestPodcastContainer {
+    width: 100%;
+}
+
 
 .latestBlog {
     padding: 16px 0;
     border-top: 1px solid var(--gray);
     box-sizing: border-box;
     display: flex;
+}
+
+/* .latestBlog:last-of-type {
+    border-bottom: 1px solid var(--gray);
+} */
+
+.latestVideo {
+    padding: 16px 0;
+    border-top: 1px solid var(--gray);
+    box-sizing: border-box;
+    /* display: flex; */
+}
+
+.latestVideo:first-of-type {
+    border-top: none;
+}
+
+.latestVideoTitle {
+    font-size: 20px;
+    padding: 16px 0;
+}
+
+.latestVideo figure a {
+    display: block;
+    position: relative;
+}
+
+.playIcon {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+}
+
+.playIcon svg {
+    width: 50px;
+    height: 50px;
+    fill: var(--white);
+    transform: translateY(-50%);
+}
+
+.latestPodcast {
+    padding: 16px 0;
+    /* border-top: 1px solid var(--gray); */
+    box-sizing: border-box;
+    /* display: flex; */
+}
+
+.latestPodcastTitle {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 18px;
+    padding: 16px 0;
+}
+
+.latestPodcastTitle a {
+    color: var(--black);
+}
+
+.latestPodcastTitle span {
+    font-family: 'Baloo', cursive;
+    color: var(--blue);
+}
+
+.latestPodcast figure div {
+    width: 100%;
+    padding-top: 100%;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .latestBlog figure {
@@ -157,14 +243,8 @@
     display: flex;
     flex-flow: column;
     padding: 16px 0;
-    /* border-top: 1px solid var(--gray); */
     box-sizing: border-box;
 }
-
-/* .popularBlog:first-of-type {
-    padding-top: 0;
-    border-top: none;
-} */
 
 .popularBlogTitle {
     font-size: 20px;
@@ -193,14 +273,12 @@
     display: flex;
     flex-flow: row;
     padding: 16px 0;
-    /* border-top: 1px solid var(--gray); */
     box-sizing: border-box;
 }
 
-/* .facilitator:first-of-type {
-    padding-top: 0;
-    border-top: none;
-} */
+.facilitator:last-of-type {
+    margin-bottom: 32px;
+}
 
 .facilitatorName {
     font-family: 'PT Sans', sans-serif;
@@ -231,14 +309,37 @@
 }
 
 @media(max-width: 1100px) {
+    .facilitatorContainer {
+        display: none;
+    }
 
+    .facilitatorSideContainer {
+        display: flex;
+        /* flex: 0 0 25%;
+        max-width: 25%; */
+        flex-flow: column;
+        box-sizing: border-box;
+        padding-right: 16px;
+        /* border-right: 1px solid var(--gray); */
+    }
+
+    .latestBlogContainer {
+        flex: 0 0 55%;
+        max-width: 55%;
+        padding-left: 0;
+    }
+
+    .popularBlogContainer {
+        flex: 0 0 45%;
+        max-width: 45%;
+    }
 }
 
 @media(min-width: 977px) {
 
 }
 
-@media(max-width: 976px) {
+/* @media(max-width: 976px) {
 
     .latestBlogContainer {
         padding-left: 0
@@ -318,4 +419,4 @@
     .popularBlogContainer {
         display: none;
     }
-}
+} */
