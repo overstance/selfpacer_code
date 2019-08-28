@@ -7,7 +7,8 @@ import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
 import Footer from '../Navigation/Footer/Footer';
 import * as actions from '../../store/actions/index';
-import BlogSectionMenuDrawer from '../Navigation/BlogNav/blogSectionMenuDrawer'
+import BlogSectionMenuDrawer from '../Navigation/BlogNav/blogSectionMenuDrawer';
+import BlogFooter from '../Navigation/BlogNav/blogFooterSection/BlogFooter';
 
 
 class Layout extends Component {
@@ -97,6 +98,9 @@ class Layout extends Component {
                         {this.props.children}
                     </main>
                 </div>
+                { this.props.isBlogPage ?
+                    <BlogFooter /> : null
+                }
                 <Footer />
             </div>
         );

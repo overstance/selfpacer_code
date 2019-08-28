@@ -8,7 +8,7 @@ import LatestVideo from './latestVideo';
 import LatestPodcast from './latestPodcast';
 import { Link } from 'react-router-dom';
 
-class FeaturedBlogs extends Component {  
+class LatestBlogs extends Component {  
     render () {
 
         let latestBlogsArray = [
@@ -647,4 +647,4 @@ class FeaturedBlogs extends Component {
     }
 }
 
-export default FeaturedBlogs;
+export default LatestBlogs;

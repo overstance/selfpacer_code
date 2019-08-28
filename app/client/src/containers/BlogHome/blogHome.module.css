@@ -1,4 +1,10 @@
 .blogHomeWrapper {
-    /* width:100%; */
     padding: 16px;
+}
+
+@media(max-width: 576px) {
+
+    .blogHomeWrapper {
+        padding: 8px;
+    }
 }
