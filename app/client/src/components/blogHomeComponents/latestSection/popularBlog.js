@@ -6,8 +6,8 @@ const popularBlog = (props) => (
     <article className={classes.popularBlog}>
         <div className={classes.popularBlogTitle}>
             <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
-                <span>{props.serialNumber}</span>
-                {props.title}
+                <span>{props.serialNumber + '.'}</span>
+                <div>{props.title}</div>
             </Link>
         </div>
         <div className={classes.popularBlogCategory}>

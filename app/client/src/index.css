@@ -9,6 +9,34 @@
     --black: #000000;
 }
 
+/* @font-face {
+    font-family: 'Comfortaa';
+    src: url('./assets/fonts/Comfortaa-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('./assets/fonts/Comfortaa-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Baloo';
+    src: url('./assets/fonts/Baloo-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Squada One';
+    src: url('./assets/fonts/SquadaOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+} */
+
 .richEditor-code-block, div.richEditor-code-block {
     color: var(--gray);
     line-height: 1.2;
@@ -34,11 +62,12 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Comfortaa', cursive;
+    font-family: 'Comfortaa', Arial, Helvetica, sans-serif;
 }
 
 /*  
 font-family: 'Comfortaa', cursive;
+font-family: 'Manjari', sans-serif;
 font-family: 'Fredoka One', cursive;
 font-family: 'Baloo', cursive;
 font-family: 'PT Sans', sans-serif;

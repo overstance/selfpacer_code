@@ -13,7 +13,7 @@
 }
 
 .SideDrawerToggle:hover {
-    fill: var(--white);
+    fill: var(--green);
 }
 
 @media (min-width: 901px) {
@@ -23,6 +23,18 @@
 
     .toggleWrapper {
         display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .toggleWrapper {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
+    .SideDrawerToggle {
+        width: 24px;
+        height: 24px;
     }
 }
 

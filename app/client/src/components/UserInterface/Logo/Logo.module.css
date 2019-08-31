@@ -1,14 +1,14 @@
-.Logo {
+/* .Logo {
     fill: var(--blue);
     vertical-align: middle;
 }
 
 .Logo:hover {
     fill: var(--green);
-}
+} */
 
 .toolbarLogo:hover .subPart{
-    fill: var(--white);
+    fill: var(--green);
 }
 
 .SideDrawerLogo {

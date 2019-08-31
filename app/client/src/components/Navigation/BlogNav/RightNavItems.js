@@ -23,9 +23,6 @@ class RightNavigationItems extends Component {
                     <div className={classes.ItemContainer}>
                         <Link to="/login">  
                             <span>Log In</span>
-                        </Link> 
-                        <Link to="/register">  
-                            <span>Sign Up</span>
                         </Link>
                     </div>
                 }

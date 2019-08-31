@@ -98,7 +98,9 @@
 .featuredMediumTitle a,
 .featuredSmallTitle a,
 .featuredLargeTitle a {
-    font-family: 'Baloo', cursive;
+    /* font-family: 'Lalezar', Tahoma, 'Segoe UI', Verdana, sans-serif; */
+    /* font-family: 'Baloo', Tahoma, 'Segoe UI', Verdana, sans-serif; */
+    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     color: var(--blue);
     text-transform: capitalize;
     line-height: 1;

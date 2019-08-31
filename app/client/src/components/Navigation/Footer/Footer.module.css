@@ -29,8 +29,8 @@
   text-align: center;
   display: block;
   float: none;
-  color: var(--lightBlue);
-  margin-right: 48px;
+  color: var(--green);
+  /* margin-right: 48px; */
 }
 
 @media (max-width: 600px) {

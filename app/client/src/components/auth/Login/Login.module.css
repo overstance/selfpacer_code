@@ -99,15 +99,36 @@
     vertical-align: middle; 
  }
 
- .ForgotPassword {
+.ForgotPassword {
     color: var(--green);
     margin-top: 10px;
     display: block;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.ForgotPassword:hover {
+    color: var(--white);
+}
+
+.signUpHere {
+    margin-top: 8px;
+}
+
+.signUpHere span {
+    color: var(--white);
+    padding-right: 8px;
+}
+
+.signUpHere a {
+    color: var(--green);
+    /* margin-top: 10px; */
+    display: inline;
+    text-decoration: underline;
+    /* cursor: pointer; */
  }
 
- .ForgotPassword:hover {
+ .signUpHere a:hover {
     color: var(--white);
  }
    
@@ -115,6 +136,10 @@
     .container {
         width: 300px;
         left: calc(50% - 150px);
+    }
+
+    .signUpHere a {
+        display: block;
     }
 
 }

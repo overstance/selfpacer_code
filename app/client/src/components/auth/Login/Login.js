@@ -275,7 +275,12 @@ class Login extends Component {
                         <img src={facebookLogo} alt='facebook logo' />
                     </a>
                 </div> */}
-                <Link to='/forgot_password' className={classes.ForgotPassword}>forgot password?</Link>
+                <Link to='/forgot_password' className={classes.ForgotPassword}>Forgot Password?</Link>
+                <div className={classes.signUpHere}>
+                    <span>Don't have an account?</span>
+                    <Link to='/register'>Sign Up Here.</Link>
+                </div>
+                
             </form>
         </div>
 

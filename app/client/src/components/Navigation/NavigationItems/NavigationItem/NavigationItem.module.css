@@ -20,13 +20,13 @@
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    color: var(--white);
+    color: var(--green);
 }
 
 .NavigationItem a:hover svg,
 .NavigationItem a:active svg,
 .NavigationItem a.active svg {
-    fill: var(--white);
+    fill: var(--green);
 }
 
 @media (min-width: 901px) {
@@ -41,7 +41,7 @@
     .NavigationItem a {
         padding-right: 15px;
         flex-direction: column;
-        font-size: 14px;
+        font-size: 16px;
     }
     
 }

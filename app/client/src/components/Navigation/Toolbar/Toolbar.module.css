@@ -11,7 +11,8 @@ a colored unlimited width fixed toolbar  */
 
 .Container {
     width: 100%;
-    background-color: var(--green);
+    /* background-color: var(--green); */
+    border-bottom: 1px solid var(--gray);
     z-index: 90;
     position: relative
 }
@@ -24,7 +25,7 @@ a colored unlimited width fixed toolbar  */
     align-items: center;
     box-sizing: border-box;
     /* background: var(--green); */
-    padding: 10px;
+    padding: 0 16px;
 }
 
 .LogoContainer {
@@ -45,10 +46,25 @@ a colored unlimited width fixed toolbar  */
     height: 100%;
 }
 
+.DesktopOnly {
+    flex: 0 0 40%;
+    max-width: 40%;
+    display: flex;
+    justify-content: flex-start;
+}
+
 @media (max-width: 900px) {
     .LogoContainer {
         flex: 0 0 40%;
         max-width: 40%;
+    }
+
+    .DesktopOnly {
+        display: none;
+    }
+
+    .LogoContainer {
+        padding-right: 0;
     }
 }
 
@@ -61,23 +77,10 @@ a colored unlimited width fixed toolbar  */
     .Toolbar {
         padding: 0 16px;    
     }
-}
-
-.DesktopOnly {
-    flex: 0 0 40%;
-    max-width: 40%;
-    display: flex;
-    justify-content: flex-start;
-}
-
-
-@media (max-width: 900px) {
-    .DesktopOnly {
-        display: none;
-    }
 
     .LogoContainer {
-        padding-right: 0;
+        flex: 0 0 50%;
+        max-width: 50%;
     }
 }
 

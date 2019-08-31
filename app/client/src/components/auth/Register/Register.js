@@ -399,7 +399,7 @@ class Register extends Component {
                         <img src={facebookLogo} alt='facebook logo' />
                     </a>
                 </div> */}
-                <Link to='/login' className={classes.goToLogIn}>go to Log-In</Link>
+                <Link to='/login' className={classes.goToLogIn}>Go Back to Log-In</Link>
             </form>
         </div>
 

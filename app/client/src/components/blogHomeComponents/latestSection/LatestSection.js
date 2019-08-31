@@ -458,7 +458,7 @@ class LatestBlogs extends Component {
             />
         ));
 
-        let latestBlogs3to6 = latestBlogsArray.slice(3, 6).map((blog, i) => (
+        let latestBlogs4to6 = latestBlogsArray.slice(3, 6).map((blog, i) => (
             <LatestBlog
                 key={i} 
                 publishYear={blog.publishYear}
@@ -591,9 +591,12 @@ class LatestBlogs extends Component {
                                 <Link to='/blog/popular' className={classes.sectionSubheadTitle}>Popular</Link>
                                 <Link to='/blog/popular' className={classes.sectionSubheadMore} >See All</Link>
                             </div>
-                        {popularBlogs}
-                    </div>
-                        {latestBlogs3to6}
+                            {popularBlogs}
+                        </div>
+                        <div className={classes.latestBlogs4to6}>
+                            {latestBlogs4to6}
+                            <div className={classes.seeAll}>SEE ALL >></div>
+                        </div>
                     </div>
                     <div className={classes.popularBlogContainer}>
                         <div className={classes.sectionSubhead}>
@@ -637,7 +640,11 @@ class LatestBlogs extends Component {
                         </div>
                         {latestPodcast}
                     </div> 
-                </div> 
+                    <div className={classes.latestBlogs4to6Bottom}>
+                        {latestBlogs4to6}
+                        <div className={classes.seeAll}>SEE ALL >></div>
+                    </div> 
+                </div>
                 <div className={classes.latestSectionBottomAd}>
                     <div className={classes.adFull} />
                     <div className={classes.adMedium} />

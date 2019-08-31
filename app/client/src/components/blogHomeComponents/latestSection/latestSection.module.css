@@ -79,7 +79,7 @@
 }
 
 .sectionSubheadTitle {
-    font-family: 'Squada One', cursive;
+    font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
     text-transform: uppercase;
     color: var(--black);
     font-size: 24px;
@@ -116,7 +116,9 @@
 .latestBlogTitle a,
 .latestVideoTitle a,
 .latestPodcastTitle {
-    font-family: 'Baloo', cursive;
+    /* font-family: 'Lalezar', Tahoma, 'Segoe UI', Verdana, sans-serif; */
+    /* font-family: 'Baloo', Tahoma, 'Segoe UI', Verdana, sans-serif; */
+    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     color: var(--blue);
     text-transform: capitalize;
     line-height: 1;
@@ -239,7 +241,9 @@
 }
 
 .latestPodcastTitle span {
-    font-family: 'Baloo', cursive;
+    /* font-family: 'Lalezar', Tahoma, 'Segoe UI', Verdana, sans-serif; */
+    /* font-family: 'Baloo', Tahoma, 'Segoe UI', Verdana, sans-serif; */
+    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     color: var(--blue);
 }
 
@@ -353,6 +357,18 @@
     margin: auto 0;
 }
 
+.seeAll {
+    width: 100%;
+    text-align: center;
+    background: var(--blue);
+    color: var(--green);
+    font-family: 'PT Sans', sans-serif;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
 @media(max-width: 1100px) {
     .facilitatorContainer {
         display: none;
@@ -448,6 +464,14 @@
 
     .popularBlogContainer {
         display: none;
+    }
+
+    .latestBlogs4to6 {
+        display: none;
+    }
+
+    .latestBlogs4to6Bottom {
+        margin-top: 16px;
     }
 
     .latestBlogContainer {

@@ -6,7 +6,7 @@
     left: 0;
     top: 0;
     z-index: 200;
-    background-color: var(--green);
+    background-color: var(--white);
     box-sizing: border-box;
     transition: transform 0.1s ease-out;
     overflow-y: auto;
