@@ -55,6 +55,21 @@
     margin: 0;
 }
 
+.latestVideo figure {
+    padding-bottom: 56.25%;
+    position: relative;
+    /* margin-bottom: 16px; */
+}
+
+.latestBlog figure a,
+.latestVideo figure a {
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    background: var(--gray);
+}
+
 .latestSection img {
     width: 100%;
 }
@@ -68,6 +83,10 @@
     text-transform: capitalize;
     text-align: right;
     font-family: 'PT Sans', sans-serif;
+    bottom: -1.25em;
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
 }
 
 .sectionSubhead {
@@ -168,6 +187,8 @@
 
 .latestVideoContainer {
     width: 100%;
+    border-bottom: 1px solid var(--blue);
+    margin-bottom: 16px;
 }
 
 .latestPodcastContainer {
@@ -187,10 +208,10 @@
     padding: 16px 0;
 }
 
-.latestVideo figure a {
+/* .latestVideo figure a {
     display: block;
     position: relative;
-}
+} */
 
 .playIcon {
     position: absolute;
@@ -208,7 +229,9 @@
 
 .latestVideoLarge {
     display: flex;
-    flex-flow: row nowrap
+    flex-flow: row nowrap;
+    border-bottom: 1px solid var(--gray);
+    margin-bottom: 16px;
 }
 
 .latestVideos1 {
@@ -256,11 +279,17 @@
     background-repeat: no-repeat;
 }
 
-.latestBlog figure {
+.latestBlogImage {
     flex: 0 0 50%;
     max-width: 50%;
     padding-right: 16px;
     box-sizing: border-box;
+}
+
+.latestBlog figure {  
+    padding-bottom: 56.25%;
+    position: relative;
+    margin-bottom: 16px;
 }
 
 .latestBlogInfo {
@@ -304,13 +333,14 @@
     padding-right: 8px;
 }
 
-.popularBlog figure {
+/* .popularBlog figure {
     padding-left: 8px;
-}
+} */
 
 .popularBlogImage {
     width: 78px;
     height: 78px;
+    background: var(--gray);
     background-position-x: center;
     background-position-y: center;
     background-size: cover;
@@ -346,6 +376,7 @@
     border-radius: 50%;
     width: 50px;
     height: 50px;
+    background: var(--gray);
     background-position-x: center;
     background-position-y: center;
     background-size: cover;
@@ -380,7 +411,7 @@
         max-width: 25%; */
         flex-flow: column;
         box-sizing: border-box;
-        padding-right: 16px;
+        /* padding-right: 16px; */
         /* border-right: 1px solid var(--gray); */
     }
 
@@ -477,13 +508,14 @@
     .latestBlogContainer {
         flex: 0 0 100%;
         max-width: 100%;
+        padding-right: 0;
     }
 
     .latestVideo:last-of-type {
         padding-left: 0;
     }
 
-    .latestBlog figure {
+    .latestBlogImage {
         flex: 0 0 30%;
         max-width: 30%;
     }

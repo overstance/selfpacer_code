@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 
 const featuredLarge = (props) => (
     <article className={classes.featuredLarge}>
-        <figure>
-            <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
-                <img src={props.featureImageUrl} alt='featured blog' />
-            </Link>
-            { props.source ? <figcaption>{props.source}</figcaption> : null}
-        </figure>
+        <div>
+            <figure>
+                <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
+                    <img src={props.featureImageUrl} alt='featured blog' />
+                </Link>
+                { props.source ? <figcaption>{props.source}</figcaption> : null}
+            </figure>
+        </div>
         <div>
             <div className={classes.featuredLargeCategory}>
                 <Link to={`/blog/${props.category}`}>

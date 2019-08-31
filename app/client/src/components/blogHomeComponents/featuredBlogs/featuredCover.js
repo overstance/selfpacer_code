@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 
 const featuredCover = (props) => (
     <article className={classes.featuredCover}>
-        <figure>
-            <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
-                <img src={props.featureImageUrl} alt='featured blog' />
-            </Link>            
-            { props.source ? <figcaption>{props.source}</figcaption> : null}
-        </figure>
+        <div>
+            <figure>
+                <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
+                    <img src={props.featureImageUrl} alt='featured blog' />
+                </Link>            
+                { props.source ? <figcaption>{props.source}</figcaption> : null}
+            </figure>
+        </div>
         <div>
             <div className={classes.featuredCoverCategory}>
                 <Link to={`/blog/${props.category}`}>
@@ -19,7 +21,7 @@ const featuredCover = (props) => (
             <div className={classes.featuredCoverTitle}>
                 <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
                     {props.title}
-                </Link>
+                </Link> 
             </div>
             <div className={classes.featuredCoverDescription}>
                 {props.description}

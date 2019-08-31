@@ -62,7 +62,25 @@
 }
 
 .featuredBlogsSection figure {
-    margin: 0
+    margin: 0;
+}
+
+.featuredCover figure,
+.featuredLarge figure,
+.featuredMedium figure {
+    padding-bottom: 56.25%;
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.featuredCover figure a,
+.featuredLarge figure a,
+.featuredMedium figure a {
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    background: var(--gray);
 }
 
 .featuredBlogsSection a {
@@ -74,6 +92,10 @@
     text-transform: capitalize;
     text-align: right;
     font-family: 'PT Sans', sans-serif;
+    bottom: -1.25em;
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
 }
 
 .featuredCoverCategory a, 
@@ -243,6 +265,7 @@
 .featuredSmallImage {
     width: 78px;
     height: 78px;
+    background: var(--gray);
     background-position-x: center;
     background-position-y: center;
     background-size: cover;
@@ -286,9 +309,11 @@
     .featuredMedium {
         display: flex;
         flex-direction: row-reverse;
+        flex: 0 0 50%;
+        max-width: 50%;
     }
 
-    .featuredMedium figure {
+    .featuredMediumImage {
         flex: 0 0 50%;
         max-width: 50%;
         padding-left: 8px;
@@ -358,7 +383,7 @@
         display: block;
     }
 
-    .featuredMedium figure {
+    .featuredMediumImage {
         padding-left: 0;
         max-width: 100%;
     }
@@ -384,6 +409,8 @@
         padding: 16px 0;
         border-bottom: 1px solid var(--gray);
         box-sizing: border-box;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
     
     .featuredMedium:first-of-type {
