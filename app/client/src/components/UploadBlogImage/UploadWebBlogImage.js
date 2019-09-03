@@ -147,7 +147,7 @@ class UploadWebBlogImage extends Component {
             }
         this.setState({ imageUrl: updated, fillError: 'Please enter web url'});
         } else {
-            this.props.onUploadWebBlogImage(this.state.imageUrl.value, this.state.source.value, this.state.caption.value); 
+            this.props.onUploadWebBlogImage(this.state.imageUrl.value, this.state.source.value, this.state.caption.value, this.props.isHeroImage); 
             this.setState({ fillError: null});
         }             
     }
@@ -241,7 +241,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onUploadWebBlogImage: ( imageUrl, source, caption ) => dispatch( actions.uploadWebBlogImage( imageUrl, source, caption )),
+        onUploadWebBlogImage: ( imageUrl, source, caption, isHeroImage ) => dispatch( actions.uploadWebBlogImage( imageUrl, source, caption, isHeroImage )),
         onClearUploadBlogImageState: () => dispatch( actions.clearUploadBlogImageState())
     };
 };

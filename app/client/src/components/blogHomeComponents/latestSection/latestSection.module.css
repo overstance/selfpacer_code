@@ -187,8 +187,8 @@
 
 .latestVideoContainer {
     width: 100%;
-    border-bottom: 1px solid var(--blue);
-    margin-bottom: 16px;
+    /* border-bottom: 1px solid var(--blue); */
+    /* margin-bottom: 16px; */
 }
 
 .latestPodcastContainer {

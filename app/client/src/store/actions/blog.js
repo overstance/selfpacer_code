@@ -94,7 +94,7 @@ export const uploadBlogImageFail = (error) => {
     }
 }
 
-export const uploadBlogImage = (imageFile, source, caption) => async dispatch => {
+export const uploadBlogImage = (imageFile, source, caption, isHeroImage) => async dispatch => {
     dispatch(uploadBlogImageStart());
 
     let data = new FormData();   
@@ -102,7 +102,7 @@ export const uploadBlogImage = (imageFile, source, caption) => async dispatch =>
 
     let captionValue = caption;
     let sourceValue = source;
-    let hasAttribute = true;
+    // let hasAttribute = true;
 
     if ( captionValue === '') {
         captionValue = undefined
@@ -112,21 +112,8 @@ export const uploadBlogImage = (imageFile, source, caption) => async dispatch =>
         sourceValue = undefined
     }
 
-    if ( captionValue === '' && sourceValue === '') {
-        hasAttribute = false
-    }
-
-    // console.log(captionValue, sourceValue, hasAttribute);
-
-    const res = await axios.post('/api/upload_blog_image', data);
-    if (res.data.uploadedImage && hasAttribute) {   
-        const res2 = await axios.put('/api/add_image_attributes', { caption: captionValue, source: sourceValue, imageId: res.data.uploadedImage._id });
-        if (res2.data.uploadedImage) {
-            dispatch(uploadBlogImageSuccess(res2.data.uploadedImage, 'upload successful'));
-        } else if (res2.data.error) {
-            dispatch(uploadBlogImageFail(res2.data.error));    
-        }
-    } else if (res.data.uploadedImage && !hasAttribute) {
+    const res = await axios.post('/api/upload_blog_image', data, { params: {isHeroImage: isHeroImage, caption: captionValue, source: sourceValue} });
+    if (res.data.uploadedImage) {   
         dispatch(uploadBlogImageSuccess(res.data.uploadedImage, 'upload successful'));
     } else if (res.data.error) {
         dispatch(uploadBlogImageFail(res.data.error));
@@ -135,7 +122,7 @@ export const uploadBlogImage = (imageFile, source, caption) => async dispatch =>
     }
 }
 
-export const uploadWebBlogImage = (imageUrl, source, caption) => async dispatch => {
+export const uploadWebBlogImage = (imageUrl, source, caption, isHeroImage) => async dispatch => {
     dispatch(uploadBlogImageStart());
     // console.log(imageUrl);
     let captionValue = caption;
@@ -149,7 +136,7 @@ export const uploadWebBlogImage = (imageUrl, source, caption) => async dispatch 
     if ( sourceValue === '') {
         sourceValue = undefined
     }
-    const res = await axios.post('/api/upload_web_blog_image', { imageUrl: imageUrl, source: sourceValue, caption: captionValue });
+    const res = await axios.post('/api/upload_web_blog_image', { imageUrl: imageUrl, source: sourceValue, caption: captionValue, isHeroImage: isHeroImage });
     if (res.data.uploadedImage) {
         dispatch(uploadBlogImageSuccess(res.data.uploadedImage, 'upload successful'));
     } else if (res.data.error) {

@@ -267,6 +267,26 @@ class PageContainer extends Component {
     }
   }
 
+  embedYoutubeVideo = (e) => {
+    e.preventDefault();
+    const editorState = this.state.editorState;
+    const videoId = window.prompt('Enter Video Id -');
+
+    if(!videoId) {
+      return 'handled';
+    } else {    
+      const contentState = editorState.getCurrentContent();
+      const contentStateWithEntity = contentState.createEntity('youtube', 'IMMUTABLE', {youtubeVideoId: videoId});
+      const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+      const newEditorState = EditorState.set(editorState, {currentContent: contentStateWithEntity}, 'create-entity');
+      this.setState({
+        editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ')
+      }, () => {
+        setTimeout(() => this.focus(), 0);
+      });
+    }
+  }
+
   focus = () => this.refs.editor.focus();
 
   uploadImageHandler = () => {
@@ -366,6 +386,11 @@ class PageContainer extends Component {
             } else {
               return `<figure><img src="${src}"/><figcaption>${source}</figcaption><div>${caption}</div></figure>`;
             }
+          }
+
+          if (type === 'youtube') {
+            const videoId = data.youtubeVideoId;
+            return `<div className='youtubeVideoEmbed' id=${videoId}></div>`
           }
         },
       },
@@ -595,7 +620,7 @@ class PageContainer extends Component {
                   <figcaption>{this.state.blogHeroImage.source}</figcaption> : null
                 }
                 {this.state.blogHeroImage.caption && this.state.blogHeroImage.caption !== '' ? 
-                  <div>{this.state.blogHeroImage.caption}</div> : null
+                  <p>{this.state.blogHeroImage.caption}</p> : null
                 }
                 <div className={classes.deleteHeroImage}>
                   <button onClick={this.deleteHeroImage}>Delete</button>
@@ -680,6 +705,7 @@ class PageContainer extends Component {
           onToggle={this.toggleInlineStyle}
           />
           <BlockStyleControls
+          addYoutubeClicked={this.embedYoutubeVideo}
           editorState={this.state.editorState}
           onToggle={this.toggleBlockType}
           /> 
@@ -702,6 +728,7 @@ class PageContainer extends Component {
           showDialogue={this.state.showUploadModal}
           closeDialogue={this.uploadModalCloseHandler}
           closeModal={this.uploadModalCloseHandler}
+          isHeroImage={this.state.uploadingHeroImage}
           />: null
         }
       </div>

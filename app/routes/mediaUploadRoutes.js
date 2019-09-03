@@ -17,6 +17,7 @@ cloudinary.config({
 
 module.exports = app => {
   app.post('/api/upload_blog_image', multerUploads, (req, res) => {
+    console.log(req.query.isHeroImage);
     if (req.file) {
       const dUri = new Datauri();
       const dataUri = req =>
@@ -26,15 +27,84 @@ module.exports = app => {
         );
       const imageFile = dataUri(req).content;
 
+      if (req.query.isHeroImage === true) {
+        cloudinary.uploader.upload(
+          imageFile,
+          {
+            folder: 'blog_imgs/hero/local/',
+            tags: 'local',
+            aspect_ratio: '16:9',
+            width: 720,
+            crop: 'fill'
+          },
+          (error, image) => {
+            if (error) {
+              res.send({ error: error.message });
+              return;
+            } else {
+              let newImage = new Image({
+                meta: image,
+                imageType: 'blogImage',
+                caption: req.query.caption,
+                source: req.query.source
+              });
+
+              newImage.save(function(err) {
+                if (err) {
+                  res.send({ error: err.message });
+                } else {
+                  res.send({ uploadedImage: newImage });
+                }
+              });
+            }
+          }
+        );
+      } else {
+        cloudinary.uploader.upload(
+          imageFile,
+          {
+            folder: 'blog_imgs/body/local/',
+            tags: 'local'
+          },
+          (error, image) => {
+            if (error) {
+              res.send({ error: error.message });
+              return;
+            } else {
+              let newImage = new Image({
+                meta: image,
+                imageType: 'blogImage',
+                caption: req.query.caption,
+                source: req.query.source
+              });
+
+              newImage.save(function(err) {
+                if (err) {
+                  res.send({ error: err.message });
+                } else {
+                  res.send({ uploadedImage: newImage });
+                }
+              });
+            }
+          }
+        );
+      }
+    }
+  });
+
+  app.post('/api/upload_web_blog_image', (req, res) => {
+    // console.log(req.body.imageUrl);
+    console.log(req.body.isHeroImage);
+    const imageUrl = req.body.imageUrl;
+    if (req.body.isHeroImage === true) {
       cloudinary.uploader.upload(
-        imageFile,
+        imageUrl,
         {
-          folder: 'blog_imgs/local/',
-          tags: 'local',
+          folder: 'blog_imgs/hero/web/',
+          tags: 'web',
           aspect_ratio: '16:9',
           width: 720,
           crop: 'fill'
-          // transformation: { aspect_ratio: '16:9', crop: 'fill' }
         },
         (error, image) => {
           if (error) {
@@ -43,7 +113,38 @@ module.exports = app => {
           } else {
             let newImage = new Image({
               meta: image,
-              imageType: 'blogImage'
+              imageType: 'blogImage',
+              source: req.body.source,
+              caption: req.body.caption
+            });
+
+            newImage.save(function(err) {
+              if (err) {
+                res.send({ error: err.message });
+              } else {
+                res.send({ uploadedImage: newImage });
+              }
+            });
+          }
+        }
+      );
+    } else {
+      cloudinary.uploader.upload(
+        imageUrl,
+        {
+          folder: 'blog_imgs/body/web/',
+          tags: 'web'
+        },
+        (error, image) => {
+          if (error) {
+            res.send({ error: error.message });
+            return;
+          } else {
+            let newImage = new Image({
+              meta: image,
+              imageType: 'blogImage',
+              source: req.body.source,
+              caption: req.body.caption
             });
 
             newImage.save(function(err) {
@@ -57,62 +158,6 @@ module.exports = app => {
         }
       );
     }
-  });
-
-  app.post('/api/upload_web_blog_image', (req, res) => {
-    // console.log(req.body.imageUrl);
-    const imageUrl = req.body.imageUrl;
-    cloudinary.uploader.upload(
-      imageUrl,
-      {
-        folder: 'blog_imgs/web/',
-        tags: 'web',
-        aspect_ratio: '16:9',
-        width: 720,
-        crop: 'fill'
-      },
-      (error, image) => {
-        if (error) {
-          res.send({ error: error.message });
-          return;
-        } else {
-          let newImage = new Image({
-            meta: image,
-            imageType: 'blogImage',
-            source: req.body.source,
-            caption: req.body.caption
-          });
-
-          newImage.save(function(err) {
-            if (err) {
-              res.send({ error: err.message });
-            } else {
-              res.send({ uploadedImage: newImage });
-            }
-          });
-        }
-      }
-    );
-  });
-
-  app.put('/api/add_image_attributes', (req, res) => {
-    // console.log(req.body.caption, req.body.source);
-    Image.findByIdAndUpdate(
-      req.body.imageId,
-      {
-        caption: req.body.caption,
-        source: req.body.source
-      },
-      { new: true },
-      (err, updatedImage) => {
-        if (err) {
-          res.send({ err: err.message });
-        } else {
-          // console.log(updatedImage);
-          res.send({ uploadedImage: updatedImage });
-        }
-      }
-    );
   });
 
   app.delete('/api/delete_blog_image', (req, res) => {

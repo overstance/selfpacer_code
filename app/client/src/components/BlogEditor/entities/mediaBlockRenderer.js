@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Youtube from './Youtube';
 // import { EditorState, RichUtils, AtomicBlockUtils } from 'draft-js';
 
 export const mediaBlockRenderer = (block) => {
@@ -26,7 +27,7 @@ const Image = (props) => {
     <figure>
       <img alt="embedded media" src={props.src} />
       <figcaption>{props.source}</figcaption>
-      <div>{props.caption}</div>
+      <p>{props.caption}</p>
     </figure>
     return element;
   } else if (!!props.src && !!props.source) {
@@ -40,7 +41,7 @@ const Image = (props) => {
     let element =
     <figure>
       <img alt="embedded media" src={props.src} />
-      <div>{props.caption}</div>
+      <p>{props.caption}</p>
     </figure>
     return element;
   } else if (!!props.src) {
@@ -63,6 +64,7 @@ class Media extends React.Component {
     const src = data.src;
     const source = data.source;
     const caption = data.caption;
+    const youtubeVideoId = data.youtubeVideoId;
     // const publicId = data.publicId;
 
     let media;
@@ -73,10 +75,11 @@ class Media extends React.Component {
       <Image 
         src={src} source={source} 
         caption={caption} 
-      />
-      
+      /> 
     } else if (type === 'video') {
       media = <Video src={src} />;
+    } else if (type === 'youtube') {
+      media = <Youtube youtubeVideoId={youtubeVideoId}/>
     }
     return media;
   }

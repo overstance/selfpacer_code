@@ -31,13 +31,13 @@ class UploadOption extends Component {
         if (this.state.fileActive) {
             fileClasses.push(classes.Active);
             option = 
-            <UploadBlogImage />
+            <UploadBlogImage isHeroImage={this.props.isHeroImage} />
         }
     
         if (this.state.webActive) {
             webClasses.push(classes.Active);
             option =
-            <UploadWebBlogImage />
+            <UploadWebBlogImage isHeroImage={this.props.isHeroImage} />
         }
 
         return(

@@ -9,6 +9,7 @@
     justify-content: flex-end;
     color: var(--blue);
     font-weight: bold;
+    cursor: pointer;
 }
 
 .listItem:hover {
@@ -63,7 +64,7 @@
     background-color: var(--green);
 }
 
-@media(max-width: 600px) {
+@media(max-width: 900px) {
     .draftListContainer {
         flex: 0 0 100%;
         max-width: 100%

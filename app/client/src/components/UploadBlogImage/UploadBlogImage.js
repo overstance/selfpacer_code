@@ -125,7 +125,7 @@ class UploadBlogImage extends Component {
         if (!this.state.Image) {
             this.setState({ fillError: 'No file added!'})
         } else {
-            this.props.onUploadBlogImage(this.state.Image, this.state.source.value, this.state.caption.value); 
+            this.props.onUploadBlogImage(this.state.Image, this.state.source.value, this.state.caption.value, this.props.isHeroImage); 
             this.setState({ fillError: null});
         }             
     }
@@ -217,7 +217,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onUploadBlogImage: ( imageFile, source, caption ) => dispatch( actions.uploadBlogImage( imageFile, source, caption )),
+        onUploadBlogImage: ( imageFile, source, caption, isHeroImage ) => dispatch( actions.uploadBlogImage( imageFile, source, caption, isHeroImage )),
         onClearUploadBlogImageState: () => dispatch( actions.clearUploadBlogImageState())
     };
 };
