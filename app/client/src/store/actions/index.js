@@ -150,7 +150,8 @@ export {
     clearEditBlogFiltersInfo,
     fetchBlogCategories,
     fetchBlogTags,
-    fetchAuthors
+    fetchAuthors,
+    fetchFeaturedBlogs
 } from './blog'
 
 

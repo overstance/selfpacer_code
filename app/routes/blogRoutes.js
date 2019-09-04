@@ -14,9 +14,24 @@ module.exports = app => {
   });
 
   app.get('/api/blog_post', async (req, res) => {
-    const response = await butter.post.retrieve(req.query.slug);
+    // const response = await butter.post.retrieve(req.query.slug);
     // console.log(response.data);
-    res.send({ post: response.data });
+    BlogDraft.findOne(
+      {
+        publishYear: req.query.year,
+        publishMonth: req.query.month,
+        publishDay: req.query.day,
+        slug: req.query.slug,
+        status: 'published'
+      },
+      (err, post) => {
+        if (err) {
+          res.send({ error: err.message });
+        } else {
+          res.send({ post: post });
+        }
+      }
+    );
   });
 
   app.get('/api/fetch_blog_drafts', (req, res) => {
@@ -232,25 +247,22 @@ module.exports = app => {
       }
     });
   });
+
+  app.get('/api/fetch_featured_blogs', (req, res) => {
+    let query = BlogDraft.find({
+      tags: 'Featured',
+      status: 'published'
+    }).select(
+      'publishYear publishMonth publishDay featuredImage category title description slug author authorName'
+    );
+
+    query.exec((err, blogs) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        // console.log(blogs);
+        res.send({ blogs: blogs });
+      }
+    });
+  });
 };
-
-/* 
-function fixDigit(val){
-  return val.toString().length === 1 ? "0" + val : val.toString();
-};
-
-let date = new Date();
-// console.log(now.getFullYear());
-let year = date.getFullYear().toString();
-
-let month = fixDigit(date.getMonth() + 1);
-
-let day = fixDigit(date.getDate());
-
-var options = { month: 'long'};
-let monthInLetter =new Intl.DateTimeFormat('en-US', options).format(date);
-
-let displayDate = monthInLetter + ' ' + day + ', ' + year;
-
-console.log(year, month, monthInLetter, day, displayDate);
-*/

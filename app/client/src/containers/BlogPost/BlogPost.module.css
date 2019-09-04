@@ -1,3 +1,59 @@
-.PostBody img{
+section {
     width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+section img {
+    max-width: 100%;
+}
+
+.heroImage figure {
+    margin: 0;
+    text-align: center;
+}
+
+.heroImage figcaption {
+    text-align: center;
+    font-family: 'PT Sans', sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.postTitle {
+    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-size: 28px;
+    text-align: center;
+}
+
+.PostBody {
+    font-family: 'PT Serif', serif;
+    font-size: 18px;
+}
+
+.PostBody figure {
+    margin: 0;
+    text-align: center;
+}
+
+.PostBody figure figcaption,
+.PostBody figure div {
+    text-align: left;
+}
+
+.PostBody figure img {
+    max-width: 100%;
+}
+
+pre {
+    color: var(--gray);
+    line-height: 1.2;
+    padding: 4px;
+    margin-left: 4px;
+    background-color: var(--blue);
+    font-weight: bold;
+    font-size: 13px;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    display: block;
 }

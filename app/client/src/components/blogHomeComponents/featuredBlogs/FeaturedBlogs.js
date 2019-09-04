@@ -4,11 +4,17 @@ import FeaturedCover from './featuredCover';
 import FeaturedMedium from './featuredMedium';
 import FeaturedSmall from './featuredSmall';
 import FeaturedLarge from './featuredLarge';
+import * as actions from '../../../store/actions/index';
+import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 
-class FeaturedBlogs extends Component {  
-    render () {
+class FeaturedBlogs extends Component { 
+    
+    componentDidMount() {
+        this.props.onFetchFeaturedBlogs();
+    };
 
+    render () {
         let featuredBlogs = [
             {
                 category: "Business",
@@ -211,7 +217,7 @@ class FeaturedBlogs extends Component {
             }
         ]
 
-        const cover = featuredBlogs.slice(0, 1);
+        const cover = this.props.featuredBlogs.slice(0, 1);
         const medium = featuredBlogs.slice(1, 3);
         const small = featuredBlogs.slice(3, 7);
         const large = featuredBlogs.slice(7, 11);
@@ -335,4 +341,14 @@ class FeaturedBlogs extends Component {
     }
 }
 
-export default FeaturedBlogs;
+const mapStateToProps = state => ({
+    featuredBlogs: state.blog.featuredBlogs
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onFetchFeaturedBlogs: () => dispatch(actions.fetchFeaturedBlogs())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeaturedBlogs);

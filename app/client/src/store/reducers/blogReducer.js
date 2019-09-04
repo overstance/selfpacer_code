@@ -9,10 +9,12 @@ const initialState = {
     fetchBlogPostsLoading: false,
     fetchBlogPostsError: null,
     blogPost: {
-        data: {}
+        featuredImage: {}
     },
     fetchBlogPostLoading: false,
     fetchBlogPostError: null,
+
+    featuredBlogs: [],
     
     uploadBlogImageLoading: false,
     uploadBlogImageError: null,
@@ -331,6 +333,15 @@ const fetchAuthorsSuccess = ( state, action ) => {
     })
 }
 
+// fetch featured blogs
+
+const fetchFeaturedBlogsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        featuredBlogs: action.blogs
+    })
+}
+
+
 const reducer = ( state = initialState, action ) => {
     switch (action.type) {
         case actionTypes.FETCH_BLOG_POSTS_START: return fetchBlogPostsStart(state, action);
@@ -381,6 +392,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.CLEAR_EDIT_BLOG_FILTERS_INFO: return clearEditBlogFiltersInfo(state, action);
 
         case actionTypes.FETCH_AUTHORS_SUCCESS: return fetchAuthorsSuccess(state, action);
+
+        case actionTypes.FETCH_FEATURED_BLOGS_SUCCESS: return fetchFeaturedBlogsSuccess(state, action);
 
         default: return state;
     }

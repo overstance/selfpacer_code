@@ -390,7 +390,7 @@ class PageContainer extends Component {
 
           if (type === 'youtube') {
             const videoId = data.youtubeVideoId;
-            return `<div className='youtubeVideoEmbed' id=${videoId}></div>`
+            return `<div class='youtubeVideoEmbed' id=${videoId}></div>`
           }
         },
       },
@@ -700,11 +700,11 @@ class PageContainer extends Component {
         <div className={classes.toolbar}>
           <InlineStyles 
           addLinkClicked={this.isAddingOrUpdatingLink}
-          addImageClicked={this.uploadImageHandler}
           editorState={this.state.editorState} 
           onToggle={this.toggleInlineStyle}
           />
           <BlockStyleControls
+          addImageClicked={this.uploadImageHandler}
           addYoutubeClicked={this.embedYoutubeVideo}
           editorState={this.state.editorState}
           onToggle={this.toggleBlockType}

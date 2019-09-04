@@ -50,7 +50,6 @@ const NotFound = ({ location }) => (
 class App extends Component {
 
   componentDidMount() {
-
     this.props.onFetchUser();    
     this.props.onFetchSubjects();
   }
@@ -72,7 +71,7 @@ class App extends Component {
         <Route exact path="/" component={Landing} />
         <Route path='/blog/:page' exact component={Blog} />
         <Route path='/blog' exact component={Blog} />
-        <Route path='/blog/posts/:post' component={BlogPost} />
+        <Route path='/blog/:publishYear/:publishMonth/:publishDay/:slug' component={BlogPost} />
         <Route exact path="/collections" component={Collections} />
         <Route exact path="/shared_collections/:id" component={SharedCollection} />
 
