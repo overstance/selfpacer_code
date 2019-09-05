@@ -3,7 +3,7 @@
 }
 
 .latestSectionTop {
-    /* margin: 0 16px; */
+    margin: 0 16px;
     display: flex;
     /* border-top: 1px solid var(--gray); */
 }
@@ -30,13 +30,13 @@
 }
 
 .adMedium {
-    width: 300px;
-    height: 250px;
+    width: 320px;
+    height: 100px;
     background-position-x: center;
     background-position-y: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background: url('../../../assets/art/head-art/banner_ad300X250.png');
+    background: url('../../../assets/art/head-art/ad_320X100.png');
     margin: auto;
 }
 
@@ -79,8 +79,8 @@
 }
 
 .latestSection figcaption {
-    font-size: x-small;
-    text-transform: capitalize;
+    font-size: 9px;
+    text-transform: uppercase;
     text-align: right;
     font-family: 'PT Sans', sans-serif;
     bottom: -1.25em;
@@ -492,6 +492,13 @@
 }
 
 @media(max-width: 576px) {
+    .latestSectionBottomost {
+       margin: 0 8px;
+    }
+    
+    .latestSectionTop {
+        margin: 0 8px;
+    }
 
     .popularBlogContainer {
         display: none;

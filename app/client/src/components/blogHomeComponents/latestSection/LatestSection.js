@@ -19,7 +19,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "latest test draft 1 head admin 1",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -37,7 +37,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "latest test draft 1 head admin 2",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -55,7 +55,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "latest test draft 1 head admin 3",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -73,7 +73,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "latest test draft 1 head admin test draft 1 headadmin 4",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -91,7 +91,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "latest test draft 1 head admin 5",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -109,7 +109,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "latest test draft 1 head admin 5",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -130,7 +130,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "popular test draft 1 head admin",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -148,7 +148,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "popular test draft 1 head admin",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -166,7 +166,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "popular test draft 1 head admin",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -184,7 +184,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "popular test draft 1 head admin",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -205,7 +205,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "popular test draft 1 head admin",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -223,7 +223,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "popular test draft 1 head admin",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -241,7 +241,7 @@ class LatestBlogs extends Component {
                 displayDate: "August 20, 2019",
                 title: "popular test draft 1 head admin",
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -264,7 +264,7 @@ class LatestBlogs extends Component {
                 season: 1,
                 episode: 1,
                 featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
                     source: "image source", caption: "image caption", 
                     id: "5d5b0ccff536de2178881eb1"
@@ -283,7 +283,7 @@ class LatestBlogs extends Component {
                 active: true,
                 date: "2018-12-17T00:05:01.441Z",
                 email: "alibrown8319@gmail.com",
-                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                 isArtist: false,
                 isAssetManager: false,
                 isAuthor: true,
@@ -310,7 +310,7 @@ class LatestBlogs extends Component {
                 active: true,
                 date: "2018-12-17T00:05:01.441Z",
                 email: "alibrown8319@gmail.com",
-                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                 isArtist: false,
                 isAssetManager: false,
                 isAuthor: true,
@@ -337,7 +337,7 @@ class LatestBlogs extends Component {
                 active: true,
                 date: "2018-12-17T00:05:01.441Z",
                 email: "alibrown8319@gmail.com",
-                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                 isArtist: false,
                 isAssetManager: false,
                 isAuthor: true,
@@ -364,7 +364,7 @@ class LatestBlogs extends Component {
                 active: true,
                 date: "2018-12-17T00:05:01.441Z",
                 email: "alibrown8319@gmail.com",
-                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                 isArtist: false,
                 isAssetManager: false,
                 isAuthor: true,
@@ -391,7 +391,7 @@ class LatestBlogs extends Component {
                 active: true,
                 date: "2018-12-17T00:05:01.441Z",
                 email: "alibrown8319@gmail.com",
-                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                 isDesigner: true,
                 isAssetManager: false,
                 isAuthor: false,
@@ -418,7 +418,7 @@ class LatestBlogs extends Component {
                 active: true,
                 date: "2018-12-17T00:05:01.441Z",
                 email: "alibrown8319@gmail.com",
-                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
+                profilePictureUrl: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                 isDesigner: true,
                 isAssetManager: false,
                 isAuthor: false,

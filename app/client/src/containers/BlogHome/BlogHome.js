@@ -11,17 +11,17 @@ import FeaturedBlogs from '../../components/blogHomeComponents/featuredBlogs/Fea
 import LatestSection from '../../components/blogHomeComponents/latestSection/LatestSection';
 
 class BlogHome extends Component {
-  UNSAFE_componentWillMount() {
+  /* UNSAFE_componentWillMount() {
     this.props.onSetIsBlogPage()
-  }
+  } */
 
   componentWillUnmount() {
     this.props.onUnsetIsBlogPage()
   }
 
-  /* componentDidMount() {
-    this.props.onFetchBlogPosts();
-  } */
+  componentDidMount() {
+    this.props.onSetIsBlogPage()
+  }
 
   render () {
     return (

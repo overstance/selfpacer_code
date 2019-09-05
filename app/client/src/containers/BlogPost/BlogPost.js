@@ -20,15 +20,16 @@ class BlogPost extends React.Component {
     youtubeEmbeds: []
   }
 
-  UNSAFE_componentWillMount() {
+  /* UNSAFE_componentWillMount() {
     this.props.onSetIsBlogPage()
-  }
+  } */
 
   componentWillUnmount() {
     this.props.onUnsetIsBlogPage()
   }
 
   componentDidMount() {
+    this.props.onSetIsBlogPage();
     this.props.onFetchBlogPost(
       this.props.match.params.publishYear, 
       this.props.match.params.publishMonth,
@@ -79,12 +80,18 @@ class BlogPost extends React.Component {
           <meta name='description' content={post.description} />
           <meta name='og:image' content={/* post.featured_image */null} />
         </Helmet>
-        <div className={classes.Header}> 
-          <div className={classes.postInfo}>
-            <div className={classes.postTitle}>
-              <h1>{post.title}</h1>
-            </div>
-          </div>
+        <div className={classes.headerWrapper}>
+          <div className={classes.header}> 
+              <div className={classes.category}>
+                {post.category}
+              </div>
+              <div className={classes.postTitle}>
+                {post.title}
+              </div>
+              <div className={classes.description}>
+                {post.description}
+              </div>
+          </div >
         </div>
         <div className={classes.contentWrapper}>
           <div className={classes.pageMain}>

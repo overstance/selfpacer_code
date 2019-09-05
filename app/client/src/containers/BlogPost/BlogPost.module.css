@@ -2,9 +2,45 @@ article img {
     max-width: 100%;
 }
 
+.headerWrapper {
+    padding: 48px 16px 16px;
+}
+
+.header {
+    padding-bottom: 16px;
+    text-align: left;
+    max-width: 1136px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--gray);
+}
+
+.category {
+    font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
+    text-transform: uppercase;
+    color: var(--red);
+    font-size: 24px;
+}
+
+.postTitle {
+    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-size: 48px;
+    color: var(--blue);
+    line-height: 1;
+    text-transform: capitalize;
+}
+
+.description {
+    font-family: 'PT Serif', serif; 
+    font-size: 18px;
+}
+
+/* .postTitle h1 {
+    margin: 0;
+} */
+
 .contentWrapper {
     width: 100%;
-    padding: 16px;
+    padding: 0 16px;
     box-sizing: border-box;
     display: flex;
     flex-flow: row nowrap;
@@ -16,13 +52,14 @@ article img {
     /* max-width: 60%; */
     flex-basis: 0;
     flex-grow: 1;
-    max-width: 720px;
+    max-width: 800px;
 }
 
 .aside {
     /* flex: 0 0 40%; */
     /* max-width: 40%; */
     width: 320px;
+    margin-left: 16px;
 }
 
 .topAdBar {
@@ -48,16 +85,15 @@ article img {
 }
 
 .adMedium {
-    width: 300px;
-    height: 250px;
+    width: 320px;
+    height: 100px;
     background-position-x: center;
     background-position-y: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background: url('../../assets/art/head-art/banner_ad300X250.png');
+    background: url('../../assets/art/head-art/ad_320X100.png');
     margin: auto;
 }
-
 
 .heroImage figure {
     margin: 0;
@@ -69,18 +105,10 @@ article img {
 }
 
 .heroImage figcaption {
-    text-align: center;
+    text-align: left;
     font-family: 'PT Sans', sans-serif;
     text-transform: uppercase;
     font-size: 12px;
-}
-
-.postTitle {
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
-    font-size: 28px;
-    text-align: left;
-    max-width: 1040px;
-    margin: auto;
 }
 
 .PostBody {
@@ -90,11 +118,18 @@ article img {
 
 .PostBody p {
     text-align: left;
+    margin-block-end: 0.5em;
+    margin-block-start: 0.5em;
 }
 
 .PostBody h1 {
     text-align: left;
     font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
+    margin-block-start: 32px;
+    margin-block-end: 16px;
+    text-transform: capitalize;
+    font-size: 32px;
+    color: var(--blue);
 }
 
 .PostBody figure {
@@ -102,9 +137,18 @@ article img {
     text-align: center;
 }
 
-.PostBody figure figcaption,
+.PostBody figure figcaption {
+    text-align: right;
+    font-family: 'PT Sans', sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
 .PostBody figure div {
-    text-align: left;
+    text-align: center;
+    margin-top: 8px;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
 }
 
 .PostBody figure img {
@@ -133,5 +177,25 @@ pre {
 @media(max-width: 976px) {   
     .adFull {
         display: none;
+    }
+
+    .aside {
+        display: none;
+    }
+
+    .header {
+        max-width: 800px;
+    }
+}
+
+@media(max-width: 784px) {
+    .topAdBar {
+        border-top: none;
+    }
+}
+
+@media(max-width: 576px) {
+    .postTitle {
+        font-size: 36px;
     }
 }

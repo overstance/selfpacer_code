@@ -17,7 +17,8 @@ cloudinary.config({
 
 module.exports = app => {
   app.post('/api/upload_blog_image', multerUploads, (req, res) => {
-    console.log(req.query.isHeroImage);
+    // console.log(req.query.isHeroImage);
+    let isHero = req.query.isHeroImage;
     if (req.file) {
       const dUri = new Datauri();
       const dataUri = req =>
@@ -27,14 +28,15 @@ module.exports = app => {
         );
       const imageFile = dataUri(req).content;
 
-      if (req.query.isHeroImage === true) {
+      if (isHero) {
+        // console.log('on hero path');
         cloudinary.uploader.upload(
           imageFile,
           {
             folder: 'blog_imgs/hero/local/',
             tags: 'local',
             aspect_ratio: '16:9',
-            width: 720,
+            width: 800,
             crop: 'fill'
           },
           (error, image) => {
@@ -94,16 +96,18 @@ module.exports = app => {
 
   app.post('/api/upload_web_blog_image', (req, res) => {
     // console.log(req.body.imageUrl);
-    console.log(req.body.isHeroImage);
+    // console.log(req.body.isHeroImage);
+    let isHero = req.body.isHeroImage;
     const imageUrl = req.body.imageUrl;
-    if (req.body.isHeroImage === true) {
+    if (isHero) {
+      console.log('on hero path');
       cloudinary.uploader.upload(
         imageUrl,
         {
           folder: 'blog_imgs/hero/web/',
           tags: 'web',
           aspect_ratio: '16:9',
-          width: 720,
+          width: 800,
           crop: 'fill'
         },
         (error, image) => {
