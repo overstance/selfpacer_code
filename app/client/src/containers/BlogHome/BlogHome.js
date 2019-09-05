@@ -11,17 +11,6 @@ import FeaturedBlogs from '../../components/blogHomeComponents/featuredBlogs/Fea
 import LatestSection from '../../components/blogHomeComponents/latestSection/LatestSection';
 
 class BlogHome extends Component {
-  /* state = {
-    meta: {},
-    data: []
-  }
-  async componentDidMount () {
-    const { match } = this.props
-    let page = match.params.page || 1
-
-    const resp = await butter.post.list({ page: page, page_size: 10 })
-    this.setState(resp.data);
-  } */
   UNSAFE_componentWillMount() {
     this.props.onSetIsBlogPage()
   }
@@ -35,30 +24,8 @@ class BlogHome extends Component {
   } */
 
   render () {
-    // const { next_page, previous_page } = this.state.meta
-    /* let posts = <Spinner isComponent/>
-
-    if (!this.props.loading && !this.props.error) {
-      posts =
-      <section>
-        {this.props.blogs.data.map((post, key) => {
-          return (
-            <div key={key}>
-              <Link to={`/blog/posts/${post.slug}`}>{post.title}</Link>
-            </div>
-          )
-        })}
-      </section>
-    } else if (!this.props.loading && this.props.error) {
-      posts =
-      <section>
-        {this.props.error}
-      </section>
-    } */
-
     return (
       <Container>
-        {/* {posts} */}
         <div className={classes.blogHomeWrapper}>
           <FeaturedBlogs />
           <LatestSection />

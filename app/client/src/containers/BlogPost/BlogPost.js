@@ -5,21 +5,21 @@ import classes from './BlogPost.module.css';
 // import Grid from '../../components/UserInterface/Grid/Grid';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
+import YoutubeVideoEmbed from '../../components/BlogEditor/entities/Youtube';
+import Container from '../../components/UserInterface/Container/Container';
+import PortalContainer from './PortalContainer';
 
 class BlogPost extends React.Component {
   constructor(props) {
     super(props);
     this.postBody = React.createRef();
   }
-  /* state = {
-    data: {}
+
+  state = {
+    youtubeEmbeds: []
   }
-  async componentDidMount () {
-    const { match } = this.props
-    const resp = await butter.post.retrieve(match.params.post)
-    this.setState(resp.data);
-  } */
+
   UNSAFE_componentWillMount() {
     this.props.onSetIsBlogPage()
   }
@@ -37,12 +37,14 @@ class BlogPost extends React.Component {
     );
   }
 
-  componentDidUpdate() {
-    if (this.props.post.htmlContent) {
-      const PostBody = ReactDOM.findDOMNode(this.postBody.current);
+  componentDidUpdate(prevProps) {
+    if (this.props.post.htmlContent && this.props.post.htmlContent !== prevProps.post.htmlContent ) {
+     
+      const PostBody = this.postBody.current;
       let youtubeElementByClass = PostBody.getElementsByClassName('youtubeVideoEmbed');
-      // let youtubeElement = PostBody.getElementById('#h6fcK_fRYaI');
-      console.log(youtubeElementByClass);
+
+      
+      this.setState({ youtubeEmbeds: youtubeElementByClass });
     }
     
   }
@@ -51,42 +53,79 @@ class BlogPost extends React.Component {
     
     const post = this.props.post;
 
-    let content = <Spinner isComponent/>
+    let blogContent = <Spinner isComponent/>;
+    let embedYoutube = [];
+
+    if (this.state.youtubeEmbeds.length !== 0) {
+
+      for (var i = 0; i < this.state.youtubeEmbeds.length; i++) {
+                 
+        let videoId = this.state.youtubeEmbeds[i].id;
+
+        let youtube = 
+        <PortalContainer id={videoId} key={i}>
+          <YoutubeVideoEmbed youtubeVideoId={videoId} />
+        </PortalContainer>
+
+        embedYoutube.push(youtube);
+      }
+    }
     
     if (!this.props.loading && !this.props.error) {
-      content =
-      <section>
+      blogContent =
+      <React.Fragment>
         <Helmet>
           <title>{post.seo_title}</title>
           <meta name='description' content={post.description} />
           <meta name='og:image' content={/* post.featured_image */null} />
         </Helmet>
-        <div className={classes.Header}>
-          <div className={classes.heroImage}>
-            <figure>    
-              <img src={post.featuredImage.url} alt='hero'/>
-              { post.featuredImage.source ? 
-                <figcaption>{post.featuredImage.source}</figcaption>
-                : null
-              }
-            </figure>
-          </div>
+        <div className={classes.Header}> 
           <div className={classes.postInfo}>
             <div className={classes.postTitle}>
               <h1>{post.title}</h1>
             </div>
           </div>
         </div>
-        <div ref={this.postBody} className={classes.PostBody} dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
-      </section>
+        <div className={classes.contentWrapper}>
+          <div className={classes.pageMain}>
+            <div className={classes.heroImage}>
+              <figure>    
+                <img src={post.featuredImage.url} alt='hero'/>
+                { post.featuredImage.source ? 
+                  <figcaption>{post.featuredImage.source}</figcaption>
+                  : null
+                }
+              </figure>
+            </div>
+            <div ref={this.postBody} className={classes.PostBody} dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
+          </div>
+          <div className={classes.aside}></div>
+        </div> 
+      </React.Fragment>
+
     } else if (!this.props.loading && this.props.error) {
-      content =
-      <section>
+      blogContent =
+      <div>
         {this.props.error}
-      </section>
+      </div>
     }
 
-    return (content)
+    return (  
+      <article>
+        <div className={classes.topAdBar}>
+          <Container>
+            <div className={classes.blogPostTopAd}>
+                <div className={classes.adFull} />
+                <div className={classes.adMedium} />
+            </div>
+          </Container>
+        </div>
+        <Container>
+          {blogContent}
+          {embedYoutube}
+        </Container>  
+      </article>
+    )
   }
 }
 

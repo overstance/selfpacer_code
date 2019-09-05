@@ -64,7 +64,7 @@ export const fetchBlogPost = (year, month, day, slug) => async dispatch => {
     const res = await axios.get('/api/blog_post', {params: { year: year, month: month, day: day, slug: slug }});
     // console.log(res.data.post);
     if (res.data.post) {
-        console.log(res.data.post);
+        // console.log(res.data.post);
         dispatch(fetchBlogPostSuccess(res.data.post));
     } else if (res.data.error) {
         dispatch(fetchBlogPostFail(res.data.error));
@@ -543,7 +543,7 @@ export const fetchFeaturedBlogsSuccess = (blogs) => {
 export const fetchFeaturedBlogs = () => async dispatch => {
 
     const res = await axios.get('/api/fetch_featured_blogs');
-    console.log(res.data.blogs);
+    // console.log(res.data.blogs);
     if (res.data.blogs) {
         dispatch(fetchFeaturedBlogsSuccess(res.data.blogs))
     } 
