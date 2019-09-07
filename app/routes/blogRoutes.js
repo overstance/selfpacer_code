@@ -53,6 +53,7 @@ module.exports = app => {
       tags: req.body.tags,
       author: req.body.author,
       authorName: req.body.authorName,
+      authorTwitter: req.body.authorTwitter,
       description: req.body.description,
       content: req.body.content,
       htmlContent: req.body.htmlContent,
@@ -82,6 +83,7 @@ module.exports = app => {
         tags: req.body.tags,
         author: req.body.author,
         authorName: req.body.authorName,
+        authorTwitter: req.body.authorTwitter,
         description: req.body.description,
         content: req.body.content,
         htmlContent: req.body.htmlContent,
@@ -253,7 +255,7 @@ module.exports = app => {
       tags: 'Featured',
       status: 'published'
     }).select(
-      'publishYear publishMonth publishDay featuredImage category title description slug author authorName'
+      'publishedOn publishYear publishMonth publishDay featuredImage category title description slug author authorName authorTwitter'
     );
 
     query.exec((err, blogs) => {

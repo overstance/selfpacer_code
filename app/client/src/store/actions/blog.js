@@ -211,10 +211,10 @@ export const createBlogDraftFail = (error) => {
     }
 }
 
-export const createBlogDraft = (title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts) => async dispatch => {
+export const createBlogDraft = (title, heroImage, slug, category, tags, author, authorName, authorTwitter, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts) => async dispatch => {
     dispatch(createBlogDraftStart());
     // console.log(htmlContent);
-    const res = await axios.post('/api/create_blog_draft', { title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, authorName: authorName, description: description, content: content, htmlContent: htmlContent, editorInChargeId: editorInChargeId, editorInChargeName: editorInChargeName});
+    const res = await axios.post('/api/create_blog_draft', { title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, authorName: authorName, authorTwitter: authorTwitter, description: description, content: content, htmlContent: htmlContent, editorInChargeId: editorInChargeId, editorInChargeName: editorInChargeName});
     // console.log(res.data.post);
     if (res.data.newDraft) {
         // console.log(res.data.newDraft);
@@ -249,10 +249,10 @@ export const updateBlogDraftFail = (error) => {
     }
 }
 
-export const updateBlogDraft = (draftId, title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, allDrafts) => async dispatch => {
+export const updateBlogDraft = (draftId, title, heroImage, slug, category, tags, author, authorName, authorTwitter, description, content, htmlContent, allDrafts) => async dispatch => {
     dispatch(updateBlogDraftStart());
     
-    const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, authorName: authorName, description: description, content: content, htmlContent: htmlContent});
+    const res = await axios.put('/api/update_blog_draft', { draftId: draftId, title: title, heroImage: heroImage, slug: slug, category: category, tags: tags, author: author, authorName: authorName, authorTwitter: authorTwitter, description: description, content: content, htmlContent: htmlContent});
     // console.log(res.data);
     if (res.data.updatedDraft._id === draftId) {
         // console.log(res.data.updatedDraft);

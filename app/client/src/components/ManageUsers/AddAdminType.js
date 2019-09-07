@@ -79,14 +79,15 @@ class AddAdminType extends Component {
         },
         twitterUrl: {
             value: '',
-            label: "twitterUrl", 
+            label: "twitterUrl*", 
             name: "twitterUrl",
             validation: {
-                isUrl: true
+                // isUrl: true
+                required: true
             },
             valid: false,
             touched: false,
-        },
+        }/* ,
         facebookUrl: {
             value: '',
             label: "facebookUrl", 
@@ -106,7 +107,7 @@ class AddAdminType extends Component {
             },
             valid: false,
             touched: false,
-        }
+        } */
     };
 
     checkValidity(value, rules) {
@@ -123,7 +124,6 @@ class AddAdminType extends Component {
             const pattern = /^(ftp|http|https):\/\/[^ "]+$/
             isValid = pattern.test(value) && isValid
         }
-
         return isValid;
     }
 
@@ -155,8 +155,16 @@ class AddAdminType extends Component {
             }
             this.setState({ userId: userIdUpdated, fillError: 'Please fill asterisked fields'});
 
+        } else if (this.state.isAuthorRole && this.state.twitterUrl.value === '') {
+            const userIdUpdated = {
+                ...this.state.twitterUrl,
+                touched: true,
+                valid: false
+            }
+            this.setState({ twitterUrl: userIdUpdated, fillError: 'Please fill asterisked fields'});
+
         } else {
-            this.props.onAddAdminType(this.state.type.value, this.state.userId.value, this.state.twitterUrl.value, this.state.facebookUrl.value, this.state.linkedinUrl.value);
+            this.props.onAddAdminType(this.state.type.value, this.state.userId.value, this.state.twitterUrl.value/* , this.state.facebookUrl.value, this.state.linkedinUrl.value */);
 
             const userIdReset = {
                 ...this.state.userId,
@@ -221,7 +229,7 @@ class AddAdminType extends Component {
 
     twitterUrlChangedHandler = (event) => {
 
-        if (event.target.value === '') {
+        /* if (event.target.value === '') {
             const updated = {
                 ...this.state.twitterUrl,
                 value: event.target.value,
@@ -229,7 +237,7 @@ class AddAdminType extends Component {
                 touched: true,   
             }
             this.setState({ twitterUrl: updated, fillError: null}); 
-        } else {
+        } else { */
             const updated = {
                 ...this.state.twitterUrl,
                 value: event.target.value,
@@ -237,7 +245,7 @@ class AddAdminType extends Component {
                 touched: true,   
             }
             this.setState({ twitterUrl: updated, fillError: null});
-        }     
+        // }     
     }
 
     facebookUrlChangedHandler = (event) => {
@@ -332,7 +340,7 @@ class AddAdminType extends Component {
                         />
                         : null
                     }
-                    { this.state.isAuthorRole ?
+                    {/*  this.state.isAuthorRole ?
                         <Input 
                         label={this.state.facebookUrl.label} 
                         name={this.state.facebookUrl.name}
@@ -357,12 +365,12 @@ class AddAdminType extends Component {
                         changed={(event) => this.linkedinUrlChangedHandler(event)}
                         />
                         : null
-                    }
+                     */}
                     { (!this.state.userId.valid && this.state.userId.touched) ||
                       (!this.state.type.valid && this.state.type.touched) ||
                       (!this.state.twitterUrl.valid && this.state.twitterUrl.touched) ||
-                      (!this.state.facebookUrl.valid && this.state.facebookUrl.touched) ||
-                      (!this.state.linkedinUrl.valid && this.state.linkedinUrl.touched) ||
+                      /* (!this.state.facebookUrl.valid && this.state.facebookUrl.touched) ||
+                      (!this.state.linkedinUrl.valid && this.state.linkedinUrl.touched)  ||*/
                       this.state.fillError ? 
                         <Button btnType='Danger' disabled> {formButtonText} </Button> :
                         <Button btnType='Success'> {formButtonText} </Button>    
@@ -390,7 +398,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddAdminType: ( type, userId, twitterUrl, facebookUrl, linkedinUrl ) => dispatch( actions.addAdminType( type, userId, twitterUrl, facebookUrl, linkedinUrl ) ),
+        onAddAdminType: ( type, userId, twitterUrl/* , facebookUrl, linkedinUrl */ ) => dispatch( actions.addAdminType( type, userId, twitterUrl/* , facebookUrl, linkedinUrl */ ) ),
         onClearAddAdminTypeInfo: () => dispatch(actions.clearAddAuthorOrEditorInfo())
     };
 };

@@ -394,6 +394,11 @@ class PageContainer extends Component {
           }
         },
       },
+      inlineStyles: {
+        HIGHLIGHT: {
+          attributes: {class: 'blogPostHighlights'}
+        }
+      },
     };
     let htmlContent = stateToHTML(contentState, options);
     let note = {
@@ -420,9 +425,10 @@ class PageContainer extends Component {
       let authors = this.props.authors;
       let author = authors.find( author => author._id === note.author);
       let authorName = author.name;
+      let authorTwitter = author.twitterUrl;
 
       if ( displayedNote === 'new') {
-        this.props.onCreateBlogDraft(note.title, note.heroImage, note.slug, note.category, note.tags, note.author, authorName, note.description, note.content, htmlContent, this.props.user._id, this.props.user.name, this.props.drafts);
+        this.props.onCreateBlogDraft(note.title, note.heroImage, note.slug, note.category, note.tags, note.author, authorName, authorTwitter, note.description, note.content, htmlContent, this.props.user._id, this.props.user.name, this.props.drafts);
         this.setState({
           noteTitle: "",
           blogHeroImage: {
@@ -440,7 +446,7 @@ class PageContainer extends Component {
           editorState: EditorState.createEmpty()
         })
       } else {
-        this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.heroImage, note.slug, note.category, note.tags, note.author, authorName, note.description, note.content, htmlContent, this.props.drafts);
+        this.props.onUpdateBlogDraft(displayedNote._id, note.title, note.heroImage, note.slug, note.category, note.tags, note.author, authorName, authorTwitter, note.description, note.content, htmlContent, this.props.drafts);
       }
     }
   }
@@ -760,8 +766,8 @@ const mapDispatchToProps = (dispatch) => {
           onFetchBlogCategories: () => dispatch(actions.fetchBlogCategories()),
           onFetchBlogTags: () => dispatch(actions.fetchBlogTags()),
           onFetchAuthors: () => dispatch(actions.fetchAuthors()),
-          onCreateBlogDraft: ( title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts )),
-          onUpdateBlogDraft: ( draftId, title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, heroImage, slug, category, tags, author, authorName, description, content, htmlContent, allDrafts )), 
+          onCreateBlogDraft: ( title, heroImage, slug, category, tags, author, authorName, authorTwitter, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts ) => dispatch(actions.createBlogDraft( title, heroImage, slug, category, tags, author, authorName, authorTwitter, description, content, htmlContent, editorInChargeId, editorInChargeName, allDrafts )),
+          onUpdateBlogDraft: ( draftId, title, heroImage, slug, category, tags, author, authorName, authorTwitter, description, content, htmlContent, allDrafts ) => dispatch(actions.updateBlogDraft( draftId, title, heroImage, slug, category, tags, author, authorName, authorTwitter, description, content, htmlContent, allDrafts )), 
           onDeleteHeroImage: (imagePublicId, imageId) => dispatch(actions.deleteHeroImage(imagePublicId, imageId)),
           onDeleteBlogDraft: (draftId, drafts) => dispatch(actions.deleteBlogDraft(draftId, drafts)),
           onPublishBlogDraft: (draftId, publishedOn, drafts) => dispatch(actions.publishBlogDraft(draftId, publishedOn, drafts))

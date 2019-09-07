@@ -594,11 +594,11 @@ export const addAdminTypeFail = ( error ) => {
     };
 }
 
-export const addAdminType = (type, userId, twitterUrl, facebookUrl, linkedinUrl) => async dispatch => {
+export const addAdminType = (type, userId, twitterUrl/* , facebookUrl, linkedinUrl */) => async dispatch => {
     
     dispatch(addAdminTypeStart());
 
-    let twitter = twitterUrl;
+    /* let twitter = twitterUrl; 
     let facebook = facebookUrl;
     let linkedin = linkedinUrl;
     
@@ -612,11 +612,11 @@ export const addAdminType = (type, userId, twitterUrl, facebookUrl, linkedinUrl)
 
     if ( linkedinUrl === '') {
         linkedin = undefined
-    }
+    } */
 
     // console.log(type, userId, twitter, facebook, linkedin);
     
-    const res = await axios.put('/api/add_admin_type', { type: type, userId: userId, twitterUrl: twitter, facebookUrl: facebook, linkedinUrl: linkedin})
+    const res = await axios.put('/api/add_admin_type', { type: type, userId: userId, twitterUrl: twitterUrl/* , facebookUrl: facebook, linkedinUrl: linkedin */})
     if (res.data.user) { 
         // console.log(res.data.user);
         dispatch(addAdminTypeSuccess('user role updated'));    

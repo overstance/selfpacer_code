@@ -79,7 +79,7 @@
 }
 
 .latestSection figcaption {
-    font-size: 9px;
+    font-size: 10px;
     text-transform: uppercase;
     text-align: right;
     font-family: 'PT Sans', sans-serif;
@@ -115,13 +115,26 @@
     color: var(--blue);
 }
 
-.popularBlogCategory a, 
 .latestBlogCategory a {
-    font-family: 'PT Sans', sans-serif;
+    /* font-family: 'PT Sans', sans-serif;; */
+    font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
     color: var(--red);
-    font-size: small;
+    font-size: 16px;
     text-transform: uppercase;
-    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    /* font-weight: bold; */
+}
+
+.popularBlogCategory a {
+     /* font-family: 'PT Sans', sans-serif;; */
+     font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
+     color: var(--red);
+     font-size: small;
+     text-transform: uppercase;
+     margin-top: 8px;
+     display: block;
+     /* font-weight: bold; */
 }
 
 .popularBlogTitle a:hover, 
@@ -263,11 +276,25 @@
     color: var(--black);
 }
 
-.latestPodcastTitle span {
-    /* font-family: 'Lalezar', Tahoma, 'Segoe UI', Verdana, sans-serif; */
-    /* font-family: 'Baloo', Tahoma, 'Segoe UI', Verdana, sans-serif; */
+.latestPodcastTitle a h3 {
     font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     color: var(--blue);
+    font-size: 18px;
+    text-transform: capitalize;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.latestPodcastTitle a div {
+    color: var(--red);
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.latestPodcastTitle a span {
+    color: var(--red);
+    text-transform: capitalize;
 }
 
 .latestPodcast figure div {
@@ -522,14 +549,19 @@
         padding-left: 0;
     }
 
+    .latestBlog {
+        flex-flow: column;
+    }
+
     .latestBlogImage {
-        flex: 0 0 30%;
-        max-width: 30%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-right: 0;
     }
     
     .latestBlogInfo {
-        flex: 0 0 70%;
-        max-width: 70%;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 
     .latestPodcast {

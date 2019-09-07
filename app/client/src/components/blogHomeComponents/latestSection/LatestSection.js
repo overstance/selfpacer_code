@@ -263,6 +263,7 @@ class LatestBlogs extends Component {
                 title: "popular test draft 1 head admin",
                 season: 1,
                 episode: 1,
+                episodeTitle: "episode title goes here",
                 featuredImage: {
                     url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
                     publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
@@ -542,6 +543,7 @@ class LatestBlogs extends Component {
                 publishMonth={podcast.publishMonth}
                 publishDay={podcast.publishDay}
                 source={podcast.featuredImage.source}
+                episodeTitle={podcast.episodeTitle}
                 episode={podcast.episode}
                 season={podcast.season}
                 featureImageUrl={podcast.featuredImage.url}

@@ -18,7 +18,8 @@ article img {
     font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
     text-transform: uppercase;
     color: var(--red);
-    font-size: 24px;
+    font-size: 18px;
+    margin-bottom: 8px;
 }
 
 .postTitle {
@@ -32,11 +33,50 @@ article img {
 .description {
     font-family: 'PT Serif', serif; 
     font-size: 18px;
+    margin-top: 16px;
 }
 
 /* .postTitle h1 {
     margin: 0;
 } */
+
+.editorial {
+    font-family: 'PT Sans';
+    font-size: 14px;
+    color: var(--blue);
+    font-weight: bold;
+    margin-top: 32px;
+}
+
+.author {
+    text-transform: capitalize;
+    padding-right: 16px;
+    /* font-weight: bold; */
+}
+
+.authorTwitter {
+    padding-right: 16px;
+    font-size: 14px;
+    color: var(--green);
+}
+
+.publishDate {
+    font-family: 'PT Sans';
+    font-size: 14px;
+}
+
+.publishDate strong {
+    font-family: "Fredoka One";
+    padding-left: 8px;
+    color: var(--gray);
+    padding-right: 8px;
+}
+
+.publishDate::before {
+    content: '/';
+    padding-right: 16px;
+    color: var(--gray);
+}
 
 .contentWrapper {
     width: 100%;
@@ -97,7 +137,17 @@ article img {
 
 .heroImage figure {
     margin: 0;
-    text-align: center;
+    padding-bottom: 56.25%;
+    position: relative;
+    margin-bottom: 16px;
+    /* text-align: center; */
+}
+
+.heroImage figure div {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    background: var(--gray);
 }
 
 .heroImage img {
@@ -105,15 +155,58 @@ article img {
 }
 
 .heroImage figcaption {
-    text-align: left;
-    font-family: 'PT Sans', sans-serif;
+    font-size: 10px;
     text-transform: uppercase;
-    font-size: 12px;
+    text-align: right;
+    font-family: 'PT Sans', sans-serif;
+    bottom: -1.25em;
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
 }
 
 .PostBody {
     font-family: 'PT Serif', serif;
     font-size: 18px;
+}
+
+.PostBody blockquote {
+    font-size: 20px;
+    width: 60%;
+    margin: 40px auto;
+    font-family: "PT Sans";
+    padding: 1em 30px 1em 50px;
+    border-left: 8px solid var(--blue);
+    border-top: 2px solid var(--green);
+    border-right: 2px solid var(--green);
+    border-bottom: 2px solid var(--green);
+    position: relative;
+    color: var(--blue);
+    /* background: var(--gray); */
+}
+
+.PostBody blockquote::before {
+    content: "\201C";
+    color: var(--red);
+    font-size: 5em;
+    position: absolute;
+    left: 10px;
+    top:-10px;
+  }
+  
+  .PostBody blockquote::after {
+    content: '';
+}
+
+.PostBody blockquote em{
+    font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    display: block;
+    text-transform: capitalize;
+    color: var(--blue);
+    font-style: normal;
+    /* font-weight: bold; */
+    margin-top: 1em;
 }
 
 .PostBody p {
@@ -132,16 +225,20 @@ article img {
     color: var(--blue);
 }
 
+.PostBody ul, .PostBody ol {
+    text-align: left;
+}
+
 .PostBody figure {
     margin: 0;
     text-align: center;
 }
 
 .PostBody figure figcaption {
-    text-align: right;
+    text-align: center;
     font-family: 'PT Sans', sans-serif;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .PostBody figure div {
@@ -197,5 +294,13 @@ pre {
 @media(max-width: 576px) {
     .postTitle {
         font-size: 36px;
+    }
+
+    .publishDate {
+        display: block;
+    }
+
+    .publishDate::before {
+        display: none;
     }
 }

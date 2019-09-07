@@ -10,6 +10,24 @@ import YoutubeVideoEmbed from '../../components/BlogEditor/entities/Youtube';
 import Container from '../../components/UserInterface/Container/Container';
 import PortalContainer from './PortalContainer';
 
+function sameDay(d1, d2) {
+  return d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate();
+}
+
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+
 class BlogPost extends React.Component {
   constructor(props) {
     super(props);
@@ -73,6 +91,20 @@ class BlogPost extends React.Component {
     }
     
     if (!this.props.loading && !this.props.error) {
+
+      let currentTime = new Date();
+      let publishDate = new Date(post.publishedOn);
+      let displayTime;
+
+      let isSameDay = sameDay(currentTime, publishDate);
+
+      if (isSameDay) {
+        displayTime = formatAMPM(publishDate);
+      }
+
+      console.log(currentTime, publishDate, isSameDay, displayTime);
+
+      
       blogContent =
       <React.Fragment>
         <Helmet>
@@ -91,13 +123,32 @@ class BlogPost extends React.Component {
               <div className={classes.description}>
                 {post.description}
               </div>
+              <div className={classes.editorial}>
+                <span className={classes.author}>
+                  {post.authorName}
+                </span>
+                <span className={classes.authorTwitter}>
+                  {post.authorTwitter}
+                </span>
+                <span className={classes.publishDate}>
+                  {post.displayDate}     
+                  { isSameDay ? 
+                    <span>
+                      <strong>.</strong>{displayTime + ' EDT'}
+                    </span> 
+                    : null
+                  }
+                </span>
+              </div>
           </div >
         </div>
         <div className={classes.contentWrapper}>
           <div className={classes.pageMain}>
             <div className={classes.heroImage}>
-              <figure>    
-                <img src={post.featuredImage.url} alt='hero'/>
+              <figure> 
+                <div>
+                  <img src={post.featuredImage.url} alt='hero'/>
+                </div>
                 { post.featuredImage.source ? 
                   <figcaption>{post.featuredImage.source}</figcaption>
                   : null

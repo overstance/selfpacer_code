@@ -38,6 +38,10 @@
     max-width: 100%;
 }
 
+.blogPostHighlights {
+    background: var(--green);
+}
+
 
 html, body {
     margin: 0;

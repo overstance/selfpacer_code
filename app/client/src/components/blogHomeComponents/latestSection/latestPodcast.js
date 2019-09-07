@@ -12,8 +12,9 @@ const latestPodcast = (props) => (
         <div className={classes.latestPodcastInfo}>
             <div className={classes.latestPodcastTitle}>
                 <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
-                    <span>{'Season ' + props.season + ' Episode ' + props.episode + ': ' }</span>
-                    {props.title}
+                    <h3>{props.title}</h3> 
+                    <div>{'Season ' + props.season + ' Episode ' + props.episode + ': ' }</div>   
+                    <span>{props.episodeTitle}</span>
                 </Link>
             </div>
         </div>    

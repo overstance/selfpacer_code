@@ -90,7 +90,7 @@
 }
 
 .featuredBlogsSection figcaption {
-    font-size: 9px;
+    font-size: 10px;
     text-transform: uppercase;
     text-align: right;
     font-family: 'PT Sans', sans-serif;
@@ -104,11 +104,14 @@
 .featuredMediumCategory a,
 .featuredSmallCategory a,
 .featuredLargeCategory a {
-    font-family: 'PT Sans', sans-serif;;
+    /* font-family: 'PT Sans', sans-serif;; */
+    font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
     color: var(--red);
-    font-size: small;
+    font-size: 16px;
     text-transform: uppercase;
-    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    /* font-weight: bold; */
 }
 
 .featuredCoverTitle a:hover, 

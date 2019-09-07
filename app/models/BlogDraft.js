@@ -35,6 +35,7 @@ const blogDraftSchema = new Schema({
   },
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   authorName: String,
+  authorTwitter: String,
   updatedOn: {
     type: Date
   },

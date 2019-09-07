@@ -285,9 +285,11 @@ module.exports = app => {
         req.body.userId,
         {
           isAuthor: true,
-          twitterUrl: req.body.twitterUrl,
+          twitterUrl: req.body.twitterUrl
+          /* ,
           facebookUrl: req.body.facebookUrl,
-          linkedinUrl: req.body.linkedinUrl
+          linkedinUrl: req.body.linkedinUrl 
+          */
         },
         { new: true },
         (err, user) => {
