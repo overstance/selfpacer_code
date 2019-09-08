@@ -14,12 +14,14 @@ article img {
     border-bottom: 1px solid var(--gray);
 }
 
-.category {
+.category a {
     font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
     text-transform: uppercase;
     color: var(--red);
     font-size: 18px;
     margin-bottom: 8px;
+    text-decoration: none;
+    display: block;
 }
 
 .postTitle {
@@ -44,19 +46,27 @@ article img {
     font-family: 'PT Sans';
     font-size: 14px;
     color: var(--blue);
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-top: 32px;
 }
 
-.author {
+.author  a {
     text-transform: capitalize;
     padding-right: 16px;
-    /* font-weight: bold; */
+    text-decoration: none;
+    color: var(--blue);
+    font-weight: bold;
 }
 
-.authorTwitter {
+.authorTwitter a {
     padding-right: 16px;
     font-size: 14px;
+    text-decoration: none;
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.editorial a:hover {
     color: var(--green);
 }
 
@@ -76,6 +86,7 @@ article img {
     content: '/';
     padding-right: 16px;
     color: var(--gray);
+    font-weight: bold;
 }
 
 .contentWrapper {
@@ -132,6 +143,17 @@ article img {
     background-size: cover;
     background-repeat: no-repeat;
     background: url('../../assets/art/head-art/ad_320X100.png');
+    margin: auto;
+}
+
+.adFullSide {
+    width: 300px;
+    height: 600px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../assets/art/head-art/ad_ad300X600.png');
     margin: auto;
 }
 

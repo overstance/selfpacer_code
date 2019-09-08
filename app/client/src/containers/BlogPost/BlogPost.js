@@ -5,6 +5,7 @@ import classes from './BlogPost.module.css';
 // import Grid from '../../components/UserInterface/Grid/Grid';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
+import { Link } from 'react-router-dom';
 // import ReactDOM from 'react-dom';
 import YoutubeVideoEmbed from '../../components/BlogEditor/entities/Youtube';
 import Container from '../../components/UserInterface/Container/Container';
@@ -102,8 +103,12 @@ class BlogPost extends React.Component {
         displayTime = formatAMPM(publishDate);
       }
 
-      console.log(currentTime, publishDate, isSameDay, displayTime);
+      // console.log(currentTime, publishDate, isSameDay, displayTime);
+      let twitter = 'https://twitter.com/'
+      let twitterHandle = post.authorTwitter;
 
+      let authorTwitter = twitter.concat(twitterHandle);
+      console.log(authorTwitter);
       
       blogContent =
       <React.Fragment>
@@ -115,7 +120,9 @@ class BlogPost extends React.Component {
         <div className={classes.headerWrapper}>
           <div className={classes.header}> 
               <div className={classes.category}>
-                {post.category}
+                <Link to={`/blog/${post.category}`}>
+                    {post.category}
+                </Link>
               </div>
               <div className={classes.postTitle}>
                 {post.title}
@@ -125,10 +132,18 @@ class BlogPost extends React.Component {
               </div>
               <div className={classes.editorial}>
                 <span className={classes.author}>
-                  {post.authorName}
+                  <Link to={`/blog/author/${post.authorName}/${post.author}`}>
+                    {post.authorName}
+                  </Link>
                 </span>
                 <span className={classes.authorTwitter}>
-                  {post.authorTwitter}
+                  <a 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href={authorTwitter}
+                  >
+                    {post.authorTwitter}
+                  </a>
                 </span>
                 <span className={classes.publishDate}>
                   {post.displayDate}     
@@ -157,7 +172,11 @@ class BlogPost extends React.Component {
             </div>
             <div ref={this.postBody} className={classes.PostBody} dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
           </div>
-          <div className={classes.aside}></div>
+          <div className={classes.aside}>
+            <div className={classes.blogPostSideAd}>
+                <div className={classes.adFullSide}/>
+            </div>
+          </div>
         </div> 
       </React.Fragment>
 

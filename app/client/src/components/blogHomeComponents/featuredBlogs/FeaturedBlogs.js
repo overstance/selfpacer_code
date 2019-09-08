@@ -218,8 +218,8 @@ class FeaturedBlogs extends Component {
         ]
 
         const cover = this.props.featuredBlogs.slice(0, 1);
-        // const medium = this.props.featuredBlogs.slice(1, 3);
-        const medium = featuredBlogs.slice(1, 3);
+        const medium = this.props.featuredBlogs.slice(1, 3);
+        // const medium = featuredBlogs.slice(1, 3);
         const small = featuredBlogs.slice(3, 7);
         const large = featuredBlogs.slice(7, 11);
 
