@@ -58,14 +58,26 @@ export const fetchBlogPostFail = (error) => {
     }
 }
 
+export const fetchMoreInCategorySuccess = (posts) => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOG_IN_CATEGORY_SUCCESS,
+        posts: posts
+    }
+}
+
 export const fetchBlogPost = (year, month, day, slug) => async dispatch => {
     dispatch(fetchBlogPostStart());
 
     const res = await axios.get('/api/blog_post', {params: { year: year, month: month, day: day, slug: slug }});
-    // console.log(res.data.post);
+    
     if (res.data.post) {
         // console.log(res.data.post);
         dispatch(fetchBlogPostSuccess(res.data.post));
+        const res2 = await axios.get('/api/fetch_more_blog_in_category', {params: { blogCategory: res.data.post.category}} )
+        if (res2.data.posts) {
+            // console.log(res.data.post.category, res2.data.posts)
+            dispatch(fetchMoreInCategorySuccess(res2.data.posts));
+        }    
     } else if (res.data.error) {
         dispatch(fetchBlogPostFail(res.data.error));
     } else {

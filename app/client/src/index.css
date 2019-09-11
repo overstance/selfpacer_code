@@ -38,10 +38,25 @@
     max-width: 100%;
 }
 
+.twitterEmbed twitter-widget {
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .blogPostHighlights {
     background: var(--green);
 }
 
+.dropcap:first-child:first-letter {
+    color: var(--green);
+    float: left;
+    font-family: "Squada One";
+    font-size: 80px;
+    line-height: 60px;
+    padding-top: 4px;
+    padding-right: 8px;
+    padding-left: 3px;
+}
 
 html, body {
     margin: 0;
@@ -49,13 +64,26 @@ html, body {
     font-family: 'Nunito', Arial, Helvetica, sans-serif;
 }
 
+@media(max-width: 576px) {
+    .twitterEmbed twitter-widget {
+        max-width: 300px !important;
+    }
+}
+
+@media(max-width: 360px) {
+    .twitterEmbed twitter-widget {
+        max-width: 220px !important;
+    }
+}
+
+
 /*  
 font-family: 'Comfortaa', cursive;
 font-family: 'Manjari', sans-serif;
 font-family: 'Fredoka One', cursive;
 font-family: 'Baloo', cursive;
 font-family: 'PT Sans', sans-serif;
-font-family: 'PT Serif', serif;
+font-family: 'PT Sans', sans-serif;
 font-family: 'PT Mono', monospace;
 font-family: 'Squada One', cursive;
 */

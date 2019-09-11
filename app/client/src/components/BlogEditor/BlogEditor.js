@@ -287,6 +287,26 @@ class PageContainer extends Component {
     }
   }
 
+  embedTweet = (e) => {
+    e.preventDefault();
+    const editorState = this.state.editorState;
+    const tweetId = window.prompt('Enter Tweet Id -');
+
+    if(!tweetId) {
+      return 'handled';
+    } else {    
+      const contentState = editorState.getCurrentContent();
+      const contentStateWithEntity = contentState.createEntity('twitter', 'IMMUTABLE', {tweetId: tweetId});
+      const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+      const newEditorState = EditorState.set(editorState, {currentContent: contentStateWithEntity}, 'create-entity');
+      this.setState({
+        editorState: AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ')
+      }, () => {
+        setTimeout(() => this.focus(), 0);
+      });
+    }
+  }
+
   focus = () => this.refs.editor.focus();
 
   uploadImageHandler = () => {
@@ -391,6 +411,11 @@ class PageContainer extends Component {
           if (type === 'youtube') {
             const videoId = data.youtubeVideoId;
             return `<div class='youtubeVideoEmbed' id=${videoId}></div>`
+          }
+
+          if (type === 'twitter') {
+            const tweetId = data.tweetId;
+            return `<div class='twitterEmbed' id=${tweetId}></div>`
           }
         },
       },
@@ -712,6 +737,7 @@ class PageContainer extends Component {
           <BlockStyleControls
           addImageClicked={this.uploadImageHandler}
           addYoutubeClicked={this.embedYoutubeVideo}
+          addTwitterClicked={this.embedTweet}
           editorState={this.state.editorState}
           onToggle={this.toggleBlockType}
           /> 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Youtube from './Youtube';
+import { TwitterTweetEmbed } from 'react-twitter-embed';
 // import { EditorState, RichUtils, AtomicBlockUtils } from 'draft-js';
 
 export const mediaBlockRenderer = (block) => {
@@ -65,6 +66,7 @@ class Media extends React.Component {
     const source = data.source;
     const caption = data.caption;
     const youtubeVideoId = data.youtubeVideoId;
+    const tweetId = data.tweetId;
     // const publicId = data.publicId;
 
     let media;
@@ -80,7 +82,12 @@ class Media extends React.Component {
       media = <Video src={src} />;
     } else if (type === 'youtube') {
       media = <Youtube youtubeVideoId={youtubeVideoId}/>
+    } else if (type === 'twitter') {
+      media =
+      <TwitterTweetEmbed
+        tweetId={tweetId}
+      /> 
     }
-    return media;
+     return media;
   }
 };

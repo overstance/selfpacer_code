@@ -109,10 +109,6 @@
   /* outline: none; */
 }
 
-/* .toolbar > * {
-  outline: none;
-} */
-
 .toolbar svg {
   height: 100%;
   width: 100%;
@@ -311,6 +307,11 @@
   /* min-width: 320px; */
 }
 
+.editors figure twitter-widget {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .tagButton {
   background: var(--gray);
   padding: 6px;
@@ -372,6 +373,12 @@
     max-width: 100%;
   }
 }
+
+/* @media(max-width: 600px) {
+  .editors figure twitter-widget {
+    max-width: 300px;
+  }
+} */
 
 @media(max-width: 380px) {
   .inlineStyles, .blockStyles {

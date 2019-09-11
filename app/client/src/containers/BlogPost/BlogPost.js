@@ -10,6 +10,10 @@ import { Link } from 'react-router-dom';
 import YoutubeVideoEmbed from '../../components/BlogEditor/entities/Youtube';
 import Container from '../../components/UserInterface/Container/Container';
 import PortalContainer from './PortalContainer';
+import ShareButtons from './ShareButtons';
+import { TwitterTweetEmbed } from 'react-twitter-embed';
+import MoreInCategory from './moreInCategory/MoreInCategory';
+import LatestSection from './latestSection/LatestSection';
 
 function sameDay(d1, d2) {
   return d1.getFullYear() === d2.getFullYear() &&
@@ -36,7 +40,9 @@ class BlogPost extends React.Component {
   }
 
   state = {
-    youtubeEmbeds: []
+    youtubeEmbeds: [],
+    twitterEmbeds: [],
+    allPostParagraphs: []
   }
 
   /* UNSAFE_componentWillMount() {
@@ -61,10 +67,12 @@ class BlogPost extends React.Component {
     if (this.props.post.htmlContent && this.props.post.htmlContent !== prevProps.post.htmlContent ) {
      
       const PostBody = this.postBody.current;
-      let youtubeElementByClass = PostBody.getElementsByClassName('youtubeVideoEmbed');
+      let youtubeElementsByClass = PostBody.getElementsByClassName('youtubeVideoEmbed');
+      let twitterElementsByClass = PostBody.getElementsByClassName('twitterEmbed');
+      let allParagraphElements = PostBody.getElementsByTagName('p');
 
       
-      this.setState({ youtubeEmbeds: youtubeElementByClass });
+      this.setState({ youtubeEmbeds: youtubeElementsByClass, twitterEmbeds: twitterElementsByClass, allPostParagraphs: allParagraphElements });
     }
     
   }
@@ -75,6 +83,7 @@ class BlogPost extends React.Component {
 
     let blogContent = <Spinner isComponent/>;
     let embedYoutube = [];
+    let embedTweet = [];
 
     if (this.state.youtubeEmbeds.length !== 0) {
 
@@ -83,15 +92,42 @@ class BlogPost extends React.Component {
         let videoId = this.state.youtubeEmbeds[i].id;
 
         let youtube = 
-        <PortalContainer id={videoId} key={i}>
+        <PortalContainer id={videoId} key={videoId}>
           <YoutubeVideoEmbed youtubeVideoId={videoId} />
         </PortalContainer>
 
         embedYoutube.push(youtube);
       }
     }
+
+    if (this.state.twitterEmbeds.length !== 0) {
+
+      for (var index = 0; index < this.state.twitterEmbeds.length; index++) {
+                 
+        let tweetId = this.state.twitterEmbeds[index].id;
+
+        let tweet = 
+        <PortalContainer id={tweetId} key={tweetId}>
+          <TwitterTweetEmbed
+            tweetId={tweetId}
+          />
+        </PortalContainer>
+
+        embedTweet.push(tweet);
+      }
+    }
+
+    if (this.state.allPostParagraphs.length !==  0) {
+      let firstParagraph = this.state.allPostParagraphs[0];
+      // console.log(this.state.allPostParagraphs, firstParagraph)
+      firstParagraph.classList.add('dropcap');
+    }
     
     if (!this.props.loading && !this.props.error) {
+      
+      let postUrl = window.location.href;
+      let postTitle = post.title;
+      // console.log(this.props.location.pathname, window.location.href);
 
       let currentTime = new Date();
       let publishDate = new Date(post.publishedOn);
@@ -108,7 +144,7 @@ class BlogPost extends React.Component {
       let twitterHandle = post.authorTwitter;
 
       let authorTwitter = twitter.concat(twitterHandle);
-      console.log(authorTwitter);
+      // console.log(authorTwitter);
       
       blogContent =
       <React.Fragment>
@@ -119,19 +155,21 @@ class BlogPost extends React.Component {
         </Helmet>
         <div className={classes.headerWrapper}>
           <div className={classes.header}> 
-              <div className={classes.category}>
-                <Link to={`/blog/${post.category}`}>
-                    {post.category}
-                </Link>
-              </div>
-              <div className={classes.postTitle}>
-                {post.title}
-              </div>
-              <div className={classes.description}>
-                {post.description}
-              </div>
+            <div className={classes.category}>
+              <Link to={`/blog/${post.category}`}>
+                  {post.category}
+              </Link>
+            </div>
+            <div className={classes.postTitle}>
+              {post.title}
+            </div>
+            <div className={classes.description}>
+              {post.description}
+            </div>
+            <div className={classes.postAttributes}>
               <div className={classes.editorial}>
                 <span className={classes.author}>
+                  By
                   <Link to={`/blog/author/${post.authorName}/${post.author}`}>
                     {post.authorName}
                   </Link>
@@ -155,7 +193,15 @@ class BlogPost extends React.Component {
                   }
                 </span>
               </div>
-          </div >
+              <div className={classes.topShareSection}>          
+                <ShareButtons 
+                postUrl={postUrl}
+                postTitle={postTitle}
+                iconSize={34}
+                />
+              </div>
+            </div >
+          </div>
         </div>
         <div className={classes.contentWrapper}>
           <div className={classes.pageMain}>
@@ -173,8 +219,9 @@ class BlogPost extends React.Component {
             <div ref={this.postBody} className={classes.PostBody} dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
           </div>
           <div className={classes.aside}>
+            <MoreInCategory category={post.category}/>
             <div className={classes.blogPostSideAd}>
-                <div className={classes.adFullSide}/>
+              <div className={classes.adFullSide}/>
             </div>
           </div>
         </div> 
@@ -200,6 +247,8 @@ class BlogPost extends React.Component {
         <Container>
           {blogContent}
           {embedYoutube}
+          {embedTweet}
+          <LatestSection />
         </Container>  
       </article>
     )

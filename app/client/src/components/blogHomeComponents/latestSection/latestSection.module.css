@@ -108,7 +108,9 @@
     font-family: 'PT Sans', sans-serif;
     text-transform: uppercase;
     color: var(--black);
-    font-size: 12px
+    font-size: 12px;
+    font-weight: bold;
+    margin: auto 0;
 }
 
 .sectionSubhead a:hover {
@@ -281,6 +283,7 @@
     color: var(--blue);
     font-size: 18px;
     text-transform: capitalize;
+    font-weight: normal;
     line-height: 1;
     margin-bottom: 4px;
 }
@@ -418,13 +421,23 @@
 .seeAll {
     width: 100%;
     text-align: center;
-    background: var(--blue);
-    color: var(--green);
     font-family: 'PT Sans', sans-serif;
     padding: 10px;
-    font-weight: bold;
-    cursor: pointer;
     box-sizing: border-box;
+}
+
+.seeAll a {
+    font-family: 'Fredoka One';
+    font-size: 20px;
+    background: var(--green);
+    padding: 8px 16px;
+    text-transform: capitalize;
+    border-radius: 8px;
+    color: var(--blue);
+}
+
+.seeAll a:hover {
+    background: var(--gray);
 }
 
 @media(max-width: 1100px) {
@@ -489,8 +502,18 @@
         font-size: 20px;
     }
 
+    .latestVideos2to3 .latestVideo {
+        flex: 0 0 50%;
+        max-width: 50%;
+        box-sizing: border-box;
+    }
+
     .latestVideos2to3 .latestVideo:last-of-type {
-        padding-left: 16px;
+        padding-left: 8px;
+    }
+
+    .latestVideos2to3 .latestVideo:first-of-type {
+        padding-right: 8px;
     }
 
     .latestVideoLarge {
@@ -519,14 +542,14 @@
 }
 
 @media(max-width: 576px) {
-    .latestSectionBottomost {
-       margin: 0 8px;
-    }
-    
+    /* 
     .latestSectionTop {
         margin: 0 8px;
+    } */
+    .latestSectionBottomost {
+        margin: 0 16px;
     }
-
+     
     .popularBlogContainer {
         display: none;
     }
@@ -545,9 +568,9 @@
         padding-right: 0;
     }
 
-    .latestVideo:last-of-type {
+    /* .latestVideo:last-of-type {
         padding-left: 0;
-    }
+    } */
 
     .latestBlog {
         flex-flow: column;

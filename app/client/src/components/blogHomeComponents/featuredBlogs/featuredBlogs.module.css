@@ -152,7 +152,7 @@
 
 .featuredCoverDescription, 
 .featuredLargeDescription {
-    font-family: 'PT Serif', serif; 
+    font-family: 'PT Sans', sans-serif; 
     font-size: 18px;
 }
 
@@ -402,12 +402,13 @@
 
 @media(max-width: 576px) {
     .featuredSectionTop {
-        margin: 16px 8px;
+        /* margin: 16px 8px; */
+        margin: 16px;
     }
 
-    .featuredSectionMiddle {
+    /* .featuredSectionMiddle {
         margin: 0 8px;
-    }
+    } */
 
     .featuredCoverContainer {
         flex: 0 0 100%;
@@ -456,7 +457,7 @@
         border-top: 1px solid var(--gray);
     }
 
-    .featuredSmallBottommostContainer {
+    /* .featuredSmallBottommostContainer {
         margin: 0 8px;
-    }
+    } */
 }

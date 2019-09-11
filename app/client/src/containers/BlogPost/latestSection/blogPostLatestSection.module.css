@@ -1,0 +1,231 @@
+.contentWrapper {
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.latestBlogContainer {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 800px;
+    display: flex;
+    flex-flow: column;
+    box-sizing: border-box;
+}
+
+.latestBlogContainer figure {
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.latestBlogContainer figcaption {
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: right;
+    font-family: 'PT Sans', sans-serif;
+    bottom: -1.25em;
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+}
+
+.popularBlogContainer {
+    padding-bottom: 32px;
+}
+
+.latestBlogContainer a,
+.popularBlogContainer a {
+    text-decoration: none;
+}
+
+.sectionSubhead {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--blue);
+    margin-bottom: 16px;
+}
+
+.sectionSubheadTitle {
+    font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
+    text-transform: uppercase;
+    color: var(--black);
+    font-size: 24px;
+}
+
+.sectionSubheadMore {
+    font-family: 'PT Sans', sans-serif;
+    text-transform: uppercase;
+    color: var(--black);
+    font-size: 12px;
+    font-weight: bold;
+    margin: auto 0;
+}
+
+.sectionSubhead a:hover {
+    color: var(--blue);
+}
+
+.latestVideoTitle {
+    font-size: 16px;
+    padding: 16px 0;
+}
+
+/* .latestVideo figure a {
+    display: block;
+    position: relative;
+} */
+
+.playIcon {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+}
+
+.playIcon svg {
+    width: 50px;
+    height: 50px;
+    fill: var(--white);
+    transform: translateY(-50%);
+}
+
+.latestVideoLarge {
+    display: flex;
+    flex-flow: row nowrap;
+    border-bottom: 1px solid var(--gray);
+    margin-bottom: 16px;
+}
+
+.latestVideos1 {
+    flex: 0 0 70%;
+    max-width: 70%;
+    padding-right: 16px;
+    box-sizing: border-box;
+}
+
+.latestVideos2to3 {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.aside {
+    /* flex: 0 0 40%; */
+    /* max-width: 40%; */
+    width: 320px;
+    margin-left: 16px;
+}
+
+.blogPostLatestSideAd {
+    max-height: 620px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding-top: 10px;
+    /* padding: 32px 0; */
+}
+
+.popularSectionSmallMediaContainer {
+    display: none;
+    flex-flow: row nowrap;
+    box-sizing: content-box;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.sideAdSmallMedia {
+    width: 320px;
+    margin-left: 16px;
+}
+
+.popularBlogSmallMediaContainer {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%
+}
+
+.adFullSide {
+    width: 300px;
+    height: 600px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../../assets/art/head-art/ad_ad300X600.png');
+    margin: auto;
+}
+
+.seeAll {
+    width: 100%;
+    text-align: center;
+    font-family: 'PT Sans', sans-serif;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.seeAll a {
+    font-family: 'Fredoka One';
+    font-size: 20px;
+    background: var(--green);
+    padding: 8px 16px;
+    text-transform: capitalize;
+    border-radius: 8px;
+    color: var(--blue);
+}
+
+.seeAll a:hover {
+    background: var(--gray);
+}
+
+@media(max-width: 784px) {
+    .popularSectionSmallMediaContainer {
+        display: flex
+    }
+
+    .aside {
+        display: none;
+    }
+}
+
+@media(max-width: 576px) {
+    .latestVideoLarge {
+        flex-flow: column;
+    }
+
+    .latestVideos1 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-right: 0;
+        box-sizing: border-box;
+    }
+
+    .latestVideos2to3 article {
+        flex: 0 0 50%;
+        max-width: 50%;
+        box-sizing: border-box;
+    }
+
+    .latestVideos2to3 article:last-of-type {
+        padding-left: 8px;
+    }
+
+    .latestVideos2to3 article:first-of-type {
+        padding-right: 8px;
+    }
+    
+    .latestVideos2to3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+    }
+
+    .sideAdSmallMedia {
+        display: none;
+    }
+}

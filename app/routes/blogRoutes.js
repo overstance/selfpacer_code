@@ -267,4 +267,17 @@ module.exports = app => {
       }
     });
   });
+
+  app.get('/api/fetch_more_blog_in_category', (req, res) => {
+    BlogDraft.find(
+      { category: req.query.category, status: 'published' },
+      (err, posts) => {
+        if (err) {
+          res.send({ error: err.message });
+        } else {
+          res.send({ posts: posts });
+        }
+      }
+    );
+  });
 };

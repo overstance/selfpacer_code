@@ -51,7 +51,9 @@ const initialState = {
     blogTags: '',
     tagsId: '',
 
-    authors: []
+    authors: [],
+
+    moreInCategory: []
 }
 
 const fetchBlogPostsStart = ( state, action ) => {
@@ -95,6 +97,12 @@ const fetchBlogPostFail = ( state, action ) => {
     return updateObject( state, {
         fetchBlogPostLoading: false,
         fetchBlogPostError: action.error
+    })
+}
+
+const fetchMoreInCategorySuccess = ( state, action ) => {
+    return updateObject( state, {
+        moreInCategory: action.posts
     })
 }
 
@@ -351,6 +359,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_BLOG_POST_START: return fetchBlogPostStart(state, action);
         case actionTypes.FETCH_BLOG_POST_SUCCESS: return fetchBlogPostSuccess(state, action);
         case actionTypes.FETCH_BLOG_POST_FAIL: return fetchBlogPostFail(state, action);
+
+        case actionTypes.FETCH_MORE_BLOG_IN_CATEGORY_SUCCESS: return fetchMoreInCategorySuccess(state, action);
 
         case actionTypes.UPLOAD_BLOG_IMAGE_START: return uploadBlogImageStart(state, action);
         case actionTypes.UPLOAD_BLOG_IMAGE_SUCCESS: return uploadBlogImageSuccess(state, action);
