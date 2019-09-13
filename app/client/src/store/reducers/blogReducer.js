@@ -53,7 +53,21 @@ const initialState = {
 
     authors: [],
 
-    moreInCategory: []
+    moreInCategory: [],
+
+    comments: {
+        mainComments: [],
+        replies: []
+    },
+
+    commentToReply: {
+        id: null,
+        commentor: null
+    },
+
+    postCommentLoading: false,
+    postCommentError: null,
+    postCommentSuccessMessage: null
 }
 
 const fetchBlogPostsStart = ( state, action ) => {

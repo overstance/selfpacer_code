@@ -1,0 +1,43 @@
+.allCommentsContainer {
+    width: 100%;
+}
+
+.commentContainer {
+    width: 100%;
+}
+
+.repliesContainer {
+    width: 80%;
+}
+
+.commentInfo {
+    display: flex;
+}
+
+.commentor {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.commentor svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--blue);
+}
+
+.commentor span {
+    font-weight: bold;
+}
+
+.date {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.commentText {
+    width: 100%;
+}
+
+.replyButton {
+    font-weight: bold;
+}

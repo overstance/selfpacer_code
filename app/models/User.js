@@ -32,6 +32,10 @@ const userSchema = new Schema({
     type: Array,
     default: []
   },
+  blogSaves: {
+    type: Array,
+    default: []
+  },
   recentlyViewed: {
     type: Array,
     default: []

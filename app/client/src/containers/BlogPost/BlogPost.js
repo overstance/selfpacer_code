@@ -14,6 +14,9 @@ import ShareButtons from './ShareButtons';
 import { TwitterTweetEmbed } from 'react-twitter-embed';
 import MoreInCategory from './moreInCategory/MoreInCategory';
 import LatestSection from './latestSection/LatestSection';
+import Comments from '../../components/blogComment/Comments';
+import Button from '../../components/UserInterface/Button/Button';
+import Input from '../../components/UserInterface/Input/Input';
 
 function sameDay(d1, d2) {
   return d1.getFullYear() === d2.getFullYear() &&
@@ -42,7 +45,23 @@ class BlogPost extends React.Component {
   state = {
     youtubeEmbeds: [],
     twitterEmbeds: [],
-    allPostParagraphs: []
+    allPostParagraphs: [],
+    showCommentSection: false,
+    commentToReply: {
+      id: null,
+      commentor: null
+    },
+    isReplyingComment: false,
+    commentText: {
+        value: '',
+        placeholder: 'enter your comment',
+        validation: {
+            required: true
+        },
+        valid: false,
+        touched: false,
+    },
+    commentFillError: null
   }
 
   /* UNSAFE_componentWillMount() {
@@ -50,7 +69,8 @@ class BlogPost extends React.Component {
   } */
 
   componentWillUnmount() {
-    this.props.onUnsetIsBlogPage()
+    this.props.onUnsetIsBlogPage();
+    this.props.onClearBlogToReply();
   }
 
   componentDidMount() {
@@ -74,7 +94,70 @@ class BlogPost extends React.Component {
       
       this.setState({ youtubeEmbeds: youtubeElementsByClass, twitterEmbeds: twitterElementsByClass, allPostParagraphs: allParagraphElements });
     }
+
+    if (this.props.commentToReply !== prevProps.commentToReply) {
+      this.setState({ commentToReply: this.props.commentToReply, isReplyingComment: true });
+    }
     
+  }
+
+  checkValidity(value, rules) {
+    let isValid = true;
+    if (!rules) {
+        return true;
+    }
+
+    if (rules.required) {
+        isValid = value.trim() !== '' && isValid;
+    }
+
+    return isValid;
+  }
+
+  captureCommentText = (event) => {
+    const updated = {
+        ...this.state.commentText,
+        value: event.target.value,
+        valid: this.checkValidity(event.target.value, this.state.commentText.validation),
+        touched: true
+    }
+    this.setState({ commentText: updated, commentFillError: null});   
+  }
+
+  postComment = (event) => {
+    event.preventDefault();
+
+    if (!this.state.commentText.touched || this.state.commentText.value === '') {
+        const updated = {
+            ...this.state.commentText,
+            touched: true,
+            valid: false
+        }
+
+        this.setState({ fillError: 'comment box empty', commentText: updated });
+    } else {
+      if (this.state.isReplyingComment) {
+        this.props.onPostUserCommentReply(this.state.commentToReply.id, this.props.userId, this.props.userName, this.props.post._id, this.state.commentText.value, this.props.replies);
+        const updated = {
+          ...this.state.commentText,
+          value: '',
+          touched: false
+        }
+        this.setState({ commentText: updated, isReplyingComment: false });
+      } else {
+        this.props.onPostUserComment(this.props.userId, this.props.userName, this.props.post._id, this.state.commentText.value, this.props.comments);
+        const updated = {
+          ...this.state.commentText,
+          value: '',
+          touched: false
+        }
+        this.setState({ commentText: updated});
+      }
+    }   
+  };
+
+  showCommentSection = () => {
+    this.setState({ showCommentSection: true });
   }
 
   render () {
@@ -145,6 +228,15 @@ class BlogPost extends React.Component {
 
       let authorTwitter = twitter.concat(twitterHandle);
       // console.log(authorTwitter);
+
+      let mainCommentCount = this.props.comments.length;
+      let repliesCount = this.props.replies.length;
+      let totalCommentCount = mainCommentCount + repliesCount;
+
+      let formButtonText = 'Post';
+      if(this.props.postCommentLoading) {
+          formButtonText = <Spinner isButton/>;
+      }
       
       blogContent =
       <React.Fragment>
@@ -224,7 +316,67 @@ class BlogPost extends React.Component {
               <div className={classes.adFullSide}/>
             </div>
           </div>
-        </div> 
+        </div>
+        <div className={classes.blogInteraction}>
+          <div className={classes.shareOrSave}>
+            <div className={classes.bottomShareSection}>
+              <ShareButtons 
+              postUrl={postUrl}
+              postTitle={postTitle}
+              iconSize={34}
+              />
+            </div>
+            <div className={classes.saveBlog}></div>
+          </div>
+          <div className={classes.viewOrAddComment}>
+            <div className={classes.commentCount}>
+                {totalCommentCount + ' comments'}
+            </div>
+            {
+              post.comments.length !== 0 ?
+              <div className={classes.addOrViewComment} onclick={this.showCommentSection}>view comments</div>
+              :
+              <div className={classes.addOrViewComment} onclick={this.showCommentSection}>add comments</div>
+            }
+          </div>
+        </div>
+        { this.state.showCommentSection ?
+          <div className={classes.commentSection}>
+            <div className={classes.commentSectionWrapper}>
+              <div className={classes.blogTitle}>
+                {post.title}
+              </div>
+              <div className={classes.comments}>
+                <Comments 
+                  blogId={post._id}
+                />
+              </div>
+              <div className={classes.commentTextInputSection}>
+                { this.state.commentFillError ? <div className={classes.fillError}>{this.state.commentFillError}</div> : null}
+                { this.props.postCommentError ? <div className={classes.fillError}>{this.props.postCommentError}</div> : null}
+                { this.props.postCommentSuccessMessage ? <div className={classes.commentPostSuccess}>{this.props.postCommentSuccessMessage}</div> : null}
+                <form onSubmit={this.postComment}>
+                  <Input 
+                    placeholder={this.state.commentText.placeholder} 
+                    name={this.state.commentText.name}
+                    elementType={'textarea'}
+                    value={this.state.commentText.value}
+                    invalid={!this.state.commentText.valid}
+                    shouldValidate={this.state.commentText.validation}
+                    touched={this.state.commentText.touched}
+                    changed={(event) => this.captureCommentText(event)}
+                  />
+                  { (!this.state.commentText.valid && this.state.commentText.touched) ||
+                    this.state.commentFillError ? 
+                    <Button btnType='Danger' disabled> {formButtonText} </Button> :
+                    <Button btnType='Success'> {formButtonText} </Button>    
+                  }
+                </form>
+              </div>
+            </div>
+          </div>
+          : null
+        } 
       </React.Fragment>
 
     } else if (!this.props.loading && this.props.error) {
@@ -259,7 +411,19 @@ const mapStateToProps = state => {
   return {
     post: state.blog.blogPost,
     loading: state.blog.fetchBlogPostLoading,
-    error: state.blog.fetchBlogPostError
+    error: state.blog.fetchBlogPostError,
+
+    userId: state.auth.user._id,
+    userName: state.auth.user.name,
+    isAuthenticated: state.auth.isAuthenticated,
+
+    comments: state.blog.comments.mainComments,
+    replies: state.blog.comments.replies,
+    commentToReply: state.blog.commentToReply,
+
+    postCommentLoading: false,
+    postCommentError: null,
+    postCommentSuccessMessage: null
   };
 };
 

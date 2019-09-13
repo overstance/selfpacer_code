@@ -54,7 +54,13 @@ const input = (props) => {
 
     return (
         <div className={classes.Input}>
-            <label className={classes.Label}>{props.label}<span>{props.labelspan}</span></label>
+            {props.label ?
+                <label className={classes.Label}>
+                    {props.label}<span>{props.labelspan}</span>
+                </label>
+                :
+                null
+            }
             {inputElement}
             <div className={classes.ValidationErrors}>{props.errorMessage}</div>
         </div>
