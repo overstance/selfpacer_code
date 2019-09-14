@@ -55,16 +55,17 @@ const initialState = {
 
     moreInCategory: [],
 
-    comments: {
-        mainComments: [],
-        replies: []
-    },
+    fetchBlogCommentsLoading: false,
+    fetchBlogCommentsError: null, 
+    mainComments: [],
+    replies: [],
 
-    commentToReply: {
-        id: null,
-        commentor: null
-    },
+    commentToReplyId: null,
+    commentToReplyCommentor: null,
+    commentToReplyText: null,
+    isReplyingComment: false,
 
+    postedComment: null,
     postCommentLoading: false,
     postCommentError: null,
     postCommentSuccessMessage: null
@@ -363,6 +364,107 @@ const fetchFeaturedBlogsSuccess = ( state, action ) => {
     })
 }
 
+// fetch blog comments
+
+const fetchBlogCommentsStart = ( state, action ) => {
+    return updateObject( state, {
+        fetchBlogCommentsLoading: true,
+        fetchBlogCommentsError: null
+    })
+}
+
+const fetchBlogCommentsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        fetchBlogCommentsLoading: false,
+        mainComments: action.mainComments,
+        replies: action.replies
+    })
+}
+
+const fetchBlogCommentsFail = ( state, action ) => {
+    return updateObject( state, {
+        fetchBlogCommentsLoading: false,
+        fetchBlogCommentsError: action.error
+    })
+}
+
+// post blog comment
+
+const postUserCommentStart = ( state, action ) => {
+    return updateObject( state, {
+        postCommentLoading: true,
+        postCommentError: null
+    })
+}
+
+const postUserCommentSuccess = ( state, action ) => {
+    return updateObject( state, {
+        postCommentLoading: false,
+        mainComments: action.updatedComments,
+        postedComment: action.newCommentText,
+        postCommentSuccessMessage: 'comment posted'
+    })
+}
+
+const postUserCommentFail = ( state, action ) => {
+    return updateObject( state, {
+        postCommentLoading: false,
+        postCommentError: action.error
+    })
+}
+
+// post blog comment reply
+
+const replyingComment = ( state, action ) => {
+    return updateObject( state, {
+        commentToReplyId: action.commentId,
+        commentToReplyCommentor: action.commentor,
+        commentToReplyText: action.commentText,
+        isReplyingComment: true,
+    })
+}
+
+const postUserCommentReplyStart = ( state, action ) => {
+    return updateObject( state, {
+        postCommentLoading: true,
+        postCommentError: null
+    })
+}
+
+const postUserCommentReplySuccess = ( state, action ) => {
+    return updateObject( state, {
+        postCommentLoading: false,
+        replies: action.updatedReplies,
+        postedComment: action.newCommentText,
+        postCommentSuccessMessage: 'comment posted',
+        commentToReplyId: null,
+        commentToReplyCommentor: null,
+        commentToReplyText: null,
+        isReplyingComment: false,
+    })
+}
+
+const postUserCommentReplyFail = ( state, action ) => {
+    return updateObject( state, {
+        postCommentLoading: false,
+        postCommentError: action.error,/* 
+        commentToReplyId: null,
+        commentToReplyCommentor: null,
+        commentToReplyText: null,
+        isReplyingComment: false, */
+    })
+}
+
+// clear blog comment messages
+
+const clearBlogCommentMessages = ( state, action ) => {
+    return updateObject( state, {
+        postCommentError: null,
+        postCommentSuccessMessage: null,
+        fetchBlogCommentsError: null
+    })
+}
+
 
 const reducer = ( state = initialState, action ) => {
     switch (action.type) {
@@ -418,6 +520,21 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_AUTHORS_SUCCESS: return fetchAuthorsSuccess(state, action);
 
         case actionTypes.FETCH_FEATURED_BLOGS_SUCCESS: return fetchFeaturedBlogsSuccess(state, action);
+
+        case actionTypes.FETCH_BLOG_COMMENT_START: return fetchBlogCommentsStart(state, action);
+        case actionTypes.FETCH_BLOG_COMMENT_SUCCESS: return fetchBlogCommentsSuccess(state, action);
+        case actionTypes.FETCH_BLOG_COMMENT_FAIL: return fetchBlogCommentsFail(state, action);
+
+        case actionTypes.POST_USER_COMMENT_START: return postUserCommentStart(state, action);
+        case actionTypes.POST_USER_COMMENT_SUCCESS: return postUserCommentSuccess(state, action);
+        case actionTypes.POST_USER_COMMENT_FAIL: return postUserCommentFail(state, action);
+
+        case actionTypes.REPLYING_COMMENT: return replyingComment(state, action);
+        case actionTypes.POST_USER_COMMENT_REPLY_START: return postUserCommentReplyStart(state, action);
+        case actionTypes.POST_USER_COMMENT_REPLY_SUCCESS: return postUserCommentReplySuccess(state, action);
+        case actionTypes.POST_USER_COMMENT_REPLY_FAIL: return postUserCommentReplyFail(state, action);
+
+        case actionTypes.CLEAR_BLOG_COMMENT_MESSAGES: return clearBlogCommentMessages(state, action);
 
         default: return state;
     }

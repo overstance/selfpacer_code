@@ -151,7 +151,12 @@ export {
     fetchBlogCategories,
     fetchBlogTags,
     fetchAuthors,
-    fetchFeaturedBlogs
+    fetchFeaturedBlogs,
+    fetchBlogComments,
+    postUserComment,
+    postUserCommentReply,
+    clearBlogCommentMessages,
+    replyingComment
 } from './blog'
 
 

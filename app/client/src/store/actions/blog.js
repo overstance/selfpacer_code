@@ -561,3 +561,142 @@ export const fetchFeaturedBlogs = () => async dispatch => {
     } 
 }
 
+// fetch blog comments
+
+export const fetchBlogCommentsStart = () => {
+    return {
+        type: actionTypes.FETCH_BLOG_COMMENT_START
+    }
+}
+
+export const fetchBlogCommentsSuccess = (mainComments, replies) => {
+    return {
+        type: actionTypes.FETCH_BLOG_COMMENT_SUCCESS,
+        mainComments: mainComments,
+        replies: replies
+    }
+}
+
+export const fetchBlogCommentsFail = (error) => {
+    return {
+        type: actionTypes.FETCH_BLOG_COMMENT_FAIL,
+        error: error
+    }
+}
+
+export const fetchBlogComments = (blogId) => async dispatch => {
+    dispatch(fetchBlogCommentsStart());
+    // console.log(blogId);
+
+    const res = await axios.get('/api/fetch_blog_comments', { params:{ blogId: blogId} });
+    
+    if (res.data.comments) {
+        
+        let mainComments = res.data.comments.filter(comment => comment.type === 'mainComment').sort((a,b) => new Date(b.commentDate) - new Date(a.commentDate));
+        let replies = res.data.comments.filter(comment => comment.type === 'reply');
+        // console.log(res.data.comments, mainComments, replies)
+        dispatch(fetchBlogCommentsSuccess(mainComments, replies))
+    } else if (res.data.error) {
+        dispatch(fetchBlogCommentsFail(res.data.error));
+    }  
+}
+
+// post user comment
+
+export const postUserCommentStart = () => {
+    return {
+        type: actionTypes.POST_USER_COMMENT_START
+    }
+}
+
+export const postUserCommentSuccess = (updatedComments, newCommentText) => {
+    return {
+        type: actionTypes.POST_USER_COMMENT_SUCCESS,
+        updatedComments: updatedComments,
+        newCommentText: newCommentText
+    }
+}
+
+export const postUserCommentFail = (error) => {
+    return {
+        type: actionTypes.POST_USER_COMMENT_FAIL,
+        error: error
+    }
+}
+
+export const postUserComment = (userId, userName, blogId, commentText, comments) => async dispatch => {
+    dispatch(postUserCommentStart());
+    // console.log(userId, userName, blogId, commentText, comments);
+
+    const res = await axios.post('/api/post_user_comments', { userId: userId, userName: userName, blogId: blogId, commentText: commentText });
+    
+    if (res.data.comment) {
+        // console.log(res.data.comment);
+        let updatedComments = [res.data.comment, ...comments];
+        // updatedComments.unshift(res.data.comment);
+        // updatedComments.unshift(res.data.comment);
+        // console.log(updatedComments);
+        dispatch(postUserCommentSuccess(updatedComments, res.data.comment.commentText))
+        
+    } else if (res.data.error) {
+        dispatch(postUserCommentFail(res.data.error));
+    }  
+}
+
+// post user comment reply
+
+export const replyingComment = (commentId, commentor, commentText) => {
+    return {
+        type: actionTypes.REPLYING_COMMENT,
+        commentId: commentId,
+        commentor: commentor,
+        commentText: commentText
+    }
+}
+
+export const postUserCommentReplyStart = () => {
+    return {
+        type: actionTypes.POST_USER_COMMENT_REPLY_START
+    }
+}
+
+export const postUserCommentReplySuccess = (updatedReplies, newCommentText) => {
+    return {
+        type: actionTypes.POST_USER_COMMENT_REPLY_SUCCESS,
+        updatedReplies: updatedReplies,
+        newCommentText: newCommentText
+    }
+}
+
+export const postUserCommentReplyFail = (error) => {
+    return {
+        type: actionTypes.POST_USER_COMMENT_REPLY_FAIL,
+        error: error
+    }
+}
+
+export const postUserCommentReply = (commentToReplyId, userId, userName, blogId, commentText, replies) => async dispatch => {
+    dispatch(postUserCommentReplyStart());
+    // console.log(commentToReplyId, userId, userName, blogId, commentText, replies);
+
+    const res = await axios.post('/api/post_user_comments_reply', { parentComment: commentToReplyId, userId: userId, userName: userName, blogId: blogId, commentText: commentText });
+    
+    if (res.data.reply) {
+        // console.log(res.data.reply);
+        let updatedReplies = [res.data.reply, ...replies];
+        // updatedReplies.push(res.data.reply);
+
+        dispatch(postUserCommentReplySuccess(updatedReplies, res.data.reply.commentText))
+    } else if (res.data.error) {
+        dispatch(postUserCommentReplyFail(res.data.error));
+    }  
+}
+
+//  clear blog comment messages
+
+export const clearBlogCommentMessages = () => {
+    return {
+        type: actionTypes.CLEAR_BLOG_COMMENT_MESSAGES
+    }
+}
+

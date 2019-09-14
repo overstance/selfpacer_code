@@ -8,10 +8,10 @@ const commentSchema = new Schema({
   commentText: String,
   displayDate: String,
   type: String,
-  commentor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  commentor: String,
   commentorName: String,
-  parentBlog: { type: mongoose.Schema.Types.ObjectId, ref: 'BlogDraft' },
-  parentComment: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }
+  parentBlog: String,
+  parentComment: String
   /* replies: {
     type: Array,
     default: []

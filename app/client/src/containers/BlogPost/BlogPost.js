@@ -15,8 +15,8 @@ import { TwitterTweetEmbed } from 'react-twitter-embed';
 import MoreInCategory from './moreInCategory/MoreInCategory';
 import LatestSection from './latestSection/LatestSection';
 import Comments from '../../components/blogComment/Comments';
-import Button from '../../components/UserInterface/Button/Button';
-import Input from '../../components/UserInterface/Input/Input';
+// import Button from '../../components/UserInterface/Button/Button';
+// import Input from '../../components/UserInterface/Input/Input';
 
 function sameDay(d1, d2) {
   return d1.getFullYear() === d2.getFullYear() &&
@@ -46,22 +46,7 @@ class BlogPost extends React.Component {
     youtubeEmbeds: [],
     twitterEmbeds: [],
     allPostParagraphs: [],
-    showCommentSection: false,
-    commentToReply: {
-      id: null,
-      commentor: null
-    },
-    isReplyingComment: false,
-    commentText: {
-        value: '',
-        placeholder: 'enter your comment',
-        validation: {
-            required: true
-        },
-        valid: false,
-        touched: false,
-    },
-    commentFillError: null
+    showCommentSection: false
   }
 
   /* UNSAFE_componentWillMount() {
@@ -70,7 +55,7 @@ class BlogPost extends React.Component {
 
   componentWillUnmount() {
     this.props.onUnsetIsBlogPage();
-    this.props.onClearBlogToReply();
+    // this.props.onClearBlogToReply();
   }
 
   componentDidMount() {
@@ -91,17 +76,17 @@ class BlogPost extends React.Component {
       let twitterElementsByClass = PostBody.getElementsByClassName('twitterEmbed');
       let allParagraphElements = PostBody.getElementsByTagName('p');
 
-      
+      this.props.onFetchBlogComments(this.props.post._id);
       this.setState({ youtubeEmbeds: youtubeElementsByClass, twitterEmbeds: twitterElementsByClass, allPostParagraphs: allParagraphElements });
     }
 
-    if (this.props.commentToReply !== prevProps.commentToReply) {
+    /* if (this.props.commentToReply !== prevProps.commentToReply) {
       this.setState({ commentToReply: this.props.commentToReply, isReplyingComment: true });
-    }
+    } */
     
   }
 
-  checkValidity(value, rules) {
+  /* checkValidity(value, rules) {
     let isValid = true;
     if (!rules) {
         return true;
@@ -154,10 +139,14 @@ class BlogPost extends React.Component {
         this.setState({ commentText: updated});
       }
     }   
-  };
+  }; */
 
   showCommentSection = () => {
     this.setState({ showCommentSection: true });
+  }
+
+  closeCommentSection = () => {
+    this.setState({ showCommentSection: false });
   }
 
   render () {
@@ -233,10 +222,10 @@ class BlogPost extends React.Component {
       let repliesCount = this.props.replies.length;
       let totalCommentCount = mainCommentCount + repliesCount;
 
-      let formButtonText = 'Post';
+      /* let formButtonText = 'Post';
       if(this.props.postCommentLoading) {
           formButtonText = <Spinner isButton/>;
-      }
+      } */
       
       blogContent =
       <React.Fragment>
@@ -318,63 +307,36 @@ class BlogPost extends React.Component {
           </div>
         </div>
         <div className={classes.blogInteraction}>
-          <div className={classes.shareOrSave}>
-            <div className={classes.bottomShareSection}>
-              <ShareButtons 
-              postUrl={postUrl}
-              postTitle={postTitle}
-              iconSize={34}
-              />
-            </div>
-            <div className={classes.saveBlog}></div>
+          <div className={classes.bottomShareSection}>
+            <ShareButtons 
+            postUrl={postUrl}
+            postTitle={postTitle}
+            iconSize={48}
+            />
           </div>
-          <div className={classes.viewOrAddComment}>
-            <div className={classes.commentCount}>
-                {totalCommentCount + ' comments'}
+          <div className={classes.commentOrSave}>  
+            <div className={classes.saveBlog}>
+              <span>save</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                <path d="M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z"/>
+              </svg>
             </div>
             {
-              post.comments.length !== 0 ?
-              <div className={classes.addOrViewComment} onclick={this.showCommentSection}>view comments</div>
+              totalCommentCount !== 0 ?
+              <div className={classes.addOrViewComment} onClick={this.showCommentSection}>view comments<span>{'( ' + totalCommentCount + ' )'}</span></div>
               :
-              <div className={classes.addOrViewComment} onclick={this.showCommentSection}>add comments</div>
+              <div className={classes.addOrViewComment} onClick={this.showCommentSection}>add comments</div>
             }
           </div>
+         
         </div>
         { this.state.showCommentSection ?
-          <div className={classes.commentSection}>
-            <div className={classes.commentSectionWrapper}>
-              <div className={classes.blogTitle}>
-                {post.title}
-              </div>
-              <div className={classes.comments}>
-                <Comments 
-                  blogId={post._id}
-                />
-              </div>
-              <div className={classes.commentTextInputSection}>
-                { this.state.commentFillError ? <div className={classes.fillError}>{this.state.commentFillError}</div> : null}
-                { this.props.postCommentError ? <div className={classes.fillError}>{this.props.postCommentError}</div> : null}
-                { this.props.postCommentSuccessMessage ? <div className={classes.commentPostSuccess}>{this.props.postCommentSuccessMessage}</div> : null}
-                <form onSubmit={this.postComment}>
-                  <Input 
-                    placeholder={this.state.commentText.placeholder} 
-                    name={this.state.commentText.name}
-                    elementType={'textarea'}
-                    value={this.state.commentText.value}
-                    invalid={!this.state.commentText.valid}
-                    shouldValidate={this.state.commentText.validation}
-                    touched={this.state.commentText.touched}
-                    changed={(event) => this.captureCommentText(event)}
-                  />
-                  { (!this.state.commentText.valid && this.state.commentText.touched) ||
-                    this.state.commentFillError ? 
-                    <Button btnType='Danger' disabled> {formButtonText} </Button> :
-                    <Button btnType='Success'> {formButtonText} </Button>    
-                  }
-                </form>
-              </div>
-            </div>
-          </div>
+          < Comments 
+            closeCommentsClicked={this.closeCommentSection}
+            blogId={post._id}
+            blogTitle={post.title}
+            showComments={this.state.showCommentSection}
+          />
           : null
         } 
       </React.Fragment>
@@ -413,22 +375,22 @@ const mapStateToProps = state => {
     loading: state.blog.fetchBlogPostLoading,
     error: state.blog.fetchBlogPostError,
 
-    userId: state.auth.user._id,
+    comments: state.blog.mainComments,
+    replies: state.blog.replies,
+
+    /* userId: state.auth.user._id,
     userName: state.auth.user.name,
     isAuthenticated: state.auth.isAuthenticated,
 
-    comments: state.blog.comments.mainComments,
-    replies: state.blog.comments.replies,
-    commentToReply: state.blog.commentToReply,
-
     postCommentLoading: false,
     postCommentError: null,
-    postCommentSuccessMessage: null
+    postCommentSuccessMessage: null */
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    onFetchBlogComments: (blogId) => dispatch(actions.fetchBlogComments(blogId)),
     onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
     onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
     onFetchBlogPost: (year, month, day, slug) => dispatch(actions.fetchBlogPost(year, month, day, slug))

@@ -52,10 +52,6 @@ const blogDraftSchema = new Schema({
   views: {
     type: Number,
     default: 0
-  },
-  comments: {
-    type: Array,
-    default: []
   }
 });
 

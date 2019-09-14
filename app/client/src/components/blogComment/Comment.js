@@ -7,30 +7,52 @@ import { connect } from 'react-redux';
 
 class Comment extends Component {
 
-    state = {
-        replies: []
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            replies: []
+        };
+    }
+
+    componentDidMount() {
+        let allReplies = this.props.replies;
+        let replies = allReplies.filter(reply => reply.parentComment === this.props.commentId);
+        // let repliesSortedDescending = replies.sort((a,b) => new Date(b.commentDate) - new Date(a.commentDate));
+
+        this.setState({ replies: replies });
+    }
 
     componentDidUpdate(prevProps) {
         if(this.props.replies !== prevProps.replies) {
+            
             let allReplies = this.props.replies;
             let replies = allReplies.filter(reply => reply.parentComment === this.props.commentId);
             let repliesSortedDescending = replies.sort((a,b) => new Date(b.commentDate) - new Date(a.commentDate));
-
+            // console.log(allReplies, replies);
             this.setState({ replies: repliesSortedDescending });
         }
     }
 
     render () {
-
-        let commentReplies = this.state.replies.map((reply, i) => (
-            <Reply 
-            key={i}
-            commentor={reply.commentorName}
-            displayDate={reply.displayDate}
-            commentText={reply.commentText}
-            />
-        ));
+        let commentReplies = null;
+         if (this.state.replies.length !== 0 ) {   
+            /* commentReplies = this.state.replies.map((reply, i) => (
+                <Reply 
+                key={i}
+                commentor={reply.commentorName}
+                displayDate={reply.displayDate}
+                commentText={reply.commentText}
+                />
+            )); */
+            commentReplies = this.props.replies.filter(reply => reply.parentComment === this.props.commentId).map((reply, i) => (
+                <Reply 
+                key={i}
+                commentor={reply.commentorName}
+                displayDate={reply.displayDate}
+                commentText={reply.commentText}
+                />
+            ));
+         }
 
         return(
             <div className={classes.commentContainer}>
@@ -61,8 +83,9 @@ class Comment extends Component {
 
 const mapStateToProps = state => {
     return {
-        comments: state.blog.comments.mainComments,
-        replies: state.blog.comments.replies
+        comments: state.blog.mainComments,
+        replies: state.blog.replies,
+        isReplyingComment: state.blog.isReplyingComment,
     };
 };/* 
   

@@ -6,6 +6,8 @@ const BlogDraft = require('../models/BlogDraft');
 const BlogCategory = require('../models/BlogCategory');
 const BlogTag = require('../models/BlogTag');
 
+const Comment = require('../models/Comment');
+
 module.exports = app => {
   app.get('/api/blog_posts', async (req, res) => {
     const response = await butter.post.list({ page: 1, page_size: 10 });
@@ -279,5 +281,114 @@ module.exports = app => {
         }
       }
     );
+  });
+
+  app.get('/api/fetch_blog_comments', (req, res) => {
+    Comment.find({ parentBlog: req.query.blogId }, (err, comments) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send({ comments: comments });
+      }
+    });
+  });
+
+  app.post('/api/post_user_comments', (req, res) => {
+    function fixDigit(val) {
+      return val.toString().length === 1 ? '0' + val : val.toString();
+    }
+
+    function formatAMPM(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+      return strTime;
+    }
+
+    let date = new Date();
+    // console.log(now.getFullYear());
+    let year = date.getFullYear().toString();
+
+    let day = fixDigit(date.getDate());
+
+    postTime = formatAMPM(date);
+
+    var options = { month: 'long' };
+    let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(date);
+
+    let displayDate =
+      monthInLetter + ' ' + day + ', ' + year + ' - ' + postTime;
+
+    let newComment = {
+      commentDate: new Date(),
+      commentText: req.body.commentText,
+      displayDate: displayDate,
+      type: 'mainComment',
+      commentor: req.body.userId,
+      commentorName: req.body.userName,
+      parentBlog: req.body.blogId
+    };
+
+    Comment.create(newComment, (err, comment) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send({ comment: comment });
+      }
+    });
+  });
+
+  app.post('/api/post_user_comments_reply', (req, res) => {
+    function fixDigit(val) {
+      return val.toString().length === 1 ? '0' + val : val.toString();
+    }
+
+    function formatAMPM(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+      return strTime;
+    }
+
+    let date = new Date();
+    // console.log(now.getFullYear());
+    let year = date.getFullYear().toString();
+
+    let day = fixDigit(date.getDate());
+
+    postTime = formatAMPM(date);
+
+    var options = { month: 'long' };
+    let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(date);
+
+    let displayDate =
+      monthInLetter + ' ' + day + ', ' + year + ' - ' + postTime;
+
+    let newComment = {
+      commentDate: new Date(),
+      commentText: req.body.commentText,
+      displayDate: displayDate,
+      type: 'reply',
+      commentor: req.body.userId,
+      commentorName: req.body.userName,
+      parentBlog: req.body.blogId,
+      parentComment: req.body.parentComment
+    };
+
+    Comment.create(newComment, (err, reply) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send({ reply: reply });
+      }
+    });
   });
 };

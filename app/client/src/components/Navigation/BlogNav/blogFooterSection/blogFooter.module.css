@@ -21,7 +21,7 @@
 }
 
 .sectionTitle {
-    font-family: 'Squada One', cursive;
+    font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
     text-transform: uppercase;
     color: var(--blue);
     font-size: 24px;
