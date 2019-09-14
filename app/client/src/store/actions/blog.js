@@ -609,11 +609,11 @@ export const postUserCommentStart = () => {
     }
 }
 
-export const postUserCommentSuccess = (updatedComments, newCommentText) => {
+export const postUserCommentSuccess = (updatedComments, newCommentId) => {
     return {
         type: actionTypes.POST_USER_COMMENT_SUCCESS,
         updatedComments: updatedComments,
-        newCommentText: newCommentText
+        newCommentId: newCommentId
     }
 }
 
@@ -636,7 +636,7 @@ export const postUserComment = (userId, userName, blogId, commentText, comments)
         // updatedComments.unshift(res.data.comment);
         // updatedComments.unshift(res.data.comment);
         // console.log(updatedComments);
-        dispatch(postUserCommentSuccess(updatedComments, res.data.comment.commentText))
+        dispatch(postUserCommentSuccess(updatedComments, res.data.comment._id))
         
     } else if (res.data.error) {
         dispatch(postUserCommentFail(res.data.error));
@@ -644,6 +644,12 @@ export const postUserComment = (userId, userName, blogId, commentText, comments)
 }
 
 // post user comment reply
+
+export const cancelReply = () => {
+    return {
+        type: actionTypes.CANCEL_REPLY_COMMENT
+    }
+}
 
 export const replyingComment = (commentId, commentor, commentText) => {
     return {
@@ -660,11 +666,11 @@ export const postUserCommentReplyStart = () => {
     }
 }
 
-export const postUserCommentReplySuccess = (updatedReplies, newCommentText) => {
+export const postUserCommentReplySuccess = (updatedReplies, newCommentId) => {
     return {
         type: actionTypes.POST_USER_COMMENT_REPLY_SUCCESS,
         updatedReplies: updatedReplies,
-        newCommentText: newCommentText
+        newCommentId: newCommentId
     }
 }
 
@@ -683,10 +689,10 @@ export const postUserCommentReply = (commentToReplyId, userId, userName, blogId,
     
     if (res.data.reply) {
         // console.log(res.data.reply);
-        let updatedReplies = [res.data.reply, ...replies];
+        let updatedReplies = [...replies, res.data.reply];
         // updatedReplies.push(res.data.reply);
 
-        dispatch(postUserCommentReplySuccess(updatedReplies, res.data.reply.commentText))
+        dispatch(postUserCommentReplySuccess(updatedReplies, res.data.reply._id))
     } else if (res.data.error) {
         dispatch(postUserCommentReplyFail(res.data.error));
     }  

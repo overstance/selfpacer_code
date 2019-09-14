@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import classes from './comment.module.css';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
-import Comment from './Comment';
+import { Link } from 'react-router-dom';
+import Comment from './comment';
 import Button from '../../components/UserInterface/Button/Button';
-// import Input from '../../components/UserInterface/Input/Input';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 
 class Comments extends Component {
@@ -19,26 +19,14 @@ class Comments extends Component {
         this.textInput.current.focus();
     }
 
-    state = {    
-        /* commentToReplyId: null,
-        commentToReplyCommentor: null,
-        commentToReplyText: null,
-        isReplyingComment: false, */
+    state = {
         commentText: '',
         commentFillError: null,
-        // comments: [],
     }
-
-    /* componentDidMount() {
-        // this.props.onFetchBlogComments(this.props.blogId);
-        this.setState({ comments: this.props.comments});
-    } */
 
     componentDidUpdate(prevProps) {
         if(this.props.postedComment !== prevProps.postedComment && this.props.postCommentSuccessMessage) {
             this.setState({ commentText: ''});
-            // console.log(this.props.currentBlogComments, prevProps.currentBlogComments);
-            // this.setState({ comments: this.props.currentBlogComments});
         }
     }
 
@@ -49,75 +37,42 @@ class Comments extends Component {
 
     replyingComment = (commentId, commentor, commentText) => {
         this.props.onReplyingComment(commentId, commentor, commentText);
-        // this.setState({ commentToReplyId: commentId, commentToReplyCommentor: commentor, commentToReplyText: commentText, isReplyingComment: true });
         this.focus();
     }
-
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        }
     
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-    
-        return isValid;
-    }
-    
-      captureCommentText = (event) => {
-        /* const updated = {
-            ...this.state.commentText,
-            value: event.target.value,
-            valid: this.checkValidity(event.target.value, this.state.commentText.validation),
-            touched: true
-        } */
+    captureCommentText = (event) => {
         this.setState({ commentText: event.target.value, commentFillError: null});   
-      }
-    
-      postComment = (event) => {
+        }
+
+        postComment = (event) => {
         event.preventDefault();
-    
-        if (/* !this.state.commentText.touched || */ this.state.commentText === '') {
-           /*  const updated = {
-                ...this.state.commentText,
-                touched: true,
-                valid: false
-            } */
-    
-            this.setState({ fillError: 'comment box empty'/* , commentText: updated */ });
+
+        if (this.state.commentText === '') {
+
+            this.setState({ fillError: 'comment box empty' });
+        
         } else {
-          if (this.props.isReplyingComment) {
-              console.log(this.props.isReplyingComment, this.props.commentToReplyText)
-            this.props.onPostUserCommentReply(
-                this.props.commentToReplyId,
-                this.props.userId, 
-                this.props.userName, 
-                this.props.blogId, 
-                this.state.commentText, 
-                this.props.currentBlogReplies
-            );
-            /* const updated = {
-              ...this.state.commentText,
-              value: '',
-              touched: false
-            } */
-            // console.log(this.state.commentToReplyText);
-            // this.setState({ commentText: '', isReplyingComment: false, commentToReplyId: null, commentToReplyCommentor: null }, () =>{console.log(this.state.commentToReplyText)});
-          } else {
-            console.log(this.props.isReplyingComment, this.props.commentToReplyText)
-            this.props.onPostUserComment(this.props.userId, this.props.userName, this.props.blogId, this.state.commentText, this.props.currentBlogComments);
-            /* const updated = {
-              ...this.state.commentText,
-              value: '',
-              touched: false
-            } */
-            // console.log(this.state.commentToReplyText);
-            // this.setState({ commentText: '', isReplyingComment: false, commentToReplyId: null, commentToReplyCommentor: null}, () =>{console.log(this.state.commentToReplyText)});
-          }
+            if (this.props.isReplyingComment) {
+                console.log(this.props.isReplyingComment, this.props.commentToReplyText)
+                this.props.onPostUserCommentReply(
+                    this.props.commentToReplyId,
+                    this.props.userId, 
+                    this.props.userName, 
+                    this.props.blogId, 
+                    this.state.commentText, 
+                    this.props.currentBlogReplies
+                );
+            } else {
+                console.log(this.props.isReplyingComment, this.props.commentToReplyText)
+                this.props.onPostUserComment(this.props.userId, this.props.userName, this.props.blogId, this.state.commentText, this.props.currentBlogComments);
+            }
         }   
-      };
+    };
+
+    cancelReply = () => {
+        this.props.onCancelReply();
+        this.setState({ commentText: ''});
+    }
 
     render() {
 
@@ -157,11 +112,23 @@ class Comments extends Component {
         }
 
         let currentBlogTitle = this.props.blogTitle;
-        if(currentBlogTitle.length > 30) {
+        
+        if(currentBlogTitle.length > 60) {
             let elipses = '...';
-            let shortenedTitle = currentBlogTitle.slice(0, 30);
+            let shortenedTitle = currentBlogTitle.slice(0, 60);
 
             currentBlogTitle = shortenedTitle.concat(elipses)
+        }
+
+        let commentToReplyInfo = null;
+
+        if (this.props.isReplyingComment) {
+            commentToReplyInfo = 
+            <span>
+                <button onClick={this.cancelReply}>cancel</button>
+                replying...
+                <strong>{this.props.commentToReplyCommentor}</strong>
+            </span>
         }
 
         return(
@@ -172,8 +139,7 @@ class Comments extends Component {
                 onClick={this.props.closeCommentsClicked}
                 />    
                 <div
-                    className={attachedClasses.join(' ')}       
-                    // show={this.props.show}
+                    className={attachedClasses.join(' ')}
                 >
                     <div className={classes.headerWrapper}>
                         <div className={classes.commentSectionHeader}>
@@ -184,32 +150,43 @@ class Comments extends Component {
                             </span>
                             <div>Comments</div>
                         </div>
-                        <div className={classes.blogTitle}>
-                            {currentBlogTitle}
-                        </div>  
-                        { this.state.commentFillError ? <div className={classes.fillError}>{this.state.commentFillError}</div> : null}
-                        { this.props.postCommentError ? <div className={classes.fillError}>{this.props.postCommentError}</div> : null}
-                        { this.props.postCommentSuccessMessage ? <div className={classes.commentPostSuccess}>{this.props.postCommentSuccessMessage}</div> : null} 
-                        <div className={classes.commentTextInputSection}>
-                            <form onSubmit={this.postComment}>
-                                <textarea 
-                                    ref={this.textInput}
-                                    placeholder="enter your comment"
-                                    className={classes.commentInput}
-                                    value={this.state.commentText} 
-                                    onChange={this.captureCommentText}
-                                />
-                                { this.state.commentText === '' || this.state.commentFillError ? 
-                                    <Button btnType='Danger' disabled> {formButtonText} </Button> :
-                                    <Button btnType='Success'> {formButtonText} </Button>    
-                                }
-                            </form>
+                        { this.props.isAuthenticated && this.props.userId ?   
+                            <div className={classes.commentTextInputSection}>
+                                <form onSubmit={this.postComment}>
+                                    <textarea 
+                                        ref={this.textInput}
+                                        placeholder="enter your comment"
+                                        className={classes.commentInput}
+                                        value={this.state.commentText} 
+                                        onChange={this.captureCommentText}
+                                    />
+                                    { this.state.commentText === '' || this.state.commentFillError ? 
+                                        <Button btnType='Danger' disabled> {formButtonText} </Button> :
+                                        <Button btnType='Success'> {formButtonText} </Button>    
+                                    }
+                                </form>
+                            </div>
+                            :
+                            <div className={classes.commentAuthRequiredSection}>
+                                <Link to='/login'>log in to comment</Link>
+                            </div>
+                        }
+                        <div className={classes.replyingBlog}>
+                            {commentToReplyInfo}
+                        </div>
+                        <div className={classes.formFeedBack}> 
+                            { this.state.commentFillError ? <span className={classes.fillError}>{this.state.commentFillError}</span> : null}
+                            { this.props.postCommentError ? <span className={classes.fillError}>{this.props.postCommentError}</span> : null}
+                            { this.props.postCommentSuccessMessage ? <span className={classes.commentPostSuccess}>{this.props.postCommentSuccessMessage}</span> : null} 
                         </div>
                     </div>
                     <div className={classes.commentSectionWrapper}>  
                         <div className={classes.comments}>        
                             {comments}
-                        </div>
+                        </div>   
+                    </div>
+                    <div className={classes.blogTitle}>
+                        {currentBlogTitle}
                     </div>
                 </div>
             </React.Fragment>
@@ -233,7 +210,7 @@ const mapStateToProps = state => {
         commentToReplyText: state.blog.commentToReplyText,
         isReplyingComment: state.blog.isReplyingComment,
 
-        postedComment: state.blog.postedComment,
+        postedComment: state.blog.postedCommentId,
         postCommentLoading: state.blog.postCommentLoading,
         postCommentError: state.blog.postCommentError,
         postCommentSuccessMessage: state.blog.postCommentSuccessMessage
@@ -242,6 +219,7 @@ const mapStateToProps = state => {
   
 const mapDispatchToProps = dispatch => {
     return {
+        onCancelReply: () => dispatch(actions.cancelReply()),
         onFetchBlogComments: (blogId) => dispatch(actions.fetchBlogComments(blogId)),
         onPostUserComment: (userId, userName, blogId, commentText, comments) => dispatch(actions.postUserComment(userId, userName, blogId, commentText, comments)),
         onReplyingComment: (commentId, commentor, commentText) => dispatch(actions.replyingComment(commentId, commentor, commentText)),

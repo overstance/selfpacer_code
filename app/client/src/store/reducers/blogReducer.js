@@ -65,7 +65,7 @@ const initialState = {
     commentToReplyText: null,
     isReplyingComment: false,
 
-    postedComment: null,
+    postedCommentId: null,
     postCommentLoading: false,
     postCommentError: null,
     postCommentSuccessMessage: null
@@ -401,7 +401,7 @@ const postUserCommentSuccess = ( state, action ) => {
     return updateObject( state, {
         postCommentLoading: false,
         mainComments: action.updatedComments,
-        postedComment: action.newCommentText,
+        postedCommentId: action.newCommentId,
         postCommentSuccessMessage: 'comment posted'
     })
 }
@@ -414,6 +414,15 @@ const postUserCommentFail = ( state, action ) => {
 }
 
 // post blog comment reply
+
+const cancelReply = ( state, action ) => {
+    return updateObject( state, {
+        commentToReplyId: null,
+        commentToReplyCommentor: null,
+        commentToReplyText: null,
+        isReplyingComment: false,
+    })
+}
 
 const replyingComment = ( state, action ) => {
     return updateObject( state, {
@@ -435,7 +444,7 @@ const postUserCommentReplySuccess = ( state, action ) => {
     return updateObject( state, {
         postCommentLoading: false,
         replies: action.updatedReplies,
-        postedComment: action.newCommentText,
+        postedCommentId: action.newCommentId,
         postCommentSuccessMessage: 'comment posted',
         commentToReplyId: null,
         commentToReplyCommentor: null,
@@ -447,11 +456,7 @@ const postUserCommentReplySuccess = ( state, action ) => {
 const postUserCommentReplyFail = ( state, action ) => {
     return updateObject( state, {
         postCommentLoading: false,
-        postCommentError: action.error,/* 
-        commentToReplyId: null,
-        commentToReplyCommentor: null,
-        commentToReplyText: null,
-        isReplyingComment: false, */
+        postCommentError: action.error
     })
 }
 
@@ -461,7 +466,10 @@ const clearBlogCommentMessages = ( state, action ) => {
     return updateObject( state, {
         postCommentError: null,
         postCommentSuccessMessage: null,
-        fetchBlogCommentsError: null
+        fetchBlogCommentsError: null,
+        commentToReplyId: null,
+        commentToReplyCommentor: null,
+        commentToReplyText: null
     })
 }
 
@@ -529,6 +537,7 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.POST_USER_COMMENT_SUCCESS: return postUserCommentSuccess(state, action);
         case actionTypes.POST_USER_COMMENT_FAIL: return postUserCommentFail(state, action);
 
+        case actionTypes.CANCEL_REPLY_COMMENT: return cancelReply(state, action);
         case actionTypes.REPLYING_COMMENT: return replyingComment(state, action);
         case actionTypes.POST_USER_COMMENT_REPLY_START: return postUserCommentReplyStart(state, action);
         case actionTypes.POST_USER_COMMENT_REPLY_SUCCESS: return postUserCommentReplySuccess(state, action);

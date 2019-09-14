@@ -2,35 +2,59 @@
 
 .commentContainer {
     width: 100%;
+    width: 100%;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray);
+}
+
+.commentContainer:first-of-type {
+    padding-top: 0;
+}
+
+.replyContainer {
+    width: 100%;
+    width: 100%;
+    padding: 8px 0;
 }
 
 .repliesContainer {
-    width: 90%;
+    width: 95%;
     margin-left: auto;
+    padding-left: 8px;
+    border-left: 1px solid var(--gray);
 }
 
 .commentInfo {
     display: flex;
+    flex-flow:  column;
 }
 
 .commentor {
-    flex: 0 0 50%;
-    max-width: 50%;
+    display: flex;
+    white-space: nowrap;
+    margin-right: 8px;
+    overflow: hidden;
 }
 
 .commentor svg {
-    width: 24px;
-    height: 24px;
-    fill: var(--blue);
+    width: 18px;
+    height: 18px;
+    fill: var(--green);
+    padding-right: 8px;
 }
 
 .commentor span {
-    font-weight: bold;
+    font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
+    font-size: 16px;
+    color: var(--blue);
+    text-transform: capitalize;
 }
 
 .date {
-    flex: 0 0 50%;
-    max-width: 50%;
+    font-size: 12px;
+    white-space: nowrap;
+    margin-right: 8px;
+    overflow: hidden;
 }
 
 .commentText {
@@ -38,7 +62,18 @@
 }
 
 .replyButton {
+    text-align: right;
+    margin-top: 2px;
+}
+
+.replyButton button {
+    border-style: none;
+    /* background: var(--gray); */
+    color: var(--blue);
     font-weight: bold;
+    cursor: pointer;
+    margin-right: 8px;
+    border: 2px solid var(--blue);
 }
 
 /* Comments Section */
@@ -78,13 +113,38 @@
 
 .headerWrapper {
     border-bottom: 1px solid var(--gray);
-    padding-bottom: 8px;
+    /* padding-bottom: 8px; */
 }
 
 .commentSectionHeader {
     display: flex;
     align-items: center;
     height: 60px;
+}
+
+.replyingBlog {
+    height: 30px;
+    padding-left: 8px;
+    margin-right: 8px;
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.replyingBlog strong {
+    color: var(--blue);
+    padding-left: 8px;
+}
+
+.replyingBlog button {
+    border-style: none;
+    background: var(--gray);
+    color: var(--blue);
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 8px;
+    border: 2px solid var(--blue);
 }
 
 .commentSectionHeader span {
@@ -111,18 +171,29 @@
     font-size: 24px;
 }
 
-.blogTitle {
-    padding-left: 8px;
-    color: var(--blue);
-    font-weight: bold;
-    text-transform: capitalize;
-    margin-right: 8px;
+.commentAuthRequiredSection {
+    height: 60px;
+    padding: 0 8px;
+}
+
+.commentAuthRequiredSection a {
     display: flex;
+    text-decoration: none;
+    justify-content: center;
     align-items: center;
-    height: 40px;
-    overflow: hidden;
-    white-space: nowrap;
-    overflow: hidden;
+    background: var(--green);
+    border: 2px solid var(--blue);
+    text-transform: uppercase;
+    height: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    color: var(--blue);
+}
+
+.commentAuthRequiredSection a:hover {
+    background: var(--gray);
+    border: 2px solid var(--gray);
 }
 
 .commentTextInputSection {
@@ -152,6 +223,47 @@
     border-radius: 0;
     border: 2px solid var(--blue);
     width: 120px;
+}
+
+.formFeedBack {
+    height: 30px;
+    padding-left: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    white-space: nowrap;
+    margin-right: 8px;
+    overflow: hidden;
+}
+
+.formFeedBack .fillError {
+    color: var(--red);
+}
+
+.formFeedBack .commentPostSuccess {
+    color: var(--blue);
+}
+
+.commentSectionWrapper {
+    max-height: calc(100vh - 278px);
+    overflow-y: auto;
+}
+
+.comments {
+    padding: 16px;
+}
+
+.blogTitle {
+    padding: 8px;
+    color: var(--blue);
+    font-weight: bold;
+    text-transform: capitalize;
+    background: var(--gray);
+    /* margin-right: 8px; */
+    display: flex;
+    align-items: center;
+    height: 80px;
+    overflow: hidden;
+    border-top: 1px solid var(--blue);
 }
 
 @media(max-width: 576px) {

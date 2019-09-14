@@ -80,66 +80,7 @@ class BlogPost extends React.Component {
       this.setState({ youtubeEmbeds: youtubeElementsByClass, twitterEmbeds: twitterElementsByClass, allPostParagraphs: allParagraphElements });
     }
 
-    /* if (this.props.commentToReply !== prevProps.commentToReply) {
-      this.setState({ commentToReply: this.props.commentToReply, isReplyingComment: true });
-    } */
-    
   }
-
-  /* checkValidity(value, rules) {
-    let isValid = true;
-    if (!rules) {
-        return true;
-    }
-
-    if (rules.required) {
-        isValid = value.trim() !== '' && isValid;
-    }
-
-    return isValid;
-  }
-
-  captureCommentText = (event) => {
-    const updated = {
-        ...this.state.commentText,
-        value: event.target.value,
-        valid: this.checkValidity(event.target.value, this.state.commentText.validation),
-        touched: true
-    }
-    this.setState({ commentText: updated, commentFillError: null});   
-  }
-
-  postComment = (event) => {
-    event.preventDefault();
-
-    if (!this.state.commentText.touched || this.state.commentText.value === '') {
-        const updated = {
-            ...this.state.commentText,
-            touched: true,
-            valid: false
-        }
-
-        this.setState({ fillError: 'comment box empty', commentText: updated });
-    } else {
-      if (this.state.isReplyingComment) {
-        this.props.onPostUserCommentReply(this.state.commentToReply.id, this.props.userId, this.props.userName, this.props.post._id, this.state.commentText.value, this.props.replies);
-        const updated = {
-          ...this.state.commentText,
-          value: '',
-          touched: false
-        }
-        this.setState({ commentText: updated, isReplyingComment: false });
-      } else {
-        this.props.onPostUserComment(this.props.userId, this.props.userName, this.props.post._id, this.state.commentText.value, this.props.comments);
-        const updated = {
-          ...this.state.commentText,
-          value: '',
-          touched: false
-        }
-        this.setState({ commentText: updated});
-      }
-    }   
-  }; */
 
   showCommentSection = () => {
     this.setState({ showCommentSection: true });
@@ -221,11 +162,6 @@ class BlogPost extends React.Component {
       let mainCommentCount = this.props.comments.length;
       let repliesCount = this.props.replies.length;
       let totalCommentCount = mainCommentCount + repliesCount;
-
-      /* let formButtonText = 'Post';
-      if(this.props.postCommentLoading) {
-          formButtonText = <Spinner isButton/>;
-      } */
       
       blogContent =
       <React.Fragment>
@@ -323,7 +259,7 @@ class BlogPost extends React.Component {
             </div>
             {
               totalCommentCount !== 0 ?
-              <div className={classes.addOrViewComment} onClick={this.showCommentSection}>view comments<span>{'( ' + totalCommentCount + ' )'}</span></div>
+              <div className={classes.addOrViewComment} onClick={this.showCommentSection}>view comments<span>{' (' + totalCommentCount + ')'}</span></div>
               :
               <div className={classes.addOrViewComment} onClick={this.showCommentSection}>add comments</div>
             }
@@ -376,15 +312,7 @@ const mapStateToProps = state => {
     error: state.blog.fetchBlogPostError,
 
     comments: state.blog.mainComments,
-    replies: state.blog.replies,
-
-    /* userId: state.auth.user._id,
-    userName: state.auth.user.name,
-    isAuthenticated: state.auth.isAuthenticated,
-
-    postCommentLoading: false,
-    postCommentError: null,
-    postCommentSuccessMessage: null */
+    replies: state.blog.replies
   };
 };
 

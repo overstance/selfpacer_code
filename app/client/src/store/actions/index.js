@@ -156,7 +156,8 @@ export {
     postUserComment,
     postUserCommentReply,
     clearBlogCommentMessages,
-    replyingComment
+    replyingComment,
+    cancelReply
 } from './blog'
 
 
