@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const keys = require('../config/keys');
 const butterApiKey = keys.butterApi;
 const butter = require('buttercms')(butterApiKey);
@@ -6,6 +7,7 @@ const BlogDraft = require('../models/BlogDraft');
 const BlogCategory = require('../models/BlogCategory');
 const BlogTag = require('../models/BlogTag');
 
+const User = mongoose.model('users');
 const Comment = require('../models/Comment');
 
 module.exports = app => {
@@ -298,7 +300,7 @@ module.exports = app => {
       return val.toString().length === 1 ? '0' + val : val.toString();
     }
 
-    function formatAMPM(date) {
+    /* function formatAMPM(date) {
       var hours = date.getHours();
       var minutes = date.getMinutes();
       var ampm = hours >= 12 ? 'pm' : 'am';
@@ -307,7 +309,7 @@ module.exports = app => {
       minutes = minutes < 10 ? '0' + minutes : minutes;
       var strTime = hours + ':' + minutes + ' ' + ampm;
       return strTime;
-    }
+    } */
 
     let date = new Date();
     // console.log(now.getFullYear());
@@ -315,7 +317,7 @@ module.exports = app => {
 
     let day = fixDigit(date.getDate());
 
-    postTime = formatAMPM(date);
+    postTime = date.toLocaleTimeString();
 
     var options = { month: 'long' };
     let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(date);
@@ -347,7 +349,7 @@ module.exports = app => {
       return val.toString().length === 1 ? '0' + val : val.toString();
     }
 
-    function formatAMPM(date) {
+    /* function formatAMPM(date) {
       var hours = date.getHours();
       var minutes = date.getMinutes();
       var ampm = hours >= 12 ? 'pm' : 'am';
@@ -356,7 +358,7 @@ module.exports = app => {
       minutes = minutes < 10 ? '0' + minutes : minutes;
       var strTime = hours + ':' + minutes + ' ' + ampm;
       return strTime;
-    }
+    } */
 
     let date = new Date();
     // console.log(now.getFullYear());
@@ -364,7 +366,7 @@ module.exports = app => {
 
     let day = fixDigit(date.getDate());
 
-    postTime = formatAMPM(date);
+    postTime = date.toLocaleTimeString();
 
     var options = { month: 'long' };
     let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(date);
@@ -390,5 +392,24 @@ module.exports = app => {
         res.send({ reply: reply });
       }
     });
+  });
+
+  app.post('/api/save_blog_post', (req, res) => {
+    // console.log(req.body.updatedUserSavedBlogs);
+    User.findByIdAndUpdate(
+      req.body.userId,
+      {
+        blogSaves: req.body.updatedUserSavedBlogs
+      },
+      { new: true },
+      (err, user) => {
+        if (err) {
+          res.send({ error: err.message });
+        } else {
+          // console.log(user.blogSaves);
+          res.send({ updatedBlogSaves: user.blogSaves });
+        }
+      }
+    );
   });
 };

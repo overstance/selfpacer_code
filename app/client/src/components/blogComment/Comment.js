@@ -19,9 +19,12 @@ const comment = (props) => {
             <div className={classes.commentText}>
                 {props.commentText}
             </div>
-            <div className={classes.replyButton} >
-                <button onClick={props.replyClicked}>reply</button>
-            </div>
+            { props.isAuthenticated ?
+                <div className={classes.replyButton} >
+                    <button onClick={props.replyClicked}>reply</button>
+                </div>
+                : null
+            }
             <Replies commentId={props.commentId}/>
         </div>
     )

@@ -53,7 +53,7 @@ class Comments extends Component {
         
         } else {
             if (this.props.isReplyingComment) {
-                console.log(this.props.isReplyingComment, this.props.commentToReplyText)
+                // console.log(this.props.isReplyingComment, this.props.commentToReplyText)
                 this.props.onPostUserCommentReply(
                     this.props.commentToReplyId,
                     this.props.userId, 
@@ -63,7 +63,7 @@ class Comments extends Component {
                     this.props.currentBlogReplies
                 );
             } else {
-                console.log(this.props.isReplyingComment, this.props.commentToReplyText)
+                // console.log(this.props.isReplyingComment, this.props.commentToReplyText)
                 this.props.onPostUserComment(this.props.userId, this.props.userName, this.props.blogId, this.state.commentText, this.props.currentBlogComments);
             }
         }   
@@ -80,11 +80,12 @@ class Comments extends Component {
 
         if (this.props.postCommentLoading) {
             formButtonText = <Spinner isButton/>;
-        }  
+        } 
 
         let comments = this.props.currentBlogComments.map((comment, i) => (
             <Comment 
             key={i}
+            isAuthenticated={this.props.isAuthenticated}
             commentId={comment._id}
             commentor={comment.commentorName}
             displayDate={comment.displayDate}
@@ -102,6 +103,14 @@ class Comments extends Component {
             comments =
             <div className={classes.fetchCommentsError}>
                 {this.props.fetchBlogCommentsError}
+            </div>
+        }
+
+        if (this.props.currentBlogComments.length === 0) {
+            comments = 
+            <div className={classes.noComments}>
+                <div>No comments yet,</div>
+                <div>Be the fist to comment.</div>
             </div>
         }
 

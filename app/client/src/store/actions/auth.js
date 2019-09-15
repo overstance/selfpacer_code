@@ -24,6 +24,13 @@ export const setUserPinnedCollections = ( collectionIds ) => {
     };
 };
 
+export const setUserSavedBlogs = ( userSavedBlogs ) => {
+    return {
+        type: actionTypes.SET_USER_SAVED_BLOGS,
+        userSavedBlogs: userSavedBlogs
+    };
+};
+
 export const fetchRecentlyViewedSuccess = ( resources ) => {
     return {
         type: actionTypes.FETCH_RECENTLY_VIEWED_SUCCESS,
@@ -122,6 +129,7 @@ export const fetchUser = () => async dispatch => {
         dispatch(setUserRecentlyViewed(res.data.recentlyViewed));
         dispatch(setUserLikeCount(res.data.likeCount));
         dispatch(setUserPinnedCollections(res.data.pinnedCollections));
+        dispatch(setUserSavedBlogs(res.data.blogSaves));
 
         if ( res.data.recentlyViewed.length > 0 ) {
             // let userId = res.data._id;

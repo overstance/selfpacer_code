@@ -157,7 +157,8 @@ export {
     postUserCommentReply,
     clearBlogCommentMessages,
     replyingComment,
-    cancelReply
+    cancelReply,
+    saveBlog
 } from './blog'
 
 

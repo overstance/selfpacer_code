@@ -68,7 +68,7 @@
 
 .replyButton button {
     border-style: none;
-    /* background: var(--gray); */
+    background: var(--gray);
     color: var(--blue);
     font-weight: bold;
     cursor: pointer;
@@ -251,6 +251,10 @@
 
 .comments {
     padding: 16px;
+}
+
+.noComments {
+    text-align: left;
 }
 
 .blogTitle {

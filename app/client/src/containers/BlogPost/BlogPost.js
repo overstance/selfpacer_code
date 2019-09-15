@@ -24,7 +24,7 @@ function sameDay(d1, d2) {
     d1.getDate() === d2.getDate();
 }
 
-function formatAMPM(date) {
+/* function formatAMPM(date) {
   var hours = date.getHours();
   var minutes = date.getMinutes();
   var ampm = hours >= 12 ? 'pm' : 'am';
@@ -33,7 +33,7 @@ function formatAMPM(date) {
   minutes = minutes < 10 ? '0'+minutes : minutes;
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return strTime;
-}
+} */
 
 
 class BlogPost extends React.Component {
@@ -46,7 +46,8 @@ class BlogPost extends React.Component {
     youtubeEmbeds: [],
     twitterEmbeds: [],
     allPostParagraphs: [],
-    showCommentSection: false
+    showCommentSection: false,
+    blogAlreadySaved: false
   }
 
   /* UNSAFE_componentWillMount() {
@@ -55,10 +56,12 @@ class BlogPost extends React.Component {
 
   componentWillUnmount() {
     this.props.onUnsetIsBlogPage();
+    this.props.onClearBlogCommentMessages();
     // this.props.onClearBlogToReply();
   }
 
   componentDidMount() {
+    this.setState({ savedBlogs: this.props.userSavedBlogs })
     this.props.onSetIsBlogPage();
     this.props.onFetchBlogPost(
       this.props.match.params.publishYear, 
@@ -88,6 +91,17 @@ class BlogPost extends React.Component {
 
   closeCommentSection = () => {
     this.setState({ showCommentSection: false });
+  }
+
+  saveBlog = () => {
+
+    let currentBlog = this.props.userSavedBlogs.find( blog => blog === this.props.post._id);
+      console.log(currentBlog);
+    if (currentBlog) {
+      this.setState({ blogAlreadySaved: true });
+    } else {
+        this.props.onSaveBlog(this.props.userId, this.props.post._id, this.props.userSavedBlogs);  
+    }
   }
 
   render () {
@@ -149,7 +163,8 @@ class BlogPost extends React.Component {
       let isSameDay = sameDay(currentTime, publishDate);
 
       if (isSameDay) {
-        displayTime = formatAMPM(publishDate);
+        // displayTime = formatAMPM(publishDate);
+          displayTime = publishDate.toLocaleTimeString;
       }
 
       // console.log(currentTime, publishDate, isSameDay, displayTime);
@@ -250,21 +265,49 @@ class BlogPost extends React.Component {
             iconSize={48}
             />
           </div>
-          <div className={classes.commentOrSave}>  
-            <div className={classes.saveBlog}>
-              <span>save</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                <path d="M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z"/>
-              </svg>
-            </div>
+          <div className={classes.commentOrSave}>   
             {
               totalCommentCount !== 0 ?
               <div className={classes.addOrViewComment} onClick={this.showCommentSection}>view comments<span>{' (' + totalCommentCount + ')'}</span></div>
               :
               <div className={classes.addOrViewComment} onClick={this.showCommentSection}>add comments</div>
             }
+            { !this.props.isAuthenticated || this.state.blogAlreadySaved ?
+              null :
+              <div className={classes.saveBlog} onClick={this.saveBlog}>
+                <span>save</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                  <path d="M0 512V48C0 21.49 21.49 0 48 0h288c26.51 0 48 21.49 48 48v464L192 400 0 512z"/>
+                </svg>
+              </div>
+            }
           </div>
-         
+          <div className={classes.shareActionStatus}>
+            {
+              this.props.saveBlogLoading &&
+              !this.props.saveBlogError && 
+              !this.props.saveBlogSuccessMessage ?
+              <div>Saving ...</div>
+              : null
+            }
+            {
+              !this.props.saveBlogLoading &&
+              this.props.saveBlogSuccessMessage ?
+              <div>{this.props.saveBlogSuccessMessage}</div>
+              : null
+            }
+            {
+              !this.props.saveBlogLoading &&
+              this.props.saveBlogError ?
+              <span>{this.props.saveBlogError}</span>
+              : null
+            }
+            {
+              this.state.blogAlreadySaved ?
+              <div>Blog already saved</div>
+              : null
+            }
+          </div>
         </div>
         { this.state.showCommentSection ?
           < Comments 
@@ -306,22 +349,32 @@ class BlogPost extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
+  return { 
+    userId: state.auth.user._id,
+    userSavedBlogs: state.blog.userSavedBlogs,
+    isAuthenticated: state.auth.isAuthenticated,
+
     post: state.blog.blogPost,
     loading: state.blog.fetchBlogPostLoading,
     error: state.blog.fetchBlogPostError,
 
     comments: state.blog.mainComments,
-    replies: state.blog.replies
+    replies: state.blog.replies,
+
+    saveBlogLoading: state.blog.saveBlogLoading,
+    saveBlogError: state.blog.saveBlogError,
+    saveBlogSuccessMessage: state.blog.saveBlogSuccessMessage
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    onSaveBlog: (userId, blogId, userSavedBlogs) => dispatch(actions.saveBlog(userId, blogId, userSavedBlogs)),
     onFetchBlogComments: (blogId) => dispatch(actions.fetchBlogComments(blogId)),
     onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
     onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
-    onFetchBlogPost: (year, month, day, slug) => dispatch(actions.fetchBlogPost(year, month, day, slug))
+    onFetchBlogPost: (year, month, day, slug) => dispatch(actions.fetchBlogPost(year, month, day, slug)),
+    onClearBlogCommentMessages: () => dispatch(actions.clearBlogCommentMessages())
   };
 };
 

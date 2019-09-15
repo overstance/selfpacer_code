@@ -698,6 +698,47 @@ export const postUserCommentReply = (commentToReplyId, userId, userName, blogId,
     }  
 }
 
+// save blog
+
+export const saveBlogStart = () => {
+    return {
+        type: actionTypes.SAVE_BLOG_START
+    }
+}
+
+export const saveBlogSuccess = (updatedBlogSaves) => {
+    return {
+        type: actionTypes.SAVE_BLOG_SUCCESS,
+        updatedBlogSaves: updatedBlogSaves
+    }
+}
+
+export const saveBlogFail = (error) => {
+    return {
+        type: actionTypes.SAVE_BLOG_FAIL,
+        error: error
+    }
+}
+
+export const saveBlog = (userId, blogId, userSavedBlogs) => async dispatch => {
+    dispatch(saveBlogStart());
+
+    let updatedUserSavedBlogs = userSavedBlogs;
+
+    updatedUserSavedBlogs.push(blogId);
+
+    // console.log(userId, blogId, userSavedBlogs, updatedUserSavedBlogs);
+
+    const res = await axios.post('/api/save_blog_post', { updatedUserSavedBlogs: updatedUserSavedBlogs, userId: userId });
+    
+    if (res.data.updatedBlogSaves) {
+        // console.log(res.data.updatedBlogSaves);
+        dispatch(saveBlogSuccess(res.data.updatedBlogSaves));
+    } else if (res.data.error) {
+        dispatch(saveBlogFail(res.data.error));
+    }  
+}
+
 //  clear blog comment messages
 
 export const clearBlogCommentMessages = () => {

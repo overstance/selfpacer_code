@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
 
 const initialState = {
+    userSavedBlogs: [],
     blogPosts: {
         meta: {},
         data: []
@@ -68,7 +69,17 @@ const initialState = {
     postedCommentId: null,
     postCommentLoading: false,
     postCommentError: null,
-    postCommentSuccessMessage: null
+    postCommentSuccessMessage: null,
+
+    saveBlogLoading: false,
+    saveBlogError: null,
+    saveBlogSuccessMessage: null
+}
+
+const setUserSavedBlogs = ( state, action ) => {
+    return updateObject( state, {
+        userSavedBlogs: action.userSavedBlogs
+    })
 }
 
 const fetchBlogPostsStart = ( state, action ) => {
@@ -388,6 +399,30 @@ const fetchBlogCommentsFail = ( state, action ) => {
     })
 }
 
+// save blog post
+
+const saveBlogStart = ( state, action ) => {
+    return updateObject( state, {
+        saveBlogLoading: true,
+        saveBlogError: null
+    })
+}
+
+const saveBlogSuccess = ( state, action ) => {
+    return updateObject( state, {
+        saveBlogLoading: false,
+        userSavedBlogs: action.updatedBlogSaves,
+        saveBlogSuccessMessage: 'blog saved'
+    })
+}
+
+const saveBlogFail = ( state, action ) => {
+    return updateObject( state, {
+        saveBlogLoading: false,
+        saveBlogError: action.error
+    })
+}
+
 // post blog comment
 
 const postUserCommentStart = ( state, action ) => {
@@ -469,13 +504,17 @@ const clearBlogCommentMessages = ( state, action ) => {
         fetchBlogCommentsError: null,
         commentToReplyId: null,
         commentToReplyCommentor: null,
-        commentToReplyText: null
+        commentToReplyText: null,
+        saveBlogError: null,
+        saveBlogSuccessMessage: null
     })
 }
 
 
 const reducer = ( state = initialState, action ) => {
     switch (action.type) {
+        case actionTypes.SET_USER_SAVED_BLOGS: return setUserSavedBlogs(state, action);
+        
         case actionTypes.FETCH_BLOG_POSTS_START: return fetchBlogPostsStart(state, action);
         case actionTypes.FETCH_BLOG_POSTS_SUCCESS: return fetchBlogPostsSuccess(state, action);
         case actionTypes.FETCH_BLOG_POSTS_FAIL: return fetchBlogPostsFail(state, action);
@@ -536,6 +575,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.POST_USER_COMMENT_START: return postUserCommentStart(state, action);
         case actionTypes.POST_USER_COMMENT_SUCCESS: return postUserCommentSuccess(state, action);
         case actionTypes.POST_USER_COMMENT_FAIL: return postUserCommentFail(state, action);
+
+        case actionTypes.SAVE_BLOG_START: return saveBlogStart(state, action);
+        case actionTypes.SAVE_BLOG_SUCCESS: return saveBlogSuccess(state, action);
+        case actionTypes.SAVE_BLOG_FAIL: return saveBlogFail(state, action);
 
         case actionTypes.CANCEL_REPLY_COMMENT: return cancelReply(state, action);
         case actionTypes.REPLYING_COMMENT: return replyingComment(state, action);

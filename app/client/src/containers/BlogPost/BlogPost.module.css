@@ -380,7 +380,7 @@ pre {
     flex-flow: column-reverse;
     width: 48px;
     background: var(--green);
-    margin-left: 16px;
+    /* margin-left: 16px; */
     align-items: center;
     padding: 4px;
     box-sizing: border-box;
@@ -403,7 +403,7 @@ pre {
 }
 
 .addOrViewComment {
-    /* margin-left: 2px; */
+    margin-left: 16px;
     height: 48px;
     padding: 0 48px;
     border: 2px solid var(--blue);
@@ -417,6 +417,19 @@ pre {
 .addOrViewComment:hover {
     background: var(--blue);
     color: var(--green);
+}
+
+.shareActionStatus div {
+    text-align: center;
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.shareActionStatus span {
+    display: block;
+    color: var(--red);
+    text-align: center;
+    font-weight: bold;
 }
 
 @media(min-width: 977px) {
@@ -473,6 +486,10 @@ pre {
 @media(max-width: 576px) {
     .postTitle {
         font-size: 36px;
+    }
+
+    .addOrViewComment {
+        margin-left: 0;
     }
 
     .postAttributes {
