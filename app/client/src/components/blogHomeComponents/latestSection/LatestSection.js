@@ -27,7 +27,7 @@ class LatestBlogs extends Component {
                 publishDay: "20",
                 publishMonth: "08",
                 publishYear: "2019",
-                publishedOn: Date.now(),
+                publishedOn: "2019-08-20T17:58:36.542Z",
                 slug: "test-draft-1"
             },
             {
@@ -45,7 +45,7 @@ class LatestBlogs extends Component {
                 publishDay: "20",
                 publishMonth: "08",
                 publishYear: "2019",
-                publishedOn: Date.now(),
+                publishedOn: "2019-08-20T17:58:36.542Z",
                 slug: "test-draft-1"
             },
             {

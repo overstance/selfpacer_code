@@ -573,7 +573,8 @@
     } */
 
     .latestBlog {
-        flex-flow: column;
+        /* flex-flow: column; */
+        display: block;
     }
 
     .latestBlogImage {
