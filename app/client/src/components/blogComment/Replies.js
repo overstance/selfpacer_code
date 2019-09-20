@@ -11,6 +11,7 @@ class Replies extends Component {
             key={i}
             commentor={reply.commentorName}
             displayDate={reply.displayDate}
+            commentDate={reply.commentDate}
             commentText={reply.commentText}
             />
         ));

@@ -8,7 +8,7 @@ function sameDay(d1, d2) {
     d1.getDate() === d2.getDate();
 }
   
-/* function formatAMPM(date) {
+function formatAMPM(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
     var ampm = hours >= 12 ? 'pm' : 'am';
@@ -17,7 +17,7 @@ function sameDay(d1, d2) {
     minutes = minutes < 10 ? '0'+minutes : minutes;
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
-} */
+}
 
 const latestBlog = (props) => {
 
@@ -28,8 +28,8 @@ const latestBlog = (props) => {
     let isSameDay = sameDay(currentTime, publishDate);
 
     if (isSameDay) {
-    // displayTime = formatAMPM(publishDate);
-    displayTime = publishDate.toLocaleTimeString;
+    displayTime = formatAMPM(publishDate);
+    // displayTime = publishDate.toLocaleTimeString();
     }
 
     return(

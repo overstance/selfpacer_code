@@ -89,6 +89,7 @@ class Comments extends Component {
             commentId={comment._id}
             commentor={comment.commentorName}
             displayDate={comment.displayDate}
+            commentDate={comment.commentDate}
             commentText={comment.commentText}
             replyClicked={() => this.replyingComment(comment._id, comment.commentorName, comment.commentText)}
             />

@@ -2,7 +2,36 @@ import React from 'react';
 import classes from './comment.module.css';
 import Replies from './Replies';
 
+function fixDigit(val) {
+    return val.toString().length === 1 ? '0' + val : val.toString();
+}
+
+function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+}
+
 const comment = (props) => {
+    let commentDate = new Date(props.commentDate);
+
+    let year = commentDate.getFullYear().toString();
+
+    let day = fixDigit(commentDate.getDate());
+
+    var options = { month: 'long' };
+    let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(commentDate);
+
+    let postTime = formatAMPM(commentDate);
+
+    let displayDate =
+    monthInLetter + ' ' + day + ', ' + year + ' - ' + postTime;
+
     return(
         <div className={classes.commentContainer}>
             <div className={classes.commentInfo}>
@@ -13,7 +42,7 @@ const comment = (props) => {
                     <span>{props.commentor}</span>
                 </div>
                 <div className={classes.date}>
-                    {props.displayDate}
+                    {displayDate}
                 </div>
             </div>
             <div className={classes.commentText}>

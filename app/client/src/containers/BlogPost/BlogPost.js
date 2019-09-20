@@ -15,6 +15,7 @@ import { TwitterTweetEmbed } from 'react-twitter-embed';
 import MoreInCategory from './moreInCategory/MoreInCategory';
 import LatestSection from './latestSection/LatestSection';
 import Comments from '../../components/blogComment/Comments';
+import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
 // import Button from '../../components/UserInterface/Button/Button';
 // import Input from '../../components/UserInterface/Input/Input';
 
@@ -24,7 +25,7 @@ function sameDay(d1, d2) {
     d1.getDate() === d2.getDate();
 }
 
-/* function formatAMPM(date) {
+function formatAMPM(date) {
   var hours = date.getHours();
   var minutes = date.getMinutes();
   var ampm = hours >= 12 ? 'pm' : 'am';
@@ -33,7 +34,7 @@ function sameDay(d1, d2) {
   minutes = minutes < 10 ? '0'+minutes : minutes;
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return strTime;
-} */
+}
 
 
 class BlogPost extends React.Component {
@@ -57,11 +58,15 @@ class BlogPost extends React.Component {
   componentWillUnmount() {
     this.props.onUnsetIsBlogPage();
     this.props.onClearBlogCommentMessages();
+
+    window.removeEventListener('scroll', this.handleScroll, false);
     // this.props.onClearBlogToReply();
   }
 
   componentDidMount() {
-    this.setState({ savedBlogs: this.props.userSavedBlogs })
+    window.addEventListener('scroll', this.handleScroll, false);
+    window.scroll(0, 0);
+
     this.props.onSetIsBlogPage();
     this.props.onFetchBlogPost(
       this.props.match.params.publishYear, 
@@ -163,8 +168,8 @@ class BlogPost extends React.Component {
       let isSameDay = sameDay(currentTime, publishDate);
 
       if (isSameDay) {
-        // displayTime = formatAMPM(publishDate);
-          displayTime = publishDate.toLocaleTimeString;
+        displayTime = formatAMPM(publishDate);
+        // displayTime = publishDate.toLocaleTimeString();
       }
 
       // console.log(currentTime, publishDate, isSameDay, displayTime);
@@ -342,7 +347,8 @@ class BlogPost extends React.Component {
           {embedYoutube}
           {embedTweet}
           <LatestSection />
-        </Container>  
+        </Container> 
+        <ScrollButton scrollStepInPx="100" delayInMs="16.66" showUnder={160} /> 
       </article>
     )
   }

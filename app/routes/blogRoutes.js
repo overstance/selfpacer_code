@@ -317,13 +317,13 @@ module.exports = app => {
 
     let day = fixDigit(date.getDate());
 
-    postTime = date.toLocaleTimeString();
+    // postTime = date.toLocaleTimeString();
 
     var options = { month: 'long' };
     let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(date);
 
     let displayDate =
-      monthInLetter + ' ' + day + ', ' + year + ' - ' + postTime;
+      monthInLetter + ' ' + day + ', ' + year /* + ' - ' + postTime */;
 
     let newComment = {
       commentDate: new Date(),
@@ -366,13 +366,13 @@ module.exports = app => {
 
     let day = fixDigit(date.getDate());
 
-    postTime = date.toLocaleTimeString();
+    // postTime = date.toLocaleTimeString();
 
     var options = { month: 'long' };
     let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(date);
 
     let displayDate =
-      monthInLetter + ' ' + day + ', ' + year + ' - ' + postTime;
+      monthInLetter + ' ' + day + ', ' + year /* + ' - ' + postTime */;
 
     let newComment = {
       commentDate: new Date(),
