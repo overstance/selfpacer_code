@@ -333,7 +333,7 @@ class BlogPost extends React.Component {
     }
 
     return (  
-      <article>
+      <section>
         <div className={classes.topAdBar}>
           <Container>
             <div className={classes.blogPostTopAd}>
@@ -349,7 +349,7 @@ class BlogPost extends React.Component {
           <LatestSection />
         </Container> 
         <ScrollButton scrollStepInPx="100" delayInMs="16.66" showUnder={160} /> 
-      </article>
+      </section>
     )
   }
 }

@@ -1,4 +1,4 @@
-article img {
+section img {
     max-width: 100%;
 }
 
@@ -417,6 +417,13 @@ pre {
 .addOrViewComment:hover {
     background: var(--blue);
     color: var(--green);
+}
+
+.shareActionStatus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
 }
 
 .shareActionStatus div {

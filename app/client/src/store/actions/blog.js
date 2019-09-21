@@ -481,7 +481,7 @@ export const editBlogTags = (blogTags, id) => async dispatch => {
     if (res.data.tags/* ._id === id */) {
         let tagsArray = res.data.tags.tags
         let tagsToString = tagsArray.join();
-        let successMessage = 'categories updated'
+        let successMessage = 'tags updated'
 
         dispatch(editBlogTagsSuccess(tagsArray, tagsToString, successMessage))
     } else if (res.data.error) {
@@ -745,5 +745,11 @@ export const clearBlogCommentMessages = () => {
     return {
         type: actionTypes.CLEAR_BLOG_COMMENT_MESSAGES
     }
+}
+
+// fetch blog by section
+
+export const fetchBlogsBySection = (category) =>  async dispatch => {
+
 }
 

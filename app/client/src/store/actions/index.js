@@ -158,7 +158,8 @@ export {
     clearBlogCommentMessages,
     replyingComment,
     cancelReply,
-    saveBlog
+    saveBlog,
+    fetchBlogsBySection
 } from './blog'
 
 

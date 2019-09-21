@@ -25,6 +25,7 @@ import ReverifyEmail from './components/auth/Register/ReverifyEmail/ReverifyEmai
 import SubjectPage from './containers/SubjectPage/SubjectPage'; 
 import Blog from './containers/BlogHome/BlogHome';
 import BlogPost from './containers/BlogPost/BlogPost';
+import BlogSection from './containers/BlogSection/BlogSection';
 import FacilitateApplicants from './containers/ViewFacilitateApplicants/FacilitateApplicants';
 // import RichEditor from './components/RichEditor/RichEditor';
 import ManageBlogDrafts from './containers/ManageBlogDrafts/ManageBlogDrafts';
@@ -69,8 +70,8 @@ class App extends Component {
         <Route exact path="/register" component={Register} />
         <Route exact path="/not-found" component={NotFound} />
         <Route exact path="/" component={Landing} />
-        <Route path='/blog/:page' exact component={Blog} />
         <Route path='/blog' exact component={Blog} />
+        <Route path='/blog/sections/:category' exact component={BlogSection} />
         <Route path='/blog/:publishYear/:publishMonth/:publishDay/:slug' component={BlogPost} />
         <Route exact path="/collections" component={Collections} />
         <Route exact path="/shared_collections/:id" component={SharedCollection} />

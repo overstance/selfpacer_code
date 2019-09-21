@@ -73,7 +73,11 @@ const initialState = {
 
     saveBlogLoading: false,
     saveBlogError: null,
-    saveBlogSuccessMessage: null
+    saveBlogSuccessMessage: null,
+
+    fetchBlogsBySectionLoading: false,
+    fetchBlogsBySectionError: null,
+    blogsBySection: []
 }
 
 const setUserSavedBlogs = ( state, action ) => {

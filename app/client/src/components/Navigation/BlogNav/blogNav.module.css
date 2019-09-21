@@ -194,7 +194,7 @@
     flex-wrap: wrap;
     max-width: 600px;
     margin: auto;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .SectionMenuItems a {
