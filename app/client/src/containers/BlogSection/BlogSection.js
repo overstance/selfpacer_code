@@ -7,21 +7,41 @@ import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Container from '../../components/UserInterface/Container/Container';
 import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
 import LatestSection from '../BlogPost/latestSection/LatestSection';
+import LoadMorePrompt from '../../components/UserInterface/LoadMorePrompt/blogLoadMore';
+
 
 class BlogSection extends Component {
+
+    state = {
+        pageIndex: 0
+    }
 
     componentDidMount() {
         this.props.onSetIsBlogPage();
 
-        this.props.onFetchBlogsBySection(this.props.match.params.category);
+        this.props.onFetchBlogsBySection(this.props.match.params.category, 0);
         window.addEventListener('scroll', this.handleScroll, false);
         window.scroll(0, 0);
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.match.params.category !== prevProps.match.params.category) {
+            this.props.onFetchBlogsBySection(this.props.match.params.category, 0);
+        }
     }
 
     componentWillUnmount() {
         this.props.onUnsetIsBlogPage();
         this.props.onClearBlogSectionMessages();
         window.removeEventListener('scroll', this.handleScroll, false);
+    }
+
+    fetchMoreData = () => {
+        this.setState({
+            pageIndex: this.state.pageIndex + 1
+        }, () => {
+            this.props.onFetchMoreBlogsBySection(this.props.match.params.category, this.state.pageIndex, this.props.blogsBySection)
+        })      
     }
 
     render() {
@@ -50,6 +70,12 @@ class BlogSection extends Component {
             <div className={classes.sectionWrapper}>
                 <div className={classes.sectionBlogs}>
                     {blogs}
+                    { this.props.latestSectionFetchLength >= 10 ? 
+                        <LoadMorePrompt 
+                            loadMore={this.fetchMoreData}
+                            loading={this.props.fetchMoreBlogsBySectionLoading}
+                        /> : null
+                    }
                 </div>
                 <div className={classes.aside}>
                     <div className={classes.blogPostSideAd}>
@@ -57,6 +83,9 @@ class BlogSection extends Component {
                     </div>
                 </div>
             </div>
+        } else if (!this.props.fetchBlogsBySectionLoading && this.props.blogsBySection.length === 0) {
+            sectionContent =
+            <div>No blog post for this category yet, check back later</div>
         }
         return(         
             <section>
@@ -83,6 +112,9 @@ const mapStateToProps = state => {
         blogsBySection: state.blog.blogsBySection,
         fetchBlogsBySectionLoading: state.blog.fetchBlogsBySectionLoading,
         fetchBlogsBySectionError: state.blog.fetchBlogsBySectionError,
+
+        fetchMoreBlogsBySectionLoading: state.blog.fetchMoreBlogsBySectionLoading,
+        latestSectionFetchLength: state.blog.latestSectionFetchLength,
     }
 }
 
@@ -90,7 +122,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
         onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
-        onFetchBlogsBySection: (category) => dispatch(actions.fetchBlogsBySection(category)),
+        onFetchBlogsBySection: (category, pageIndex) => dispatch(actions.fetchBlogsBySection(category, pageIndex)),
+        onFetchMoreBlogsBySection: (category, pageIndex, blogPosts) => dispatch(actions.fetchMoreBlogsBySection(category, pageIndex, blogPosts)),
         onClearBlogSectionMessages: () => dispatch(actions.clearBlogSectionMessages())
     }
 }

@@ -743,10 +743,11 @@ export const fetchBlogsBySectionStart = () => {
     }
 }
 
-export const fetchBlogsBySectionSuccess = (posts) => {
+export const fetchBlogsBySectionSuccess = (posts, fetchLength) => {
     return {
         type: actionTypes.FETCH_BLOGS_BY_SECTION_SUCCESS,
-        posts: posts
+        posts: posts,
+        fetchLength: fetchLength
     }
 }
 
@@ -763,17 +764,52 @@ export const clearBlogSectionMessages = () => {
     }
 }
 
-export const fetchBlogsBySection = (category) =>  async dispatch => {
+export const fetchBlogsBySection = (category, pageIndex) =>  async dispatch => {
     dispatch(fetchBlogsBySectionStart());
 
-    const res = await axios.get('/api/fetch_blogs_by_section', {params: { category: category }});
+    const res = await axios.get('/api/fetch_blogs_by_section', {params: { category: category, pageIndex: pageIndex }});
 
     if(res.data.blogs) {
-        dispatch(fetchBlogsBySectionSuccess(res.data.blogs))
+        dispatch(fetchBlogsBySectionSuccess(res.data.blogs, res.data.blogs.length))
     } else if (res.data.error) {
         dispatch(fetchBlogsBySectionFail(res.data.error))
     }
 }
+
+export const fetchMoreBlogsBySectionStart = () => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOGS_BY_SECTION_START
+    }
+}
+
+export const fetchMoreBlogsBySectionSuccess = (updatedPosts, fetchLength) => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOGS_BY_SECTION_SUCCESS,
+        updatedPosts: updatedPosts,
+        fetchLength: fetchLength
+    }
+}
+
+export const fetchMoreBlogsBySectionFail = (error) => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOGS_BY_SECTION_FAIL,
+        error: error
+    }
+}
+
+export const fetchMoreBlogsBySection = (category, pageIndex, blogPosts) => async dispatch => {
+    dispatch(fetchMoreBlogsBySectionStart());
+
+    const res = await axios.get('/api/fetch_blogs_by_section', {params: { category: category, pageIndex: pageIndex }});
+
+    if(res.data.blogs) {
+        let updatedPosts = [...blogPosts, ...res.data.blogs];
+        dispatch(fetchMoreBlogsBySectionSuccess(updatedPosts, res.data.blogs.length))
+    } else if (res.data.error) {
+        dispatch(fetchMoreBlogsBySectionFail(res.data.error))
+    }
+}
+
 
 //  unpublish blog post
 

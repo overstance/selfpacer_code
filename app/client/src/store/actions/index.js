@@ -159,6 +159,7 @@ export {
     cancelReply,
     saveBlog,
     fetchBlogsBySection,
+    fetchMoreBlogsBySection,
     clearBlogHomeMessages,
     clearBlogSectionMessages,
     unpublishPost

@@ -74,6 +74,9 @@ const initialState = {
 
     fetchBlogsBySectionLoading: false,
     fetchBlogsBySectionError: null,
+    fetchMoreBlogsBySectionLoading: false,
+    fetchMoreBlogsBySectionError: null,
+    latestSectionFetchLength: 0,
     blogsBySection: [],
 
     unpublishPostLoading: false,
@@ -555,7 +558,8 @@ const fetchBlogsBySectionSuccess = (state, action) => {
     return updateObject(state, {
         fetchBlogsBySectionLoading: false,
         fetchBlogsBySectionError: null,
-        blogsBySection: action.posts
+        blogsBySection: action.posts,
+        latestSectionFetchLength: action.fetchLength
     });
 }
 
@@ -566,9 +570,34 @@ const fetchBlogsBySectionFail = (state, action) => {
     });
 }
 
+const fetchMoreBlogsBySectionStart = (state, action) => {
+    return updateObject(state, {
+        fetchMoreBlogsBySectionLoading: true,
+        fetchMoreBlogsBySectionError: null
+
+    });
+}
+
+const fetchMoreBlogsBySectionSuccess = (state, action) => {
+    return updateObject(state, {
+        fetchMoreBlogsBySectionLoading: false,
+        blogsBySection: action.updatedPosts,
+        latestSectionFetchLength: action.fetchLength
+
+    });
+}
+
+const fetchMoreBlogsBySectionFail = (state, action) => {
+    return updateObject(state, {
+        fetchMoreBlogsBySectionLoading: false,
+        fetchMoreBlogsBySectionError: action.error
+    });
+}
+
 const clearBlogSectionMessages = (state, action) => {
     return updateObject(state, {
-        fetchBlogsBySectionError: null
+        fetchBlogsBySectionError: null,
+        fetchMoreBlogsBySectionError: null
     });
 }
 
@@ -649,6 +678,9 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_BLOGS_BY_SECTION_START: return fetchBlogsBySectionStart(state, action);
         case actionTypes.FETCH_BLOGS_BY_SECTION_SUCCESS: return fetchBlogsBySectionSuccess(state, action);
         case actionTypes.FETCH_BLOGS_BY_SECTION_FAIL: return fetchBlogsBySectionFail(state, action);
+        case actionTypes.FETCH_MORE_BLOGS_BY_SECTION_START: return fetchMoreBlogsBySectionStart(state, action);
+        case actionTypes.FETCH_MORE_BLOGS_BY_SECTION_SUCCESS: return fetchMoreBlogsBySectionSuccess(state, action);
+        case actionTypes.FETCH_MORE_BLOGS_BY_SECTION_FAIL: return fetchMoreBlogsBySectionFail(state, action);
         case actionTypes.CLEAR_BLOG_SECTION_MESSAGES: return clearBlogSectionMessages(state, action);
 
         case actionTypes.CANCEL_REPLY_COMMENT: return cancelReply(state, action);
