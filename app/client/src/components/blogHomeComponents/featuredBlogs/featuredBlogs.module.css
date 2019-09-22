@@ -9,15 +9,26 @@
     padding-bottom: 16px;
 }
 
+.topAdBar {
+    background: var(--blue);
+    border-top: 1px solid var(--gray);
+}
+
+.blogPostTopAd {
+    width: 100%;
+    padding: 16px 0;
+    /* box-sizing: border-box; */
+}
+
 .featuredSectionTopAd {
     width: 100%;
-    margin: 32px auto;
+    margin: 16px auto;
     box-sizing: border-box;
 }
 
 .featuredSectionBottomAd {
     width: 100%;
-    margin: 32px auto;
+    margin: 16px auto;
     box-sizing: border-box;
 }
 

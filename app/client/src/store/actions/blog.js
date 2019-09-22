@@ -1,41 +1,46 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
-// fetch blog posts
+// fetch featured Blogs
 
-export const fetchBlogPostsStart = () => {
+export const fetchFeaturedBlogsStart = () => {
     return {
-        type: actionTypes.FETCH_BLOG_POSTS_START
+        type: actionTypes.FETCH_FEATURED_BLOGS_START
     }
 }
 
-export const fetchBlogPostsSuccess = (posts) => {
+export const fetchFeaturedBlogsSuccess = (blogs) => {
     return {
-        type: actionTypes.FETCH_BLOG_POSTS_SUCCESS,
-        posts: posts
+        type: actionTypes.FETCH_FEATURED_BLOGS_SUCCESS,
+        blogs: blogs
     }
 }
 
-export const fetchBlogPostsFail = (error) => {
+export const fetchFeaturedBlogsFail = (error) => {
     return {
-        type: actionTypes.FETCH_BLOG_POSTS_FAIL,
+        type: actionTypes.FETCH_FEATURED_BLOGS_FAIL,
         error: error
     }
 }
 
-export const fetchBlogPosts = () => async dispatch => {
-    dispatch(fetchBlogPostsStart());
-
-    const res = await axios.get('/api/blog_posts');
-
-    if (res.data.posts) {
-        // console.log(res.data.posts);
-        dispatch(fetchBlogPostsSuccess(res.data.posts));
-    } else {
-        dispatch(fetchBlogPostsFail('error occured while fetching blog posts!'));
+export const fetchFeaturedBlogs = () => async dispatch => {
+    dispatch(fetchFeaturedBlogsStart());
+    const res = await axios.get('/api/fetch_featured_blogs');
+    // console.log(res.data.blogs);
+    if (res.data.blogs) {
+        dispatch(fetchFeaturedBlogsSuccess(res.data.blogs))
+    } else if (res.data.error) {
+        dispatch(fetchFeaturedBlogsFail(res.data.error))
     }
 }
 
+// clear all blog home page messages
+
+export const clearBlogHomeMessages = () => {
+    return {
+        type: actionTypes.CLEAR_BLOG_HOME_MESSAGES
+    }
+}
 // fetch blog post
 
 export const fetchBlogPostStart = () => {
@@ -544,23 +549,6 @@ export const fetchAuthors = () => async dispatch => {
     } 
 }
 
-// fetch featured Blogs
-export const fetchFeaturedBlogsSuccess = (blogs) => {
-    return {
-        type: actionTypes.FETCH_FEATURED_BLOGS_SUCCESS,
-        blogs: blogs
-    }
-}
-
-export const fetchFeaturedBlogs = () => async dispatch => {
-
-    const res = await axios.get('/api/fetch_featured_blogs');
-    // console.log(res.data.blogs);
-    if (res.data.blogs) {
-        dispatch(fetchFeaturedBlogsSuccess(res.data.blogs))
-    } 
-}
-
 // fetch blog comments
 
 export const fetchBlogCommentsStart = () => {
@@ -749,7 +737,75 @@ export const clearBlogCommentMessages = () => {
 
 // fetch blog by section
 
-export const fetchBlogsBySection = (category) =>  async dispatch => {
+export const fetchBlogsBySectionStart = () => {
+    return {
+        type: actionTypes.FETCH_BLOGS_BY_SECTION_START
+    }
+}
 
+export const fetchBlogsBySectionSuccess = (posts) => {
+    return {
+        type: actionTypes.FETCH_BLOGS_BY_SECTION_SUCCESS,
+        posts: posts
+    }
+}
+
+export const fetchBlogsBySectionFail = (error) => {
+    return {
+        type: actionTypes.FETCH_BLOGS_BY_SECTION_FAIL,
+        error: error
+    }
+}
+
+export const clearBlogSectionMessages = () => {
+    return {
+        type: actionTypes.CLEAR_BLOG_SECTION_MESSAGES
+    }
+}
+
+export const fetchBlogsBySection = (category) =>  async dispatch => {
+    dispatch(fetchBlogsBySectionStart());
+
+    const res = await axios.get('/api/fetch_blogs_by_section', {params: { category: category }});
+
+    if(res.data.blogs) {
+        dispatch(fetchBlogsBySectionSuccess(res.data.blogs))
+    } else if (res.data.error) {
+        dispatch(fetchBlogsBySectionFail(res.data.error))
+    }
+}
+
+//  unpublish blog post
+
+export const unpublishPostStart = () => {
+    return {
+        type: actionTypes.UNPUBLISH_POST_START
+    }
+}
+
+export const unpublishPostSuccess = (successInfo) => {
+    return {
+        type: actionTypes.UNPUBLISH_POST_SUCCESS,
+        successInfo: successInfo
+    }
+}
+
+export const unpublishPostFail = (error) => {
+    return {
+        type: actionTypes.UNPUBLISH_POST_FAIL,
+        error: error
+    }
+}
+
+export const unpublishPost = (postId) => async dispatch => {
+    dispatch(unpublishPostStart());
+
+    const res = await axios.post('/api/unpublish_blog_post', {postId: postId});
+
+    if (res.data.post) {
+        dispatch(unpublishPostSuccess('Post Unpublished'));
+    } else if (res.data.error) {
+        dispatch(unpublishPostFail(res.data.error)); 
+    }
 }
 

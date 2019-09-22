@@ -98,10 +98,14 @@ class BlogPost extends React.Component {
     this.setState({ showCommentSection: false });
   }
 
+  unpublishPost = () => {
+    this.props.onUnpublishPost(this.props.post._id);
+  }
+
   saveBlog = () => {
 
     let currentBlog = this.props.userSavedBlogs.find( blog => blog === this.props.post._id);
-      console.log(currentBlog);
+      // console.log(currentBlog);
     if (currentBlog) {
       this.setState({ blogAlreadySaved: true });
     } else {
@@ -182,6 +186,14 @@ class BlogPost extends React.Component {
       let mainCommentCount = this.props.comments.length;
       let repliesCount = this.props.replies.length;
       let totalCommentCount = mainCommentCount + repliesCount;
+
+      let unpublishButtonText = 'unpublish';
+
+      if (this.props.unpublishPostLoading) {
+        unpublishButtonText = 'unpublishing...';
+      }
+
+      let currentBlogIfSaved = this.props.userSavedBlogs.find( blog => blog === this.props.post._id);
       
       blogContent =
       <React.Fragment>
@@ -192,6 +204,24 @@ class BlogPost extends React.Component {
         </Helmet>
         <div className={classes.headerWrapper}>
           <div className={classes.header}> 
+            { this.props.user.isEditor && 
+              (this.props.user.accountType === 'Administrator' ||
+              this.props.user.accountType === 'Senior Administrator' || 
+              this.props.user.accountType === 'Head Administrator'
+              ) && this.props.unpublishPostSuccessMessage === null ?
+              <div className={classes.unpublishButton}>
+                  {this.props.unpublishPostSuccessMessage ? 
+                    <span>{this.props.unpublishPostSuccessMessage}</span> 
+                    : null
+                  }
+                  { this.props.unpublishPostError ? 
+                    <span className={classes.unpublishError}>{this.props.unpublishPostError}</span> 
+                    : null
+                  }
+                <button onClick={this.unpublishPost}> {unpublishButtonText} </button>
+              </div>
+              : null
+            }
             <div className={classes.category}>
               <Link to={`/blog/${post.category}`}>
                   {post.category}
@@ -277,7 +307,7 @@ class BlogPost extends React.Component {
               :
               <div className={classes.addOrViewComment} onClick={this.showCommentSection}>add comments</div>
             }
-            { !this.props.isAuthenticated || this.state.blogAlreadySaved ?
+            { !this.props.isAuthenticated || this.state.blogAlreadySaved || currentBlogIfSaved ?
               null :
               <div className={classes.saveBlog} onClick={this.saveBlog}>
                 <span>save</span>
@@ -356,6 +386,7 @@ class BlogPost extends React.Component {
 
 const mapStateToProps = state => {
   return { 
+    user: state.auth.user,
     userId: state.auth.user._id,
     userSavedBlogs: state.blog.userSavedBlogs,
     isAuthenticated: state.auth.isAuthenticated,
@@ -369,13 +400,18 @@ const mapStateToProps = state => {
 
     saveBlogLoading: state.blog.saveBlogLoading,
     saveBlogError: state.blog.saveBlogError,
-    saveBlogSuccessMessage: state.blog.saveBlogSuccessMessage
+    saveBlogSuccessMessage: state.blog.saveBlogSuccessMessage,
+
+    unpublishPostLoading: state.blog.unpublishPostLoading,
+    unpublishPostError: state.blog.unpublishPostError,
+    unpublishPostSuccessMessage: state.blog.unpublishPostSuccessMessage
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onSaveBlog: (userId, blogId, userSavedBlogs) => dispatch(actions.saveBlog(userId, blogId, userSavedBlogs)),
+    onUnpublishPost: (postId) => dispatch(actions.unpublishPost(postId)),
     onFetchBlogComments: (blogId) => dispatch(actions.fetchBlogComments(blogId)),
     onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
     onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),

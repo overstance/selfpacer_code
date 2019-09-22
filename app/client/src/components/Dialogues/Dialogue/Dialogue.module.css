@@ -50,6 +50,7 @@
     text-align: left;
     color: var(--green);
     font-weight: 400;
+    border-bottom: 1px solid var(--gray);
 }
 
 .DialogueCloseIcon {

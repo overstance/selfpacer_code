@@ -177,7 +177,7 @@ section img {
 
 .blogPostTopAd {
     width: 100%;
-    padding: 32px 0;
+    padding: 16px 0;
     /* box-sizing: border-box; */
 }
 
@@ -437,6 +437,31 @@ pre {
     color: var(--red);
     text-align: center;
     font-weight: bold;
+}
+
+.unpublishButton {
+    text-align: right;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.unpublishButton button {
+    background: var(--green);
+    border-style: none;
+    padding: 6px;
+    font-weight: bold;
+    color: var(--blue);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.unpublishButton span {
+    color: var(--blue);
+    font-size: 14px;
+    padding-right: 4px;
+}
+
+.unpublishError {
+    color: var(--red);
 }
 
 @media(min-width: 977px) {

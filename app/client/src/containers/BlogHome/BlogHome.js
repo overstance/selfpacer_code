@@ -11,12 +11,10 @@ import FeaturedBlogs from '../../components/blogHomeComponents/featuredBlogs/Fea
 import LatestSection from '../../components/blogHomeComponents/latestSection/LatestSection';
 
 class BlogHome extends Component {
-  /* UNSAFE_componentWillMount() {
-    this.props.onSetIsBlogPage()
-  } */
 
   componentWillUnmount() {
-    this.props.onUnsetIsBlogPage()
+    this.props.onUnsetIsBlogPage();
+    this.props.onClearBlogHomeMessages();
   }
 
   componentDidMount() {
@@ -25,29 +23,33 @@ class BlogHome extends Component {
 
   render () {
     return (
-      <Container>
-        <div className={classes.blogHomeWrapper}>
-          <FeaturedBlogs />
-          <LatestSection />
+      <div className={classes.blogHomeWrapper}>
+        <div className={classes.topAdBar}>
+          <Container>
+              <div className={classes.blogPostTopAd}>
+                  <div className={classes.adFull} />
+                  <div className={classes.adMedium} />
+              </div>
+          </Container>
         </div>
-      </Container>
+        <Container>
+          <FeaturedBlogs />
+          <LatestSection /> 
+        </Container>
+      </div>
     )
   }
 };
 
 const mapStateToProps = state => {
-  return {
-    blogs: state.blog.blogPosts,
-    loading: state.blog.fetchBlogPostsLoading,
-    error: state.blog.fetchBlogPostsError
-  };
+  return {};
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchBlogPosts: () => dispatch(actions.fetchBlogPosts()),
     onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
-    onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage())
+    onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
+    onClearBlogHomeMessages: () => dispatch(actions.clearBlogHomeMessages())
   };
 };
 

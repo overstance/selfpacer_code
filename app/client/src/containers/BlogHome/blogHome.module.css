@@ -1,10 +1,54 @@
 /* .blogHomeWrapper {
     padding: 16px;
+} */
+
+.topAdBar {
+    background: var(--blue);
+    border-top: 1px solid var(--gray);
 }
 
-@media(max-width: 576px) {
+.blogPostTopAd {
+    width: 100%;
+    padding: 16px 0;
+}
 
-    .blogHomeWrapper {
-        padding: 8px;
+.adFull {
+    width: 728px;
+    height: 90px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../assets/art/head-art/ad_728X90.png');
+    margin: auto;
+}
+
+.adMedium {
+    width: 320px;
+    height: 100px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../assets/art/head-art/ad_320X100.png');
+    margin: auto;
+}
+
+
+@media(min-width: 977px) {
+    .adMedium {
+        display: none;
     }
-} */
+}
+
+@media(max-width: 976px) {   
+    .adFull {
+        display: none;
+    }
+}
+
+@media(max-width: 784px) {
+    .topAdBar {
+        border-top: none;
+    }
+}

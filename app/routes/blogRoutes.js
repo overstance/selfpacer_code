@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const keys = require('../config/keys');
-const butterApiKey = keys.butterApi;
-const butter = require('buttercms')(butterApiKey);
 
 const BlogDraft = require('../models/BlogDraft');
 const BlogCategory = require('../models/BlogCategory');
@@ -11,15 +9,7 @@ const User = mongoose.model('users');
 const Comment = require('../models/Comment');
 
 module.exports = app => {
-  app.get('/api/blog_posts', async (req, res) => {
-    const response = await butter.post.list({ page: 1, page_size: 10 });
-    // console.log(response.data);
-    res.send({ posts: response.data });
-  });
-
   app.get('/api/blog_post', async (req, res) => {
-    // const response = await butter.post.retrieve(req.query.slug);
-    // console.log(response.data);
     BlogDraft.findOne(
       {
         publishYear: req.query.year,
@@ -258,9 +248,12 @@ module.exports = app => {
     let query = BlogDraft.find({
       tags: 'Featured',
       status: 'published'
-    }).select(
-      'publishedOn publishYear publishMonth publishDay featuredImage category title description slug author authorName authorTwitter'
-    );
+    })
+      .select(
+        'publishedOn displayDate publishYear publishMonth publishDay featuredImage category title description slug author authorName authorTwitter'
+      )
+      .sort({ publishedOn: -1 })
+      .limit(11);
 
     query.exec((err, blogs) => {
       if (err) {
@@ -300,24 +293,11 @@ module.exports = app => {
       return val.toString().length === 1 ? '0' + val : val.toString();
     }
 
-    /* function formatAMPM(date) {
-      var hours = date.getHours();
-      var minutes = date.getMinutes();
-      var ampm = hours >= 12 ? 'pm' : 'am';
-      hours = hours % 12;
-      hours = hours ? hours : 12; // the hour '0' should be '12'
-      minutes = minutes < 10 ? '0' + minutes : minutes;
-      var strTime = hours + ':' + minutes + ' ' + ampm;
-      return strTime;
-    } */
-
     let date = new Date();
-    // console.log(now.getFullYear());
+
     let year = date.getFullYear().toString();
 
     let day = fixDigit(date.getDate());
-
-    // postTime = date.toLocaleTimeString();
 
     var options = { month: 'long' };
     let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(date);
@@ -349,30 +329,15 @@ module.exports = app => {
       return val.toString().length === 1 ? '0' + val : val.toString();
     }
 
-    /* function formatAMPM(date) {
-      var hours = date.getHours();
-      var minutes = date.getMinutes();
-      var ampm = hours >= 12 ? 'pm' : 'am';
-      hours = hours % 12;
-      hours = hours ? hours : 12; // the hour '0' should be '12'
-      minutes = minutes < 10 ? '0' + minutes : minutes;
-      var strTime = hours + ':' + minutes + ' ' + ampm;
-      return strTime;
-    } */
-
     let date = new Date();
-    // console.log(now.getFullYear());
     let year = date.getFullYear().toString();
 
     let day = fixDigit(date.getDate());
 
-    // postTime = date.toLocaleTimeString();
-
     var options = { month: 'long' };
     let monthInLetter = new Intl.DateTimeFormat('en-US', options).format(date);
 
-    let displayDate =
-      monthInLetter + ' ' + day + ', ' + year /* + ' - ' + postTime */;
+    let displayDate = monthInLetter + ' ' + day + ', ' + year;
 
     let newComment = {
       commentDate: new Date(),
@@ -411,5 +376,46 @@ module.exports = app => {
         }
       }
     );
+  });
+
+  app.post('/api/unpublish_blog_post', (req, res) => {
+    BlogDraft.findByIdAndUpdate(
+      req.body.postId,
+      {
+        status: 'draft'
+      },
+      (err, post) => {
+        if (err) {
+          res.send({ error: err.message });
+        } else {
+          res.send({ post: post });
+        }
+      }
+    );
+  });
+
+  app.get('/api/fetch_blogs_by_section', (req, res) => {
+    let pageOptions = {
+      page: req.query.pageIndex || 0,
+      limit: 10
+    };
+    let query = BlogDraft.find({
+      category: req.query.category,
+      status: 'published'
+    })
+      .select(
+        'publishedOn displayDate publishYear publishMonth publishDay featuredImage category title description slug author authorName authorTwitter'
+      )
+      .skip(pageOptions.page * pageOptions.limit)
+      .sort({ publishedOn: -1 })
+      .limit(pageOptions.limit);
+
+    query.exec((err, blogs) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send({ blogs: blogs });
+      }
+    });
   });
 };

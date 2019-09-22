@@ -5,6 +5,7 @@ import FeaturedMedium from './featuredMedium';
 import FeaturedSmall from './featuredSmall';
 import FeaturedLarge from './featuredLarge';
 import * as actions from '../../../store/actions/index';
+import Spinner from '../../UserInterface/Spinner/Spinner';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 
@@ -15,213 +16,12 @@ class FeaturedBlogs extends Component {
     };
 
     render () {
-        let featuredBlogs = [
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "1. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "2. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "3. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "4. test draft 1 head admin test draft 1 headadmin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "5. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "6. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "7. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "8. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "9. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "10. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "11. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1567702860/blog_imgs/hero/local/msuikls4qwan40hdbl53.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", 
-                    caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            }
-        ]
+        let featuredSection = <Spinner isComponent/>
 
         const cover = this.props.featuredBlogs.slice(0, 1);
         const medium = this.props.featuredBlogs.slice(1, 3);
-        // const medium = featuredBlogs.slice(1, 3);
-        const small = featuredBlogs.slice(3, 7);
-        const large = featuredBlogs.slice(7, 11);
+        const small = this.props.featuredBlogs.slice(3, 7);
+        const large = this.props.featuredBlogs.slice(7, 11);
 
         let featuredMedium = medium.map((blog, i) => (
             <FeaturedMedium
@@ -298,7 +98,8 @@ class FeaturedBlogs extends Component {
             />
         ));
 
-        return (
+        if(!this.props.fetchFeaturedBlogsLoading && !this.props.fetchFeaturedBlogsError) {
+            featuredSection =
             <section className={classes.featuredBlogsSection}>
                 <div className={classes.featuredSectionTop}>
                     <div className={classes.featuredMediumContainer}>
@@ -337,13 +138,20 @@ class FeaturedBlogs extends Component {
                         {featuredLargeToSmall}
                     </div>
                 </div>
-            </section>
-        );
+            </section>    
+        } else if (!this.props.fetchFeaturedBlogsLoading && this.props.fetchFeaturedBlogsError) {
+            featuredSection = 
+            <div>{this.props.fetchFeaturedBlogsError}</div>
+        }
+
+        return (featuredSection);
     }
 }
 
 const mapStateToProps = state => ({
-    featuredBlogs: state.blog.featuredBlogs
+    featuredBlogs: state.blog.featuredBlogs,
+    fetchFeaturedBlogsLoading: state.blog.fetchFeaturedBlogsLoading,
+    fetchFeaturedBlogsError: state.blog.fetchFeaturedBlogsError,
 });
 
 const mapDispatchToProps = (dispatch) => {

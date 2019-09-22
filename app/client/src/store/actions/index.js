@@ -132,7 +132,6 @@ export {
 } from './profile';
 
 export {
-    fetchBlogPosts,
     fetchBlogPost,
     uploadBlogImage,
     uploadWebBlogImage,
@@ -159,7 +158,10 @@ export {
     replyingComment,
     cancelReply,
     saveBlog,
-    fetchBlogsBySection
+    fetchBlogsBySection,
+    clearBlogHomeMessages,
+    clearBlogSectionMessages,
+    unpublishPost
 } from './blog'
 
 

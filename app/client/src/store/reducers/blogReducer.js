@@ -3,18 +3,15 @@ import { updateObject } from '../utility';
 
 const initialState = {
     userSavedBlogs: [],
-    blogPosts: {
-        meta: {},
-        data: []
-    },
-    fetchBlogPostsLoading: false,
-    fetchBlogPostsError: null,
+
     blogPost: {
         featuredImage: {}
     },
     fetchBlogPostLoading: false,
     fetchBlogPostError: null,
 
+    fetchFeaturedBlogsLoading: false,
+    fetchFeaturedBlogsError: null,
     featuredBlogs: [],
     
     uploadBlogImageLoading: false,
@@ -77,7 +74,11 @@ const initialState = {
 
     fetchBlogsBySectionLoading: false,
     fetchBlogsBySectionError: null,
-    blogsBySection: []
+    blogsBySection: [],
+
+    unpublishPostLoading: false,
+    unpublishPostError: null,
+    unpublishPostSuccessMessage: null,
 }
 
 const setUserSavedBlogs = ( state, action ) => {
@@ -86,26 +87,35 @@ const setUserSavedBlogs = ( state, action ) => {
     })
 }
 
-const fetchBlogPostsStart = ( state, action ) => {
+// fetch featured blogs
+const fetchFeaturedBlogsStart = ( state, action ) => {
     return updateObject( state, {
-        fetchBlogPostsLoading: true,
-        fetchBlogPostsError: null
+        fetchFeaturedBlogsLoading: true,
+        fetchFeaturedBlogsError: null
     })
 }
 
-const fetchBlogPostsSuccess = ( state, action ) => {
+const fetchFeaturedBlogsSuccess = ( state, action ) => {
     return updateObject( state, {
-        fetchBlogPostsLoading: false,
-        blogPosts: action.posts
+        featuredBlogs: action.blogs,
+        fetchFeaturedBlogsLoading: false,
     })
 }
 
-const fetchBlogPostsFail = ( state, action ) => {
+const fetchFeaturedBlogsFail = ( state, action ) => {
     return updateObject( state, {
-        fetchBlogPostsLoading: false,
-        fetchBlogPostsError: action.error
+        fetchFeaturedBlogsError: action.error,
+        fetchFeaturedBlogsLoading: false,
     })
 }
+
+// clear all blog home page messages
+const  clearBlogHomeMessages = ( state, action ) => {
+    return updateObject( state, {
+        fetchFeaturedBlogsError: null
+    })
+}
+
 
 // fetch single blog
 
@@ -371,14 +381,6 @@ const fetchAuthorsSuccess = ( state, action ) => {
     })
 }
 
-// fetch featured blogs
-
-const fetchFeaturedBlogsSuccess = ( state, action ) => {
-    return updateObject( state, {
-        featuredBlogs: action.blogs
-    })
-}
-
 // fetch blog comments
 
 const fetchBlogCommentsStart = ( state, action ) => {
@@ -510,18 +512,76 @@ const clearBlogCommentMessages = ( state, action ) => {
         commentToReplyCommentor: null,
         commentToReplyText: null,
         saveBlogError: null,
-        saveBlogSuccessMessage: null
+        saveBlogSuccessMessage: null,
+        unpublishPostError: null,
+        unpublishPostSuccessMessage: null
     })
+}
+
+// unpublish blog post
+
+const unpublishPostStart = ( state, action ) => {
+    return updateObject( state, {
+        unpublishPostLoading: true,
+        unpublishPostError: null,
+        unpublishPostSuccessMessage: null
+    })
+}
+
+const unpublishPostSuccess = ( state, action ) => {
+    return updateObject( state, {
+        unpublishPostLoading: false,
+        unpublishPostSuccessMessage: action.successInfo
+    })
+}
+
+const unpublishPostFail = ( state, action ) => {
+    return updateObject( state, {
+        unpublishPostLoading: false,
+        unpublishPostError: action.error
+    })
+}
+
+// fetch blogs by section(category)
+
+const fetchBlogsBySectionStart = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsBySectionLoading: true,
+        fetchBlogsBySectionError: null
+    });
+}
+
+const fetchBlogsBySectionSuccess = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsBySectionLoading: false,
+        fetchBlogsBySectionError: null,
+        blogsBySection: action.posts
+    });
+}
+
+const fetchBlogsBySectionFail = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsBySectionLoading: false,
+        fetchBlogsBySectionError: action.error
+    });
+}
+
+const clearBlogSectionMessages = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsBySectionError: null
+    });
 }
 
 
 const reducer = ( state = initialState, action ) => {
     switch (action.type) {
         case actionTypes.SET_USER_SAVED_BLOGS: return setUserSavedBlogs(state, action);
-        
-        case actionTypes.FETCH_BLOG_POSTS_START: return fetchBlogPostsStart(state, action);
-        case actionTypes.FETCH_BLOG_POSTS_SUCCESS: return fetchBlogPostsSuccess(state, action);
-        case actionTypes.FETCH_BLOG_POSTS_FAIL: return fetchBlogPostsFail(state, action);
+ 
+        case actionTypes.FETCH_FEATURED_BLOGS_START: return fetchFeaturedBlogsStart(state, action);
+        case actionTypes.FETCH_FEATURED_BLOGS_SUCCESS: return fetchFeaturedBlogsSuccess(state, action);
+        case actionTypes.FETCH_FEATURED_BLOGS_FAIL: return fetchFeaturedBlogsFail(state, action);
+
+        case actionTypes.CLEAR_BLOG_HOME_MESSAGES: return clearBlogHomeMessages(state, action);
 
         case actionTypes.FETCH_BLOG_POST_START: return fetchBlogPostStart(state, action);
         case actionTypes.FETCH_BLOG_POST_SUCCESS: return fetchBlogPostSuccess(state, action);
@@ -570,8 +630,6 @@ const reducer = ( state = initialState, action ) => {
 
         case actionTypes.FETCH_AUTHORS_SUCCESS: return fetchAuthorsSuccess(state, action);
 
-        case actionTypes.FETCH_FEATURED_BLOGS_SUCCESS: return fetchFeaturedBlogsSuccess(state, action);
-
         case actionTypes.FETCH_BLOG_COMMENT_START: return fetchBlogCommentsStart(state, action);
         case actionTypes.FETCH_BLOG_COMMENT_SUCCESS: return fetchBlogCommentsSuccess(state, action);
         case actionTypes.FETCH_BLOG_COMMENT_FAIL: return fetchBlogCommentsFail(state, action);
@@ -580,9 +638,18 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.POST_USER_COMMENT_SUCCESS: return postUserCommentSuccess(state, action);
         case actionTypes.POST_USER_COMMENT_FAIL: return postUserCommentFail(state, action);
 
+        case actionTypes.UNPUBLISH_POST_START: return unpublishPostStart(state, action);
+        case actionTypes.UNPUBLISH_POST_SUCCESS: return unpublishPostSuccess(state, action);
+        case actionTypes.UNPUBLISH_POST_FAIL: return unpublishPostFail(state, action)
+
         case actionTypes.SAVE_BLOG_START: return saveBlogStart(state, action);
         case actionTypes.SAVE_BLOG_SUCCESS: return saveBlogSuccess(state, action);
         case actionTypes.SAVE_BLOG_FAIL: return saveBlogFail(state, action);
+
+        case actionTypes.FETCH_BLOGS_BY_SECTION_START: return fetchBlogsBySectionStart(state, action);
+        case actionTypes.FETCH_BLOGS_BY_SECTION_SUCCESS: return fetchBlogsBySectionSuccess(state, action);
+        case actionTypes.FETCH_BLOGS_BY_SECTION_FAIL: return fetchBlogsBySectionFail(state, action);
+        case actionTypes.CLEAR_BLOG_SECTION_MESSAGES: return clearBlogSectionMessages(state, action);
 
         case actionTypes.CANCEL_REPLY_COMMENT: return cancelReply(state, action);
         case actionTypes.REPLYING_COMMENT: return replyingComment(state, action);
