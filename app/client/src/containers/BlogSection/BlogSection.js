@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import classes from './blogSection.module.css';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
-import BlogItem from './blogItem';
+import BlogItem from '../../components/blogItem/blogItem';
+import MorePostSoon from '../../components/morePostSoon/morePostSoon';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Container from '../../components/UserInterface/Container/Container';
 import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
@@ -27,6 +28,7 @@ class BlogSection extends Component {
     componentDidUpdate(prevProps) {
         if(this.props.match.params.category !== prevProps.match.params.category) {
             this.props.onFetchBlogsBySection(this.props.match.params.category, 0);
+            this.setState({ pageIndex: 0 });
         }
     }
 
@@ -76,6 +78,15 @@ class BlogSection extends Component {
                             loading={this.props.fetchMoreBlogsBySectionLoading}
                         /> : null
                     }
+                    {   this.state.pageIndex === 0 && 
+                        this.props.blogsBySection.length < 10 && 
+                        !this.props.fetchBlogsBySectionLoading ?
+                        <MorePostSoon>
+                            Working to bring you more posts,
+                            please check back later.
+                        </MorePostSoon> 
+                        : null
+                    }
                 </div>
                 <div className={classes.aside}>
                     <div className={classes.blogPostSideAd}>
@@ -85,7 +96,7 @@ class BlogSection extends Component {
             </div>
         } else if (!this.props.fetchBlogsBySectionLoading && this.props.blogsBySection.length === 0) {
             sectionContent =
-            <div>No blog post for this category yet, check back later</div>
+            <MorePostSoon>No blog post for this category yet. Working on it, please check back later.</MorePostSoon>
         }
         return(         
             <section>

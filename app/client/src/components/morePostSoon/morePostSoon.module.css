@@ -1,0 +1,23 @@
+.container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background-image: url('../../assets/art/more_posts_soon.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.info {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    font-size: 24px;
+    justify-content: center;
+    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    color: var(--black);
+}

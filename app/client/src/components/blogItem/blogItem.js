@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './blogSection.module.css';
+import classes from './blogItem.module.css';
 import { Link } from 'react-router-dom';
 
 function sameDay(d1, d2) {
