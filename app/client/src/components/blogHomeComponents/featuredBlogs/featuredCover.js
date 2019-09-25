@@ -6,7 +6,9 @@ const featuredCover = (props) => (
     <article className={classes.featuredCover}>
         <div>
             <figure>
-                <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
+                <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}
+                    onClick={props.postClicked}
+                >
                     <img src={props.featureImageUrl} alt='featured blog' />
                 </Link>            
                 { props.source ? <figcaption>{props.source}</figcaption> : null}
@@ -19,7 +21,9 @@ const featuredCover = (props) => (
                 </Link>    
             </div>
             <div className={classes.featuredCoverTitle}>
-                <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
+                <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}
+                    onClick={props.postClicked}
+                >
                     {props.title}
                 </Link> 
             </div>

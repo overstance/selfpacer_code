@@ -162,7 +162,12 @@ export {
     fetchMoreBlogsBySection,
     clearBlogHomeMessages,
     clearBlogSectionMessages,
-    unpublishPost
+    unpublishPost,
+    increaseBlogPostView,
+    fetchBlogsByPopularity,
+    fetchMoreBlogsByPopularity,
+    fetchBlogsByRecent,
+    fetchMoreBlogsByRecent
 } from './blog'
 
 

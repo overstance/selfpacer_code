@@ -250,7 +250,7 @@ module.exports = app => {
       status: 'published'
     })
       .select(
-        'publishedOn displayDate publishYear publishMonth publishDay featuredImage category title description slug author authorName authorTwitter'
+        'publishedOn views displayDate publishYear publishMonth publishDay featuredImage category title description slug author authorName authorTwitter'
       )
       .sort({ publishedOn: -1 })
       .limit(11);
@@ -404,7 +404,7 @@ module.exports = app => {
       status: 'published'
     })
       .select(
-        'publishedOn displayDate publishYear publishMonth publishDay featuredImage category title description slug author authorName authorTwitter'
+        'publishedOn displayDate publishYear publishMonth views publishDay featuredImage category title description slug author authorName authorTwitter'
       )
       .skip(pageOptions.page * pageOptions.limit)
       .sort({ publishedOn: -1 })
@@ -417,5 +417,89 @@ module.exports = app => {
         res.send({ blogs: blogs });
       }
     });
+  });
+
+  app.get('/api/fetch_blogs_by_popularity', (req, res) => {
+    let pageOptions = {
+      page: req.query.pageIndex || 0,
+      limit: 10
+    };
+    let query = BlogDraft.find({
+      isPopular: true,
+      status: 'published'
+    })
+      .select(
+        'publishedOn displayDate publishYear publishMonth views publishDay featuredImage category title description slug author authorName authorTwitter'
+      )
+      .skip(pageOptions.page * pageOptions.limit)
+      .sort({ publishedOn: -1 })
+      .limit(pageOptions.limit);
+
+    query.exec((err, blogs) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send({ blogs: blogs });
+      }
+    });
+  });
+
+  app.get('/api/fetch_blogs_by_recent', (req, res) => {
+    let pageOptions = {
+      page: req.query.pageIndex || 0,
+      limit: 10
+    };
+    let query = BlogDraft.find({
+      status: 'published'
+    })
+      .select(
+        'publishedOn displayDate publishYear publishMonth views publishDay featuredImage category title description slug author authorName authorTwitter'
+      )
+      .skip(pageOptions.page * pageOptions.limit)
+      .sort({ publishedOn: -1 })
+      .limit(pageOptions.limit);
+
+    query.exec((err, blogs) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send({ blogs: blogs });
+      }
+    });
+  });
+
+  app.put('/api/increase_post_viewCount', (req, res) => {
+    let popularityCutoff = 100;
+
+    if (req.body.updatedViews >= popularityCutoff) {
+      BlogDraft.findByIdAndUpdate(
+        req.body.postId,
+        {
+          views: req.body.updatedViews,
+          isPopular: true
+        },
+        (err, post) => {
+          if (err) {
+            res.send({ error: err.message });
+          } else {
+            res.send({ successInfo: 'view count succesfully updated' });
+          }
+        }
+      );
+    } else {
+      BlogDraft.findByIdAndUpdate(
+        req.body.postId,
+        {
+          views: req.body.updatedViews
+        },
+        (err, post) => {
+          if (err) {
+            res.send({ error: err.message });
+          } else {
+            res.send({ successInfo: 'view count succesfully updated' });
+          }
+        }
+      );
+    }
   });
 };

@@ -34,7 +34,9 @@ const blogItem = (props) => {
         <article className={classes.blogItem}>
             <div className={classes.blogItemImage}>
                 <figure>
-                    <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
+                    <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}
+                    onClick={props.postClicked}
+                    >
                         <img src={props.featureImageUrl} alt='featured blog' />
                     </Link>
                     { props.source ? <figcaption>{props.source}</figcaption> : null}
@@ -42,7 +44,9 @@ const blogItem = (props) => {
             </div>
             <div className={classes.blogItemInfo}>
                 <div className={classes.blogItemTitle}>
-                    <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
+                    <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}
+                    onClick={props.postClicked}
+                    >
                         {props.title}
                     </Link>
                 </div>

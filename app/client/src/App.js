@@ -26,6 +26,8 @@ import SubjectPage from './containers/SubjectPage/SubjectPage';
 import Blog from './containers/BlogHome/BlogHome';
 import BlogPost from './containers/BlogPost/BlogPost';
 import BlogSection from './containers/BlogSection/BlogSection';
+import PopularBlogs from './containers/BlogSection/Popular';
+import LatestBlogs from './containers/BlogSection/Latest';
 import FacilitateApplicants from './containers/ViewFacilitateApplicants/FacilitateApplicants';
 // import RichEditor from './components/RichEditor/RichEditor';
 import ManageBlogDrafts from './containers/ManageBlogDrafts/ManageBlogDrafts';
@@ -72,6 +74,8 @@ class App extends Component {
         <Route exact path="/" component={Landing} />
         <Route path='/blog' exact component={Blog} />
         <Route path='/blog/sections/:category' exact component={BlogSection} />
+        <Route path='/blog/popular_blogposts' exact component={PopularBlogs} />
+        <Route path='/blog/latest_blogposts' exact component={LatestBlogs} />
         <Route path='/blog/:publishYear/:publishMonth/:publishDay/:slug' component={BlogPost} />
         <Route exact path="/collections" component={Collections} />
         <Route exact path="/shared_collections/:id" component={SharedCollection} />

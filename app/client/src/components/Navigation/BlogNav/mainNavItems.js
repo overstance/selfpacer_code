@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 const mainNavItems = (props) => (
     <div className={classes.MainNavItems}>
         <NavLink to="/blog" exact>Home</NavLink>
-        <NavLink to="/collections" exact>Popular</NavLink>
-        <NavLink to="/collections" exact>Latest</NavLink>
+        <NavLink to="/blog/popular_blogposts" exact>Popular</NavLink>
+        <NavLink to="/blog/latest_blogposts" exact>Latest</NavLink>
         <span onClick={props.sectionClicked}>
             Sections
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">

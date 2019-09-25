@@ -19,7 +19,6 @@
   "dependencies": {
     "async": "^2.6.1",
     "body-parser": "^1.18.3",
-    "buttercms": "^1.1.5",
     "cloudinary": "^1.14.0",
     "concurrently": "^4.0.1",
     "connect-multiparty": "^2.2.0",

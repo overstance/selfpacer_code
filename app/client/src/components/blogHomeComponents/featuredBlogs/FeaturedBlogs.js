@@ -15,6 +15,22 @@ class FeaturedBlogs extends Component {
         this.props.onFetchFeaturedBlogs();
     };
 
+    blogPostViewed = (postId, postViews) => {
+        let recentlyViewed = this.props.recentlyViewedBlogsByUser.find(id => id === postId)
+
+        if (recentlyViewed) {
+            // console.log('this blog is recently viewed');
+            return;
+        } else {
+            let updatedRecentlyViewedBlogs = this.props.recentlyViewedBlogsByUser;
+            let updatedViews = postViews + 1;
+            updatedRecentlyViewedBlogs.push(postId);
+
+            // console.log(recentlyViewed, this.props.recentlyViewedBlogsByUser, updatedRecentlyViewedBlogs, postViews, updatedViews);
+            this.props.onIncreaseBlogPostView(postId, updatedViews, updatedRecentlyViewedBlogs);
+        }
+    }
+
     render () {
         let featuredSection = <Spinner isComponent/>
 
@@ -35,6 +51,7 @@ class FeaturedBlogs extends Component {
                 title={blog.title}
                 description={blog.description}
                 slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
             />
         ));
 
@@ -50,6 +67,7 @@ class FeaturedBlogs extends Component {
                 title={blog.title}
                 description={blog.description}
                 slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
             />
         ));
 
@@ -65,6 +83,7 @@ class FeaturedBlogs extends Component {
                 title={blog.title}
                 description={blog.description}
                 slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
             />
         ));
 
@@ -80,6 +99,7 @@ class FeaturedBlogs extends Component {
                 title={blog.title}
                 description={blog.description}
                 slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
             />
         ));
 
@@ -95,6 +115,7 @@ class FeaturedBlogs extends Component {
                 title={blog.title}
                 description={blog.description}
                 slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
             />
         ));
 
@@ -152,10 +173,12 @@ const mapStateToProps = state => ({
     featuredBlogs: state.blog.featuredBlogs,
     fetchFeaturedBlogsLoading: state.blog.fetchFeaturedBlogsLoading,
     fetchFeaturedBlogsError: state.blog.fetchFeaturedBlogsError,
+    recentlyViewedBlogsByUser: state.blog.recentlyViewedBlogsByUser,
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        onIncreaseBlogPostView: (postId, updatedViews, updatedRecentlyViewedBlogs) => dispatch(actions.increaseBlogPostView(postId, updatedViews, updatedRecentlyViewedBlogs)),
         onFetchFeaturedBlogs: () => dispatch(actions.fetchFeaturedBlogs())
     }
 }

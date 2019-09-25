@@ -36,7 +36,9 @@ const latestBlog = (props) => {
         <article className={classes.latestBlog}>
             <div className={classes.latestBlogImage}>
                 <figure>
-                    <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
+                    <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}
+                        onClick={props.postClicked}
+                    >
                         <img src={props.featureImageUrl} alt='featured blog' />
                     </Link>
                     { props.source ? <figcaption>{props.source}</figcaption> : null}
@@ -49,7 +51,9 @@ const latestBlog = (props) => {
                     </Link>    
                 </div>
                 <div className={classes.latestBlogTitle}>
-                    <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}>
+                    <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}
+                        onClick={props.postClicked}
+                    >
                         {props.title}
                     </Link>
                 </div>

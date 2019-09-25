@@ -7,11 +7,10 @@ import MorePostSoon from '../../components/morePostSoon/morePostSoon';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Container from '../../components/UserInterface/Container/Container';
 import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
-import LatestSection from '../BlogPost/latestSection/LatestSection';
 import LoadMorePrompt from '../../components/UserInterface/LoadMorePrompt/blogLoadMore';
 
 
-class BlogSection extends Component {
+class Latest extends Component {
 
     state = {
         pageIndex: 0
@@ -20,16 +19,9 @@ class BlogSection extends Component {
     componentDidMount() {
         this.props.onSetIsBlogPage();
 
-        this.props.onFetchBlogsBySection(this.props.match.params.category, 0);
+        this.props.onFetchBlogsByRecent(0);
         window.addEventListener('scroll', this.handleScroll, false);
         window.scroll(0, 0);
-    }
-
-    componentDidUpdate(prevProps) {
-        if(this.props.match.params.category !== prevProps.match.params.category) {
-            this.props.onFetchBlogsBySection(this.props.match.params.category, 0);
-            this.setState({ pageIndex: 0 });
-        }
     }
 
     componentWillUnmount() {
@@ -42,7 +34,7 @@ class BlogSection extends Component {
         this.setState({
             pageIndex: this.state.pageIndex + 1
         }, () => {
-            this.props.onFetchMoreBlogsBySection(this.props.match.params.category, this.state.pageIndex, this.props.blogsBySection)
+            this.props.onFetchMoreBlogsByRecent(this.state.pageIndex, this.props.blogsByRecent)
         })      
     }
 
@@ -64,8 +56,8 @@ class BlogSection extends Component {
 
         let sectionContent = <Spinner isComponent/>;
 
-        if (!this.props.fetchBlogsBySectionLoading && this.props.blogsBySection.length > 0) {
-            let blogs = this.props.blogsBySection.map((blog, i) => (
+        if (!this.props.fetchBlogsByRecentLoading && this.props.blogsByRecent.length > 0) {
+            let blogs = this.props.blogsByRecent.map((blog, i) => (
                 <BlogItem 
                     key={i}
                     publishYear={blog.publishYear}
@@ -87,15 +79,15 @@ class BlogSection extends Component {
             <div className={classes.sectionWrapper}>
                 <div className={classes.sectionBlogs}>
                     {blogs}
-                    { this.props.latestSectionFetchLength >= 10 ? 
+                    { this.props.latestRecentFetchLength >= 10 ? 
                         <LoadMorePrompt 
                             loadMore={this.fetchMoreData}
-                            loading={this.props.fetchMoreBlogsBySectionLoading}
+                            loading={this.props.fetchMoreBlogsByRecentLoading}
                         /> : null
                     }
                     {   this.state.pageIndex === 0 && 
-                        this.props.blogsBySection.length < 10 && 
-                        !this.props.fetchBlogsBySectionLoading ?
+                        this.props.blogsByRecent.length < 10 && 
+                        !this.props.fetchBlogsByRecentLoading ?
                         <MorePostSoon>
                             Working to bring you more posts,
                             please check back later.
@@ -109,12 +101,12 @@ class BlogSection extends Component {
                     </div>
                 </div>
             </div>
-        } else if (!this.props.fetchBlogsBySectionLoading && this.props.blogsBySection.length === 0) {
+        } else if (!this.props.fetchBlogsByRecentLoading && this.props.blogsByRecent.length === 0) {
             sectionContent =
             <MorePostSoon>No blog post for this category yet. Working on it, please check back later.</MorePostSoon>
         }
         return(         
-            <section>
+            <section className={classes.latestSection}>
                 <div className={classes.topAdBar}>
                     <Container>
                     <div className={classes.blogPostTopAd}>
@@ -125,7 +117,6 @@ class BlogSection extends Component {
                 </div>
                 <Container>
                     {sectionContent}
-                    <LatestSection />
                 </Container> 
                 <ScrollButton scrollStepInPx="100" delayInMs="16.66" showUnder={160} /> 
             </section>
@@ -135,14 +126,14 @@ class BlogSection extends Component {
 
 const mapStateToProps = state => {
     return {
-        blogsBySection: state.blog.blogsBySection,
-        fetchBlogsBySectionLoading: state.blog.fetchBlogsBySectionLoading,
-        fetchBlogsBySectionError: state.blog.fetchBlogsBySectionError,
+        blogsByRecent: state.blog.blogsByRecent,
+        fetchBlogsByRecentLoading: state.blog.fetchBlogsByRecentLoading,
+        fetchBlogsByRecentError: state.blog.fetchBlogsByRecentError,
         
         recentlyViewedBlogsByUser: state.blog.recentlyViewedBlogsByUser,
 
-        fetchMoreBlogsBySectionLoading: state.blog.fetchMoreBlogsBySectionLoading,
-        latestSectionFetchLength: state.blog.latestSectionFetchLength,
+        fetchMoreBlogsByRecentLoading: state.blog.fetchMoreBlogsByRecentLoading,
+        latestRecentFetchLength: state.blog.latestRecentFetchLength,
     }
 }
 
@@ -151,8 +142,8 @@ const mapDispatchToProps = dispatch => {
         onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
         onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
         
-        onFetchBlogsBySection: (category, pageIndex) => dispatch(actions.fetchBlogsBySection(category, pageIndex)),
-        onFetchMoreBlogsBySection: (category, pageIndex, blogPosts) => dispatch(actions.fetchMoreBlogsBySection(category, pageIndex, blogPosts)),
+        onFetchBlogsByRecent: (pageIndex) => dispatch(actions.fetchBlogsByRecent(pageIndex)),
+        onFetchMoreBlogsByRecent: (pageIndex, blogPosts) => dispatch(actions.fetchMoreBlogsByRecent(pageIndex, blogPosts)),
         
         onIncreaseBlogPostView: (postId, updatedViews, updatedRecentlyViewedBlogs) => dispatch(actions.increaseBlogPostView(postId, updatedViews, updatedRecentlyViewedBlogs)),
         
@@ -160,4 +151,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BlogSection);
+export default connect(mapStateToProps, mapDispatchToProps)(Latest);

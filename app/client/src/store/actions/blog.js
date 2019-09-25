@@ -810,6 +810,144 @@ export const fetchMoreBlogsBySection = (category, pageIndex, blogPosts) => async
     }
 }
 
+// fetch blog by popularity
+
+export const fetchBlogsByPopularityStart = () => {
+    return {
+        type: actionTypes.FETCH_BLOGS_BY_POPULARITY_START
+    }
+}
+
+export const fetchBlogsByPopularitySuccess = (posts, fetchLength) => {
+    return {
+        type: actionTypes.FETCH_BLOGS_BY_POPULARITY_SUCCESS,
+        posts: posts,
+        fetchLength: fetchLength
+    }
+}
+
+export const fetchBlogsByPopularityFail = (error) => {
+    return {
+        type: actionTypes.FETCH_BLOGS_BY_POPULARITY_FAIL,
+        error: error
+    }
+}
+
+export const fetchBlogsByPopularity = (pageIndex) =>  async dispatch => {
+    dispatch(fetchBlogsByPopularityStart());
+
+    const res = await axios.get('/api/fetch_blogs_by_popularity', {params: { pageIndex: pageIndex }});
+
+    if(res.data.blogs) {
+        dispatch(fetchBlogsByPopularitySuccess(res.data.blogs, res.data.blogs.length))
+    } else if (res.data.error) {
+        dispatch(fetchBlogsByPopularityFail(res.data.error))
+    }
+}
+
+export const fetchMoreBlogsByPopularityStart = () => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOGS_BY_POPULARITY_START
+    }
+}
+
+export const fetchMoreBlogsByPopularitySuccess = (updatedPosts, fetchLength) => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOGS_BY_POPULARITY_SUCCESS,
+        updatedPosts: updatedPosts,
+        fetchLength: fetchLength
+    }
+}
+
+export const fetchMoreBlogsByPopularityFail = (error) => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOGS_BY_POPULARITY_FAIL,
+        error: error
+    }
+}
+
+export const fetchMoreBlogsByPopularity = (pageIndex, blogPosts) => async dispatch => {
+    dispatch(fetchMoreBlogsByPopularityStart());
+
+    const res = await axios.get('/api/fetch_blogs_by_popularity', {params: { pageIndex: pageIndex }});
+
+    if(res.data.blogs) {
+        let updatedPosts = [...blogPosts, ...res.data.blogs];
+        dispatch(fetchMoreBlogsByPopularitySuccess(updatedPosts, res.data.blogs.length))
+    } else if (res.data.error) {
+        dispatch(fetchMoreBlogsByPopularityFail(res.data.error))
+    }
+}
+
+// fetch blog by recent
+
+export const fetchBlogsByRecentStart = () => {
+    return {
+        type: actionTypes.FETCH_BLOGS_BY_RECENT_START
+    }
+}
+
+export const fetchBlogsByRecentSuccess = (posts, fetchLength) => {
+    return {
+        type: actionTypes.FETCH_BLOGS_BY_RECENT_SUCCESS,
+        posts: posts,
+        fetchLength: fetchLength
+    }
+}
+
+export const fetchBlogsByRecentFail = (error) => {
+    return {
+        type: actionTypes.FETCH_BLOGS_BY_RECENT_FAIL,
+        error: error
+    }
+}
+
+export const fetchBlogsByRecent = (pageIndex) =>  async dispatch => {
+    dispatch(fetchBlogsByRecentStart());
+
+    const res = await axios.get('/api/fetch_blogs_by_recent', {params: { pageIndex: pageIndex }});
+
+    if(res.data.blogs) {
+        dispatch(fetchBlogsByRecentSuccess(res.data.blogs, res.data.blogs.length))
+    } else if (res.data.error) {
+        dispatch(fetchBlogsByRecentFail(res.data.error))
+    }
+}
+
+export const fetchMoreBlogsByRecentStart = () => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOGS_BY_RECENT_START
+    }
+}
+
+export const fetchMoreBlogsByRecentSuccess = (updatedPosts, fetchLength) => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOGS_BY_RECENT_SUCCESS,
+        updatedPosts: updatedPosts,
+        fetchLength: fetchLength
+    }
+}
+
+export const fetchMoreBlogsByRecentFail = (error) => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOGS_BY_RECENT_FAIL,
+        error: error
+    }
+}
+
+export const fetchMoreBlogsByRecent = (pageIndex, blogPosts) => async dispatch => {
+    dispatch(fetchMoreBlogsByRecentStart());
+
+    const res = await axios.get('/api/fetch_blogs_by_recent', {params: { pageIndex: pageIndex }});
+
+    if(res.data.blogs) {
+        let updatedPosts = [...blogPosts, ...res.data.blogs];
+        dispatch(fetchMoreBlogsByRecentSuccess(updatedPosts, res.data.blogs.length))
+    } else if (res.data.error) {
+        dispatch(fetchMoreBlogsByRecentFail(res.data.error))
+    }
+}
+
 
 //  unpublish blog post
 
@@ -842,6 +980,21 @@ export const unpublishPost = (postId) => async dispatch => {
         dispatch(unpublishPostSuccess('Post Unpublished'));
     } else if (res.data.error) {
         dispatch(unpublishPostFail(res.data.error)); 
+    }
+}
+
+export const increaseBlogPostViewSuccess = (updatedRecentlyViewedBlogs) => {
+    return {
+        type: actionTypes.INCREASE_BLOG_POST_VIEW_SUCCESS,
+        updatedRecentlyViewedBlogs: updatedRecentlyViewedBlogs
+    }
+}
+
+export const increaseBlogPostView = (postId, updatedViews, updatedRecentlyViewedBlogs) => async dispatch => {
+    const res = await axios.put('/api/increase_post_viewCount', {postId: postId, updatedViews: updatedViews})
+
+    if (res.data.successInfo === 'view count succesfully updated') {
+        dispatch(increaseBlogPostViewSuccess(updatedRecentlyViewedBlogs));
     }
 }
 

@@ -79,9 +79,25 @@ const initialState = {
     latestSectionFetchLength: 0,
     blogsBySection: [],
 
+    fetchBlogsByPopularityLoading: false,
+    fetchBlogsByPopularityError: null,
+    fetchMoreBlogsByPopularityLoading: false,
+    fetchMoreBlogsByPopularityError: null,
+    latestPopularityFetchLength: 0,
+    blogsByPopularity: [],
+
+    fetchBlogsByRecentLoading: false,
+    fetchBlogsByRecentError: null,
+    fetchMoreBlogsByRecentLoading: false,
+    fetchMoreBlogsByRecentError: null,
+    latestRecentFetchLength: 0,
+    blogsByRecent: [],
+
     unpublishPostLoading: false,
     unpublishPostError: null,
     unpublishPostSuccessMessage: null,
+
+    recentlyViewedBlogsByUser: []
 }
 
 const setUserSavedBlogs = ( state, action ) => {
@@ -115,7 +131,9 @@ const fetchFeaturedBlogsFail = ( state, action ) => {
 // clear all blog home page messages
 const  clearBlogHomeMessages = ( state, action ) => {
     return updateObject( state, {
-        fetchFeaturedBlogsError: null
+        fetchFeaturedBlogsError: null,
+        fetchBlogsByPopularityError: null,
+        fetchBlogsByRecentError: null
     })
 }
 
@@ -594,10 +612,118 @@ const fetchMoreBlogsBySectionFail = (state, action) => {
     });
 }
 
+// fetch blogs by popularity
+
+const fetchBlogsByPopularityStart = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsByPopularityLoading: true,
+        fetchBlogsByPopularityError: null
+    });
+}
+
+const fetchBlogsByPopularitySuccess = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsByPopularityLoading: false,
+        fetchBlogsByPopularityError: null,
+        blogsByPopularity: action.posts,
+        latestPopularityFetchLength: action.fetchLength
+    });
+}
+
+const fetchBlogsByPopularityFail = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsByPopularityLoading: false,
+        fetchBlogsByPopularityError: action.error
+    });
+}
+
+const fetchMoreBlogsByPopularityStart = (state, action) => {
+    return updateObject(state, {
+        fetchMoreBlogsByPopularityLoading: true,
+        fetchMoreBlogsByPopularityError: null
+
+    });
+}
+
+const fetchMoreBlogsByPopularitySuccess = (state, action) => {
+    return updateObject(state, {
+        fetchMoreBlogsByPopularityLoading: false,
+        blogsByPopularity: action.updatedPosts,
+        latestPopularityFetchLength: action.fetchLength
+
+    });
+}
+
+const fetchMoreBlogsByPopularityFail = (state, action) => {
+    return updateObject(state, {
+        fetchMoreBlogsByPopularityLoading: false,
+        fetchMoreBlogsByPopularityError: action.error
+    });
+}
+
+// fetch blogs by recent
+
+const fetchBlogsByRecentStart = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsByRecentLoading: true,
+        fetchBlogsByRecentError: null
+    });
+}
+
+const fetchBlogsByRecentSuccess = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsByRecentLoading: false,
+        fetchBlogsByRecentError: null,
+        blogsByRecent: action.posts,
+        latestRecentFetchLength: action.fetchLength
+    });
+}
+
+const fetchBlogsByRecentFail = (state, action) => {
+    return updateObject(state, {
+        fetchBlogsByRecentLoading: false,
+        fetchBlogsByRecentError: action.error
+    });
+}
+
+const fetchMoreBlogsByRecentStart = (state, action) => {
+    return updateObject(state, {
+        fetchMoreBlogsByRecentLoading: true,
+        fetchMoreBlogsByRecentError: null
+
+    });
+}
+
+const fetchMoreBlogsByRecentSuccess = (state, action) => {
+    return updateObject(state, {
+        fetchMoreBlogsByRecentLoading: false,
+        blogsByRecent: action.updatedPosts,
+        latestRecentFetchLength: action.fetchLength
+
+    });
+}
+
+const fetchMoreBlogsByRecentFail = (state, action) => {
+    return updateObject(state, {
+        fetchMoreBlogsByRecentLoading: false,
+        fetchMoreBlogsByRecentError: action.error
+    });
+}
+
 const clearBlogSectionMessages = (state, action) => {
     return updateObject(state, {
         fetchBlogsBySectionError: null,
-        fetchMoreBlogsBySectionError: null
+        fetchMoreBlogsBySectionError: null,
+        fetchBlogsByPopularityError: null,
+        fetchMoreBlogsByPopularityError: null,
+        fetchBlogsByRecentError: null,
+        fetchMoreBlogsByRecentError: null
+    });
+}
+
+const increaseBlogpostViewSuccess = (state, action) => {
+    return updateObject(state, {
+        recentlyViewedBlogsByUser: action.updatedRecentlyViewedBlogs
     });
 }
 
@@ -681,7 +807,24 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_MORE_BLOGS_BY_SECTION_START: return fetchMoreBlogsBySectionStart(state, action);
         case actionTypes.FETCH_MORE_BLOGS_BY_SECTION_SUCCESS: return fetchMoreBlogsBySectionSuccess(state, action);
         case actionTypes.FETCH_MORE_BLOGS_BY_SECTION_FAIL: return fetchMoreBlogsBySectionFail(state, action);
+
+        case actionTypes.FETCH_BLOGS_BY_POPULARITY_START: return fetchBlogsByPopularityStart(state, action);
+        case actionTypes.FETCH_BLOGS_BY_POPULARITY_SUCCESS: return fetchBlogsByPopularitySuccess(state, action);
+        case actionTypes.FETCH_BLOGS_BY_POPULARITY_FAIL: return fetchBlogsByPopularityFail(state, action);
+        case actionTypes.FETCH_MORE_BLOGS_BY_POPULARITY_START: return fetchMoreBlogsByPopularityStart(state, action);
+        case actionTypes.FETCH_MORE_BLOGS_BY_POPULARITY_SUCCESS: return fetchMoreBlogsByPopularitySuccess(state, action);
+        case actionTypes.FETCH_MORE_BLOGS_BY_POPULARITY_FAIL: return fetchMoreBlogsByPopularityFail(state, action);
+
+        case actionTypes.FETCH_BLOGS_BY_RECENT_START: return fetchBlogsByRecentStart(state, action);
+        case actionTypes.FETCH_BLOGS_BY_RECENT_SUCCESS: return fetchBlogsByRecentSuccess(state, action);
+        case actionTypes.FETCH_BLOGS_BY_RECENT_FAIL: return fetchBlogsByRecentFail(state, action);
+        case actionTypes.FETCH_MORE_BLOGS_BY_RECENT_START: return fetchMoreBlogsByRecentStart(state, action);
+        case actionTypes.FETCH_MORE_BLOGS_BY_RECENT_SUCCESS: return fetchMoreBlogsByRecentSuccess(state, action);
+        case actionTypes.FETCH_MORE_BLOGS_BY_RECENT_FAIL: return fetchMoreBlogsByRecentFail(state, action);
+        
         case actionTypes.CLEAR_BLOG_SECTION_MESSAGES: return clearBlogSectionMessages(state, action);
+
+        case actionTypes.INCREASE_BLOG_POST_VIEW_SUCCESS: return increaseBlogpostViewSuccess(state, action);
 
         case actionTypes.CANCEL_REPLY_COMMENT: return cancelReply(state, action);
         case actionTypes.REPLYING_COMMENT: return replyingComment(state, action);
