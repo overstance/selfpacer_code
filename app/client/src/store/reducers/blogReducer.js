@@ -52,6 +52,8 @@ const initialState = {
     authors: [],
 
     moreInCategory: [],
+    fetchMoreInCategoryLoading: false,
+    fetchMoreInCategoryError: null,
 
     fetchBlogCommentsLoading: false,
     fetchBlogCommentsError: null, 
@@ -161,9 +163,24 @@ const fetchBlogPostFail = ( state, action ) => {
     })
 }
 
+const fetchMoreInCategoryStart = ( state, action ) => {
+    return updateObject( state, {
+        fetchMoreInCategoryError: null,
+        fetchMoreInCategoryLoading: true
+    })
+}
+
 const fetchMoreInCategorySuccess = ( state, action ) => {
     return updateObject( state, {
-        moreInCategory: action.posts
+        moreInCategory: action.posts,
+        fetchMoreInCategoryLoading: false
+    })
+}
+
+const fetchMoreInCategoryFail = ( state, action ) => {
+    return updateObject( state, {
+        fetchMoreInCategoryError: action.error,
+        fetchMoreInCategoryLoading: false
     })
 }
 
@@ -524,7 +541,7 @@ const postUserCommentReplyFail = ( state, action ) => {
 
 // clear blog comment messages
 
-const clearBlogCommentMessages = ( state, action ) => {
+const clearBlogPostMessages = ( state, action ) => {
     return updateObject( state, {
         postCommentError: null,
         postCommentSuccessMessage: null,
@@ -535,7 +552,8 @@ const clearBlogCommentMessages = ( state, action ) => {
         saveBlogError: null,
         saveBlogSuccessMessage: null,
         unpublishPostError: null,
-        unpublishPostSuccessMessage: null
+        unpublishPostSuccessMessage: null,
+        fetchMoreInCategoryError: null
     })
 }
 
@@ -742,7 +760,9 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_BLOG_POST_SUCCESS: return fetchBlogPostSuccess(state, action);
         case actionTypes.FETCH_BLOG_POST_FAIL: return fetchBlogPostFail(state, action);
 
+        case actionTypes.FETCH_MORE_BLOG_IN_CATEGORY_START: return fetchMoreInCategoryStart(state, action);
         case actionTypes.FETCH_MORE_BLOG_IN_CATEGORY_SUCCESS: return fetchMoreInCategorySuccess(state, action);
+        case actionTypes.FETCH_MORE_BLOG_IN_CATEGORY_FAIL: return fetchMoreInCategoryFail(state, action);
 
         case actionTypes.UPLOAD_BLOG_IMAGE_START: return uploadBlogImageStart(state, action);
         case actionTypes.UPLOAD_BLOG_IMAGE_SUCCESS: return uploadBlogImageSuccess(state, action);
@@ -832,7 +852,7 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.POST_USER_COMMENT_REPLY_SUCCESS: return postUserCommentReplySuccess(state, action);
         case actionTypes.POST_USER_COMMENT_REPLY_FAIL: return postUserCommentReplyFail(state, action);
 
-        case actionTypes.CLEAR_BLOG_COMMENT_MESSAGES: return clearBlogCommentMessages(state, action);
+        case actionTypes.CLEAR_BLOG_POST_MESSAGES: return clearBlogPostMessages(state, action);
 
         default: return state;
     }

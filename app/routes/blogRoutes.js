@@ -253,7 +253,7 @@ module.exports = app => {
         'publishedOn views displayDate publishYear publishMonth publishDay featuredImage category title description slug author authorName authorTwitter'
       )
       .sort({ publishedOn: -1 })
-      .limit(11);
+      .limit(12);
 
     query.exec((err, blogs) => {
       if (err) {
@@ -266,16 +266,23 @@ module.exports = app => {
   });
 
   app.get('/api/fetch_more_blog_in_category', (req, res) => {
-    BlogDraft.find(
-      { category: req.query.category, status: 'published' },
-      (err, posts) => {
-        if (err) {
-          res.send({ error: err.message });
-        } else {
-          res.send({ posts: posts });
-        }
+    let query = BlogDraft.find({
+      category: req.query.category,
+      status: 'published'
+    })
+      .select(
+        'publishedOn displayDate publishYear publishMonth views publishDay featuredImage category title description slug author authorName authorTwitter'
+      )
+      .sort({ publishedOn: -1 })
+      .limit(4);
+
+    query.exec((err, posts) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send({ posts: posts });
       }
-    );
+    });
   });
 
   app.get('/api/fetch_blog_comments', (req, res) => {

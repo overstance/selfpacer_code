@@ -57,7 +57,7 @@ class BlogPost extends React.Component {
 
   componentWillUnmount() {
     this.props.onUnsetIsBlogPage();
-    this.props.onClearBlogCommentMessages();
+    this.props.onClearBlogPostMessages();
 
     window.removeEventListener('scroll', this.handleScroll, false);
     // this.props.onClearBlogToReply();
@@ -416,7 +416,7 @@ const mapDispatchToProps = dispatch => {
     onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
     onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
     onFetchBlogPost: (year, month, day, slug) => dispatch(actions.fetchBlogPost(year, month, day, slug)),
-    onClearBlogCommentMessages: () => dispatch(actions.clearBlogCommentMessages())
+    onClearBlogPostMessages: () => dispatch(actions.clearBlogPostMessages())
   };
 };
 

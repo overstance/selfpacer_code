@@ -52,7 +52,7 @@ section img {
 .header {
     /* padding-bottom: 16px; */
     text-align: left;
-    max-width: 1136px;
+    max-width: 1120px;
     margin: 0 auto;
     border-bottom: 1px solid var(--gray);
 }
@@ -160,13 +160,15 @@ section img {
     flex-basis: 0;
     flex-grow: 1;
     max-width: 800px;
+    padding-right: 16px;
+    box-sizing: border-box;
     /* min-height: 1200px; */
 }
 
 .aside {
     /* flex: 0 0 40%; */
     /* max-width: 40%; */
-    width: 320px;
+    width: 300px;
     margin-left: 16px;
 }
 
@@ -477,6 +479,10 @@ pre {
 
     .aside {
         display: none;
+    }
+
+    .pageMain {
+        padding-right: 0;
     }
 
     .header {

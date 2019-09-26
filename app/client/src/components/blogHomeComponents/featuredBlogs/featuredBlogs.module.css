@@ -262,6 +262,7 @@
     width: 100%;
     display: flex;
     flex-flow: row-reverse;
+    justify-content: space-between;
     padding: 16px 0;
     border-top: 1px solid var(--gray);
     box-sizing: border-box;

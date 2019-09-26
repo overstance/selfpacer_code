@@ -187,57 +187,63 @@ class LatestSection extends Component {
         )); */
 
         return(
-            <div className={classes.contentWrapper}>
-                <div className={classes.latestBlogContainer}>
-                    <div className={classes.sectionSubhead}>
-                        <Link to='/blog/latest_blogposts' className={classes.sectionSubheadTitle}>Latest</Link>
-                        <Link to='/blog/latest_blogposts' className={classes.sectionSubheadMore}>See All</Link>
-                    </div>
-                    {latestBlogs1to3}
-                    {/* <div className={classes.latestVideoContainer}>
+            <React.Fragment>
+                <div className={classes.latestSectionTopAd}>
+                    <div className={classes.adFull} />
+                    <div className={classes.adMedium} />
+                </div>
+                <div className={classes.contentWrapper}>
+                    <div className={classes.latestBlogContainer}>
                         <div className={classes.sectionSubhead}>
-                            <Link to='/blog/videos' className={classes.sectionSubheadTitle}>Videos</Link>
-                            <Link to='/blog/videos' className={classes.sectionSubheadMore}>See All</Link>
+                            <Link to='/blog/latest_blogposts' className={classes.sectionSubheadTitle}>Latest</Link>
+                            <Link to='/blog/latest_blogposts' className={classes.sectionSubheadMore}>See All</Link>
                         </div>
-                        <div className={classes.latestVideoLarge}>
-                            <div className={classes.latestVideos1}>{latestVideos1}</div>
-                            <div className={classes.latestVideos2to3}>
-                                {latestVideos2to3}
+                        {latestBlogs1to3}
+                        {/* <div className={classes.latestVideoContainer}>
+                            <div className={classes.sectionSubhead}>
+                                <Link to='/blog/videos' className={classes.sectionSubheadTitle}>Videos</Link>
+                                <Link to='/blog/videos' className={classes.sectionSubheadMore}>See All</Link>
+                            </div>
+                            <div className={classes.latestVideoLarge}>
+                                <div className={classes.latestVideos1}>{latestVideos1}</div>
+                                <div className={classes.latestVideos2to3}>
+                                    {latestVideos2to3}
+                                </div>
+                            </div>
+                        </div> */}
+                        <div className={classes.popularSectionSmallMediaContainer}>
+                            <div className={classes.popularBlogSmallMediaContainer}>
+                                <div className={classes.sectionSubhead}>
+                                    <Link to='/blog/popular_blogposts' className={classes.sectionSubheadTitle}>Popular</Link>
+                                    <Link to='/blog/popular_blogposts' className={classes.sectionSubheadMore} >See All</Link>
+                                </div>
+                                {popularBlogs}
+                            </div>
+                            <div className={classes.sideAdSmallMedia}>
+                                <div className={classes.adFullSide}/>
                             </div>
                         </div>
-                    </div> */}
-                    <div className={classes.popularSectionSmallMediaContainer}>
-                        <div className={classes.popularBlogSmallMediaContainer}>
+                        <div className={classes.latestBlogs4to6}>
+                            {/* comment out or delete the spacer below once video container is used */}
+                            <div className={classes.spacerInAbsenceOfVideoSection}/>
+                            {latestBlogs4to6}
+                            <div className={classes.seeAll}><Link to='/blog/latest_blogposts'>see all</Link></div>
+                        </div>
+                    </div>
+                    <div className={classes.aside}>
+                        <div className={classes.popularBlogContainer}>
                             <div className={classes.sectionSubhead}>
-                                <Link to='/blog/popular_blogposts' className={classes.sectionSubheadTitle}>Popular</Link>
-                                <Link to='/blog/popular_blogposts' className={classes.sectionSubheadMore} >See All</Link>
+                                <Link to='/blog/popular' className={classes.sectionSubheadTitle}>Popular</Link>
+                                <Link to='/blog/popular' className={classes.sectionSubheadMore} >See All</Link>
                             </div>
                             {popularBlogs}
                         </div>
-                        <div className={classes.sideAdSmallMedia}>
+                        <div className={classes.blogPostLatestSideAd}>
                             <div className={classes.adFullSide}/>
                         </div>
                     </div>
-                    <div className={classes.latestBlogs4to6}>
-                        {/* comment out or delete the spacer below once video container is used */}
-                        <div className={classes.spacerInAbsenceOfVideoSection}/>
-                        {latestBlogs4to6}
-                        <div className={classes.seeAll}><Link to='/blog/latest_blogposts'>see all</Link></div>
-                    </div>
                 </div>
-                <div className={classes.aside}>
-                    <div className={classes.popularBlogContainer}>
-                        <div className={classes.sectionSubhead}>
-                            <Link to='/blog/popular' className={classes.sectionSubheadTitle}>Popular</Link>
-                            <Link to='/blog/popular' className={classes.sectionSubheadMore} >See All</Link>
-                        </div>
-                        {popularBlogs}
-                    </div>
-                    <div className={classes.blogPostLatestSideAd}>
-                        <div className={classes.adFullSide}/>
-                    </div>
-                </div>
-            </div>
+            </React.Fragment>
         )
     }
 }

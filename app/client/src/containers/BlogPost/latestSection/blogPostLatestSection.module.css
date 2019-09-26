@@ -1,3 +1,31 @@
+.latestSectionTopAd {
+    width: 100%;
+    margin: 16px auto;
+    box-sizing: border-box;
+}
+
+.adFull {
+    width: 728px;
+    height: 90px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../../assets/art/head-art/ad_728X90.png');
+    margin: auto;
+}
+
+.adMedium {
+    width: 320px;
+    height: 100px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../../assets/art/head-art/ad_320X100.png');
+    margin: auto;
+}
+
 .contentWrapper {
     width: 100%;
     padding: 16px;
@@ -11,6 +39,7 @@
     flex-basis: 0;
     flex-grow: 1;
     max-width: 800px;
+    padding-right: 16px;
     display: flex;
     flex-flow: column;
     box-sizing: border-box;
@@ -116,7 +145,7 @@
 .aside {
     /* flex: 0 0 40%; */
     /* max-width: 40%; */
-    width: 320px;
+    width: 300px;
     margin-left: 16px;
 }
 
@@ -139,14 +168,16 @@
 }
 
 .sideAdSmallMedia {
-    width: 320px;
+    width: 300px;
     margin-left: 16px;
 }
 
 .popularBlogSmallMediaContainer {
     flex-basis: 0;
     flex-grow: 1;
-    max-width: 100%
+    max-width: 100%;
+    padding-right: 16px;
+    box-sizing: border-box;
 }
 
 .adFullSide {
@@ -190,7 +221,23 @@
     margin-bottom: 16px;
 }
 
+@media(min-width: 977px) {
+    .adMedium {
+        display: none;
+    }
+}
+
+@media(max-width: 976px) {
+    .adFull {
+        display: none;
+    }
+}
+
 @media(max-width: 784px) {
+    .spacerInAbsenceOfVideoSection {
+        display: none;
+    }
+
     .popularSectionSmallMediaContainer {
         display: flex
     }
@@ -198,9 +245,17 @@
     .aside {
         display: none;
     }
+
+    .latestBlogContainer {
+        padding-right: 0;
+    }
 }
 
 @media(max-width: 576px) {
+    .popularBlogSmallMediaContainer {
+        padding-right: 0;
+    }
+
     .latestVideoLarge {
         flex-flow: column;
     }

@@ -32,7 +32,7 @@ class Comments extends Component {
 
     componentWillUnmount() {
         this.setState({ commentToReplyId: null, commentToReplyCommentor: null, isReplyingComment: false });
-        this.props.onClearBlogCommentMessages()
+        this.props.onClearBlogPostMessages()
     }
 
     replyingComment = (commentId, commentor, commentText) => {
@@ -234,7 +234,7 @@ const mapDispatchToProps = dispatch => {
         onPostUserComment: (userId, userName, blogId, commentText, comments) => dispatch(actions.postUserComment(userId, userName, blogId, commentText, comments)),
         onReplyingComment: (commentId, commentor, commentText) => dispatch(actions.replyingComment(commentId, commentor, commentText)),
         onPostUserCommentReply: (commentToReplyId, userId, userName, blogId, commentText, replies) => dispatch(actions.postUserCommentReply(commentToReplyId, userId, userName, blogId, commentText, replies)),
-        onClearBlogCommentMessages: () => dispatch(actions.clearBlogCommentMessages())
+        onClearBlogPostMessages: () => dispatch(actions.clearBlogPostMessages())
     };
 };
 

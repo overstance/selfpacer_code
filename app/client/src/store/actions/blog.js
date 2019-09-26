@@ -70,6 +70,30 @@ export const fetchMoreInCategorySuccess = (posts) => {
     }
 }
 
+export const fetchMoreInCategoryStart = () => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOG_IN_CATEGORY_START
+    }
+}
+
+export const fetchMoreInCategoryFail = (error) => {
+    return {
+        type: actionTypes.FETCH_MORE_BLOG_IN_CATEGORY_FAIL,
+        error: error
+    }
+}
+
+export const fetchMoreInCategory = (category) => async dispatch => {
+    dispatch(fetchMoreInCategoryStart());
+
+    const res = await axios.get('/api/fetch_more_blog_in_category', {params: { category: category }} )
+    if (res.data.posts) {
+        dispatch(fetchMoreInCategorySuccess(res.data.posts));
+    } else if (res.data.error) {
+        dispatch(fetchMoreInCategoryFail(res.data.error));
+    }
+}
+
 export const fetchBlogPost = (year, month, day, slug) => async dispatch => {
     dispatch(fetchBlogPostStart());
 
@@ -78,11 +102,7 @@ export const fetchBlogPost = (year, month, day, slug) => async dispatch => {
     if (res.data.post) {
         // console.log(res.data.post);
         dispatch(fetchBlogPostSuccess(res.data.post));
-        const res2 = await axios.get('/api/fetch_more_blog_in_category', {params: { blogCategory: res.data.post.category}} )
-        if (res2.data.posts) {
-            // console.log(res.data.post.category, res2.data.posts)
-            dispatch(fetchMoreInCategorySuccess(res2.data.posts));
-        }    
+           
     } else if (res.data.error) {
         dispatch(fetchBlogPostFail(res.data.error));
     } else {
@@ -729,9 +749,9 @@ export const saveBlog = (userId, blogId, userSavedBlogs) => async dispatch => {
 
 //  clear blog comment messages
 
-export const clearBlogCommentMessages = () => {
+export const clearBlogPostMessages = () => {
     return {
-        type: actionTypes.CLEAR_BLOG_COMMENT_MESSAGES
+        type: actionTypes.CLEAR_BLOG_POST_MESSAGES
     }
 }
 
