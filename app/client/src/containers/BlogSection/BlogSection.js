@@ -19,7 +19,7 @@ class BlogSection extends Component {
 
     componentDidMount() {
         this.props.onSetIsBlogPage();
-
+        this.props.onFetchFeaturedBlogs();
         this.props.onFetchBlogsBySection(this.props.match.params.category, 0);
         window.addEventListener('scroll', this.handleScroll, false);
         window.scroll(0, 0);
@@ -150,7 +150,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
         onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
-        
+        onFetchFeaturedBlogs: () => dispatch(actions.fetchFeaturedBlogs()),
         onFetchBlogsBySection: (category, pageIndex) => dispatch(actions.fetchBlogsBySection(category, pageIndex)),
         onFetchMoreBlogsBySection: (category, pageIndex, blogPosts) => dispatch(actions.fetchMoreBlogsBySection(category, pageIndex, blogPosts)),
         

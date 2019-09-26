@@ -3,8 +3,8 @@ import classes from './latestSection.module.css';
 import LatestBlog from './latestBlog';
 import PopularBlog from './popularBlog';
 import Facilitator from './facilitator';
-import LatestVideo from './latestVideo';
-import LatestPodcast from './latestPodcast';
+// import LatestVideo from './latestVideo';
+// import LatestPodcast from './latestPodcast';
 import { Link } from 'react-router-dom';
 import Spinner from '../../UserInterface/Spinner/Spinner';
 import * as actions from '../../../store/actions/index';
@@ -35,7 +35,7 @@ class LatestBlogs extends Component {
 
     render () {
 
-        let latestVideosArray = [
+        /* let latestVideosArray = [
             {
                 category: "Business",
                 createdOn: "2019-08-19T21:05:34.534Z",
@@ -90,9 +90,9 @@ class LatestBlogs extends Component {
                 publishedOn: "2019-08-20T17:58:36.542Z",
                 slug: "test-draft-1"
             }
-        ];
+        ]; */
 
-        let latestPodcastsArray = [           
+       /*  let latestPodcastsArray = [           
             {
                 category: "Podcast",
                 createdOn: "2019-08-19T21:05:34.534Z",
@@ -114,7 +114,7 @@ class LatestBlogs extends Component {
                 publishedOn: "2019-08-20T17:58:36.542Z",
                 slug: "test-draft-1"
             }
-        ];
+        ]; */
 
         let facilitatorsArray = [
             {
@@ -249,7 +249,7 @@ class LatestBlogs extends Component {
             />
         ));
 
-        let latestVideos1 = latestVideosArray.slice(0, 1).map((video, i) => (
+        /* let latestVideos1 = latestVideosArray.slice(0, 1).map((video, i) => (
             <LatestVideo 
                 key={i} 
                 publishYear={video.publishYear}
@@ -263,9 +263,9 @@ class LatestBlogs extends Component {
                 slug={video.slug}
                 displayDate={video.displayDate}
             />
-        ));
+        )); */
 
-        let latestVideos2to3 = latestVideosArray.slice(1, 3).map((video, i) => (
+        /* let latestVideos2to3 = latestVideosArray.slice(1, 3).map((video, i) => (
             <LatestVideo 
                 key={i} 
                 publishYear={video.publishYear}
@@ -279,9 +279,9 @@ class LatestBlogs extends Component {
                 slug={video.slug}
                 displayDate={video.displayDate}
             />
-        ));
+        )); */
 
-        let latestPodcast = latestPodcastsArray.map((podcast, i) => (
+        /* let latestPodcast = latestPodcastsArray.map((podcast, i) => (
             <LatestPodcast 
                 key={i} 
                 publishYear={podcast.publishYear}
@@ -298,7 +298,7 @@ class LatestBlogs extends Component {
                 slug={podcast.slug}
                 displayDate={podcast.displayDate}
             />
-        ));
+        )); */
 
         return (
             <section className={classes.latestSection}>
@@ -310,13 +310,13 @@ class LatestBlogs extends Component {
                                 <Link to='/blog/facilitators' className={classes.sectionSubheadMore}>See All</Link>
                             </div>
                             {facilitators}
-                            <div className={classes.latestPodcastContainer}>
+                            {/* <div className={classes.latestPodcastContainer}>
                                 <div className={classes.sectionSubhead}>
                                     <Link to='/blog/podcasts' className={classes.sectionSubheadTitle}>Podcasts</Link>
                                     <Link to='/blog/podcasts' className={classes.sectionSubheadMore}>See All</Link>
                                 </div>
                                 {latestPodcast}
-                            </div>
+                            </div> */}
                         </div>
                         <div className={classes.latestBlogContainer}>
                             <div className={classes.sectionSubhead}>
@@ -345,7 +345,7 @@ class LatestBlogs extends Component {
                                     <div className={classes.adFullSide}/>
                                 </div>
                             </div>
-                            <div className={classes.latestVideoContainer}>
+                            {/* <div className={classes.latestVideoContainer}>
                                 <div className={classes.sectionSubhead}>
                                     <Link to='/blog/videos' className={classes.sectionSubheadTitle}>Videos</Link>
                                     <Link to='/blog/videos' className={classes.sectionSubheadMore}>See All</Link>
@@ -354,8 +354,7 @@ class LatestBlogs extends Component {
                                     <div className={classes.latestVideos1}>{latestVideos1}</div>
                                     <div className={classes.latestVideos2to3}>{latestVideos2to3}</div>
                                 </div>
-                            </div>
-                            
+                            </div> */}
                             <div className={classes.latestBlogs4to6}>
                                 {/* comment out or delete the spacer below once video container is used */}
                                 <div className={classes.spacerInAbsenceOfVideoSection}/>
@@ -379,33 +378,24 @@ class LatestBlogs extends Component {
                                 <Link to='/blog/facilitators' className={classes.sectionSubheadMore}>See All</Link>
                             </div>
                             {facilitators}
-                            <div className={classes.latestPodcastContainer}>
+                            {/* <div className={classes.latestPodcastContainer}>
                                 <div className={classes.sectionSubhead}>
                                     <Link to='/blog/podcasts' className={classes.sectionSubheadTitle}>Podcasts</Link>
                                     <Link to='/blog/podcasts' className={classes.sectionSubheadMore}>See All</Link>
                                 </div>
                                 {latestPodcast}
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
                 <div className={classes.latestSectionBottomost}>
-                    {/* <div className={classes.facilitatorBottomContainer}>
-                        <div className={classes.sectionSubhead}>
-                            <Link to='/blog/facilitators' className={classes.sectionSubheadTitle}>Facilitors</Link>
-                            <Link to='/blog/facilitators' className={classes.sectionSubheadMore}>See All</Link>
-                        </div>
-                        <div className={classes.facilitatorsBottom}>
-                            {facilitators}
-                        </div>   
-                    </div> */}
-                    <div className={classes.latestPodcastContainer}>
+                    {/* <div className={classes.latestPodcastContainer}>
                         <div className={classes.sectionSubhead}>
                             <Link to='/blog/podcasts' className={classes.sectionSubheadTitle}>Podcasts</Link>
                             <Link to='/blog/podcasts' className={classes.sectionSubheadMore}>See All</Link>
                         </div>
                         {latestPodcast}
-                    </div>
+                    </div> */}
                     <div className={classes.latestBlogs4to6Bottom}>
                         {/* comment out or delete the spacer below once video container is used */}
                         <div className={classes.spacerInAbsenceOfVideoSection}/>

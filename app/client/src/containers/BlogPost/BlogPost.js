@@ -68,6 +68,7 @@ class BlogPost extends React.Component {
     window.scroll(0, 0);
 
     this.props.onSetIsBlogPage();
+    this.props.onFetchFeaturedBlogs();
     this.props.onFetchBlogPost(
       this.props.match.params.publishYear, 
       this.props.match.params.publishMonth,
@@ -414,6 +415,7 @@ const mapDispatchToProps = dispatch => {
     onUnpublishPost: (postId) => dispatch(actions.unpublishPost(postId)),
     onFetchBlogComments: (blogId) => dispatch(actions.fetchBlogComments(blogId)),
     onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
+    onFetchFeaturedBlogs: () => dispatch(actions.fetchFeaturedBlogs()),
     onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
     onFetchBlogPost: (year, month, day, slug) => dispatch(actions.fetchBlogPost(year, month, day, slug)),
     onClearBlogPostMessages: () => dispatch(actions.clearBlogPostMessages())

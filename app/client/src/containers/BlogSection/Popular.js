@@ -17,8 +17,8 @@ class Popular extends Component {
     }
 
     componentDidMount() {
+        this.props.onFetchFeaturedBlogs();
         this.props.onSetIsBlogPage();
-
         this.props.onFetchBlogsByPopularity(0);
         window.addEventListener('scroll', this.handleScroll, false);
         window.scroll(0, 0);
@@ -141,7 +141,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
         onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
-        
+        onFetchFeaturedBlogs: () => dispatch(actions.fetchFeaturedBlogs()),
         onFetchBlogsByPopularity: (pageIndex) => dispatch(actions.fetchBlogsByPopularity(pageIndex)),
         onFetchMoreBlogsByPopularity: (pageIndex, blogPosts) => dispatch(actions.fetchMoreBlogsByPopularity(pageIndex, blogPosts)),
         

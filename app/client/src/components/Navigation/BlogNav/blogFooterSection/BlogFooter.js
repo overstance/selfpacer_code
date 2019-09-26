@@ -2,297 +2,110 @@ import React, { Component } from 'react';
 import classes from './blogFooter.module.css';
 import BlogFooterItem from './blogFooterItem';
 import Container from '../../../UserInterface/Container/Container';
+import Spinner from '../../../UserInterface/Spinner/Spinner';
+import {connect} from 'react-redux';
+import * as actions from '../../../../store/actions/index';
 
-class BlogFooter extends Component {  
+class BlogFooter extends Component {
+
+    blogPostViewed = (postId, postViews) => {
+        let recentlyViewed = this.props.recentlyViewedBlogsByUser.find(id => id === postId)
+
+        if (recentlyViewed) {
+            // console.log('this blog is recently viewed');
+            return;
+        } else {
+            let updatedRecentlyViewedBlogs = this.props.recentlyViewedBlogsByUser;
+            let updatedViews = postViews + 1;
+            updatedRecentlyViewedBlogs.push(postId);
+
+            // console.log(recentlyViewed, this.props.recentlyViewedBlogsByUser, updatedRecentlyViewedBlogs, postViews, updatedViews);
+            this.props.onIncreaseBlogPostView(postId, updatedViews, updatedRecentlyViewedBlogs);
+        }
+    }
+
     render () {
 
-        let featuredBlogs = [
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "1. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Business",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "2. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Creative",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "3. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Creative",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "4. test draft 1 head admin test draft 1 headadmin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Science",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "5. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Science",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "6. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Technology",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "7. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Technology",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "8. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Life-Style",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "9. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Life-Style",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "10. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Reviews",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "11. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", 
-                    caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            },
-            {
-                category: "Reviews",
-                createdOn: "2019-08-19T21:05:34.534Z",
-                description: "Bacon ipsum dolor amet shank drumstick capicola pork, turducken ball tip ham hock. Chuck venison shank rump ham hock cupim porchetta turducken salami swine corned beef tail.",
-                displayDate: "August 20, 2019",
-                title: "12. test draft 1 head admin",
-                featuredImage: {
-                    url: "https://res.cloudinary.com/selfpacer/image/upload/v1566248143/blog_imgs/local/etcqugneo4ko0uhjvjhb.png",
-                    publicId: "blog_imgs/local/etcqugneo4ko0uhjvjhb",
-                    source: "image source", 
-                    caption: "image caption", 
-                    id: "5d5b0ccff536de2178881eb1"
-                },
-                publishDay: "20",
-                publishMonth: "08",
-                publishYear: "2019",
-                publishedOn: "2019-08-20T17:58:36.542Z",
-                slug: "test-draft-1"
-            }
-        ];
+        let business = <Spinner isComponent/>;
+        let creative = <Spinner isComponent/>;
+        let technology = <Spinner isComponent/>;
+        let science = <Spinner isComponent/>;
+        let lifeStyle = <Spinner isComponent/>;
+        let reviews = <Spinner isComponent/>;
 
-        let business = featuredBlogs.filter( blog => blog.category === 'Business').map((blog, i) => (
-            <BlogFooterItem 
-            key={i}
-            title={blog.title}
-            publishYear={blog.publishYear}
-            publishMonth={blog.publishMonth}
-            publishDay={blog.publishDay}
-            slug={blog.slug}
-            />
-        ));
-
-        let creative = featuredBlogs.filter( blog => blog.category === 'Creative').map((blog, i) => (
-            <BlogFooterItem 
-            key={i}
-            title={blog.title}
-            publishYear={blog.publishYear}
-            publishMonth={blog.publishMonth}
-            publishDay={blog.publishDay}
-            slug={blog.slug}
-            />
-        ));
-
-        let technology = featuredBlogs.filter( blog => blog.category === 'Technology').map((blog, i) => (
-            <BlogFooterItem 
-            key={i}
-            title={blog.title}
-            publishYear={blog.publishYear}
-            publishMonth={blog.publishMonth}
-            publishDay={blog.publishDay}
-            slug={blog.slug}
-            />
-        ));
-
-        let science = featuredBlogs.filter( blog => blog.category === 'Science').map((blog, i) => (
-            <BlogFooterItem 
-            key={i}
-            title={blog.title}
-            publishYear={blog.publishYear}
-            publishMonth={blog.publishMonth}
-            publishDay={blog.publishDay}
-            slug={blog.slug}
-            />
-        ));
-
-        let lifeStyle = featuredBlogs.filter( blog => blog.category === 'Life-Style').map((blog, i) => (
-            <BlogFooterItem 
-            key={i}
-            title={blog.title}
-            publishYear={blog.publishYear}
-            publishMonth={blog.publishMonth}
-            publishDay={blog.publishDay}
-            slug={blog.slug}
-            />
-        ));
-
-        let reviews = featuredBlogs.filter( blog => blog.category === 'Reviews').map((blog, i) => (
-            <BlogFooterItem 
-            key={i}
-            title={blog.title}
-            publishYear={blog.publishYear}
-            publishMonth={blog.publishMonth}
-            publishDay={blog.publishDay}
-            slug={blog.slug}
-            />
-        ));
-
+        if (!this.props.fetchFeaturedBlogsLoading && !this.props.fetchFeaturedBlogsError) {
+            business = this.props.featuredBlogs.filter( blog => blog.category === 'Business').slice(0, 2).map((blog, i) => (
+                <BlogFooterItem 
+                key={i}
+                title={blog.title}
+                publishYear={blog.publishYear}
+                publishMonth={blog.publishMonth}
+                publishDay={blog.publishDay}
+                slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
+                />
+            ));
+    
+            creative = this.props.featuredBlogs.filter( blog => blog.category === 'Creative').slice(0, 2).map((blog, i) => (
+                <BlogFooterItem 
+                key={i}
+                title={blog.title}
+                publishYear={blog.publishYear}
+                publishMonth={blog.publishMonth}
+                publishDay={blog.publishDay}
+                slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
+                />
+            ));
+    
+            technology = this.props.featuredBlogs.filter( blog => blog.category === 'Technology').slice(0, 2).map((blog, i) => (
+                <BlogFooterItem 
+                key={i}
+                title={blog.title}
+                publishYear={blog.publishYear}
+                publishMonth={blog.publishMonth}
+                publishDay={blog.publishDay}
+                slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
+                />
+            ));
+    
+            science = this.props.featuredBlogs.filter( blog => blog.category === 'Science').slice(0, 2).map((blog, i) => (
+                <BlogFooterItem 
+                key={i}
+                title={blog.title}
+                publishYear={blog.publishYear}
+                publishMonth={blog.publishMonth}
+                publishDay={blog.publishDay}
+                slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
+                />
+            ));
+    
+            lifeStyle = this.props.featuredBlogs.filter( blog => blog.category === 'Life-Style').slice(0, 2).map((blog, i) => (
+                <BlogFooterItem 
+                key={i}
+                title={blog.title}
+                publishYear={blog.publishYear}
+                publishMonth={blog.publishMonth}
+                publishDay={blog.publishDay}
+                slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
+                />
+            ));
+    
+            reviews = this.props.featuredBlogs.filter( blog => blog.category === 'Reviews').slice(0, 2).map((blog, i) => (
+                <BlogFooterItem 
+                key={i}
+                title={blog.title}
+                publishYear={blog.publishYear}
+                publishMonth={blog.publishMonth}
+                publishDay={blog.publishDay}
+                slug={blog.slug}
+                postClicked={() => this.blogPostViewed(blog._id, blog.views)}
+                />
+            ));
+        }
 
         return (
             <section className={classes.blogFooter}>
@@ -329,4 +142,15 @@ class BlogFooter extends Component {
     }
 }
 
-export default BlogFooter;
+const mapStateToProps = state => ({
+    featuredBlogs: state.blog.featuredBlogs,
+    fetchFeaturedBlogsLoading: state.blog.fetchFeaturedBlogsLoading,
+    fetchFeaturedBlogsError: state.blog.fetchFeaturedBlogsError,
+    recentlyViewedBlogsByUser: state.blog.recentlyViewedBlogsByUser,
+});
+
+const mapDispatchToProps = dispatch => ({
+    onIncreaseBlogPostView: (postId, updatedViews, updatedRecentlyViewedBlogs) => dispatch(actions.increaseBlogPostView(postId, updatedViews, updatedRecentlyViewedBlogs)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlogFooter);

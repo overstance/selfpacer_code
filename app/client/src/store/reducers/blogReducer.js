@@ -553,7 +553,8 @@ const clearBlogPostMessages = ( state, action ) => {
         saveBlogSuccessMessage: null,
         unpublishPostError: null,
         unpublishPostSuccessMessage: null,
-        fetchMoreInCategoryError: null
+        fetchMoreInCategoryError: null,
+        fetchFeaturedBlogsError: null
     })
 }
 
@@ -735,7 +736,8 @@ const clearBlogSectionMessages = (state, action) => {
         fetchBlogsByPopularityError: null,
         fetchMoreBlogsByPopularityError: null,
         fetchBlogsByRecentError: null,
-        fetchMoreBlogsByRecentError: null
+        fetchMoreBlogsByRecentError: null,
+        fetchFeaturedBlogsError: null
     });
 }
 

@@ -104,11 +104,6 @@
     padding: 16px 0;
 }
 
-/* .latestVideo figure a {
-    display: block;
-    position: relative;
-} */
-
 .playIcon {
     position: absolute;
     top: 50%;
@@ -143,8 +138,6 @@
 }
 
 .aside {
-    /* flex: 0 0 40%; */
-    /* max-width: 40%; */
     width: 300px;
     margin-left: 16px;
 }

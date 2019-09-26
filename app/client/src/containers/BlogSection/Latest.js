@@ -18,7 +18,7 @@ class Latest extends Component {
 
     componentDidMount() {
         this.props.onSetIsBlogPage();
-
+        this.props.onFetchFeaturedBlogs();
         this.props.onFetchBlogsByRecent(0);
         window.addEventListener('scroll', this.handleScroll, false);
         window.scroll(0, 0);
@@ -141,10 +141,10 @@ const mapDispatchToProps = dispatch => {
     return {
         onSetIsBlogPage: () => dispatch(actions.setIsBlogPage()),
         onUnsetIsBlogPage: () => dispatch(actions.unsetIsBlogPage()),
-        
+        onFetchFeaturedBlogs: () => dispatch(actions.fetchFeaturedBlogs()),
         onFetchBlogsByRecent: (pageIndex) => dispatch(actions.fetchBlogsByRecent(pageIndex)),
         onFetchMoreBlogsByRecent: (pageIndex, blogPosts) => dispatch(actions.fetchMoreBlogsByRecent(pageIndex, blogPosts)),
-        
+       
         onIncreaseBlogPostView: (postId, updatedViews, updatedRecentlyViewedBlogs) => dispatch(actions.increaseBlogPostView(postId, updatedViews, updatedRecentlyViewedBlogs)),
         
         onClearBlogSectionMessages: () => dispatch(actions.clearBlogSectionMessages())    

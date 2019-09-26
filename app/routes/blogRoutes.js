@@ -253,7 +253,7 @@ module.exports = app => {
         'publishedOn views displayDate publishYear publishMonth publishDay featuredImage category title description slug author authorName authorTwitter'
       )
       .sort({ publishedOn: -1 })
-      .limit(12);
+      .limit(100);
 
     query.exec((err, blogs) => {
       if (err) {

@@ -316,6 +316,7 @@
     background-position-y: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-color: var(--gray);
 }
 
 .latestBlogImage {
@@ -482,6 +483,10 @@
         flex: 0 0 35%;
         max-width: 35%;
     } */
+    .latestPodcast figure {
+        width: 156px;
+        margin: 0 auto;
+    }
 }
 
 @media(min-width: 977px) {
@@ -495,21 +500,10 @@
         display: none;
     }
 
-    /* .latestSectionSideAd {
-        display: none;
-    } */
-
     .latestBlogContainer {
-        /* flex: 0 0 60%;
-        max-width: 60%; */
         padding-left: 0;
         padding-bottom: 16px;
     }
-
-    /* .popularBlogContainer {
-        flex: 0 0 40%;
-        max-width: 40%;
-    } */
 
 }
 
@@ -540,6 +534,11 @@
         font-size: 20px;
     }
 
+    .latestPodcast figure {
+        /* width: 100%; */
+        margin: 0;
+    }
+
     .latestPodcast {
         display: flex;
         /* flex-flow: row nowrap; */
@@ -554,38 +553,6 @@
     .latestPodcastTitle {
         padding: 0 16px;
     }
-
-    /* .latestVideos2to3 .latestVideo {
-        flex: 0 0 50%;
-        max-width: 50%;
-        box-sizing: border-box;
-    }
-
-    .latestVideos2to3 .latestVideo:last-of-type {
-        padding-left: 8px;
-    }
-
-    .latestVideos2to3 .latestVideo:first-of-type {
-        padding-right: 8px;
-    }
-
-    .latestVideoLarge {
-        flex-flow: column;
-    }
-
-    .latestVideos1 {
-        flex: 0 0 100%;
-        max-width: 100%;
-        padding-right: 0;
-        box-sizing: border-box;
-    }
-    
-    .latestVideos2to3 {
-        flex: 0 0 100%;
-        max-width: 100%;
-        display: flex;
-        flex-flow: row nowrap;
-    } */
 
     .popularBlogContainer {
         display: none;
@@ -617,20 +584,8 @@
     }
 }
 
-/* @media(min-width: 577px) {
-    .latestSectionBottomost {
-        display: none;
-    }
-} */
-
 @media(max-width: 576px) {
-    /* 
-    .latestSectionTop {
-        margin: 0 8px;
-    } */
-    /* .latestSectionBottomost {
-        margin: 0 16px;
-    } */
+   
     .latestSectionBottomSideAd {
         display: none;
     }
@@ -644,10 +599,6 @@
         max-width: 100%;
         padding-right: 0;
     }
-
-    /* .latestVideo:last-of-type {
-        padding-left: 0;
-    } */
 
     .latestBlog {
         /* flex-flow: column; */
@@ -670,15 +621,15 @@
         border-bottom: 1px solid var(--gray);
     }
     
+    .latestPodcast figure {
+        width: 78px;
+    }
+
     .latestPodcast figure div {
         width: 78px;
         height: 78px;
         padding-top: 0;
     }
-
-    /* .latestPodcastTitle {
-        padding: 0 16px;
-    } */
 
     .latestVideos2to3 .latestVideo {
         flex: 0 0 50%;
