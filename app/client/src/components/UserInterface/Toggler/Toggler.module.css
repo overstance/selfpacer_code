@@ -28,13 +28,12 @@
 
 .Title {
     margin: 0px;
-    /* padding: 15px 40px; */
+    text-transform: capitalize;
     text-align: left;
     color: var(--blue);
     font-weight: 700;
     font-size: large;
     display: inline-block;
-    /* width: 100%; */
 }
 
 .ToggleButtonContainer {

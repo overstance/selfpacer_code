@@ -169,6 +169,10 @@ export {
     fetchMoreBlogsByPopularity,
     fetchBlogsByRecent,
     fetchMoreBlogsByRecent
-} from './blog'
+} from './blog';
+
+export {
+    fetchConversations
+} from './conversation';
 
 

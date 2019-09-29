@@ -6,6 +6,7 @@ import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrap
 import { connect } from 'react-redux';
 import NonFacilitator from '../../components/NonFacilitator/NonFacilitator';
 import * as actions from '../../store/actions/index';
+import Conversations from '../../components/conversations/Conversations';
 
 class Facilitator extends Component {
 
@@ -16,6 +17,8 @@ class Facilitator extends Component {
     state = {
         showAddResource: false,
         addResourceToggle: false,
+        showReportMisuse: false,
+        reportMisuseToggle: false,
     }
 
     addResourceToggleHandler = () => {
@@ -23,6 +26,15 @@ class Facilitator extends Component {
             return {
                 showAddResource: !prevState.showAddResource,
                 addResourceToggle: !prevState.addResourceToggle
+            };
+        });
+    }
+
+    reportMisuseToggleHandler = () => {
+        this.setState((prevState) => {
+            return {
+                showReportMisuse: !prevState.showReportMisuse,
+                reportMisuseToggle: !prevState.reportMisuseToggle
             };
         });
     }
@@ -63,13 +75,25 @@ class Facilitator extends Component {
                         </div>
                     : null }
                 </div>
+                <div className={classes.Subheader}>
+                    <Toggler 
+                        toggle={this.state.reportMisuseToggle} 
+                        toggleHandler={this.reportMisuseToggleHandler}
+                        subheadTitle="report misuse"
+                    />
+                    { this.state.showReportMisuse ? 
+                        <div className={classes.BlockContentItems}>
+                            <AddResource />
+                        </div>
+                    : null }
+                </div>
+                <Conversations />
             </div>
         </GridlessPageWrapper>;
 
         let pageContent;
 
-    if (this.props.useTypeContext === '1' ||
-        this.props.useTypeContext === '2') {
+    if (this.props.useTypeContext !== '0') {
             pageContent = facilitatorTools;
         } else {
             pageContent = nonfacilitatorPage

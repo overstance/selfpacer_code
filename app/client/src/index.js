@@ -18,6 +18,7 @@ import resourceReducer from './store/reducers/resourceReducer';
 import collectionReducer from './store/reducers/collectionReducer';
 import profileReducer from './store/reducers/profileReducer';
 import blogReducer from './store/reducers/blogReducer';
+import conversationReducer from './store/reducers/conversationReducer';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
     resource: resourceReducer,
     collection: collectionReducer,
     profile: profileReducer,
-    blog: blogReducer
+    blog: blogReducer,
+    conversation: conversationReducer
 });
 
 

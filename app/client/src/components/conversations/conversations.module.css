@@ -1,0 +1,115 @@
+.container {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--gray);
+    padding: 16px;
+    border-bottom: 2px solid var(--blue);
+}
+
+.conversations {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-bottom: 8px;
+    /* border-bottom: 1px solid var(--blue); */
+}
+
+.heading {
+    font-size: 24px;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+    font-weight: 900;
+}
+
+.startNew {
+    text-align: right;
+    margin-bottom: 8px;
+}
+
+.startNewButton {
+    display: inline-block;
+    color: var(--blue);
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 16px;
+    border: 2px solid var(--blue);
+    background: var(--green);
+    font-weight: bold;
+}
+
+/* single conservation styles */
+
+.conversation {
+    border: 1px solid var(--blue);
+    background: var(--white);
+    margin-bottom: 8px;
+}
+
+.titleSection {
+    padding: 16px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.type {
+    color: var(--blue);
+    font-size: 12px;
+    background: var(--green);
+    display: inline;
+    font-weight: bold;
+}
+
+.otherSection {
+    display: flex;
+    border-top: 1px solid var(--blue);
+    padding: 8px 16px;
+}
+
+.info {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.initiator, .closingDate {
+    padding-right: 8px;
+}
+
+.info span {
+    color: var(--blue);
+    text-transform: capitalize;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.action {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.joinButton {
+    display: inline-block;
+    color: var(--blue);
+    padding: 4px 12px;
+    cursor: pointer;
+    border-radius: 16px;
+    border: 2px solid var(--blue);
+    background: var(--green);
+    font-weight: bold;
+}
+
+.startNewButton:hover, .joinButton:hover {
+    background: var(--gray);
+}
