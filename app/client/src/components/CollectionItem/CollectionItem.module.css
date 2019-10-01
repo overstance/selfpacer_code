@@ -48,7 +48,7 @@
     text-align: left;
     color: var(--green);
     padding: 10px 0;
-    font-weight: 700;
+    /* font-weight: 700; */
 }
 
 .CollectionAddButtonColumn {

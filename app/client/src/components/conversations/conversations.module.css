@@ -13,7 +13,6 @@
 
 .header {
     margin-bottom: 8px;
-    /* border-bottom: 1px solid var(--blue); */
 }
 
 .heading {
@@ -44,18 +43,19 @@
 /* single conservation styles */
 
 .conversation {
-    border: 1px solid var(--blue);
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
     background: var(--white);
     margin-bottom: 8px;
 }
 
-.titleSection {
+.topicSection {
     padding: 16px;
 }
 
-.title {
+.topic {
     font-weight: bold;
     font-size: 20px;
+    text-transform: capitalize;
 }
 
 .type {
@@ -68,7 +68,7 @@
 
 .otherSection {
     display: flex;
-    border-top: 1px solid var(--blue);
+    border-top: 1px solid var(--gray);
     padding: 8px 16px;
 }
 
@@ -111,5 +111,6 @@
 }
 
 .startNewButton:hover, .joinButton:hover {
-    background: var(--gray);
+    background: var(--blue);
+    color: var(--green);
 }

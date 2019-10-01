@@ -3,7 +3,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    /* background: var(--lightGray); */
+    border-bottom: 1px solid var(--gray);
 }
 
 .DialogueTitleColumn {
@@ -50,7 +50,9 @@
     text-align: left;
     color: var(--green);
     font-weight: 400;
-    border-bottom: 1px solid var(--gray);
+    /* border-bottom: 1px solid var(--gray); */
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .DialogueCloseIcon {

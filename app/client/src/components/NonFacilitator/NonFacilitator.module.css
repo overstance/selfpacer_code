@@ -21,7 +21,8 @@
 .Header div {
     color: var(--green);
     font-size: 24px;
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-weight: 900;
+    /* font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif; */
     text-transform: capitalize;
     padding: 20px;
 }
@@ -86,14 +87,16 @@
 
 .sectionText {
     width: 640px;
+    font-weight: 900;
     /* height: 192px; */
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    /* font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif; */
     font-size: 30px;
 }
 
 .sectionTextSmallMedia {
     /* width: 100%; */
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-weight: 900;
+    /* font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif; */
     font-size: 18px;
     padding: 32px;
     color: var(--blue);

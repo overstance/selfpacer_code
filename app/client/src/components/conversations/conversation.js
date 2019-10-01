@@ -9,9 +9,9 @@ const conversation = (props) => {
 
     return (
         <div className={classes.conversation}>
-            <div className={classes.titleSection}>
-                <div className={classes.title}>
-                    {props.title}
+            <div className={classes.topicSection}>
+                <div className={classes.topic}>
+                    {props.topic}
                 </div>
                 <div className={classes.type}>
                     {props.type}

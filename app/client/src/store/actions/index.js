@@ -172,7 +172,10 @@ export {
 } from './blog';
 
 export {
-    fetchConversations
+    fetchConversations,
+    clearFetchConversationsMessage,
+    startNewConversation,
+    clearStartNewConversationInfo
 } from './conversation';
 
 

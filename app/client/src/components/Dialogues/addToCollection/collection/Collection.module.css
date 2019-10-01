@@ -3,7 +3,8 @@
     color: var(--blue);
     background: var(--white);
     border-radius: 20px;
-    font-size: small;
+    /* font-size: small; */
+    font-weight: 700;
     padding: 10px;
     margin: 10px;
     display: inline-block;

@@ -68,9 +68,29 @@
 }
 
 .SideBar {
-    width: 360px;
-    border-left: 1px solid var(--gray);
-    margin-left: 8px;
+    width: 300px;
+    /* border-left: 1px solid var(--gray); */
+    margin-left: 16px;
+}
+
+.sideAd {
+    max-height: 620px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding-top: 10px;
+    /* padding: 32px 0; */
+}
+
+.adFullSide {
+    width: 300px;
+    height: 600px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../../assets/art/head-art/ad_ad300X600.png');
+    margin: auto;
 }
 
 @media(min-width: 901px) {

@@ -3,12 +3,13 @@
     padding: 20px;
     margin: 10px;
     border-radius: 20px;
+    text-align: center;
 }
 
 .Form label {
     margin-top: 0px;
-    font-weight: 400;
-    font-size: small;
+    /* font-weight: 400; */
+    /* font-size: small; */
 }
 
 .Form select {

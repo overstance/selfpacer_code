@@ -9,7 +9,7 @@ const User = mongoose.model('users');
 const Comment = require('../models/Comment');
 
 module.exports = app => {
-  app.get('/api/blog_post', async (req, res) => {
+  app.get('/api/blog_post', (req, res) => {
     BlogDraft.findOne(
       {
         publishYear: req.query.year,

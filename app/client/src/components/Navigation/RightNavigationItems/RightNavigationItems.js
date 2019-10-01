@@ -18,7 +18,14 @@ class RightNavigationItems extends Component {
                             </svg>
                         </Link> 
                     </div>                
-                    : null
+                    : 
+                    <div className={classes.ItemContainer}>
+                        <Link to="/login">
+                            <svg xmlns="http://www.w3.org/2000/svg" className={classes.LoginIcon} viewBox="0 0 20 20">
+                                <path d="M16.251 17.343h-3.282c-.258 0-.469-.211-.469-.468v-1.563c0-.259.211-.47.469-.47h3.282c.69 0 1.249-.559 1.249-1.25V6.094c0-.692-.559-1.251-1.249-1.251h-3.282c-.258 0-.469-.211-.469-.468V2.813c0-.259.211-.47.469-.47h3.282C18.32 2.343 20 4.022 20 6.094v7.499c0 2.07-1.68 3.75-3.749 3.75zm-1.837-7.852L7.853 2.929c-.586-.586-1.603-.176-1.603.665v3.749H.938c-.52 0-.938.419-.938.938v3.749c0 .52.418.938.938.938H6.25v3.749c0 .84 1.017 1.25 1.603.664l6.562-6.562c.362-.367.362-.961-.001-1.328z"/>
+                            </svg>
+                        </Link>
+                    </div>
                 }
                 <div className={classes.ItemContainer}>
                     <Link to="/search">

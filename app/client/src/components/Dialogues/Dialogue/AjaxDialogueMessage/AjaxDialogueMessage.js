@@ -1,6 +1,11 @@
 import React from 'react';
 import classes from './AjaxDialogueMessage.module.css';
 
+
+/* this component is implemented to exist inside
+of a dailogue component, it will be swapped for 
+a spinner(isDialogue) on deployment of an ajax action
+and replaced with a postActionInfo upon action completion */
 const ajaxDialogueMessage = (props) => (
     <div className={classes.BodyWrapper}>
         <div className={classes.DialogueMessage}>

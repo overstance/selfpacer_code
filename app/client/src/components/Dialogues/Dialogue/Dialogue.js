@@ -168,6 +168,19 @@ const dialogue = (props) => (
                 </div>                                        
             </div> : null
         }
+        { props.isStartConversation ? 
+            <div>
+                <div className={classes.DialogueTitleHead}>
+                    <div className={classes.DialogueTitleColumn}>
+                        <h5>Start New Conversation</h5>
+                    </div>
+                    <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
+                </div>
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                                        
+            </div> : null
+        }
         { props.isPublishCollection ?
             <div>
                 <div className={classes.DialogueTitleHead}>

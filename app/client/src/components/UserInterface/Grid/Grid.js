@@ -19,7 +19,11 @@ class Grid extends Component {
                     <div className={classes.Main}>
                         {this.props.children}
                     </div>
-                    <div className={classes.SideBar}><div></div></div> 
+                    <div className={classes.SideBar}>
+                        <div className={classes.sideAd}>
+                            <div className={classes.adFullSide}/>
+                        </div>
+                    </div> 
                 </div>
                 <div className={classes.FootBar}>
                     <div className={classes.FootBarAdvert}>

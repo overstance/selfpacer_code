@@ -1,4 +1,13 @@
+.LoginIcon {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    fill:var(--blue); 
+}
 
+.LoginIcon:hover {
+    fill: var(--green);
+}
 
 .SearchIcon {
     width: 28px;
