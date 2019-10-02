@@ -7,7 +7,7 @@
 
 .NavigationItem a {
     color: var(--blue);
-    font-weight: bold;
+    font-weight: 700;
     font-size: medium;
     text-decoration: none;
     box-sizing: border-box; 

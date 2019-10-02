@@ -31,6 +31,7 @@ import LatestBlogs from './containers/BlogSection/Latest';
 import FacilitateApplicants from './containers/ViewFacilitateApplicants/FacilitateApplicants';
 // import RichEditor from './components/RichEditor/RichEditor';
 import ManageBlogDrafts from './containers/ManageBlogDrafts/ManageBlogDrafts';
+import Conversation from './containers/Conversation/Conversation';
 
 const Landing = () => <h2>
   Landing page component
@@ -82,6 +83,7 @@ class App extends Component {
 
         <PrivateRoute exact path="/collections/:id" component={UserCollection} />
         <PrivateRoute exact path="/facilitate" component={Facilitate} />
+        <PrivateRoute exact path="/facilitate/conversations/:id" component={Conversation} />
         <PrivateRoute exact path="/create_collection" component={CreateNewCollection} />
         <PrivateRoute exact path="/admin_tools/confirm_resources" component={ConfirmResource} />
         <PrivateRoute exact path="/admin_tools" component={AdminTools} />      

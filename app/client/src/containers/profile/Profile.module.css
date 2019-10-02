@@ -76,7 +76,7 @@
 .BiodataInfo div {
     color: var(--red);
     line-height: 25px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .BiodataInfo span {

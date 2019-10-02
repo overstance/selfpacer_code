@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: flex-end;
     color: var(--blue);
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
 }
 

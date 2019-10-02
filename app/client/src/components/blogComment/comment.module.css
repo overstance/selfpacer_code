@@ -70,7 +70,7 @@
     border-style: none;
     background: var(--gray);
     color: var(--blue);
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
     margin-right: 8px;
     border: 2px solid var(--blue);
@@ -141,7 +141,7 @@
     border-style: none;
     background: var(--gray);
     color: var(--blue);
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
     margin-right: 8px;
     border: 2px solid var(--blue);
@@ -228,7 +228,7 @@
 .formFeedBack {
     height: 30px;
     padding-left: 8px;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 16px;
     white-space: nowrap;
     margin-right: 8px;
@@ -260,7 +260,7 @@
 .blogTitle {
     padding: 8px;
     color: var(--blue);
-    font-weight: bold;
+    font-weight: 700;
     text-transform: capitalize;
     background: var(--gray);
     /* margin-right: 8px; */

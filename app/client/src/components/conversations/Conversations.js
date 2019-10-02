@@ -41,8 +41,8 @@ class Conversations extends Component {
                         displayValue: ''
                     },
                     {
-                        value: 'Skills/Curricula',
-                        displayValue: 'Skills/Curricula'
+                        value: 'Skills and Curricula',
+                        displayValue: 'Skills and Curricula'
                     },
                     {
                         value: 'User Experience',
@@ -51,10 +51,6 @@ class Conversations extends Component {
                     {
                         value: 'Publication Research',
                         displayValue: 'Publication Research'
-                    },
-                    {
-                        value: 'Resource Structure',
-                        displayValue: 'Resources Structure'
                     }
                 ]
             },
@@ -67,7 +63,7 @@ class Conversations extends Component {
             labelspan: '(100 or less char.)*',
             validation: {
                 required: true,
-                maxLength: 100
+                maxLength: 120
             },
             valid: false,
             touched: false,
@@ -194,7 +190,7 @@ class Conversations extends Component {
             />
             <Input 
             label={this.state.topic.label} 
-            labelspan={this.state.type.labelspan}
+            labelspan={this.state.topic.labelspan}
             elementType={'textarea'}
             value={this.state.topic.value}
             invalid={!this.state.topic.valid}
@@ -240,8 +236,10 @@ class Conversations extends Component {
                 key={i}
                 topic={conversation.topic}
                 type={conversation.type}
+                id={conversation._id}
                 initiator={conversation.initiator}
                 closingDate={conversation.closingDate}
+                startDate={conversation.startDate}
                 />
             ));
         } else if (!this.props.fetchConversationsLoading && this.props.fetchConversationsError) {

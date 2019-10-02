@@ -37,7 +37,7 @@
     text-transform: uppercase;
     color: var(--black);
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .sectionSubhead a:hover {

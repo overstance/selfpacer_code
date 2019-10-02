@@ -1,0 +1,137 @@
+.backdrop {
+    width: 100%;
+    position: fixed;
+    z-index: 300;
+    background-color: var(--white);
+    left: 0;
+    top: 0;
+    min-height: 100%;
+}
+
+.pageContainer {
+    position: fixed;
+    width: 100%;
+    /* max-width: 900px; */
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 500;
+    /* background-color: var(--white); */
+    box-sizing: border-box;
+    /* transition: transform 0.1s ease-out; */
+    overflow-y: auto;
+    /* font-family: 'PT sans', sans-serif; */
+}
+
+.goBack {
+    max-width: 868px;
+    height: 40px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    font-weight: 900;
+    text-decoration: none;
+    color: var(--black);
+    box-sizing: border-box;
+}
+
+.goBack svg {
+    height: 20px;
+    width: 20px;
+    padding-right: 8px;
+    fill: var(--black);
+}
+
+.header {
+    max-width: 868px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.topic {
+    color: var(--blue);
+    height: 120px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    overflow-y: auto;
+    border: 1px solid var(--blue);
+    box-sizing: border-box;
+    padding: 0 16px;
+    font-weight: 700;
+}
+
+.options {
+    display: flex;
+    height: 40px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.closing {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+}
+
+.closing span {
+    color: var(--blue);
+    padding-right: 8px;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 12px;
+}
+
+.buttons {
+    width: 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button {
+    display: inline-block;
+    color: var(--blue);
+    width: 60px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 16px;
+    border: 2px solid var(--blue);
+    background: var(--green);
+    font-weight: 700;
+}
+
+.button:hover {
+    background: var(--blue);
+    color: var(--green);
+}
+
+/* @media(max-width: 900px) {
+    .header {
+        max-width: 568px;
+    } 
+
+    .goBack {
+        max-width: 568px;
+    }
+} */
+
+@media(max-width: 900px) {
+    .header {
+        margin: 0 16px;
+    }
+
+    .goBack {
+        margin: 0 16px;
+    }
+}
+
+@media(max-width: 600px) {
+    .topic {
+        font-size: 16px;
+    }
+}

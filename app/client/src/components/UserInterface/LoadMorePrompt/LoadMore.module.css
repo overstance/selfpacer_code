@@ -23,7 +23,7 @@
     width: 100%;
     height: 40px;
     /* border-radius: 5px; */
-    font-weight: bold;
+    font-weight: 700;
     background: var(--green);
     text-align: center;
     display: flex;

@@ -37,7 +37,7 @@
     border-radius: 16px;
     border: 2px solid var(--blue);
     background: var(--green);
-    font-weight: bold;
+    font-weight: 700;
 }
 
 /* single conservation styles */
@@ -53,7 +53,7 @@
 }
 
 .topic {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 20px;
     text-transform: capitalize;
 }
@@ -63,7 +63,7 @@
     font-size: 12px;
     background: var(--green);
     display: inline;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .otherSection {
@@ -83,13 +83,16 @@
 
 .initiator, .closingDate {
     padding-right: 8px;
+    font-size: 14px;
+    /* font-weight: 700; */
+    text-transform: capitalize;
 }
 
 .info span {
     color: var(--blue);
-    text-transform: capitalize;
-    font-size: 14px;
-    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 900;
 }
 
 .action {
@@ -101,13 +104,14 @@
 
 .joinButton {
     display: inline-block;
+    text-decoration: none;
     color: var(--blue);
     padding: 4px 12px;
     cursor: pointer;
     border-radius: 16px;
     border: 2px solid var(--blue);
     background: var(--green);
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .startNewButton:hover, .joinButton:hover {

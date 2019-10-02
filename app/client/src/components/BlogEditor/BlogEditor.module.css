@@ -267,7 +267,7 @@
 .fillError {
   color: var(--red);
   font-size: small;
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -282,7 +282,7 @@
 
 .editorHeader label {
   font-size: small;
-  font-weight: bold;
+  font-weight: 700;
   color: var(--blue);
 }
 

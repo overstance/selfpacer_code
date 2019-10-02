@@ -8,7 +8,7 @@
 .Container {
   margin: 0 auto;
   padding: 32px 0;
-  font-weight: bold;
+  font-weight: 700;
   display: flex;
   justify-content: space-between
 }
@@ -16,7 +16,7 @@
 .Copyright a {
   text-decoration: none;
   color: var(--green);
-  font-weight: bold;
+  font-weight: 700;
   } 
 
 .Copyright a span {
