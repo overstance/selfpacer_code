@@ -9,6 +9,7 @@
     font-size: 16px;
     font-weight: 700;
     text-decoration: none;
+    font-family: 'Nunito', Arial, Helvetica, sans-serif;
     /* box-shadow: 6px 3px 12px 0px rgba(0, 40, 120, .35); */
     transition: all 0.5s ease;
   }

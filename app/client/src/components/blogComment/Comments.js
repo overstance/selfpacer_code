@@ -42,9 +42,9 @@ class Comments extends Component {
     
     captureCommentText = (event) => {
         this.setState({ commentText: event.target.value, commentFillError: null});   
-        }
+    }
 
-        postComment = (event) => {
+    postComment = (event) => {
         event.preventDefault();
 
         if (this.state.commentText === '') {

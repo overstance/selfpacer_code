@@ -3,9 +3,7 @@ const Conversation = require('../models/Conversation');
 
 module.exports = app => {
   app.get('/api/fetch_conversations', (req, res) => {
-
-    let query = Conversation.find({})
-    .sort({ startDate: -1 });
+    let query = Conversation.find({}).sort({ startDate: -1 });
 
     query.exec((err, conversations) => {
       if (err) {
@@ -18,7 +16,9 @@ module.exports = app => {
 
   app.post('/api/start_new_conversation', (req, res) => {
     let currentDate = new Date();
-    let closingDate = new Date(currentDate.setMonth(currentDate.getMonth() + 1));
+    let closingDate = new Date(
+      currentDate.setMonth(currentDate.getMonth() + 1)
+    );
     let newConversation = {
       startDate: new Date(),
       closingDate: closingDate,
