@@ -11,16 +11,11 @@
 .pageContainer {
     position: fixed;
     width: 100%;
-    /* max-width: 900px; */
     height: 100%;
     left: 0;
     top: 0;
-    z-index: 500;
-    /* background-color: var(--white); */
     box-sizing: border-box;
-    /* transition: transform 0.1s ease-out; */
     overflow-y: auto;
-    /* font-family: 'PT sans', sans-serif; */
 }
 
 .goBack {
@@ -165,8 +160,10 @@
 .formFeedBack {
     height: 30px;
     padding-left: 8px;
-    font-weight: 700;
+    /* font-weight: 700; */
     font-size: 16px;
+    align-items: center;
+    display: flex;
     white-space: nowrap;
     margin-right: 8px;
     overflow: hidden;
@@ -177,10 +174,12 @@
 
 .formFeedBack .fillError {
     color: var(--red);
+    background: var(--blue);
 }
 
-.formFeedBack .commentPostSuccess {
+.formFeedBack .postSuccess {
     color: var(--blue);
+    background: var(--green);
 }
 
 .otherPostOptions {
@@ -212,8 +211,8 @@
 }
 
 .opinionSectionWrapper {
-    max-height: calc(100vh - 278px);
-    min-height: calc(100vh - 278px);
+    max-height: calc(100vh - 289px);
+    min-height: calc(100vh - 289px);
     overflow-y: auto;
     margin: 0 auto;
     max-width: 868px;
@@ -273,6 +272,63 @@
     margin: 8px 32px;
     background: var(--gray);
     border-radius: 0 16px 16px;
+    display: inline-block;
+}
+
+.opinionImage {
+    margin: 8px 32px;
+}
+
+.opinionImage img {
+    max-width: 100%;
+}
+
+.opinionImage figure {
+    margin: 0;
+    text-align: center;
+}
+
+.opinionImage figcaption {
+    font-size: 14px;
+    text-align: left;
+}
+
+.opinionLink {
+    margin: 8px 32px;
+    align-items: center;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    background: var(--green);
+    border-radius: 0 16px 16px;
+}
+
+.opinionLink svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--blue);
+    text-decoration: none;
+    padding: 8px;
+}
+
+.opinionLink div {
+    color: var(--blue);
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    padding: 16px 16px 16px 0;
+}
+
+.opinionLink:hover {
+    background: var(--gray);
+    text-decoration-color: var(--black);
+} 
+
+.opinionLink:hover svg {
+    fill: var(--black);
+}
+
+.opinionLink:hover div {
+    color: var(--black);
 }
 
 

@@ -94,3 +94,124 @@ export const startNewConversation = (type, topic, initiatorId, initiator, onGoin
         dispatch(startNewConversationFail(res.data.error));
     }
 }
+
+//  fetch conversation opinions
+
+export const fetchOpinionsStart = () => {
+    return {
+        type: actionTypes.FETCH_OPINIONS_START
+    }
+}
+
+export const fetchOpinionsSuccess = (opinions, fetchLength) => {
+    return {
+        type: actionTypes.FETCH_OPINIONS_SUCCESS,
+        opinions: opinions,
+        fetchLength: fetchLength
+    }
+}
+
+export const fetchOpinionsFail = (error) => {
+    return {
+        type: actionTypes.FETCH_OPINIONS_FAIL,
+        error: error
+    }
+}
+
+export const fetchMoreOpinionsStart = () => {
+    return {
+        type: actionTypes.FETCH_MORE_OPINIONS_START
+    }
+}
+
+export const fetchMoreOpinionsSuccess = (opinions, fetchLength) => {
+    return {
+        type: actionTypes.FETCH_MORE_OPINIONS_SUCCESS,
+        opinions: opinions,
+        fetchLength: fetchLength
+    }
+}
+
+export const fetchMoreOpinionsFail = (error) => {
+    return {
+        type: actionTypes.FETCH_MORE_OPINIONS_FAIL,
+        error: error
+    }
+}
+
+export const fetchOpinions = (conversationId) => async dispatch => {
+    dispatch(fetchOpinionsStart());
+
+    const res = await axios.get('/api/fetch_opinions', {params: {conversationId: conversationId, pageIndex: 0}});
+
+    if(res.data.opinions) {
+
+        dispatch(fetchOpinionsSuccess(res.data.opinions, res.data.opinions.length))
+    } else if (res.data.error) {
+        dispatch(fetchOpinionsFail(res.data.error));
+    }
+}
+
+export const fetchMoreOpinions = (conversationId, pageIndex, opinions) => async dispatch => {
+    dispatch(fetchMoreOpinionsStart());
+
+    const res = await axios.get('/api/fetch_opinions', {params: {conversationId: conversationId, pageIndex: pageIndex}});
+
+    if(res.data.opinions) {
+
+        let updatedOpinions = [...opinions, ...res.data.opinions]
+        dispatch(fetchMoreOpinionsSuccess(updatedOpinions, res.data.opinions.length))
+    } else if (res.data.error) {
+        dispatch(fetchMoreOpinionsFail(res.data.error));
+    }
+}
+
+
+export const clearFetchOpinionsMessage = () => {
+    return {
+        type: actionTypes.CLEAR_FETCH_OPINIONS_MESSAGES
+    }
+}
+
+//  post opinion text
+
+export const postOpinionTextStart = () => {
+    return {
+        type: actionTypes.POST_OPINION_TEXT_START
+    }
+}
+
+export const postOpinionTextSuccess = (updatedOpinions, postedOpinionTextId, successInfo) => {
+    return {
+        type: actionTypes.POST_OPINION_TEXT_SUCCESS,
+        updatedOpinions: updatedOpinions,
+        postedOpinionTextId: postedOpinionTextId,
+        successInfo: successInfo
+    }
+}
+
+export const postOpinionTextFail = (error) => {
+    return {
+        type: actionTypes.POST_OPINION_TEXT_FAIL,
+        error: error
+    }
+}
+
+export const postOpinionText = (opinionText, opinions, conversationId, opiner, opinerId) => async dispatch => {
+    dispatch(postOpinionTextStart());
+
+    const res = await axios.post('/api/post_opinion_text', {
+            opinionText: opinionText,
+            conversationId: conversationId,
+            opiner: opiner,
+            opinerId: opinerId
+        }
+    );
+
+    if(res.data.postedOpinionText) {
+        let updatedOpinions = [res.data.postedOpinionText, ...opinions];
+        dispatch(postOpinionTextSuccess(updatedOpinions, res.data.postedOpinionText._id, 'opinion posted'))
+    } else if (res.data.error) {
+        dispatch(postOpinionTextFail(res.data.error));
+    }
+}

@@ -140,3 +140,9 @@
 .DialogueMessage a:hover {
     background: var(--green);
 }
+
+.fetchError {
+    color: var(--red);
+    font-weight: 700;
+    display: block;
+}

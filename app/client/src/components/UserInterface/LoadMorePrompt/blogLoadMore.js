@@ -9,7 +9,6 @@ const loadMore = (props) => {
     if(props.loading) {
         promptText =
         <Spinner isLoadMore />
-
     }
 
     return(

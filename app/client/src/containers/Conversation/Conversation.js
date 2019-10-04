@@ -2,15 +2,26 @@ import React, { Component } from 'react';
 import classes from './conversation.module.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Button from '../../components/UserInterface/Button/Button';
+import * as actions from '../../store/actions/index';
+import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
+import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
+import Button from '../../components/UserInterface/Button/Button';
 import Opinion from './opinion';
+import LoadMorePrompt from '../../components/UserInterface/LoadMorePrompt/LoadMore';
 
 
-class Conversation extends Component {
+class Conversation extends Component {    
+
+    state = {
+        opinionText: '',
+        opinionFillError: null,
+        pageIndex: 0,
+        conversationId: null,
+        maxFetchLength: 10
+    }
 
     componentDidMount() {
-        
         if (this.props.useTypeContext === '0') {
             this.props.history.push('/login');
         }   
@@ -18,17 +29,57 @@ class Conversation extends Component {
         if (this.props.onGoingConversations.length === 0) {
             this.props.history.push('/facilitate');
         } else {
-            // this.props.onFetchOpinions(this.props.match.params.id);
+            this.props.onFetchOpinions(this.props.match.params.id);
         }
     }
 
-    state = {
-        commentText: '',
-        commentFillError: null,
+    componentDidUpdate(prevProps) {
+        if(this.props.postedOpinionTextId !== prevProps.postedOpinionTextId && this.props.postOpinionTextSuccessInfo) {
+            this.setState({ opinionText: '' });
+        }
+
+        if(this.props.latestOpinionPostId !== prevProps.latestOpinionPostId) {
+            document.getElementById('conversationOpinionsTop').focus();
+        }
     }
 
-    captureCommentText = (event) => {
-        this.setState({ commentText: event.target.value, commentFillError: null});   
+    componentWillUnmount() {
+        this.props.onClearFetchOpinionsMessage();
+    }
+
+    opinionInputChange = (event) => {
+        this.setState({ opinionText: event.target.value, opinionFillError: null});   
+    }
+
+    handleBack = () => {
+        this.props.history.goBack()
+    }
+
+    postOpinionText = (event) => {
+        event.preventDefault();
+
+        if (this.state.opinionText === '') {
+            this.setState({ opinionFillError: 'please enter your opinion'});
+        } else {
+            this.props.onPostOpinionText(this.state.opinionText, this.props.opinions, this.props.match.params.id, this.props.user.name, this.props.user._id);
+        }
+    }
+
+    /* 
+        // this onScroll function is used to automatically load more opinion on reaching bottom of opinions wrapper
+        scrollCheck = event => {
+        const bottom = event.target.scrollHeight - event.target.scrollTop === event.target.clientHeight;
+        if (bottom && this.props.latestOpinionsFetchLength === this.state.maxFetchLength && !this.props.fetchMoreOpinionsLoading) {
+            this.setState({ pageIndex: this.state.pageIndex + 1}, () => {
+                this.props.onFetchMoreOpinions(this.props.match.params.id, this.state.pageIndex, this.props.opinions);
+            });       
+        }
+    }; */
+
+    fetchMoreOpinions = () => {
+        this.setState({ pageIndex: this.state.pageIndex + 1}, () => {
+            this.props.onFetchMoreOpinions(this.props.match.params.id, this.state.pageIndex, this.props.opinions);
+        });
     }
 
         
@@ -44,37 +95,42 @@ class Conversation extends Component {
         }
 
         let formButtonText = 'post';
-        if (this.props.postCommentLoading) {
+        if (this.props.postOpinionTextLoading) {
             formButtonText = <Spinner isButton/>;
         }
 
-        let opinionsArray = [
-            {
-                postDate: new Date(),
-                opiner: 'Babatunde Ali-Brown',
-                opinionText: 'Bacon ipsum dolor amet tri-tip beef tenderloin frankfurter alcatra burgdoggen tail andouille shankle jowl spare ribs boudin doner ham. Turkey ground round meatloaf pork loin venison sirloin strip steak buffalo. Picanha capicola prosciutto ribeye buffalo cupim burgdoggen filet mignon. Tail beef pig venison chicken corned beef picanha boudin prosciutto salami burgdoggen shankle. Sausage ground round rump jowl pastrami prosciutto biltong kielbasa. Biltong short ribs bresaola ham flank. Frankfurter picanha shank jerky landjaeger.'
-            },
-            {
-                postDate: new Date(),
-                opiner: 'Babatunde Ali-Brown',
-                opinionText: 'Bacon ipsum dolor amet tri-tip beef tenderloin frankfurter alcatra burgdoggen tail andouille shankle jowl spare ribs boudin doner ham. Turkey ground round meatloaf pork loin venison sirloin strip steak buffalo. Picanha capicola prosciutto ribeye buffalo cupim burgdoggen filet mignon. Tail beef pig venison chicken corned beef picanha boudin prosciutto salami burgdoggen shankle. Sausage ground round rump jowl pastrami prosciutto biltong kielbasa. Biltong short ribs bresaola ham flank. Frankfurter picanha shank jerky landjaeger.'
-            },
-            {
-                postDate: new Date(),
-                opiner: 'Babatunde Ali-Brown',
-                opinionText: 'Bacon ipsum dolor amet tri-tip beef tenderloin frankfurter alcatra burgdoggen tail andouille shankle jowl spare ribs boudin doner ham. Turkey ground round meatloaf pork loin venison sirloin strip steak buffalo. Picanha capicola prosciutto ribeye buffalo cupim burgdoggen filet mignon. Tail beef pig venison chicken corned beef picanha boudin prosciutto salami burgdoggen shankle. Sausage ground round rump jowl pastrami prosciutto biltong kielbasa. Biltong short ribs bresaola ham flank. Frankfurter picanha shank jerky landjaeger.'
-            },
+        let opinions = <Spinner isComponent/>
 
-        ];
-        
-        let opinions = opinionsArray.map((opinion, i) => (
-            <Opinion 
-                key={i}
-                postDate={opinion.postDate}
-                opiner={opinion.opiner}
-                opinionText={opinion.opinionText}
-            />
-        ));
+        if (!this.props.fetchOpinionsLoading && !this.props.fetchOpinionsError && this.props.opinions.length === 0) {
+            
+            opinions =
+            <PostActionInfo isSuccess>
+                No opinion posted yet, be the first to share an opinion.
+            </PostActionInfo>
+        } else if (!this.props.fetchOpinionsLoading && !this.props.fetchOpinionsError && this.props.opinions.length > 0) {
+            opinions = this.props.opinions.map((opinion, i) => (
+                <Opinion 
+                    key={i}
+                    postDate={opinion.postDate}
+                    opiner={opinion.opiner}
+                    opinionText={opinion.text}
+                    type={opinion.type}
+                    linkDescription={opinion.linkDescription}
+                    linkUrl={opinion.linkUrl}
+                    imageUrl={opinion.imageUrl}
+                    imageCaption={opinion.imageCaption}
+                />
+            ));
+        } else if (!this.props.fetchOpinionsLoading) {
+            opinions =
+            <Dialogue 
+                showDialogue
+                isFetchError
+                handleBack={this.handleBack}
+            >
+                {this.props.fetchOpinionsError}
+            </Dialogue>
+        }
 
         return (
             <div className={classes.backdrop}>
@@ -104,17 +160,16 @@ class Conversation extends Component {
                         </div>
                     </div>
                     <div className={classes.postSection}>
-                        <form onSubmit={this.postComment}>
+                        <form onSubmit={this.postOpinionText}>
                             <div className={classes.textAreaWrapper}>
                                 <textarea 
                                     ref={this.textInput}
-                                    placeholder="enter your comment"
-                                    className={classes.commentInput}
-                                    value={this.state.commentText} 
-                                    onChange={this.captureCommentText}
+                                    placeholder="share an opinion"
+                                    value={this.state.opinionText} 
+                                    onChange={this.opinionInputChange}
                                 />
                             </div>
-                            { this.state.commentText === '' || this.state.commentFillError ? 
+                            { this.state.opinionText === '' || this.state.opinionFillError || this.props.postOpinionTextLoading ? 
                                 <Button btnType='Danger' disabled> {formButtonText} </Button> :
                                 <Button btnType='Success'> {formButtonText} </Button>    
                             }
@@ -135,13 +190,22 @@ class Conversation extends Component {
                         </div>
                     </div>
                     <div className={classes.formFeedBack}> 
-                        { this.state.commentFillError ? <span className={classes.fillError}>{this.state.commentFillError}</span> : null}
-                        { this.props.postCommentError ? <span className={classes.fillError}>{this.props.postCommentError}</span> : null}
-                        { this.props.postCommentSuccessMessage ? <span className={classes.commentPostSuccess}>{this.props.postCommentSuccessMessage}</span> : null} 
+                        { this.state.opinionFillError ? <span className={classes.fillError}>{this.state.opinionFillError}</span> : null}
+                        { this.props.postOpinionTextError ? <span className={classes.fillError}>{this.props.postOpinionTextError}</span> : null}
+                        { this.props.postOpinionTextSuccessInfo ? <span className={classes.postSuccess}>{this.props.postOpinionTextSuccessInfo}</span> : null} 
                     </div>
-                    <div className={classes.opinionSectionWrapper}>  
+                    <div className={classes.opinionSectionWrapper} /* onScroll={this.scrollCheck} */>
+                        <div tabIndex="0" id="conversationOpinionsTop"/>      
                         <div className={classes.opinions}>        
                             {opinions}
+                            {/* {this.props.fetchMoreOpinionsLoading ? <LoadMorePrompt /> : null} */}
+                            {this.props.latestOpinionsFetchLength === this.state.maxFetchLength ?
+                                <LoadMorePrompt 
+                                    isLoadMoreOnClick
+                                    loadMore={this.fetchMoreOpinions}
+                                    loading={this.props.fetchMoreOpinionsLoading}
+                                /> : null
+                            }
                         </div>   
                     </div>
                 </div>
@@ -153,14 +217,32 @@ class Conversation extends Component {
 const mapStateToProps = state => {
     return {
         useTypeContext: state.auth.useTypeContext,
-        onGoingConversations: state.conversation.onGoingConversations
+        user: state.auth.user,
+
+        latestOpinionPostId: state.conversation.latestOpinionPostId,
+        
+        onGoingConversations: state.conversation.onGoingConversations,
+        
+        fetchOpinionsLoading: state.conversation.fetchOpinionsLoading,
+        fetchOpinionsError: state.conversation.fetchOpinionsError,
+        fetchMoreOpinionsLoading: state.conversation.fetchMoreOpinionsLoading,
+        fetchMoreOpinionsError: state.conversation.fetchMoreOpinionsError,
+        latestOpinionsFetchLength:state.conversation.latestOpinionsFetchLength,
+        opinions: state.conversation.opinions,
+
+        postOpinionTextLoading: state.conversation.postOpinionTextLoading,
+        postOpinionTextError: state.conversation.postOpinionTextError,
+        postOpinionTextSuccessInfo: state.conversation.postOpinionTextSuccessInfo,
+        postedOpinionTextId: state.conversation.postedOpinionTextId
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        // onFetchOpinions: (conversationId) => dispatch(fetchOpinions(conversationId)),
-        // onFetchConversations: () => dispatch(actions.fetchConversations()),
+        onFetchOpinions: (conversationId) => dispatch(actions.fetchOpinions(conversationId)),
+        onFetchMoreOpinions: (conversationId, pageIndex, opinions) => dispatch(actions.fetchMoreOpinions(conversationId, pageIndex, opinions)),
+        onPostOpinionText: (opinionText, opinions, conversationId, opiner, opinerId) => dispatch(actions.postOpinionText(opinionText, opinions, conversationId, opiner, opinerId)),
+        onClearFetchOpinionsMessage: () => dispatch(actions.clearFetchOpinionsMessage())
     }
 }
 

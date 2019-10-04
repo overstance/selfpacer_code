@@ -9,8 +9,7 @@ const postActionInfo = (props) => (
      }
      {  props.isFailed ?
         <div className={classes.Failed}>{props.children}</div> : null
-     }
-     
+     } 
  </div>
 );
 

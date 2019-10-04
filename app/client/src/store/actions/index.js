@@ -175,7 +175,11 @@ export {
     fetchConversations,
     clearFetchConversationsMessage,
     startNewConversation,
-    clearStartNewConversationInfo
+    clearStartNewConversationInfo,
+    fetchOpinions,
+    fetchMoreOpinions,
+    clearFetchOpinionsMessage,
+    postOpinionText,
 } from './conversation';
 
 

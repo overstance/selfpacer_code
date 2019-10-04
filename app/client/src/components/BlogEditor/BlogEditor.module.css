@@ -62,17 +62,6 @@
   border-radius: 4px 0 0 4px;
 }
 
-/* .submitNote {
-  border-radius: 10px;
-  font-size: 13px;
-  display: inline;
-  padding: 0.5em;
-  color: white;
-  border: none;
-  background-color:#ff5370;
-  margin: 0.35em;
-} */
-
 .editors {
   border: none;
   border-radius: 0 0 4px 4px;
@@ -288,13 +277,11 @@
 
 .editorHeader figcaption, .editors figcaption {
   font-size: small;
-  font-family: 'Comfortaa', sans-serif;
   text-align: left;
 }
 
 .editorHeader figure p, .editors figure p {
   font-size: small;
-  font-family: 'Comfortaa', sans-serif;
   text-align: left;
 }
 

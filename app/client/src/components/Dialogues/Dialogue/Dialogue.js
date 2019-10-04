@@ -145,14 +145,20 @@ const dialogue = (props) => (
             </div> : null
         }
         { props.isPostSubmitDialogue ? 
-            <div>
-                <div className={classes.BodyWrapper}>
-                    <div className={classes.DialogueMessage}>
-                        <div>{props.children}</div>
-                        { props.withGoBackButton ? <span className={classes.Confirm} onClick={props.handleBack}>go back</span> : null}
-                        {props.withLink ? <Link to={props.to}>{props.buttonText}</Link> : null }
-                    </div>
-                </div>     
+            <div className={classes.BodyWrapper}>
+                <div className={classes.DialogueMessage}>
+                    <div>{props.children}</div>
+                    { props.withGoBackButton ? <span className={classes.Confirm} onClick={props.handleBack}>Go back</span> : null}
+                    {props.withLink ? <Link to={props.to}>{props.buttonText}</Link> : null }
+                </div>
+            </div> : null
+        }
+        { props.isFetchError ? 
+            <div className={classes.BodyWrapper}>
+                <div className={classes.DialogueMessage}>
+                    <span className={classes.fetchError}>{props.children}</span>
+                    <span className={classes.Confirm} onClick={props.handleBack}>Go back</span>
+                </div>
             </div> : null
         }
         { props.isUpdateAsset ? 

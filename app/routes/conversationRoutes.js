@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Conversation = require('../models/Conversation');
+const Opinion = require('../models/Opinion');
 
 module.exports = app => {
   app.get('/api/fetch_conversations', (req, res) => {
@@ -34,6 +35,47 @@ module.exports = app => {
       } else {
         conversation.save();
         res.send({ conversation: conversation });
+      }
+    });
+  });
+
+  app.get('/api/fetch_opinions', (req, res) => {
+    let pageOptions = {
+      page: req.query.pageIndex || 0,
+      limit: 10
+    };
+    let query = Opinion.find({
+      conversationId: req.query.conversationId
+    })
+      .skip(pageOptions.page * pageOptions.limit)
+      .sort({ postDate: -1 })
+      .limit(pageOptions.limit);
+
+    query.exec((err, opinions) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send({ opinions: opinions });
+      }
+    });
+  });
+
+  app.post('/api/post_opinion_text', (req, res) => {
+    let newOpinionText = {
+      postDate: new Date(),
+      conversationId: req.body.conversationId,
+      opiner: req.body.opiner,
+      opinerId: req.body.opinerId,
+      type: 'text',
+      text: req.body.opinionText
+    };
+
+    Opinion.create(newOpinionText, (err, postedOpinionText) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        postedOpinionText.save();
+        res.send({ postedOpinionText: postedOpinionText });
       }
     });
   });
