@@ -229,6 +229,32 @@ const dialogue = (props) => (
                 </div>                                
             </div> : null
         }
+        { props.isPostLinkOpinion ?
+            <div>
+                <div className={classes.DialogueTitleHead}>
+                    <div className={classes.DialogueTitleColumn}>
+                        <h5>Post Link</h5>
+                    </div>
+                    <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
+                </div>
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                                
+            </div> : null
+        }
+        { props.isPostImageOpinion ?
+            <div>
+                <div className={classes.DialogueTitleHead}>
+                    <div className={classes.DialogueTitleColumn}>
+                        <h5>Post Image</h5>
+                    </div>
+                    <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
+                </div>
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>                                
+            </div> : null
+        }
     </Modal>
 );
 

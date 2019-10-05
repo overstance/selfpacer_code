@@ -79,4 +79,25 @@ module.exports = app => {
       }
     });
   });
+
+  app.post('/api/post_opinion_link', (req, res) => {
+    let newOpinionLink = {
+      postDate: new Date(),
+      conversationId: req.body.conversationId,
+      opiner: req.body.opiner,
+      opinerId: req.body.opinerId,
+      type: 'link',
+      linkUrl: req.body.linkUrl,
+      linkDescription: req.body.linkUrl
+    };
+
+    Opinion.create(newOpinionLink, (err, postedOpinionLink) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        postedOpinionLink.save();
+        res.send({ postedOpinionLink: postedOpinionLink });
+      }
+    });
+  });
 };

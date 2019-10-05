@@ -24,6 +24,14 @@ const initialState = {
     postOpinionTextError: null,
     postOpinionTextSuccessInfo: null,
     postedOpinionTextId: null,
+
+    postLinkOpinionLoading: false,
+    postLinkOpinionError: null,
+    postLinkOpinionSuccessInfo: null,
+
+    postImageOpinionLoading: false,
+    postImageOpinionError: null,
+    postImageOpinionSuccessInfo: null,
 }
 
 const fetchConversationsStart = (state, action) => {
@@ -156,13 +164,77 @@ const postOpinionTextFail = (state, action) => {
     });
 }
 
+// post opinion text
+
+const postLinkOpinionStart = (state, action) => {
+    return updateObject(state, {
+        postLinkOpinionLoading: true,
+        postLinkOpinionSuccessInfo: null,
+        postLinkOpinionError: null
+    });
+}
+
+const postLinkOpinionSuccess = (state, action) => {
+    return updateObject(state, {
+        postLinkOpinionLoading: false,
+        postLinkOpinionSuccessInfo: action.successInfo,
+        opinions: action.updatedOpinions,
+        latestOpinionPostId: action.postedOpinionLinkId
+    });
+}
+
+const postLinkOpinionFail = (state, action) => {
+    return updateObject(state, {
+        postLinkOpinionLoading: false,
+        postLinkOpinionError: action.error
+    });
+}
+
+// post opinion image
+
+const postImageOpinionStart = (state, action) => {
+    return updateObject(state, {
+        postImageOpinionLoading: true,
+        postImageOpinionSuccessInfo: null,
+        postImageOpinionError: null
+    });
+}
+
+const postImageOpinionSuccess = (state, action) => {
+    return updateObject(state, {
+        postImageOpinionLoading: false,
+        postImageOpinionSuccessInfo: action.successInfo,
+        opinions: action.updatedOpinions,
+        latestOpinionPostId: action.postedOpinionImageId
+    });
+}
+
+const postImageOpinionFail = (state, action) => {
+    return updateObject(state, {
+        postImageOpinionLoading: false,
+        postImageOpinionError: action.error
+    });
+}
+
 const clearFetchOpinionsMessage = (state, action) => {
     return updateObject(state, {
         fetchOpinionsError: null,
-        fetchMoreOpinionsLoading: null,
         postOpinionTextError: null,
         postOpinionTextSuccessInfo: null,
-        postedOpinionTextId: null
+        postedOpinionTextId: null,
+        postLinkOpinionError: null,
+        postLinkOpinionSuccessInfo: null,
+        postImageOpinionError: null,
+        postImageOpinionSuccessInfo: null,
+    });
+}
+
+const clearNonTextOpinionPostMessages = (state, action) => {
+    return updateObject(state, {
+        postLinkOpinionError: null,
+        postLinkOpinionSuccessInfo: null,
+        postImageOpinionError: null,
+        postImageOpinionSuccessInfo: null,
     });
 }
 
@@ -191,7 +263,16 @@ const reducer = (state = initialState, action) => {
         case actionTypes.POST_OPINION_TEXT_SUCCESS: return postOpinionTextSuccess(state, action);
         case actionTypes.POST_OPINION_TEXT_FAIL: return postOpinionTextFail(state, action);
 
+        case actionTypes.POST_LINK_OPINION_START: return postLinkOpinionStart(state, action);
+        case actionTypes.POST_LINK_OPINION_SUCCESS: return postLinkOpinionSuccess(state, action);
+        case actionTypes.POST_LINK_OPINION_FAIL: return postLinkOpinionFail(state, action);
+
+        case actionTypes.POST_IMAGE_OPINION_START: return postImageOpinionStart(state, action);
+        case actionTypes.POST_IMAGE_OPINION_SUCCESS: return postImageOpinionSuccess(state, action);
+        case actionTypes.POST_IMAGE_OPINION_FAIL: return postImageOpinionFail(state, action);
+
         case actionTypes.CLEAR_FETCH_OPINIONS_MESSAGES: return clearFetchOpinionsMessage(state, action);
+        case actionTypes.CLEAR_NON_TEXT_OPINION_POST_MESSAGES: return clearNonTextOpinionPostMessages(state, action);
 
         default: return state;
     }

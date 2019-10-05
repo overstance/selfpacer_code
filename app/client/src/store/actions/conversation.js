@@ -166,13 +166,6 @@ export const fetchMoreOpinions = (conversationId, pageIndex, opinions) => async 
     }
 }
 
-
-export const clearFetchOpinionsMessage = () => {
-    return {
-        type: actionTypes.CLEAR_FETCH_OPINIONS_MESSAGES
-    }
-}
-
 //  post opinion text
 
 export const postOpinionTextStart = () => {
@@ -213,5 +206,114 @@ export const postOpinionText = (opinionText, opinions, conversationId, opiner, o
         dispatch(postOpinionTextSuccess(updatedOpinions, res.data.postedOpinionText._id, 'opinion posted'))
     } else if (res.data.error) {
         dispatch(postOpinionTextFail(res.data.error));
+    }
+}
+
+//  post opinion link
+
+export const postLinkOpinionStart = () => {
+    return {
+        type: actionTypes.POST_LINK_OPINION_START
+    }
+}
+
+export const postLinkOpinionSuccess = (updatedOpinions, postedOpinionLinkId, successInfo) => {
+    return {
+        type: actionTypes.POST_LINK_OPINION_SUCCESS,
+        updatedOpinions: updatedOpinions,
+        postedOpinionLinkId: postedOpinionLinkId,
+        successInfo: successInfo
+    }
+}
+
+export const postLinkOpinionFail = (error) => {
+    return {
+        type: actionTypes.POST_LINK_OPINION_FAIL,
+        error: error
+    }
+}
+
+export const postLinkOpinion = (linkUrl, opinions, opiner, opinerId, conversationId) => async dispatch => {
+    dispatch(postLinkOpinionStart());
+
+    const res = await axios.post('/api/post_opinion_link', {
+            linkUrl: linkUrl,
+            conversationId: conversationId,
+            opiner: opiner,
+            opinerId: opinerId
+        }
+    );
+
+    if(res.data.postedOpinionLink) {
+        let updatedOpinions = [res.data.postedOpinionLink, ...opinions];
+        dispatch(postLinkOpinionSuccess(updatedOpinions, res.data.postedOpinionLink._id, 'link posted'))
+    } else if (res.data.error) {
+        dispatch(postLinkOpinionFail(res.data.error));
+    }
+}
+
+//  post opinion image
+
+export const postImageOpinionStart = () => {
+    return {
+        type: actionTypes.POST_IMAGE_OPINION_START
+    }
+}
+
+export const postImageOpinionSuccess = (updatedOpinions, postedOpinionImageId, successInfo) => {
+    return {
+        type: actionTypes.POST_IMAGE_OPINION_SUCCESS,
+        updatedOpinions: updatedOpinions,
+        postedOpinionImageId: postedOpinionImageId,
+        successInfo: successInfo
+    }
+}
+
+export const postImageOpinionFail = (error) => {
+    return {
+        type: actionTypes.POST_IMAGE_OPINION_FAIL,
+        error: error
+    }
+}
+
+export const postImageOpinion = (imageFile, caption, opinions, opiner, opinerId, conversationId) => async dispatch => {
+    dispatch(postImageOpinionStart());
+
+    let data = new FormData();   
+    data.append('file', imageFile);
+
+    let captionValue = caption;
+
+    if ( captionValue === '') {
+        captionValue = undefined
+    }
+
+    const res = await axios.post('/api/post_opinion_image', data, {params:  {
+            captionValue: captionValue,
+            conversationId: conversationId,
+            opiner: opiner,
+            opinerId: opinerId
+        }}
+    );
+
+    if(res.data.postedOpinionImage) {
+        let updatedOpinions = [res.data.postedOpinionImage, ...opinions];
+        dispatch(postImageOpinionSuccess(updatedOpinions, res.data.postedOpinionImage._id, 'link posted'))
+    } else if (res.data.error) {
+        dispatch(postImageOpinionFail(res.data.error));
+    }
+}
+
+// clear messages
+
+export const clearFetchOpinionsMessage = () => {
+    return {
+        type: actionTypes.CLEAR_FETCH_OPINIONS_MESSAGES
+    }
+}
+
+export const clearNonTextOpinionPostMessages = () => {
+    return {
+        type: actionTypes.CLEAR_NON_TEXT_OPINION_POST_MESSAGES
     }
 }

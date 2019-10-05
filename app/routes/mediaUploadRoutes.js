@@ -3,7 +3,7 @@ const keys = require('../config/keys');
 const multer = require('multer');
 const Datauri = require('datauri');
 const path = require('path');
-
+const Opinion = require('../models/Opinion');
 const Image = require('../models/Image');
 
 const storage = multer.memoryStorage();
@@ -175,5 +175,50 @@ module.exports = app => {
         });
       }
     });
+  });
+
+  app.post('/api/post_opinion_image', multerUploads, (req, res) => {
+    if (req.file) {
+      const dUri = new Datauri();
+      const dataUri = req =>
+        dUri.format(
+          path.extname(req.file.originalname).toString(),
+          req.file.buffer
+        );
+      const imageFile = dataUri(req).content;
+      const conversationId = req.query.conversationId;
+      const folderPath = `conversations/${conversationId}`;
+
+      cloudinary.uploader.upload(
+        imageFile,
+        {
+          folder: folderPath
+        },
+        (error, image) => {
+          if (error) {
+            res.send({ error: error.message });
+            return;
+          } else {
+            let newImageOpinion = new Opinion({
+              postDate: new Date(),
+              conversationId: req.query.conversationId,
+              opiner: req.query.opiner,
+              opinerId: req.query.opinerId,
+              type: 'image',
+              imageUrl: image.secure_url,
+              imageCaption: req.query.captionValue
+            });
+
+            newImageOpinion.save(function(err) {
+              if (err) {
+                res.send({ error: err.message });
+              } else {
+                res.send({ postedOpinionImage: newImageOpinion });
+              }
+            });
+          }
+        }
+      );
+    }
   });
 };

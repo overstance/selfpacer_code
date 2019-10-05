@@ -180,6 +180,9 @@ export {
     fetchMoreOpinions,
     clearFetchOpinionsMessage,
     postOpinionText,
+    postLinkOpinion,
+    postImageOpinion,
+    clearNonTextOpinionPostMessages
 } from './conversation';
 
 

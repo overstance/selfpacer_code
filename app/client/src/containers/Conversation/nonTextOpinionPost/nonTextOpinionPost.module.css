@@ -1,0 +1,16 @@
+.ContainerItem {
+    max-width: 500px;
+    margin: auto;
+}
+
+.fileInput {
+    color: var(--white);
+    display: block;
+    margin: auto;
+}
+
+.fileInputLabel {
+    color: var(--white);
+    display: block;
+    margin-bottom: 4px;
+}
