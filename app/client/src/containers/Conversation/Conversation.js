@@ -172,14 +172,18 @@ class Conversation extends Component {
                             <div className={classes.closing}>
                                 <span>closing: </span><div>{displayedClosingDate}</div>
                             </div>
-                            <div className={classes.buttons}>
-                                <div className={classes.button}>
-                                    close
+                            {   this.props.user.accountType === 'Senior Administrator' || 
+                                this.props.user.accountType === 'Head Administrator' ?
+                                <div className={classes.buttons}>
+                                    <div className={classes.button}>
+                                        close
+                                    </div>
+                                    <div className={classes.button}>
+                                        extend
+                                    </div>
                                 </div>
-                                <div className={classes.button}>
-                                    extend
-                                </div>
-                            </div>
+                                : null
+                            }
                         </div>
                     </div>
                     <div className={classes.postSection}>
@@ -204,12 +208,15 @@ class Conversation extends Component {
                                 </svg>
                                 <span>post link</span>
                             </div>
-                            <div className={classes.imagePost} onClick={this.showPostImageModal}>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z"/>
-                                </svg>
-                                <span>post image</span>
-                            </div>
+                            { this.props.user.isArtist ?
+                                <div className={classes.imagePost} onClick={this.showPostImageModal}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z"/>
+                                    </svg>
+                                    <span>post image</span>
+                                </div>
+                                : null
+                            }
                         </div>
                     </div>
                     <div className={classes.formFeedBack}> 

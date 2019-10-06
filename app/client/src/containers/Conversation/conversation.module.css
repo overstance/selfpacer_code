@@ -300,6 +300,7 @@
     flex-flow: row nowrap;
     background: var(--green);
     border-radius: 0 16px 16px;
+    word-break: break-all;
 }
 
 .opinionLink svg {
