@@ -28,6 +28,7 @@ import BlogPost from './containers/BlogPost/BlogPost';
 import BlogSection from './containers/BlogSection/BlogSection';
 import PopularBlogs from './containers/BlogSection/Popular';
 import LatestBlogs from './containers/BlogSection/Latest';
+import UserSavedBlogs from './containers/BlogSection/saved';
 import FacilitateApplicants from './containers/ViewFacilitateApplicants/FacilitateApplicants';
 // import RichEditor from './components/RichEditor/RichEditor';
 import ManageBlogDrafts from './containers/ManageBlogDrafts/ManageBlogDrafts';
@@ -80,7 +81,8 @@ class App extends Component {
         <Route path='/blog/:publishYear/:publishMonth/:publishDay/:slug' component={BlogPost} />
         <Route exact path="/collections" component={Collections} />
         <Route exact path="/shared_collections/:id" component={SharedCollection} />
-
+        
+        <PrivateRoute exact path="/blog/saved/:userId" component={UserSavedBlogs} />
         <PrivateRoute exact path="/collections/:id" component={UserCollection} />
         <PrivateRoute exact path="/facilitate" component={Facilitate} />
         <PrivateRoute exact path="/facilitate/conversations/:id" component={Conversation} />

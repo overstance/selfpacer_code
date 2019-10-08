@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './blogNav.module.css';
 import Backdrop from './blogNavBackdrop';
 import SectionMenuItems from './blogSectionMenuItems';
+import { Link } from 'react-router-dom';
 
 
 
@@ -25,7 +26,7 @@ const sideDrawer = (props) => {
                         onMenuSelected={props.onMenuSelect}
                     />
                 </nav>
-                 
+                {props.userId ? <div className={classes.viewSaved}><Link to={`/blog/saved/${props.userId}`}>view saved</Link></div> : null} 
             </div>
         </div>
     );

@@ -91,6 +91,7 @@ class Layout extends Component {
                         onMenuSelect={this.sectionMenuCloseHandler}
                         open={this.state.showBlogSectionMenu}
                         closed={this.sectionMenuCloseHandler}
+                        userId={this.props.userId}
                         />
                         : null
                     }

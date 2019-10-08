@@ -1018,3 +1018,37 @@ export const increaseBlogPostView = (postId, updatedViews, updatedRecentlyViewed
     }
 }
 
+// fetch user blog saves
+
+export const fetchUserBlogSavesStart = () => {
+    return {
+        type: actionTypes.FETCH_USER_BLOG_SAVES_START
+    }
+}
+
+export const fetchUserBlogSavesSuccess = (userBlogSaves) => {
+    return {
+        type: actionTypes.FETCH_USER_BLOG_SAVES_SUCCESS,
+        userBlogSaves: userBlogSaves
+    }
+}
+
+export const fetchUserBlogSavesFail = (error) => {
+    return {
+        type: actionTypes.FETCH_USER_BLOG_SAVES_FAIL,
+        error: error
+    }
+}
+
+export const fetchUserBlogSaves = (userId) => async dispatch => {
+    dispatch(fetchUserBlogSavesStart())
+
+    const res = await axios.get('/api/fetch_user_blog_saves', { params: { userId: userId}});
+
+    if (res.data.blogs) {
+        dispatch(fetchUserBlogSavesSuccess(res.data.blogs));
+    } else if (res.data.error) {
+        dispatch(fetchUserBlogSavesFail(res.data.error))
+    }
+}
+

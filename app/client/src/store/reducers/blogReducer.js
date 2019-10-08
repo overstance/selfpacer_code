@@ -95,6 +95,10 @@ const initialState = {
     latestRecentFetchLength: 0,
     blogsByRecent: [],
 
+    fetchUserBlogSavesLoading: false,
+    fetchUserBlogSavesError: null,
+    userBlogSaves: [],
+
     unpublishPostLoading: false,
     unpublishPostError: null,
     unpublishPostSuccessMessage: null,
@@ -729,6 +733,28 @@ const fetchMoreBlogsByRecentFail = (state, action) => {
     });
 }
 
+const fetchUserBlogSavesStart = (state, action) => {
+    return updateObject(state, {
+        fetchUserBlogSavesLoading: true,
+        fetchUserBlogSavesError: null
+    });
+}
+
+const fetchUserBlogSavesSuccess = (state, action) => {
+    return updateObject(state, {
+        fetchUserBlogSavesLoading: false,
+        fetchUserBlogSavesError: null,
+        userBlogSaves: action.userBlogSaves,
+    });
+}
+
+const fetchUserBlogSavesFail = (state, action) => {
+    return updateObject(state, {
+        fetchUserBlogSavesLoading: false,
+        fetchUserBlogSavesError: action.error
+    });
+}
+
 const clearBlogSectionMessages = (state, action) => {
     return updateObject(state, {
         fetchBlogsBySectionError: null,
@@ -737,7 +763,8 @@ const clearBlogSectionMessages = (state, action) => {
         fetchMoreBlogsByPopularityError: null,
         fetchBlogsByRecentError: null,
         fetchMoreBlogsByRecentError: null,
-        fetchFeaturedBlogsError: null
+        fetchFeaturedBlogsError: null,
+        fetchUserBlogSavesError: null
     });
 }
 
@@ -844,6 +871,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_MORE_BLOGS_BY_RECENT_SUCCESS: return fetchMoreBlogsByRecentSuccess(state, action);
         case actionTypes.FETCH_MORE_BLOGS_BY_RECENT_FAIL: return fetchMoreBlogsByRecentFail(state, action);
         
+        case actionTypes.FETCH_USER_BLOG_SAVES_START: return fetchUserBlogSavesStart(state, action);
+        case actionTypes.FETCH_USER_BLOG_SAVES_SUCCESS: return fetchUserBlogSavesSuccess(state, action);
+        case actionTypes.FETCH_USER_BLOG_SAVES_FAIL: return fetchUserBlogSavesFail(state, action);
+
         case actionTypes.CLEAR_BLOG_SECTION_MESSAGES: return clearBlogSectionMessages(state, action);
 
         case actionTypes.INCREASE_BLOG_POST_VIEW_SUCCESS: return increaseBlogpostViewSuccess(state, action);

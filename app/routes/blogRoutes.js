@@ -451,6 +451,37 @@ module.exports = app => {
     });
   });
 
+  app.get('/api/fetch_user_blog_saves', (req, res) => {
+    User.findById(req.query.userId, (err, user) => {
+      if (err) {
+        res.send(err.message);
+      } else {
+        /* let pageOptions = {
+      page: req.query.pageIndex || 0,
+      limit: 10
+        }; 
+      */
+        const userSavedBlogs = user.blogSaves;
+        let query = BlogDraft.find({
+          _id: { $in: userSavedBlogs },
+          status: 'published'
+        })
+          .select(
+            'publishedOn displayDate publishYear publishMonth views publishDay featuredImage category title description slug author authorName authorTwitter'
+          )
+          .sort({ publishedOn: -1 });
+
+        query.exec((err, blogs) => {
+          if (err) {
+            res.send({ error: err.message });
+          } else {
+            res.send({ blogs: blogs });
+          }
+        });
+      }
+    });
+  });
+
   app.get('/api/fetch_blogs_by_recent', (req, res) => {
     let pageOptions = {
       page: req.query.pageIndex || 0,

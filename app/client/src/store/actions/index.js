@@ -168,7 +168,8 @@ export {
     fetchBlogsByPopularity,
     fetchMoreBlogsByPopularity,
     fetchBlogsByRecent,
-    fetchMoreBlogsByRecent
+    fetchMoreBlogsByRecent,
+    fetchUserBlogSaves
 } from './blog';
 
 export {

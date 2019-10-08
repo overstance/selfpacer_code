@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './blogItem.module.css';
+import DeleteActionButton from '../UserInterface/ActionButtons/Delete';
 import { Link } from 'react-router-dom';
 
 function sameDay(d1, d2) {
@@ -32,6 +33,11 @@ const blogItem = (props) => {
 
     return(
         <article className={classes.blogItem}>
+            {props.isSaved ? 
+                <div className={classes.deleteSaved}>
+                    <DeleteActionButton clicked={props.unsaveBlog} />
+                </div> : null
+            }
             <div className={classes.blogItemImage}>
                 <figure>
                     <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}
