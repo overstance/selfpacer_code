@@ -540,4 +540,20 @@ module.exports = app => {
       );
     }
   });
+
+  app.put('/api/remove_saved_blog', (req, res) => {
+    User.findByIdAndUpdate(
+      req.body.userId,
+      {
+        blogSaves: req.body.updatedBlogSavesId
+      },
+      (err, user) => {
+        if (err) {
+          res.send({ error: err.name });
+        } else {
+          res.send({ successMessage: 'user blog saves updated' });
+        }
+      }
+    );
+  });
 };

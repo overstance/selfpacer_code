@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './blogItem.module.css';
-import DeleteActionButton from '../UserInterface/ActionButtons/Delete';
 import { Link } from 'react-router-dom';
+import Spinner from '../UserInterface/Spinner/Spinner';
 
 function sameDay(d1, d2) {
     return d1.getFullYear() === d2.getFullYear() &&
@@ -31,13 +31,46 @@ const blogItem = (props) => {
         displayTime = formatAMPM(publishDate);
     }
 
+    let removeSavedButtonText = 'remove';
+    if (props.blogId === props.blogBeenUnsaved) {
+        removeSavedButtonText = <Spinner isButton/>
+    }
+
     return(
+        props.isSaved ?
+        <article className={classes.savedBlogItem}>
+            <div className={classes.savedBlogItemInfo}>
+                <div className={classes.blogItemTitle}>
+                    <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}
+                    onClick={props.postClicked}
+                    >
+                        {props.title}
+                    </Link>
+                </div>
+                <div className={classes.blogItemDescription}>
+                    {props.description}
+                </div>
+                { isSameDay ? 
+                    <div className={classes.blogItemPublishDate}>
+                        {props.displayDate + ' - ' + displayTime + ' EDT'}
+                    </div>
+                    :  
+                    <div className={classes.blogItemPublishDate}>
+                        {props.displayDate}
+                    </div>
+                }
+            </div>   
+            <div className={classes.removeSaved}>
+                <div 
+                onClick={props.removeSaved}
+                className={classes.removeSavedButton}
+                >
+                    {removeSavedButtonText}
+                </div> 
+            </div> 
+        </article>
+        :
         <article className={classes.blogItem}>
-            {props.isSaved ? 
-                <div className={classes.deleteSaved}>
-                    <DeleteActionButton clicked={props.unsaveBlog} />
-                </div> : null
-            }
             <div className={classes.blogItemImage}>
                 <figure>
                     <Link to={`/blog/${props.publishYear}/${props.publishMonth}/${props.publishDay}/${props.slug}`}

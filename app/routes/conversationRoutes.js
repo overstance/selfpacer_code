@@ -100,4 +100,41 @@ module.exports = app => {
       }
     });
   });
+
+  app.put('/api/close_conversation', (req, res) => {
+    let newClosingDate = new Date();
+    Conversation.findByIdAndUpdate(
+      req.body.conversationId,
+      {
+        closingDate: newClosingDate
+      },
+      (err, conversation) => {
+        if (err) {
+          res.send({ error: err.message });
+        } else {
+          res.send({ successInfo: 'conversation successfully closed' });
+        }
+      }
+    );
+  });
+
+  app.put('/api/extend_conversation', (req, res) => {
+    let currentDate = new Date();
+    let newCloseDate = new Date(
+      currentDate.setMonth(currentDate.getMonth() + 1)
+    );
+    Conversation.findByIdAndUpdate(
+      req.body.conversationId,
+      {
+        closingDate: newCloseDate
+      },
+      (err, conversation) => {
+        if (err) {
+          res.send({ error: err.message });
+        } else {
+          res.send({ newCloseDate: newCloseDate });
+        }
+      }
+    );
+  });
 };

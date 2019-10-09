@@ -23,7 +23,10 @@ class Conversation extends Component {
         maxFetchLength: 10,
 
         showPostLink: false,
-        showPostImage: false
+        showPostImage: false,
+
+        conversationTopic: null,
+        conversationClosingDate: null
     }
 
     componentDidMount() {
@@ -34,6 +37,15 @@ class Conversation extends Component {
         if (this.props.onGoingConversations.length === 0) {
             this.props.history.push('/facilitate');
         } else {
+            let currentConversation = this.props.onGoingConversations.find(conversation => conversation._id === this.props.match.params.id );
+            if (currentConversation) {
+                let topic = currentConversation.topic;
+                let closingDate = new Date(currentConversation.closingDate).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                this.setState({ conversationTopic: topic, conversationClosingDate: closingDate });
+            } else {
+                this.props.history.push('/facilitate');
+            }
             this.props.onFetchOpinions(this.props.match.params.id);
         }
     }
@@ -46,10 +58,23 @@ class Conversation extends Component {
         if(this.props.latestOpinionPostId !== prevProps.latestOpinionPostId) {
             document.getElementById('conversationOpinionsTop').focus();
         }
+
+        if (
+                this.props.closeConversationSuccessInfo !== prevProps.closeConversationSuccessInfo
+                && this.props.closeConversationSuccessInfo === 'conversation successfully closed'
+            ) {
+            this.props.history.push('/facilitate');
+        }
+
+        if( this.props.newClosingDate !== prevProps.newClosingDate && this.props.newClosingDate !== null) {
+            let closingDate = new Date(this.props.newClosingDate).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            this.setState({ conversationClosingDate: closingDate });
+        }
     }
 
     componentWillUnmount() {
-        this.props.onClearFetchOpinionsMessage();
+        this.props.onClearConversationMessages();
     }
 
     opinionInputChange = (event) => {
@@ -105,17 +130,25 @@ class Conversation extends Component {
         });
     }
 
+    closeConversation = () => {
+        this.props.onCloseConversation(this.props.match.params.id);
+    }
+
+    extendConversation = () => {
+        this.props.onExtendConversation(this.props.match.params.id);
+    }
+
         
 
     render() {
 
-        let displayedClosingDate;
+        /* let displayedClosingDate;
         let topic;
         let currentConversation = this.props.onGoingConversations.find(conversation => conversation._id === this.props.match.params.id );
         if (currentConversation) {
             topic = currentConversation.topic;
             displayedClosingDate = new Date(currentConversation.closingDate).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        }
+        } */
 
         let formButtonText = 'post';
         if (this.props.postOpinionTextLoading) {
@@ -155,6 +188,17 @@ class Conversation extends Component {
             </Dialogue>
         }
 
+        let closeButtonText = 'close';
+        let extendButtonText = 'extend';
+
+        if(this.props.closeConversationLoading) {
+            closeButtonText = <Spinner isActionButton/>
+        }
+
+        if(this.props.extendConversationLoading) {
+            extendButtonText = <Spinner isActionButton/>
+        }
+
         return (
             <div className={classes.backdrop}>
                 <div className={classes.pageContainer}>
@@ -166,20 +210,20 @@ class Conversation extends Component {
                     </Link>
                     <div className={classes.header}>
                         <div className={classes.topic}>
-                            {topic}
+                            {this.state.conversationTopic}
                         </div>
                         <div className={classes.options}>
                             <div className={classes.closing}>
-                                <span>closing: </span><div>{displayedClosingDate}</div>
+                                <span>closing: </span><div>{this.state.conversationClosingDate}</div>
                             </div>
                             {   this.props.user.accountType === 'Senior Administrator' || 
                                 this.props.user.accountType === 'Head Administrator' ?
                                 <div className={classes.buttons}>
-                                    <div className={classes.button}>
-                                        close
+                                    <div onClick={this.closeConversation} className={classes.button}>
+                                        {closeButtonText}
                                     </div>
-                                    <div className={classes.button}>
-                                        extend
+                                    <div onClick={this.extendConversation} className={classes.button}>
+                                        {extendButtonText}
                                     </div>
                                 </div>
                                 : null
@@ -281,7 +325,15 @@ const mapStateToProps = state => {
         postOpinionTextLoading: state.conversation.postOpinionTextLoading,
         postOpinionTextError: state.conversation.postOpinionTextError,
         postOpinionTextSuccessInfo: state.conversation.postOpinionTextSuccessInfo,
-        postedOpinionTextId: state.conversation.postedOpinionTextId
+        postedOpinionTextId: state.conversation.postedOpinionTextId,
+
+        closeConversationLoading: state.conversation.closeConversationLoading,
+        closeConversationError: state.conversation.closeConversationError,
+        closeConversationSuccessInfo: state.conversation.closeConversationSuccessInfo,
+
+        extendConversationLoading: state.conversation.extendConversationLoading,
+        extendConversationError: state.conversation.extendConversationError,
+        newClosingDate: state.conversation.newClosingDate
     }
 }
 
@@ -290,8 +342,10 @@ const mapDispatchToProps = dispatch => {
         onFetchOpinions: (conversationId) => dispatch(actions.fetchOpinions(conversationId)),
         onFetchMoreOpinions: (conversationId, pageIndex, opinions) => dispatch(actions.fetchMoreOpinions(conversationId, pageIndex, opinions)),
         onPostOpinionText: (opinionText, opinions, conversationId, opiner, opinerId) => dispatch(actions.postOpinionText(opinionText, opinions, conversationId, opiner, opinerId)),
+        onCloseConversation: (conversationId) => dispatch(actions.closeConversation(conversationId)),
+        onExtendConversation: (conversationId) => dispatch(actions.extendConversation(conversationId)),
         onClearNonTextOpinionPostMessages: () => dispatch( actions.clearNonTextOpinionPostMessages()),
-        onClearFetchOpinionsMessage: () => dispatch(actions.clearFetchOpinionsMessage())
+        onClearConversationMessages: () => dispatch(actions.clearConversationMessages())
     }
 }
 

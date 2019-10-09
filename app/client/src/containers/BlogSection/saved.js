@@ -52,6 +52,10 @@ class Popular extends Component {
         }
     }
 
+    removedSavedBlog = (blogId) => {
+        this.props.onRemoveSavedBlog(blogId, this.props.userId, this.props.blogSavesId, this.props.userBlogSaves);
+    }
+
     render() {
 
         let sectionContent = <Spinner isComponent/>;
@@ -60,6 +64,8 @@ class Popular extends Component {
             let blogs = this.props.userBlogSaves.map((blog, i) => (
                 <BlogItem 
                     isSaved
+                    blogId={blog._id}
+                    blogBeenUnsaved={this.props.blogBeenUnsaved}
                     key={i}
                     publishYear={blog.publishYear}
                     publishMonth={blog.publishMonth}
@@ -73,6 +79,7 @@ class Popular extends Component {
                     displayDate={blog.displayDate}
                     publishedOn={blog.publishedOn}
                     postClicked={() => this.blogPostViewed(blog._id, blog.views)}
+                    removeSaved={() => this.removedSavedBlog(blog._id)}
                 />
             ))
 
@@ -127,10 +134,12 @@ class Popular extends Component {
 
 const mapStateToProps = state => {
     return {
+        userId: state.auth.user._id,
+        blogSavesId: state.auth.user.blogSaves,
         userBlogSaves: state.blog.userBlogSaves,
         fetchUserBlogSavesLoading: state.blog.fetchUserBlogSavesLoading,
         fetchUserBlogSavesError: state.blog.fetchUserBlogSavesError,
-        
+        blogBeenUnsaved: state.blog.blogBeenUnsaved,
         recentlyViewedBlogsByUser: state.blog.recentlyViewedBlogsByUser
     }
 }
@@ -142,6 +151,8 @@ const mapDispatchToProps = dispatch => {
         onFetchFeaturedBlogs: () => dispatch(actions.fetchFeaturedBlogs()),
         onFetchUserBlogSaves: (userId) => dispatch(actions.fetchUserBlogSaves(userId)),
         
+        onRemoveSavedBlog: (blogId, userId, blogSavesId, userBlogSaves) => dispatch(actions.removeSavedBlog(blogId, userId, blogSavesId, userBlogSaves)),
+
         onIncreaseBlogPostView: (postId, updatedViews, updatedRecentlyViewedBlogs) => dispatch(actions.increaseBlogPostView(postId, updatedViews, updatedRecentlyViewedBlogs)),
         
         onClearBlogSectionMessages: () => dispatch(actions.clearBlogSectionMessages())    

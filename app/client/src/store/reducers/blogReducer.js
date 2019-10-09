@@ -103,7 +103,10 @@ const initialState = {
     unpublishPostError: null,
     unpublishPostSuccessMessage: null,
 
-    recentlyViewedBlogsByUser: []
+    recentlyViewedBlogsByUser: [],
+
+    blogBeenUnsaved: null,
+    removeSavedBlogError: null
 }
 
 const setUserSavedBlogs = ( state, action ) => {
@@ -755,6 +758,30 @@ const fetchUserBlogSavesFail = (state, action) => {
     });
 }
 
+//  remove a blog save
+
+const removeSavedBlogStart = (state, action) => {
+    return updateObject(state, {
+        blogBeenUnsaved: action.blogId,
+        removeSavedBlogError: null
+    });
+}
+
+const removeSavedBlogSuccess = (state, action) => {
+    return updateObject(state, {
+        blogBeenUnsaved: null,
+        removeSavedBlogError: null,
+        userBlogSaves: action.updatedUserBlogSaves,
+    });
+}
+
+const removeSavedBlogFail = (state, action) => {
+    return updateObject(state, {
+        blogBeenUnsaved: null,
+        removeSavedBlogError: action.error
+    });
+}
+
 const clearBlogSectionMessages = (state, action) => {
     return updateObject(state, {
         fetchBlogsBySectionError: null,
@@ -764,7 +791,9 @@ const clearBlogSectionMessages = (state, action) => {
         fetchBlogsByRecentError: null,
         fetchMoreBlogsByRecentError: null,
         fetchFeaturedBlogsError: null,
-        fetchUserBlogSavesError: null
+        fetchUserBlogSavesError: null,
+        blogBeenUnsaved: null,
+        removeSavedBlogError: null
     });
 }
 
@@ -874,6 +903,10 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_USER_BLOG_SAVES_START: return fetchUserBlogSavesStart(state, action);
         case actionTypes.FETCH_USER_BLOG_SAVES_SUCCESS: return fetchUserBlogSavesSuccess(state, action);
         case actionTypes.FETCH_USER_BLOG_SAVES_FAIL: return fetchUserBlogSavesFail(state, action);
+
+        case actionTypes.REMOVE_SAVED_BLOG_START: return removeSavedBlogStart(state, action);
+        case actionTypes.REMOVE_SAVED_BLOG_SUCCESS: return removeSavedBlogSuccess(state, action);
+        case actionTypes.REMOVE_SAVED_BLOG_FAIL: return removeSavedBlogFail(state, action);
 
         case actionTypes.CLEAR_BLOG_SECTION_MESSAGES: return clearBlogSectionMessages(state, action);
 

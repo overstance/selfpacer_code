@@ -1052,3 +1052,41 @@ export const fetchUserBlogSaves = (userId) => async dispatch => {
     }
 }
 
+export const removeSavedBlogStart = (blogId) => {
+    return {
+        type: actionTypes.REMOVE_SAVED_BLOG_START,
+        blogId: blogId
+    }
+}
+
+export const removeSavedBlogFail = (error) => {
+    return {
+        type: actionTypes.REMOVE_SAVED_BLOG_FAIL,
+        error: error
+    }
+}
+
+export const removeSavedBlogSuccess = (updatedUserBlogSaves) => {
+    return {
+        type: actionTypes.REMOVE_SAVED_BLOG_SUCCESS,
+        updatedUserBlogSaves: updatedUserBlogSaves
+    }
+}
+
+export const removeSavedBlog = (blogId, userId, blogSavesId, userBlogSaves) => async dispatch => {
+    dispatch(removeSavedBlogStart(blogId));
+
+    let updatedBlogSavesId = blogSavesId.filter(id => id !== blogId);
+
+    const res = await axios.put('/api/remove_saved_blog', {updatedBlogSavesId: updatedBlogSavesId, userId: userId});
+
+    if(res.data.successMessage === 'user blog saves updated') {
+        let updatedUserBlogSaves = userBlogSaves.filter(blog => blog._id !== blogId);
+
+        dispatch(removeSavedBlogSuccess(updatedUserBlogSaves))
+    } else if (res.data.error) {
+        console.log(res.data.error);
+        dispatch(removeSavedBlogFail(res.data.error));
+    }
+}
+

@@ -304,11 +304,79 @@ export const postImageOpinion = (imageFile, caption, opinions, opiner, opinerId,
     }
 }
 
+//  close conversation
+
+export const closeConversationStart = () => {
+    return {
+        type: actionTypes.CLOSE_CONVERSATION_START
+    }
+}
+
+export const closeConversationSuccess = (successInfo) => {
+    return {
+        type: actionTypes.CLOSE_CONVERSATION_SUCCESS,
+        successInfo: successInfo
+    }
+}
+
+export const closeConversationFail = (error) => {
+    return {
+        type: actionTypes.CLOSE_CONVERSATION_FAIL,
+        error: error
+    }
+}
+
+export const closeConversation = (conversationId) => async dispatch => {
+    dispatch(closeConversationStart());
+
+    const res = await axios.put('/api/close_conversation', {conversationId: conversationId});
+
+    if(res.data.successInfo) {
+        dispatch(closeConversationSuccess(res.data.successInfo))
+    } else if (res.data.error) {
+        dispatch(closeConversationFail(res.data.error));
+    }
+}
+
+//  extend conversation
+
+export const extendConversationStart = () => {
+    return {
+        type: actionTypes.EXTEND_CONVERSATION_START
+    }
+}
+
+export const extendConversationSuccess = (newCloseDate) => {
+    return {
+        type: actionTypes.EXTEND_CONVERSATION_SUCCESS,
+        newCloseDate: newCloseDate
+    }
+}
+
+export const extendConversationFail = (error) => {
+    return {
+        type: actionTypes.EXTEND_CONVERSATION_FAIL,
+        error: error
+    }
+}
+
+export const extendConversation = (conversationId) => async dispatch => {
+    dispatch(extendConversationStart());
+
+    const res = await axios.put('/api/extend_conversation', {conversationId: conversationId});
+
+    if(res.data.newCloseDate) {
+        dispatch(extendConversationSuccess(res.data.newCloseDate))
+    } else if (res.data.error) {
+        dispatch(extendConversationFail(res.data.error));
+    }
+}
+
 // clear messages
 
-export const clearFetchOpinionsMessage = () => {
+export const clearConversationMessages = () => {
     return {
-        type: actionTypes.CLEAR_FETCH_OPINIONS_MESSAGES
+        type: actionTypes.CLEAR_CONVERSATION_MESSAGES
     }
 }
 

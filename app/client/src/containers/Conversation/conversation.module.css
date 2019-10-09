@@ -97,14 +97,16 @@
 }
 
 .button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: var(--blue);
     width: 60px;
+    height: 26px;
     text-align: center;
     cursor: pointer;
     border-radius: 16px;
     border: 2px solid var(--blue);
-    background: var(--green);
     font-weight: 700;
 }
 

@@ -32,6 +32,14 @@ const initialState = {
     postImageOpinionLoading: false,
     postImageOpinionError: null,
     postImageOpinionSuccessInfo: null,
+
+    closeConversationLoading: false,
+    closeConversationError: null,
+    closeConversationSuccessInfo: null,
+
+    extendConversationLoading: false,
+    extendConversationError: null,
+    newClosingDate: null,
 }
 
 const fetchConversationsStart = (state, action) => {
@@ -216,7 +224,54 @@ const postImageOpinionFail = (state, action) => {
     });
 }
 
-const clearFetchOpinionsMessage = (state, action) => {
+// close conversation
+
+const closeConversationStart = (state, action) => {
+    return updateObject(state, {
+        closeConversationLoading: true,
+        closeConversationSuccessInfo: null,
+        closeConversationError: null
+    });
+}
+
+const closeConversationSuccess = (state, action) => {
+    return updateObject(state, {
+        closeConversationLoading: false,
+        closeConversationSuccessInfo: action.successInfo
+    });
+}
+
+const closeConversationFail = (state, action) => {
+    return updateObject(state, {
+        closeConversationLoading: false,
+        closeConversationError: action.error
+    });
+}
+
+// extend conversation
+
+const extendConversationStart = (state, action) => {
+    return updateObject(state, {
+        extendConversationLoading: true,
+        extendConversationError: null
+    });
+}
+
+const extendConversationSuccess = (state, action) => {
+    return updateObject(state, {
+        extendConversationLoading: false,
+        newClosingDate: action.newCloseDate
+    });
+}
+
+const extendConversationFail = (state, action) => {
+    return updateObject(state, {
+        extendConversationLoading: false,
+        extendConversationError: action.error
+    });
+}
+
+const clearConversationMessages = (state, action) => {
     return updateObject(state, {
         fetchOpinionsError: null,
         postOpinionTextError: null,
@@ -226,6 +281,9 @@ const clearFetchOpinionsMessage = (state, action) => {
         postLinkOpinionSuccessInfo: null,
         postImageOpinionError: null,
         postImageOpinionSuccessInfo: null,
+        closeConversationError: null,
+        closeConversationSuccessInfo: null,
+        extendConversationError: null,
     });
 }
 
@@ -271,7 +329,15 @@ const reducer = (state = initialState, action) => {
         case actionTypes.POST_IMAGE_OPINION_SUCCESS: return postImageOpinionSuccess(state, action);
         case actionTypes.POST_IMAGE_OPINION_FAIL: return postImageOpinionFail(state, action);
 
-        case actionTypes.CLEAR_FETCH_OPINIONS_MESSAGES: return clearFetchOpinionsMessage(state, action);
+        case actionTypes.CLOSE_CONVERSATION_START: return closeConversationStart(state, action);
+        case actionTypes.CLOSE_CONVERSATION_SUCCESS: return closeConversationSuccess(state, action);
+        case actionTypes.CLOSE_CONVERSATION_FAIL: return closeConversationFail(state, action);
+
+        case actionTypes.EXTEND_CONVERSATION_START: return extendConversationStart(state, action);
+        case actionTypes.EXTEND_CONVERSATION_SUCCESS: return extendConversationSuccess(state, action);
+        case actionTypes.EXTEND_CONVERSATION_FAIL: return extendConversationFail(state, action);
+
+        case actionTypes.CLEAR_CONVERSATION_MESSAGES: return clearConversationMessages(state, action);
         case actionTypes.CLEAR_NON_TEXT_OPINION_POST_MESSAGES: return clearNonTextOpinionPostMessages(state, action);
 
         default: return state;

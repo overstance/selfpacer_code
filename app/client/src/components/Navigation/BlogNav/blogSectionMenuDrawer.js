@@ -26,7 +26,15 @@ const sideDrawer = (props) => {
                         onMenuSelected={props.onMenuSelect}
                     />
                 </nav>
-                {props.userId ? <div className={classes.viewSaved}><Link to={`/blog/saved/${props.userId}`}>view saved</Link></div> : null} 
+                {props.userId ? 
+                    <div className={classes.viewSaved}>
+                        <Link 
+                        to={`/blog/saved/${props.userId}`}
+                        onClick={props.onMenuSelect}
+                        >
+                            view saved
+                        </Link>
+                    </div> : null} 
             </div>
         </div>
     );

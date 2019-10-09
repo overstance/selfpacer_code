@@ -169,7 +169,8 @@ export {
     fetchMoreBlogsByPopularity,
     fetchBlogsByRecent,
     fetchMoreBlogsByRecent,
-    fetchUserBlogSaves
+    fetchUserBlogSaves,
+    removeSavedBlog
 } from './blog';
 
 export {
@@ -179,11 +180,13 @@ export {
     clearStartNewConversationInfo,
     fetchOpinions,
     fetchMoreOpinions,
-    clearFetchOpinionsMessage,
+    clearConversationMessages,
     postOpinionText,
     postLinkOpinion,
     postImageOpinion,
-    clearNonTextOpinionPostMessages
+    clearNonTextOpinionPostMessages,
+    closeConversation,
+    extendConversation
 } from './conversation';
 
 
