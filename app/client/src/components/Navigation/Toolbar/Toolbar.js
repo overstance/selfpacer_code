@@ -33,6 +33,7 @@ const toolbar = (props) => (
                 </div>
                 <RightNavigationItems
                     isAuthenticated={props.isAuth}
+                    showSearch={props.showSearch}
                 />
             </header>
         </Container>

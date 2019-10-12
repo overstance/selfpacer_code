@@ -38,6 +38,11 @@
     display: inline-block;
 }
 
+.search {
+    display: inline-block;
+    cursor: pointer;
+}
+
 .User {
     height: 32px;
     width: 32px;

@@ -5,33 +5,26 @@ import BlogToolBar from '../Navigation/BlogNav/toolBar';
 import classes from './Layout.module.css';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Footer from '../Navigation/Footer/Footer';
-import * as actions from '../../store/actions/index';
+// import * as actions from '../../store/actions/index';
 import BlogSectionMenuDrawer from '../Navigation/BlogNav/blogSectionMenuDrawer';
 import BlogFooter from '../Navigation/BlogNav/blogFooterSection/BlogFooter';
-
+import NonBlogSearch from '../Search/nonBlogSearch/NonBlogSearch';
 
 class Layout extends Component {
-   /*  constructor(props) {
-        super(props)
-        this.myScrollRef = React.createRef()
-    }
-
-    componentDidMount = () => this.handleScrollOnLoad();
-    componentDidUpdate = () => this.handleScrollOnLoad();
-
-    handleScrollOnLoad = () => {
-        const { index, selected } = this.props
-        if (index === selected) {
-          setTimeout(() => {
-            this.myScrollRef.current.scrollIntoView({ behavior: 'smooth' })
-          }, 500)
-        }
-    } */
-
+    
     state = {
         showSideDrawer: false,
-        showBlogSectionMenu: false
+        showBlogSectionMenu: false,
+
+        showNonBlogSearch: false
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.location !== prevProps.location) {
+            this.setState({ showNonBlogSearch: false });
+        }
     }
 
     sideDrawerClosedHandler = () => {
@@ -58,10 +51,17 @@ class Layout extends Component {
         this.setState({ showBlogSectionMenu: false});
     }
 
+    showNonBlogSearch = () => {
+        this.setState({ showNonBlogSearch: true});
+    }
+
+    closeNonBlogSearch = () => {
+        this.setState({ showNonBlogSearch: false});
+    }
+
     render() {
         return (
-            <div className={classes.Site} /* pageType={this.props.pageType} */>
-                {/* <div ref={this.myScrollRef}></div> */}
+            <div className={classes.Site} >
                 <div className={classes.Content}>
                     {this.props.isBlogPage ? 
                         <BlogToolBar
@@ -74,6 +74,7 @@ class Layout extends Component {
                             sideDrawerToggleClicked={this.sideDrawertoggleHandler}
                             searchbarToggleClicked={this.searchbarToggleHandler}
                             exploreRefresh={this.onExploreRefresh}
+                            showSearch={this.showNonBlogSearch}
                         />
                     }
                     { this.props.isBlogPage ? null :
@@ -98,6 +99,13 @@ class Layout extends Component {
                     <main>
                         {this.props.children}
                     </main>
+                    { this.state.showNonBlogSearch ?
+                        <NonBlogSearch 
+                            showSearch={this.state.showNonBlogSearch}
+                            closeSearch={this.closeNonBlogSearch}
+                        />
+                        : null
+                    }
                 </div>
                 { this.props.isBlogPage ?
                     <BlogFooter /> : null
@@ -121,15 +129,5 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onFetchUserCollections: ( userId ) => dispatch(actions.fetchUserCollections( userId )),
-        onFetchUserAssets: ( userId ) => dispatch(actions.fetchUserAssets( userId )),
-        onLogoutUser: () => dispatch(actions.logout())
-    };
-};
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default withRouter(connect(mapStateToProps)(Layout));
 

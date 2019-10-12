@@ -40,5 +40,3 @@ const sideDrawer = (props) => {
 };
 
 export default sideDrawer;
-
-//<BackdropCloser show={props.open} clicked={props.closed} />
