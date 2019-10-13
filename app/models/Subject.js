@@ -15,4 +15,6 @@ const subjectSchema = new Schema({
   }
 });
 
+subjectSchema.index({ title: 'text', path: 'text' });
+
 module.exports = mongoose.model('subjects', subjectSchema);

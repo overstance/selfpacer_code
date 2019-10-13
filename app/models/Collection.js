@@ -26,4 +26,6 @@ const collectionSchema = new Schema({
   user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
+collectionSchema.index({ title: 'text' });
+
 module.exports = mongoose.model('collections', collectionSchema);

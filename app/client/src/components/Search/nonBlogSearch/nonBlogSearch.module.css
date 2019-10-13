@@ -92,6 +92,7 @@
 .searchAllowedButton {
     width: 30px;
     height: 30px;
+    cursor: pointer;
     outline: none;
     border: none;
     background: var(--white);
@@ -133,11 +134,41 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    /* height: calc(100vh - 96px); */
+    min-height: calc(100vh - 80px);
+    max-height: calc(100vh - 80px);
+    padding: 16px;
+    box-sizing: border-box;
+    overflow-y: auto;
     top: 80px;
     background-color: var(--white);
-    min-height: 100%;
+    /* min-height: 100%; */
     border-top: 2px solid var(--blue);
+    border-bottom: 2px solid var(--blue);
+}
+
+.searchItem {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray); 
+}
+
+.searchItem a {
+    text-decoration: none;
+    color: var(--blue);
+    font-weight: 700;
+    word-break: break-all;
+}
+
+.searchItem a:hover {
+    color: var(--gray);
+}
+
+.filterInfo span {
+    background: var(--blue);
+    color: var(--white);
+    display: inline-block;
+    padding: 2px 4px;
+    margin-right: 4px;
+    border-radius: 4px;
 }
 
 .filterContainer {
@@ -153,13 +184,31 @@
 
 .filter {
     display: inline-flex;
-    /* height: 200px; */
     box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
     max-width: 400px;
     background: var(--white);
     opacity: .90;
-    /* border-radius: 0 0 0 16px; */
+    padding: 8px;
     border-radius: 8px;
+    margin: 0 8px;
+}
+
+.filterField {
+    border-color: var(--blue);
+}
+
+.filterField legend {
+    text-transform: capitalize;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+.checkboxGroup {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.checkboxGroup div {
     margin: 0 8px;
 }
 

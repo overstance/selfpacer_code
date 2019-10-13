@@ -19,6 +19,7 @@ import collectionReducer from './store/reducers/collectionReducer';
 import profileReducer from './store/reducers/profileReducer';
 import blogReducer from './store/reducers/blogReducer';
 import conversationReducer from './store/reducers/conversationReducer';
+import searchReducer from './store/reducers/searchReducer';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
     collection: collectionReducer,
     profile: profileReducer,
     blog: blogReducer,
-    conversation: conversationReducer
+    conversation: conversationReducer,
+    search: searchReducer
 });
 
 

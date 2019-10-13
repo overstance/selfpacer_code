@@ -7,7 +7,7 @@ import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Footer from '../Navigation/Footer/Footer';
-// import * as actions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 import BlogSectionMenuDrawer from '../Navigation/BlogNav/blogSectionMenuDrawer';
 import BlogFooter from '../Navigation/BlogNav/blogFooterSection/BlogFooter';
 import NonBlogSearch from '../Search/nonBlogSearch/NonBlogSearch';
@@ -24,6 +24,7 @@ class Layout extends Component {
     componentDidUpdate(prevProps) {
         if(this.props.location !== prevProps.location) {
             this.setState({ showNonBlogSearch: false });
+            this.props.onClearSearchMessages()
         }
     }
 
@@ -129,5 +130,11 @@ const mapStateToProps = state => {
     }
 };
 
-export default withRouter(connect(mapStateToProps)(Layout));
+const mapDispatchToProps = dispatch => {
+    return {
+        onClearSearchMessages: () => dispatch(actions.clearSearchMessages())
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));
 

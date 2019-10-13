@@ -189,4 +189,9 @@ export {
     extendConversation
 } from './conversation';
 
+export {
+    deploySearch,
+    clearSearchMessages
+} from './search';
+
 

@@ -24,6 +24,7 @@ const booksRoutes = require('./routes/booksRoute');
 const blogRoutes = require('./routes/blogRoutes');
 const mediaUploadRoutes = require('./routes/mediaUploadRoutes');
 const conversationsRoutes = require('./routes/conversationRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 
 //mongoose.Promise = global.Promise;
 mongoose.connect(
@@ -69,6 +70,7 @@ booksRoutes(app);
 blogRoutes(app);
 mediaUploadRoutes(app);
 conversationsRoutes(app);
+searchRoutes(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
