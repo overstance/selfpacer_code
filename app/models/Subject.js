@@ -6,7 +6,6 @@ const subjectSchema = new Schema({
   category: String,
   src: String,
   alt: String,
-  /* to: String, */
   paths: Array,
   curriculum: Array,
   views: {
@@ -15,6 +14,6 @@ const subjectSchema = new Schema({
   }
 });
 
-subjectSchema.index({ title: 'text', path: 'text' });
+subjectSchema.index({ title: 'text', category: 'text' });
 
 module.exports = mongoose.model('subjects', subjectSchema);

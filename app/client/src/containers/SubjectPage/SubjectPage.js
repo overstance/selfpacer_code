@@ -229,16 +229,6 @@ class SubjectPage extends Component {
         }
     }
 
-    addResourceHandler = () => {
-        if (!this.props.isAuthenticated) {
-            this.setState({ AuthenticateToCollectOrAdd: true, showAuthRequiredModal: true});
-        } 
-
-        if (this.props.isAuthenticated) {
-            this.props.history.push('/add_resource');
-        }
-    }
-
     collectAuthDialogueCloseHandler = () => {
         this.setState({ showAuthRequiredModal: false, AuthenticateToCollectOrAdd: false });
     }

@@ -11,11 +11,11 @@ const searchFilter = (props) => {
                     <label>Skill</label>
                 </div>
                 <div>
-                    <input type="checkbox" value="books" onChange={props.filterChanged}/>
+                    <input type="checkbox" value="book" onChange={props.filterChanged}/>
                     <label>Book</label>
                 </div>
                 <div>
-                    <input type="checkbox" value="mooc" onChange={props.filterChanged}/>
+                    <input type="checkbox" value="course" onChange={props.filterChanged}/>
                     <label>Course</label>
                 </div>
                 <div>

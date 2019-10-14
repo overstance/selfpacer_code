@@ -2,11 +2,10 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
 
 const initialState = {
-    error: null,
-    successMessage: null,
-    loading: false,
+    fetchResourceByIdError: null,
+    fetchedResource: null,
+    fetchResourceByIdLoading: false,
 
-    clickedResource: {},
     clickedResourcePlatform: null,
     userRecentlyViewed: null,
 
@@ -130,19 +129,33 @@ const addResourceFail = ( state, action ) => {
 //Fetch Clicked Resource By ID
 
 const fetchResourceByIdStart = ( state, action ) => {
-    return updateObject( state, { loading: true } );
+    return updateObject( state, { 
+        fetchResourceByIdLoading: true 
+    } );
 };
 
 const fetchResourceByIdSuccess = ( state, action ) => {
     return updateObject( state, {
-        clickedResource: action.resource,
-        loading: false
+        fetchedResource: action.resource,
+        fetchResourceByIdLoading: false
     } );
 };
 
 const fetchResourceByIdFail = ( state, action ) => {
-    return updateObject( state, { loading: false, error: action.error } );
+    return updateObject( state, { 
+        fetchResourceByIdLoading: false, 
+        fetchResourceByIdError: action.error 
+    } );
 };
+
+const clearFetchResouceByIdMessages = ( state, action ) => {
+    return updateObject( state, { 
+        fetchResourceByIdLoading: false, 
+        fetchResourceByIdError: null,
+        fetchedResource: null 
+    } );
+};
+
 
 //Set Clicked Platform
 
@@ -570,6 +583,7 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_RESOURCE_BY_ID_START: return fetchResourceByIdStart( state, action );
         case actionTypes.FETCH_RESOURCE_BY_ID_SUCCESS: return fetchResourceByIdSuccess( state, action );
         case actionTypes.FETCH_RESOURCE_BY_ID_FAIL: return fetchResourceByIdFail( state, action );
+        case actionTypes.CLEAR_FETCH_RESOURCE_BY_ID_MESSAGES: return clearFetchResouceByIdMessages(state, action);
 
         case actionTypes.FETCH_USER_ASSET_START: return fetchUserAssetStart( state, action );
         case actionTypes.FETCH_USER_ASSET_SUCCESS: return fetchUserAssetSuccess( state, action );

@@ -4,6 +4,16 @@ const Resource = require('../models/Resource');
 const User = mongoose.model('users');
 
 module.exports = app => {
+  app.get('/api/fetch_resource_by_id', (req, res) => {
+    Resource.findById(req.query.id, (err, resource) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else {
+        res.send({ resource: resource });
+      }
+    });
+  });
+
   app.get('/api/unconfirmed_resources', (req, res) => {
     let pageOptions = {
       page: req.query.pageIndex || 0,

@@ -33,7 +33,7 @@ import FacilitateApplicants from './containers/ViewFacilitateApplicants/Facilita
 // import RichEditor from './components/RichEditor/RichEditor';
 import ManageBlogDrafts from './containers/ManageBlogDrafts/ManageBlogDrafts';
 import Conversation from './containers/Conversation/Conversation';
-
+import ResourcePage from './containers/SingleResourcePage/ResourcePage';
 const Landing = () => <h2>
   Landing page component
 </h2>
@@ -81,6 +81,7 @@ class App extends Component {
         <Route path='/blog/:publishYear/:publishMonth/:publishDay/:slug' component={BlogPost} />
         <Route exact path="/collections" component={Collections} />
         <Route exact path="/shared_collections/:id" component={SharedCollection} />
+        <Route exact path="/resource/:resource_category/:resource_id" component={ResourcePage} />
         
         <PrivateRoute exact path="/blog/saved/:userId" component={UserSavedBlogs} />
         <PrivateRoute exact path="/collections/:id" component={UserCollection} />

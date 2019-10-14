@@ -1,0 +1,34 @@
+.fetchedResource {
+    padding: 32px;
+    background: var(--blue);
+}
+
+.relatedResources {
+    padding: 32px;
+}
+
+.relatedResourcesHeading {
+    font-weight: 900;
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--blue);
+    background: var(--green);
+    display: inline-block;
+}
+
+.SeeAll {
+    display: block;
+    text-decoration: none;
+    color: var(--blue);
+    background: var(--green);
+    font-weight: 900;
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.SeeAll:hover {
+    background: var(--gray);
+}

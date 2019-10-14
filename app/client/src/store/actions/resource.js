@@ -18,30 +18,15 @@ function numberWithCommas(x) {
 
 // Fetch Clicked Resource By id Info
 
-/* export const fetchResourceById = ( id, platform ) => {
-    return dispatch => {
-        dispatch(fetchResourceByIdStart());
+export const fetchResourceById = (id) => async dispatch => {
+    dispatch(fetchResourceByIdStart());
 
-        console.log(id, platform);
-
-        if (platform === 'youtube#video' || 'youtube#playlist') {
-            axios.get(`/api/youtube_accounting/${id}`)
-            .then(  
-                // res => {console.log(res.data);}              
-                res => {
-                // const youtubeAccounting = [...res.data.accountingRes];
-                if (res.data.resource) {
-                    dispatch(fetchResourceByIdSuccess(res.data.resource));
-                } else {
-                    dispatch(fetchResourceByIdFail(res.data));
-                };     
-            } )
-            .catch( err => {
-                dispatch(fetchResourceByIdFail(err));
-            } );
-
-        }
-    };
+    const res = await axios.get('/api/fetch_resource_by_id', {params: { id: id}} )
+    if (res.data.resource) {
+        dispatch(fetchResourceByIdSuccess(res.data.resource));
+    } else if (res.data.error) {
+        dispatch(fetchResourceByIdFail(res.data.error));
+    }
 };
 
 export const fetchResourceByIdStart = () => {
@@ -62,7 +47,14 @@ export const fetchResourceByIdFail = ( error ) => {
         type: actionTypes.FETCH_RESOURCE_BY_ID_FAIL,
         error: error
     };
-}; */
+};
+
+export const clearFetchResouceByIdMessages = () => {
+    return {
+        type: actionTypes.CLEAR_FETCH_RESOURCE_BY_ID_MESSAGES
+    }
+}
+
 
 
 // set Clicked Platform

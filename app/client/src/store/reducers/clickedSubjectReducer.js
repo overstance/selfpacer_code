@@ -17,7 +17,11 @@ const initialState = {
     fetchMoreLoading: false,
     fetchMoreError: null,
 
-    latestFetchLength: 0  
+    latestFetchLength: 0,
+    
+    fetchResourceByIdLoading: false,
+    fetchResourceByIdError: null,
+    resource: {}
 };
 
 const fetchClickedSubjectStart = ( state, action ) => {

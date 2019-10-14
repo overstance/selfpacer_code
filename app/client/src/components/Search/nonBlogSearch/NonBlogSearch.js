@@ -102,6 +102,7 @@ class NonBlogSearch extends Component {
                         paths={result.paths}
                         subject_title={result.title}
                         resource_title={result.title}
+                        resource_category={result.category}
                         collection_title={result.title}
                         type={result.type}
                         source={result.source}
@@ -111,8 +112,15 @@ class NonBlogSearch extends Component {
                 ))
             } else if (this.props.searchResult.length === 0 && this.props.deploySearchSuccessInfo) {
                 searchResult =
-                <div>
-                    No search result found
+                <div className={classes.noResult}>
+                    <h2>No search result found.</h2>
+                    <div>Suggestions:</div>
+                    <ol>
+                        <li> Make sure all words are spelled correctly.</li>
+                        <li> Use one or more filter option to increase or limit search scope.</li>
+                        <li> Try different keywords.</li>
+                        <li> Try more general keywords.</li>
+                    </ol>       
                 </div>
             }
         }

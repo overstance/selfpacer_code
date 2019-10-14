@@ -23,7 +23,7 @@ export const deploySearchFail = (error) => {
 
 export const deploySearch = (searchString, searchFilter) => async dispatch => {
     dispatch(deploySearchStart());
-    console.log(searchString, searchFilter)
+    // console.log(searchString, searchFilter)
     const res = await axios.get('/api/deploy_search', {params: { searchString: searchString, searchFilter: searchFilter}});
 
     if(res.data.searchResult) {

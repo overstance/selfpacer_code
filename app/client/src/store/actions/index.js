@@ -62,7 +62,8 @@ export {
 
 export {
     // addResource,
-    // fetchResourceById,
+    fetchResourceById,
+    clearFetchResouceByIdMessages,
     setClickedPlatform,
     resourceLiked,
     updateUserRecentlyViewed,

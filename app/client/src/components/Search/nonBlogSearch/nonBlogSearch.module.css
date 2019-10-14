@@ -162,6 +162,18 @@
     color: var(--gray);
 }
 
+.searchItemType {
+    text-align: right;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+    margin-top: 4px;
+}
+
+.searchItemType span {
+    background: var(--green);
+}
+
 .filterInfo span {
     background: var(--blue);
     color: var(--white);
@@ -210,6 +222,26 @@
 
 .checkboxGroup div {
     margin: 0 8px;
+}
+
+.noResult {
+    margin-top: 16px;
+}
+
+.noResult h2 {
+    margin-left: 8px;
+}
+
+.noResult div {
+    margin-left: 16px;
+}
+
+.noResult ol {
+    list-style-type: disc;
+}
+
+.noResult li {
+    font-size: 16px;
 }
 
 @media(max-width: 600px) {
