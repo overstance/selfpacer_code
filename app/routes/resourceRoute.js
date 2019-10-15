@@ -41,21 +41,10 @@ module.exports = app => {
       limit: 10
     };
 
-    /* Resource.find(
-      { confirmed: true, category: req.params.subject_title },
-      function(err, resources) {
-        if (err) {
-          console.log(err);
-          res.send(err.message);
-        } else {
-          res.send({ all: resources });
-        }
-      }
-    ); */
-
     Resource.find({ confirmed: true, category: req.query.subject_title })
       .skip(pageOptions.page * pageOptions.limit)
       .limit(pageOptions.limit)
+      .sort({ lastEdited: -1 })
       .exec(function(err, resources) {
         if (err) {
           res.send(err.message);
@@ -79,6 +68,7 @@ module.exports = app => {
       })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
+        .sort({ lastEdited: -1 })
         .exec(function(err, resources) {
           if (err) {
             res.send(err.message);
@@ -94,6 +84,7 @@ module.exports = app => {
       })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
+        .sort({ lastEdited: -1 })
         .exec(function(err, resources) {
           if (err) {
             res.send(err.message);
@@ -173,6 +164,7 @@ module.exports = app => {
       })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
+        .sort({ lastEdited: -1 })
         .exec(function(err, resources) {
           if (err) {
             res.send(err.name);
@@ -187,6 +179,7 @@ module.exports = app => {
       })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
+        .sort({ lastEdited: -1 })
         .exec(function(err, resources) {
           if (err) {
             res.send(err.name);
@@ -210,6 +203,7 @@ module.exports = app => {
       })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
+        .sort({ lastEdited: -1 })
         .exec(function(err, resources) {
           if (err) {
             res.send(err.name);
@@ -225,6 +219,7 @@ module.exports = app => {
       })
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
+        .sort({ lastEdited: -1 })
         .exec(function(err, resources) {
           if (err) {
             res.send(err.name);

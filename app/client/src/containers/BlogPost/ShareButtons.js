@@ -30,7 +30,8 @@ class ShareButton extends Component {
                         className={classes.shareButton}>
                         <FacebookIcon
                         size={this.props.iconSize}
-                        round={false} />
+                        round={false}
+                        borderRadius={this.props.roundRadius} />
                     </FacebookShareButton>
                 </div>
                 <div className={classes.sharePlatform}>
@@ -40,7 +41,8 @@ class ShareButton extends Component {
                         className={classes.shareButton}>
                         <TwitterIcon
                         size={this.props.iconSize}
-                        round={false} />
+                        round={false}
+                        borderRadius={this.props.roundRadius} />
                     </TwitterShareButton>
                 </div>
                 <div className={classes.sharePlatform}>
@@ -50,7 +52,8 @@ class ShareButton extends Component {
                         className={classes.shareButton}>
                         <WhatsappIcon
                         size={this.props.iconSize}
-                        round={false} />
+                        round={false}
+                        borderRadius={this.props.roundRadius} />
                     </WhatsappShareButton>
                 </div>
                 <div className={classes.sharePlatform}>
@@ -60,7 +63,8 @@ class ShareButton extends Component {
                         className={classes.shareButton}>
                         <EmailIcon
                         size={this.props.iconSize}
-                        round={false} />
+                        round={false}
+                        borderRadius={this.props.roundRadius} />
                     </EmailShareButton>
                 </div>
             </React.Fragment>

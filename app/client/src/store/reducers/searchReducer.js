@@ -5,14 +5,22 @@ const initialState = {
     deploySearchLoading: false,
     deploySearchError: null,
     deploySearchSuccessInfo: null,
-    searchResult: []
+    latestSearchString: '',
+    searchResult: [],
+
+    deployBlogSearchLoading: false,
+    deployBlogSearchError: null,
+    deployBlogSearchSuccessInfo: null,
+    latestBlogSearchString: '',
+    blogSearchResult: []
 }
 
 const deploySearchStart = (state, action) => {
     return updateObject(state, {
         deploySearchLoading: true,
         deploySearchError: null,
-        deploySearchSuccessInfo: null
+        deploySearchSuccessInfo: null,
+        latestSearchString: action.searchString
     });
 }
 
@@ -31,12 +39,38 @@ const deploySearchFail = (state, action) => {
     });
 }
 
+const deployBlogSearchStart = (state, action) => {
+    return updateObject(state, {
+        deployBlogSearchLoading: true,
+        deployBlogSearchError: null,
+        deployBlogSearchSuccessInfo: null,
+        latestBlogSearchString: action.searchString
+    });
+}
+
+const deployBlogSearchSuccess = (state, action) => {
+    return updateObject(state, {
+        deployBlogSearchLoading: false,
+        blogSearchResult: action.searchResult,
+        deployBlogSearchSuccessInfo: 'search successful'
+    });
+}
+
+const deployBlogSearchFail = (state, action) => {
+    return updateObject(state, {
+        deployBlogSearchLoading: false,
+        deployBlogSearchError: action.error
+    });
+}
+
 const clearSearchMessages = (state, action) => {
     return updateObject(state, {
         deploySearchLoading: false,
         deploySearchError: null,
-        deploySearchSuccessInfo: null,
-        searchResult: []
+        deployBlogSearchLoading: false,
+        deployBlogSearchError: null
+        // deploySearchSuccessInfo: null,
+        // searchResult: []
     });
 }
 
@@ -46,6 +80,10 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DEPLOY_SEARCH_START: return deploySearchStart(state, action);
         case actionTypes.DEPLOY_SEARCH_SUCCESS: return deploySearchSuccess(state, action);
         case actionTypes.DEPLOY_SEARCH_FAIL: return deploySearchFail(state, action);
+
+        case actionTypes.DEPLOY_BLOG_SEARCH_START: return deployBlogSearchStart(state, action);
+        case actionTypes.DEPLOY_BLOG_SEARCH_SUCCESS: return deployBlogSearchSuccess(state, action);
+        case actionTypes.DEPLOY_BLOG_SEARCH_FAIL: return deployBlogSearchFail(state, action);
 
         case actionTypes.CLEAR_SEARCH_MESSAGES: return clearSearchMessages(state, action);
 

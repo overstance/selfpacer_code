@@ -97,6 +97,7 @@ class BlogPost extends React.Component {
 
   closeCommentSection = () => {
     this.setState({ showCommentSection: false });
+    // this.props.onCancelReply();
   }
 
   unpublishPost = () => {
@@ -265,7 +266,8 @@ class BlogPost extends React.Component {
                 <ShareButtons 
                 postUrl={postUrl}
                 postTitle={postTitle}
-                iconSize={34}
+                iconSize={32}
+                roundRadius={16}
                 />
               </div>
             </div >
@@ -298,7 +300,8 @@ class BlogPost extends React.Component {
             <ShareButtons 
             postUrl={postUrl}
             postTitle={postTitle}
-            iconSize={48}
+            iconSize={32}
+            roundRadius={16}
             />
           </div>
           <div className={classes.commentOrSave}>   
@@ -411,6 +414,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    // onCancelReply: () => dispatch(actions.cancelReply()),
     onSaveBlog: (userId, blogId, userSavedBlogs) => dispatch(actions.saveBlog(userId, blogId, userSavedBlogs)),
     onUnpublishPost: (postId) => dispatch(actions.unpublishPost(postId)),
     onFetchBlogComments: (blogId) => dispatch(actions.fetchBlogComments(blogId)),

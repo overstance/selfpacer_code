@@ -192,6 +192,7 @@ export {
 
 export {
     deploySearch,
+    deployBlogSearch,
     clearSearchMessages
 } from './search';
 

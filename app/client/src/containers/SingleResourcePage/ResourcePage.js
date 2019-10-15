@@ -19,6 +19,16 @@ class Resourcepage extends Component {
         showCollectionModal: false
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.resource_id !== prevProps.match.params.resource_id) {
+            this.props.onFetchResourceById(this.props.match.params.resource_id); 
+        }
+
+        if (this.props.match.params.resource_category !== prevProps.match.params.resource_category) {
+            this.props.onFetchSubjectResources(this.props.match.params.resource_category, 0);
+        }
+    }
+
     componentDidMount() {
         this.props.onFetchResourceById(this.props.match.params.resource_id);
         this.props.onFetchSubjectResources(this.props.match.params.resource_category, 0);
@@ -85,8 +95,9 @@ class Resourcepage extends Component {
         }
 
         if (!this.props.fetchRelatedResourcesLoading && this.props.relatedResources.length > 0) {
+            let filteredRelated = this.props.relatedResources.filter(resource => resource._id !== this.props.match.params.resource_id );
             relatedResources =
-            this.props.relatedResources.map((resource, i) => (
+            filteredRelated.map((resource, i) => (
                 <Resource
                 key={i}
                 id={resource._id} 

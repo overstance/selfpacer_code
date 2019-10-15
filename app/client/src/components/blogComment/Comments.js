@@ -3,6 +3,7 @@ import classes from './comment.module.css';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Backdrop from '../UserInterface/Backdrop/blogBackdrop';
 import Comment from './comment';
 import Button from '../../components/UserInterface/Button/Button';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
@@ -22,6 +23,10 @@ class Comments extends Component {
     state = {
         commentText: '',
         commentFillError: null,
+    }
+
+    componentDidMount() {
+        this.focus();
     }
 
     componentDidUpdate(prevProps) {
@@ -144,10 +149,10 @@ class Comments extends Component {
         return(
             <React.Fragment
             >
-                <div
-                className={classes.backdrop}
-                onClick={this.props.closeCommentsClicked}
-                />    
+                <Backdrop 
+                    show
+                    clicked={this.props.closeCommentsClicked}
+                />   
                 <div
                     className={attachedClasses.join(' ')}
                 >

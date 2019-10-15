@@ -59,4 +59,6 @@ const blogDraftSchema = new Schema({
   }
 });
 
+blogDraftSchema.index({ title: 'text', category: 'text' });
+
 module.exports = mongoose.model('blogDrafts', blogDraftSchema);

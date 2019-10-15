@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Resource = require('../models/Resource');
 const Subject = require('../models/Subject');
 const Collection = require('../models/Collection');
+const BlogDraft = require('../models/BlogDraft');
 
 module.exports = app => {
   app.get('/api/deploy_search', (req, res) => {
@@ -230,5 +231,22 @@ module.exports = app => {
         }
       });
     }
+  });
+
+  app.get('/api/deploy_blog_search', (req, res) => {
+    let searchString = req.query.searchString;
+
+    BlogDraft.find({
+      $text: { $search: searchString },
+      status: 'published'
+    })
+      .select('publishYear publishMonth category publishDay title slug')
+      .exec((err, blogs) => {
+        if (err) {
+          res.send({ error: err.message });
+        } else {
+          res.send({ searchResult: blogs });
+        }
+      });
   });
 };

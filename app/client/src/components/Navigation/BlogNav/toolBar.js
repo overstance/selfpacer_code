@@ -20,11 +20,15 @@ const toolbar = (props) => (
                     </div>
                     <RightNavItems
                         isAuthenticated={props.isAuth}
+                        showBlogSearch={props.showBlogSearch}
                     />
                 </header>    
             </Container>
         </div>
-        <LowerToolBar sectionClicked={props.sectionMenuClicked}/>
+        <LowerToolBar 
+            sectionClicked={props.sectionMenuClicked}
+            showBlogSearch={props.showBlogSearch}
+        />
     </div>   
 );
 

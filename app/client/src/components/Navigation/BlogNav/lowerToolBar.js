@@ -28,12 +28,12 @@ const lowerToolBar = (props) => (
             </svg>
             Sections
         </span>
-        <Link to="/blog_search">
+        <div onClick={props.showBlogSearch}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M23.707 22.293l-5.966-5.966C19.152 14.603 20 12.4 20 10c0-5.521-4.479-10-10-10S0 4.479 0 10s4.479 10 10 10c2.4 0 4.603-.848 6.327-2.259l5.966 5.966c.195.195.451.293.707.293s.512-.098.707-.293c.391-.391.391-1.023 0-1.414zM10 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/>
             </svg>
             Search
-        </Link>
+        </div>
     </div>
 );
 

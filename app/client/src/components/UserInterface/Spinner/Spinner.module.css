@@ -48,8 +48,8 @@
 }
 
 .Spinner {
-width: 40px;
-height: 40px;
+width: 24px;
+height: 24px;
 border-radius: 50%;
 border: 5px solid #00000046;
 border-right: 5px solid var(--green);

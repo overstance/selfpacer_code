@@ -556,6 +556,7 @@ const clearBlogPostMessages = ( state, action ) => {
         commentToReplyId: null,
         commentToReplyCommentor: null,
         commentToReplyText: null,
+        isReplyingComment: false,
         saveBlogError: null,
         saveBlogSuccessMessage: null,
         unpublishPostError: null,

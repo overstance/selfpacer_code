@@ -11,6 +11,7 @@ import * as actions from '../../store/actions/index';
 import BlogSectionMenuDrawer from '../Navigation/BlogNav/blogSectionMenuDrawer';
 import BlogFooter from '../Navigation/BlogNav/blogFooterSection/BlogFooter';
 import NonBlogSearch from '../Search/nonBlogSearch/NonBlogSearch';
+import BlogSearch from '../Search/blogSearch/blogSearch';
 
 class Layout extends Component {
     
@@ -18,13 +19,15 @@ class Layout extends Component {
         showSideDrawer: false,
         showBlogSectionMenu: false,
 
-        showNonBlogSearch: false
+        showNonBlogSearch: false,
+        showBlogSearch: false
     }
 
     componentDidUpdate(prevProps) {
         if(this.props.location !== prevProps.location) {
             this.setState({ showNonBlogSearch: false });
-            this.props.onClearSearchMessages()
+            this.setState({ showBlogSearch: false });
+            this.props.onClearSearchMessages();
         }
     }
 
@@ -60,6 +63,14 @@ class Layout extends Component {
         this.setState({ showNonBlogSearch: false});
     }
 
+    showBlogSearch = () => {
+        this.setState({ showBlogSearch: true});
+    }
+
+    closeBlogSearch = () => {
+        this.setState({ showBlogSearch: false});
+    }
+
     render() {
         return (
             <div className={classes.Site} >
@@ -68,13 +79,12 @@ class Layout extends Component {
                         <BlogToolBar
                         isAuth={this.props.isAuthenticated} 
                         sectionMenuClicked={this.sectionMenuToggleHandler}
+                        showBlogSearch={this.showBlogSearch}
                         /> 
                         :
                         <Toolbar
                             isAuth={this.props.isAuthenticated}
                             sideDrawerToggleClicked={this.sideDrawertoggleHandler}
-                            searchbarToggleClicked={this.searchbarToggleHandler}
-                            exploreRefresh={this.onExploreRefresh}
                             showSearch={this.showNonBlogSearch}
                         />
                     }
@@ -104,6 +114,13 @@ class Layout extends Component {
                         <NonBlogSearch 
                             showSearch={this.state.showNonBlogSearch}
                             closeSearch={this.closeNonBlogSearch}
+                        />
+                        : null
+                    }
+                    { this.state.showBlogSearch && this.props.isBlogPage ?
+                        <BlogSearch 
+                            showSearch={this.state.showBlogSearch}
+                            closeSearch={this.closeBlogSearch}
                         />
                         : null
                     }

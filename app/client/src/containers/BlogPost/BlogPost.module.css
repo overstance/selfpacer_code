@@ -7,11 +7,9 @@ section img {
 }
 
 .topShareSection {
-    /* flex: 0 0 30%; */
-    /* max-width: 30%; */
     display: flex;
-    /* background: var(--green); */
-    /* justify-content: flex-end; */
+    border: 2px solid var(--blue);
+    padding: 4px;
 }
 
 .shareIcon {
@@ -374,6 +372,9 @@ pre {
 .bottomShareSection {
     display: flex;
     height: 48px;
+    padding: 6px;
+    box-sizing: border-box;
+    border: 2px solid var(--blue);
 }
 
 .saveBlog {
@@ -535,7 +536,7 @@ pre {
     }
 
     .topShareSection {
-        padding-top: 8px;
+        margin-top: 8px;
         justify-content: flex-end
     }
 
