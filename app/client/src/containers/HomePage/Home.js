@@ -2,19 +2,85 @@ import React, {Component} from 'react';
 import classes from './home.module.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Button from './button';
+import ActionCard from './actionCard';
+import Footer from './footer';
+
+function shuffleArray(array) {
+    let i = array.length - 1;
+    for (; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
 
 class HomePage extends Component {
 
-    /* componentDidMount() {
-        const logoInitial = document.querySelectorAll("#homeLogoInitial_stroke path");
+    componentDidMount() {
+        /* const logoInitial = document.querySelectorAll("#homeLogoInitial_stroke path");
         console.log(logoInitial);
 
         for (let i = 0; i < logoInitial.length; i++) {
             console.log(`letter ${i} is ${logoInitial[i].getTotalLength()}`);
-        }
-    } */
+        } */
+        window.scroll(0, 0);
+    }
 
     render() {
+
+        let inspireTextArray = [
+            "For your learning to really work, you really have to be working with what you learn.",
+            "Education is not a building or a book, but a continuous experience been gathered for application to society.",
+            "If time is the greatest asset that can be paid for education, then a shortage of monetary asset cannot stop it's acquisition.",
+            "There is a indefinite deposite of solution in everyone to definite life problem."
+        ];
+
+        let inspireTextArrayShuffled = shuffleArray(inspireTextArray);
+        let displayedText = inspireTextArrayShuffled[0];
+
+        let currentDate = new Date().toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        let actionCards = [
+            {
+                artType: "skill",
+                action: "learn",
+                buttonLink: "/skills",
+                message: "Learn new skills or improve on existing ones."
+            },
+            {
+                artType: "collection",
+                action: "view",
+                buttonLink: "/collections",
+                message: "View curated collection of favorite user resources."
+            },
+            {
+                artType: "facilitate",
+                action: "facilitate",
+                buttonLink: "/facilitate",
+                message: "Use your highly developed skill to help facilitate growth in others."
+            },
+            {
+                artType: "blog",
+                action: "read",
+                buttonLink: "/blog",
+                message: "Read and discuss relevant subjects on human capital development."
+            }
+        ];
+
+        let actions = actionCards.map((action, i) => (
+            <ActionCard
+                key={i}
+                actionLink={action.buttonLink}
+                action={action.action}
+                artType={action.artType}
+            >
+                {action.message}
+            </ActionCard>
+        ))
+
         return(
             <div className={classes.pageWrapper}>
                 <div className={classes.backdrop} />
@@ -30,7 +96,7 @@ class HomePage extends Component {
                             {this.props.isAuthenticated && this.props.userName ?
                                 <React.Fragment>    
                                     <span>
-                                        hello,
+                                        Hello,
                                     </span>
                                     <div>
                                         Babatunde Ali-Brown
@@ -79,9 +145,30 @@ class HomePage extends Component {
                                         <path className={classes.logoHeadGreen} d="M9.036 12.786c.157 4.124 6.292 3.423 6.396-.469.114-4.268-6.405-3.646-6.396.469z"/>
                                 </svg>
                             </div>
+                        </div>     
+                        <div className={classes.inspireBoard}>
+                            <div className={classes.date}>
+                                {currentDate}
+                            </div>
+                            <div className={classes.inspireText}>
+                                {displayedText}
+                            </div>
                         </div>
+                        <div className={classes.exploreBlock}>
+                            <Button buttonLink="/explore">
+                                <div className={classes.explore}>
+                                    <span>explore</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.089 9.088c-.505.504-.505 1.32 0 1.824.502.504 1.32.504 1.824 0s.504-1.321 0-1.824c-.504-.504-1.322-.504-1.824 0zm.912-9.087C4.478.001 0 4.477 0 10s4.478 9.999 10.001 9.999C15.522 19.999 20 15.523 20 10S15.522.001 10.001.001zm5.085 5.97l-2.66 5.819c-.128.282-.354.507-.636.636l-5.82 2.66c-.671.307-1.362-.386-1.056-1.057l2.66-5.82c.129-.281.355-.508.636-.636l5.82-2.659c.671-.308 1.363.385 1.056 1.057z"/>
+                                    </svg>
+                                </div>
+                            </Button>
+                        </div>
+                        {actions}
                     </div>
-                    <div className={classes.footer}></div>
+                    <div className={classes.footerContainer}>
+                        <Footer />
+                    </div>
                 </div>
             </div>        
         )

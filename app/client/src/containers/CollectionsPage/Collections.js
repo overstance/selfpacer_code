@@ -15,7 +15,7 @@ import SharedCollectionsBySubject from '../../components/SharedCollectionsBySubj
 class Collections extends Component {
 
     componentDidMount () {
-
+        window.scroll(0, 0);
         if (!this.props.user._id || this.props.user.specialization === 'N/A') {
             this.setState ({ isUnspecified: true, mineActive: false});
         }

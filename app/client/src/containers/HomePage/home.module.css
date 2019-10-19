@@ -154,9 +154,9 @@
 
 .body {
     max-width: 600px;
-    /* height: 1000px; */
     margin: 0 auto;
-    /* background: var(--white); */
+    padding: 0 16px;
+    box-sizing: border-box;
 }
 
 .logoWork {
@@ -174,7 +174,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    width: 266px;
+    max-width: 266px;
     margin: auto;
 }
 
@@ -306,10 +306,202 @@
     animation: headSlideUp 0.4s ease forwards 2.8s;
 }
 
-.footer {
+.inspireBoard {
+    border-radius: 16px;
+    background: var(--gray);
+    padding: 16px 16px 0;;
+    border: 2px solid var(--blue);
+}
+
+.date {
+    color: var(--red);
+    font-size: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--white);
+}
+
+.inspireText {
+    color: var(--black);
+    font-size: 16px;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homeButton {
+    outline: none;
+    border: none;
+    text-decoration: none;
+    width: 136px;
+    height: 48px;
+    border-radius: 24px;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    background: var(--green);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.homeButton:hover {
+    background: var(--gray);
+}
+
+.exploreBlock {
+    margin-top: 16px;
+    text-align: right;
+}
+
+.explore {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 32px;
+    align-items: center;
+}
+
+.explore span {
+    display: inline-block;
+    width: 88px;
+    text-align: center;
+}
+
+.explore svg {
+    fill: var(--blue);
+    width: 32px;
+    height: 32px;
+}
+
+.actionCard {
+    padding: 16px;
+    margin-top: 16px;
+    background: var(--white);
+    border-radius: 16px;
+    display: flex;
+    flex-flow: row nowrap;
+    border: 2px solid var(--blue);
+}
+
+.action {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.actionText {
+    color: var(--blue);
+    font-size: 18px;
+    margin: 16px 0;
+    font-weight: 700;
+    text-align: left;
+}
+
+.actionButton {
+    text-align: left;
+    margin-top: 16px;
+}
+
+.actionArt {
+    margin-left: 16px;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actionArt svg {
+    width: 100%;
+}
+
+.footerContainer {
     max-width: 600px;
-    height: 100px;
     margin: 0 auto;
+    
+}
+
+.footer {
+    box-sizing: border-box;
+    padding: 16px;
+    width: 100%;
+    margin-top: 32px;
+    border-top: 1px solid var(--lightBlue);
+}
+
+.footerItems {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.textItems {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+.copyright {
+    color: var(--green);
+    white-space: nowrap;
+}
+
+.copyright span {
+    padding-right: 8px;
+}
+
+.contracts {
+    font-weight: 700;    
+}
+
+.contracts a {
+    display: inline-block;
+    padding-right: 8px;
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--lightBlue);
+}
+
+.contracts a:hover {
+    color: var(--green);
+}
+
+.socialLinks {
+    width: 72px;
+    height: 32px;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.socialLinks button {
+    outline: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    background: var(--blue);
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.socialLinks button:last-of-type {
+    margin-left: 8px;
+}
+
+.socialLinks button:hover svg {
+    fill: var(--green);
+}
+
+.socialLinks svg {
+    height: 20px;
+    fill: var(--lightBlue);
+    vertical-align: middle;
 }
 
 @keyframes line-anim-s1 {

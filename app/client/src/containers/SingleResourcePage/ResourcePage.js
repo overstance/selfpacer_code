@@ -160,7 +160,7 @@ class Resourcepage extends Component {
                     <div className={classes.relatedResourcesHeading}>Related Resources</div>
                     {relatedResources}
                     { this.props.relatedResources.length >= 10 ?
-                        <Link to={`/explore/${subject_title}`} className={classes.SeeAll} >
+                        <Link to={`/skills/${subject_title}`} className={classes.SeeAll} >
                            see all
                         </Link>
                         : null

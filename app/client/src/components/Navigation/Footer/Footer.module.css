@@ -1,19 +1,90 @@
-.Footer {
-  /* padding: 20px 0px; */
-  color: var(--green);
+.footer {
   background-color: var(--blue);
-  padding: 0 16px;
+  box-sizing: border-box;
+  padding: 16px;
+  width: 100%;
 }
 
-.Container {
-  margin: 0 auto;
-  padding: 32px 0;
-  font-weight: 700;
+/* .footer {
+  box-sizing: border-box;
+  padding: 16px 0;
+  width: 100%;
+} */
+
+.footerItems {
   display: flex;
-  justify-content: space-between
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
-.Copyright a {
+.textItems {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.copyright {
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.copyright span {
+  padding-right: 8px;
+}
+
+.contracts {
+  font-weight: 700;    
+}
+
+.contracts a {
+  display: inline-block;
+  padding-right: 8px;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--lightBlue);
+}
+
+.contracts a:hover {
+  color: var(--green);
+}
+
+.socialLinks {
+  width: 72px;
+  height: 32px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.socialLinks button {
+  outline: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: var(--blue);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.socialLinks button:last-of-type {
+  margin-left: 8px;
+}
+
+.socialLinks button:hover svg {
+  fill: var(--green);
+}
+
+.socialLinks svg {
+  height: 20px;
+  fill: var(--lightBlue);
+  vertical-align: middle;
+}
+
+/* .Copyright a {
   text-decoration: none;
   color: var(--green);
   font-weight: 700;
@@ -30,7 +101,6 @@
   display: block;
   float: none;
   color: var(--green);
-  /* margin-right: 48px; */
 }
 
 @media (max-width: 600px) {
@@ -43,4 +113,4 @@
   .SocialLinks {
     margin: 0;
   }
-}
+} */

@@ -16,6 +16,7 @@ section img {
     width: 34px;
     margin: auto;
     text-align: center;
+    outline: none;
 }
 
 .shareIcon svg {
@@ -27,6 +28,7 @@ section img {
 
 .sharePlatform {
     cursor: pointer;
+    outline: none;
     border-left: 2px solid var(--white);
 }
 

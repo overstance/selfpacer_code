@@ -12,6 +12,7 @@ class Facilitator extends Component {
 
     componentDidMount() {
         this.props.onFetchUser();
+        window.scroll(0, 0);
     }
 
     state = {

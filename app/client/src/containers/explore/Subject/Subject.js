@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const subject = (props) => (
     <li className={classes.Subject}>
         <div className={classes.SubjectWrapper}>
-            <Link to={`/explore/${props.subject_title}`} onClick={props.clicked} className={classes.SubjectContainer} exact={props.exact} >
+            <Link to={`/skills/${props.subject_title}`} onClick={props.clicked} className={classes.SubjectContainer} exact={props.exact} >
                 <img className={classes.SubjectIcon} src={props.src} alt={props.alt} />
                     <div className={classes.Caption}>
                         <span className={classes.SubjectSpan}>{props.title}</span>

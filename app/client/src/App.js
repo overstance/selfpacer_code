@@ -52,8 +52,8 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/explore" exact component={ (props) => (<Explore timestamp={new Date().toString()} {...props} /> )}/>
-        <Route path="/explore/:subject_title" component={SubjectPage} /> 
+        <Route path="/skills" exact component={ (props) => (<Explore timestamp={new Date().toString()} {...props} /> )}/>
+        <Route path="/skills/:subject_title" component={SubjectPage} /> 
         <Route exact path="/reverify_email" component={ReverifyEmail} />
         <Route exact path="/email_verify/:token" component={EmailVerified} />
         <Route exact path="/reset/:token" component={ResetPassword} />
