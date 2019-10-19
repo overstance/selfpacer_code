@@ -34,17 +34,7 @@ import FacilitateApplicants from './containers/ViewFacilitateApplicants/Facilita
 import ManageBlogDrafts from './containers/ManageBlogDrafts/ManageBlogDrafts';
 import Conversation from './containers/Conversation/Conversation';
 import ResourcePage from './containers/SingleResourcePage/ResourcePage';
-const Landing = () => <h2>
-  Landing page component
-</h2>
-
-const Search = () => <h1>
-  Search component
-</h1>
-
-const BlogSearch = () => <h1>
-  Search component
-</h1>
+import HomePage from './containers/HomePage/Home';
 
 const NotFound = ({ location }) => (
   <div>
@@ -62,9 +52,7 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/explore" exact component={ (props) => (<Explore timestamp={new Date().toString()} {...props} /> )}/> 
-        <Route path="/search" component={Search} />
-        <Route path="/blog_search" component={BlogSearch} />
+        <Route path="/explore" exact component={ (props) => (<Explore timestamp={new Date().toString()} {...props} /> )}/>
         <Route path="/explore/:subject_title" component={SubjectPage} /> 
         <Route exact path="/reverify_email" component={ReverifyEmail} />
         <Route exact path="/email_verify/:token" component={EmailVerified} />
@@ -73,7 +61,7 @@ class App extends Component {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/not-found" component={NotFound} />
-        <Route exact path="/" component={Landing} />
+        <Route exact path="/" component={HomePage} />
         <Route path='/blog' exact component={Blog} />
         <Route path='/blog/sections/:category' exact component={BlogSection} />
         <Route path='/blog/popular_blogposts' exact component={PopularBlogs} />
