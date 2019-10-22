@@ -1,39 +1,30 @@
-/* use the .Container clas below for 
-a colored unlimited width fixed toolbar  */
 /* .Container {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    z-index: 90;
-    background-color: var(--blue);
-} */
-
-.Container {
-    width: 100%;
-    /* background-color: var(--green); */
     border-bottom: 1px solid var(--gray);
     z-index: 90;
     position: relative
-}
+} */
 
 .Toolbar {
-    height: 80px;
     width: 100%;
+    border-bottom: 1px solid var(--gray);
+    z-index: 90;
+    position: relative;
+    height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    /* background: var(--green); */
     padding: 0 16px;
 }
 
 .LogoContainer {
-    /* padding-right: 120px; */
     flex: 0 0 30%;
     max-width: 30%;
     display: flex;
     justify-content: center;
+    box-sizing: border-box;
+    padding: 0;
 }
 
 .ToolBarLogo {
@@ -42,15 +33,25 @@ a colored unlimited width fixed toolbar  */
     height: 100%;
 }
 
-.Toolbar nav {
-    height: 100%;
-}
-
 .DesktopOnly {
     flex: 0 0 40%;
     max-width: 40%;
     display: flex;
     justify-content: flex-start;
+    margin: 0;
+    padding: 30px;
+    list-style: none;
+    flex-flow: column-reverse;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+@media (min-width: 901px) {
+    .DesktopOnly {
+        flex-flow: row nowrap;
+        padding: 0px;
+    }
 }
 
 @media (max-width: 900px) {

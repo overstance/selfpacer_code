@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import BlogToolBar from '../Navigation/BlogNav/toolBar';
@@ -14,6 +14,12 @@ import NonBlogSearch from '../Search/nonBlogSearch/NonBlogSearch';
 import BlogSearch from '../Search/blogSearch/blogSearch';
 
 class Layout extends Component {
+
+    constructor(props) {
+        super(props);
+        this.sideDrawerIndicator = React.createRef();
+        this.sideDrawerTrigger = React.createRef();
+    }
     
     state = {
         showSideDrawer: false,
@@ -32,7 +38,17 @@ class Layout extends Component {
     }
 
     sideDrawerClosedHandler = () => {
-        this.setState({ showSideDrawer: false });
+        this.setState({ showSideDrawer: false }, () => {
+            this.sideDrawerTrigger.current.focus();
+        });
+    }
+
+    closeDrawerByBackdropOnKey = (event) => {
+        if (event.key === "Enter" || event.key === "Tab") {
+            this.setState({ showSideDrawer: false }, () => {
+                this.sideDrawerTrigger.current.focus();
+            });
+        }
     }
 
     authenticatingHandler = () => {
@@ -42,7 +58,26 @@ class Layout extends Component {
     sideDrawertoggleHandler = () => {
         this.setState((prevState) => {
             return { showSideDrawer: !prevState.showSideDrawer };
+        }, () => {
+            if(this.state.showSideDrawer === true) {
+                this.sideDrawerIndicator.current.focus();
+            }
+
+            if(this.state.showSideDrawer === false) {
+                this.sideDrawerTrigger.current.focus()
+            }
         });
+    }
+
+    sideDrawerToggleHandlerOnKey = (event) => {
+        // console.log(event.key);
+        if(event.key === "Enter") {
+            this.setState((prevState) => {
+                return { showSideDrawer: !prevState.showSideDrawer };
+            }, () => {
+                this.sideDrawerIndicator.current.focus();
+            });
+        }
     }
 
     sectionMenuToggleHandler = () => {
@@ -67,6 +102,15 @@ class Layout extends Component {
         this.setState({ showBlogSearch: true});
     }
 
+    showSearchOnKey = (event) => {
+        // event.preventDefault();
+        // console.log(event.key);
+
+        if (event.key === "Enter") {
+            this.setState({ showNonBlogSearch: true});
+        }
+    }
+
     closeBlogSearch = () => {
         this.setState({ showBlogSearch: false});
     }
@@ -74,25 +118,38 @@ class Layout extends Component {
     render() {
         return (
             <div className={classes.Site} >
-                <div className={classes.Content}>
-                    {this.props.isBlogPage ? 
-                        <BlogToolBar
-                        isAuth={this.props.isAuthenticated} 
-                        sectionMenuClicked={this.sectionMenuToggleHandler}
-                        showBlogSearch={this.showBlogSearch}
-                        /> 
-                        :
-                        <Toolbar
+                {this.props.isBlogPage ? 
+                    <BlogToolBar
+                    isAuth={this.props.isAuthenticated} 
+                    sectionMenuClicked={this.sectionMenuToggleHandler}
+                    showBlogSearch={this.showBlogSearch}
+                    /> 
+                    :
+                    <Fragment>
+                        { this.props.isSiteHome ?
+                            null :
+                            <Toolbar
+                            drawerTriggerRef={this.sideDrawerTrigger}
                             isAuth={this.props.isAuthenticated}
                             sideDrawerToggleClicked={this.sideDrawertoggleHandler}
+                            sideDrawerToggleClickedOnKey={this.sideDrawerToggleHandlerOnKey}
                             showSearch={this.showNonBlogSearch}
-                        />
-                    }
-                    { this.props.isBlogPage ? null :
+                            showSearchOnKey={this.showSearchOnKey}
+                            sideDrawerOpen={this.state.showSideDrawer}
+                            />
+                        }
+                    </Fragment>
+                    
+                }
+                <div className={classes.Content}>
+                    { this.props.isBlogPage || this.state.showSideDrawer === false ? null :
                         <SideDrawer
+                            drawerIndicatorRef={this.sideDrawerIndicator}
                             isAuth={this.props.isAuthenticated}
                             open={this.state.showSideDrawer}
                             closed={this.sideDrawerClosedHandler}
+                            closeByBackdropOnKey={this.sideDrawerClosedHandler}
+                            // closeByBackdropBlur={this.closeDrawerByBackdropBlur}
                             onAuth={this.authenticatingHandler}
                             userName={this.props.userName}
                             showSideDrawer={this.state.showSideDrawer}
@@ -107,9 +164,9 @@ class Layout extends Component {
                         />
                         : null
                     }
-                    <main>
+                    <Fragment>
                         {this.props.children}
-                    </main>
+                    </Fragment>
                     { this.state.showNonBlogSearch ?
                         <NonBlogSearch 
                             showSearch={this.state.showNonBlogSearch}
@@ -128,7 +185,10 @@ class Layout extends Component {
                 { this.props.isBlogPage ?
                     <BlogFooter /> : null
                 }
-                <Footer />
+                {   this.props.isSiteHome ?
+                    null :
+                    <Footer />
+                }
             </div>
         );
     }
@@ -143,7 +203,8 @@ const mapStateToProps = state => {
         userId: state.auth.user._id,
         isAuthenticated: state.auth.isAuthenticated,
         userName: state.auth.user.name,
-        isBlogPage: state.auth.isBlogPage
+        isBlogPage: state.auth.isBlogPage,
+        isSiteHome: state.auth.isSiteHome
     }
 };
 

@@ -36,7 +36,9 @@ const initialState = {
 
     userLikeCount: null,
 
-    isBlogPage: false
+    isBlogPage: false,
+
+    isSiteHome: false
 };
 
 // initialization actions
@@ -69,6 +71,18 @@ const setIsBlogPage = (state, action) => {
 const unsetIsBlogPage = (state, action) => {
     return updateObject(state, {
         isBlogPage: false
+    });
+}
+
+const setIsSiteHome = (state, action) => {
+    return updateObject(state, {
+        isSiteHome: true
+    });
+}
+
+const unsetIsSiteHome = (state, action) => {
+    return updateObject(state, {
+        isSiteHome: false
     });
 }
 
@@ -321,6 +335,9 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.SET_IS_BLOG_PAGE: return setIsBlogPage( state, action);
         case actionTypes.UNSET_IS_BLOG_PAGE: return unsetIsBlogPage( state, action);
+
+        case actionTypes.SET_IS_SITE_HOME: return setIsSiteHome( state, action);
+        case actionTypes.UNSET_IS_SITE_HOME: return unsetIsSiteHome( state, action);
 
         default:
             return state;

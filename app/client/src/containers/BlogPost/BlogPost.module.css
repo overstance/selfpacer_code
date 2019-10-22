@@ -32,6 +32,10 @@ section img {
     border-left: 2px solid var(--white);
 }
 
+.sharePlatform > div {
+    outline: none;
+}
+
 .sharePlatform svg rect {
     /* fill: none; */
     fill: var(--green);

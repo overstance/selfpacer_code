@@ -530,5 +530,13 @@ export const reverifyEmail = ( email ) => async dispatch => {
     }
 }
 
+export const setIsSiteHome = () => ({
+    type: actionTypes.SET_IS_SITE_HOME
+});
+
+export const unsetIsSiteHome = () => ({
+    type: actionTypes.UNSET_IS_SITE_HOME
+});
+
 
 

@@ -3,7 +3,8 @@
     width: 50px;
     height: 50px;
     position: fixed;
-    bottom: 16px;
+    /* bottom: 16px; */
+    bottom: 64px;
     right: 16px;
     border-radius: 5px;
     border: none;

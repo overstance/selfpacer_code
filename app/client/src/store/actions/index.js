@@ -16,7 +16,9 @@ export {
     clearAuth,
     clearAllAuthMessages,
     setIsBlogPage,
-    unsetIsBlogPage
+    unsetIsBlogPage,
+    setIsSiteHome,
+    unsetIsSiteHome
 } from './auth';
 export {
     fetchSubjects,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classes from './Explore.module.css';
-import ExploreHeaderNav from './ExploreHeaderNav/ExploreHeaderNav';
+import classes from './skills.module.css';
+import HeaderNav from './headerNav/headerNav';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Subject from './Subject/Subject';
 import * as actions from '../../store/actions/index';
@@ -300,7 +300,7 @@ class Explore extends Component {
                         subheadTitle="filter"
                         toggleHandler={this.toggleHandler}
                     />
-                    <ExploreHeaderNav
+                    <HeaderNav
                         show={this.state.showFilter}
                         allActived={this.state.allActive}
                         creativeActived={this.state.creativeActive}

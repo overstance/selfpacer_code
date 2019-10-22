@@ -2,7 +2,6 @@ import React from 'react';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import classes from './SideDrawer.module.css';
 import NavBackdrop from '../../UserInterface/Backdrop/NavBackdrop';
-import Aux from '../../../hoc/Auxiliary';
 import { Link } from 'react-router-dom';
 import Logo from '../../UserInterface/Logo/Logo';
 
@@ -20,22 +19,32 @@ const sideDrawer = (props) => {
     }
 
     return (
-        <Aux>
-            <NavBackdrop show={props.open} clicked={props.closed} />
-            <div className={attachedClasses.join(' ')}>
+        <section>
+            <div
+            role="menuitem"
+            tabIndex="0"
+            ref={props.drawerIndicatorRef}
+            >
+                Side menu opened
+            </div>
+            <nav className={attachedClasses.join(' ')}>
                 <Link to='/' onClick={props.onAuth} className={classes.LogoContainer}>
                     <Logo isSidedrawer/>
                 </Link>
-                <nav>
+                <nav className={classes.sideDrawerContainer}>
                     <NavigationItems 
                     isAuthenticated={props.isAuth} 
                     closeSideDrawer={props.onAuth}
                     showSideDrawer={props.showSideDrawer}
                     />
-                </nav>
-                 
-            </div>
-        </Aux>
+                </nav>     
+            </nav>
+            <NavBackdrop 
+                show={props.open} 
+                clicked={props.closed} 
+                keyboarded={props.closeByBackdropOnKey}
+            />
+        </section>
     );
 };
 

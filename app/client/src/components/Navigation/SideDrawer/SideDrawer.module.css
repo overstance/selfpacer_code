@@ -12,6 +12,10 @@
     overflow-y: auto;
 }
 
+.sideDrawerContainer {
+    padding: 32px 16px;
+}
+
 .Open {
     transform: translateX(0);
 }

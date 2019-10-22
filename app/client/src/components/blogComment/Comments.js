@@ -26,7 +26,9 @@ class Comments extends Component {
     }
 
     componentDidMount() {
-        this.focus();
+        if(this.props.isAuthenticated && this.props.userId) {
+            this.focus();
+        }
     }
 
     componentDidUpdate(prevProps) {

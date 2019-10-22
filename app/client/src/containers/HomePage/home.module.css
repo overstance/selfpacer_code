@@ -330,7 +330,7 @@
 }
 
 .homeButton {
-    outline: none;
+    /* outline: none; */
     border: none;
     text-decoration: none;
     width: 136px;
@@ -417,13 +417,9 @@
     width: 100%;
 }
 
-.footerContainer {
+.footer {
     max-width: 600px;
     margin: 0 auto;
-    
-}
-
-.footer {
     box-sizing: border-box;
     padding: 16px;
     width: 100%;
@@ -479,8 +475,8 @@
     flex-flow: row nowrap;
 }
 
-.socialLinks button {
-    outline: none;
+.socialLinks a {
+    /* outline: none; */
     border: none;
     border-radius: 0;
     padding: 0;
@@ -488,6 +484,9 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .socialLinks button:last-of-type {

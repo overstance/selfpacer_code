@@ -1,5 +1,4 @@
 .Content {
-    /* margin-top: 100px; */
     flex: 1 0 auto;
 }
 
@@ -8,22 +7,3 @@
     flex-direction: column;
     min-height: 100vh;
 }
-
-/* .Searchbar {
-    background-color: var(--lightBlue);
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-
-@media (min-width: 875px) {
-    .Searchbar {
-        display: none;
-    }
-} */
-
-/* @media (max-width: 550px) {
-    .Content {
-        margin-top: 110px;
-    }
-
-} */

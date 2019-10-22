@@ -7,37 +7,39 @@ import { Link } from 'react-router-dom';
 import Container from '../../UserInterface/Container/Container';
 import Logo from '../../UserInterface/Logo/Logo';
 
-
-/*
-use the div with className {classes.container}
-to give the toolbar a background color that stretches
-100% of viewport width and is fixed atop. Remember to uncomment the .Container class
-in Toolbar.module.css and enable margin-top for .Content class in Layout.module.css
-*/
-
-
 const toolbar = (props) => (
-    <div className={classes.Container}>
+    <header>
         <Container>
-            <header className={classes.Toolbar}>
-                <SideDrawerToggle clicked={props.sideDrawerToggleClicked} />
+            <nav className={classes.Toolbar}>
+                <SideDrawerToggle 
+                    triggerRef={props.drawerTriggerRef}
+                    clicked={props.sideDrawerToggleClicked}
+                    keyboarded={props.sideDrawerToggleClickedOnKey} 
+                    isOpen={props.sideDrawerOpen}
+                />
                 <nav className={classes.DesktopOnly}>
                     <NavigationItems
                         isAuthenticated={props.isAuth}
                     />
                 </nav>
-                <div className={classes.LogoContainer}>
-                    <Link to= "/" className={classes.ToolBarLogo}>
+                <nav className={classes.LogoContainer}>
+                    <Link 
+                        to= "/" 
+                        role="menuitem"
+                        aria-label="site logo go home"
+                        className={classes.ToolBarLogo}
+                    >
                         <Logo />
                     </Link>
-                </div>
+                </nav>
                 <RightNavigationItems
                     isAuthenticated={props.isAuth}
                     showSearch={props.showSearch}
+                    showSearchOnKey={props.showSearchOnKey}
                 />
-            </header>
+            </nav>
         </Container>
-    </div>
+    </header>
 );
 
 export default toolbar;

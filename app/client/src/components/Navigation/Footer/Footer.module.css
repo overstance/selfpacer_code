@@ -59,7 +59,7 @@
   flex-flow: row nowrap;
 }
 
-.socialLinks button {
+.socialLinks a {
   outline: none;
   border: none;
   border-radius: 0;
@@ -68,6 +68,9 @@
   width: 32px;
   height: 32px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .socialLinks button:last-of-type {
