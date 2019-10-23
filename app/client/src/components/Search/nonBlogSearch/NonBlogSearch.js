@@ -13,6 +13,7 @@ class NonBlogSearch extends Component {
     constructor(props) {
         super(props);
         this.textInput = React.createRef();
+        this.focusOnSearchResult = React.createRef();
         this.focus = this.focus.bind(this);
     }
 
@@ -20,7 +21,8 @@ class NonBlogSearch extends Component {
         showFilter: false,
         searchString: '',
         searchInputTouched: false,
-        searchFilter: []
+        searchFilter: [],
+        showChangeSearchString: false
     }
 
     componentDidMount() {
@@ -28,9 +30,15 @@ class NonBlogSearch extends Component {
         this.setState({ searchString: this.props.latestSearchString });
     }
 
-    /* componentWillUnmount() {
-        this.props.onClearSearchMessages()
-    } */
+    componentDidUpdate(prevProps) {
+        if(this.props.searchResult !== prevProps.searchResult) {
+            this.focusOnSearchResult.current.focus();
+        }
+    }
+
+    componentWillUnmount() {
+        this.setState({ showChangeSearchString: false });
+    }
 
     focus() {
         this.textInput.current.focus();
@@ -52,7 +60,7 @@ class NonBlogSearch extends Component {
     searchInputChange = (event) => {
         event.preventDefault();
 
-        this.setState({ searchString: event.target.value, searchInputTouched: true });
+        this.setState({ searchString: event.target.value, searchInputTouched: true, showChangeSearchString: false });
     }
 
     deploySearch = (event) => {
@@ -62,7 +70,7 @@ class NonBlogSearch extends Component {
             this.setState({ searchInputTouched: true });
         } else if(this.state.searchString !== '' && !this.props.deploySearchLoading) {
             this.props.onDeploySearch(this.state.searchString, this.state.searchFilter);
-            this.setState({ showFilter: false });
+            this.setState({ showFilter: false, showChangeSearchString: true });
         }
     }
 
@@ -79,6 +87,10 @@ class NonBlogSearch extends Component {
             updatedFilter.push(event.target.value);
             this.setState({ searchFilter: updatedFilter}, () => {console.log(this.state.searchFilter)})  
         }
+    }
+
+    changeSearchString = () => {
+        this.focus();
     }
 
     /* componentWillUnmount() {
@@ -113,7 +125,9 @@ class NonBlogSearch extends Component {
                 ))
             } else if (this.props.searchResult.length === 0 && this.props.deploySearchSuccessInfo) {
                 searchResult =
-                <div className={classes.noResult}>
+                <div 
+                    className={classes.noResult}
+                >
                     <h2>No search result found.</h2>
                     <div>Suggestions:</div>
                     <ol>
@@ -135,20 +149,13 @@ class NonBlogSearch extends Component {
 
         return(
             <div>
-                <Backdrop show={this.props.showSearch} clicked={this.props.closeSearch}/>
                 <div className={classes.searchBar}>
                     <Container>
-                        <div className={classes.close}>
-                            <button onClick={this.props.closeSearch}>    
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M464 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-83.6 290.5c4.8 4.8 4.8 12.6 0 17.4l-40.5 40.5c-4.8 4.8-12.6 4.8-17.4 0L256 313.3l-66.5 67.1c-4.8 4.8-12.6 4.8-17.4 0l-40.5-40.5c-4.8-4.8-4.8-12.6 0-17.4l67.1-66.5-67.1-66.5c-4.8-4.8-4.8-12.6 0-17.4l40.5-40.5c4.8-4.8 12.6-4.8 17.4 0l66.5 67.1 66.5-67.1c4.8-4.8 12.6-4.8 17.4 0l40.5 40.5c4.8 4.8 4.8 12.6 0 17.4L313.3 256l67.1 66.5z"/>
-                                </svg>
-                            </button>
-                        </div>
                         <div className={classes.searchAndFilter}>
                             <form onSubmit={this.deploySearch}>
                                 <div className={classes.input}>
                                     <input 
+                                        aria-label="Search"
                                         ref={this.textInput}
                                         value={this.state.searchString}
                                         placeholder='search resources'
@@ -157,28 +164,36 @@ class NonBlogSearch extends Component {
                                 </div>
                                 {(this.state.searchString === '' && this.state.searchInputTouched) 
                                  || this.props.deploySearchLoading ?
-                                    <button className={classes.searchDisabledButton}>
+                                    <button aria-label="empty input" className={classes.searchDisabledButton}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                             <path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/>
                                         </svg>
                                     </button>
                                     :
-                                    <button className={classes.searchAllowedButton}>
+                                    <button aria-label="run search" className={classes.searchAllowedButton}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                             <path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/>
                                         </svg>
                                     </button>
                                 }
                             </form>
-                            <button onClick={this.toggleSearchFilter} className={classes.filterButton}>
+                            <button onClick={this.toggleSearchFilter} tabIndex="-1" className={classes.filterButton}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                     <path d="M487.976 0H24.028C2.71 0-8.047 25.866 7.058 40.971L192 225.941V432c0 7.831 3.821 15.17 10.237 19.662l80 55.98C298.02 518.69 320 507.493 320 487.98V225.941l184.947-184.97C520.021 25.896 509.338 0 487.976 0z"/>
+                                </svg>
+                            </button>
+                            <button className={classes.closeButton} aria-label="close search" onClick={this.props.closeSearch}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
+                                    <path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/>
                                 </svg>
                             </button>
                         </div>
                     </Container>
                 </div>
-                <div className={classes.searchResultContainer}>
+                <article
+                    className={classes.searchResultContainer}
+                    aria-label="search result"
+                >
                     { this.state.searchFilter.length > 0
                       && this.props.deploySearchSuccessInfo ?
                         <div className={classes.filterInfo}>
@@ -186,8 +201,18 @@ class NonBlogSearch extends Component {
                         </div>
                         : null
                     }
+                    { this.state.showChangeSearchString && !this.state.deploySearchLoading ?
+                        <button 
+                            className={classes.changeSearchString}
+                            ref={this.focusOnSearchResult}
+                            onClick={this.changeSearchString}
+                        >
+                            change search string
+                        </button>
+                        : null
+                    }
                     {searchResult} 
-                </div>
+                </article>
                 { this.state.showFilter ? 
                     <div className={classes.filterContainer}>
                         <div className={classes.filter}>      
@@ -196,6 +221,11 @@ class NonBlogSearch extends Component {
                     </div>
                     : null
                 }
+                <Backdrop 
+                    show={this.props.showSearch}
+                    clicked={this.props.closeSearch}
+                    keyboarded={this.props.closeSearchByBackdrop}
+                />
             </div>
         )
     }

@@ -2,9 +2,9 @@ import React from 'react';
 import classes from './Container.module.css';
 
 const container = (props) => (
-    <section className={classes.container}>
+    <div className={classes.container}>
         {props.children}
-    </section>
+    </div>
 );
 
 export default container;

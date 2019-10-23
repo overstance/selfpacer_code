@@ -9,7 +9,7 @@ const backdrop = (props) => (
         aria-label="close side menu"
         tabIndex="0"
         className={classes.Backdrop} 
-        onKeyDown={props.keyboarded}
+        onKeyUp={props.keyboarded}
         onClick={props.clicked}
     >
         {props.children}

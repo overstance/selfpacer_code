@@ -6,16 +6,16 @@ const actionCard = (props) => {
 
     return (
         <div className={classes.actionCard}>
-            <div className={classes.action}>
-                <div className={classes.actionText}>
+            <nav className={classes.action}>
+                <p className={classes.actionText}>
                     {props.children}
-                </div>
+                </p>
                 <div className={classes.actionButton}>
                     <Button buttonLink={props.actionLink}>
                         {props.action}
                     </Button>
                 </div>
-            </div>
+            </nav>
             <div className={classes.actionArt}>
                 { props.artType === 'skill' ?
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 126 126">

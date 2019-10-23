@@ -8,28 +8,39 @@ import Container from '../../UserInterface/Container/Container';
 import Logo from '../../UserInterface/Logo/Logo';
 
 const toolbar = (props) => (
-    <div>
+    <header>
         <div className={classes.Container}>
             <Container>
-                <header className={classes.Toolbar}>
-                    <div className={classes.leftNavItems}>
-                        <Link to= "/">
+                <div className={classes.Toolbar}>
+                    <nav className={classes.leftNavItems}>
+                        <Link 
+                            to= "/"
+                            role="menuitem"
+                            aria-label="site logo go home"
+                        >
                             <Logo isBlog/>
                         </Link>
-                        <MainNavItems sectionClicked={props.sectionMenuClicked}/>
-                    </div>
+                        <MainNavItems 
+                            sectionClicked={props.sectionMenuClicked}
+                        />
+                    </nav>
                     <RightNavItems
                         isAuthenticated={props.isAuth}
                         showBlogSearch={props.showBlogSearch}
+                        showBlogSearchOnKey={props.showBlogSearchOnKey}
+                        blogSearchTrigger={props.blogSearchTriggerRef}
                     />
-                </header>    
+                </div>    
             </Container>
         </div>
-        <LowerToolBar 
-            sectionClicked={props.sectionMenuClicked}
-            showBlogSearch={props.showBlogSearch}
-        />
-    </div>   
+        { props.blogSearchActive ?
+            null :
+            <LowerToolBar 
+                sectionClicked={props.sectionMenuClicked}
+                showBlogSearch={props.showBlogSearch}
+            />
+        }
+    </header>   
 );
 
 export default toolbar;

@@ -16,7 +16,12 @@ import Logo from '../../UserInterface/Logo/Logo';
 
 class Login extends Component {
 
+    componentDidMount() {
+        this.props.onSetIsSiteHomeOrAuth();
+    }
+
     componentWillUnmount() {
+        this.props.onUnsetIsSiteHomeOrAuth();
         this.props.onClearErrors();
     }
     
@@ -323,6 +328,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
+        onSetIsSiteHomeOrAuth: () => dispatch(actions.setIsSiteHome()),
+        onUnsetIsSiteHomeOrAuth: () => dispatch(actions.unsetIsSiteHome()),
         onLoginUser: (email, password, history) => dispatch(actions.loginUser(email, password, history)),
         onClearErrors: () => dispatch(actions.clearErrors())
     };

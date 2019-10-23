@@ -35,6 +35,7 @@ const toolbar = (props) => (
                 <RightNavigationItems
                     isAuthenticated={props.isAuth}
                     showSearch={props.showSearch}
+                    showSearchRef={props.nonBlogSearchTriggerRef}
                     showSearchOnKey={props.showSearchOnKey}
                 />
             </nav>

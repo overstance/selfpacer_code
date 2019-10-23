@@ -33,12 +33,12 @@
 }
 
 .NavigationItems a {
-    padding-left: 16px;
+    margin-left: 16px;
     display: inline-block;
 }
 
 .search {
-    padding-left: 16px;
+    margin-left: 16px;
     display: inline-block;
     cursor: pointer;
 }

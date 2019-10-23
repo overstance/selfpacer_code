@@ -19,52 +19,44 @@
     display: flex;
 }
 
-.SearchIcon {
-    width: 26px;
-    height: 26px;
-    vertical-align: middle;
-    fill:var(--white);
-    padding-left: 12px
-}
-
-.SearchIcon:hover {
-    fill: var(--green);
-}
-
 .RightNavItems {
     display: flex;
     flex-flow: row;
     align-items: center;
 }
 
-.ItemContainer a {
+.menuItem {
     display: inline-block;
     text-decoration: none;
     font-family: 'PT Sans', sans-serif;
     color: var(--white);
 }
 
-.ItemContainer div {
-    display: inline-block;
-    text-decoration: none;
-    font-family: 'PT Sans', sans-serif;
-    color: var(--white);
+.SearchIcon {
+    width: 26px;
+    height: 26px;
+    vertical-align: middle;
+    fill:var(--white);
+    margin-left: 12px;
     cursor: pointer;
 }
 
-.ItemContainer span {
+.SearchIcon:hover {
+    fill: var(--green);
+}
+
+.menuItem span {
     display: block;
     font-family: 'PT Sans', sans-serif;
     color: var(--blue);
     padding: 7px;
     background: var(--green);
     border-radius: 8px;
-    margin-left: 12px;
     font-size: small;
     font-weight: 700;
 }
 
-.ItemContainer span:hover {
+.menuItem span:hover {
     background: var(--white);
 }
 
@@ -73,7 +65,6 @@
     width: 28px;
     fill: var(--white);
     vertical-align: middle;
-    /* padding-right: 6px; */
 }
 
 .User:hover {
@@ -141,8 +132,8 @@
     align-items: center;
     font-family: 'PT Sans', sans-serif;
     cursor: pointer;
-    flex: 0 0 20%;
-    max-width: 20%
+    flex: 0 0 25%;
+    max-width: 25%
 }
 
 .LowerToolBar a:hover {
@@ -192,7 +183,7 @@
 }
 
 .Close {
-    transform: translateY(-100%);
+    transform: translateY(-150%);
 }
 
 .Backdrop {
@@ -255,9 +246,6 @@
 
 
 @media(max-width: 784px) {
-    .SearchIcon {
-        display: none;
-    }
 
     .MainNavItems {
         display: none;

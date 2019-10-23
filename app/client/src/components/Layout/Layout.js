@@ -19,6 +19,8 @@ class Layout extends Component {
         super(props);
         this.sideDrawerIndicator = React.createRef();
         this.sideDrawerTrigger = React.createRef();
+        this.nonBlogSearchTrigger = React.createRef();
+        this.blogSearchTrigger = React.createRef();
     }
     
     state = {
@@ -94,8 +96,25 @@ class Layout extends Component {
         this.setState({ showNonBlogSearch: true});
     }
 
+    showBlogSearchOnKey = (event) => {
+        if(event.key === "Enter") {
+            this.setState({ showBlogSearch: true});  
+        }
+    }
+
     closeNonBlogSearch = () => {
-        this.setState({ showNonBlogSearch: false});
+        this.setState({ showNonBlogSearch: false}, () => {
+            this.nonBlogSearchTrigger.current.focus();
+        });
+    }
+    
+    closeNonBlogSearchByKey = (event) => {
+        // console.log(event.key);
+        if(event.key === "Enter" || event.key === "Tab") {
+            this.setState({ showNonBlogSearch: false}, () => {
+                this.nonBlogSearchTrigger.current.focus();
+            });   
+        }
     }
 
     showBlogSearch = () => {
@@ -112,7 +131,17 @@ class Layout extends Component {
     }
 
     closeBlogSearch = () => {
-        this.setState({ showBlogSearch: false});
+        this.setState({ showBlogSearch: false}, () => {
+            this.blogSearchTrigger.current.focus();
+        });
+    }
+
+    closeBlogSearchByBackdropOnKey = (event) => {
+        if(event.key === "Enter" || event.key === "Tab") {
+            this.setState({ showBlogSearch: false}, () => {
+                this.blogSearchTrigger.current.focus();
+            });   
+        }
     }
 
     render() {
@@ -120,16 +149,20 @@ class Layout extends Component {
             <div className={classes.Site} >
                 {this.props.isBlogPage ? 
                     <BlogToolBar
-                    isAuth={this.props.isAuthenticated} 
-                    sectionMenuClicked={this.sectionMenuToggleHandler}
-                    showBlogSearch={this.showBlogSearch}
+                        isAuth={this.props.isAuthenticated} 
+                        sectionMenuClicked={this.sectionMenuToggleHandler}
+                        showBlogSearch={this.showBlogSearch}
+                        blogSearchActive={this.state.showBlogSearch}
+                        showBlogSearchOnKey={this.showBlogSearchOnKey}
+                        blogSearchTriggerRef={this.blogSearchTrigger}
                     /> 
                     :
                     <Fragment>
-                        { this.props.isSiteHome ?
+                        { this.props.isSiteHomeOrAuth ?
                             null :
                             <Toolbar
                             drawerTriggerRef={this.sideDrawerTrigger}
+                            nonBlogSearchTriggerRef={this.nonBlogSearchTrigger}
                             isAuth={this.props.isAuthenticated}
                             sideDrawerToggleClicked={this.sideDrawertoggleHandler}
                             sideDrawerToggleClickedOnKey={this.sideDrawerToggleHandlerOnKey}
@@ -171,21 +204,24 @@ class Layout extends Component {
                         <NonBlogSearch 
                             showSearch={this.state.showNonBlogSearch}
                             closeSearch={this.closeNonBlogSearch}
+                            closeSearchByBackdrop={this.closeNonBlogSearchByKey}
                         />
                         : null
                     }
                     { this.state.showBlogSearch && this.props.isBlogPage ?
                         <BlogSearch 
-                            showSearch={this.state.showBlogSearch}
-                            closeSearch={this.closeBlogSearch}
+                            showBlogSearch={this.state.showBlogSearch}
+                            closeBlogSearch={this.closeBlogSearch}
+                            closeBlogSearchByBackdrop={this.closeBlogSearchByBackdropOnKey}
                         />
                         : null
                     }
                 </div>
                 { this.props.isBlogPage ?
-                    <BlogFooter /> : null
+                    <BlogFooter />
+                    : null
                 }
-                {   this.props.isSiteHome ?
+                {   this.props.isSiteHomeOrAuth ?
                     null :
                     <Footer />
                 }
@@ -204,7 +240,7 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.isAuthenticated,
         userName: state.auth.user.name,
         isBlogPage: state.auth.isBlogPage,
-        isSiteHome: state.auth.isSiteHome
+        isSiteHomeOrAuth: state.auth.isSiteHomeOrAuth
     }
 };
 

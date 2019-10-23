@@ -30,7 +30,9 @@ class RightNavigationItems extends Component {
                             </svg>
                         </Link>
                 }
-                    <div className={classes.search}
+                    <div 
+                        ref={this.props.showSearchRef}
+                        className={classes.search}
                         role="menuitem"
                         aria-label="open search"
                         tabIndex="0" 

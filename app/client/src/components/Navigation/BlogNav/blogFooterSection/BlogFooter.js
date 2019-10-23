@@ -26,12 +26,13 @@ class BlogFooter extends Component {
 
     render () {
 
-        let business = <Spinner isComponent/>;
-        let creative = <Spinner isComponent/>;
-        let technology = <Spinner isComponent/>;
-        let science = <Spinner isComponent/>;
-        let lifeStyle = <Spinner isComponent/>;
-        let reviews = <Spinner isComponent/>;
+        let business;
+        let creative;
+        let technology;
+        let science;
+        let lifeStyle;
+        let reviews;
+        let footerContent = <Spinner isComponent/>;
 
         if (!this.props.fetchFeaturedBlogsLoading && !this.props.fetchFeaturedBlogsError) {
             business = this.props.featuredBlogs.filter( blog => blog.category === 'Business').slice(0, 2).map((blog, i) => (
@@ -107,37 +108,43 @@ class BlogFooter extends Component {
             ));
         }
 
+        if (!this.props.fetchFeaturedBlogsLoading) {
+            footerContent =
+                <div className={classes.sectionContainer}>
+                <div className={classes.section}>
+                    <div className={classes.sectionTitle}>Business</div>
+                    {business}
+                </div>
+                <div className={classes.section}>
+                    <div className={classes.sectionTitle}>Creative</div>
+                    {creative}
+                </div>
+                <div className={classes.section}>
+                    <div className={classes.sectionTitle}>Science</div>
+                    {science}
+                </div>
+                <div className={classes.section}>
+                    <div className={classes.sectionTitle}>Technology</div>
+                    {technology}
+                </div>
+                <div className={classes.section}>
+                    <div className={classes.sectionTitle}>Life-Style</div>
+                    {lifeStyle}
+                </div>
+                <div className={classes.section}>
+                    <div className={classes.sectionTitle}>Reviews</div>
+                    {reviews}
+                </div>
+            </div>
+        }
+
+
         return (
-            <section className={classes.blogFooter}>
+            <footer className={classes.blogFooter}>
                 <Container>
-                    <div className={classes.sectionContainer}>
-                        <div className={classes.section}>
-                            <div className={classes.sectionTitle}>Business</div>
-                            {business}
-                        </div>
-                        <div className={classes.section}>
-                            <div className={classes.sectionTitle}>Creative</div>
-                            {creative}
-                        </div>
-                        <div className={classes.section}>
-                            <div className={classes.sectionTitle}>Science</div>
-                            {science}
-                        </div>
-                        <div className={classes.section}>
-                            <div className={classes.sectionTitle}>Technology</div>
-                            {technology}
-                        </div>
-                        <div className={classes.section}>
-                            <div className={classes.sectionTitle}>Life-Style</div>
-                            {lifeStyle}
-                        </div>
-                        <div className={classes.section}>
-                            <div className={classes.sectionTitle}>Reviews</div>
-                            {reviews}
-                        </div>
-                    </div>
+                    {footerContent}
                 </Container>  
-            </section>
+            </footer>
         );
     }
 }

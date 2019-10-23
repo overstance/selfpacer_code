@@ -38,7 +38,7 @@ const initialState = {
 
     isBlogPage: false,
 
-    isSiteHome: false
+    isSiteHomeOrAuth: false
 };
 
 // initialization actions
@@ -76,13 +76,13 @@ const unsetIsBlogPage = (state, action) => {
 
 const setIsSiteHome = (state, action) => {
     return updateObject(state, {
-        isSiteHome: true
+        isSiteHomeOrAuth: true
     });
 }
 
 const unsetIsSiteHome = (state, action) => {
     return updateObject(state, {
-        isSiteHome: false
+        isSiteHomeOrAuth: false
     });
 }
 

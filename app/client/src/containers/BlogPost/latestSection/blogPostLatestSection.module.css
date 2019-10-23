@@ -51,6 +51,10 @@
     margin-left: 0;
 }
 
+.latestBlogContainer image {
+    width: 100%;
+}
+
 .latestBlogContainer figcaption {
     font-size: 10px;
     text-transform: uppercase;

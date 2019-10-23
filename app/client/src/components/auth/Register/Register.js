@@ -16,9 +16,14 @@ import PostActionInfo from '../../PostActionInfo/PostActionInfo';
 
 class Register extends Component {
 
+    componentDidMount() {
+        this.props.onSetIsSiteHomeOrAuth();
+    }
+
     componentWillUnmount() {
         this.props.onClearErrors();
         this.props.onClearAllAuthMessages();
+        this.props.onUnsetIsSiteHomeOrAuth();
     }
 
 
@@ -452,6 +457,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
+        onSetIsSiteHomeOrAuth: () => dispatch(actions.setIsSiteHome()),
+        onUnsetIsSiteHomeOrAuth: () => dispatch(actions.unsetIsSiteHome()),
         onRegisterUser: (spec, name, email, password, password2, history) => dispatch(actions.registerUser(spec, name, email, password, password2, history)),
         onClearErrors: () => dispatch(actions.clearErrors()),
         onClearAllAuthMessages: () => dispatch(actions.clearAllAuthMessages())
