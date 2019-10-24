@@ -1,0 +1,85 @@
+.inspireItem {
+    margin-bottom: 10px;
+    outline: none;
+    box-shadow: 1px 0px 6px 0px var(--gray);
+}
+
+.inspireItem:first-of-type {
+    margin-top: 10px;
+}
+
+.MainContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    background: var(--white);
+}
+
+.FeedbackRow {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
+}
+
+.FeedbackContainer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    background: var(--white);
+    align-items: center;
+}
+
+.OptionFixed {
+    text-align: right;
+    padding: 5px 10px 5px 0;
+    display: flex;
+}
+
+.OptionFlex {
+    text-align: right;
+    padding: 5px 10px;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.ResourceFeedBackError {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    overflow-x: hidden;
+}
+
+.ResourceFeedBackError span {
+    color: var(--red);
+    animation: slideRight 0.2s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 0 10px 10px 0;
+    background: var(--blue);
+}
+
+.CollectionWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.SubjectWrapper form {
+    margin: 0;
+    border-radius: 0;
+}
+
+.SubjectWrapper form label {
+    font-size: medium;
+    color: var(--green);
+}

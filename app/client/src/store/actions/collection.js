@@ -160,7 +160,8 @@ export const createCollection = ( title, user, resourceToAdd ) => async dispatch
         const collection = {
             title: title,
             resourceId: resourceToAdd,
-            userId: user._id
+            userId: user._id,
+            username: user.name
         }
 
         const res = await axios.post( '/api/create_collection', collection)
@@ -354,7 +355,8 @@ export const fetchCollectionAttributes = ( id ) => async dispatch => {
             id: collection._id,
             description: collection.description,
             public: collection.public,
-            featured: collection.featured
+            featured: collection.featured,
+            curator: collection.curator
         }
         dispatch(fetchCollectionAttributesSuccess(attributes));
     } /* else {

@@ -23,9 +23,9 @@ class SharedCollectionsBySubject extends Component {
         }
     }
 
-    collectionClickedHandler = (title, lastUpdated, id, description, published, featured) => {
+    collectionClickedHandler = (title, lastUpdated, id, description, published, featured, curator) => {
         const dateToString = new Date(lastUpdated).toLocaleDateString();
-        this.props.onSetClickedCollectionAttributes( {title: title, lastUpdated: dateToString, id: id, description: description, public: published, featured: featured} );
+        this.props.onSetClickedCollectionAttributes( {title: title, lastUpdated: dateToString, id: id, description: description, public: published, featured: featured, curator: curator} );
     }
 
     subjectChangedHandler = (event) => {
@@ -80,41 +80,60 @@ class SharedCollectionsBySubject extends Component {
         </Form>
 
         let sharedCollectionsBySpec = <Spinner isComponent/>;
+        let featured = [];
+        let others = [];
+        let featuredCollectionsBySpec;
 
         if (!this.props.sharedCollectionsLoading) {
 
-            if (/* this.state.subject.value === 'select subject' */  this.state.subject.value === '') {
+            if (this.state.subject.value === '') {
                 sharedCollectionsBySpec = 
                 <PostActionInfo isSuccess>
                     {'Please select a subject above.'}
                 </PostActionInfo>
-            } else if (this.props.sharedCollections.length === 0 ) {
-
-                // let subject = this.props.userSpec;
-
-                sharedCollectionsBySpec = 
-                <PostActionInfo isSuccess>
-                    {'No shared collections for "' + this.state.subject.value + '" yet. Please check back later.'}
-                </PostActionInfo>
-            } else if (this.props.sharedCollectionsFetchErrors) {
-
-                sharedCollectionsBySpec =
-                <PostActionInfo>
-                    {this.props.sharedCollectionsFetchErrors}
-                </PostActionInfo>
             } else {
-                sharedCollectionsBySpec = this.props.sharedCollections.map( (collection, i) => (
+                featured =  this.props.sharedCollections.filter(collection => collection.public && collection.featured);
+                others = this.props.sharedCollections.filter(collection => collection.public && !collection.featured); 
+                sharedCollectionsBySpec = others.map( (collection, i) => (
                 <SharedCollectionContainer
                 key={i}
                 id={collection._id} 
                 title={collection.title}
                 itemCount={collection.resources.length}
                 lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
-                collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured)}
+                collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
                 description={collection.description}
+                curator={collection.curator}
                 />
-                ));                   
+                ));     
+                
+                if (featured.length > 0) {
+                    featuredCollectionsBySpec = featured.map( (collection, i) => (
+                        <SharedCollectionContainer
+                        key={i}
+                        id={collection._id} 
+                        title={collection.title}
+                        itemCount={collection.resources.length}
+                        lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
+                        collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
+                        description={collection.description}
+                        curator={collection.curator}
+                        />
+                    ));     
+                }
             }
+        } else if (others.length === 0 && featured.length === 0 && !this.props.sharedCollectionsLoading ) {
+
+            sharedCollectionsBySpec = 
+            <PostActionInfo isSuccess>
+                {'No shared collections for "' + this.state.subject.value + '" yet. Please check back later.'}
+            </PostActionInfo>
+        } else if (this.props.sharedCollectionsFetchErrors) {
+
+            sharedCollectionsBySpec =
+            <PostActionInfo>
+                {this.props.sharedCollectionsFetchErrors}
+            </PostActionInfo>
         }
 
         return (
@@ -122,10 +141,15 @@ class SharedCollectionsBySubject extends Component {
                 <div className={classes.SubjectWrapper}>
                     {subjectSelect}
                 </div>
-                <div>
-                    <div className={classes.CollectionWrapper}>               
-                        {sharedCollectionsBySpec}
+                { featured.length > 0 ?
+                    <div className={classes.featuredCollectionWrapper}> 
+                        <h2>Featured:</h2>                             
+                        {featuredCollectionsBySpec}
                     </div>
+                    : null
+                }
+                <div className={classes.CollectionWrapper}>
+                    {sharedCollectionsBySpec}
                 </div>
             </div>            
         )

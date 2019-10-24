@@ -65,7 +65,19 @@ const initialState = {
 
     removeAdminTypeSuccessInfo: null,
     removeAdminTypeError: null,
-    removeAdminTypeLoading: false
+    removeAdminTypeLoading: false,
+
+    updateInspireTextLoading: false,
+    updateInspireTextError: null,
+    inspireTextToUpdateId: null,
+
+    deleteInspireTextLoading: false,
+    deleteInspireTextError: null,
+    inspireTextToDeleteId: null,
+
+    fetchInspireTextError: null,
+    fetchInspireTextLoading: false,
+    inspireTexts: []
 };
 
 // Add Admin User 

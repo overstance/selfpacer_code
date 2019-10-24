@@ -35,6 +35,7 @@ const FacilitateApplicants = lazy(() => import('./containers/ViewFacilitateAppli
 const ManageBlogDrafts = lazy(() => import('./containers/ManageBlogDrafts/ManageBlogDrafts'));
 const Conversation = lazy(() => import('./containers/Conversation/Conversation'));
 const ResourcePage = lazy(() => import('./containers/SingleResourcePage/ResourcePage'));
+const ManageInspireText = lazy(() => import('./containers/manageInspireText/ManageInspireTexts'));
 
 const NotFound = ({ location }) => (
   <div>
@@ -85,6 +86,7 @@ class App extends Component {
           <PrivateRoute exact path="/profile" component={Profile} />        
           <PrivateRoute exact path="/logout" component={Logout} />
           <PrivateRoute exact path="/blog_drafts" component={ManageBlogDrafts} />
+          <PrivateRoute exact path="/manage_inspire_texts" component={ManageInspireText} />
 
           <Route component={NotFound} />
         </Switch>

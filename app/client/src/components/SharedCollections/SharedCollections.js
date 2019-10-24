@@ -12,9 +12,9 @@ class SharedCollections extends Component {
         this.props.onFetchSharedCollectionsBySpec(this.props.userSpec);
     }
 
-    collectionClickedHandler = (title, lastUpdated, id, description, published, featured) => {
+    collectionClickedHandler = (title, lastUpdated, id, description, published, featured, curator) => {
         const dateToString = new Date(lastUpdated).toLocaleDateString();
-        this.props.onSetClickedCollectionAttributes( {title: title, lastUpdated: dateToString, id: id, description: description, public: published, featured: featured} );
+        this.props.onSetClickedCollectionAttributes( {title: title, lastUpdated: dateToString, id: id, description: description, public: published, featured: featured, curator: curator} );
     }
 
     render () {
@@ -44,8 +44,9 @@ class SharedCollections extends Component {
                 title={collection.title}
                 itemCount={collection.resources.length}
                 lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
-                collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured)}
+                collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
                 description={collection.description}
+                curator={collection.curator}
                 />
                 ));                   
             }

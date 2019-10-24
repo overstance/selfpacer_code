@@ -18,7 +18,6 @@
 
 .Title {
     height: 100px;
-    overflow: hidden;
     color: var(--blue);
     background: var(--white);
     padding: 10px;
@@ -27,16 +26,15 @@
     align-items: center;
     justify-content: center;
     text-align: left;
+    word-break: break-word;
 }
 
 .NontitleWrapper {
     display: flex;
-    /* height: 120px; */
     background: var(--blue);
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-end;
-    flex-grow: 1;
 }
 
 .ItemCount {

@@ -5,6 +5,13 @@ import { connect } from 'react-redux';
 
 class SharedCollectionContainer extends Component {
     render () {
+        let title = this.props.title;
+
+        if(title.length > 60) {
+            let elipses = '...';
+            let titleShortened = title.slice(0, 60);
+            title =  titleShortened.concat(elipses);
+        }
 
         let checkPinned = this.props.pinnedCollectionIds.filter(collection => collection === this.props.id);
         return (
@@ -12,18 +19,29 @@ class SharedCollectionContainer extends Component {
             to={`/shared_collections/${this.props.id}`} className={classes.Container}
             onClick={this.props.collectionClicked}
             >
-                { checkPinned.length !== 0 ? 
-                    <div className={classes.PinIconWrapper}>
-                        <div className={classes.PinIconRow}></div>
-                        <span>pinned</span>
-                    </div> : 
-                    <div className={classes.PinIconWrapper}>
-                        <div className={classes.PinSpaceHolder}></div>
+                <div className={classes.titleWrapper}>
+                    { checkPinned.length !== 0 ? 
+                        <div className={classes.PinIconWrapper}>
+                            <div className={classes.PinIconRow}></div>
+                            <span>pinned</span>
+                            { this.props.isPinned ?
+                                <div className={classes.description}>
+                                    {'type: ' + this.props.description}
+                                </div>
+                                : null
+                            }
+                        </div> :
+                        null 
+                    }
+                    <div className={classes.title}>
+                        {title}
                     </div>
-                    // null 
-                }
-                <div className={classes.Title}>
-                    {this.props.title}
+                    { this.props.curator ?
+                        <div className={classes.curator}>
+                            {"curator: " + this.props.curator}
+                        </div>
+                        : null
+                    }
                 </div>
                 <div className={classes.NontitleWrapper}>
                     <div className={classes.ItemCount}>{this.props.itemCount}</div>
@@ -32,7 +50,6 @@ class SharedCollectionContainer extends Component {
                         :
                         <div className={classes.ItemLabel}>Items</div>
                     }
-                    {/* <div className={classes.DescLabel}>{this.props.description}</div> */}
                     <div className={classes.DateLabel}>{'last updated: ' + this.props.lastUpdated}</div>
                 </div>
             </Link>

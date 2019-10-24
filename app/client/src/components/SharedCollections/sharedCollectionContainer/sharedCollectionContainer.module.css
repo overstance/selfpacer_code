@@ -12,25 +12,43 @@
     overflow: hidden;
 }
 
-.Container:hover .Title {
+.titleWrapper {
+    background: var(--white);
+    flex-grow: 1;
+    background: var(--white);
+    flex-grow: 1;
+    justify-content: space-between;
+    display: flex;
+    flex-flow: column;
+}
+
+.titleWrapper:hover {
     background: var(--green);
 }
 
-.Container:hover .PinIconWrapper{
-    background-color: var(--green);
+.description {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--red);
 }
 
-.Title {
-    height: 100px;
-    overflow: hidden;
+.title {
+    height: 80px;
     color: var(--blue);
-    background: var(--white);
     padding: 10px;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: left;
+    word-break: break-word;
+}
+
+.curator {
+    color: var(--red);
+    font-size: 12px;
+    padding: 0 8px;
+    font-weight: 700;
 }
 
 .NontitleWrapper {
@@ -40,7 +58,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-end;
-    flex-grow: 1;
+    /* flex-grow: 1; */
 }
 
 .ItemCount {
@@ -56,7 +74,6 @@
     text-align: center;
     color: var(--white);
     font-size: small;
-    /* padding-bottom: 10px; */
 }
 
 .DateLabel {
@@ -67,17 +84,8 @@
     padding: 10px;
 }
 
-.DescLabel {
-    color: var(--green);
-    font-size: small;
-    font-weight: 400;
-    text-align: center;
-    /* padding: 10px; */
-}
-
 .PinIconWrapper {
     text-align: center;
-    /* padding-right: 20px; */
     padding-top: 5px;
 }
 
@@ -101,12 +109,4 @@
     background-position-y: center;
     background-size: 60%;
     transform: rotate(45deg);
-}
-
-.PinSpaceHolder {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    box-sizing: border-box;
-    vertical-align: middle;
 }

@@ -10,6 +10,17 @@
     margin: auto;
 }
 
+.curator {
+    color: var(--white);
+    text-align: right;
+    padding-right: 16px;
+}
+
+.curator span {
+    color: var(--green);
+    padding-right: 4px;
+}
+
 .HeaderWrapper {
     /* display: flex; */
     /* flex-wrap: wrap; */

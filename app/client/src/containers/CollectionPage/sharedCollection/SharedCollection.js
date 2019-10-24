@@ -272,6 +272,7 @@ class SharedCollection extends Component {
                 }
                 <div className={classes.TitleColumn}>
                     <div className={classes.Title}>{this.props.clickedCollectionAttributes.title}</div>
+                    <div className={classes.curator}><span>curator:</span>{this.props.clickedCollectionAttributes.curator}</div>
                 </div>
             </div>
             <div className={classes.Container}>

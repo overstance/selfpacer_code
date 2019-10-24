@@ -114,6 +114,7 @@ module.exports = app => {
       collection = {
         title: req.body.title,
         user_id: req.body.userId,
+        curator: req.body.username,
         lastUpdated: Date.now()
       };
     } else {
@@ -121,6 +122,7 @@ module.exports = app => {
         title: req.body.title,
         resources: [req.body.resourceId],
         user_id: req.body.userId,
+        curator: req.body.username,
         lastUpdated: Date.now()
       };
     }

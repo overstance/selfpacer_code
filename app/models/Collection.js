@@ -23,7 +23,8 @@ const collectionSchema = new Schema({
   lastUpdated: {
     type: Date
   },
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  curator: String
 });
 
 collectionSchema.index({ title: 'text' });
