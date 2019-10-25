@@ -36,6 +36,8 @@ const ManageBlogDrafts = lazy(() => import('./containers/ManageBlogDrafts/Manage
 const Conversation = lazy(() => import('./containers/Conversation/Conversation'));
 const ResourcePage = lazy(() => import('./containers/SingleResourcePage/ResourcePage'));
 const ManageInspireText = lazy(() => import('./containers/manageInspireText/ManageInspireTexts'));
+const ManageAbuseReports = lazy(() => import('./containers/manageAbuseReports/AbuseReports'));
+
 
 const NotFound = ({ location }) => (
   <div>
@@ -48,6 +50,7 @@ class App extends Component {
   componentDidMount() {
     this.props.onFetchUser();    
     this.props.onFetchSubjects();
+    this.props.onFetchInspireTexts();
   }
 
   render() {
@@ -87,6 +90,7 @@ class App extends Component {
           <PrivateRoute exact path="/logout" component={Logout} />
           <PrivateRoute exact path="/blog_drafts" component={ManageBlogDrafts} />
           <PrivateRoute exact path="/manage_inspire_texts" component={ManageInspireText} />
+          <PrivateRoute exact path="/manage_abuse_reports" component={ManageAbuseReports} />
 
           <Route component={NotFound} />
         </Switch>
@@ -115,6 +119,7 @@ const mapDispatchToProps = dispatch => {
     onFetchSubjects: () => dispatch( actions.fetchSubjects() ),
     onFetchUser: () => dispatch(actions.fetchUser()),
     onSetAuthentication: () => dispatch(actions.setAuthentication()),
+    onFetchInspireTexts: () => dispatch(actions.fetchInspireTexts()),
   };
 };
 

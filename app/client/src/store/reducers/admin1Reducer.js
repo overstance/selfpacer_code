@@ -31,10 +31,6 @@ const initialState = {
     addSubjectIconLoading: false,
     addSubjectIconError: null,
     addSubjectIconSuccessInfo: null,
-    
-    /* removeAdminLoading: false,
-    removeAdminError: null,
-    removeAdminSuccessInfo: null, */
 
     removeFacilitatorLoading: false,
     removeFacilitatorError: null,
@@ -67,10 +63,6 @@ const initialState = {
     removeAdminTypeError: null,
     removeAdminTypeLoading: false,
 
-    updateInspireTextLoading: false,
-    updateInspireTextError: null,
-    inspireTextToUpdateId: null,
-
     deleteInspireTextLoading: false,
     deleteInspireTextError: null,
     inspireTextToDeleteId: null,
@@ -82,7 +74,21 @@ const initialState = {
     addNewInspireTextLoading: false,
     addNewInspireTextError: null,
     addNewInspireTextSuccessMessage: null,
-    newInspireTextId: null
+    newInspireTextId: null,
+
+    reportAbuseLoading: false,
+    reportAbuseSuccessInfo: null,
+    reportAbuseError: null,
+    latestAbuseReportId: null,
+
+    deleteAbuseReportLoading: false,
+    deleteAbuseReportError: null,
+    abuseReportToDeleteId: null,
+
+    
+    fetchAbuseReportsError: null,
+    fetchAbuseReportsLoading: false,
+    abuseReports: [],
 };
 
 // Add Admin User 
@@ -105,6 +111,93 @@ const addAdminFail = ( state, action ) => {
     return updateObject( state, {
         addAdminUserLoading: false,
         addAdminError: "Failed!: " + action.error
+    } );
+};
+
+// report abuse
+
+const reportAbuseStart = ( state, action ) => {
+    return updateObject( state, {
+        reportAbuseLoading: true,
+        reportAbuseSuccessInfo: null,
+        reportAbuseError: null,
+    } );
+};
+
+const reportAbuseSuccess = ( state, action ) => {
+    return updateObject( state, {
+        reportAbuseLoading: false,
+        reportAbuseSuccessInfo: 'abuse reported, thank you',
+        latestAbuseReportId: action.reportId     
+    } );
+};
+
+const reportAbuseFail = ( state, action ) => {
+    return updateObject( state, {
+        reportAbuseLoading: false,
+        reportAbuseError:  "Failed!: " + action.error
+    } );
+};
+
+//  fetch abuse reports
+
+const fetchAbuseReportsStart = ( state, action ) => {
+    return updateObject( state, {
+        fetchAbuseReportsLoading: true,
+        fetchAbuseReportsError: null
+    } );
+};
+
+const fetchAbuseReportsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        fetchAbuseReportsLoading: false,
+        abuseReports: action.abuseReports      
+    } );
+};
+
+const fetchAbuseReportsFail = ( state, action ) => {
+    return updateObject( state, {
+        fetchAbuseReportsLoading: false,
+        fetchAbuseReportsError: action.error
+    } );
+};
+
+// delete abuse report
+
+const deleteAbuseReportStart = ( state, action ) => {
+    return updateObject( state, {
+        deleteAbuseReportLoading: true,
+        deleteAbuseReportError: null,
+        abuseReportToDeleteId: action.reportId
+    } );
+};
+
+const deleteAbuseReportSuccess = ( state, action ) => {
+    return updateObject( state, {
+        deleteAbuseReportLoading: false,
+        abuseReportToDeleteId: null,
+        abuseReports: action.updatedAbuseReports      
+    } );
+};
+
+const deleteAbuseReportFail = ( state, action ) => {
+    return updateObject( state, {
+        deleteAbuseReportLoading: false,
+        deleteAbuseReportError: action.error
+    } );
+};
+
+const clearReportAbuseMessage = ( state, action ) => {
+    return updateObject( state, {
+        reportAbuseLoading: false,
+        reportAbuseSuccessInfo: null,
+        reportAbuseError: null,
+        latestAbuseReportId: null,
+        deleteAbuseReportLoading: false,
+        deleteAbuseReportError: null,
+        abuseReportToDeleteId: null,
+        fetchAbuseReportsError: null,
+        fetchAbuseReportsLoading: false
     } );
 };
 
@@ -424,8 +517,6 @@ const clearAllAdminMessages = ( state, action ) => {
     addAdminError: null,
     editSubjectSuccessInfo: null,
     editSubjectError: null,
-    /* removeAdminError: null,
-    removeAdminSuccessInfo: null, */
     fetchSubjectToEditError: null,
     addFacilitatorSuccessInfo: null,
     deleteSubjectSuccessInfo: null,
@@ -442,7 +533,7 @@ const clearAllAdminMessages = ( state, action ) => {
     addAdminTypeSuccessInfo: null,
     addAdminTypeError: null,
     removeAdminTypeSuccessInfo: null,
-    removeAdminTypeError: null
+    removeAdminTypeError: null,
     });
 }
 
@@ -549,7 +640,7 @@ const clearRemoveAdminTypeInfo = ( state, action ) => {
     });
 }
 
-// fetch inspired texts
+// add inspire text
 
 const addNewInspireTextStart = ( state, action ) => {
     return updateObject( state, {
@@ -576,7 +667,7 @@ const addNewInspireTextFail = ( state, action ) => {
 };
 
 
-//  add inspire text
+//  fetch inspire texts
 
 const fetchInspireTextsStart = ( state, action ) => {
     return updateObject( state, {
@@ -626,9 +717,6 @@ const deleteInspireTextFail = ( state, action ) => {
 
 const clearInspireTextState = ( state, action ) => {
     return updateObject( state, {
-        updateInspireTextLoading: false,
-        updateInspireTextError: null,
-        inspireTextToUpdateId: null,
         deleteInspireTextLoading: false,
         deleteInspireTextError: null,
         inspireTextToDeleteId: null,
@@ -656,6 +744,20 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.DELETE_INSPIRE_TEXT_FAIL: return deleteInspireTextFail( state, action );
 
         case actionTypes.CLEAR_INSPIRE_TEXT_STATE: return clearInspireTextState( state, action );
+
+        case actionTypes.REPORT_ABUSE_SUCCESS: return reportAbuseSuccess( state, action );
+        case actionTypes.REPORT_ABUSE_START: return reportAbuseStart( state, action );
+        case actionTypes.REPORT_ABUSE_FAIL: return reportAbuseFail( state, action );
+
+        case actionTypes.FETCH_ABUSE_REPORTS_SUCCESS: return fetchAbuseReportsSuccess( state, action );
+        case actionTypes.FETCH_ABUSE_REPORTS_START: return fetchAbuseReportsStart( state, action );
+        case actionTypes.FETCH_ABUSE_REPORTS_FAIL: return fetchAbuseReportsFail( state, action );
+
+        case actionTypes.DELETE_ABUSE_REPORT_SUCCESS: return deleteAbuseReportSuccess( state, action );
+        case actionTypes.DELETE_ABUSE_REPORT_START: return deleteAbuseReportStart( state, action );
+        case actionTypes.DELETE_ABUSE_REPORT_FAIL: return deleteAbuseReportFail( state, action );
+
+        case actionTypes.CLEAR_REPORT_ABUSE_MESSAGE: return clearReportAbuseMessage( state, action );
         
         case actionTypes.ADD_ADMIN_SUCCESS: return addAdminSuccess( state, action );
         case actionTypes.ADD_ADMIN_START: return addAdminStart( state, action );

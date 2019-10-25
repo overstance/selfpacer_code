@@ -35,16 +35,16 @@ class HomePage extends Component {
   }
 
   render() {
-    let inspireTextArray = [
-      'For your learning to really work, you really have to be working with what you learn.',
-      'Education is not a building or a book, but a continuous experience been gathered for application to society.',
-      'If time is the greatest asset that can be paid for education, then a shortage of monetary asset cannot stop its acquisition.',
-      'There is an indefinite deposit of solution in everyone to definite life problem.'
-    ];
+    let inspireTexts = this.props.inspireTexts;
+    let displayedText;
 
-    let inspireTextArrayShuffled = shuffleArray(inspireTextArray);
-    let displayedText = inspireTextArrayShuffled[0];
-
+    if(inspireTexts.length > 0) {
+      let inspireTextsShuffled = shuffleArray(inspireTexts);
+      displayedText = inspireTextsShuffled[0].inspireText;
+    } else {
+      displayedText = "Capture your inner genius."
+    }
+    
     let currentDate = new Date().toLocaleString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -192,7 +192,8 @@ class HomePage extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  userName: state.auth.user.username
+  userName: state.auth.user.username,
+  inspireTexts: state.admin1.inspireTexts
 });
 
 const mapDispatchToProps = dispatch => ({

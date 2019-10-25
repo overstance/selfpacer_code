@@ -752,7 +752,6 @@ export const deleteInspireTextFail = (error) => ({
 
 export const deleteInspireText = (textId, inspireTexts) => async dispatch => {
     dispatch(deleteInspireTextStart(textId));
-    console.log(textId);
     const res = await axios.delete('/api/delete_inspire_text', {params: {textId: textId}});
 
     if(res.data.message === 'delete successful') {
@@ -769,6 +768,95 @@ export const clearInspireTextState = () => ({
     type: actionTypes.CLEAR_INSPIRE_TEXT_STATE 
 });
 
+// fetch abuse reports
+
+export const fetchAbuseReportsStart = () => ({
+    type: actionTypes.FETCH_ABUSE_REPORTS_START 
+});
+
+export const fetchAbuseReportsSuccess = (abuseReports) => ({
+    type: actionTypes.FETCH_ABUSE_REPORTS_SUCCESS,
+    abuseReports: abuseReports 
+});
+
+export const fetchAbuseReportsFail = (error) => ({
+    type: actionTypes.FETCH_ABUSE_REPORTS_FAIL,
+    error: error 
+});
+
+export const fetchAbuseReports = () => async dispatch => {
+    dispatch(fetchAbuseReportsStart());
+
+    const res = await axios.get('/api/fetch_abuse_reports');
+
+    if(res.data.abuseReports) {
+        dispatch(fetchAbuseReportsSuccess(res.data.abuseReports));
+    } else if (res.data.error) {
+        dispatch(fetchAbuseReportsFail(res.data.error));
+    }
+};
+
+// delete inspire text
+
+export const deleteAbuseReportStart = (reportId) => ({
+    type: actionTypes.DELETE_ABUSE_REPORT_START,
+    reportId: reportId 
+});
+
+export const deleteAbuseReportSuccess = (updatedAbuseReports) => ({
+    type: actionTypes.DELETE_ABUSE_REPORT_SUCCESS,
+    updatedAbuseReports: updatedAbuseReports 
+});
+
+export const deleteAbuseReportFail = (error) => ({
+    type: actionTypes.DELETE_ABUSE_REPORT_FAIL,
+    error: error 
+});
+
+export const deleteAbuseReport = (reportId, abuseReports) => async dispatch => {
+    dispatch(deleteAbuseReportStart(reportId));
+    const res = await axios.delete('/api/delete_abuse_report', {params: {reportId: reportId}});
+
+    if(res.data.message === 'report deleted') {
+        let updatedAbuseReports = abuseReports.filter(report => report._id !== reportId);
+        dispatch(deleteAbuseReportSuccess(updatedAbuseReports));
+    } else if (res.data.error) {
+        dispatch(deleteAbuseReportFail(res.data.error));
+    }
+};
+
+
+// report abuse
+
+export const reportAbuseStart = (textId) => ({
+    type: actionTypes.REPORT_ABUSE_START,
+    textId: textId 
+});
+
+export const reportAbuseSuccess = (reportId) => ({
+    type: actionTypes.REPORT_ABUSE_SUCCESS,
+    reportId: reportId 
+});
+
+export const reportAbuseFail = (error) => ({
+    type: actionTypes.REPORT_ABUSE_FAIL,
+    error: error 
+});
+
+export const reportAbuse = (report, reporterId, reporter) => async dispatch => {
+    dispatch(reportAbuseStart());
+    const res = await axios.post('/api/report_abuse', {report: report, reporterId: reporterId, reporter: reporter});
+
+    if(res.data.abuseReport) {
+        dispatch(reportAbuseSuccess(res.data.abuseReport._id));
+    } else if (res.data.error) {
+        dispatch(reportAbuseFail(res.data.error));
+    }
+};
+
+export const clearReportAbuseMessage = () =>  ({
+    type: actionTypes.CLEAR_REPORT_ABUSE_MESSAGE 
+});
 
 
 

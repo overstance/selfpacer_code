@@ -8,17 +8,12 @@
 }
 
 .Success {
-    /* color: var(--green);
-    font-weight: 700;
-    margin-top: 2px;
-    font-size: small;
-    display: inline-block; */
-
-    color: var(--green);
+    color: var(--blue);
     font-weight: 700;
     font-size: small;
     width: fit-content;
     margin: 4px auto;
+    background: var(--white);
 }
 
 .Failed {

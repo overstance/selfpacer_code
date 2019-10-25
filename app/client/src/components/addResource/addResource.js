@@ -7,6 +7,7 @@ import Button from '../UserInterface/Button/Button';
 import Spinner from '../UserInterface/Spinner/Spinner';
 // import Grid from '../UserInterface/Grid/Grid';
 import Form from '../UserInterface/Form/Form';
+import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
 // import FormTitle from '../UserInterface/Form/FormTitle/FormTitle';
 import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
 
@@ -1144,6 +1145,7 @@ class AddResources extends Component {
         return (
             <div className={classes.ContentItems}>
                 <div className={classes.ContainerItem}>
+                    <FormTitle isAdmin>Add Resource</FormTitle>
                     {addForm}
                 </div >
             </div>                                

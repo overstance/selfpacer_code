@@ -9,10 +9,11 @@ import Form from '../../components/UserInterface/Form/Form';
 import Button from '../../components/UserInterface/Button/Button';
 import FormFeedback from '../../components/UserInterface/Form/FormFeedback/FormFeedback';
 import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
+import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
 import GridlessPageHeader from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper';
 
 
-class SharedCollectionsBySubject extends Component {
+class ManageInspireTexts extends Component {
 
     state = {
         inspireText: {
@@ -31,8 +32,7 @@ class SharedCollectionsBySubject extends Component {
     componentDidMount() {
         if ( this.props.useTypeContext === '4' ||
              this.props.useTypeContext === '5') {
-            // window.addEventListener('scroll', this.handleScroll, false);
-            // window.scroll(0, 0);
+            window.scroll(0, 0);
             this.props.onFetchInspireTexts();
         } else {
             this.props.history.push('/');       
@@ -195,15 +195,10 @@ class SharedCollectionsBySubject extends Component {
                 </div>
                 <div className={classes.inspireTextsWrapper}>
                     <div className={classes.inspireTexts}>
-                    {/* <CSSTransitionGroup
-                            transitionName="example"
-                            transitionEnterTimeout={500}
-                            transitionLeaveTimeout={300}
-                    > */}
                         {inspireTexts}
-                    {/* </CSSTransitionGroup> */}
                     </div>
                 </div>
+                <ScrollButton scrollStepInPx="100" delayInMs="16.66" showUnder={160} />
             </GridlessPageHeader>            
         )
     }
@@ -231,4 +226,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SharedCollectionsBySubject);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageInspireTexts);

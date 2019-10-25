@@ -63,7 +63,11 @@ export {
     addNewInspireText,
     fetchInspireTexts,
     deleteInspireText,
-    clearInspireTextState
+    clearInspireTextState,
+    reportAbuse,
+    fetchAbuseReports,
+    deleteAbuseReport,
+    clearReportAbuseMessage
 } from './admin1';
 
 export {

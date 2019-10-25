@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import classes from './manageInspireTexts.module.css';
-import UpdateActionButton from '../../components/UserInterface/ActionButtons/Update';
 import DeleteActionButton from '../../components/UserInterface/ActionButtons/Delete';
 import ProcessingActionButton from '../../components/UserInterface/ActionButtons/Processing';
 import {connect} from 'react-redux';
 
 class InspireItem extends Component {
     render () {
-
-        let updateButton =
-        <UpdateActionButton clicked={this.props.updateText} />;
-
-        if (this.props.id === this.props.inspireTextToUpdateId && this.props.updateInspireTextLoading) {
-            updateButton = 
-            <ProcessingActionButton />
-        }
 
         let deleteButton =
         <DeleteActionButton clicked={this.props.deleteText}/>;
@@ -31,22 +22,12 @@ class InspireItem extends Component {
                     <div className={classes.FeedbackContainer}>
                         <div className={classes.DetailsColumnFlex}>
                             { 
-                                this.props.id === this.props.inspireTextToUpdateId &&
-                                this.props.updateInspireTextError ?
-                                <div className={classes.ResourceFeedBackError}>
-                                    <span>{this.props.updateInspireTextError}</span>
-                                </div> : null
-                            }
-                            { 
                                 this.props.id === this.props.inspireTextToDeleteId &&
                                 this.props.deleteInspireTextError ?
                                 <div className={classes.ResourceFeedBackError}>
                                     <span>{this.props.deleteInspireTextError}</span>
                                 </div> : null
                             }
-                            <div className={classes.OptionFlex}>
-                                {updateButton}
-                            </div>
                         </div>
                         <div className={classes.OptionFixed}>
                             {deleteButton}
@@ -60,10 +41,6 @@ class InspireItem extends Component {
 
 const mapStateToProps = state => {
     return {
-        updateInspireTextLoading: state.admin1.updateInspireTextLoading,
-        updateInspireTextError: state.admin1.updateInspireTextError,
-        inspireTextToUpdateId: state.admin1.inspireTextToUpdateId,
-
         deleteInspireTextLoading: state.admin1.deleteInspireTextLoading,
         deleteInspireTextError: state.admin1.deleteInspireTextError,
         inspireTextToDeleteId: state.admin1.inspireTextToDeleteId

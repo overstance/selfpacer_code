@@ -4,6 +4,7 @@ import Toggler from '../../components/UserInterface/Toggler/Toggler';
 import AddResource from '../../components/addResource/addResource';
 import GridlessPageWrapper from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 import { connect } from 'react-redux';
+import ReportAbuse from '../../components/reportAbuse/ReportAbuse';
 import NonFacilitator from '../../components/NonFacilitator/NonFacilitator';
 import * as actions from '../../store/actions/index';
 import Conversations from '../../components/conversations/Conversations';
@@ -80,11 +81,11 @@ class Facilitator extends Component {
                     <Toggler 
                         toggle={this.state.reportMisuseToggle} 
                         toggleHandler={this.reportMisuseToggleHandler}
-                        subheadTitle="report misuse"
+                        subheadTitle="report abuse"
                     />
                     { this.state.showReportMisuse ? 
                         <div className={classes.BlockContentItems}>
-                            <AddResource />
+                            <ReportAbuse />
                         </div>
                     : null }
                 </div>

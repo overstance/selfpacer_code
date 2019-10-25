@@ -142,6 +142,17 @@ class Admin extends Component {
                     : null
                 }
                 {   this.props.user.accountType === "Head Administrator" ||
+                    this.props.user.accountType === "Senior Administrator"  ?
+                    <div className={classes.Subheader}>
+                        <Toggler 
+                            subheadTitle="manage abuse reports"
+                            isLink
+                            link='/manage_abuse_reports'
+                        />
+                    </div>
+                    : null
+                }
+                {   this.props.user.accountType === "Head Administrator" ||
                     this.props.user.accountType === "Senior Administrator" ||
                     (this.props.user.accountType === "Administrator" && this.props.user.isUserManager) ?
                     <div className={classes.Subheader}>

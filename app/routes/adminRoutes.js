@@ -2,6 +2,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const User = mongoose.model('users');
 const Inspiration = require('../models/Inspiration');
+const Abuse = require('../models/Abuse');
 
 module.exports = app => {
   app.put('/api/add_admin_user', (req, res) => {
@@ -382,6 +383,43 @@ module.exports = app => {
         res.send({ error: err.name });
       } else if (inspireText) {
         res.send({ message: 'delete successful' });
+      }
+    });
+  });
+
+  app.post('/api/report_abuse', (req, res) => {
+    let newAbuse = {
+      report: req.body.report,
+      reporterId: req.body.reporterId,
+      reporter: req.body.reporter,
+      reportDate: new Date()
+    };
+
+    Abuse.create(newAbuse, (err, abuse) => {
+      if (err) {
+        res.send({ error: err.name });
+      } else {
+        res.send({ abuseReport: abuse });
+      }
+    });
+  });
+
+  app.get('/api/fetch_abuse_reports', (req, res) => {
+    Abuse.find({}, (err, abuseReports) => {
+      if (err) {
+        res.send({ error: err.name });
+      } else {
+        res.send({ abuseReports: abuseReports });
+      }
+    });
+  });
+
+  app.delete('/api/delete_abuse_report', (req, res) => {
+    Abuse.findByIdAndDelete(req.query.reportId, (err, abuseReport) => {
+      if (err) {
+        res.send({ error: err.name });
+      } else {
+        res.send({ message: 'report deleted' });
       }
     });
   });

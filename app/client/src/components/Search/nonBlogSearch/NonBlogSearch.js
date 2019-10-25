@@ -81,11 +81,11 @@ class NonBlogSearch extends Component {
         let checkForValue = searchFilter.find(filterValue => filterValue === newFilterValue); 
         if(checkForValue) {
             let updatedFilter = searchFilter.filter(filterValue => filterValue !== newFilterValue);  
-            this.setState({ searchFilter: updatedFilter}, () => {console.log(this.state.searchFilter)});
+            this.setState({ searchFilter: updatedFilter});
         } else {
             let updatedFilter = this.state.searchFilter;
             updatedFilter.push(event.target.value);
-            this.setState({ searchFilter: updatedFilter}, () => {console.log(this.state.searchFilter)})  
+            this.setState({ searchFilter: updatedFilter})  
         }
     }
 

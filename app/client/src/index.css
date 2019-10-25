@@ -64,26 +64,6 @@ html, body {
     font-family: 'Nunito', Arial, Helvetica, sans-serif;
 }
 
-.example-enter {
-    /* opacity: 0.01; */
-    transform: translateX(100px);
-}
-  
-.example-enter.example-enter-active {
-    /* opacity: 1; */
-    transform: translateX(0);
-    transition: transform 500ms ease-in;
-}
-  
-.example-leave {
-    opacity: 1;
-}
-  
-.example-leave.example-leave-active {
-    opacity: 0.01;
-    transition: opacity 300ms ease-in;
-}
-
 @media(max-width: 576px) {
     .twitterEmbed twitter-widget {
         max-width: 300px !important;

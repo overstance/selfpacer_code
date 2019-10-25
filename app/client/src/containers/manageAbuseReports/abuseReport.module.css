@@ -1,17 +1,29 @@
-.inspireItem {
+.item {
     margin-bottom: 10px;
     outline: none;
     box-shadow: 1px 0px 6px 0px var(--gray);
 }
 
-.inspireItem:first-of-type {
+.item:first-of-type {
     margin-top: 10px;
 }
 
 .Title {
     padding: 16px;
-    font-size: 20px;
+}
+
+.Title span {
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+    text-align: right;
+}
+
+.Title div {
+    text-align: right;
+    font-weight: 700;
     color: var(--blue);
+    margin-top: 8px;
 }
 
 .FeedbackRow {
@@ -79,11 +91,11 @@
     background: var(--blue);
 }
 
-.inspireTextsWrapper {
+.abuseReportsWrapper {
     padding: 10px;
 }
 
-.inspireTexts {
+.abuseReports {
     max-width: 600px;
     margin: 0 auto;
 }
