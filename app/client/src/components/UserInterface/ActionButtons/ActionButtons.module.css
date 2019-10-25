@@ -1,54 +1,63 @@
 .Container {
     border-radius: 50%;
     border: 2px solid var(--blue);
+    background: var(--green);
     cursor: pointer;
 }
 
 .IsAssetContainer {
     border-radius: 50%;
-    background: var(--white);
+    background: var(--green);
     cursor: pointer;
 }
 
 .IsUpdatingContainer {
     border-radius: 50%;
-    background: var(--white);
+    background: var(--green);
     animation: spin 1s linear infinite;
 }
 
 .IsProcessingContainer {
-    border-radius: 50%;
-    background: var(--white);
+    /* border-radius: 50%;
+    background: var(--green);
     border: 2px solid var(--blue);
     vertical-align: middle;
     padding: 6px;
     width: 20px;
-    height: 20px;
-    /* animation: spin 1s linear infinite; */
+    height: 20px; */
+    border-radius: 50%;
+    background: var(--green);
+    border: 2px solid var(--blue);
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .Icon {
     fill: var(--blue);
     vertical-align: middle;
     padding: 6px;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
 }
 
 .IconUpdating {
     fill: var(--green);
     vertical-align: middle;
     padding: 6px;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
 }
 
 .IconDelete {
     fill: var(--blue);
     vertical-align: middle;
     padding: 6px;  
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
 }
 
 .Container:hover {

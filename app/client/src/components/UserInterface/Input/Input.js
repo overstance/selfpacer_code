@@ -1,4 +1,4 @@
-import React from 'react';
+import React/* , { Fragment } */ from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Input.module.css';
@@ -53,7 +53,8 @@ const input = (props) => {
     }
 
     return (
-        <div className={classes.Input}>
+        // <Fragment>
+        <div className={classes.input}>
             {props.label ?
                 <label className={classes.Label}>
                     {props.label}<span>{props.labelspan}</span>
@@ -64,6 +65,7 @@ const input = (props) => {
             {inputElement}
             <div className={classes.ValidationErrors}>{props.errorMessage}</div>
         </div>
+        // </Fragment>
     );
 
 };

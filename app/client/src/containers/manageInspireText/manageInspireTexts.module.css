@@ -8,10 +8,8 @@
     margin-top: 10px;
 }
 
-.MainContainer {
-    display: flex;
-    flex-wrap: nowrap;
-    background: var(--white);
+.Title {
+    padding: 16px;
 }
 
 .FeedbackRow {
@@ -24,12 +22,24 @@
 }
 
 .FeedbackContainer {
+    border-top: 1px solid var(--gray);
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     background: var(--white);
     align-items: center;
+    justify-content: flex-end;
+}
+
+.DetailsColumnFlex {
+    display: flex;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    text-align: center;
 }
 
 .OptionFixed {
@@ -67,19 +77,41 @@
     background: var(--blue);
 }
 
-.CollectionWrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+.inspireTextsWrapper {
     padding: 10px;
 }
 
-.SubjectWrapper form {
+.inspireTexts {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.formWrapper {
+    background: var(--blue);
+    display: flex;
+    justify-content: center;
+}
+
+.inputWrapper {
+    max-width: 600px;
+    flex: 0 0 100%
+}
+
+.inputWrapper form {
     margin: 0;
     border-radius: 0;
 }
 
-.SubjectWrapper form label {
+.inputWrapper form label {
     font-size: medium;
     color: var(--green);
+}
+
+.inputWrapper button {
+    margin-top: 16px;
+}
+
+@keyframes slideRight {
+    0% {transform:translateX(-50px); }
+    100%{transform: translateX(0px);}
 }

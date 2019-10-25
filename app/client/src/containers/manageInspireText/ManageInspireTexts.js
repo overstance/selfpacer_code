@@ -6,22 +6,26 @@ import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import Input from '../../components/UserInterface/Input/Input';
 import Form from '../../components/UserInterface/Form/Form';
-// import FormFeedBack from '../../components/UserInterface/Form/FormFeedback/FormFeedback';
+import Button from '../../components/UserInterface/Button/Button';
+import FormFeedback from '../../components/UserInterface/Form/FormFeedback/FormFeedback';
 import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
+import GridlessPageHeader from '../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper';
+
 
 class SharedCollectionsBySubject extends Component {
 
     state = {
-        subject: {
+        inspireText: {
             value: '',
-            label: "Enter Text", 
-            name: "subject",
+            label: "enter new inspire text", 
+            name: "inspireText",
             validation: {
                 required: true
             },
             valid: false,
             touched: false   
-        }
+        },
+        fillError: null
     }
 
     componentDidMount() {
@@ -29,31 +33,133 @@ class SharedCollectionsBySubject extends Component {
              this.props.useTypeContext === '5') {
             // window.addEventListener('scroll', this.handleScroll, false);
             // window.scroll(0, 0);
-            // this.props.onFetchFacilitateApplicants(0);
+            this.props.onFetchInspireTexts();
         } else {
             this.props.history.push('/');       
         }       
     }
 
+    componentDidUpdate(prevProps) {
+        if( !this.props.addNewInspireTextError && this.props.newInspireTextId !== prevProps.newInspireTextId) {
+            let inspireTextReset = {
+                ...this.state.inspireText,
+                value: '',
+                touched: false
+            }
+            this.setState({inspireText: inspireTextReset });
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.onClearInspireTextState()
+    }
+
+    checkValidity(value, rules) {
+        let isValid = true;
+        if (!rules) {
+            return true;
+        }
+
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        return isValid;
+    }
+
+    inspireTextChangedHandler = (event) => {
+        event.preventDefault();
+
+        if (event.target.value === '' && this.state.inspireText.touched) {
+            let stateUpdated = {
+                ...this.state.inspireText,
+                value: '',
+                valid: false,
+                touched: true
+            }
+
+            this.setState({ inspireText: stateUpdated, fillError: 'please enter new inspire text'});
+        } else {
+            let stateUpdated = {
+                ...this.state.inspireText,
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.inspireText.validation),
+                touched: true
+            }
+
+            this.setState({ inspireText: stateUpdated, fillError: null });
+        }
+    }
+
+    addNewInspireText = (event) => {
+        event.preventDefault();
+
+        let textValue = this.state.inspireText.value;
+        let inspireTexts = this.props.inspireTexts;
+
+        if (textValue === '') {
+            let stateUpdated = {
+                ...this.state.inspireText,
+                value: '',
+                valid: false,
+                touched: true
+            }
+
+            this.setState({ inspireText: stateUpdated, fillError: 'please enter new inspire text'});
+        } else {
+            this.props.onAddNewInspireText(textValue, inspireTexts);
+        }
+    }
+
+    deleteInspireTextHandler = (textId) => {
+        this.props.onDeleteInspireText(textId, this.props.inspireTexts);
+    }
+
     render () {
+        let addNewButtonText = 'add';
+
+        if(this.props.addNewInspireTextLoading) {
+            addNewButtonText = <Spinner isButton/>
+        }
 
         let textInput =
-        <Form>
+        <Form submitForm={this.addNewInspireText}>
+            <FormFeedback isFillError>
+                {this.state.fillError}
+            </FormFeedback>
+            { this.props.addNewInspireTextError ?
+                <FormFeedback isFailed>
+                    {this.props.addNewInspireTextError}
+                </FormFeedback>
+                : null
+            }
+            { this.props.addNewInspireTextSuccessMessage ?
+                <FormFeedback isSuccess>
+                    {this.props.addNewInspireTextSuccessMessage}
+                </FormFeedback>
+                : null
+            }
             <Input 
-            label={this.state.subject.label} 
-            name={this.state.subject.name}
-            value={this.state.subject.value}
+            label={this.state.inspireText.label} 
+            name={this.state.inspireText.name}
+            value={this.state.inspireText.value}
             elementType='textarea'
-            invalid={!this.state.subject.valid}
-            shouldValidate={this.state.subject.validation}
-            touched={this.state.subject.touched}
-            changed={(event) => this.subjectChangedHandler(event)}
+            invalid={!this.state.inspireText.valid}
+            shouldValidate={this.state.inspireText.validation}
+            touched={this.state.inspireText.touched}
+            changed={(event) => this.inspireTextChangedHandler(event)}
             />
+            { this.state.fillError || this.props.addNewInspireTextLoading ||
+                (!this.state.inspireText.valid && this.state.inspireText.touched) ?
+                <Button btnType ="Danger" disabled>{addNewButtonText}</Button>
+                :
+                <Button btnType ="Success">{addNewButtonText}</Button>
+            }
         </Form>
 
         let inspireTexts = <Spinner isComponent/>;
 
-        if (!this.props.fetchInspireTextLoading) {
+        if (!this.props.fetchInspireTextsLoading) {
 
             if (this.props.inspireTexts.length === 0) {
                 inspireTexts = 
@@ -62,51 +168,66 @@ class SharedCollectionsBySubject extends Component {
                 </PostActionInfo>
             } else {
                 
-                inspireTexts = this.props.inspireTexts.map( (collection, i) => (
+                inspireTexts = this.props.inspireTexts.map( (inspireText, i) => (
                 <InspireItem
                 key={i}
-                id={collection._id} 
-                title={collection.title}
-                itemCount={collection.resources.length}
-                lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
-                collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
-                description={collection.description}
-                curator={collection.curator}
+                id={inspireText._id} 
+                inspireText={inspireText.inspireText}
+                deleteText={() => this.deleteInspireTextHandler(inspireText._id)}
+                // collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
                 />
                 ));
             }
-        } else if (this.props.fetchInspireTextError) {
+        } else if (this.props.fetchInspireTextsError) {
 
             inspireTexts =
             <PostActionInfo>
-                {this.props.fetchInspireTextError}
+                {this.props.fetchInspireTextsError}
             </PostActionInfo>
         }
 
         return (
-            <div>
-                <div className={classes.SubjectWrapper}>
-                    {textInput}
+            <GridlessPageHeader pageTitle="manage inspire texts">
+                <div className={classes.formWrapper}>
+                    <div className={classes.inputWrapper}>    
+                        {textInput}    
+                    </div>
                 </div>
-                <div className={classes.CollectionWrapper}>
-                    {inspireTexts}
+                <div className={classes.inspireTextsWrapper}>
+                    <div className={classes.inspireTexts}>
+                    {/* <CSSTransitionGroup
+                            transitionName="example"
+                            transitionEnterTimeout={500}
+                            transitionLeaveTimeout={300}
+                    > */}
+                        {inspireTexts}
+                    {/* </CSSTransitionGroup> */}
+                    </div>
                 </div>
-            </div>            
+            </GridlessPageHeader>            
         )
     }
 }
 
 const mapStateToProps = state => ({
-    fetchInspireTextError: state.admin1.fetchInspireTextError,
-    fetchInspireTextLoading: state.admin1.fetchInspireTextLoading,
+    fetchInspireTextsError: state.admin1.fetchInspireTextsError,
+    fetchInspireTextsLoading: state.admin1.fetchInspireTextsLoading,
     inspireTexts: state.admin1.inspireTexts,
     useTypeContext: state.auth.useTypeContext,
+
+    addNewInspireTextLoading: state.admin1.addNewInspireTextLoading,
+    addNewInspireTextError: state.admin1.addNewInspireTextError,
+    addNewInspireTextSuccessMessage: state.admin1.addNewInspireTextSuccessMessage,
+    newInspireTextId: state.admin1.newInspireTextId
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchSharedCollectionsBySpec: (userSpec) => dispatch(actions.fetchSharedCollectionsBySpec(userSpec)),
-        onSetClickedCollectionAttributes: ( attributes ) => dispatch(actions.setClickedCollectionAttributes( attributes ))
+        onAddNewInspireText: (textValue, inspireTexts) => dispatch(actions.addNewInspireText(textValue, inspireTexts)),
+        onFetchInspireTexts: () => dispatch(actions.fetchInspireTexts()),
+        onClearInspireTextState: () => dispatch(actions.clearInspireTextState()),
+        onDeleteInspireText: (textId, inspireTexts) => dispatch(actions.deleteInspireText(textId, inspireTexts)),
+        // onSetClickedCollectionAttributes: ( attributes ) => dispatch(actions.setClickedCollectionAttributes( attributes ))
     };
 };
 

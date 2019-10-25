@@ -52,9 +52,9 @@ class Profile extends Component {
                                     Edit
                                 </Link>
                             </div>
-                            { this.props.accountType === 'User' ?
+                            { this.props.accountType === 'User' && this.props.isFacilitateApplicant === false ?
                                 <div className={classes.Facilitator}>
-                                    <div className={classes.FaclitatorButton}>Become a Facilitator</div>
+                                    <Link to="/facilitate" className={classes.FaclitatorButton}>Become a Facilitator</Link>
                                 </div>
                                 : null
                             }
@@ -110,6 +110,7 @@ class Profile extends Component {
 
 const mapStateToProps = state => ({
     userId: state.auth.user._id,
+    isFacilitateApplicant: state.auth.user.isFacilitateApplicant,
     userName: state.auth.user.name,
     specialization: state.auth.user.specialization,
     specialization2: state.auth.user.specialization_alt,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classes from './manageInspireTexts.module.css';
-import updateActionButton from '../../components/UserInterface/ActionButtons/Update';
+import UpdateActionButton from '../../components/UserInterface/ActionButtons/Update';
 import DeleteActionButton from '../../components/UserInterface/ActionButtons/Delete';
 import ProcessingActionButton from '../../components/UserInterface/ActionButtons/Processing';
 import {connect} from 'react-redux';
@@ -9,7 +9,7 @@ class InspireItem extends Component {
     render () {
 
         let updateButton =
-        <updateActionButton clicked={this.props.updateText} />;
+        <UpdateActionButton clicked={this.props.updateText} />;
 
         if (this.props.id === this.props.inspireTextToUpdateId && this.props.updateInspireTextLoading) {
             updateButton = 
@@ -26,9 +26,7 @@ class InspireItem extends Component {
 
         return (
             <div className={classes.inspireItem}>
-                <div className={classes.MainContainer}>
-                    <div className={classes.Title}>workUrl1</div>
-                </div>
+                <div className={classes.Title}>{this.props.inspireText}</div>
                 <div className={classes.FeedbackRow}>
                     <div className={classes.FeedbackContainer}>
                         <div className={classes.DetailsColumnFlex}>
@@ -54,7 +52,7 @@ class InspireItem extends Component {
                             {deleteButton}
                         </div>
                     </div>
-                </div>           
+                </div>          
             </div> 
         );
     }

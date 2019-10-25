@@ -103,7 +103,7 @@ class RemoveFacilitator extends Component {
                 <Form
                 submitForm={this.submitUserHandler}
                 >
-                    <div className={classes.FillError}>{this.state.fillError}</div>
+                    <FormFeedback isFillError>{this.state.fillError}</FormFeedback>
                     <Input 
                     label={this.state.userId.label} 
                     name={this.state.userId.name}

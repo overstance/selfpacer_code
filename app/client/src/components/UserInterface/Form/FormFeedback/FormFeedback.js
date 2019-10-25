@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classes from './FormFeedback.module.css';
 
 const formFeedback = (props) => (
-    <div>
+    <Fragment>
         { props.isFillError ? 
             <div className={classes.FillError}>
                 {props.children}
@@ -21,7 +21,7 @@ const formFeedback = (props) => (
             </div>
             :null
         }
-    </div>
+    </Fragment>
 
 );
 

@@ -14,11 +14,12 @@
     transition: all 0.5s ease;
   }
   
-  .Button:hover {
-    /* box-shadow: none;
-    background-position: 0 0; */
-    background: var(--green);
-  }
+.Button:hover {
+  /* box-shadow: none;
+  background-position: 0 0; */
+  background: var(--white);
+}
+
 
 .Button:disabled {
     color: var(--red);
@@ -30,7 +31,7 @@
 }
 
 .Success {
-    background-color: var(--white);
+    background-color: var(--green);
     /* background-image: linear-gradient(45deg, var(--skyBlue) 0%, var(--skyBlue) 55%, var(--blue) 90%);
     background-position: 100% 0;
     background-size: 200% 200%; */

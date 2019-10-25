@@ -59,7 +59,11 @@ export {
     addAdminType,
     clearAddAuthorOrEditorInfo,
     removeAdminType,
-    clearRemoveAdminTypeInfo
+    clearRemoveAdminTypeInfo,
+    addNewInspireText,
+    fetchInspireTexts,
+    deleteInspireText,
+    clearInspireTextState
 } from './admin1';
 
 export {

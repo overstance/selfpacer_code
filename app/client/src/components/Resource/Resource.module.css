@@ -131,7 +131,7 @@
 
 .Type span {
     color: var(--blue);
-    background: var(--green);
+    background: var(--gray);
     margin-left: 4px;
     font-size: small;
 

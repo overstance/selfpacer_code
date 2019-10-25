@@ -1,24 +1,31 @@
 .FillError {
     color: var(--red);
-    font-size: small;
+    margin: 4px auto;
     font-weight: 700;
-    max-width: 180px;
-    margin: auto;
-    padding: 2px;
+    font-size: small;
+    width: fit-content;
+    background: var(--white);
 }
 
 .Success {
+    /* color: var(--green);
+    font-weight: 700;
+    margin-top: 2px;
+    font-size: small;
+    display: inline-block; */
+
     color: var(--green);
     font-weight: 700;
-    padding: 5px;
     font-size: small;
-    display: inline;
+    width: fit-content;
+    margin: 4px auto;
 }
 
 .Failed {
     color: var(--red);
-    padding: 5px;
+    margin: 4px auto;
     font-weight: 700;
     font-size: small;
-    display: inline;
+    width: fit-content;
+    background: var(--white);
 }

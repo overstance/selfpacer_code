@@ -104,13 +104,15 @@
     border-radius: 20px;
     padding: 10px;
     font-weight: 700;
-    color: var(--lightBlue);
+    color: var(--blue);
     cursor: pointer;
     width: 100%;
     background: var(--green);
     box-sizing: border-box;
-    max-width: 300px;
+    max-width: 200px;
     margin: 10px auto;
+    display: block;
+    text-decoration: none;
 }
 
 .FaclitatorButton:hover {

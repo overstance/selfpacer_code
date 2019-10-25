@@ -145,6 +145,10 @@
     background: var(--blue);
 }
 
+@keyframes slideRight {
+    0% {transform:translateX(-50px); }
+    100%{transform: translateX(0px);}
+}
 
 @media all and (max-width: 600px) {
     .Type span {

@@ -75,9 +75,14 @@ const initialState = {
     deleteInspireTextError: null,
     inspireTextToDeleteId: null,
 
-    fetchInspireTextError: null,
-    fetchInspireTextLoading: false,
-    inspireTexts: []
+    fetchInspireTextsError: null,
+    fetchInspireTextsLoading: false,
+    inspireTexts: [],
+
+    addNewInspireTextLoading: false,
+    addNewInspireTextError: null,
+    addNewInspireTextSuccessMessage: null,
+    newInspireTextId: null
 };
 
 // Add Admin User 
@@ -544,8 +549,114 @@ const clearRemoveAdminTypeInfo = ( state, action ) => {
     });
 }
 
+// fetch inspired texts
+
+const addNewInspireTextStart = ( state, action ) => {
+    return updateObject( state, {
+        addNewInspireTextLoading: true,
+        addNewInspireTextSuccessMessage: null,
+        addNewInspireTextError: null
+    } );
+};
+
+const addNewInspireTextSuccess = ( state, action ) => {
+    return updateObject( state, {
+        addNewInspireTextLoading: false,
+        addNewInspireTextSuccessMessage: "text added succesfully",
+        newInspireTextId: action.newInspireTextId,
+        inspireTexts: action.updatedInspiredTexts      
+    } );
+};
+
+const addNewInspireTextFail = ( state, action ) => {
+    return updateObject( state, {
+        addNewInspireTextLoading: false,
+        addNewInspireTextError: "Failed!: " + action.error
+    } );
+};
+
+
+//  add inspire text
+
+const fetchInspireTextsStart = ( state, action ) => {
+    return updateObject( state, {
+        fetchInspireTextsLoading: true,
+        fetchInspireTextsError: null
+    } );
+};
+
+const fetchInspireTextsSuccess = ( state, action ) => {
+    return updateObject( state, {
+        fetchInspireTextsLoading: false,
+        inspireTexts: action.inspireTexts      
+    } );
+};
+
+const fetchInspireTextsFail = ( state, action ) => {
+    return updateObject( state, {
+        fetchInspireTextsLoading: false,
+        fetchInspireTextsError: action.error
+    } );
+};
+
+// delete inspire text
+
+const deleteInspireTextStart = ( state, action ) => {
+    return updateObject( state, {
+        deleteInspireTextLoading: true,
+        deleteInspireTextError: null,
+        inspireTextToDeleteId: action.textId
+    } );
+};
+
+const deleteInspireTextSuccess = ( state, action ) => {
+    return updateObject( state, {
+        deleteInspireTextLoading: false,
+        inspireTextToDeleteId: null,
+        inspireTexts: action.updatedInspireTexts      
+    } );
+};
+
+const deleteInspireTextFail = ( state, action ) => {
+    return updateObject( state, {
+        deleteInspireTextLoading: false,
+        deleteInspireTextError: action.error
+    } );
+};
+
+const clearInspireTextState = ( state, action ) => {
+    return updateObject( state, {
+        updateInspireTextLoading: false,
+        updateInspireTextError: null,
+        inspireTextToUpdateId: null,
+        deleteInspireTextLoading: false,
+        deleteInspireTextError: null,
+        inspireTextToDeleteId: null,
+        fetchInspireTextError: null,
+        fetchInspireTextLoading: false,
+        addNewInspireTextLoading: false,
+        addNewInspireTextError: null,
+        addNewInspireTextSuccessMessage: null,
+        newInspireTextId: null
+    } );
+};
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
+        case actionTypes.ADD_NEW_INSPIRE_TEXT_SUCCESS: return addNewInspireTextSuccess( state, action );
+        case actionTypes.ADD_NEW_INSPIRE_TEXT_START: return addNewInspireTextStart( state, action );
+        case actionTypes.ADD_NEW_INSPIRE_TEXT_FAIL: return addNewInspireTextFail( state, action );
+
+        case actionTypes.FETCH_INSPIRE_TEXTS_SUCCESS: return fetchInspireTextsSuccess( state, action );
+        case actionTypes.FETCH_INSPIRE_TEXTS_START: return fetchInspireTextsStart( state, action );
+        case actionTypes.FETCH_INSPIRE_TEXTS_FAIL: return fetchInspireTextsFail( state, action );
+
+        case actionTypes.DELETE_INSPIRE_TEXT_SUCCESS: return deleteInspireTextSuccess( state, action );
+        case actionTypes.DELETE_INSPIRE_TEXT_START: return deleteInspireTextStart( state, action );
+        case actionTypes.DELETE_INSPIRE_TEXT_FAIL: return deleteInspireTextFail( state, action );
+
+        case actionTypes.CLEAR_INSPIRE_TEXT_STATE: return clearInspireTextState( state, action );
+        
         case actionTypes.ADD_ADMIN_SUCCESS: return addAdminSuccess( state, action );
         case actionTypes.ADD_ADMIN_START: return addAdminStart( state, action );
         case actionTypes.ADD_ADMIN_FAIL: return addAdminFail( state, action );

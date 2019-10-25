@@ -469,11 +469,10 @@ export const approveFacilitateApplicant = (userId, facilitateApplicants) => asyn
     
     dispatch(approveFacilitateApplicantStart(userId));
     const info = {
-        userId: userId,
-        newAccountType: 'Facilitator'
+        userId: userId
     };
 
-    const res = await axios.post('/api/add_admin_or_facilitator', info)
+    const res = await axios.put('/api/add_facilitator', info)
     if (res.data.updatedUser._id === userId) {
         let updatedApplicants = facilitateApplicants.filter( applicant => applicant._id !== userId)
         dispatch(approveFacilitateApplicantSuccess(updatedApplicants));
@@ -509,7 +508,7 @@ export const disapproveFacilitateApplicant = (userId, facilitateApplicants) => a
     
     dispatch(disapproveFacilitateApplicantStart(userId));
     
-    const res = await axios.post('/api/remove_facilitator', { userId: userId })
+    const res = await axios.put('/api/remove_facilitator', { userId: userId })
     if (res.data.updatedUser._id === userId) {
         let updatedApplicants = facilitateApplicants.filter( applicant => applicant._id !== userId)
         dispatch(disapproveFacilitateApplicantSuccess(updatedApplicants));
@@ -673,5 +672,103 @@ export const clearRemoveAdminTypeInfo = () => {
         type: actionTypes.CLEAR_REMOVE_ADMIN_TYPE_INFO
     }
 }
+
+// add new inspire text
+
+export const addNewInspireTextStart = () => ({
+    type: actionTypes.ADD_NEW_INSPIRE_TEXT_START 
+});
+
+export const addNewInspireTextSuccess = (updatedInspiredTexts, newInspireTextId) => ({
+    type: actionTypes.ADD_NEW_INSPIRE_TEXT_SUCCESS,
+    updatedInspiredTexts: updatedInspiredTexts,
+    newInspireTextId: newInspireTextId 
+});
+
+export const addNewInspireTextFail = (error) => ({
+    type: actionTypes.ADD_NEW_INSPIRE_TEXT_FAIL,
+    error: error 
+});
+
+export const addNewInspireText = (textValue, inspireTexts) => async dispatch => {
+    dispatch(addNewInspireTextStart());
+
+    const res = await axios.post('/api/add_new_inspire_text', {textValue: textValue});
+
+    if(res.data.newInspireText) {
+        let updatedInspiredTexts = [res.data.newInspireText, ...inspireTexts];
+        let newInspireTextId = res.data.newInspireText._id;
+
+        dispatch(addNewInspireTextSuccess(updatedInspiredTexts, newInspireTextId));
+    } else if (res.data.error) {
+        dispatch(addNewInspireTextFail(res.data.error));
+    }
+};
+
+// fetch Inspire texts
+
+export const fetchInspireTextsStart = () => ({
+    type: actionTypes.FETCH_INSPIRE_TEXTS_START 
+});
+
+export const fetchInspireTextsSuccess = (inspireTexts) => ({
+    type: actionTypes.FETCH_INSPIRE_TEXTS_SUCCESS,
+    inspireTexts: inspireTexts 
+});
+
+export const fetchInspireTextsFail = (error) => ({
+    type: actionTypes.FETCH_INSPIRE_TEXTS_FAIL,
+    error: error 
+});
+
+export const fetchInspireTexts = () => async dispatch => {
+    dispatch(fetchInspireTextsStart());
+
+    const res = await axios.get('/api/fetch_inspire_text');
+
+    if(res.data.inspireTexts) {
+        dispatch(fetchInspireTextsSuccess(res.data.inspireTexts));
+    } else if (res.data.error) {
+        dispatch(fetchInspireTextsFail(res.data.error));
+    }
+};
+
+// delete inspire text
+
+export const deleteInspireTextStart = (textId) => ({
+    type: actionTypes.DELETE_INSPIRE_TEXT_START,
+    textId: textId 
+});
+
+export const deleteInspireTextSuccess = (updatedInspireTexts) => ({
+    type: actionTypes.DELETE_INSPIRE_TEXT_SUCCESS,
+    updatedInspireTexts: updatedInspireTexts 
+});
+
+export const deleteInspireTextFail = (error) => ({
+    type: actionTypes.DELETE_INSPIRE_TEXT_FAIL,
+    error: error 
+});
+
+export const deleteInspireText = (textId, inspireTexts) => async dispatch => {
+    dispatch(deleteInspireTextStart(textId));
+    console.log(textId);
+    const res = await axios.delete('/api/delete_inspire_text', {params: {textId: textId}});
+
+    if(res.data.message === 'delete successful') {
+        let updatedInspireTexts = inspireTexts.filter(text => text._id !== textId);
+        dispatch(deleteInspireTextSuccess(updatedInspireTexts));
+    } else if (res.data.error) {
+        dispatch(deleteInspireTextFail(res.data.error));
+    }
+};
+
+// clear inspire texts messages
+
+export const clearInspireTextState = () => ({
+    type: actionTypes.CLEAR_INSPIRE_TEXT_STATE 
+});
+
+
 
 
