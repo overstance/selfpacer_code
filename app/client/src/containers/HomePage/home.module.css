@@ -135,6 +135,10 @@
     fill: var(--white);
 }
 
+.userProfile:hover {
+    background: none;
+}
+
 .userProfile svg {
     width: 42px;
     fill: var(--blue);

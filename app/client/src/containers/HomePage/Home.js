@@ -56,13 +56,13 @@ class HomePage extends Component {
         artType: 'skill',
         action: 'learn',
         buttonLink: '/skills',
-        message: 'Learn new skills or improve on existing ones.'
+        message: 'Learn new skills or improve on existing ones, while you collect resources for later review.'
       },
       {
         artType: 'collection',
         action: 'view',
         buttonLink: '/collections',
-        message: 'View curated collection of favorite user resources.'
+        message: 'View and pin curated collections, remember to share that efficient collection of yours as well.'
       },
       {
         artType: 'facilitate',
@@ -105,7 +105,7 @@ class HomePage extends Component {
               {this.props.isAuthenticated && this.props.userName ? (
                 <React.Fragment>
                   <span>Hello,</span>
-                  <div>Babatunde Ali-Brown</div>
+                  <div>{this.props.userName}</div>
                 </React.Fragment>
               ) : (
                 <h2>Login</h2>
@@ -192,7 +192,7 @@ class HomePage extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  userName: state.auth.user.username,
+  userName: state.auth.user.name,
   inspireTexts: state.admin1.inspireTexts
 });
 
