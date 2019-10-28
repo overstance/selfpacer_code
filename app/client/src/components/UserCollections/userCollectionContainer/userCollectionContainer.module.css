@@ -1,6 +1,6 @@
 .Container {
     width: 210px;
-    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.4);
     margin: 10px;
     border-radius: 20px;
     display: inline-flex;

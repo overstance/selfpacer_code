@@ -7,7 +7,7 @@ const User = mongoose.model('users');
 let middlewareObj = {};
 
 middlewareObj.isLoggedIn = function(req, res, next) {
-  if (!req.body.user._id) {
+  if (!req.body.userId) {
     console.log({ error: 'loginRequired' });
     return res.status(401).send({ error: 'loginRequired' });
   }

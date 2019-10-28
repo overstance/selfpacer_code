@@ -37,6 +37,7 @@ const Conversation = lazy(() => import('./containers/Conversation/Conversation')
 const ResourcePage = lazy(() => import('./containers/SingleResourcePage/ResourcePage'));
 const ManageInspireText = lazy(() => import('./containers/manageInspireText/ManageInspireTexts'));
 const ManageAbuseReports = lazy(() => import('./containers/manageAbuseReports/AbuseReports'));
+const Explore = lazy(() => import('./containers/explore/Explore'));
 
 
 const NotFound = ({ location }) => (
@@ -75,6 +76,7 @@ class App extends Component {
           <Route exact path="/collections" component={Collections} />
           <Route exact path="/shared_collections/:id" component={SharedCollection} />
           <Route exact path="/resource/:resource_category/:resource_id" component={ResourcePage} />
+          <Route exact path="/explore" component={Explore} />
           
           <PrivateRoute exact path="/blog/saved/:userId" component={UserSavedBlogs} />
           <PrivateRoute exact path="/collections/:id" component={UserCollection} />

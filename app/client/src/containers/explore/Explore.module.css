@@ -1,20 +1,43 @@
-.Row {
-    list-style: none;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+.sectionWrapper {
+    width: 100%;
+}
+
+.inspireBoard {
+    /* display: flex;
     justify-content: center;
-    padding: 0px;
-    margin-block-start: 0px;
-    margin-block-end: 0px;
+    align-items: center;
+    min-height: 100px; */
+    padding: 16px;
+    background: var(--blue);
 }
 
-.SpinnerContainer {
-    padding-top: 5rem;
+.inspireBoard article {
+    max-width: 600px;
+    color: var(--white);
+    text-align: center;
 }
 
-.Explorer {
-    /* background: var(--lightBlue); */
-    min-height: 500px; 
+.userSpec {
+    padding: 16px;
+}
+
+.descriptor {
+    white-space: nowrap;
+    text-transform: capitalize;
+    padding-right: 16px;
+    font-weight: 400;
+}
+
+.description {
+    display: inline-block;
+}
+
+.description a, .description button {
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 16px;
+    color: var(--blue);
+    background: none;
+    padding-left: 4px;
+    border: none;
 }

@@ -204,7 +204,9 @@ class SubjectPage extends Component {
             if (checkViewed.length === 0) {
                 this.props.onUpdateRecentlyViewed(id, this.props.settedUserRecentlyViewed, this.props.userId);
             }           
-        }        
+        }  else {
+            this.props.onStoreVisitorViews(id, this.props.visitorRecentlyViewed);
+        }      
     };
 
     likeHandler = (id, likes) => {
@@ -368,7 +370,8 @@ const mapStateToProps = state => {
         fetchMoreLoading: state.clickedSubject.fetchMoreLoading,
 
         settedUserRecentlyViewed: state.resource.userRecentlyViewed,
-        userLikeCount: state.auth.userLikeCount
+        userLikeCount: state.auth.userLikeCount,
+        visitorRecentlyViewed: state.auth.visitorRecentlyViewed
     };
 };
 
@@ -395,7 +398,8 @@ const mapDispatchToProps = dispatch => {
         onClearAddToCollectionMessages: () => dispatch(actions.clearAddToCollectionMessages()),
 
         onUpdateUserLikeCount: ( userId, userLikeCount ) => dispatch(actions.updateUserLikeCount( userId, userLikeCount )),
-        onUpdateRecentlyViewed: (id, viewedResources, userId) => dispatch( actions.updateUserRecentlyViewed(id, viewedResources, userId))
+        onUpdateRecentlyViewed: (id, viewedResources, userId) => dispatch( actions.updateUserRecentlyViewed(id, viewedResources, userId)),
+        onStoreVisitorViews: (id, recentlyViewed) => dispatch(actions.storeVisitorViews(id, recentlyViewed))
     };
 };
 

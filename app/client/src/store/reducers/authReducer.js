@@ -13,6 +13,7 @@ const initialState = {
     user: {},
     userSpecialization: '',
     useTypeContext: '0',
+    visitorRecentlyViewed: [],
     error: null,
     loading: false,
     errors: {},
@@ -52,6 +53,10 @@ const setUserSpecialization = (state, action) => {
 
 const setUseContext = (state, action) => {
     return updateObject(state, {useTypeContext: action.useTypeContext});
+}
+
+const setVistorRecentlyViewed = (state, action) => {
+    return updateObject(state, {visitorRecentlyViewed: action.visitorRecentlyViewed.split(',')});
 }
 
 const clearInit = (state, action) => {
@@ -143,7 +148,8 @@ const authSuccess = (state, action) => {
         error: null,
         loading: false,
         isAuthenticated: true,
-        useTypeContext: action.useContext
+        useTypeContext: action.useContext,
+        userSpecialization: action.user.specialization
     });
 };
 
@@ -288,12 +294,29 @@ const updateUserLikedCount = ( state, action ) => {
     return updateObject( state, { userLikeCount: action.newLikeCount } );
 };
 
+// update on profile update
+
+const updateAuthOnProfileUpdate = ( state, action ) => {
+    return updateObject( state, { 
+        user: action.user,
+        userSpecialization: action.user.specialization 
+    });
+};
+
+const updateAuthOnVisitorView = ( state, action ) => {
+    return updateObject( state, { 
+        visitorRecentlyViewed: action.updatedViewed
+    });
+};
+
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         //initializations from local storage
         case actionTypes.SET_AUTHENTICATION: return setAuthentication(state, action);
         case actionTypes.SET_USER_SPECIALIZATION: return setUserSpecialization(state, action);
         case actionTypes.SET_USE_CONTEXT: return setUseContext(state, action);
+        case actionTypes.SET_VISITOR_VIEWED: return setVistorRecentlyViewed(state, action);
         case actionTypes.CLEAR_INIT: return clearInit(state, action);
         // end of initializations
 
@@ -338,6 +361,10 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.SET_IS_SITE_HOME: return setIsSiteHome( state, action);
         case actionTypes.UNSET_IS_SITE_HOME: return unsetIsSiteHome( state, action);
+
+        case actionTypes.UPDATE_AUTH_ON_PROFILE_UPDATE: return updateAuthOnProfileUpdate( state, action);
+
+        case actionTypes.UPDATE_AUTH_ON_VISITOR_VIEW: return updateAuthOnVisitorView( state, action);
 
         default:
             return state;

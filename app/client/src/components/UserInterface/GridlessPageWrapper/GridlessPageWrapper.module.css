@@ -8,6 +8,7 @@
     margin-top: 8px;
     border-bottom: 1px solid var(--white);
     text-transform: capitalize;
+    margin: 0
 }
 
 @media(max-width: 1280px) {

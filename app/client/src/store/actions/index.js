@@ -26,7 +26,7 @@ export {
     setActiveContentType,
     setSelectedCategory,
     setLikedResource,
-    // setClickedSubjectTitle
+    storeVisitorViews
 } from './explore';
 export {
     fetchSubjectDetails,

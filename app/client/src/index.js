@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import reduxThunk from 'redux-thunk';
-import { SET_AUTHENTICATION, SET_USER_SPECIALIZATION, SET_USE_CONTEXT } from './store/actions/actionTypes';
+import { SET_AUTHENTICATION, SET_USER_SPECIALIZATION, SET_USE_CONTEXT, SET_VISITOR_VIEWED } from './store/actions/actionTypes';
 
 import './index.css';
 import App from './App';
@@ -45,6 +45,7 @@ const store = createStore(rootReducer, composeEnhancers(
 const token = localStorage.getItem('token');
 const spec = localStorage.getItem('spec');
 const useContext = localStorage.getItem('useContext');
+const visitorViewed = localStorage.getItem('viewed');
 
 if (token) {
   store.dispatch({ type: SET_AUTHENTICATION, userId: localStorage.token });
@@ -57,6 +58,10 @@ if (spec) {
 
 if (useContext) {
     store.dispatch({ type: SET_USE_CONTEXT, useTypeContext: localStorage.useContext });
+}
+
+if (visitorViewed) {
+    store.dispatch({ type: SET_VISITOR_VIEWED, visitorRecentlyViewed: localStorage.viewed }); 
 }
 
 

@@ -7,11 +7,12 @@ module.exports = app => {
   app.post('/api/edit_profile', middleware.isLoggedIn, (req, res) => {
     // console.log(req.body);
     User.findOneAndUpdate(
-      { _id: req.body.user._id },
+      { _id: req.body.userId },
       {
         name: req.body.name,
         specialization: req.body.specialization1
       },
+      { new: true },
       (err, user) => {
         if (err) {
           res.send(err.name);
@@ -25,7 +26,7 @@ module.exports = app => {
   });
 
   app.post('/api/change_password', middleware.isLoggedIn, (req, res) => {
-    User.findById(req.body.user._id).then(user => {
+    User.findById(req.body.userId).then(user => {
       if (user) {
         user.changePassword(
           req.body.oldPassword,

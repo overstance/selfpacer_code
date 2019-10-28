@@ -91,7 +91,7 @@ class EditBio extends Component {
 
             this.setState({ biodataFillError: 'Please change one or more field' });
         } else {
-            this.props.onEditProfile(this.state.name.value, this.state.specialization1.value, this.props.user);
+            this.props.onEditProfile(this.state.name.value, this.state.specialization1.value, this.props.user, this.props.userSpecLocalStorage);
         }
         
     }
@@ -222,13 +222,14 @@ const mapStateToProps = state => ({
     profileEditSuccessFeedback: state.profile.profileEditSuccessFeedback,
     profileEditError: state.profile.profileEditError,
     loading: state.profile.profileEditLoading,
+    userSpecLocalStorage: state.auth.userSpecialization,
     user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => {
     return {
         onFetchSubjects: () => dispatch( actions.fetchSubjects()),
-        onEditProfile: (name, specialization1, user) => dispatch( actions.editProfile(name, specialization1, user) )
+        onEditProfile: (name, specialization1, user, userSpecLocalStorage) => dispatch( actions.editProfile(name, specialization1, user, userSpecLocalStorage) )
     };
 };
 

@@ -17,6 +17,11 @@ export const profileEditSuccess = ( successInfo ) => {
     };
 };
 
+export const updateAuthOnProfileUpdate = ( user ) => ({
+    type: actionTypes.UPDATE_AUTH_ON_PROFILE_UPDATE,
+    user: user
+})
+
 export const profileEditFailed = ( error ) => {
     return {
         type: actionTypes.EDIT_PROFILE_FAILED,
@@ -31,12 +36,12 @@ export const resetEditProfileMessages = () => {
 }
 
 
-export const editProfile = (name, specialization1, user) => {
+export const editProfile = (name, specialization1, user, userSpecLocalStorage) => {
     return dispatch => {
         dispatch (profileEditStart());
 
         const editInfo = {
-            user: user,
+            userId: user._id,
             name: name,
             specialization1: specialization1
         };
@@ -47,7 +52,13 @@ export const editProfile = (name, specialization1, user) => {
         .then( res => {
             // console.log(res.data);
             if (res.data.user._id === user._id) {
+                // console.log(res.data.user.specialization, userSpecLocalStorage)
                 dispatch(profileEditSuccess('Profile Edited'));
+                dispatch(updateAuthOnProfileUpdate(res.data.user))
+                if(res.data.user.specialization !== userSpecLocalStorage) {
+                    // console.log(res.data.user.specialization, user.specialization)
+                    localStorage.setItem("spec", res.data.user.specialization);
+                }
             } else {
                 dispatch(profileEditFailed( 'error!'))
             }
@@ -85,7 +96,7 @@ export const changePassword = (oldPassword, newPassword, user) => async (dispatc
     const info = {
         oldPassword: oldPassword,
         newPassword: newPassword,
-        user: user
+        userId: user._id
     };
 
     const res = await axios.post('/api/change_password', info);

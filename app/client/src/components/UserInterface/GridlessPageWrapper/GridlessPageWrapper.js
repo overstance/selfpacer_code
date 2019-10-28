@@ -4,9 +4,9 @@ import Container from '../Container/Container';
 
 const gridlessPageWrapper = (props) => (
     <Container>
-        <div className={classes.Header}>
+        <h1 className={classes.Header}>
             {props.pageTitle}
-        </div>
+        </h1>
         {props.children}
     </Container>
 );

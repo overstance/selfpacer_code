@@ -100,3 +100,65 @@ export const setLikedResource = ( id ) => {
         id: id
     }
 }
+
+// store visitor recently viewed resources
+
+export const updateAuthOnVisitorView = ( updatedViewed ) => {
+    return {
+        type: actionTypes.UPDATE_AUTH_ON_VISITOR_VIEW,
+        updatedViewed: updatedViewed
+    }
+}
+
+export const storeVisitorViews = ( id, recentlyViewed ) => dispatch => {
+    // console.log("action reached" );
+    if (recentlyViewed.length === 0) {
+
+        
+        let viewed = [id];
+        localStorage.setItem("viewed", viewed);
+        dispatch(updateAuthOnVisitorView(viewed));
+        console.log("action reached: case = 0", viewed );
+    } else if (recentlyViewed.length > 0 && recentlyViewed.length < 10) {
+        
+        let checkInViewed = recentlyViewed.find(view => view === id);
+        console.log(!checkInViewed, checkInViewed);
+        
+        if (!checkInViewed) {
+            // let updatedViewed = [...recentlyViewed, id];
+            
+            let temp = recentlyViewed;
+
+            temp.push(id);
+
+            const updatedViewed = temp;
+
+            localStorage.setItem("viewed", updatedViewed);
+            dispatch(updateAuthOnVisitorView(updatedViewed));
+            console.log("action reached: case < 10", id, updatedViewed );
+        } else {
+            return;
+        }
+        
+    } else if (recentlyViewed.length === 10) {
+       
+        let checkInViewed = recentlyViewed.find(view => view === id);
+        console.log(!checkInViewed, checkInViewed);
+
+        if(!checkInViewed) {
+            
+            let temp = recentlyViewed;
+
+            temp.shift();
+
+            temp.push(id);
+
+            const updatedViewed = temp;
+
+            localStorage.setItem("viewed", updatedViewed);
+            dispatch(updateAuthOnVisitorView(updatedViewed));
+            console.log("action reached: case = 10", id, updatedViewed );
+        }
+        
+    }
+};

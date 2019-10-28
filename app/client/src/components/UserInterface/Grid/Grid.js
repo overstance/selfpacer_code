@@ -16,14 +16,14 @@ class Grid extends Component {
                     </div>
                 </div>
                 <div className={classes.Median}>
-                    <div className={classes.Main}>
+                    <main className={classes.Main}>
                         {this.props.children}
-                    </div>
-                    <div className={classes.SideBar}>
+                    </main>
+                    <aside className={classes.SideBar}>
                         <div className={classes.sideAd}>
                             <div className={classes.adFullSide}/>
                         </div>
-                    </div> 
+                    </aside> 
                 </div>
                 <div className={classes.FootBar}>
                     <div className={classes.FootBarAdvert}>
