@@ -309,6 +309,12 @@ const updateAuthOnVisitorView = ( state, action ) => {
     });
 };
 
+const setVisitorSpecialization = ( state, action ) => {
+    return updateObject( state, { 
+        userSpecialization: action.skill
+    });
+};
+
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -365,6 +371,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.UPDATE_AUTH_ON_PROFILE_UPDATE: return updateAuthOnProfileUpdate( state, action);
 
         case actionTypes.UPDATE_AUTH_ON_VISITOR_VIEW: return updateAuthOnVisitorView( state, action);
+
+        case actionTypes.SET_VISITOR_SPECIALIZATION: return setVisitorSpecialization( state, action);
 
         default:
             return state;

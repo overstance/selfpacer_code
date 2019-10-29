@@ -18,7 +18,8 @@ export {
     setIsBlogPage,
     unsetIsBlogPage,
     setIsSiteHome,
-    unsetIsSiteHome
+    unsetIsSiteHome,
+    setVisitorSpecialization
 } from './auth';
 export {
     fetchSubjects,

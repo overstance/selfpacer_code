@@ -1,0 +1,47 @@
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 800;
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.modal {
+    position: fixed;
+    width: 600px;
+    left: calc(50% - 300px);
+    z-index: 850;
+    background-color: var(--white);
+    border: 1px solid var(--lightGray);
+    top: calc(50% - 150px);
+    box-sizing: border-box;
+    transition: all 0.3s ease-out;
+}
+
+.container h3 {
+    margin: 0;
+    padding: 16px;
+    color: var(--blue);
+}
+
+.container form {
+    margin: 0;
+}
+
+@media(max-width: 600px) {
+    .modal {
+        width: 100%;
+        left: 0;
+    }
+}

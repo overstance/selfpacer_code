@@ -183,6 +183,7 @@ export const logout = () => async (dispatch) => {
     localStorage.removeItem('token');
     localStorage.removeItem('spec');
     localStorage.removeItem('useContext');
+    localStorage.removeItem('viewed');
 
     dispatch({ type: LOGOUT_USER, payload: res.data });
     dispatch(clearInit());
@@ -537,6 +538,19 @@ export const setIsSiteHome = () => ({
 export const unsetIsSiteHome = () => ({
     type: actionTypes.UNSET_IS_SITE_HOME
 });
+
+// set visitor skill spec
+
+export const dispatchVisitorSpecialization = (skill) => ({
+    type: actionTypes.SET_VISITOR_SPECIALIZATION,
+    skill: skill
+});
+
+export const setVisitorSpecialization = (skill) => dispatch => {
+    localStorage.setItem("spec", skill);
+
+    dispatch(dispatchVisitorSpecialization(skill));
+}
 
 
 

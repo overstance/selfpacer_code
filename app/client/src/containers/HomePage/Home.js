@@ -6,6 +6,7 @@ import Button from './button';
 import ActionCard from './actionCard';
 import Footer from './footer';
 import * as actions from '../../store/actions/index';
+import VisitorSkillSelect from '../../components/visitorSkillSelect/skillSelect';
 
 function shuffleArray(array) {
   let i = array.length - 1;
@@ -19,6 +20,17 @@ function shuffleArray(array) {
 }
 
 class HomePage extends Component {
+
+  constructor(props) {
+    super(props);
+    this.visitorSelectSkillModal = React.createRef();
+    this.exploreButton = React.createRef();
+  }
+
+  state = {
+    showVisitorSkillSelect: false
+  }
+
   componentDidMount() {
     /* const logoInitial = document.querySelectorAll("#homeLogoInitial_stroke path");
         console.log(logoInitial);
@@ -32,6 +44,26 @@ class HomePage extends Component {
 
   componentWillUnmount() {
     this.props.onUnsetIsSiteHome();
+  }
+
+  showVisitorSkillSelect = () => {
+    this.setState({ showVisitorSkillSelect: true }, () => {
+      this.visitorSelectSkillModal.current.focus();
+    });
+  }
+
+  closeVisitorSkillSelectOnClick = () => {
+    this.setState({ showVisitorSkillSelect: false }, () => {
+      this.exploreButton.current.focus();
+    });
+  }
+
+  closeVisitorSkillSelectOnKey = (event) => {
+    if (event.key === 'Tab' || event.key === 'Enter') {
+      this.setState({ showVisitorSkillSelect: false }, () => {
+        this.exploreButton.current.focus();
+      });
+    }
   }
 
   render() {
@@ -172,19 +204,44 @@ class HomePage extends Component {
               <div className={classes.inspireText}>{displayedText}</div>
             </article>
             <nav className={classes.exploreBlock}>
-              <Button buttonLink="/explore">
-                <div className={classes.explore}>
-                  <span>explore</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.089 9.088c-.505.504-.505 1.32 0 1.824.502.504 1.32.504 1.824 0s.504-1.321 0-1.824c-.504-.504-1.322-.504-1.824 0zm.912-9.087C4.478.001 0 4.477 0 10s4.478 9.999 10.001 9.999C15.522 19.999 20 15.523 20 10S15.522.001 10.001.001zm5.085 5.97l-2.66 5.819c-.128.282-.354.507-.636.636l-5.82 2.66c-.671.307-1.362-.386-1.056-1.057l2.66-5.82c.129-.281.355-.508.636-.636l5.82-2.659c.671-.308 1.363.385 1.056 1.057z" />
-                  </svg>
-                </div>
-              </Button>
+              { this.props.userSpec !== '' ?
+                <Button buttonLink="/explore">
+                  <div className={classes.explore}>
+                    <span>explore</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.089 9.088c-.505.504-.505 1.32 0 1.824.502.504 1.32.504 1.824 0s.504-1.321 0-1.824c-.504-.504-1.322-.504-1.824 0zm.912-9.087C4.478.001 0 4.477 0 10s4.478 9.999 10.001 9.999C15.522 19.999 20 15.523 20 10S15.522.001 10.001.001zm5.085 5.97l-2.66 5.819c-.128.282-.354.507-.636.636l-5.82 2.66c-.671.307-1.362-.386-1.056-1.057l2.66-5.82c.129-.281.355-.508.636-.636l5.82-2.659c.671-.308 1.363.385 1.056 1.057z" />
+                    </svg>
+                  </div>
+                </Button>
+                :
+                <Button 
+                  isButton
+                  homeButtonClicked={this.showVisitorSkillSelect}
+                  exploreButton={this.exploreButton}
+                >
+                  <div className={classes.explore}>
+                    <span>explore</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.089 9.088c-.505.504-.505 1.32 0 1.824.502.504 1.32.504 1.824 0s.504-1.321 0-1.824c-.504-.504-1.322-.504-1.824 0zm.912-9.087C4.478.001 0 4.477 0 10s4.478 9.999 10.001 9.999C15.522 19.999 20 15.523 20 10S15.522.001 10.001.001zm5.085 5.97l-2.66 5.819c-.128.282-.354.507-.636.636l-5.82 2.66c-.671.307-1.362-.386-1.056-1.057l2.66-5.82c.129-.281.355-.508.636-.636l5.82-2.659c.671-.308 1.363.385 1.056 1.057z" />
+                    </svg>
+                  </div>
+                </Button>
+              }
             </nav>
             {actions}
           </main>
           <Footer />
         </div>
+        { this.state.showVisitorSkillSelect ?
+          <VisitorSkillSelect 
+            closeSkillSelectOnClick={this.closeVisitorSkillSelectOnClick}
+            closeSkillSelectOnKey={this.closeVisitorSkillSelectOnKey}
+            show={this.state.showVisitorSkillSelect}
+            skillSelectModal={this.visitorSelectSkillModal}
+          />
+          :
+          null
+        }
       </div>
     );
   }
@@ -193,7 +250,8 @@ class HomePage extends Component {
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   userName: state.auth.user.name,
-  inspireTexts: state.admin1.inspireTexts
+  inspireTexts: state.admin1.inspireTexts,
+  userSpec: state.auth.userSpecialization
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -347,6 +347,7 @@
     background: var(--green);
     font-weight: 700;
     font-size: 18px;
+    cursor: pointer;
 }
 
 .homeButton:hover {
@@ -369,6 +370,8 @@
     display: inline-block;
     width: 88px;
     text-align: center;
+    color: var(--blue);
+    font-family: 'Nunito', Arial, Helvetica, sans-serif;
 }
 
 .explore svg {
