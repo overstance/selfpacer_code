@@ -29,7 +29,7 @@
     "express": "^4.16.3",
     "googleapis": "^41.0.1",
     "https-proxy-agent": "^3.0.1",
-    "mongoose": "^5.2.17",
+    "mongoose": "^5.7.7",
     "multer": "^1.4.1",
     "nodemailer": "^4.7.0",
     "nodemon": "^1.18.4",
