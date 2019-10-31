@@ -1,0 +1,41 @@
+.Wrapper {
+    display: flex;  
+    flex-flow: row nowrap;
+    /* font-weight: 700; */
+    /* text-align: center;  */
+}
+
+.Main {
+    /* text-align: left; */
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    overflow: hidden;
+    padding-top: 8px;
+}
+
+.SideBar {
+    width: 300px;
+    /* margin: 0 8px; */
+    margin-right: 16px;
+}
+
+.sideAd {
+    max-height: 620px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding-top: 8px;
+    /* padding: 32px 0; */
+}
+
+@media all and (max-width: 900px) {
+
+    .main  { flex: 0 0 100%; 
+        max-width: 100%;
+    }
+
+    .SideBar {
+        display: none;
+    }
+}

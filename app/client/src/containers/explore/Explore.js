@@ -2,30 +2,56 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import classes from './Explore.module.css';
 // import * as actions from '../../store/actions/index';
+import Grid from './grid/grid';
+import RecentlyViewed from './topSection/Recent';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
+import Container from '../../components/UserInterface/Container/Container';
 import VisitorSkillSelect from '../../components/visitorSkillSelect/skillSelect';
 
+function shuffleArray(array) {
+    let i = array.length - 1;
+    for (; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+}
+
+const ResourcesSideAd = () => (
+    <div className={classes.adFullSide}/>
+)
 
 class Explore extends Component {
 
-    constructor(props) {
+    /* constructor(props) {
         super(props);
         this.visitorSelectSkillModal = React.createRef();
         this.changeButton = React.createRef();
-    }
+    } */
+
+    visitorSelectSkillModal = React.createRef();
+    changeButton = React.createRef();
 
     state = {
-        showVisitorSkillSelect: false
+        showVisitorSkillSelect: false,
+        currentUserSpec: null
     }
 
     componentDidMount () {
+        if (this.props.userSpec === '' || !this.props.userSpec) {
+            this.showVisitorSkillSelect();
+        } else {
+            this.setState({ currentUserSpec: this.props.userSpec });
+        }
         window.scroll(0,0);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.userSpec !== prevProps.userSpec && this.props.userSpec !== '' && this.state.showVisitorSkillSelect) {
-            this.setState({ showVisitorSkillSelect: false });
+            this.setState({ showVisitorSkillSelect: false, currentUserSpec: this.props.userSpec });
         }
     }
 
@@ -35,58 +61,86 @@ class Explore extends Component {
         });
     }
     
-      closeVisitorSkillSelectOnClick = () => {
+    closeVisitorSkillSelectOnClick = () => {
+
+        if (this.props.userSpec === '' || !this.props.userSpec) {
+            this.chooseSkillRandomlyOnNoSkillSelect();
+        }
+
         this.setState({ showVisitorSkillSelect: false }, () => {
-          this.changeButton.current.focus();
+            this.changeButton.current.focus();
         });
     }
     
-      closeVisitorSkillSelectOnKey = (event) => {
+    closeVisitorSkillSelectOnKey = (event) => {
         if (event.key === 'Tab' || event.key === 'Enter') {
-          this.setState({ showVisitorSkillSelect: false }, () => {
-            this.changeButton.current.focus();
-          });
+        
+            if (this.props.userSpec === '' || !this.props.userSpec) {
+                this.chooseSkillRandomlyOnNoSkillSelect();
+            }
+
+            this.setState({ showVisitorSkillSelect: false }, () => {
+                this.changeButton.current.focus();
+            });
         }
+    }
+
+    chooseSkillRandomlyOnNoSkillSelect = () => {
+        const skills = this.props.subjects.map( subject => subject.title );
+
+        let skillsShuffled = shuffleArray(skills);
+        let skillSelect = skillsShuffled[0];
+
+        this.setState({ currentUserSpec: skillSelect });
     }
 
     render() {
 
         return (
-            <section className={classes.sectionWrapper}>
-                <div className={classes.userSpec}>
-                    <h1>
-                        <span className={classes.descriptor}>
-                            area of interest: 
-                        </span>
-                        {this.props.isAuthenticated ?
-                            <span className={classes.description}>
-                                {this.props.userSpec}
-                                <Link to="/profile">change?</Link>
+            <Container>
+                <section className={classes.sectionWrapper}>
+                    <div className={classes.userSpec}>
+                        <h1>
+                            <span className={classes.descriptor}>
+                                area of interest: 
                             </span>
-                            :
-                            <span className={classes.description}>
-                                {this.props.userSpec}
-                                <button
-                                    ref={this.changeButton}
-                                    onClick={this.showVisitorSkillSelect}
-                                >
-                                    change?
-                                </button>
-                            </span>
+                            {this.props.isAuthenticated ?
+                                <span className={classes.description}>
+                                    {this.state.currentUserSpec}
+                                    <Link to="/profile">change?</Link>
+                                </span>
+                                :
+                                <span className={classes.description}>
+                                    {this.state.currentUserSpec}
+                                    <button
+                                        ref={this.changeButton}
+                                        onClick={this.showVisitorSkillSelect}
+                                    >
+                                        change?
+                                    </button>
+                                </span>
+                            }
+                        </h1> 
+                    </div>
+                    <Grid
+                        sideAd={
+                            <ResourcesSideAd />
                         }
-                    </h1> 
-                </div>    
-                { this.state.showVisitorSkillSelect ?
-                    <VisitorSkillSelect 
-                        closeSkillSelectOnClick={this.closeVisitorSkillSelectOnClick}
-                        closeSkillSelectOnKey={this.closeVisitorSkillSelectOnKey}
-                        show={this.state.showVisitorSkillSelect}
-                        skillSelectModal={this.visitorSelectSkillModal}
-                    />
-                    :
-                    null
-                }
-            </section>
+                    >
+                       <RecentlyViewed /> 
+                    </Grid>    
+                    { this.state.showVisitorSkillSelect ?
+                        <VisitorSkillSelect 
+                            closeSkillSelectOnClick={this.closeVisitorSkillSelectOnClick}
+                            closeSkillSelectOnKey={this.closeVisitorSkillSelectOnKey}
+                            show={this.state.showVisitorSkillSelect}
+                            skillSelectModal={this.visitorSelectSkillModal}
+                        />
+                        :
+                        null
+                    }
+                </section>
+            </Container>
         )
     }
 };
@@ -95,7 +149,8 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         inspireTexts: state.admin1.inspireTexts,
-        userSpec: state.auth.userSpecialization
+        userSpec: state.auth.userSpecialization,
+        subjects: state.explore.subjects,
     };
 };
 

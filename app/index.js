@@ -31,7 +31,8 @@ const adminRoutes = require('./routes/adminRoutes');
 mongoose.connect(
   keys.mongoURI,
   {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   }
 );
 

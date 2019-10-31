@@ -14,6 +14,17 @@ import {connect} from 'react-redux';
 
 class Resource extends Component {
     render () {
+
+        let displayedType = this.props.type;
+
+        if (this.props.type === 'mooc') {
+            displayedType = 'course'
+        }
+
+        if (this.props.type === 'books') {
+            displayedType = 'book'
+        }
+
         let updateButton =
         <UpdateActionButton isAsset clicked={this.props.updateClicked}/>
 
@@ -78,7 +89,7 @@ class Resource extends Component {
                                 </div> : null
                             }
                             <div>
-                                <div className={classes.Type}>TYPE:<span>{this.props.type}</span></div>
+                                <div className={classes.Type}>TYPE:<span>{displayedType}</span></div>
                             </div>
                             { this.props.tutor ?
                                 <div>

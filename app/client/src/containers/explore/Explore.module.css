@@ -43,3 +43,14 @@
     font-family: "Nunito";
     font-weight: 700;
 }
+
+.adFullSide {
+    width: 300px;
+    height: 600px;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background: url('../../assets/art/head-art/ad_ad300X600.png');
+    margin: auto;
+}
