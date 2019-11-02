@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import classes from './Explore.module.css';
 // import * as actions from '../../store/actions/index';
 import Grid from './grid/grid';
-import RecentlyViewed from './topSection/Recent';
+import RecentlyViewed from './sections/Recent';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import Container from '../../components/UserInterface/Container/Container';

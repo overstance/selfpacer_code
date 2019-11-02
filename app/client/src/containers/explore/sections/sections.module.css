@@ -1,12 +1,12 @@
 .recentlyViewedContainer {
     margin: 0 16px;
-    border: 2px solid var(--gray);
 }
 
 .recentlyViewedContainer h2 {
     color: var(--blue);
     padding: 16px;
     font-size: 20px;
+    margin: 0;
 }
 
 .recentlyViewed {

@@ -1,0 +1,60 @@
+.itemsContainer {
+     width: 100%;
+     overflow: hidden;
+}
+
+.items {
+    height: 260px;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: margin-left 250ms;
+    font-size: 0;
+}
+
+.carousel {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 16px;
+    /* border: 2px solid var(--gray); */
+    border-radius: 16px;
+    background: var(--lightGray);
+}
+
+.arrowNext {
+    position: absolute;
+    z-index: 10;
+    top: 136px;
+    padding: 0;
+    background: var(--green);
+    border-radius: 18px;
+    border: 1px solid var(--green);
+    cursor: pointer;
+    height: 36px;
+    width: 36px;
+    display: block;
+    right: 4px;
+}
+
+.arrowPrevious {
+    position: absolute;
+    z-index: 10;
+    top: 136px;
+    padding: 0;
+    background: var(--green);
+    border-radius: 18px;
+    border: 1px solid var(--green);
+    cursor: pointer;
+    height: 36px;
+    width: 36px;
+    display: block;
+    left: 4px;
+}
+
+.arrowNext svg, .arrowPrevious svg {
+    fill: var(--blue);
+    height: 100%;
+    width: 100%;
+}
