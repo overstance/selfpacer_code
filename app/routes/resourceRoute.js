@@ -271,7 +271,7 @@ module.exports = app => {
     });
   });
 
-  app.put('/api/update_user_liked_resources', (req, res) => {
+  app.put('/api/update_user_viewed_resources', (req, res) => {
     // console.log(req.body);
     // console.log(req.params.userId);
 
@@ -370,5 +370,22 @@ module.exports = app => {
         res.send({ resource: resource });
       }
     });
+  });
+
+  app.get('/api/fetch_recently_viewed_resources', (req, res) => {
+    Resource.find(
+      {
+        _id: { $in: req.query.ids }
+      },
+      (err, resources) => {
+        if (err) {
+          res.send({ error: err.message });
+        }
+
+        if (resources) {
+          res.send({ resources: resources });
+        }
+      }
+    );
   });
 };

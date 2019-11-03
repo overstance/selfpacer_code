@@ -31,12 +31,12 @@ export const setUserSavedBlogs = ( userSavedBlogs ) => {
     };
 };
 
-export const fetchRecentlyViewedSuccess = ( resources ) => {
+/* export const fetchRecentlyViewedSuccess = ( resources ) => {
     return {
         type: actionTypes.FETCH_RECENTLY_VIEWED_SUCCESS,
         resources: resources
     }
-}
+} */
 
 export const setAuthentication = () => {
     return {
@@ -131,18 +131,14 @@ export const fetchUser = () => async dispatch => {
         dispatch(setUserPinnedCollections(res.data.pinnedCollections));
         dispatch(setUserSavedBlogs(res.data.blogSaves));
 
-        if ( res.data.recentlyViewed.length > 0 ) {
-            // let userId = res.data._id;
-
-            // const res2 = await axios.get(`/api/recently_viewed/${userId}`);
+        /* if ( res.data.recentlyViewed.length > 0 ) {
 
             const res2 = await axios.get('/api/recently_viewed', { params: {userId: userId}} );
     
             if ( res2.data.resources) {
                 dispatch(fetchRecentlyViewedSuccess(res2.data.resources));
-                // console.log(res2.data.resources);
             }
-        }
+        } */
 
         if ( res.data.accountType === 'Head Administrator' || res.data.accountType === 'Senior Administrator' || res.data.accountType === 'Administrator' || res.data.accountType === 'Facilitator') {
             dispatch(fetchUserAssetCountStart());

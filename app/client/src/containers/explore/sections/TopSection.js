@@ -2,12 +2,24 @@ import React, { Component } from 'react';
 import classes from './sections.module.css';
 import {connect} from 'react-redux';
 import Carousel from '../carousel/carousel';
+import * as actions from '../../../store/actions/index';
+import Spinner from '../../../components/UserInterface/Spinner/Spinner'
 
 class RecentlyViewed extends Component {
 
+    componentDidMount() {
+        if (this.props.isAuthenticated && this.props.userRecentlyViewed.length > 0) {
+            this.props.onFetchExploreRecentlyViewed(this.props.userRecentlyViewed)
+        }
+
+        if (!this.props.isAuthenticated && this.props.visitorRecentlyViewed.length > 0) {
+            this.props.onFetchExploreRecentlyViewed(this.props.visitorRecentlyViewed)
+        }
+    }
+
     render() {
 
-        let resourcesArray =
+        /* let resourcesArray =
         [
             {
                 category: "Accounting",
@@ -79,14 +91,44 @@ class RecentlyViewed extends Component {
                 __v: 0,
                 _id: "5c3b85fb63b8c51434c95ea1"
             }
-        ];
+        ]; */
+        let recentlyViewed;
 
-        return(
+        if (this.props.recentlyViewedLoading) {
+            recentlyViewed = <Spinner isComponent/>
+        } else if(!this.props.recentlyViewedLoading && this.props.recentlyViewedResources.length > 0) {
+            recentlyViewed =
             <div className={classes.recentlyViewedContainer}>
                 <h2>Recently viewed resources</h2>
                 <Carousel
-                    items={resourcesArray}
+                    items={this.props.recentlyViewedResources}
                 />
+            </div>
+        }
+
+
+
+        return(
+            <div className={classes.topSection}>   
+                { /* this.props.isAuthenticated && this.props.recentlyViewedResources.length > 0 ?
+                    <div className={classes.recentlyViewedContainer}>
+                        <h2>Recently viewed resources(user)</h2>
+                        <Carousel
+                            items={this.props.recentlyViewedResources}
+                        />
+                    </div>
+                    : null */
+                }
+                { /* !this.props.isAuthenticated && this.props.recentlyViewedResources.length > 0 ?
+                    <div className={classes.recentlyViewedContainer}>
+                        <h2>Recently viewed resources(visitor)</h2>
+                        <Carousel
+                            items={this.props.recentlyViewedResources}
+                        />
+                    </div>
+                    : null */
+                }
+                {recentlyViewed}
             </div>
         )
     }
@@ -95,14 +137,16 @@ class RecentlyViewed extends Component {
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
-        userRecentlyViewed: state.auth.user.recentlyViewed,
-        visitorRecentlyViewed: state.auth.visitorRecentlyViewed
+        userRecentlyViewed: state.resource.userRecentlyViewed,
+        visitorRecentlyViewed: state.auth.visitorRecentlyViewed,
+        recentlyViewedLoading: state.explore.recentlyViewedLoading,
+        recentlyViewedResources: state.explore.recentlyViewedResources
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        
+        onFetchExploreRecentlyViewed: (recentlyViewedIds) => dispatch(actions.fetchExploreRecentlyViewed(recentlyViewedIds)),
     };
 };
 

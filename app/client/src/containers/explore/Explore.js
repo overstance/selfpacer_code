@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import classes from './Explore.module.css';
-// import * as actions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 import Grid from './grid/grid';
-import RecentlyViewed from './sections/Recent';
+import TopSection from './sections/TopSection';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import Container from '../../components/UserInterface/Container/Container';
@@ -53,6 +53,10 @@ class Explore extends Component {
         if (this.props.userSpec !== prevProps.userSpec && this.props.userSpec !== '' && this.state.showVisitorSkillSelect) {
             this.setState({ showVisitorSkillSelect: false, currentUserSpec: this.props.userSpec });
         }
+    }
+
+    componentWillUnmount() {
+        this.props.onResetExploreState()
     }
 
     showVisitorSkillSelect = () => {
@@ -127,7 +131,7 @@ class Explore extends Component {
                             <ResourcesSideAd />
                         }
                     >
-                       <RecentlyViewed /> 
+                       <TopSection /> 
                     </Grid>    
                     { this.state.showVisitorSkillSelect ?
                         <VisitorSkillSelect 
@@ -155,8 +159,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        
+    return {  
+        onResetExploreState: () => dispatch(actions.resetExploreState())
     };
 };
 

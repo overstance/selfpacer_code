@@ -44,7 +44,7 @@ const initialState = {
 
 // initialization actions
 const setAuthentication = (state, action) => {
-    return updateObject(state, { isAuthenticated: true, user: { _id: action.userId } });
+    return updateObject(state, { isAuthenticated: true, user: { _id: action.userId, recentlyViewed: [] } });
 };
 
 const setUserSpecialization = (state, action) => {

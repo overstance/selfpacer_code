@@ -162,3 +162,26 @@ export const storeVisitorViews = ( id, recentlyViewed ) => dispatch => {
         
     }
 };
+
+export const fetchExploreRecentlyViewedStart = () => ({
+    type: actionTypes.FETCH_EXPLORE_RECENTLY_VIEWED_START
+});
+
+export const fetchExploreRecentlyViewedSuccess = (resources) => ({
+    type: actionTypes.FETCH_EXPLORE_RECENTLY_VIEWED_SUCCESS,
+    resources: resources
+});
+
+export const fetchExploreRecentlyViewed = (recentlyViewedIds) => async dispatch => {
+    dispatch(fetchExploreRecentlyViewedStart());
+
+    const res = await axios.get('/api/fetch_recently_viewed_resources', {params: {ids: recentlyViewedIds}});
+
+    if (res.data.resources) {
+        dispatch(fetchExploreRecentlyViewedSuccess(res.data.resources));
+    }
+}
+
+export const resetExploreState = () => ({
+    type: actionTypes.RESET_EXPLORE_STATE
+});

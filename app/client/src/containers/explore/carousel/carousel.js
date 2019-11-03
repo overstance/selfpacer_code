@@ -19,9 +19,12 @@ export const Items = props => {
 
       let distance = itemWidth * position;
       carousel.style.marginLeft = distance + 'px';
+
+      // i used this return to avoid running this effect on unmount
+      return () => {};
       // console.log(items.length, props.position, distance );
       
-  }, [props.childrenCount, props.dir, props.position]);
+  }, [props.position]);
   
   return (
     <div
@@ -33,16 +36,39 @@ export const Items = props => {
   );
 }
 
+const initialState = { pos: 0, sliding: false, dir: NEXT, containerWidth: 0, windowSize: 0 };
+
 const getOrder = ({ index, pos, numItems }) => {
     return index - pos < 0 ? numItems - Math.abs(index - pos) : index - pos;
 };
-
-const initialState = { pos: 0, sliding: false, dir: NEXT, containerWidth: 0 };
   
 const Carousel = props => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  
+  const carouselContainer = useRef();
   const numItems = props.items.length;
+  const containerThreshold = (numItems * 260) - 16;
+
+  const handleResize = e => {
+    const windowSize = window.innerWidth;
+    dispatch({ type: "TRACK_WINDOW_RESIZE", payload: windowSize });
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  useEffect (() => {
+    const container = carouselContainer.current;
+    let containerWidth = container.offsetWidth;
+
+    console.log(containerWidth, containerThreshold, state.windowSize);
+
+    dispatch({ type: "SET_CONTAINER_WIDTH", payload: containerWidth });
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
+
+  }, [containerThreshold, state.windowSize]);
+  
   const items = props.items
   const slide = dir => {
     dispatch({ type: dir, numItems });
@@ -69,7 +95,7 @@ const Carousel = props => {
               </svg>
             </button>
           }
-          <div className={classes.itemsContainer}>
+          <div ref={carouselContainer} className={classes.itemsContainer}>
             {
               <Items 
                 dir={state.dir} 
@@ -96,7 +122,7 @@ const Carousel = props => {
               </Items>
             }               
           </div>
-        { (state.pos < props.items.length && props.items.length === 1) ? 
+        { (state.pos === (props.items.length - 1) /* && props.items.length === 1 */) || (state.containerWidth > containerThreshold ) ? 
           null : 
           <button 
             className={classes.arrowNext}
@@ -132,6 +158,10 @@ const Carousel = props => {
         };
       case "stopSliding":
         return { ...state, sliding: false };
+      case "SET_CONTAINER_WIDTH":
+        return {...state, containerWidth: payload}
+      case "TRACK_WINDOW_RESIZE":
+        return {...state, windowSize: payload}
       default:
         return state;
     }

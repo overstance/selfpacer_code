@@ -8,7 +8,9 @@ const initialState = {
     selectedCategory: 'all',
     clickedSubject: {},
     activeContentType: 'all',
-    likedResource: null
+    likedResource: null,
+    recentlyViewedLoading: false,
+    recentlyViewedResources: []
 };
 
 const fetchSubjectsStart = ( state, action ) => {
@@ -48,12 +50,27 @@ const setLikedResource = ( state, action ) => {
     return updateObject( state, { likedResource: action.id } );
 };
 
+// fetch recently view
+
+const fetchExploreRecentlyViewedStart = ( state, action ) => {
+    return updateObject( state, { recentlyViewedLoading: true } );
+};
+
+const fetchExploreRecentlyViewedSuccess = ( state, action ) => {
+    return updateObject( state, {
+        recentlyViewedResources: action.resources,
+        recentlyViewedLoading: false
+    } );
+};
+
+const resetExploreState = ( state, action ) => {
+    return updateObject( state, { recentlyViewedResources: [] } );
+};
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.FETCH_SUBJECTS_START: return fetchSubjectsStart( state, action );
-
-        case actionTypes.FETCH_SUBJECTS_SUCCESS: return fetchSubjectsSuccess( state, action );
-        
+        case actionTypes.FETCH_SUBJECTS_SUCCESS: return fetchSubjectsSuccess( state, action );   
         case actionTypes.FETCH_SUBJECTS_FAIL: return fetchSubjectsFail( state, action );
         
         case actionTypes.UPDATE_CLICKED_SUBJECT: return updateClickedSubject( state, action );
@@ -63,6 +80,11 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.SET_SELECTED_CATEGORY: return setSelectedCategory( state, action );
 
         case actionTypes.SET_LIKED_RESOURCE: return setLikedResource( state, action );
+
+        case actionTypes.FETCH_EXPLORE_RECENTLY_VIEWED_START: return fetchExploreRecentlyViewedStart( state, action );
+        case actionTypes.FETCH_EXPLORE_RECENTLY_VIEWED_SUCCESS: return fetchExploreRecentlyViewedSuccess( state, action );
+        
+        case actionTypes.RESET_EXPLORE_STATE: return resetExploreState( state, action );
 
         default: return state;
     }

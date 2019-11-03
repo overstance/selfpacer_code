@@ -109,7 +109,7 @@ export const updateUserRecentlyViewed = (id, viewedResources, userId) => async d
 
         // console.log(updatedRecentlyViewedResources);
 
-        const res = await axios.put('/api/update_user_liked_resources', {updatedRecentlyViewedResources: updatedRecentlyViewedResources, userId: userId})
+        const res = await axios.put('/api/update_user_viewed_resources', {updatedRecentlyViewedResources: updatedRecentlyViewedResources, userId: userId})
         
         if (res.data === 'userRecentlyViewedUpdated') {
             dispatch( updateUserRecentlyViewedResources( updatedRecentlyViewedResources ));
@@ -124,7 +124,7 @@ export const updateUserRecentlyViewed = (id, viewedResources, userId) => async d
 
         // console.log(updatedRecentlyViewedResources);
 
-        const res = await axios.put('/api/update_user_liked_resources', {updatedRecentlyViewedResources: updatedRecentlyViewedResources, userId: userId})
+        const res = await axios.put('/api/update_user_viewed_resources', {updatedRecentlyViewedResources: updatedRecentlyViewedResources, userId: userId})
         
         if (res.data === 'userRecentlyViewedUpdated') {
             dispatch( updateUserRecentlyViewedResources( updatedRecentlyViewedResources ));

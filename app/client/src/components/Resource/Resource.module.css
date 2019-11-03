@@ -54,6 +54,7 @@
     text-decoration: underline;
     text-decoration-color: var(--blue);
     text-decoration-line: 2px;
+    word-break: break-word;
 }
 
 

@@ -7,7 +7,7 @@ const initialState = {
     fetchResourceByIdLoading: false,
 
     clickedResourcePlatform: null,
-    userRecentlyViewed: null,
+    userRecentlyViewed: [],
 
     unconfirmedResources: [],
     unconfirmedLoading: false, 
@@ -22,7 +22,7 @@ const initialState = {
     deleteUnconfirmedError: null,
     deletingUnconfirmedId: null,
 
-    recentlyViewedResources: [],
+    /* recentlyViewedResources: [], */
 
     userAssetCountLoading: false,
     userAssetCount: 0,
@@ -216,9 +216,9 @@ const fetchMoreFail = ( state, action ) => {
 
 // fetch user recently viewed resources
 
-const fetchRecentlyViewedResources = ( state, action ) => {
+/* const fetchRecentlyViewedResources = ( state, action ) => {
     return updateObject( state, { recentlyViewedResources: action.resources } );
-};
+}; */
 
 // fetch unconfirmed resources
 
@@ -598,7 +598,7 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.SET_USER_RECENTLY_VIEWED: return setUserRecentlyViewed( state, action );
         case actionTypes.UPDATE_USER_RECENTLY_VIEWED: return updateUserRecentlyViewedResources( state, action );
 
-        case actionTypes.FETCH_RECENTLY_VIEWED_SUCCESS: return fetchRecentlyViewedResources( state, action );
+        // case actionTypes.FETCH_RECENTLY_VIEWED_SUCCESS: return fetchRecentlyViewedResources( state, action );
 
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_START: return fetchUnconfirmedStart( state, action );
         case actionTypes.FETCH_UNCONFIRMED_RESOURCES_SUCCESS: return fetchUnconfirmedSuccess( state, action );
