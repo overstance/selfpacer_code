@@ -9,8 +9,15 @@ const initialState = {
     clickedSubject: {},
     activeContentType: 'all',
     likedResource: null,
+
     recentlyViewedLoading: false,
-    recentlyViewedResources: []
+    recentlyViewedResources: [],
+
+    latestInSpecLoading: false,
+    latestInSpecResources: [],
+
+    popularInSpecLoading: false,
+    popularInSpecResources: []
 };
 
 const fetchSubjectsStart = ( state, action ) => {
@@ -63,8 +70,34 @@ const fetchExploreRecentlyViewedSuccess = ( state, action ) => {
     } );
 };
 
+const fetchExploreLatestInSpecStart = ( state, action ) => {
+    return updateObject( state, { latestInSpecLoading: true } );
+};
+
+const fetchExploreLatestInSpecSuccess = ( state, action ) => {
+    return updateObject( state, {
+        latestInSpecResources: action.resources,
+        latestInSpecLoading: false
+    } );
+};
+
+const fetchExplorePopularInSpecStart = ( state, action ) => {
+    return updateObject( state, { popularInSpecLoading: true } );
+};
+
+const fetchExplorePopularInSpecSuccess = ( state, action ) => {
+    return updateObject( state, {
+        popularInSpecResources: action.resources,
+        popularInSpecLoading: false
+    } );
+};
+
 const resetExploreState = ( state, action ) => {
-    return updateObject( state, { recentlyViewedResources: [] } );
+    return updateObject( state, { 
+        recentlyViewedResources: [],
+        latestInSpecResources: [],
+        popularInSpecResources: [] 
+    } );
 };
 
 const reducer = ( state = initialState, action ) => {
@@ -83,6 +116,12 @@ const reducer = ( state = initialState, action ) => {
 
         case actionTypes.FETCH_EXPLORE_RECENTLY_VIEWED_START: return fetchExploreRecentlyViewedStart( state, action );
         case actionTypes.FETCH_EXPLORE_RECENTLY_VIEWED_SUCCESS: return fetchExploreRecentlyViewedSuccess( state, action );
+
+        case actionTypes.FETCH_EXPLORE_LATEST_IN_SPEC_START: return fetchExploreLatestInSpecStart( state, action );
+        case actionTypes.FETCH_EXPLORE_LATEST_IN_SPEC_SUCCESS: return fetchExploreLatestInSpecSuccess( state, action );
+
+        case actionTypes.FETCH_EXPLORE_POPULAR_IN_SPEC_START: return fetchExplorePopularInSpecStart( state, action );
+        case actionTypes.FETCH_EXPLORE_POPULAR_IN_SPEC_SUCCESS: return fetchExplorePopularInSpecSuccess( state, action );
         
         case actionTypes.RESET_EXPLORE_STATE: return resetExploreState( state, action );
 

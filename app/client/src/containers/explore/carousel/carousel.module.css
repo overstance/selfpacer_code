@@ -21,6 +21,7 @@
     /* border: 2px solid var(--gray); */
     border-radius: 16px;
     background: var(--lightGray);
+    margin-bottom: 16px;
 }
 
 .arrowNext {

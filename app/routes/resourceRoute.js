@@ -388,4 +388,34 @@ module.exports = app => {
       }
     );
   });
+
+  app.get('/api/fetch_latest_in_spec_resources', (req, res) => {
+    Resource.find({ category: req.query.skill, confirmed: true })
+      .sort({ lastEdited: -1 })
+      .limit(10)
+      .exec((err, resources) => {
+        if (err) {
+          res.send({ error: err.message });
+        }
+
+        if (resources) {
+          res.send({ resources: resources });
+        }
+      });
+  });
+
+  app.get('/api/fetch_popular_in_spec_resources', (req, res) => {
+    Resource.find({ category: req.query.skill, confirmed: true })
+      .sort({ views: -1 })
+      .limit(10)
+      .exec((err, resources) => {
+        if (err) {
+          res.send({ error: err.message });
+        }
+
+        if (resources) {
+          res.send({ resources: resources });
+        }
+      });
+  });
 };

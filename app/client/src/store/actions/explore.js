@@ -118,11 +118,11 @@ export const storeVisitorViews = ( id, recentlyViewed ) => dispatch => {
         let viewed = [id];
         localStorage.setItem("viewed", viewed);
         dispatch(updateAuthOnVisitorView(viewed));
-        console.log("action reached: case = 0", viewed );
+        // console.log("action reached: case = 0", viewed );
     } else if (recentlyViewed.length > 0 && recentlyViewed.length < 10) {
         
         let checkInViewed = recentlyViewed.find(view => view === id);
-        console.log(!checkInViewed, checkInViewed);
+        // console.log(!checkInViewed, checkInViewed);
         
         if (!checkInViewed) {
             // let updatedViewed = [...recentlyViewed, id];
@@ -135,7 +135,7 @@ export const storeVisitorViews = ( id, recentlyViewed ) => dispatch => {
 
             localStorage.setItem("viewed", updatedViewed);
             dispatch(updateAuthOnVisitorView(updatedViewed));
-            console.log("action reached: case < 10", id, updatedViewed );
+            // console.log("action reached: case < 10", id, updatedViewed );
         } else {
             return;
         }
@@ -143,7 +143,7 @@ export const storeVisitorViews = ( id, recentlyViewed ) => dispatch => {
     } else if (recentlyViewed.length === 10) {
        
         let checkInViewed = recentlyViewed.find(view => view === id);
-        console.log(!checkInViewed, checkInViewed);
+        // console.log(!checkInViewed, checkInViewed);
 
         if(!checkInViewed) {
             
@@ -157,12 +157,13 @@ export const storeVisitorViews = ( id, recentlyViewed ) => dispatch => {
 
             localStorage.setItem("viewed", updatedViewed);
             dispatch(updateAuthOnVisitorView(updatedViewed));
-            console.log("action reached: case = 10", id, updatedViewed );
+            // console.log("action reached: case = 10", id, updatedViewed );
         }
         
     }
 };
 
+// fetch explore recently viewed
 export const fetchExploreRecentlyViewedStart = () => ({
     type: actionTypes.FETCH_EXPLORE_RECENTLY_VIEWED_START
 });
@@ -179,6 +180,48 @@ export const fetchExploreRecentlyViewed = (recentlyViewedIds) => async dispatch 
 
     if (res.data.resources) {
         dispatch(fetchExploreRecentlyViewedSuccess(res.data.resources));
+    }
+}
+
+//  fetch explore latest in spec
+
+export const fetchExploreLatestInSpecStart = () => ({
+    type: actionTypes.FETCH_EXPLORE_LATEST_IN_SPEC_START
+});
+
+export const fetchExploreLatestInSpecSuccess = (resources) => ({
+    type: actionTypes.FETCH_EXPLORE_LATEST_IN_SPEC_SUCCESS,
+    resources: resources
+});
+
+export const fetchExploreLatestInSpec = (userSpec) => async dispatch => {
+    dispatch(fetchExploreLatestInSpecStart());
+
+    const res = await axios.get('/api/fetch_latest_in_spec_resources', {params: {skill: userSpec}});
+
+    if (res.data.resources) {
+        dispatch(fetchExploreLatestInSpecSuccess(res.data.resources));
+    }
+}
+
+// fetch popular in spec
+
+export const fetchExplorePopularInSpecStart = () => ({
+    type: actionTypes.FETCH_EXPLORE_POPULAR_IN_SPEC_START
+});
+
+export const fetchExplorePopularInSpecSuccess = (resources) => ({
+    type: actionTypes.FETCH_EXPLORE_POPULAR_IN_SPEC_SUCCESS,
+    resources: resources
+});
+
+export const fetchExplorePopularInSpec = (userSpec) => async dispatch => {
+    dispatch(fetchExplorePopularInSpecStart());
+
+    const res = await axios.get('/api/fetch_popular_in_spec_resources', {params: {skill: userSpec}});
+
+    if (res.data.resources) {
+        dispatch(fetchExplorePopularInSpecSuccess(res.data.resources));
     }
 }
 

@@ -29,6 +29,8 @@ export {
     setLikedResource,
     storeVisitorViews,
     fetchExploreRecentlyViewed,
+    fetchExploreLatestInSpec,
+    fetchExplorePopularInSpec,
     resetExploreState
 } from './explore';
 export {

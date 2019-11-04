@@ -10,17 +10,8 @@ import FormFeedback from '../UserInterface/Form/FormFeedback/FormFeedback';
 
 class SkillSelect extends Component {
 
-    /* constructor(props) {
-        super(props);
-        this.selectHeading = React.createRef();
-    } */
-
-    /* componentDidMount() {
-        this.selectHeading.current.focus();
-    } */
-
     componentDidUpdate(prevProps) {
-        console.log(this.props.location.pathname);
+        // console.log(this.props.location.pathname);
         if (this.props.userSpec !== prevProps.userSpec && this.props.userSpec !== '' && this.props.location.pathname === '/') {
             this.props.history.push('/explore');
         }
@@ -94,19 +85,6 @@ class SkillSelect extends Component {
 
     submitFormHandler = (event) => {
         event.preventDefault();
-
-       /*  if ( this.state.subject.value === '') {
-            const subjectUpdated = {
-                ...this.state.subject,
-                touched: true,
-                valid: false
-            }
-            this.setState({ subject: subjectUpdated, fillError: 'Please select interest'});
-
-        } else {
-            this.props.onSetVisitorSpecialization( this.state.subject.value);
-        } */
-        
     }
 
     render() {
@@ -156,8 +134,7 @@ class SkillSelect extends Component {
                     onClick={this.props.closeSkillSelectOnClick}
                     onKeyUp={this.props.closeSkillSelectOnKey}
                     className={classes.backdrop}
-                    tabIndex="0"/* 
-                    show={this.props.show} */
+                    tabIndex="0"
                 />
             </div>
         )

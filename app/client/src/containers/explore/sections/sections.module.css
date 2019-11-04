@@ -1,15 +1,30 @@
-.recentlyViewedContainer {
+.spinnerWrapper {
+    margin: 0 16px;  
+    min-height: 320px;
+}
+
+.subsection {
     margin: 0 16px;
 }
 
-.recentlyViewedContainer h2 {
-    color: var(--blue);
+.subsection h2 {
+    color: var(--black);
     padding: 16px;
     font-size: 20px;
     margin: 0;
 }
 
-.recentlyViewed {
+.subsection h2 a {
+    color: var(--blue);
+    text-decoration-color: var(--blue);
+}
+
+.subsection h2 a:hover {
+    color: var(--black);
+    text-decoration: none;
+}
+
+/* .recentlyViewed {
     display: flex;
     flex-flow: row nowrap;
     box-sizing: border-box;
@@ -17,4 +32,4 @@
     margin: 16px;
     padding-bottom: 16px;
     margin-bottom: 0;
-}
+} */

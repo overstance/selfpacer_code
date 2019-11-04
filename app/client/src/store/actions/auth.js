@@ -179,7 +179,7 @@ export const logout = () => async (dispatch) => {
     localStorage.removeItem('token');
     localStorage.removeItem('spec');
     localStorage.removeItem('useContext');
-    localStorage.removeItem('viewed');
+    // localStorage.removeItem('viewed');
 
     dispatch({ type: LOGOUT_USER, payload: res.data });
     dispatch(clearInit());

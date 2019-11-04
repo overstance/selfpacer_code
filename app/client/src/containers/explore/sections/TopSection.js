@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './sections.module.css';
 import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
 import Carousel from '../carousel/carousel';
 import * as actions from '../../../store/actions/index';
 import Spinner from '../../../components/UserInterface/Spinner/Spinner'
@@ -9,96 +10,42 @@ class RecentlyViewed extends Component {
 
     componentDidMount() {
         if (this.props.isAuthenticated && this.props.userRecentlyViewed.length > 0) {
-            this.props.onFetchExploreRecentlyViewed(this.props.userRecentlyViewed)
+            this.props.onFetchExploreRecentlyViewed(this.props.userRecentlyViewed);
         }
 
         if (!this.props.isAuthenticated && this.props.visitorRecentlyViewed.length > 0) {
-            this.props.onFetchExploreRecentlyViewed(this.props.visitorRecentlyViewed)
+            this.props.onFetchExploreRecentlyViewed(this.props.visitorRecentlyViewed);
+        }
+
+        if (this.props.userSpec && this.props.userSpec !== '') {
+            this.props.onFetchExploreLatestInSpec(this.props.userSpec);
+            this.props.onFetchExplorePopularInSpec(this.props.userSpec);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.userRecentlyViewed !== prevProps.userRecentlyViewed && this.props.userRecentlyViewed.length > 0) {
+            this.props.onFetchExploreRecentlyViewed(this.props.userRecentlyViewed);
+        }
+
+        if (this.props.userSpec !== prevProps.userSpec) {
+            this.props.onFetchExploreLatestInSpec(this.props.userSpec);
+            this.props.onFetchExplorePopularInSpec(this.props.userSpec);
         }
     }
 
     render() {
 
-        /* let resourcesArray =
-        [
-            {
-                category: "Accounting",
-                img: "https://i.ytimg.com/vi/5eGRi66iUfU/mqdefault.jpg",
-                source: "youtube.com youtube.com youtube.com",
-                title: "Introduction to Corporate Finance - FREE Course | Corporate Finance Institute | Corporate Finance Institute",
-                type: "youtube#video",
-                youtubelikes: "3,944",
-                __v: 0,
-                _id: "5c3b839c63b8c51434c95e9c"
-            },
-            {
-                category: "Accounting",
-                img: "https://i.ytimg.com/vi/j34otrXr-RQ/mqdefault.jpg",
-                source: "youtube.com",
-                title: "Strategic Management Control Systems",
-                type: "youtube#playlist",
-                videoCount: "47",
-                __v: 0,
-                _id: "5c3b837563b8c51434c95e98"
-            },
-            {
-                avgRating: "4.5",
-                category: "Accounting",
-                img: "https://udemy-images.udemy.com/course/480x270/888716_4225_6.jpg",
-                source: "udemy.com",
-                title: "Introduction to Finance, Accounting, Modeling and Valuation",
-                type: "mooc",
-                __v: 0,
-                _id: "5c3b84fd63b8c51434c95e9f"
-            },
-            {
-                avgRating: "4",
-                category: "Accounting",
-                img: "https://images-na.ssl-images-amazon.com/images/I/41%2B4d6KCtAL._SX299_BO1,204,203,200_.jpg",
-                source: "amazon.com",
-                title: "Accounting Made Simple",
-                type: "books",
-                __v: 0,
-                _id: "5c3b85fb63b8c51434c95ea1"
-            },
-            {
-                category: "Accounting",
-                img: "https://i.ytimg.com/vi/j34otrXr-RQ/mqdefault.jpg",
-                source: "youtube.com",
-                title: "Strategic Management Control Systems",
-                type: "youtube#playlist",
-                videoCount: "47",
-                __v: 0,
-                _id: "5c3b837563b8c51434c95e98"
-            },
-            {
-                avgRating: "4.5",
-                category: "Accounting",
-                img: "https://udemy-images.udemy.com/course/480x270/888716_4225_6.jpg",
-                source: "udemy.com",
-                title: "Introduction to Finance, Accounting, Modeling and Valuation",
-                type: "mooc",
-                __v: 0,
-                _id: "5c3b84fd63b8c51434c95e9f"
-            },
-            {
-                avgRating: "4",
-                category: "Accounting",
-                img: "https://images-na.ssl-images-amazon.com/images/I/41%2B4d6KCtAL._SX299_BO1,204,203,200_.jpg",
-                source: "amazon.com",
-                title: "Accounting Made Simple",
-                type: "books",
-                __v: 0,
-                _id: "5c3b85fb63b8c51434c95ea1"
-            }
-        ]; */
         let recentlyViewed;
 
         if (this.props.recentlyViewedLoading) {
-            recentlyViewed = <Spinner isComponent/>
+            recentlyViewed = 
+            <div className={classes.spinnerWrapper}>   
+                <Spinner isComponent/>
+            </div>
         } else if(!this.props.recentlyViewedLoading && this.props.recentlyViewedResources.length > 0) {
             recentlyViewed =
-            <div className={classes.recentlyViewedContainer}>
+            <div className={classes.subsection}>
                 <h2>Recently viewed resources</h2>
                 <Carousel
                     items={this.props.recentlyViewedResources}
@@ -106,29 +53,47 @@ class RecentlyViewed extends Component {
             </div>
         }
 
+        let latestInSpec;
+
+        if (this.props.latestInSpecLoading) {
+            latestInSpec = 
+            <div className={classes.spinnerWrapper}>   
+                <Spinner isComponent/>
+            </div>
+        } else if(!this.props.latestInSpecLoading && this.props.latestInSpecResources.length > 0) {
+            latestInSpec =
+            <div className={classes.subsection}>
+                <h2>Recently added or updated in <Link to={`/skills/${this.props.userSpec}`}>{this.props.userSpec}</Link></h2>
+                <Carousel
+                    items={this.props.latestInSpecResources}
+                />
+            </div>
+        }
+
+        let popularInSpec;
+
+        if (this.props.popularInSpecLoading) {
+            popularInSpec = 
+            <div className={classes.spinnerWrapper}>   
+                <Spinner isComponent/>
+            </div>
+        } else if(!this.props.popularInSpecLoading && this.props.popularInSpecResources.length > 0) {
+            popularInSpec =
+            <div className={classes.subsection}>
+                <h2>Popular in <Link to={`/skills/${this.props.userSpec}`}>{this.props.userSpec}</Link></h2>
+                <Carousel
+                    items={this.props.popularInSpecResources}
+                />
+            </div>
+        }
+
 
 
         return(
-            <div className={classes.topSection}>   
-                { /* this.props.isAuthenticated && this.props.recentlyViewedResources.length > 0 ?
-                    <div className={classes.recentlyViewedContainer}>
-                        <h2>Recently viewed resources(user)</h2>
-                        <Carousel
-                            items={this.props.recentlyViewedResources}
-                        />
-                    </div>
-                    : null */
-                }
-                { /* !this.props.isAuthenticated && this.props.recentlyViewedResources.length > 0 ?
-                    <div className={classes.recentlyViewedContainer}>
-                        <h2>Recently viewed resources(visitor)</h2>
-                        <Carousel
-                            items={this.props.recentlyViewedResources}
-                        />
-                    </div>
-                    : null */
-                }
+            <div className={classes.topSection}>
                 {recentlyViewed}
+                {latestInSpec}  
+                {popularInSpec}         
             </div>
         )
     }
@@ -137,16 +102,26 @@ class RecentlyViewed extends Component {
 const mapStateToProps = state => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
+        userSpec: state.auth.userSpecialization,
         userRecentlyViewed: state.resource.userRecentlyViewed,
         visitorRecentlyViewed: state.auth.visitorRecentlyViewed,
+
         recentlyViewedLoading: state.explore.recentlyViewedLoading,
-        recentlyViewedResources: state.explore.recentlyViewedResources
+        recentlyViewedResources: state.explore.recentlyViewedResources,
+
+        latestInSpecLoading: state.explore.latestInSpecLoading,
+        latestInSpecResources: state.explore.latestInSpecResources,
+
+        popularInSpecLoading: state.explore.popularInSpecLoading,
+        popularInSpecResources: state.explore.popularInSpecResources
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onFetchExploreRecentlyViewed: (recentlyViewedIds) => dispatch(actions.fetchExploreRecentlyViewed(recentlyViewedIds)),
+        onFetchExploreLatestInSpec: (userSpec) => dispatch(actions.fetchExploreLatestInSpec(userSpec)),
+        onFetchExplorePopularInSpec: (userSpec) => dispatch(actions.fetchExplorePopularInSpec(userSpec))
     };
 };
 

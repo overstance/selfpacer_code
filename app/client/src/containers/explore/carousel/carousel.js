@@ -1,4 +1,4 @@
-import React, {useReducer, useRef, useEffect} from "react";
+import React, {useReducer, useRef, /* useCallback, */ useEffect} from "react";
 import { useSwipeable } from "../../../components/ReactSwipeable/ReactSwipeable";
 import Resource from '../resource/resource';
 import classes from './carousel.module.css';
@@ -11,7 +11,6 @@ export const Items = props => {
   const carouselItems = useRef(null);
 
   useEffect(() => {
-    
       let itemWidth = -260; 
       let position = props.position;
 
@@ -22,8 +21,6 @@ export const Items = props => {
 
       // i used this return to avoid running this effect on unmount
       return () => {};
-      // console.log(items.length, props.position, distance );
-      
   }, [props.position]);
   
   return (
@@ -53,21 +50,18 @@ const Carousel = props => {
     dispatch({ type: "TRACK_WINDOW_RESIZE", payload: windowSize });
   };
 
-  window.addEventListener("resize", handleResize);
-
   useEffect (() => {
+    window.addEventListener("resize", handleResize);
+      
     const container = carouselContainer.current;
     let containerWidth = container.offsetWidth;
-
-    console.log(containerWidth, containerThreshold, state.windowSize);
-
     dispatch({ type: "SET_CONTAINER_WIDTH", payload: containerWidth });
 
     return () => {
       window.removeEventListener("resize", handleResize);
     }
 
-  }, [containerThreshold, state.windowSize]);
+  }, [state.windowSize]);
   
   const items = props.items
   const slide = dir => {
