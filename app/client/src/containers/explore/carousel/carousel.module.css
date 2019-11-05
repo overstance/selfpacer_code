@@ -8,9 +8,9 @@
     display: flex;
     margin: 0;
     padding: 0;
-    list-style: none;
+    /* list-style: none; */
     transition: margin-left 250ms;
-    font-size: 0;
+    /* font-size: 0; */
 }
 
 .carousel {

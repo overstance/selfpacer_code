@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import classes from './sections.module.css';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import Carousel from '../carousel/carousel';
 import * as actions from '../../../store/actions/index';
-import Spinner from '../../../components/UserInterface/Spinner/Spinner'
+import Spinner from '../../../components/UserInterface/Spinner/Spinner';
+import Grid from '../grid/grid';
 
-class RecentlyViewed extends Component {
+const ResourcesSideAd = () => (
+    <div className={classes.adFullSide}/>
+)
+
+class TopSection extends Component {
 
     componentDidMount() {
         if (this.props.isAuthenticated && this.props.userRecentlyViewed.length > 0) {
@@ -49,6 +54,7 @@ class RecentlyViewed extends Component {
                 <h2>Recently viewed resources</h2>
                 <Carousel
                     items={this.props.recentlyViewedResources}
+                    isResource
                 />
             </div>
         }
@@ -66,6 +72,7 @@ class RecentlyViewed extends Component {
                 <h2>Recently added or updated in <Link to={`/skills/${this.props.userSpec}`}>{this.props.userSpec}</Link></h2>
                 <Carousel
                     items={this.props.latestInSpecResources}
+                    isResource
                 />
             </div>
         }
@@ -83,6 +90,7 @@ class RecentlyViewed extends Component {
                 <h2>Popular in <Link to={`/skills/${this.props.userSpec}`}>{this.props.userSpec}</Link></h2>
                 <Carousel
                     items={this.props.popularInSpecResources}
+                    isResource
                 />
             </div>
         }
@@ -90,11 +98,27 @@ class RecentlyViewed extends Component {
 
 
         return(
-            <div className={classes.topSection}>
-                {recentlyViewed}
-                {latestInSpec}  
-                {popularInSpec}         
-            </div>
+            this.props.recentlyViewedResources.length > 0 ||
+            this.props.latestInSpecResources.length > 0 ||
+            this.props.popularInSpecResources.length > 0 ?
+            <Fragment>
+                <Grid
+                    sideAd={
+                        <ResourcesSideAd />
+                    }
+                >
+                    <div className={classes.topSection}>
+                        {recentlyViewed}
+                        {latestInSpec}  
+                        {popularInSpec}         
+                    </div> 
+                </Grid>
+                <div className={classes.featuredSectionTopAd}>
+                    <div className={classes.adFull} />
+                    <div className={classes.adMedium} />
+                </div>
+            </Fragment>             
+            : null            
         )
     }
 }
@@ -125,4 +149,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecentlyViewed);
+export default connect(mapStateToProps, mapDispatchToProps)(TopSection);

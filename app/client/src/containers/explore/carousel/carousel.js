@@ -2,6 +2,9 @@ import React, {useReducer, useRef, /* useCallback, */ useEffect} from "react";
 import { useSwipeable } from "../../../components/ReactSwipeable/ReactSwipeable";
 import Resource from '../resource/resource';
 import classes from './carousel.module.css';
+import {connect} from 'react-redux';
+import * as actions from '../../../store/actions/index';
+import Collection from '../../../components/SharedCollections/sharedCollectionContainer/sharedCollectionContainer';
 
 export const NEXT = "NEXT";
 export const PREV = "PREV";
@@ -36,7 +39,7 @@ export const Items = props => {
 const initialState = { pos: 0, sliding: false, dir: NEXT, containerWidth: 0, windowSize: 0 };
 
 const getOrder = ({ index, pos, numItems }) => {
-    return index - pos < 0 ? numItems - Math.abs(index - pos) : index - pos;
+  return index - pos < 0 ? numItems - Math.abs(index - pos) : index - pos;
 };
   
 const Carousel = props => {
@@ -44,6 +47,11 @@ const Carousel = props => {
   const carouselContainer = useRef();
   const numItems = props.items.length;
   const containerThreshold = (numItems * 260) - 16;
+
+  const collectionClickedHandler = (title, lastUpdated, id, description, published, featured, curator) => {
+    const dateToString = new Date(lastUpdated).toLocaleDateString();
+    props.onSetClickedCollectionAttributes( {title: title, lastUpdated: dateToString, id: id, description: description, public: published, featured: featured, curator: curator} );
+  }
 
   const handleResize = e => {
     const windowSize = window.innerWidth;
@@ -63,7 +71,45 @@ const Carousel = props => {
 
   }, [state.windowSize]);
   
-  const items = props.items
+  const items = props.items;
+  let renderedItems;
+
+  if(props.isResource) {
+    renderedItems =
+    items.map((resource, index) => (
+      <Resource 
+        order={getOrder({ index: index, pos: state.pos, numItems })}
+        key={index}
+        category={resource.category}
+        img={resource.img}
+        source={resource.source}
+        type={resource.type}
+        id={resource._id}
+        title={resource.title}
+        avgRating={resource.avgRating}
+        youtubelikes={resource.youtubelikes} 
+        videoCount={resource.videoCount}
+      />
+    ))
+  }
+
+  if(props.isCollection) {
+    renderedItems =
+    items.map((collection, index) => (
+      <Collection 
+        forExplore
+        order={getOrder({ index: index, pos: state.pos, numItems })}
+        key={index}
+        id={collection._id} 
+        title={collection.title}
+        itemCount={collection.resources.length}
+        lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
+        collectionClicked={() => collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
+        description={collection.description}
+        curator={collection.curator}
+      />
+    ))
+  }
   const slide = dir => {
     dispatch({ type: dir, numItems });
     setTimeout(() => {
@@ -97,22 +143,7 @@ const Carousel = props => {
                 sliding={state.sliding}
                 childrenCount={items.length}
               >
-                { items.map((resource, index) => (
-                    <Resource 
-                      order={getOrder({ index: index, pos: state.pos, numItems })}
-                      key={index}
-                      category={resource.category}
-                      img={resource.img}
-                      source={resource.source}
-                      type={resource.type}
-                      id={resource._id}
-                      title={resource.title}
-                      avgRating={resource.avgRating}
-                      youtubelikes={resource.youtubelikes} 
-                      videoCount={resource.videoCount}
-                    />
-                  ))
-                }               
+                {renderedItems}               
               </Items>
             }               
           </div>
@@ -160,5 +191,11 @@ const Carousel = props => {
         return state;
     }
   }
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onSetClickedCollectionAttributes: ( attributes ) => dispatch(actions.setClickedCollectionAttributes( attributes ))
+  };
+};
   
-  export default Carousel;
+  export default connect(null, mapDispatchToProps)(Carousel);

@@ -15,6 +15,33 @@ class SharedCollectionContainer extends Component {
 
         let checkPinned = this.props.pinnedCollectionIds.filter(collection => collection === this.props.id);
         return (
+            this.props.forExplore ?
+            <Link 
+            to={`/shared_collections/${this.props.id}`} className={classes.forExploreContainer}
+            onClick={this.props.collectionClicked}
+            >
+                <div className={classes.titleWrapper}>
+                    <div className={classes.title}>
+                        {title}
+                    </div>
+                    { this.props.curator ?
+                        <div className={classes.curator}>
+                            {"curator: " + this.props.curator}
+                        </div>
+                        : null
+                    }
+                </div>
+                <div className={classes.NontitleWrapper}>
+                    <div className={classes.ItemCount}>{this.props.itemCount}</div>
+                    { this.props.itemCount <= 1 ? 
+                        <div className={classes.ItemLabel}>Item</div>
+                        :
+                        <div className={classes.ItemLabel}>Items</div>
+                    }
+                    <div className={classes.DateLabel}>{'last updated: ' + this.props.lastUpdated}</div>
+                </div>
+            </Link>
+            :
             <Link 
             to={`/shared_collections/${this.props.id}`} className={classes.Container}
             onClick={this.props.collectionClicked}

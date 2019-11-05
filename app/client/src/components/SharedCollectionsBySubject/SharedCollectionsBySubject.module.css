@@ -10,27 +10,37 @@
 .CollectionWrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     padding: 10px;
 }
 
 .featuredCollectionWrapper {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     padding: 10px;
-    background: var(--green);
+    background: var(--lightGray);
+    padding-bottom: 16px;
 }
+
+/* .infoWrapper {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    box-sizing: border-box;
+    flex: 0 0 100%;
+    max-width: 100%;
+} */
 
 .featuredCollectionWrapper h2 {
     color: var(--blue);
-    font-weight: 900;
-    font-size: 16px;
+    /* font-weight: 900; */
+    /* font-size: 16px; */
     flex: 0 0 100%;
-    margin: 0;
+    /* margin: 0; */
     box-sizing: border-box;
     text-align: center;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .SubjectWrapper form {

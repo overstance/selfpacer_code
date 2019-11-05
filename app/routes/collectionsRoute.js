@@ -7,36 +7,9 @@ const User = mongoose.model('users');
 
 module.exports = app => {
   app.get('/api/user_collections', (req, res) => {
-    Collection.find({ user_id: req.query.userId }, function(err, collections) {
-      if (err) {
-        console.log(err);
-        res.send(err.name);
-      } else {
-        res.send({ collections: collections });
-        // console.log(collections);
-      }
-    });
-  });
-
-  app.get('/api/shared_collections', (req, res) => {
-    Collection.find({ public: true, description: req.query.userSpec }, function(
-      err,
-      collections
-    ) {
-      if (err) {
-        console.log(err);
-        res.send(err.name);
-      } else {
-        res.send({ collections: collections });
-        // console.log(collections);
-      }
-    });
-  });
-
-  app.get('/api/featured_collections', (req, res) => {
-    Collection.find(
-      { public: true, featured: true, description: req.query.userSpec },
-      function(err, collections) {
+    Collection.find({ user_id: req.query.userId })
+      .sort({ lastUpdated: -1 })
+      .exec((err, collections) => {
         if (err) {
           console.log(err);
           res.send(err.name);
@@ -44,8 +17,39 @@ module.exports = app => {
           res.send({ collections: collections });
           // console.log(collections);
         }
-      }
-    );
+      });
+  });
+
+  app.get('/api/shared_collections', (req, res) => {
+    Collection.find({ public: true, description: req.query.userSpec })
+      .sort({ lastUpdated: -1 })
+      .exec(function(err, collections) {
+        if (err) {
+          // console.log(err);
+          res.send(err.name);
+        } else {
+          res.send({ collections: collections });
+          // console.log(collections);
+        }
+      });
+  });
+
+  app.get('/api/featured_collections', (req, res) => {
+    Collection.find({
+      public: true,
+      featured: true,
+      description: req.query.userSpec
+    })
+      .sort({ lastUpdated: -1 })
+      .exec(function(err, collections) {
+        if (err) {
+          console.log(err);
+          res.send(err.name);
+        } else {
+          res.send({ collections: collections });
+          // console.log(collections);
+        }
+      });
   });
 
   app.get('/api/fetch_collection', (req, res) => {

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import classes from './Explore.module.css';
 import * as actions from '../../store/actions/index';
-import Grid from './grid/grid';
+// import Grid from './grid/grid';
 import TopSection from './sections/TopSection';
+import MiddleSection from './sections/MiddleSection';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import Container from '../../components/UserInterface/Container/Container';
@@ -20,9 +21,9 @@ function shuffleArray(array) {
     return array;
 }
 
-const ResourcesSideAd = () => (
+/* const ResourcesSideAd = () => (
     <div className={classes.adFullSide}/>
-)
+) */
 
 class Explore extends Component {
 
@@ -126,13 +127,8 @@ class Explore extends Component {
                             }
                         </h1> 
                     </div>
-                    <Grid
-                        sideAd={
-                            <ResourcesSideAd />
-                        }
-                    >
-                       <TopSection /> 
-                    </Grid>    
+                    <TopSection />
+                    <MiddleSection />
                     { this.state.showVisitorSkillSelect ?
                         <VisitorSkillSelect 
                             closeSkillSelectOnClick={this.closeVisitorSkillSelectOnClick}

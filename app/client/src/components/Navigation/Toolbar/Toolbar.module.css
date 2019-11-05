@@ -29,7 +29,7 @@
 
 .ToolBarLogo {
     display: block;
-    width: 200px;
+    width: 160px;
     height: 100%;
 }
 
@@ -71,7 +71,7 @@
 
 @media (max-width: 600px) {
     .ToolBarLogo {
-        width: 160px;
+        width: 120px;
         height: 100%;
     }
 

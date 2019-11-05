@@ -10,6 +10,19 @@ import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
 
 class SharedCollectionsBySubject extends Component {
 
+    componentDidMount() {
+        if(this.props.userSpec && this.props.userSpec !== '') {
+            this.props.onFetchSharedCollectionsBySpec(this.props.userSpec);
+
+            const subjectUpdate = {
+                ...this.state.subject,
+                value: this.props.userSpec
+            }
+
+            this.setState({ subject: subjectUpdate});
+        }
+    }
+
     state = {
         subject: {
             value: '',
@@ -86,50 +99,51 @@ class SharedCollectionsBySubject extends Component {
 
         if (!this.props.sharedCollectionsLoading) {
 
-            if (this.state.subject.value === '') {
+            if (this.state.subject.value === '' && (!this.props.userSpec || this.props.userSpec === '')) {
                 sharedCollectionsBySpec = 
                 <PostActionInfo isSuccess>
                     {'Please select a subject above.'}
                 </PostActionInfo>
             } else {
-                featured =  this.props.sharedCollections.filter(collection => collection.public && collection.featured);
-                others = this.props.sharedCollections.filter(collection => collection.public && !collection.featured); 
-                sharedCollectionsBySpec = others.map( (collection, i) => (
-                <SharedCollectionContainer
-                key={i}
-                id={collection._id} 
-                title={collection.title}
-                itemCount={collection.resources.length}
-                lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
-                collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
-                description={collection.description}
-                curator={collection.curator}
-                />
-                ));     
-                
-                if (featured.length > 0) {
-                    featuredCollectionsBySpec = featured.map( (collection, i) => (
-                        <SharedCollectionContainer
-                        key={i}
-                        id={collection._id} 
-                        title={collection.title}
-                        itemCount={collection.resources.length}
-                        lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
-                        collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
-                        description={collection.description}
-                        curator={collection.curator}
-                        />
+
+                if (this.props.sharedCollections.length > 0) {
+                    featured =  this.props.sharedCollections.filter(collection => collection.public && collection.featured);
+                    others = this.props.sharedCollections.filter(collection => collection.public && !collection.featured); 
+                    sharedCollectionsBySpec = others.map( (collection, i) => (
+                    <SharedCollectionContainer
+                    key={i}
+                    id={collection._id} 
+                    title={collection.title}
+                    itemCount={collection.resources.length}
+                    lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
+                    collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
+                    description={collection.description}
+                    curator={collection.curator}
+                    />
                     ));     
+                    
+                    if (featured.length > 0) {
+                        featuredCollectionsBySpec = featured.map( (collection, i) => (
+                            <SharedCollectionContainer
+                            key={i}
+                            id={collection._id} 
+                            title={collection.title}
+                            itemCount={collection.resources.length}
+                            lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
+                            collectionClicked={() => this.collectionClickedHandler(collection.title, collection.lastUpdated, collection._id, collection.description, collection.public, collection.featured, collection.curator)}
+                            description={collection.description}
+                            curator={collection.curator}
+                            />
+                        ));     
+                    }
+                } else {
+                    sharedCollectionsBySpec = 
+                    <PostActionInfo isSuccess>
+                        {'No shared collections for "' + this.state.subject.value + '" yet. Please check back later.'}
+                    </PostActionInfo>
                 }
             }
-        } else if (others.length === 0 && featured.length === 0 && !this.props.sharedCollectionsLoading ) {
-
-            sharedCollectionsBySpec = 
-            <PostActionInfo isSuccess>
-                {'No shared collections for "' + this.state.subject.value + '" yet. Please check back later.'}
-            </PostActionInfo>
         } else if (this.props.sharedCollectionsFetchErrors) {
-
             sharedCollectionsBySpec =
             <PostActionInfo>
                 {this.props.sharedCollectionsFetchErrors}
@@ -138,9 +152,12 @@ class SharedCollectionsBySubject extends Component {
 
         return (
             <div>
-                <div className={classes.SubjectWrapper}>
-                    {subjectSelect}
-                </div>
+                {this.props.userSpec !== '' && this.props.userSpec ?
+                    null : 
+                    <div className={classes.SubjectWrapper}>
+                        {subjectSelect}
+                    </div>
+                }
                 { featured.length > 0 ?
                     <div className={classes.featuredCollectionWrapper}> 
                         <h2>Featured:</h2>                             
@@ -161,6 +178,7 @@ const mapStateToProps = state => ({
     sharedCollectionsFetchErrors: state.collection.sharedCollectionsFetchErrors,
     sharedCollectionsLoading: state.collection.sharedCollectionsLoading,
     sharedCollections: state.collection.sharedCollections,
+    userSpec: state.auth.userSpecialization,
 });
 
 const mapDispatchToProps = dispatch => {

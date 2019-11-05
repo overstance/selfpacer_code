@@ -44,7 +44,7 @@ class PinnedCollections extends Component {
                     id={collection._id} 
                     title={collection.title}
                     itemCount={collection.resources.length}
-                    date={new Date(collection.date).toLocaleDateString()}
+                    lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
                     collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description, collection.public, collection.curator)}
                     description={collection.description}
                     curator={collection.curator}
