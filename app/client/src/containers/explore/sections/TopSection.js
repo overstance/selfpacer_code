@@ -107,7 +107,7 @@ class TopSection extends Component {
                         <ResourcesSideAd />
                     }
                 >
-                    <div className={classes.topSection}>
+                    <div className={classes.section}>
                         {recentlyViewed}
                         {latestInSpec}  
                         {popularInSpec}         

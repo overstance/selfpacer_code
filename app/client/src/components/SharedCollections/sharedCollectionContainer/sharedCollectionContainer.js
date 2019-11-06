@@ -6,6 +6,11 @@ import { connect } from 'react-redux';
 class SharedCollectionContainer extends Component {
     render () {
         let title = this.props.title;
+        let curator = this.props.curator;
+
+        if(curator && curator.length > 20) {
+            curator = curator.slice(0,20) + '...'
+        }
 
         if(title.length > 60) {
             let elipses = '...';
@@ -26,7 +31,7 @@ class SharedCollectionContainer extends Component {
                     </div>
                     { this.props.curator ?
                         <div className={classes.curator}>
-                            {"curator: " + this.props.curator}
+                            {"curator: " + curator}
                         </div>
                         : null
                     }
@@ -65,7 +70,7 @@ class SharedCollectionContainer extends Component {
                     </div>
                     { this.props.curator ?
                         <div className={classes.curator}>
-                            {"curator: " + this.props.curator}
+                            {"curator: " + curator}
                         </div>
                         : null
                     }

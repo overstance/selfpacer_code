@@ -3,15 +3,21 @@
     min-height: 320px;
 }
 
-.subsection {
+.section {
     margin: 0 16px;
+}
+
+.subsection {
+    margin-bottom: 48px;
 }
 
 .subsection h2 {
     color: var(--black);
     padding: 16px;
     font-size: 20px;
-    margin: 0;
+    margin:0;
+    margin-bottom: 16px;
+    background: var(--green);
 }
 
 .subsection h2 a {
@@ -22,6 +28,16 @@
 .subsection h2 a:hover {
     color: var(--black);
     text-decoration: none;
+}
+
+.otherSkillsContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+.otherSkillsContainer li {
+    list-style: none;
 }
 
 .adFullSide {

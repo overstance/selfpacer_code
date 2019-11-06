@@ -1,7 +1,7 @@
 .container {
     width: 100%;
     box-sizing: border-box;
-    background: var(--gray);
+    background: var(--lightGray);
     padding: 16px;
     border-bottom: 2px solid var(--blue);
 }

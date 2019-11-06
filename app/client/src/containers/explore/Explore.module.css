@@ -2,23 +2,12 @@
     width: 100%;
 }
 
-.inspireBoard {
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100px; */
-    padding: 16px;
-    background: var(--blue);
-}
-
-.inspireBoard article {
-    max-width: 600px;
-    color: var(--white);
-    text-align: center;
-}
-
 .userSpec {
     padding: 16px;
+}
+
+.userSpec h1 {
+    margin: 0;
 }
 
 .descriptor {
@@ -42,16 +31,5 @@
     border: none;
     font-family: "Nunito";
     font-weight: 700;
-}
-
-.adFullSide {
-    width: 300px;
-    height: 600px;
-    background-position-x: center;
-    background-position-y: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background: url('../../assets/art/head-art/ad_ad300X600.png');
-    margin: auto;
 }
 

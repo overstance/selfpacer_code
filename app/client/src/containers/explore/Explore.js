@@ -5,8 +5,10 @@ import * as actions from '../../store/actions/index';
 // import Grid from './grid/grid';
 import TopSection from './sections/TopSection';
 import MiddleSection from './sections/MiddleSection';
+import BottomSection from './sections/BottomSection';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
+import ScrollButton from '../../components/UserInterface/ScrollToTop/ScrollButton';
 import Container from '../../components/UserInterface/Container/Container';
 import VisitorSkillSelect from '../../components/visitorSkillSelect/skillSelect';
 
@@ -21,17 +23,7 @@ function shuffleArray(array) {
     return array;
 }
 
-/* const ResourcesSideAd = () => (
-    <div className={classes.adFullSide}/>
-) */
-
 class Explore extends Component {
-
-    /* constructor(props) {
-        super(props);
-        this.visitorSelectSkillModal = React.createRef();
-        this.changeButton = React.createRef();
-    } */
 
     visitorSelectSkillModal = React.createRef();
     changeButton = React.createRef();
@@ -129,6 +121,7 @@ class Explore extends Component {
                     </div>
                     <TopSection />
                     <MiddleSection />
+                    <BottomSection />
                     { this.state.showVisitorSkillSelect ?
                         <VisitorSkillSelect 
                             closeSkillSelectOnClick={this.closeVisitorSkillSelectOnClick}
@@ -140,6 +133,7 @@ class Explore extends Component {
                         null
                     }
                 </section>
+                <ScrollButton scrollStepInPx="100" delayInMs="16.66" showUnder={160} />
             </Container>
         )
     }

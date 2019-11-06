@@ -72,3 +72,35 @@
     color: var(--blue);
     background: var(--gray);
 }
+
+.info {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition-property: all .3s ease;
+}
+
+.info svg {
+    height: 40px;
+    width: 40px;
+    fill: var(--green);
+}
+
+.overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background: rgba(0, 0, 0, .7);
+    opacity: 0;
+    transition-property: all .3s ease;
+}
+
+.resource:hover .overlay, .resource:hover .info {
+    opacity: 1;
+}

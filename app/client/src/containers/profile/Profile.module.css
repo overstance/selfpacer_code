@@ -26,7 +26,7 @@
     flex: 0 0 50%;
     max-width: 50%;
     margin-bottom: 16px;
-    border-right: 1px solid var(--lightGray);
+    /* border-right: 1px solid var(--lightGray); */
 }
 
 .ProfilePic {
@@ -122,11 +122,10 @@
 
 .Statistics {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    flex-flow: row nowrap;
     flex: 0 0 50%;
     max-width: 50%;
-    background: var(--gray);
+    /* background: var(--gray); */
     border-radius: 4px;
 }
 
@@ -137,6 +136,7 @@
     flex: 0 0 33%;
     max-width: 33%;
     text-align: center;
+    border-left: 1px solid var(--lightGray);
     border-right: 1px solid var(--lightGray);
 }
 
@@ -157,6 +157,7 @@
     flex: 0 0 50%;
     max-width: 50%;
     text-align: center;
+    border-left: 1px solid var(--lightGray);
     border-right: 1px solid var(--lightGray);
 }
 
@@ -167,7 +168,7 @@
     flex: 0 0 50%;
     max-width: 50%;
     text-align: center;
-    border-right: 1px solid var(--lightGray);
+    /* border-right: 1px solid var(--lightGray); */
 }
 
 .StatisticsAssets {
@@ -232,7 +233,7 @@
 }
 
 .Logout {
-    max-width: 300px;
+    max-width: 160px;
     padding: 10px 0;
     margin: 10px auto;
     background: var(--red);
@@ -245,7 +246,7 @@
 }
 
 .AdminTools {
-    max-width: 300px;
+    max-width: 160px;
     padding: 10px 0;
     margin: 10px auto;
     background: var(--blue);
@@ -273,6 +274,14 @@
         border-bottom: 1px solid var(--lightGray);
     }
 
+    .StatisticsLike {
+        border-left: none;
+    }
+
+    .NoAssetStatisticsLike {
+        border-left: none;
+    }
+
     .Statistics {
         flex: 0 0 100%;
         max-width: 100%;
@@ -292,6 +301,7 @@
 
     .Statistics {
         height: 100%;
+        flex-wrap: wrap;
     }
 
     .StatisticsLike {
