@@ -96,7 +96,7 @@ class UserCollection extends Component {
     }
 
     deleteConfirmedHandler = () => {
-        this.props.onDeleteCollectionItem( this.state.resourceToDeleteId, this.props.clickedCollectionAttributes._id, this.props.history );
+        this.props.onDeleteCollectionItem( this.state.resourceToDeleteId, this.props.clickedCollectionAttributes._id, this.props.collectedResources, this.props.confirmedCollectedResourcesIds );
 
         this.setState({ 
             resourceToDeleteId: null,
@@ -379,7 +379,7 @@ const mapDispatchToProps = dispatch => {
         onResourceLiked: ( id, likes ) => dispatch ( actions.resourceLiked( id, likes )),
         onUpdateUserLikeCount: ( userId, userLikeCount ) => dispatch(actions.updateUserLikeCount( userId, userLikeCount )),
 
-        onDeleteCollectionItem: ( resourceId, collectionId, history ) => dispatch(actions.deleteCollectionItem( resourceId, collectionId, history )),
+        onDeleteCollectionItem: ( resourceId, collectionId, collectedResources, confirmedCollectedResourcesIds ) => dispatch(actions.deleteCollectionItem( resourceId, collectionId, collectedResources, confirmedCollectedResourcesIds )),
         // onPublishCollection: (collectionId) => dispatch( actions.publishCollection(collectionId)),
         onUnpublishCollection: (collectionId) => dispatch( actions.unpublishCollection(collectionId)),
         onDeleteCollection: (collectionId) => dispatch( actions.deleteCollection(collectionId)),

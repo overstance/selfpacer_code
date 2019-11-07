@@ -344,27 +344,19 @@ export const deleteCollectionItemFail = ( error ) => {
     }
 }
 
-export const deleteCollectionItem = ( resourceId, collectionId, history) => async dispatch => {
+export const deleteCollectionItem = ( resourceId, collectionId, collectedResources, confirmedCollectedResourcesIds) => async dispatch => {
     
+    let updatedResourceIds = confirmedCollectedResourcesIds.filter(id => id !== resourceId);
     const info = {
-        resourceId: resourceId,
+        updatedResourceIds: updatedResourceIds,
         collectionId: collectionId
     }
 
-    const res = await axios.post('/api/delete_collection_item', info);
+    const res = await axios.put('/api/delete_collection_item', info);
 
     if ( res.data.collection._id === collectionId ) {
-        dispatch(fetchCollectionByIdStart());
-        // console.log('second route starts');
-        const id = collectionId;
-
-        const res2 = await axios.get('/api/fetch_collection', {params: { id: id }});
-
-        if (res2.data.resources) {
-            dispatch(fetchCollectionByIdSuccess(res2.data.resources));
-        } else {
-            dispatch(deleteCollectionItemFail(res2.data));
-        }
+        let updatedCollectedResources = collectedResources.filter(resource => resource._id !== resourceId)
+        dispatch(fetchCollectionByIdSuccess(updatedCollectedResources, updatedResourceIds));
     } else {
         return;
     }
@@ -405,15 +397,7 @@ export const editCollection = ( title, description, collectionId) => async dispa
     const res = await axios.post('/api/edit_collection', info);
 
     if (res.data.collection._id === collectionId ) {
-
-        const attributes = {
-            title: res.data.collection.title,
-            id: res.data.collection._id,
-            description: res.data.collection.description,
-            public: res.data.collection.public
-        }
-        
-        dispatch(editCollectionSuccess('edit successful', attributes));
+        dispatch(editCollectionSuccess('edit successful', res.data.collection));
     } else {
         dispatch(editCollectionFail(res.data));
     }

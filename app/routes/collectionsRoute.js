@@ -161,36 +161,19 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/delete_collection_item', (req, res) => {
-    Collection.findById({ _id: req.body.collectionId }, (err, collection) => {
-      if (err) {
-        res.send(err.message);
-        console.log(err.message);
-      } else {
-        const oldResourceArray = collection.resources;
-
-        const newResourceArray = oldResourceArray.filter(
-          resource => resource !== req.body.resourceId
-        );
-
-        // console.log(oldResourceArray);
-        // console.log(newResourceArray);
-
-        Collection.findByIdAndUpdate(
-          req.body.collectionId,
-          { resources: newResourceArray },
-          (err, collection) => {
-            if (err) {
-              res.send(err.message);
-              console.log(err.message);
-            } else {
-              // console.log(collection);
-              res.send({ collection: collection });
-            }
-          }
-        );
+  app.put('/api/delete_collection_item', (req, res) => {
+    Collection.findByIdAndUpdate(
+      { _id: req.body.collectionId },
+      { resources: req.body.updatedResourceIds },
+      (err, collection) => {
+        if (err) {
+          res.send(err.message);
+          console.log(err.message);
+        } else {
+          res.send({ collection: collection });
+        }
       }
-    });
+    );
   });
 
   app.post('/api/edit_collection', (req, res) => {
