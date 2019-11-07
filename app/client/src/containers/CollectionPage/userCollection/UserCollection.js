@@ -288,62 +288,50 @@ class UserCollection extends Component {
 
         return (
             <Grid>                
-                {content}
-                {this.state.showDeleteCollectionItemModal ? 
-                    <Dialogue 
-                    isDeleteCollectionItem
-                    showDialogue={this.state.showDeleteCollectionItemModal}
-                    closeDialogue={this.deleteCollectionItemCloseHandler}
-                    itemTitle={this.state.resourceToDeleteTitle}
-                    cancelDelete={this.cancelDeleteHandler}
-                    confirmDelete={this.deleteConfirmedHandler}
-                    />: null
-                }
-                {this.state.showEditCollectionModal ? 
-                    <EditCollection 
-                    showDialogue={this.state.showEditCollectionModal}
-                    closeDialogue={this.editCollectionCloseHandler}
-                    closeModal={this.editCollectionCloseHandler}
-                    />: null
-                }
-                {this.state.showPublishCollectionModal ? 
-                    <PublishCollection 
-                    showDialogue={this.state.showPublishCollectionModal}
-                    closeDialogue={this.publishCollectionCloseHandler}
-                    closeModal={this.publishCollectionCloseHandler}
-                    collectionTitle={this.props.clickedCollectionAttributes.title}
-                    cancelPublish={this.publishCollectionCloseHandler}
-                    // confirmPublish={this.publishConfirmedHandler}
-                    />: null
-                }
-                {this.state.showUnpublishCollectionModal ? 
-                    <UnpublishCollection 
-                    showDialogue={this.state.showUnpublishCollectionModal}
-                    closeDialogue={this.unpublishCollectionCloseHandler}
-                    closeModal={this.unpublishCollectionCloseHandler}
-                    collectionTitle={this.props.clickedCollectionAttributes.title}
-                    cancelUnpublish={this.unpublishCollectionCloseHandler}
-                    confirmUnpublish={this.unpublishConfirmedHandler}
-                    />: null
-                }
-                {this.state.showDeleteCollectionModal ? 
-                    <Dialogue
-                    isDeleteCollection 
-                    showDialogue={this.state.showDeleteCollectionModal}
-                    closeDialogue={this.deleteCollectionCloseHandler}
-                    collectionTitle={this.props.clickedCollectionAttributes.title}
-                    cancelDelete={this.deleteCollectionCloseHandler}
-                    confirmDelete={this.deleteCollectionConfirmedHandler}
-                    />: null
-                }
-                { this.state.showCollectionEmptyDialogue ? 
-                    <Dialogue
-                    isCollectionEmpty
-                    showDialogue={this.state.showCollectionEmptyDialogue}
-                    closeDialogue={this.closeCollectionEmptyHandler}
-                    closeModal={this.closeCollectionEmptyHandler}
-                    />: null
-                }
+                {content} 
+                <Dialogue 
+                isDeleteCollectionItem
+                showDialogue={this.state.showDeleteCollectionItemModal}
+                closeDialogue={this.deleteCollectionItemCloseHandler}
+                itemTitle={this.state.resourceToDeleteTitle}
+                cancelDelete={this.cancelDeleteHandler}
+                confirmDelete={this.deleteConfirmedHandler}
+                /> 
+                <EditCollection 
+                showDialogue={this.state.showEditCollectionModal}
+                closeDialogue={this.editCollectionCloseHandler}
+                closeModal={this.editCollectionCloseHandler}
+                /> 
+                <PublishCollection 
+                showDialogue={this.state.showPublishCollectionModal}
+                closeDialogue={this.publishCollectionCloseHandler}
+                closeModal={this.publishCollectionCloseHandler}
+                collectionTitle={this.props.clickedCollectionAttributes.title}
+                cancelPublish={this.publishCollectionCloseHandler}
+                // confirmPublish={this.publishConfirmedHandler}
+                /> 
+                <UnpublishCollection 
+                showDialogue={this.state.showUnpublishCollectionModal}
+                closeDialogue={this.unpublishCollectionCloseHandler}
+                closeModal={this.unpublishCollectionCloseHandler}
+                collectionTitle={this.props.clickedCollectionAttributes.title}
+                cancelUnpublish={this.unpublishCollectionCloseHandler}
+                confirmUnpublish={this.unpublishConfirmedHandler}
+                /> 
+                <Dialogue
+                isDeleteCollection 
+                showDialogue={this.state.showDeleteCollectionModal}
+                closeDialogue={this.deleteCollectionCloseHandler}
+                collectionTitle={this.props.clickedCollectionAttributes.title}
+                cancelDelete={this.deleteCollectionCloseHandler}
+                confirmDelete={this.deleteCollectionConfirmedHandler}
+                /> 
+                <Dialogue
+                isCollectionEmpty
+                showDialogue={this.state.showCollectionEmptyDialogue}
+                closeDialogue={this.closeCollectionEmptyHandler}
+                closeModal={this.closeCollectionEmptyHandler}
+                />
                 <ScrollButton scrollStepInPx="50" delayInMs="16.66" showUnder={160} />
             </Grid> 
         );

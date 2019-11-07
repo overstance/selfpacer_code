@@ -857,7 +857,6 @@ class UserAssets extends Component {
                     /> : null
                 }
                 <div className={classes.ResourcesContainer}>
-                    { this.state.showUpdateDialogue ? 
                     <Dialogue
                     isUpdateAsset
                     closeDialogue={this.closeUpdateDialogue}
@@ -866,19 +865,14 @@ class UserAssets extends Component {
                         <div className={classes.DialogueMessage}>
                             {updateForm}  
                         </div>
+                    </Dialogue> 
+                    <Dialogue
+                    isDeleteAsset
+                    closeDialogue={this.closeDeleteDialogue}
+                    showDialogue={this.state.showDeleteDialogue}
+                    >
+                        {deleteForm}
                     </Dialogue>
-                    : null
-                    }
-                    { this.state.showDeleteDialogue ? 
-                        <Dialogue
-                        isDeleteAsset
-                        closeDialogue={this.closeDeleteDialogue}
-                        showDialogue={this.state.showDeleteDialogue}
-                        >
-                            {deleteForm}
-                        </Dialogue>
-                        : null
-                    }
                     <div className={classes.Resources}>
                         {userAssets}
                     </div>

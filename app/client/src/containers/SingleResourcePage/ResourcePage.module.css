@@ -3,6 +3,18 @@
     background: var(--blue);
 }
 
+.adminActionAlert {
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+}
+
+.adminActionAlert span {
+    background: var(--white);
+    /* padding: 4px; */
+}
+
 .relatedResources {
     padding: 32px;
 }

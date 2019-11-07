@@ -18,14 +18,22 @@ function numberWithCommas(x) {
 
 // Fetch Clicked Resource By id Info
 
-export const fetchResourceById = (id) => async dispatch => {
+export const fetchResourceById = (id, userId, useTypeContext) => async dispatch => {
     dispatch(fetchResourceByIdStart());
-
+    // console.log(id, userId, useTypeContext);
     const res = await axios.get('/api/fetch_resource_by_id', {params: { id: id}} )
     if (res.data.resource) {
         dispatch(fetchResourceByIdSuccess(res.data.resource));
+        if(res.data.resource.user_id === userId || (useTypeContext === "3.2" || useTypeContext === "4" || useTypeContext === "5")) {
+            let resourceLength = 1;
+            let asset = [res.data.resource];
+            // console.log(asset);
+            dispatch(fetchUserAssetSuccess(asset, resourceLength));
+        }
     } else if (res.data.error) {
         dispatch(fetchResourceByIdFail(res.data.error));
+    } else if (res.data.resource === null) {
+        dispatch(fetchResourceByIdFail('The resource you are looking for cannot be found!'));
     }
 };
 

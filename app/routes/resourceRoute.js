@@ -315,19 +315,22 @@ module.exports = app => {
   });
 
   app.post('/api/increase_collect_count', (req, res) => {
-    Resource.findOne({ _id: req.body.resourceToAdd }, (err, resource) => {
+    // console.log(req.body.resourceToAdd);
+    Resource.findById(req.body.resourceToAdd, (err, resource) => {
       if (err) {
         // console.log(err);
         res.send(err);
-      } else {
+      } else if (resource) {
         const newCount = resource.collectCount + 1;
-
-        Resource.findOneAndUpdate(
-          { _id: req.params.resourceToAdd },
+        // console.log(resource.collectCount, newCount);
+        Resource.findByIdAndUpdate(
+          req.body.resourceToAdd,
           { collectCount: newCount },
           (err, resource) => {
-            if (resource) {
-              res.send('collectCount increased');
+            if (err) {
+              res.send({ error: err.message });
+            } else if (resource) {
+              res.send({ successMessage: 'collectCount increased' });
             }
           }
         );

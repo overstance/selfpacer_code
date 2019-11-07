@@ -309,53 +309,39 @@ class SharedCollection extends Component {
             <div className={classes.Container}>
                 {userCollection}
             </div>
-            {this.state.showFeatureModal ?
-                <Dialogue
-                isFeature 
-                showDialogue={this.state.showFeatureModal}
-                closeDialogue={this.featureModalCloseHandler}
-                >
-                    {featuredDialogueMessage}
-                </Dialogue>    
-                : null
-            }
-            {this.state.showUnfeatureModal ?
-                <Dialogue
-                isUnfeature 
-                showDialogue={this.state.showUnfeatureModal}
-                closeDialogue={this.unfeatureModalCloseHandler}
-                > 
-                    {unfeaturedDialogueMessage}
-                </Dialogue>    
-                : null
-            }
-            {this.state.showPinCollectionModal ? 
-                <Dialogue
-                isPinCollection 
-                showDialogue={this.state.showPinCollectionModal}
-                closeDialogue={this.pinCollectionCloseHandler}
-                > 
-                    {pinDialogueMessage}
-                </Dialogue>    
-                : null
-            }
-            {this.state.showUnpinCollectionModal ? 
-                <Dialogue
-                isUnpinCollection 
-                showDialogue={this.state.showUnpinCollectionModal}
-                closeDialogue={this.unpinCollectionCloseHandler}
-                > 
-                    {unpinDialogueMessage}
-                </Dialogue>    
-                : null
-            }
-            {this.state.AuthenticateToCollectOrAdd ? 
-                <Dialogue
-                isAuthenticate 
-                showDialogue={this.state.showAuthRequiredModal}
-                closeDialogue={this.collectAuthDialogueCloseHandler}
-                />: null
-            }
+            <Dialogue
+            isFeature 
+            showDialogue={this.state.showFeatureModal}
+            closeDialogue={this.featureModalCloseHandler}
+            >
+                {featuredDialogueMessage}
+            </Dialogue>
+            <Dialogue
+            isUnfeature 
+            showDialogue={this.state.showUnfeatureModal}
+            closeDialogue={this.unfeatureModalCloseHandler}
+            > 
+                {unfeaturedDialogueMessage}
+            </Dialogue>
+            <Dialogue
+            isPinCollection 
+            showDialogue={this.state.showPinCollectionModal}
+            closeDialogue={this.pinCollectionCloseHandler}
+            > 
+                {pinDialogueMessage}
+            </Dialogue>
+            <Dialogue
+            isUnpinCollection 
+            showDialogue={this.state.showUnpinCollectionModal}
+            closeDialogue={this.unpinCollectionCloseHandler}
+            > 
+                {unpinDialogueMessage}
+            </Dialogue>
+            <Dialogue
+            isAuthenticate 
+            showDialogue={this.state.showAuthRequiredModal}
+            closeDialogue={this.collectAuthDialogueCloseHandler}
+            />
             <AddToCollection 
                 showDialogue={this.state.showCollectionModal}
                 closeDialogue={this.collectModalCloseHandler} 

@@ -229,23 +229,23 @@ export const addResourceToCollection = ( collectionId, collectionResources, reso
 
     const res = await axios.post( '/api/add_resource_to_collection', collectionInfo);
 
-        if (res.data === 'Resource Collected!') {
-            dispatch(addResourceToCollectionSuccess(res.data));
+        if (res.data.successInfo === 'Resource Collected!') {
+            dispatch(addResourceToCollectionSuccess(res.data.successInfo));
 
             const res2 = await axios.post('/api/increase_collect_count', {resourceToAdd: resourceToAdd});
             
-            if (res2.data) {
-                // console.log(res2.data);
-                const res3 = await axios.post('/api/change_update_time', {collectionId: collectionId});
+            if (res2.data.successMessage) {
+                console.log(res2.data.successMessage);
+                /* const res3 = await axios.post('/api/change_update_time', {collectionId: collectionId});
                 
                 if (res3.data) {
                     return;
                 } else {
                     return;
-                }
+                } */
             }
-        } else {
-            dispatch(addResourceToCollectionFail(res.data));
+        } else if(res.data.error) {
+            dispatch(addResourceToCollectionFail(res.data.error));
         } 
 };
 

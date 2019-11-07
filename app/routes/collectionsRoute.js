@@ -148,14 +148,15 @@ module.exports = app => {
     Collection.findOneAndUpdate(
       query,
       {
-        resources: req.body.updatedCollectionResources
+        resources: req.body.updatedCollectionResources,
+        lastUpdated: Date.now()
       },
       function(err, collection) {
         if (err) {
           console.log(err);
-          res.send(err.name);
-        } else {
-          res.send('Resource Collected!');
+          res.send({ error: err.name });
+        } else if (collection) {
+          res.send({ successInfo: 'Resource Collected!' });
         }
       }
     );
@@ -297,7 +298,7 @@ module.exports = app => {
     );
   });
 
-  app.post('/api/change_update_time', (req, res) => {
+  /* app.post('/api/change_update_time', (req, res) => {
     Collection.findOneAndUpdate(
       { _id: req.body.collectionId },
       { lastUpdated: Date.now() },
@@ -309,7 +310,7 @@ module.exports = app => {
         }
       }
     );
-  });
+  }); */
 
   app.put('/api/update_collection_resources', (req, res) => {
     Collection.findByIdAndUpdate(
