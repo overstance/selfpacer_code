@@ -20,7 +20,7 @@ class SharedCollection extends Component {
         window.scroll(0, 0);
         if (this.props.match.params.id) {
           this.props.onFetchCollectionById(this.props.match.params.id);
-            if (this.props.clickedCollectionAttributes.id === '') {
+            if (this.props.clickedCollectionAttributes._id === '') {
             this.props.onFetchCollectionAttributes(this.props.match.params.id);
             }
         } else {
@@ -28,13 +28,26 @@ class SharedCollection extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        // check if all resources in collection are still present in database, else update.
+
+        if(this.props.confirmedCollectedResourcesIds !== prevProps.confirmedCollectedResourcesIds && this.props.clickedCollectionAttributes._id === this.props.match.params.id) {
+            let confirmedResourceIds = this.props.confirmedCollectedResourcesIds;
+            
+            if (confirmedResourceIds && confirmedResourceIds.length !== this.props.clickedCollectionAttributes.resources.length) {
+                this.props.onUpdateCollectedResources(confirmedResourceIds, this.props.clickedCollectionAttributes._id)
+            } 
+        }
+    }
+
     componentWillUnmount() {
         this.props.onClearDeleteCollectionMessages();
+        this.props.onResetCollectedResources();
         window.removeEventListener('scroll', this.handleScroll, false);
     }
 
     state = {
-        collectionId: this.props.clickedCollectionAttributes.id,
+        collectionId: this.props.clickedCollectionAttributes._id,
         showPinCollectionModal: false,
         showUnpinCollectionModal: false,
         showCollectionModal: false,
@@ -85,7 +98,7 @@ class SharedCollection extends Component {
     }
 
     pinCollectionConfirmedHandler = () => {
-        this.props.onPinCollection(this.props.clickedCollectionAttributes.id, this.props.userId, this.props.pinnedCollectionIds);
+        this.props.onPinCollection(this.props.clickedCollectionAttributes._id, this.props.userId, this.props.pinnedCollectionIds);
 
         // this.setState({ showPinCollectionModal: false});
     }
@@ -100,7 +113,7 @@ class SharedCollection extends Component {
     }
 
     unpinCollectionConfirmedHandler = () => {
-        this.props.onUnpinCollection(this.props.clickedCollectionAttributes.id, this.props.userId, this.props.pinnedCollectionIds);
+        this.props.onUnpinCollection(this.props.clickedCollectionAttributes._id, this.props.userId, this.props.pinnedCollectionIds);
 
         // this.setState({ showUnpinCollectionModal: false});
     }
@@ -125,11 +138,11 @@ class SharedCollection extends Component {
 
         if (!this.props.clickedCollectionAttributes.featured) {
 
-            this.props.onFeatureCollection(this.props.clickedCollectionAttributes.id);
+            this.props.onFeatureCollection(this.props.clickedCollectionAttributes._id);
 
             this.setState({ showFeatureModal: false});
         } else  {
-            this.props.onUnfeatureCollection(this.props.clickedCollectionAttributes.id);
+            this.props.onUnfeatureCollection(this.props.clickedCollectionAttributes._id);
 
             this.setState({ showUnfeatureModal: false});
         }
@@ -153,7 +166,7 @@ class SharedCollection extends Component {
         let userCollection = 
         <Spinner isComponent/>
 
-        if (!this.props.loading) {
+        if (!this.props.loading && this.props.collectedResources.length > 0) {
             userCollection = this.props.collectedResources.map( (resource, i) => (
                 <Resource 
                 key={i}
@@ -182,9 +195,19 @@ class SharedCollection extends Component {
         } else if (this.props.loading || this.props.collectedResources === undefined) {
             userCollection =
             <Spinner isComponent/>
+        }  else if (!this.props.loading && this.props.collectedResources.length === 0 && !this.props.fetchcollectedResourceError) {
+            userCollection =
+            <PostActionInfo isSuccess>
+                This collection is empty.
+            </PostActionInfo>
+        } else if ( !this.props.loading && this.props.fetchcollectedResourceError) {
+            userCollection =
+            <PostActionInfo isFailed>
+                {this.props.fetchcollectedResourceError}
+            </PostActionInfo>
         }
         
-        let checkPinned = this.props.pinnedCollectionIds.filter( collection => collection === this.props.clickedCollectionAttributes.id);
+        let checkPinned = this.props.pinnedCollectionIds.filter( collection => collection === this.props.clickedCollectionAttributes._id);
 
         let featuredDialogueMessage = 
         <AjaxDialogueMessage 
@@ -245,7 +268,7 @@ class SharedCollection extends Component {
         }
         
         let content =
-        <div>
+        <div className={classes.Collection}>
             <div className={classes.HeaderWrapper}>
                 { this.props.userId && this.props.isAuthenticated ?
                     <div>
@@ -270,9 +293,17 @@ class SharedCollection extends Component {
                     </div> :
                     null
                 }
-                <div className={classes.TitleColumn}>
+                <div className={classes.CollectionInfo}>
                     <div className={classes.Title}>{this.props.clickedCollectionAttributes.title}</div>
                     <div className={classes.curator}><span>curator:</span>{this.props.clickedCollectionAttributes.curator}</div>
+                    {
+                        this.props.clickedCollectionAttributes.lastUpdated ?
+                        <div className={classes.updated}>
+                            <span>updated:</span>
+                            {new Date(this.props.clickedCollectionAttributes.lastUpdated).toLocaleDateString()}
+                        </div>
+                        : null
+                    }
                 </div>
             </div>
             <div className={classes.Container}>
@@ -348,6 +379,7 @@ const mapStateToProps = state => {
         userId: state.auth.user._id,
         userPinnedCollections: state.auth.user.pinnedCollections,
         loading: state.collection.loading,
+        confirmedCollectedResourcesIds: state.collection.confirmedCollectedResourcesIds,
         collectedResources: state.collection.collectedResources,
         fetchcollectedResourceError: state.collection.fetchcollectedResourceError,
         clickedCollectionAttributes: state.collection.clickedCollectionAttributes,
@@ -385,7 +417,11 @@ const mapDispatchToProps = dispatch => {
 
         onClearDeleteCollectionMessages: () => dispatch( actions.clearDeleteCollectionMessages()),
         onClearAddToCollectionMessages: () => dispatch(actions.clearAddToCollectionMessages()),
-        onClearPinCollectionMessages: () => dispatch(actions.clearPinCollectionMessages())
+        onClearPinCollectionMessages: () => dispatch(actions.clearPinCollectionMessages()),
+
+        onResetCollectedResources: () => dispatch(actions.resetCollectedResources()),
+
+        onUpdateCollectedResources: (confirmedResourceIds, collectionId) => dispatch(actions.updateCollectedResources(confirmedResourceIds, collectionId))
     };
 };
 

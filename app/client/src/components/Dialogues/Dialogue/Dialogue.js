@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import classes from './Dialogue.module.css';
 import Modal from '../../UserInterface/Modal/Modal';
@@ -10,6 +12,19 @@ const dialogue = (props) => (
                 <div className={classes.DialogueTitleHead}>
                     <div className={classes.DialogueTitleColumn}>
                     <h5>Feature Collection</h5>
+                    </div>
+                    <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
+                </div>
+                <div className={classes.BodyWrapper}>
+                    {props.children}
+                </div>
+             </div> : null
+        }
+        { props.isDeleteAccount ? 
+            <div>
+                <div className={classes.DialogueTitleHead}>
+                    <div className={classes.DialogueTitleColumn}>
+                    <h5>Delete Account</h5>
                     </div>
                     <div onClick={props.closeDialogue} className={classes.DialogueCloseIcon}></div>
                 </div>

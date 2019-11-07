@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import classes from './AjaxDialogueMessage.module.css';
 
@@ -6,10 +8,11 @@ import classes from './AjaxDialogueMessage.module.css';
 of a dailogue component, it will be swapped for 
 a spinner(isDialogue) on deployment of an ajax action
 and replaced with a postActionInfo upon action completion */
+
 const ajaxDialogueMessage = (props) => (
     <div className={classes.BodyWrapper}>
         <div className={classes.DialogueMessage}>
-            <div>{props.action + ':'}</div>
+            {props.action && <div>{props.action + ':'}</div>}
             <h4>{props.resourceTitle}</h4>
             {   props.isDelete ?
                 <div>

@@ -6,11 +6,36 @@ import { connect } from 'react-redux';
 import starIcon from '../../assets/images/star.svg';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 import * as actions from '../../store/actions/index';
+import Dialogue from '../../components/Dialogues/Dialogue/Dialogue';
+import AjaxDialogueMessage from '../../components/Dialogues/Dialogue/AjaxDialogueMessage/AjaxDialogueMessage';
+import PostActionInfo from '../../components/PostActionInfo/PostActionInfo';
 
 class Profile extends Component {
 
+    state = {
+        showDeleteAccountModal: false
+    }
+
     componentDidMount() {
         this.props.onFetchUser();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.deleteOwnAccountSuccessInfo !== prevProps.deleteOwnAccountSuccessInfo && this.props.deleteOwnAccountSuccessInfo === 'user own account successfully deleted') {
+            this.props.history.push('/logout');
+        }
+    }
+
+    closeDeleteAccountModalHandler = () => {
+        this.setState({ showDeleteAccountModal: false });
+    }
+
+    showDeleteAccountModalHandler = () => {
+        this.setState({ showDeleteAccountModal: true });
+    }
+
+    confirmAccountDeleteHandler = () => {
+        this.props.onDeleteOwnAccount(this.props.userId);   
     }
 
     render() {
@@ -26,7 +51,26 @@ class Profile extends Component {
             assetCount = <div className={classes.StatisticsCount}>{this.props.userAssetCount}</div>;
         }
 
-        // let statistics =
+        let deleteAccountWarning =
+        "Are you sure you want to delete your account? All your curated collections and added resources will be irreversably removed."
+
+        let deleteAccountDialogueMessage = 
+        <AjaxDialogueMessage
+        isDelete
+        resourceTitle={deleteAccountWarning}
+        cancel={this.closeDeleteAccountModalHandler}
+        confirm={this.confirmAccountDeleteHandler}
+        />
+
+        if (this.props.deleteOwnAccountLoading) {
+            deleteAccountDialogueMessage =
+            <Spinner isDialogue/>
+        }
+
+        if (!this.props.deleteOwnAccountLoading && this.props.deleteOwnAccountError) {
+            deleteAccountDialogueMessage =
+            <PostActionInfo isFailed>{this.props.deleteOwnAccountError}</PostActionInfo>
+        }
 
         return (
         <Container>
@@ -100,9 +144,23 @@ class Profile extends Component {
                         {this.props.accountType === "Head Administrator" || this.props.accountType === "Senior Administrator" || this.props.accountType === "Administrator" ? <Link className={classes.AdminTools} to='/admin_tools'>Admin Tools</Link> : null}
                         <Link className={classes.Logout} to='/logout'>Log Out</Link>
                     </div>
-                    <div className={classes.DeleteAccount}> Delete Account</div>
+                    <div className={classes.DeleteAccount}>
+                        <button onClick={this.showDeleteAccountModalHandler}>
+                            Delete Account
+                        </button>
+                    </div>
                 </div>
             </div>
+            {this.state.showDeleteAccountModal ?
+                <Dialogue
+                isDeleteAccount 
+                showDialogue={this.state.showDeleteAccountModal}
+                closeDialogue={this.closeDeleteAccountModalHandler}
+                >
+                    {deleteAccountDialogueMessage}
+                </Dialogue>    
+                : null
+            }
         </Container>                      
         )
     }
@@ -121,12 +179,17 @@ const mapStateToProps = state => ({
     userAssetCount: state.resource.userAssetCount,
     likeCount: state.auth.userLikeCount,
     assetCountLoading: state.resource.userAssetCountLoading,
-    isAdmin: state.auth.isAdmin
+    isAdmin: state.auth.isAdmin,
+
+    deleteOwnAccountLoading: state.profile.deleteOwnAccountLoading,
+    deleteOwnAccountSuccessInfo: state.profile.deleteOwnAccountSuccessInfo,
+    deleteOwnAccountError: state.profile.deleteOwnAccountError
 });
 
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchUser: () => dispatch(actions.fetchUser())
+        onFetchUser: () => dispatch(actions.fetchUser()),
+        onDeleteOwnAccount: (userId) => dispatch(actions.deleteOwnAccount(userId))
     };
 };
 

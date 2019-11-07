@@ -17,9 +17,9 @@ class PinnedCollections extends Component {
         this.props.onClearMessages();
     }
 
-    collectionClickedHandler = (title, date, id, description, published, curator) => {
-        const dateToString = new Date(date).toLocaleDateString();
-        this.props.onSetClickedCollectionAttributes( {title: title, date: dateToString, id: id, description: description, public: published, curator: curator} );
+    collectionClickedHandler = (collection) => {
+        // const dateToString = new Date(date).toLocaleDateString();
+        this.props.onSetClickedCollectionAttributes(collection);
     }
 
     render () {
@@ -45,7 +45,7 @@ class PinnedCollections extends Component {
                     title={collection.title}
                     itemCount={collection.resources.length}
                     lastUpdated={new Date(collection.lastUpdated).toLocaleDateString()}
-                    collectionClicked={() => this.collectionClickedHandler(collection.title, collection.date, collection._id, collection.description, collection.public, collection.curator)}
+                    collectionClicked={() => this.collectionClickedHandler(collection)}
                     description={collection.description}
                     curator={collection.curator}
                     isPinned

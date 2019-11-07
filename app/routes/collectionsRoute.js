@@ -56,15 +56,15 @@ module.exports = app => {
     Collection.findById(req.query.id, (err, collection) => {
       if (err) {
         res.send(err.message);
-        console.log(err.message);
+        // console.log(err.message);
         return;
       } else {
         const resources = collection.resources;
 
         Resource.find({ _id: { $in: resources } }, (err, resources) => {
           if (err) {
-            res.send(err.message);
-            console.log(err.message);
+            res.send({ error: err.message });
+            // console.log(err.message);
             return;
           } else {
             res.send({ resources: resources });
@@ -323,6 +323,20 @@ module.exports = app => {
           res.send(resource);
         } else if (err) {
           res.send(err);
+        }
+      }
+    );
+  });
+
+  app.put('/api/update_collection_resources', (req, res) => {
+    Collection.findByIdAndUpdate(
+      req.body.collectionId,
+      { resources: req.body.resourceIds },
+      (err, collection) => {
+        if (err) {
+          res.send({ error: err.message });
+        } else if (collection) {
+          res.send({ message: 'update succesful' });
         }
       }
     );

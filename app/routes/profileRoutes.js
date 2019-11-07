@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const middleware = require('../middlewares');
 
 const User = mongoose.model('users');
+const Resource = require('../models/Resource');
+const Collection = require('../models/Collection');
 
 module.exports = app => {
   app.post('/api/edit_profile', middleware.isLoggedIn, (req, res) => {
@@ -62,5 +64,32 @@ module.exports = app => {
         }
       }
     );
+  });
+
+  app.delete('/api/delete_own_account', (req, res) => {
+    User.findByIdAndRemove(req.query.userId, (err, user) => {
+      if (err) {
+        res.send({ error: err.message });
+      } else if (user) {
+        res.send({ successInfo: 'user own account successfully deleted' });
+        Resource.deleteMany(
+          { user_id: req.query.userId, isAdmin: false },
+          (err, resources) => {
+            if (resources) {
+              console.log(resources);
+            }
+          }
+        );
+
+        Collection.deleteMany(
+          { user_id: req.query.userId },
+          (err, collections) => {
+            if (collections) {
+              console.log(collections);
+            }
+          }
+        );
+      }
+    });
   });
 };

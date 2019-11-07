@@ -113,14 +113,17 @@ class MiddleSection extends Component {
             </div>
         } else if(!this.props.sharedCollectionsLoading && this.props.sharedCollections.length > 0) {
             others = this.props.sharedCollections.filter(collection => collection.public && !collection.featured).slice(0, 10);
-            sharedCollectionsBySpec =
-            <div className={classes.subsection}>
-                <h2>Shared <Link to="/collections" >Collections</Link> in {' ' + this.props.userSpec}</h2>
-                <Carousel
-                    items={others}
-                    isCollection
-                />
-            </div>
+
+            if(others.length > 0) {
+                sharedCollectionsBySpec =
+                <div className={classes.subsection}>
+                    <h2>Shared <Link to="/collections" >Collections</Link> in {' ' + this.props.userSpec}</h2>
+                    <Carousel
+                        items={others}
+                        isCollection
+                    />
+                </div>
+            }
         }
 
 

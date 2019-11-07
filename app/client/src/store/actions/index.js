@@ -137,14 +137,17 @@ export {
     clearResourceToCollect,
     featureCollection,
     unfeatureCollection,
-    clearPinCollectionMessages
+    clearPinCollectionMessages,
+    resetCollectedResources,
+    updateCollectedResources
 } from './collection';
 
 export {
     editProfile,
     changePassword,
     resetEditProfileMessages,
-    becomeFacilitator
+    becomeFacilitator,
+    deleteOwnAccount
 } from './profile';
 
 export {

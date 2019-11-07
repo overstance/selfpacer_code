@@ -81,7 +81,7 @@ class publishCollection extends Component {
                 touched: false
             }
 
-            this.props.onPublishCollection(this.props.clickedCollectionAttributes.id, this.state.subject.value);
+            this.props.onPublishCollection(this.props.clickedCollectionAttributes._id, this.state.subject.value);
 
             this.setState({ fillError: null, subject: subjectUpdated});
             

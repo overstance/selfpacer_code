@@ -157,4 +157,38 @@ export const becomeFacilitator = (workUrl1, workUrl2, userId) => async dispatch 
     }
 };
 
+// delete own account
+
+export const deleteOwnAccountStart = () => {
+    return {
+        type: actionTypes.DELETE_OWN_ACCOUNT_START
+    }
+}
+
+export const deleteOwnAccountSuccess = ( successInfo ) => {
+    return {
+        type: actionTypes.DELETE_OWN_ACCOUNT_SUCCESS,
+        successInfo: successInfo
+    }
+}
+
+export const deleteOwnAccountFail = ( error ) => {
+    return {
+        type: actionTypes.DELETE_OWN_ACCOUNT_FAIL,
+        error: error
+    }
+}
+
+export const deleteOwnAccount = (userId) => async (dispatch) => {
+    dispatch(deleteOwnAccountStart());
+
+    const res = await axios.delete('/api/delete_own_account', {params: {userId: userId}});
+    
+    if (res.data.successInfo === 'user own account successfully deleted') {
+        dispatch(deleteOwnAccountSuccess(res.data.successInfo));
+    } else if (res.data.error) {
+        dispatch(deleteOwnAccountFail(res.data.error));
+    }
+};
+
 

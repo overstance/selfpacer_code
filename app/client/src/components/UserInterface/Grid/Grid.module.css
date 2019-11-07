@@ -55,6 +55,7 @@
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
+    margin-left: 16px;
 }
 
 .FootBar {
@@ -100,8 +101,8 @@
 
 @media all and (max-width: 900px) {
 
-    .main  { flex: 0 0 100%; 
-        max-width: 100%;
+    .Main  { 
+        margin-right: 16px;
     }
 
     .SideBar {

@@ -48,14 +48,17 @@ class Facilitator extends Component {
         let facilitatorTools = 
         <GridlessPageWrapper pageTitle='Facilitate'>
             <div className={classes.Wrapper} >
-                <div className={classes.Subheader}>
-                    <Toggler 
-                        subheadTitle="manage assets"
-                        isLink
-                        link='/manage_assets'
-                    />
-                </div>
-                { this.props.user.accountType === 'Editor' && this.props.user.isEditor ?
+                { this.props.useTypeContext === '2' ?
+                    null :
+                    <div className={classes.Subheader}>
+                        <Toggler 
+                            subheadTitle="manage assets"
+                            isLink
+                            link='/manage_assets'
+                        />
+                    </div>
+                }
+                { this.props.user.accountType === 'Editor' /* && this.props.user.isEditor */ ?
                     <div className={classes.Subheader}>
                         <Toggler 
                             subheadTitle="manage blog drafts"
@@ -65,18 +68,21 @@ class Facilitator extends Component {
                     </div>
                     : null
                 }
-                <div className={classes.Subheader}>
-                    <Toggler 
-                        toggle={this.state.addResourceToggle} 
-                        toggleHandler={this.addResourceToggleHandler}
-                        subheadTitle="add resource"
-                    />
-                    { this.state.showAddResource ? 
-                        <div className={classes.BlockContentItems}>
-                            <AddResource />
-                        </div>
-                    : null }
-                </div>
+                { this.props.useTypeContext === '2' ?
+                    null :
+                    <div className={classes.Subheader}>
+                        <Toggler 
+                            toggle={this.state.addResourceToggle} 
+                            toggleHandler={this.addResourceToggleHandler}
+                            subheadTitle="add resource"
+                        />
+                        { this.state.showAddResource ? 
+                            <div className={classes.BlockContentItems}>
+                                <AddResource />
+                            </div>
+                        : null }
+                    </div>
+                }
                 <div className={classes.Subheader}>
                     <Toggler 
                         toggle={this.state.reportMisuseToggle} 

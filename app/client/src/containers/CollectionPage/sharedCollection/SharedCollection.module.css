@@ -1,6 +1,14 @@
+.Collection {
+    margin-top: 8px;
+}
+
+.CollectionInfo {
+    padding-bottom: 8px;
+}
+
 .Container {
     min-height: 500px;
-    padding: 0 8px;
+    /* padding: 0 8px; */
 }
 
 .ContainerItem {
@@ -14,9 +22,22 @@
     color: var(--white);
     text-align: right;
     padding-right: 16px;
+    font-size: 14px;
 }
 
 .curator span {
+    color: var(--green);
+    padding-right: 4px;
+}
+
+.updated {
+    color: var(--white);
+    text-align: right;
+    padding-right: 14px;
+    font-size: 14px;
+}
+
+.updated span {
     color: var(--green);
     padding-right: 4px;
 }

@@ -24,10 +24,11 @@ const initialState = {
 
     resourceAlreadyCollectedTitle: null,
 
-    clickedCollectionAttributes: {id: ''},
+    clickedCollectionAttributes: {_id: ''},
 
     collectedResources: [],
     fetchcollectedResourceError: null,
+    confirmedCollectedResourcesIds: null,
 
     deleteCollectionItemError: null,
 
@@ -207,7 +208,11 @@ const fetchCollectionByIdStart = ( state, action ) => {
 };
 
 const fetchCollectionByIdSuccess = ( state, action ) => {
-    return updateObject( state, { loading: false, collectedResources: action.resources });
+    return updateObject( state, { 
+        loading: false,
+        collectedResources: action.resources,
+        confirmedCollectedResourcesIds: action.confirmedIds 
+    });
 };
 
 const fetchCollectionByIdFail = ( state, action ) => {
@@ -327,6 +332,15 @@ const fetchUserPinnedCollectionsFail = ( state, action) => {
     return updateObject( state, { fetchUserPinnedCollectionsLoading: false, fetchUserPinnedCollectionsError: action.error });
 }
 
+const resetCollectedResources = ( state, action) => {
+    return updateObject( state, { 
+        collectedResources: [],
+        clickedCollectionAttributes: {_id: ''},
+        fetchcollectedResourceError: null,
+        confirmedCollectedResourcesIds: null 
+    });
+}
+
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.SET_SELECTED_MENU: return setSelectedMenu( state, action );
@@ -398,6 +412,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.FETCH_USER_PINNED_COLLECTION_START: return fetchUserPinnedCollectionsStart( state, action );
         case actionTypes.FETCH_USER_PINNED_COLLECTION_SUCCESS: return fetchUserPinnedCollectionsSuccess( state, action );
         case actionTypes.FETCH_USER_PINNED_COLLECTION_FAIL: return fetchUserPinnedCollectionsFail( state, action );
+
+        case actionTypes.RESET_COLLECTED_RESOURCES: return resetCollectedResources( state, action );
 
         default: return state;
     }

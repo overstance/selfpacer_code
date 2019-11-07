@@ -100,7 +100,7 @@ class AddToCollection extends Component {
                 touched: false
             }
 
-            this.props.onEditCollection(this.state.title.value, this.state.subject.value, this.props.clickedCollectionAttributes.id);
+            this.props.onEditCollection(this.state.title.value, this.state.subject.value, this.props.clickedCollectionAttributes._id);
 
             this.setState({ fillError: null, title: titleUpdated, subject: subjectUpdated});
             

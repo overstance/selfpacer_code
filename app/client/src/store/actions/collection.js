@@ -291,10 +291,11 @@ export const fetchCollectionByIdStart = () => {
     }
 }
 
-export const fetchCollectionByIdSuccess = ( resources ) => {
+export const fetchCollectionByIdSuccess = ( resources, confirmedIds ) => {
     return {
         type: actionTypes.FETCH_COLLECTION_BY_ID_SUCCESS,
-        resources: resources
+        resources: resources,
+        confirmedIds: confirmedIds
     }
 }
 
@@ -310,21 +311,14 @@ export const fetchCollectionById = ( id ) => async dispatch => {
 
     const res = await axios.get('/api/fetch_collection', {params: { id: id }});
 
-    // console.log(res.data);
     if (res.data.resources) {
-        dispatch(fetchCollectionByIdSuccess(res.data.resources));
-    } else {
-        dispatch(fetchCollectionByIdFail(res.data));
+        let confirmedIds = res.data.resources.map(resource => resource._id);
+        dispatch(fetchCollectionByIdSuccess(res.data.resources, confirmedIds));
+        // dispatch(fetchCollectionByIdFail('error driven development'));
+    } else if (res.data.error) {
+        dispatch(fetchCollectionByIdFail(res.data.error));
     }
 }
-
-// fetch collection attribute on collection page reload
-
-/* export const fetchCollectionAttributesStart = () => {
-    return {
-        type: actionTypes.FETCH_COLLECTION_ATTRIBUTES_START
-    }
-} */
 
 export const fetchCollectionAttributesSuccess = ( attributes ) => {
     return {
@@ -333,51 +327,15 @@ export const fetchCollectionAttributesSuccess = ( attributes ) => {
     }
 }
 
-/* export const fetchCollectionAttributesFail = ( error ) => {
-    return {
-        type: actionTypes.FETCH_COLLECTION_ATTRIBUTES_FAIL,
-        error: error
-    }
-} */
-
 export const fetchCollectionAttributes = ( id ) => async dispatch => {
-    // dispatch (fetchCollectionAttributesStart());
-
+    
     const res = await axios.get('/api/fetch_collection_attributes', { params: { id: id }});
 
-    // console.log(res.data);
     if (res.data.collection) {
-        // console.log(res.data.collection)
-        const collection = res.data.collection;
-        const attributes = {
-            title: collection.title,
-            lastUpdated: collection.lastUpdated,
-            id: collection._id,
-            description: collection.description,
-            public: collection.public,
-            featured: collection.featured,
-            curator: collection.curator
-        }
+        const attributes = res.data.collection;
         dispatch(fetchCollectionAttributesSuccess(attributes));
-    } /* else {
-        dispatch(fetchCollectionAttributesFail(res.data));
-    } */
-}
-
-// Delete a collection Item
-
-/* export const deleteCollectionItemStart = () => {
-    return {
-        type: actionTypes.DELETE_COLLECTION_ITEM_START
-    }
-} */
-
-/* export const deleteCollectionItemSuccess = () => {
-    return {
-        type: actionTypes.DELETE_COLLECTION_ITEM_SUCCESS
     }
 }
- */
 
 export const deleteCollectionItemFail = ( error ) => {
     return {
@@ -387,7 +345,7 @@ export const deleteCollectionItemFail = ( error ) => {
 }
 
 export const deleteCollectionItem = ( resourceId, collectionId, history) => async dispatch => {
-    // dispatch(deleteCollectionItemStart());
+    
     const info = {
         resourceId: resourceId,
         collectionId: collectionId
@@ -403,8 +361,6 @@ export const deleteCollectionItem = ( resourceId, collectionId, history) => asyn
         const res2 = await axios.get('/api/fetch_collection', {params: { id: id }});
 
         if (res2.data.resources) {
-            // console.log('second route successful');
-            // console.log(res2.data);
             dispatch(fetchCollectionByIdSuccess(res2.data.resources));
         } else {
             dispatch(deleteCollectionItemFail(res2.data));
@@ -440,19 +396,11 @@ export const editCollectionFail = ( error ) => {
 export const editCollection = ( title, description, collectionId) => async dispatch => {
     dispatch(editCollectionStart());
 
-    // let checkedDescription = description;
-
-    /* if ( description === '') {
-        checkedDescription = undefined;
-    } */
-
     const info = {
         title: title,
         description: description,
         id: collectionId
     }
-
-    // console.log(info);
 
     const res = await axios.post('/api/edit_collection', info);
 
@@ -764,6 +712,18 @@ export const fetchUserPinnedCollections = (userId) => async dispatch => {
         dispatch(fetchUserPinnedCollectionsSuccess(res.data.collections));
     } else {
         dispatch(fetchUserPinnedCollectionsFail(res.data));
+    }
+}
+
+export const resetCollectedResources = () => ({
+    type: actionTypes.RESET_COLLECTED_RESOURCES
+});
+
+export const updateCollectedResources = (confirmedResourceIds, collectionId) => async dispatch => {
+    const res = await axios.put('/api/update_collection_resources', { resourceIds: confirmedResourceIds, collectionId:collectionId});
+
+    if(res.data.message === 'update succesful') {
+        console.log(res.data.message);
     }
 }
 

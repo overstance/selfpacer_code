@@ -11,6 +11,7 @@ import UnpublishCollection from '../../../components/Dialogues/unpublishCollecti
 import ScrollButton from '../../../components/UserInterface/ScrollToTop/ScrollButton';
 import CollectionNav from '../CollectionNav/CollectionNav';
 import Dialogue from '../../../components/Dialogues/Dialogue/Dialogue';
+import PostActionInfo from '../../../components/PostActionInfo/PostActionInfo';
 
 
 class UserCollection extends Component {
@@ -22,7 +23,7 @@ class UserCollection extends Component {
 
           this.props.onFetchCollectionById(this.props.match.params.id);
 
-            if (this.props.clickedCollectionAttributes.id === '') {
+            if (this.props.clickedCollectionAttributes._id === '') {
                 this.props.onFetchCollectionAttributes(this.props.match.params.id);
             }
         } else {
@@ -30,15 +31,28 @@ class UserCollection extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        // check if all resources in collection are still present in database, else update.
+
+        if(this.props.confirmedCollectedResourcesIds !== prevProps.confirmedCollectedResourcesIds && this.props.clickedCollectionAttributes._id === this.props.match.params.id) {
+            let confirmedResourceIds = this.props.confirmedCollectedResourcesIds;
+            
+            if (confirmedResourceIds && confirmedResourceIds.length !== this.props.clickedCollectionAttributes.resources.length) {
+                this.props.onUpdateCollectedResources(confirmedResourceIds, this.props.clickedCollectionAttributes._id)
+            } 
+        }
+    }
+
     componentWillUnmount() {
         this.props.onClearDeleteCollectionMessages();
+        this.props.onResetCollectedResources();
         window.removeEventListener('scroll', this.handleScroll, false);
     }
 
     state = {
         resourceToDeleteId: null,
         resourceToDeleteTitle: null,
-        // collectionId: this.props.clickedCollectionAttributes.id,
+        // collectionId: this.props.clickedCollectionAttributes._id,
 
         showDeleteCollectionItemModal: false,
         showEditCollectionModal: false,
@@ -82,7 +96,7 @@ class UserCollection extends Component {
     }
 
     deleteConfirmedHandler = () => {
-        this.props.onDeleteCollectionItem( this.state.resourceToDeleteId, this.props.clickedCollectionAttributes.id, this.props.history );
+        this.props.onDeleteCollectionItem( this.state.resourceToDeleteId, this.props.clickedCollectionAttributes._id, this.props.history );
 
         this.setState({ 
             resourceToDeleteId: null,
@@ -129,11 +143,11 @@ class UserCollection extends Component {
     }
 
     publishConfirmedHandler = () => {
-        this.props.onPublishCollection(this.props.clickedCollectionAttributes.id);
+        this.props.onPublishCollection(this.props.clickedCollectionAttributes._id);
     }
 
     unpublishConfirmedHandler = () => {
-        this.props.onUnpublishCollection(this.props.clickedCollectionAttributes.id);
+        this.props.onUnpublishCollection(this.props.clickedCollectionAttributes._id);
     }
 
     closeCollectionEmptyHandler = () => {
@@ -149,7 +163,7 @@ class UserCollection extends Component {
     }
 
     deleteCollectionConfirmedHandler = () => {
-        this.props.onDeleteCollection(this.props.clickedCollectionAttributes.id);
+        this.props.onDeleteCollection(this.props.clickedCollectionAttributes._id);
 
         this.setState({ showDeleteCollectionModal: false});
     }
@@ -198,15 +212,20 @@ class UserCollection extends Component {
         } else if (this.props.loading || this.props.collectedResources === undefined) {
             userCollection =
             <Spinner isComponent/>
-        } else if (!this.props.loading && this.props.collectedResources.length === 0) {
+        } else if (!this.props.loading && this.props.collectedResources.length === 0 && !this.props.fetchcollectedResourceError) {
             userCollection =
-            <div className={classes.CollectionEmptyMessage}>
+            <PostActionInfo isSuccess>
                 This collection is empty.
-            </div>
-        } 
+            </PostActionInfo>
+        } else if ( !this.props.loading && this.props.fetchcollectedResourceError) {
+            userCollection =
+            <PostActionInfo isFailed>
+                {this.props.fetchcollectedResourceError}
+            </PostActionInfo>
+        }
         
         let content =
-        <div>  
+        <div className={classes.Collection}>  
             <div className={classes.HeaderWrapper}>
                 <CollectionNav 
                     published={this.props.clickedCollectionAttributes.public}
@@ -214,11 +233,21 @@ class UserCollection extends Component {
                     publishClicked={this.publishCollectionHandler}
                     deleteClicked={this.deleteCollectionHandler}
                 />
-                <div className={classes.Title}>
-                    {this.props.clickedCollectionAttributes.title + '   '}
-                    {this.props.clickedCollectionAttributes.public ? 
-                        <div className={classes.PublicTag}>Public</div> : null
-                    }
+                <div className={classes.CollectionInfo}>
+                    <div className={classes.Title}>
+                        {this.props.clickedCollectionAttributes.title + '   '}
+                        {this.props.clickedCollectionAttributes.public ? 
+                            <div className={classes.PublicTag}>Public</div> : null
+                        }
+                        {
+                            this.props.clickedCollectionAttributes.lastUpdated ?
+                            <div className={classes.updated}>
+                                <span>updated:</span>
+                                {new Date(this.props.clickedCollectionAttributes.lastUpdated).toLocaleDateString()}
+                            </div>
+                            : null
+                        }
+                    </div>
                 </div>
             </div>
             <div className={classes.Container}>
@@ -327,6 +356,7 @@ const mapStateToProps = state => {
         userId: state.auth.user._id,
         loading: state.collection.loading,
         collectedResources: state.collection.collectedResources,
+        confirmedCollectedResourcesIds: state.collection.confirmedCollectedResourcesIds,
         fetchcollectedResourceError: state.collection.fetchcollectedResourceError,
         clickedCollectionAttributes: state.collection.clickedCollectionAttributes,
         settedUserRecentlyViewed: state.resource.userRecentlyViewed,
@@ -355,6 +385,8 @@ const mapDispatchToProps = dispatch => {
         onDeleteCollection: (collectionId) => dispatch( actions.deleteCollection(collectionId)),
 
         onClearDeleteCollectionMessages: () => dispatch( actions.clearDeleteCollectionMessages()),
+        onResetCollectedResources: () => dispatch(actions.resetCollectedResources()),
+        onUpdateCollectedResources: (confirmedResourceIds, collectionId) => dispatch(actions.updateCollectedResources(confirmedResourceIds, collectionId))
     };
 };
 
