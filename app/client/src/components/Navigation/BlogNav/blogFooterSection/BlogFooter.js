@@ -30,7 +30,7 @@ class BlogFooter extends Component {
         let creative;
         let technology;
         let science;
-        let lifeStyle;
+        let Humanities;
         let reviews;
         let footerContent = <Spinner isComponent/>;
 
@@ -83,7 +83,7 @@ class BlogFooter extends Component {
                 />
             ));
     
-            lifeStyle = this.props.featuredBlogs.filter( blog => blog.category === 'Life-Style').slice(0, 2).map((blog, i) => (
+            Humanities = this.props.featuredBlogs.filter( blog => blog.category === 'Humanities').slice(0, 2).map((blog, i) => (
                 <BlogFooterItem 
                 key={i}
                 title={blog.title}
@@ -128,8 +128,8 @@ class BlogFooter extends Component {
                     {technology}
                 </div>
                 <div className={classes.section}>
-                    <div className={classes.sectionTitle}>Life-Style</div>
-                    {lifeStyle}
+                    <div className={classes.sectionTitle}>Humanities</div>
+                    {Humanities}
                 </div>
                 <div className={classes.section}>
                     <div className={classes.sectionTitle}>Reviews</div>

@@ -252,7 +252,7 @@ class Explore extends Component {
             />
         ));
 
-        const lifeStyleSubjectsFilter = this.props.subjects.filter( subject => subject.category === 'Life-style');
+        const lifeStyleSubjectsFilter = this.props.subjects.filter( subject => subject.category === 'Humanities');
         const lifeStyleSubjects = lifeStyleSubjectsFilter.map( subject => (
             <Subject
                 // to={subject.to}

@@ -57,8 +57,8 @@ class AddSubject extends Component {
                         displayValue: 'Science'
                     },
                     {
-                        value: 'Life-style',
-                        displayValue: 'Life-style'
+                        value: 'Humanities',
+                        displayValue: 'Humanities'
                     }
                 ]
             },

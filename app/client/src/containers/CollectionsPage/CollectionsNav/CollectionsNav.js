@@ -42,7 +42,7 @@ const collectionsNav = (props) => {
             <li className={sharedClasses.join(' ')} onClick={props.sharedClicked}>Shared</li>
             <li className={pinnedClasses.join(' ')} onClick={props.pinnedClicked}>Pinned</li>
             <li className={createClasses.join(' ')} onClick={props.createClicked}>Create-new</li>
-            {/* <li className={lifestyleClasses.join(' ')} onClick={props.lifeStyleClicked}>Life-style</li> */}
+            {/* <li className={lifestyleClasses.join(' ')} onClick={props.lifeStyleClicked}>Humanities</li> */}
         </ul>
             // : null
     );

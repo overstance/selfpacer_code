@@ -9,7 +9,7 @@ const blogSectionMenuItems = (props) => {
         {name: 'Creative'},
         {name: 'Science'},
         {name: 'Technology'},
-        {name: 'Life-Style'},
+        {name: 'Humanities'},
         {name: 'Reports'},
         {name: 'Reviews'}/* ,
         {name: 'Videos'},

@@ -850,7 +850,7 @@ const data = [
   },
   {
     title: 'Personal Development',
-    category: 'Life-style',
+    category: 'Humanities',
     src: '/images/dove.svg',
     alt: 'Personal development icon',
     views: 0,
@@ -878,7 +878,7 @@ const data = [
   },
   {
     title: 'Professional Development',
-    category: 'Life-style',
+    category: 'Humanities',
     src: '/images/certificate.svg',
     alt: 'Career development icon',
     views: 0,
@@ -899,7 +899,7 @@ const data = [
   },
   {
     title: 'Study Skills',
-    category: 'Life-style',
+    category: 'Humanities',
     src: '/images/brain.svg',
     alt: 'Study skills icon',
     views: 0,
@@ -919,7 +919,7 @@ const data = [
   },
   {
     title: 'Health and Fitness',
-    category: 'Life-style',
+    category: 'Humanities',
     src: '/images/heartbeat.svg',
     alt: 'Health and fitness icon',
     views: 0,
@@ -949,7 +949,7 @@ const data = [
   },
   {
     title: 'Teaching Skills',
-    category: 'Life-style',
+    category: 'Humanities',
     src: '/images/chalkboard-teacher.svg',
     alt: 'Teaching training icon',
     views: 0,
@@ -968,7 +968,7 @@ const data = [
   },
   {
     title: 'Travel',
-    category: 'Life-style',
+    category: 'Humanities',
     src: '/images/map-marked-alt.svg',
     alt: 'Travel icon',
     views: 0,
@@ -984,7 +984,7 @@ const data = [
   },
   {
     title: 'Gaming',
-    category: 'Life-style',
+    category: 'Humanities',
     src: '/images/gamepad.svg',
     alt: 'Gaming icon',
     views: 0,
@@ -994,7 +994,7 @@ const data = [
   },
   {
     title: 'Home Improvement',
-    category: 'Life-style',
+    category: 'Humanities',
     src: '/images/home.svg',
     alt: 'Home icon',
     views: 0,
@@ -1012,7 +1012,7 @@ const data = [
   },
   {
     title: 'Pet Care',
-    category: 'Life-style',
+    category: 'Humanities',
     src: '/images/paw.svg',
     alt: 'Pet icon',
     views: 0,

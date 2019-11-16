@@ -10,7 +10,7 @@ const blogCategorySchema = new Schema({
       'Science',
       'Technology',
       'Creative',
-      'Life-style',
+      'Humanities',
       'Videos',
       'Writers',
       'Books',

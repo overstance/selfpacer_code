@@ -1,24 +1,15 @@
-const multer = require('multer');
-const keys = require('../config/keys');
-const { google } = require('googleapis');
+// const multer = require('multer');
 
-/* const youtube = google.youtube({
-  version: 'v3',
-  auth: keys.youtubeAPI
-}); */
-
-const storage = multer.diskStorage({
-  destination: './client/public/images',
+/* const storage = multer.diskStorage({
+  destination: './images',
   filename(req, file, cb) {
-    // console.log(file);
     cb(null, `${file.originalname}`);
   }
-});
+}); */
 
-const upload = multer({ storage });
+// const upload = multer({ storage });
 
 const Subject = require('../models/Subject');
-// const User_resource = require('../models/User_resource');
 
 module.exports = app => {
   app.get('/api/fetch_subjects', (req, res) => {
@@ -78,7 +69,7 @@ module.exports = app => {
   });
 
   app.get('/api/lifestyle', (req, res) => {
-    Subject.find({ category: 'Life-style' }, function(err, lifestyleSubject) {
+    Subject.find({ category: 'Humanities' }, function(err, lifestyleSubject) {
       if (err) {
         console.log(err);
       } else {
@@ -156,10 +147,10 @@ module.exports = app => {
     });
   });
 
-  app.post('/api/upload_subjectIcon', upload.single('file'), (req, res) => {
-    // console.log(req.body.file);
-    res.send('file added');
-  });
+  /*  app.post('/api/upload_subjectIcon', upload.single('file'), (req, res) => {
+    console.log(req.file.path);
+    res.send({ path: req.file.path });
+  }); */
 
   app.delete('/api/delete_subject', (req, res) => {
     Subject.findOneAndDelete(

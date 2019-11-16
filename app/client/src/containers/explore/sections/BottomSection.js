@@ -21,9 +21,9 @@ class BottomSection extends Component {
 
             if (currentSkill) {
                 let category = currentSkill.category;
-                if (category === 'Life-style') {
+                /* if (category === 'Humanities') {
                     category = 'Life-Style'
-                }
+                } */
                 this.props.onFetchBlogsBySection(category, 0);
             }
         }
@@ -35,7 +35,7 @@ class BottomSection extends Component {
 
             if (currentSkill) {
                 let category = currentSkill.category;
-                if (category === 'Life-style') {
+                if (category === 'Humanities') {
                     category = 'Life-Style'
                 }
                 this.props.onFetchBlogsBySection(category, 0);

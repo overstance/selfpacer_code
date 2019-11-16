@@ -6,12 +6,6 @@ const passport = require('passport');
 const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
-// const seedDB = require('./seed/seedSubjects');
-// const seedYoutube = require('./seed/seedAccounting');
-// const reSubjectMotionGraphics = require('./seed/reSubjectMotionGraphics');
-// const reSubjectDatabase = require('./seed/reSubjectDatabase');
-// const seedBookResource = require('./seed/seedBookResource');
-// const appendIsAdmin = require('./seed/appendIsAdmin');
 
 const authRoutes = require('./routes/authRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
@@ -27,6 +21,9 @@ const conversationsRoutes = require('./routes/conversationRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
+// const renameSkill = require('./seed/renameSkill');
+// const reskillResources = require('./seed/reskillResources');
+
 //mongoose.Promise = global.Promise;
 mongoose.connect(
   keys.mongoURI,
@@ -41,12 +38,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//seedDB();
-//seedYoutube();
-// reSubjectMotionGraphics();
-// reSubjectDatabase();
-// seedBookResource();
-// appendIsAdmin();
+// renameSkill();
+// reskillResources();
 
 app.use(
   cookieSession({

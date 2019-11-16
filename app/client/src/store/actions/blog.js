@@ -460,7 +460,7 @@ export const editBlogCategories = (blogCategories, id) => async dispatch => {
     const categoriesArray = blogCategories.split(',');
 
     const res = await axios.put('/api/edit_blog_categories', { categoriesArray: categoriesArray, id: id});
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.categories/* ._id === id */) {
         let categoriesArray = res.data.categories.categories
         let categoriesToString = categoriesArray.join();
@@ -502,7 +502,7 @@ export const editBlogTags = (blogTags, id) => async dispatch => {
     const tagsArray = blogTags.split(',');
 
     const res = await axios.put('/api/edit_blog_tags', { tagsArray: tagsArray, id: id});
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.tags/* ._id === id */) {
         let tagsArray = res.data.tags.tags
         let tagsToString = tagsArray.join();

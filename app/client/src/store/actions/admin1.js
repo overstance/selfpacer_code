@@ -179,8 +179,8 @@ export const addSubjectIcon = ( file ) => async dispatch => {
     const res = await axios.post('/api/upload_subjectIcon', data);
     // console.log(res.data);
     
-    if (res.data === 'file added') {
-        // console.log(res.data);
+    if (res.data.path) {
+        console.log(res.data.path);
         dispatch(addSubjectIconSuccess('Add icon successful'));
     } else {
         // console.log(res.data);

@@ -31,7 +31,7 @@ class EditBlogTags extends Component {
         fillError: null,
         blogTags: {
             value: this.props.blogTags,
-            label: "blog categories", 
+            label: "blog tags", 
             name: "blogTags",
             validation: {
                 required: true

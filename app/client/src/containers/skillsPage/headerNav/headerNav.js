@@ -42,7 +42,7 @@ const exploreHeaderNav = (props) => {
                 <li className={businessClasses.join(' ')} onClick={props.businessClicked}>Business</li>
                 <li className={technologyClasses.join(' ')} onClick={props.technologyClicked}>Technology</li>
                 <li className={scienceClasses.join(' ')} onClick={props.scienceClicked}>Science</li>
-                <li className={lifestyleClasses.join(' ')} onClick={props.lifeStyleClicked}>Life-style</li>
+                <li className={lifestyleClasses.join(' ')} onClick={props.lifeStyleClicked}>Humanities</li>
             </ul>
             : null
     );
