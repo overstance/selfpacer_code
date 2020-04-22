@@ -4,7 +4,7 @@ import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Backdrop from '../UserInterface/Backdrop/blogBackdrop';
-import Comment from './comment';
+import Comment from './Comment';
 import Button from '../../components/UserInterface/Button/Button';
 import Spinner from '../../components/UserInterface/Spinner/Spinner';
 
