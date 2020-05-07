@@ -22,6 +22,10 @@
     fill: var(--green);
 }
 
+.NavActive {
+    color: var(--green);
+}
+
 @media (min-width: 901px) {
     .NavigationItem {
         padding-right: 15px;

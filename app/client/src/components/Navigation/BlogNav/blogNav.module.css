@@ -76,7 +76,7 @@
     align-items: center;
 }
 
-.MainNavItems a, .MainNavItems span {
+.MainNavItems span {
     color: var(--white);
     font-size: medium;
     text-decoration: none;
@@ -90,9 +90,25 @@
     cursor: pointer;
 }
 
-.MainNavItems a:hover,
-.MainNavItems a:active,
-.MainNavItems a.active {
+.MainNavItem {
+    color: var(--white);
+    font-size: medium;
+    text-decoration: none;
+    box-sizing: border-box; 
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+    font-family: 'PT Sans', sans-serif;
+    margin-left: 30px;
+    cursor: pointer; 
+}
+
+.NavActive {
+    color: var(--green);
+}
+
+.MainNavItem:hover {
     color: var(--green);
 }
 

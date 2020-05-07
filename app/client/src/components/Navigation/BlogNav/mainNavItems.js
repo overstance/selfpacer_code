@@ -1,12 +1,12 @@
 import React/* , { Component } */ from 'react';
 import classes from './blogNav.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const mainNavItems = (props) => (
     <nav className={classes.MainNavItems}>
-        <Link to="/blog" exact role="menuitem" >Home</Link>
-        <Link to="/blog/popular_blogposts" role="menuitem" exact>Popular</Link>
-        <Link to="/blog/latest_blogposts" role="menuitem" exact>Latest</Link>
+        <NavLink className={classes.MainNavItem} activeClassName={classes.NavActive} exact to="/blog" role="menuitem" >Home</NavLink>
+        <NavLink className={classes.MainNavItem} activeClassName={classes.NavActive} to="/blog/popular_blogposts" role="menuitem">Popular</NavLink>
+        <NavLink className={classes.MainNavItem} activeClassName={classes.NavActive} to="/blog/latest_blogposts" role="menuitem">Latest</NavLink>
         <span 
             role="button" 
             aria-label="open section menu"

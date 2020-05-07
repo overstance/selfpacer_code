@@ -4,6 +4,10 @@
     fill: var(--blue);
 }
 
+.NavActive {
+    fill: var(--green);
+}
+
 .MenuName {
     color: var(--blue);
 }

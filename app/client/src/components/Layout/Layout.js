@@ -36,6 +36,7 @@ class Layout extends Component {
             this.setState({ showNonBlogSearch: false });
             this.setState({ showBlogSearch: false });
             this.props.onClearSearchMessages();
+            console.log(this.props.location.pathname);
         }
     }
 

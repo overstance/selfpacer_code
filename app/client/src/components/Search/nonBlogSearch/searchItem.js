@@ -19,7 +19,7 @@ const searchItem = (props) => {
             {
                 props.curriculum && props.paths ?
                 <div className={classes.searchItem}>
-                    <Link to={`/explore/${props.subject_title}`}>
+                    <Link to={`/skills/${props.subject_title}`}>
                         {props.subject_title}
                     </Link>
                     <div className={classes.searchItemType}><span>skill</span></div>

@@ -68,7 +68,7 @@ class App extends Component {
           <Route exact path="/register" component={Register} />
           <Route exact path="/not-found" component={NotFound} />
           <Route exact path="/" component={HomePage} />
-          <Route path='/blog' exact component={Blog} />
+          <Route exact path='/blog' component={Blog} />
           <Route path='/blog/sections/:category' exact component={BlogSection} />
           <Route path='/blog/popular_blogposts' exact component={PopularBlogs} />
           <Route path='/blog/latest_blogposts' exact component={LatestBlogs} />

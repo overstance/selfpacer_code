@@ -44,3 +44,9 @@
 .SeeAll:hover {
     background: var(--gray);
 }
+
+@media(max-width: 900px) {
+    .relatedResources {
+        padding: 16px;
+    }
+}
