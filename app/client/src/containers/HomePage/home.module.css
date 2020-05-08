@@ -253,7 +253,7 @@
 }
 
 .homeLogoInitialStroke path:nth-child(4) {
-    stroke-dasharray: 194;
+    stroke-dasharray: 195;
     stroke-dashoffset: 0;
     animation: line-anim-a 1s ease forwards 1.2s;
     fill: transparent;
@@ -586,7 +586,7 @@
 
 @keyframes line-anim-a {
     to {
-        stroke-dashoffset: 194;
+        stroke-dashoffset: 195;
     }
     80% {
         fill: transparent;

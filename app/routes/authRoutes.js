@@ -10,6 +10,13 @@ const middleware = require('../middlewares');
 
 const keys = require('../config/keys');
 
+let emailProtocol = 'http://'
+
+if (process.env.NODE_ENV === 'production') {
+  emailProtocol = 'https://';
+}
+
+
 const User = mongoose.model('users');
 
 module.exports = app => {
@@ -138,7 +145,7 @@ module.exports = app => {
                 text:
                   'You are receiving this because you signed up for an account on selfacer with this e-mail address.\n\n' +
                   'Please click on the following link, or paste this into your browser to verify and complete the sign up process:\n\n' +
-                  'https://' +
+                  emailProtocol +
                   req.headers.host +
                   '/email_verify/' +
                   token +
@@ -210,7 +217,7 @@ module.exports = app => {
             text:
               'You are receiving this because you signed up for an account on selfacer with this e-mail address.\n\n' +
               'Please click on the following link, or paste this into your browser to verify and complete the sign up process:\n\n' +
-              'https://' +
+              emailProtocol +
               req.headers.host +
               '/email_verify/' +
               token +
@@ -278,6 +285,7 @@ module.exports = app => {
 
   app.post('/api/forgot_password', function(req, res, next) {
     // console.log(req.body.email);
+    console.log(emailProtocol);
 
     async.waterfall(
       [
@@ -325,7 +333,7 @@ module.exports = app => {
             text:
               'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
               'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-              'https://' +
+              emailProtocol +
               req.headers.host +
               '/reset/' +
               token +
