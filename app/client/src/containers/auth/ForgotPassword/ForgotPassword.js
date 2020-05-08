@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import classes from './ForgotPassword.module.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
-import Input from '../../UserInterface/Input/Input';
-import Button from '../../UserInterface/Button/Button';
-import Spinner from '../../UserInterface/Spinner/Spinner';
-import Dialogue from '../../Dialogues/Dialogue/Dialogue';
-import Form from '../../UserInterface/Form/Form';
-import FormFeedback from '../../UserInterface/Form/FormFeedback/FormFeedback';
-import GridlessPageWrapper from '../../UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
+import Input from '../../../components/UserInterface/Input/Input';
+import Button from '../../../components/UserInterface/Button/Button';
+import Spinner from '../../../components/UserInterface/Spinner/Spinner';
+import Dialogue from '../../../components/Dialogues/Dialogue/Dialogue';
+import Form from '../../../components/UserInterface/Form/Form';
+import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
+import GridlessPageWrapper from '../../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
 
 class ForgotPassword extends Component {
 

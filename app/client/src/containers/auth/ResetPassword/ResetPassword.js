@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import classes from './ResetPassword.module.css';
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux';
-import Input from '../../UserInterface/Input/Input';
-import Button from '../../UserInterface/Button/Button';
+import Input from '../../../components/UserInterface/Input/Input';
+import Button from '../../../components/UserInterface/Button/Button';
 // import PostSubmitDailogue from '../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';
-import Spinner from '../../UserInterface/Spinner/Spinner';
+import Spinner from '../../../components/UserInterface/Spinner/Spinner';
 // import { Link } from 'react-router-dom';
-import Dialogue from '../../Dialogues/Dialogue/Dialogue';
-import Form from '../../UserInterface/Form/Form';
-import GridlessPageWrapper from '../../UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
-import FormFeedback from '../../UserInterface/Form/FormFeedback/FormFeedback';
+import Dialogue from '../../../components/Dialogues/Dialogue/Dialogue';
+import Form from '../../../components/UserInterface/Form/Form';
+import GridlessPageWrapper from '../../../components/UserInterface/GridlessPageWrapper/GridlessPageWrapper'; 
+import FormFeedback from '../../../components/UserInterface/Form/FormFeedback/FormFeedback';
 
 class ResetPassword extends Component {
 

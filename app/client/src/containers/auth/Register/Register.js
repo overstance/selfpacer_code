@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classes from './Register.module.css';
-import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
+import AuthBackdrop from '../../../components/UserInterface/Backdrop/AuthBackdrop';
 import { connect } from 'react-redux';
-import Spinner from '../../UserInterface/Spinner/Spinner';
+import Spinner from '../../../components/UserInterface/Spinner/Spinner';
 // import facebookLogo from '../../../assets/images/Facebook-2-512.png';
 // import googleLogo from '../../../assets/images/google_PNG19635.png';
 import { Link } from 'react-router-dom';
-import Input from '../../UserInterface/Input/Input';
-import Button from '../../UserInterface/Button/Button';
+import Input from '../../../components/UserInterface/Input/Input';
+import Button from '../../../components/UserInterface/Button/Button';
 import * as actions from '../../../store/actions/index';
-import Logo from '../../UserInterface/Logo/Logo';
-import PostActionInfo from '../../PostActionInfo/PostActionInfo';
+import Logo from '../../../components/UserInterface/Logo/Logo';
+import PostActionInfo from '../../../components/PostActionInfo/PostActionInfo';
 
 
 class Register extends Component {

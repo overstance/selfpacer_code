@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AuthBackdrop from '../../UserInterface/Backdrop/AuthBackdrop';
+import AuthBackdrop from '../../../components/UserInterface/Backdrop/AuthBackdrop';
 // import logoImage from '../../../assets/images/selfpacer_hareLogo_green.png';
 import classes from './Login.module.css';
 // import facebookLogo from '../../../assets/images/Facebook-2-512.png';
 // import googleLogo from '../../../assets/images/google_PNG19635.png';
 import { connect } from 'react-redux';
-import Spinner from '../../UserInterface/Spinner/Spinner';
-import Input from '../../UserInterface/Input/Input';
-import Button from '../../UserInterface/Button/Button';
+import Spinner from '../../../components/UserInterface/Spinner/Spinner';
+import Input from '../../../components/UserInterface/Input/Input';
+import Button from '../../../components/UserInterface/Button/Button';
 import * as actions from '../../../store/actions/index';
 import { Link } from 'react-router-dom';
-import Logo from '../../UserInterface/Logo/Logo';
+import Logo from '../../../components/UserInterface/Logo/Logo';
 
 
 class Login extends Component {

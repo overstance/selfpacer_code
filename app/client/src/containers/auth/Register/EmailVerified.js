@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 // import PostSubmitDailogue from '../../Dialogues/PostSubmitDialogue/PostSubmitDialogue';
-import Dialogue from '../../Dialogues/Dialogue/Dialogue';
-import Spinner from '../../UserInterface/Spinner/Spinner';
+import Dialogue from '../../../components/Dialogues/Dialogue/Dialogue';
+import Spinner from '../../../components/UserInterface/Spinner/Spinner';
 // import { Link } from 'react-router-dom';
 
 class VerifyEmail extends Component {
