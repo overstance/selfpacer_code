@@ -1,6 +1,6 @@
 import React, { Component, Suspense, lazy } from 'react';
 import { Route, Switch, /* Redirect */ withRouter } from 'react-router-dom';
-import PrivateRoute from './components/auth/PrivateRoute';
+import PrivateRoute from './containers/auth/PrivateRoute';
 import Layout from './components/Layout/Layout';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/index';
