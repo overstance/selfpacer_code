@@ -93,6 +93,11 @@
     margin-top: 0;
     color: var(--blue);
 }
+.BiodataName span {
+    font-size: 14px;
+    display: block;
+    padding: 0;
+}
 
 .Facilitator {
     text-align: center;

@@ -1,5 +1,5 @@
 import React from 'react';
-// import classes from './blogNav.module.css';
+import classes from './blogNav.module.css';
 import { NavLink } from 'react-router-dom';
 
 const blogSectionMenuItems = (props) => {
@@ -16,7 +16,15 @@ const blogSectionMenuItems = (props) => {
         {name: 'Podcasts'} */
     ];
 
-    const menuItems = menus.map((menu, i) => ( <NavLink to={`/blog/sections/${menu.name}`} onClick={props.onMenuSelected} key={i}>{menu.name}</NavLink>));
+    const menuItems = menus.map((menu, i) => ( 
+        <NavLink 
+            to={`/blog/sections/${menu.name}`} 
+            className={classes.SectionMenuItem}
+            activeClassName={classes.NavActive}
+            onClick={props.onMenuSelected} 
+            key={i}>{menu.name}
+        </NavLink>)
+    );
 
     return(menuItems)
 }

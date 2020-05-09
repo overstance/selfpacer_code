@@ -22,6 +22,7 @@ const toolbar = (props) => (
                         </Link>
                         <MainNavItems 
                             sectionClicked={props.sectionMenuClicked}
+                            activeLink={props.activeLink}
                         />
                     </nav>
                     <RightNavItems
@@ -38,6 +39,7 @@ const toolbar = (props) => (
             <LowerToolBar 
                 sectionClicked={props.sectionMenuClicked}
                 showBlogSearch={props.showBlogSearch}
+                activeLink={props.activeLink}
             />
         }
     </header>   

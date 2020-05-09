@@ -18,13 +18,13 @@
     border-bottom: 2px solid var(--blue);
 }
 
-.Header div {
+.Header h1{
     color: var(--green);
     font-size: 24px;
-    font-weight: 900;
+    font-weight: 400;
     /* font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif; */
     text-transform: capitalize;
-    padding: 20px;
+    padding: 32px;
 }
 
 .instructorContainer {
@@ -87,18 +87,21 @@
 
 .sectionText {
     width: 640px;
-    font-weight: 900;
+    font-weight: 700;
+    background-color: rgba(var(--transWhite), 0.75);
+    padding: 16px;
+    color: var(--blue);
     /* height: 192px; */
     /* font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif; */
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .sectionTextSmallMedia {
     /* width: 100%; */
-    font-weight: 900;
+    font-weight: 700;
     /* font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif; */
     font-size: 18px;
-    padding: 32px;
+    padding: 16px;
     color: var(--blue);
     display: none;
 }
@@ -154,10 +157,10 @@
         justify-content: center;
     }
 
-    .Text {
+    /* .Text {
         width: 100%;
         max-width: 400px;
-    }
+    } */
 
     .sectionText {
         width: 420px;
@@ -166,8 +169,12 @@
 }
 
 @media(max-width: 600px) {
-    .Text {
+    /* .Text {
         font-size: medium;
+    } */
+
+    .Header h1 {
+        padding: 16px;
     }
 
     .sectionTextSmallMedia {

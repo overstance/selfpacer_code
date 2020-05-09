@@ -225,7 +225,7 @@ class NonFacilitator extends Component {
         return (
             <Container>
                 <div className={classes.Header}>
-                    <div>Help connect aspirations to true professionalism</div>
+                    <h1>Join our team of facilitators</h1>
                 </div>
                 { this.props.accountType === 'Facilitator' && this.props.useTypeContext === '0' ?
                     <Dialogue

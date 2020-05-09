@@ -8,6 +8,12 @@
     --gray: #dfdfdf;
     --lightGray: #eee;
     --black: #000000;
+
+    /* transparency color variables */
+
+    --transBlue: 55,38,166;
+    --transWhite: 255,255,255;
+    --transBlack: 0,0,0;
 }
 
 .richEditor-code-block, div.richEditor-code-block {

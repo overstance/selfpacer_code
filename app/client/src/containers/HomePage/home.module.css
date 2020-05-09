@@ -320,13 +320,14 @@
 .date {
     color: var(--red);
     font-size: 14px;
+    font-weight: 700;
     padding-bottom: 8px;
     border-bottom: 1px solid var(--white);
 }
 
 .inspireText {
     color: var(--black);
-    font-size: 16px;
+    font-size: 18px;
     padding: 16px;
     display: flex;
     justify-content: center;
@@ -337,6 +338,7 @@
     /* outline: none; */
     border: none;
     text-decoration: none;
+    text-transform: capitalize;
     width: 136px;
     height: 48px;
     border-radius: 24px;
@@ -401,7 +403,7 @@
 
 .actionText {
     color: var(--blue);
-    font-size: 18px;
+    font-size: 20px;
     margin: 16px 0;
     font-weight: 700;
     text-align: left;

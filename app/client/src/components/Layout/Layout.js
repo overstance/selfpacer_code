@@ -36,7 +36,7 @@ class Layout extends Component {
             this.setState({ showNonBlogSearch: false });
             this.setState({ showBlogSearch: false });
             this.props.onClearSearchMessages();
-            console.log(this.props.location.pathname);
+            // console.log(this.props.location.pathname);
         }
     }
 
@@ -156,6 +156,7 @@ class Layout extends Component {
                         blogSearchActive={this.state.showBlogSearch}
                         showBlogSearchOnKey={this.showBlogSearchOnKey}
                         blogSearchTriggerRef={this.blogSearchTrigger}
+                        activeLink={this.props.location.pathname}
                     /> 
                     :
                     <Fragment>

@@ -19,5 +19,11 @@
     font-size: 24px;
     justify-content: center;
     font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
-    color: var(--black);
+    /* color: var(--black); */
+}
+
+.infoText {
+    padding: 15px;
+    color: var(--blue);
+    background: rgba(var(--transWhite), 0.75);
 }

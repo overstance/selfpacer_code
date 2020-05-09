@@ -82,7 +82,7 @@ class Profile extends Component {
                                 <div className={classes.UserIcon} />
                             </div>
                             <div className={classes.BiodataInfo}>
-                                <h3 className={classes.BiodataName}>{this.props.userName}</h3>
+        <h3 className={classes.BiodataName}>{this.props.userName}<span>{'(' + this.props.userEmail + ')'}</span></h3>
                                 <div>Account Type: <span>{this.props.accountType}</span></div>
                                 { !this.props.specialization2 || this.props.specialization2 === 'N/A' ?
                                     <div>Specialization: <span>{this.props.specialization}</span></div>
@@ -170,6 +170,7 @@ const mapStateToProps = state => ({
     userId: state.auth.user._id,
     isFacilitateApplicant: state.auth.user.isFacilitateApplicant,
     userName: state.auth.user.name,
+    userEmail: state.auth.user.email,
     specialization: state.auth.user.specialization,
     specialization2: state.auth.user.specialization_alt,
     accountType: state.auth.user.accountType,

@@ -76,7 +76,7 @@
     align-items: center;
 }
 
-.MainNavItems span {
+.sectionMenuText {
     color: var(--white);
     font-size: medium;
     text-decoration: none;
@@ -104,113 +104,6 @@
     cursor: pointer; 
 }
 
-.NavActive {
-    color: var(--green);
-}
-
-.MainNavItem:hover {
-    color: var(--green);
-}
-
-.MainNavItems span:hover {
-    color: var(--green);
-}
-
-.MainNavItems span:hover svg{
-    fill: var(--green);
-}
-
-.MainNavItems svg {
-    fill: var(--white);
-    height: 100%;
-    width: 20px;
-    padding-left: 6px;
-}
-
-.LowerToolBar {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid var(--blue);
-    z-index: 200;
-    position: relative;
-    background: var(--white);
-}
-
-.LowerToolBar a, .LowerToolBar div, .LowerToolBar span {
-    color: var(--blue);
-    font-size: small;
-    text-decoration: none;
-    box-sizing: border-box; 
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    font-family: 'PT Sans', sans-serif;
-    cursor: pointer;
-    flex: 0 0 25%;
-    max-width: 25%
-}
-
-.LowerToolBar a:hover {
-    color: var(--green);
-}
-
-.LowerToolBar a:hover svg {
-    fill: var(--green);
-}
-
-.LowerToolBar div:hover {
-    color: var(--green);
-}
-
-.LowerToolBar div:hover svg {
-    fill: var(--green);
-}
-
-.LowerToolBar span:hover {
-    color: var(--green);
-}
-
-.LowerToolBar span:hover svg{
-    fill: var(--green);
-}
-
-.LowerToolBar svg {
-    fill: var(--blue);
-    width: 20px;
-    padding-bottom: 4px;
-}
-
-.SectionMenuDrawer {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 50;
-    background-color: var(--gray);
-    box-sizing: border-box;
-    transition: transform 0.1s ease-out;
-    margin-top: 60px;
-}
-
-.Open {
-    transform: translateY(0);
-}
-
-.Close {
-    transform: translateY(-150%);
-}
-
-.Backdrop {
-    width: 100%;
-    position: absolute;
-    z-index: 50;
-    left: 0;
-    top: 0;
-    min-height: 100%;
-}
-
 .SectionMenuItems {
     display: flex;
     flex-flow: row;
@@ -220,7 +113,7 @@
     justify-content: flex-start;
 }
 
-.SectionMenuItems a {
+.SectionMenuItem {
     text-decoration: none;
     padding: 20px;
     color: var(--blue);
@@ -230,10 +123,8 @@
     font-family: 'PT Sans', sans-serif;
 }
 
-.SectionMenuItems a:hover,
-.SectionMenuItems a:active,
-.SectionMenuItems a.active {
-    color: var(--red);
+.SectionMenuItem:hover {
+    color: var(--green);
 }
 
 .viewSaved {
@@ -259,7 +150,116 @@
     color: var(--green)
 }
 
+.MainNavItem:hover {
+    color: var(--green);
+}
 
+.sectionMenuText:hover {
+    color: var(--green);
+}
+
+.sectionMenuText:hover svg{
+    fill: var(--green);
+}
+
+.sectionMenuDropIcon {
+    fill: var(--white);
+    height: 100%;
+    width: 20px;
+    padding-left: 6px;
+}
+
+.LowerToolBar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--blue);
+    z-index: 200;
+    position: relative;
+    background: var(--white);
+}
+
+.LowerToolBarMenu, /* .LowerToolBar div, */ .lowerToolbarSectionMenuText {
+    color: var(--blue);
+    font-size: small;
+    text-decoration: none;
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    font-family: 'PT Sans', sans-serif;
+    cursor: pointer;
+    flex: 0 0 25%;
+    max-width: 25%
+}
+
+.LowerToolBarMenu:hover {
+    color: var(--green);
+}
+
+.LowerToolBarMenu:hover svg {
+    fill: var(--green);
+}
+
+.LowerToolBar div:hover {
+    color: var(--green);
+}
+
+.LowerToolBar div:hover svg {
+    fill: var(--green);
+}
+
+.lowerToolbarSectionMenuText:hover {
+    color: var(--green);
+}
+
+.lowerToolbarSectionMenuText:hover svg{
+    fill: var(--green);
+}
+
+.LowertoolBarIcon {
+    fill: var(--blue);
+    width: 20px;
+    padding-bottom: 4px;
+}
+
+.NavActive {
+    color: var(--green);
+}
+
+.NavIconActive {
+    fill: var(--green);
+}
+
+.SectionMenuDrawer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    background-color: var(--lightGray);
+    box-sizing: border-box;
+    transition: transform 0.1s ease-out;
+    margin-top: 60px;
+}
+
+.Open {
+    transform: translateY(0);
+}
+
+.Close {
+    transform: translateY(-150%);
+}
+
+.Backdrop {
+    width: 100%;
+    position: absolute;
+    z-index: 50;
+    left: 0;
+    top: 0;
+    min-height: 100%;
+}
 
 @media(max-width: 784px) {
 

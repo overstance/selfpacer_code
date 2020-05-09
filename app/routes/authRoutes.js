@@ -285,7 +285,6 @@ module.exports = app => {
 
   app.post('/api/forgot_password', function(req, res, next) {
     // console.log(req.body.email);
-    console.log(emailProtocol);
 
     async.waterfall(
       [
