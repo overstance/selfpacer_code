@@ -80,17 +80,6 @@ class BlogPost extends React.Component {
 
   componentDidUpdate(prevProps) {
 
-    /* if (this.props.match.params !== prevProps.match.params) {
-      console.log(this.props.match.params);
-      this.props.onFetchBlogPost(
-        this.props.match.params.publishYear, 
-        this.props.match.params.publishMonth,
-        this.props.match.params.publishDay,
-        this.props.match.params.slug
-      );
-      window.scroll(0,0);
-    } */
-
     if (this.props.post.htmlContent !== prevProps.post.htmlContent) {
       
       const PostBody = this.postBody.current;
