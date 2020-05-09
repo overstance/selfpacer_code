@@ -80,7 +80,7 @@ class BlogPost extends React.Component {
 
   componentDidUpdate(prevProps) {
 
-    if (this.props.match.params !== prevProps.match.params) {
+    /* if (this.props.match.params !== prevProps.match.params) {
       console.log("parameters changed");
       this.props.onFetchBlogPost(
         this.props.match.params.publishYear, 
@@ -89,7 +89,7 @@ class BlogPost extends React.Component {
         this.props.match.params.slug
       );
       window.scroll(0,0);
-    }
+    } */
 
     if (this.props.post.htmlContent !== prevProps.post.htmlContent) {
      
