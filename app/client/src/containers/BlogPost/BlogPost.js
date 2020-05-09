@@ -81,7 +81,7 @@ class BlogPost extends React.Component {
   componentDidUpdate(prevProps) {
 
     /* if (this.props.match.params !== prevProps.match.params) {
-      console.log("parameters changed");
+      console.log(this.props.match.params);
       this.props.onFetchBlogPost(
         this.props.match.params.publishYear, 
         this.props.match.params.publishMonth,
@@ -92,7 +92,7 @@ class BlogPost extends React.Component {
     } */
 
     if (this.props.post.htmlContent !== prevProps.post.htmlContent) {
-     
+      
       const PostBody = this.postBody.current;
       let youtubeElementsByClass = PostBody.getElementsByClassName('youtubeVideoEmbed');
       let twitterElementsByClass = PostBody.getElementsByClassName('twitterEmbed');
@@ -100,6 +100,7 @@ class BlogPost extends React.Component {
 
       this.props.onFetchBlogComments(this.props.post._id);
       this.setState({ youtubeEmbeds: youtubeElementsByClass, twitterEmbeds: twitterElementsByClass, allPostParagraphs: allParagraphElements });
+
     }
 
   }

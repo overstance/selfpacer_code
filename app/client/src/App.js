@@ -72,7 +72,8 @@ class App extends Component {
           <Route path='/blog/sections/:category' exact component={BlogSection} />
           <Route path='/blog/popular_blogposts' exact component={PopularBlogs} />
           <Route path='/blog/latest_blogposts' exact component={LatestBlogs} />
-          <Route path='/blog/:publishYear/:publishMonth/:publishDay/:slug' component={BlogPost} />
+          {/* <Route path='/blog/:publishYear/:publishMonth/:publishDay/:slug' component={BlogPost} /> */}
+          <Route path='/blog/:publishYear/:publishMonth/:publishDay/:slug' exact component={ (props) => (<BlogPost timestamp={new Date().toString()} {...props} /> )}/>
           <Route exact path="/collections" component={Collections} />
           <Route exact path="/shared_collections/:id" component={SharedCollection} />
           <Route exact path="/resource/:resource_category/:resource_id" component={ResourcePage} />
