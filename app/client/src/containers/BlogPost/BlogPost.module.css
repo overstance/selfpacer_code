@@ -72,7 +72,7 @@ section img {
 }
 
 .postTitle {
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-family: 'Squada One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     font-size: 48px;
     color: var(--blue);
     line-height: 1;
@@ -81,7 +81,7 @@ section img {
 
 .description {
     font-family: 'PT Sans', sans-serif; 
-    font-size: 18px;
+    font-size: 20px;
     margin-top: 16px;
 }
 
@@ -228,6 +228,10 @@ section img {
     margin: auto;
 }
 
+.heroImage {
+    padding-bottom: 16px;
+}
+
 .heroImage figure {
     margin: 0;
     padding-bottom: 56.25%;
@@ -260,12 +264,16 @@ section img {
 
 .PostBody {
     font-family: 'PT Sans', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
+    max-width: 640px;
+    margin: 0 auto;
 }
 
 .PostBody blockquote {
     font-size: 20px;
-    width: 60%;
+    /* width: 60%; */
+    max-width: 500px;
+    box-sizing: border-box;
     margin: 40px auto;
     font-family: "PT Sans";
     padding: 1em 30px 1em 50px;
@@ -304,8 +312,8 @@ section img {
 
 .PostBody p {
     text-align: left;
-    margin-block-end: 0.5em;
-    margin-block-start: 0.5em;
+    /* margin-block-end: 0.5em;
+    margin-block-start: 0.5em; */
 }
 
 .PostBody h1 {
@@ -346,10 +354,11 @@ section img {
 }
 
 pre {
-    color: var(--gray);
+    color: var(--green);
     line-height: 1.2;
-    padding: 4px;
-    margin-left: 4px;
+    padding: 16px;
+    max-width: 500px;
+    margin: 32px auto;
     background-color: var(--blue);
     font-weight: 700;
     font-size: 13px;

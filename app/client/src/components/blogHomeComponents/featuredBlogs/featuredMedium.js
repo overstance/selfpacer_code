@@ -16,7 +16,7 @@ const featuredMedium = (props) => (
         </div>
         <div className={classes.featuredMediumInfo}>
             <div className={classes.featuredMediumCategory}>
-                <Link to={`/blog/${props.category}`}>
+                <Link to={`/blog/sections/${props.category}`}>
                     {props.category}
                 </Link>    
             </div>

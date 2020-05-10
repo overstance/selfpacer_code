@@ -2,8 +2,8 @@
     --lightBlue: #4a44f2;
     --blue: #3726a6;
     --green: #b0f235;
+    --darkGreen: #96d926;
     --red: #f20505;
-    --orange: #f2be22;
     --white: #ffffff;
     --gray: #dfdfdf;
     --lightGray: #eee;
@@ -39,10 +39,16 @@
 
 .youtubeVideoEmbed {
     text-align: center;
+    margin: 32px 0;
 }
 
 .youtubeVideoEmbed iframe {
     max-width: 100%;
+}
+
+.twitterEmbed {
+    margin-top: 32px;
+    margin-bottom: 32px;
 }
 
 .twitterEmbed twitter-widget {
@@ -73,21 +79,22 @@ html, body {
 
 @media(max-width: 576px) {
     .twitterEmbed twitter-widget {
-        max-width: 300px !important;
+        /* max-width: 300px !important; */
+        width: 100% !important;
     }
 }
 
-@media(max-width: 360px) {
+/* @media(max-width: 360px) {
     .twitterEmbed twitter-widget {
         max-width: 220px !important;
     }
-}
+} */
 
 
 /*  
 font-family: 'Comfortaa', cursive;
 font-family: 'Manjari', sans-serif;
-font-family: 'Fredoka One', cursive;
+font-family: 'Squada One', cursive;
 font-family: 'Baloo', cursive;
 font-family: 'PT Sans', sans-serif;
 font-family: 'PT Sans', sans-serif;

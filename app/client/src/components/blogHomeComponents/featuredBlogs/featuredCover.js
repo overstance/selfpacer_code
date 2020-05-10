@@ -16,7 +16,7 @@ const featuredCover = (props) => (
         </div>
         <div>
             <div className={classes.featuredCoverCategory}>
-                <Link to={`/blog/${props.category}`}>
+                <Link to={`/blog/sections/${props.category}`}>
                     {props.category}
                 </Link>    
             </div>

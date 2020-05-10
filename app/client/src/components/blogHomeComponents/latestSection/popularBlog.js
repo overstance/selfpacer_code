@@ -13,7 +13,7 @@ const popularBlog = (props) => (
             </Link>
         </div>
         <div className={classes.popularBlogCategory}>
-            <Link to={`/blog/${props.category}`}>
+            <Link to={`/blog/sections/${props.category}`}>
                 {props.category}
             </Link>    
         </div>     

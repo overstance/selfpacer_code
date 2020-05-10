@@ -157,7 +157,7 @@
 .latestBlogCategory a {
     /* font-family: 'PT Sans', sans-serif;; */
     font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
-    color: var(--red);
+    color: var(--darkGreen);
     font-size: 16px;
     text-transform: uppercase;
     margin-bottom: 8px;
@@ -168,7 +168,7 @@
 .popularBlogCategory a {
      /* font-family: 'PT Sans', sans-serif;; */
      font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
-     color: var(--red);
+     color: var(--darkGreen);
      font-size: small;
      text-transform: uppercase;
      margin-top: 8px;
@@ -189,7 +189,7 @@
 .latestPodcastTitle {
     /* font-family: 'Lalezar', Tahoma, 'Segoe UI', Verdana, sans-serif; */
     /* font-family: 'Baloo', Tahoma, 'Segoe UI', Verdana, sans-serif; */
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-family: 'Squada One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     color: var(--blue);
     text-transform: capitalize;
     line-height: 1;
@@ -287,7 +287,7 @@
 }
 
 .latestPodcastTitle a h3 {
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-family: 'Squada One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     color: var(--blue);
     font-size: 18px;
     text-transform: capitalize;
@@ -298,14 +298,14 @@
 }
 
 .latestPodcastTitle a div {
-    color: var(--red);
+    color: var(--darkGreen);
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 700;
 }
 
 .latestPodcastTitle a span {
-    color: var(--red);
+    color: var(--darkGreen);
     text-transform: capitalize;
 }
 
@@ -373,7 +373,7 @@
 }
 
 .popularBlogTitle span {
-    color: var(--red);
+    color: var(--darkGreen);
     padding-right: 8px;
 }
 
@@ -441,7 +441,7 @@
 }
 
 .seeAll a {
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-family: 'Squada One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     font-size: 20px;
     background: var(--green);
     padding: 8px 16px;

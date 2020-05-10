@@ -1,5 +1,5 @@
 .BlogLoadMore {
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-family: 'Squada One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     font-size: 20px;
     background: var(--green);
     /* padding: 8px 16px; */
@@ -16,7 +16,7 @@
 
 .LoadMoreOnClick {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 700;
     background: var(--green);
     text-transform: capitalize;
     cursor: pointer;

@@ -233,8 +233,8 @@ class LatestSection extends Component {
                     <div className={classes.aside}>
                         <div className={classes.popularBlogContainer}>
                             <div className={classes.sectionSubhead}>
-                                <Link to='/blog/popular' className={classes.sectionSubheadTitle}>Popular</Link>
-                                <Link to='/blog/popular' className={classes.sectionSubheadMore} >See All</Link>
+                                <Link to='/blog/popular_blogposts' className={classes.sectionSubheadTitle}>Popular</Link>
+                                <Link to='/blog/popular_blogposts' className={classes.sectionSubheadMore} >See All</Link>
                             </div>
                             {popularBlogs}
                         </div>

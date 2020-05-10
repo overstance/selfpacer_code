@@ -21,7 +21,7 @@
     text-transform: uppercase;
     color: var(--blue);
     margin-bottom: 16px;
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .startNew {
@@ -92,7 +92,7 @@
     color: var(--blue);
     text-transform: uppercase;
     font-size: 12px;
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .action {

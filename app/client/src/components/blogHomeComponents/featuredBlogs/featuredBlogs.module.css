@@ -117,7 +117,7 @@
 .featuredLargeCategory a {
     /* font-family: 'PT Sans', sans-serif;; */
     font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
-    color: var(--red);
+    color: var(--darkGreen);
     font-size: 16px;
     text-transform: uppercase;
     margin-bottom: 8px;
@@ -138,7 +138,7 @@
 .featuredLargeTitle a {
     /* font-family: 'Lalezar', Tahoma, 'Segoe UI', Verdana, sans-serif; */
     /* font-family: 'Baloo', Tahoma, 'Segoe UI', Verdana, sans-serif; */
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-family: 'Squada One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     color: var(--blue);
     text-transform: capitalize;
     line-height: 1;

@@ -49,7 +49,7 @@
 }
 
 .blogItemTitle a {
-    font-family: 'Fredoka One', Tahoma, 'Segoe UI', Verdana, sans-serif;
+    font-family: 'Squada One', Tahoma, 'Segoe UI', Verdana, sans-serif;
     color: var(--blue);
     text-transform: capitalize;
     line-height: 1;
@@ -111,7 +111,7 @@
 .removeSavedButton {
     color: var(--blue);
     border: 2px solid var(--blue);
-    font-weight: bold;
+    font-weight: 700;
     height: 40px;
     width: 72px;
     display: flex;

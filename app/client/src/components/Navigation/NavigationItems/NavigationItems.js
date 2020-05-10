@@ -14,6 +14,7 @@ class NavigationItems extends Component {
         let skillsIcon = [classes.Icon];
         let collectionsIcon = [classes.Icon];
         let facilitateIcon = [classes.Icon];
+        let blogIcon = [classes.Icon];
 
         let basePath = this.props.location.pathname.split("/")[1];
         // console.log(basePath);
@@ -32,6 +33,10 @@ class NavigationItems extends Component {
 
         if (basePath === "facilitate") {
             facilitateIcon.push(classes.NavActive);
+        }
+
+        if (basePath === "blog") {
+            blogIcon.push(classes.NavActive);
         }
         
         return(
@@ -83,7 +88,7 @@ class NavigationItems extends Component {
                     isAuthenticating={this.props.closeSideDrawer}
                     description='go to blog'
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" className={classes.Icon} viewBox="0 0 20 20">
+                    <svg xmlns="http://www.w3.org/2000/svg" className={blogIcon.join(' ')} viewBox="0 0 20 20">
                         <path d="M19.167 3.333H3.889c-.724 0-1.342.465-1.571 1.111H.833c-.46 0-.833.373-.833.833v9.445c0 1.073.87 1.944 1.944 1.944h17.223c.46 0 .833-.373.833-.834V4.167c0-.461-.373-.834-.833-.834zM1.666 14.723V6.11h.556v8.612c0 .154-.124.278-.278.278s-.278-.124-.278-.277zM18.334 15H3.869c.013-.091.02-.184.02-.277V5h14.445v10zM5.972 10.833h4.723c.23 0 .417-.187.417-.416V7.083c0-.23-.187-.417-.417-.417H5.972c-.229 0-.416.187-.416.417v3.334c0 .229.186.416.416.416zm.972-2.777h2.778v1.389H6.944V8.056zm-1.388 4.861v-.834c0-.229.187-.417.416-.417h4.723c.23 0 .417.188.417.417v.834c0 .23-.187.417-.417.417H5.972c-.23 0-.416-.187-.416-.417zm6.666 0v-.834c0-.229.187-.417.417-.417h3.611c.23 0 .417.188.417.417v.834c0 .23-.187.417-.417.417h-3.611c-.231 0-.417-.187-.417-.417zm0-5v-.834c0-.23.187-.417.417-.417h3.611c.23 0 .417.187.417.417v.834c0 .229-.187.417-.417.417h-3.611c-.231 0-.417-.188-.417-.417zm0 2.5v-.834c0-.229.187-.416.417-.416h3.611c.23 0 .417.187.417.416v.834c0 .229-.187.416-.417.416h-3.611c-.231 0-.417-.187-.417-.416z"/>
                     </svg>
                     Blog

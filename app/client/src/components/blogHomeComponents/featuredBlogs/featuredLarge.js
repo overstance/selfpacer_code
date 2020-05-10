@@ -16,7 +16,7 @@ const featuredLarge = (props) => (
         </div>
         <div>
             <div className={classes.featuredLargeCategory}>
-                <Link to={`/blog/${props.category}`}>
+                <Link to={`/blog/sections/${props.category}`}>
                     {props.category}
                 </Link>    
             </div>

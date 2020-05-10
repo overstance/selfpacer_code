@@ -46,7 +46,7 @@ const latestBlog = (props) => {
             </div>
             <div className={classes.latestBlogInfo}>
                 <div className={classes.latestBlogCategory}>
-                    <Link to={`/blog/${props.category}`}>
+                    <Link to={`/blog/sections/${props.category}`}>
                         {props.category}
                     </Link>    
                 </div>
