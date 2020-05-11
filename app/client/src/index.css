@@ -1,23 +1,22 @@
 :root {
+    /* Brand Colors */
     --lightBlue: #4a44f2;
     --blue: #3726a6;
     --green: #b0f235;
     --darkGreen: #96d926;
+    /* UX Color */
     --red: #f20505;
     --white: #ffffff;
-    --gray: #dfdfdf;
     --lightGray: #eee;
     --black: #000000;
-
     /* transparency color variables */
-
     --transBlue: 55,38,166;
     --transWhite: 255,255,255;
     --transBlack: 0,0,0;
 }
 
 .richEditor-code-block, div.richEditor-code-block {
-    color: var(--gray);
+    color: var(--lightGray);
     line-height: 1.2;
     padding: 4px;
     margin-left: 4px;
@@ -61,7 +60,7 @@
 }
 
 .dropcap:first-child:first-letter {
-    color: var(--green);
+    color: var(--darkGreen);
     float: left;
     font-family: "Squada One";
     font-size: 80px;

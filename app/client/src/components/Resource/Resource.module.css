@@ -1,7 +1,7 @@
 .Resource {
     margin-bottom: 10px;
     outline: none;
-    /* box-shadow: 1px 0px 6px 0px var(--gray); */
+    /* box-shadow: 1px 0px 6px 0px var(--lightGray); */
     box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.4);
 }
 
@@ -125,16 +125,16 @@
 .Type {
     color: var(--lightBlue);
     font-weight: 700;
-    font-size: x-small;
+    font-size: 10px;
     text-align: left;
     padding-left: 40px;
 }
 
 .Type span {
     color: var(--blue);
-    background: var(--gray);
+    background: var(--lightGray);
     margin-left: 4px;
-    font-size: small;
+    font-size: 14px;
 
 }
 
@@ -157,13 +157,13 @@
 }
 
 .FeedbackText {
-    font-size: small;
+    font-size: 14px;
     color: var(--lightBlue);
     font-weight: 400;
 }
 
 .DateAdded {
-    font-size: small;
+    font-size: 14px;
     color: var(--blue);
     font-weight: 700;
     margin-right: 10px;
@@ -229,7 +229,7 @@
 }
 
 .AssetUpdateFeedbackText {
-    font-size: small;
+    font-size: 14px;
     color: var(--blue);
     font-weight: 700;
     animation: slideRight 0.2s ease-in-out;
@@ -239,7 +239,7 @@
 }
 
 .AssetUpdateFeedbackTextError {
-    font-size: small;
+    font-size: 14px;
     color: var(--red);
     font-weight: 700;
     animation: slideRight 0.2s ease-in-out;
@@ -266,7 +266,7 @@
 }
 
 .AssetLastUpdated {
-    font-size: small;
+    font-size: 14px;
     color: var(--green);
     font-weight: 400;
     /* padding: 0 10px; */
@@ -360,7 +360,7 @@
 .StatisticsLabel {
     color: var(--white);
     font-weight: 700;
-    font-size: small;
+    font-size: 14px;
 }
 
 @keyframes slideRight {
@@ -369,9 +369,9 @@
 }
 
 @media all and (max-width: 600px) {
-    .Type span {
-        font-size: x-small;
-    }
+    /* .Type span {
+        font-size: 12px;
+    } */
 
     .StatisticsLike {
         flex: 0 0 100%;

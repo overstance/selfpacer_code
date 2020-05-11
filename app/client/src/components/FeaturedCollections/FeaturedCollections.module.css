@@ -2,8 +2,10 @@
     color: var(--blue);
     font-weight: 700;
     text-align: center;
-    padding: 8px;
-    background: var(--green);
+    background: var(--lightGray);
+    font-size: 20px;
+    padding: 16px;
+    margin: 0;
 
 }
 

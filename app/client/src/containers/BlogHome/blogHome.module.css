@@ -3,8 +3,8 @@
 } */
 
 .topAdBar {
-    background: var(--blue);
-    border-top: 1px solid var(--gray);
+    /* background: var(--blue); */
+    border-bottom: 1px solid var(--lightGray);
 }
 
 .blogPostTopAd {

@@ -61,14 +61,14 @@
 .type {
     color: var(--blue);
     font-size: 12px;
-    background: var(--green);
+    background: var(--lightGray);
     display: inline;
     font-weight: 700;
 }
 
 .otherSection {
     display: flex;
-    border-top: 1px solid var(--gray);
+    border-top: 1px solid var(--lightGray);
     padding: 8px 16px;
 }
 

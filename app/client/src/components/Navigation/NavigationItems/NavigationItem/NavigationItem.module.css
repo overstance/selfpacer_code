@@ -10,7 +10,7 @@
     align-items: center;
     flex-direction: row;
     color: var(--blue);
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .NavActive {
-    color: var(--green);
+    color: var(--darkGreen);
 }
 
 @media (min-width: 901px) {

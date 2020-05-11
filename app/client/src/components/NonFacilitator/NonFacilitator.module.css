@@ -69,7 +69,7 @@
 
 .sectionDivider {
     width: 100%;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
     height: 2px;
     margin-bottom: 16px
 }

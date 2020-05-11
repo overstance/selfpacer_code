@@ -50,7 +50,7 @@ section img {
 } */
 
 .sharePlatform svg rect:hover {
-    fill: var(--gray);
+    fill: var(--lightGray);
 }
 
 .header {
@@ -58,13 +58,13 @@ section img {
     text-align: left;
     max-width: 1120px;
     margin: 0 auto;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
 }
 
 .category a {
     font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
     text-transform: uppercase;
-    color: var(--red);
+    color: var(--darkGreen);
     font-size: 18px;
     margin-bottom: 8px;
     text-decoration: none;
@@ -138,14 +138,14 @@ section img {
 .publishDate strong {
     font-family: "Fredoka One";
     padding-left: 8px;
-    color: var(--gray);
+    color: var(--lightGray);
     padding-right: 8px;
 }
 
 .publishDate::before {
     content: '/';
     padding-right: 16px;
-    color: var(--gray);
+    color: var(--lightGray);
     font-weight: 700;
 }
 
@@ -177,8 +177,8 @@ section img {
 }
 
 .topAdBar {
-    background: var(--blue);
-    border-top: 1px solid var(--gray);
+    /* background: var(--blue); */
+    border-bottom: 1px solid var(--lightGray);
 }
 
 .blogPostTopAd {
@@ -244,7 +244,7 @@ section img {
     height: 100%;
     position: absolute;
     width: 100%;
-    background: var(--gray);
+    background: var(--lightGray);
 }
 
 .heroImage img {
@@ -283,7 +283,7 @@ section img {
     border-bottom: 2px solid var(--green);
     position: relative;
     color: var(--blue);
-    /* background: var(--gray); */
+    /* background: var(--lightGray); */
 }
 
 .PostBody blockquote::before {
@@ -375,8 +375,8 @@ pre {
     font-family: 'PT sans', sans-serif;
     padding: 16px;
     margin: 16px 0;
-    border-top: 1px solid var(--gray);
-    border-bottom: 1px solid var(--gray);
+    border-top: 1px solid var(--lightGray);
+    border-bottom: 1px solid var(--lightGray);
 }
 
 .commentOrSave {
@@ -406,7 +406,7 @@ pre {
 }
 
 .saveBlog:hover {
-    background: var(--gray);
+    background: var(--lightGray);
 }
 
 .saveBlog svg {

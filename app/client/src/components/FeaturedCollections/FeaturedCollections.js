@@ -55,9 +55,9 @@ class FeaturedCollections extends Component {
         return (
             <div>
                 { this.props.featuredCollections.length === 0 ? null :
-                     <div className={classes.Description}>
+                     <h2 className={classes.Description}>
                         {'Featured category: "' + this.props.userSpec + '"'}
-                     </div>
+                     </h2>
                 }
                 <div className={classes.CollectionWrapper}>               
                     {featuredCollectionsBySpec}

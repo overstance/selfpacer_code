@@ -3,7 +3,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
 }
 
 .DialogueTitleColumn {
@@ -50,7 +50,7 @@
     text-align: left;
     color: var(--green);
     font-weight: 400;
-    /* border-bottom: 1px solid var(--gray); */
+    /* border-bottom: 1px solid var(--lightGray); */
     font-size: 16px;
     font-weight: 700;
 }

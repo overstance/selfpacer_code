@@ -22,7 +22,7 @@
     height: 100%;
     position: absolute;
     width: 100%;
-    background: var(--gray);
+    background: var(--lightGray);
 }
 
 .blogItem figcaption {
@@ -68,7 +68,7 @@
     flex-flow: row nowrap;
     padding-bottom: 16px;
     margin-bottom: 16px;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
     box-sizing: border-box;
 }
 
@@ -78,7 +78,7 @@
     flex-flow: row nowrap;
     padding-bottom: 16px;
     margin-bottom: 16px;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
     box-sizing: border-box;
 }
 

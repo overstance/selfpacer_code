@@ -130,7 +130,7 @@
     flex-flow: row nowrap;
     flex: 0 0 50%;
     max-width: 50%;
-    /* background: var(--gray); */
+    /* background: var(--lightGray); */
     border-radius: 4px;
 }
 

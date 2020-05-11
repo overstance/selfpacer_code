@@ -55,9 +55,9 @@ class SharedCollections extends Component {
         return (
             <div>
                 { this.props.sharedCollections.length === 0 ? null :
-                     <div className={classes.Description}>
+                     <h2 className={classes.Description}>
                         {'Shared category: "' + this.props.userSpec + '"'}
-                     </div>
+                     </h2>
                 }
                 <div className={classes.CollectionWrapper}>               
                     {sharedCollectionsBySpec}

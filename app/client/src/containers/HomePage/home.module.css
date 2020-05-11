@@ -312,7 +312,7 @@
 
 .inspireBoard {
     border-radius: 16px;
-    background: var(--gray);
+    background: var(--lightGray);
     padding: 16px 16px 0;;
     border: 2px solid var(--blue);
 }
@@ -353,7 +353,7 @@
 }
 
 .homeButton:hover {
-    background: var(--gray);
+    background: var(--lightGray);
 }
 
 .exploreBlock {

@@ -1,6 +1,12 @@
 .fetchedResource {
     padding: 32px;
-    background: var(--blue);
+    background: var(--lightBlue);
+}
+
+.fetchedResource h1 {
+    font-size: 20px;
+    color: var(--white);
+    font-weight: 700;
 }
 
 .adminActionAlert {
@@ -21,11 +27,12 @@
 
 .relatedResourcesHeading {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 16px;
     color: var(--blue);
-    background: var(--green);
-    display: inline-block;
+    padding: 16px;
+    background: var(--lightGray);
+    text-align: center;
 }
 
 .SeeAll {
@@ -42,7 +49,7 @@
 }
 
 .SeeAll:hover {
-    background: var(--gray);
+    background: var(--lightGray);
 }
 
 @media(max-width: 900px) {

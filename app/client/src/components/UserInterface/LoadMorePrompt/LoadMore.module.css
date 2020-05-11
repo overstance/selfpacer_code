@@ -30,7 +30,7 @@
 }
 
 .BlogLoadMore:hover, .LoadMoreOnClick:hover {
-    background: var(--gray);
+    background: var(--lightGray);
 }
 
 .LoadMore {

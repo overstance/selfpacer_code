@@ -5,7 +5,7 @@
 }
 
 .NavActive {
-    fill: var(--green);
+    fill: var(--darkGreen);
 }
 
 .MenuName {

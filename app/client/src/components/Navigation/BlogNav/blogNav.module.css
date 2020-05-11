@@ -78,7 +78,8 @@
 
 .sectionMenuText {
     color: var(--white);
-    font-size: medium;
+    font-size: 16px;
+    font-weight: 700;
     text-decoration: none;
     box-sizing: border-box; 
     display: inline-flex;
@@ -92,7 +93,8 @@
 
 .MainNavItem {
     color: var(--white);
-    font-size: medium;
+    font-size: 16px;
+    font-weight: 700;
     text-decoration: none;
     box-sizing: border-box; 
     display: inline-flex;
@@ -116,10 +118,10 @@
 .SectionMenuItem {
     text-decoration: none;
     padding: 20px;
-    color: var(--blue);
+    color: var(--white);
+    font-size: 18px;
     display: block;
     width: 100px;
-    font-weight: 700;
     font-family: 'PT Sans', sans-serif;
 }
 
@@ -173,15 +175,16 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid var(--blue);
+    border-bottom: 2px solid var(--blue);
     z-index: 200;
     position: relative;
-    background: var(--white);
+    background: var(--lightBlue);
 }
 
 .LowerToolBarMenu, /* .LowerToolBar div, */ .lowerToolbarSectionMenuText {
-    color: var(--blue);
-    font-size: small;
+    color: var(--white);
+    font-size: 16px;
+    /* font-weight: 700; */
     text-decoration: none;
     box-sizing: border-box; 
     display: flex;
@@ -219,7 +222,7 @@
 }
 
 .LowertoolBarIcon {
-    fill: var(--blue);
+    fill: var(--white);
     width: 20px;
     padding-bottom: 4px;
 }
@@ -238,7 +241,8 @@
     left: 0;
     top: 0;
     z-index: 50;
-    background-color: var(--lightGray);
+    /* background-color: var(--lightGray); */
+    background-color: var(--lightBlue);
     box-sizing: border-box;
     transition: transform 0.1s ease-out;
     margin-top: 60px;

@@ -1,7 +1,7 @@
 .User {
     margin-bottom: 10px;
     outline: none;
-    box-shadow: 1px 0px 6px 0px var(--gray);
+    box-shadow: 1px 0px 6px 0px var(--lightGray);
 }
 
 .User:first-of-type {

@@ -14,7 +14,7 @@
 
 .forExploreContainer {
     width: 240px;
-    border: 2px solid var(--gray);
+    border: 2px solid var(--lightGray);
     /* box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.4); */
     margin-right: 16px;
     border-radius: 20px;
@@ -43,7 +43,7 @@
 .description {
     font-size: 12px;
     font-weight: 700;
-    color: var(--red);
+    color: var(--darkGreen);
 }
 
 .title {

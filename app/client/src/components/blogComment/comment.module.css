@@ -4,7 +4,7 @@
     width: 100%;
     width: 100%;
     padding: 8px 0;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
 }
 
 .commentContainer:first-of-type {
@@ -21,7 +21,7 @@
     width: 95%;
     margin-left: auto;
     padding-left: 8px;
-    border-left: 1px solid var(--gray);
+    border-left: 1px solid var(--lightGray);
 }
 
 .commentInfo {
@@ -68,7 +68,7 @@
 
 .replyButton button {
     border-style: none;
-    background: var(--gray);
+    background: var(--lightGray);
     color: var(--blue);
     font-weight: 700;
     cursor: pointer;
@@ -112,7 +112,7 @@
 }
 
 .headerWrapper {
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
     /* padding-bottom: 8px; */
 }
 
@@ -139,7 +139,7 @@
 
 .replyingBlog button {
     border-style: none;
-    background: var(--gray);
+    background: var(--lightGray);
     color: var(--blue);
     font-weight: 700;
     cursor: pointer;
@@ -192,8 +192,8 @@
 }
 
 .commentAuthRequiredSection a:hover {
-    background: var(--gray);
-    border: 2px solid var(--gray);
+    background: var(--lightGray);
+    border: 2px solid var(--lightGray);
 }
 
 .commentTextInputSection {
@@ -262,7 +262,7 @@
     color: var(--blue);
     font-weight: 700;
     text-transform: capitalize;
-    background: var(--gray);
+    background: var(--lightGray);
     /* margin-right: 8px; */
     display: flex;
     align-items: center;

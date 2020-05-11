@@ -12,21 +12,22 @@
 }
 
 .subsection h2 {
-    color: var(--black);
+    color: var(--blue);
     padding: 16px;
     font-size: 20px;
     margin:0;
     margin-bottom: 16px;
-    background: var(--green);
+    background: var(--lightGray);
+    text-align: center;
 }
 
 .subsection h2 a {
-    color: var(--blue);
-    text-decoration-color: var(--blue);
+    color: var(--darkGreen);
+    text-decoration-color: var(--darkGreen);
 }
 
 .subsection h2 a:hover {
-    color: var(--black);
+    color: var(--blue);
     text-decoration: none;
 }
 

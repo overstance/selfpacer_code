@@ -1,13 +1,13 @@
 /* .Container {
     width: 100%;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
     z-index: 90;
     position: relative
 } */
 
 .Toolbar {
     width: 100%;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
     z-index: 90;
     position: relative;
     height: 80px;

@@ -17,7 +17,7 @@
 }
 
 .fetchedUserContainer {
-    background: var(--gray);
+    background: var(--lightGray);
 }
 
 .fetchedUser {

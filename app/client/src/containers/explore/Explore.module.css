@@ -12,20 +12,24 @@
 
 .descriptor {
     white-space: nowrap;
-    text-transform: capitalize;
+    text-transform: uppercase;
     padding-right: 16px;
-    font-weight: 400;
+    font-weight: 700;
+    color: var(--blue);
+    font-size: 16px;
 }
 
 .description {
     display: inline-block;
+    font-size: 24px;
+    color: var(--blue);
 }
 
 .description a, .description button {
     cursor: pointer;
     text-decoration: underline;
     font-size: 16px;
-    color: var(--blue);
+    color: var(--darkGreen);
     background: none;
     padding-left: 4px;
     border: none;

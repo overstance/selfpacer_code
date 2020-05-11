@@ -842,11 +842,18 @@ class Resourcepage extends Component {
         return (
             <Grid>
                 <div className={classes.fetchedResource}>
+                    { this.props.fetchedResource ?
+                        <h1>Follow link to view resource:</h1>
+                        : null
+                    }
                     {fetchedResource}
                     {adminOverride && <div className={classes.adminActionAlert}><span>Admin action on user asset!</span></div>}
                 </div>
                 <div className={classes.relatedResources}>
-                    <div className={classes.relatedResourcesHeading}>Related Resources</div>
+                    { this.props.relatedResources.length > 0 ?  
+                        <h2 className={classes.relatedResourcesHeading}>Related Resources</h2>
+                        : null
+                    }
                     {relatedResources}
                     { this.props.relatedResources.length >= 10 ?
                         <Link to={`/skills/${subject_title}`} className={classes.SeeAll} >

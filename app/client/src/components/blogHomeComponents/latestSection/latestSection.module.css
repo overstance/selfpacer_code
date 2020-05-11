@@ -5,7 +5,7 @@
 .latestSectionTop {
     margin: 0 16px;
     display: flex;
-    /* border-top: 1px solid var(--gray); */
+    /* border-top: 1px solid var(--lightGray); */
 }
 
 .latestAndFacilitator {
@@ -22,7 +22,7 @@
     flex-flow: column;
     box-sizing: border-box;
     padding-right: 16px;
-    /* border-right: 1px solid var(--gray); */
+    /* border-right: 1px solid var(--lightGray); */
 }
 
 .latestBlogContainer {
@@ -42,7 +42,7 @@
     flex-flow: column;
     padding-left: 16px;
     /* box-sizing: border-box; */
-    /* border-left: 1px solid var(--gray); */
+    /* border-left: 1px solid var(--lightGray); */
 }
 
 .latestSectionSideAd {
@@ -104,7 +104,7 @@
     height: 100%;
     position: absolute;
     width: 100%;
-    background: var(--gray);
+    background: var(--lightGray);
 }
 
 .latestSection img {
@@ -221,7 +221,7 @@
 
 .latestBlog {
     padding: 16px 0;
-    border-top: 1px solid var(--gray);
+    border-top: 1px solid var(--lightGray);
     box-sizing: border-box;
     display: flex;
 }
@@ -253,7 +253,7 @@
 .latestVideoLarge {
     display: flex;
     flex-flow: row nowrap;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
     margin-bottom: 16px;
 }
 
@@ -271,7 +271,7 @@
 
 .latestPodcast {
     padding-bottom: 16px;
-    /* border-top: 1px solid var(--gray); */
+    /* border-top: 1px solid var(--lightGray); */
     box-sizing: border-box;
     /* display: flex; */
 }
@@ -316,7 +316,7 @@
     background-position-y: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: var(--gray);
+    background-color: var(--lightGray);
 }
 
 .latestBlogImage {
@@ -384,7 +384,7 @@
 .popularBlogImage {
     width: 78px;
     height: 78px;
-    background: var(--gray);
+    background: var(--lightGray);
     background-position-x: center;
     background-position-y: center;
     background-size: cover;
@@ -406,10 +406,14 @@
 .facilitatorName {
     font-family: 'PT Sans', sans-serif;
     font-weight: 700;
+    color: var(--blue);
+    font-size: 18px;
 }
 
 .facilitatorTitle {
     font-family: 'PT Sans', sans-serif;
+    color: var(--green);
+    font-weight: 700;
 }
 
 /* .facilitator figure {
@@ -420,7 +424,7 @@
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    background: var(--gray);
+    background: var(--lightGray);
     background-position-x: center;
     background-position-y: center;
     background-size: cover;
@@ -452,13 +456,13 @@
 }
 
 .seeAll a:hover {
-    background: var(--gray);
+    background: var(--lightGray);
 }
 
 .spacerInAbsenceOfVideoSection {
     width: 100%;
     height: 1px;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid var(--lightGray);
     margin-bottom: 16px;
 }
 
@@ -474,7 +478,7 @@
         flex-flow: column;
         box-sizing: border-box;
         /* padding-right: 16px; */
-        /* border-right: 1px solid var(--gray); */
+        /* border-right: 1px solid var(--lightGray); */
     }
 
     .latestBlogContainer {
@@ -622,7 +626,7 @@
 
     .latestPodcast {
         /* display: flex; */
-        border-bottom: 1px solid var(--gray);
+        border-bottom: 1px solid var(--lightGray);
     }
     
     .latestPodcast figure {
