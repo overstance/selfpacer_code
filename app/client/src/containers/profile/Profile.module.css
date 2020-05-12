@@ -61,8 +61,9 @@
 .BiodataEditButton {
     padding: 5px 20px;
     margin: 5px auto;
-    color: var(--white);
-    background: var(--blue);
+    color: var(--blue);
+    font-weight: 700;
+    background: var(--darkGreen);
     border-radius: 20px;
     display: inline-block;
     cursor: pointer;
@@ -70,11 +71,11 @@
 }
 
 .BiodataEditButton:hover {
-    background: var(--green);
+    background: var(--lightGray);
 }
 
 .BiodataInfo div {
-    color: var(--red);
+    color: var(--darkGreen);
     line-height: 25px;
     font-weight: 700;
 }
@@ -187,7 +188,7 @@
 
 .StatisticsCount {
     font-size: xx-large;
-    color: var(--red);
+    color: var(--darkGreen);
     /* overflow-x: auto; */
 }
 
@@ -254,13 +255,18 @@
     max-width: 160px;
     padding: 10px 0;
     margin: 10px auto;
-    background: var(--blue);
-    color: var(--white);
+    background: var(--darkGreen);
+    color: var(--blue);
+    font-weight: 700;
     border-radius: 20px;
     text-align: center;
     display: block;
     text-decoration: none;
     cursor: pointer;
+}
+
+.AdminTools:hover {
+    background: var(--lightGray);
 }
 
 .DeleteAccount {

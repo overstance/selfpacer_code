@@ -295,6 +295,7 @@ class SubjectPage extends Component {
 
         return (
             <Grid page_category={this.props.clickedSubjectCategory}>
+                <h1 className={classes.subjectTitle}>{this.props.match.params.subject_title}</h1>
                 <div className={classes.Subheader}>
                     <Toggler 
                         toggle={this.state.pathIconToggle} 
@@ -360,6 +361,7 @@ const mapStateToProps = state => {
         clickedSubjectLoading: state.clickedSubject.loading,
         clickedSubjectCategory: state.clickedSubject.clickedSubjectCategory,
         subject: state.clickedSubject.subject,
+        
         all: state.clickedSubject.allResources,
         resourceLoading: state.clickedSubject.allLoading,
         fetchResourcesError: state.clickedSubject.fetchAllResourcesError,

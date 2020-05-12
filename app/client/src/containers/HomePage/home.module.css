@@ -296,18 +296,34 @@
     stroke-miterlimit: 10;
 }
 
-.logoPowerRed {
-    fill: var(--red);
+.logoGoal {
+    fill: var(--green);
     transform: translateX(150px); 
     opacity: 0;
     animation: powerSlide 0.8s ease forwards 2s;
 }
 
-.logoHeadGreen {
-    fill: var(--green);
+.logoHead {
+    fill: var(--blue);
     transform: translateY(5px); 
     opacity: 0;
     animation: headSlideUp 0.4s ease forwards 2.8s;
+}
+
+.Motto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 54px;
+    left: 100px;
+    right: 0;
+    bottom: 0;
+    max-width: 266px;
+    margin: auto;
+    color: var(--green);
+    animation: headSlideUp 0.4s ease forwards 2.8s;
+    opacity: 0;
 }
 
 .inspireBoard {
@@ -318,7 +334,7 @@
 }
 
 .date {
-    color: var(--red);
+    color: var(--blue);
     font-size: 14px;
     font-weight: 700;
     padding-bottom: 8px;
@@ -326,12 +342,13 @@
 }
 
 .inspireText {
-    color: var(--black);
+    color: var(--blue);
     font-size: 18px;
     padding: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-transform: capitalize;
 }
 
 .homeButton {
@@ -388,7 +405,8 @@
     background: var(--white);
     border-radius: 16px;
     display: flex;
-    flex-flow: row nowrap;
+    /* flex-flow: row nowrap; */
+    flex-flow: column-reverse nowrap;
     border: 2px solid var(--blue);
 }
 
@@ -404,19 +422,22 @@
 .actionText {
     color: var(--blue);
     font-size: 20px;
-    margin: 16px 0;
+    /* margin: 16px 0; */
+    margin: 16px;
     font-weight: 700;
     text-align: left;
 }
 
 .actionButton {
-    text-align: left;
+    /* text-align: left; */
+    text-align: center;
     margin-top: 16px;
 }
 
 .actionArt {
     margin-left: 16px;
-    width: 120px;
+    /* width: 120px; */
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -424,6 +445,7 @@
 
 .actionArt svg {
     width: 100%;
+    height: 100%;
 }
 
 .footer {

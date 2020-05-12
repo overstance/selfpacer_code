@@ -1,3 +1,14 @@
+.subjectTitle {
+    color: var(--blue);
+    padding: 16px;
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 16px;
+    background: var(--lightGray);
+    text-align: center;
+    text-transform: uppercase;
+}
+
 .ResourcesContainer {
     min-height: 500px; 
     /* padding: 0 8px; */

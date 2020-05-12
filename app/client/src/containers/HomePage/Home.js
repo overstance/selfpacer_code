@@ -94,7 +94,7 @@ class HomePage extends Component {
         artType: 'collection',
         action: 'view',
         buttonLink: '/collections',
-        message: 'View and pin curated collections, remember to share that efficient collection of yours as well.'
+        message: 'View, collect, and pin curated collections; remember to share that efficient collection of yours as well.'
       },
       {
         artType: 'facilitate',
@@ -189,15 +189,16 @@ class HomePage extends Component {
                   <path d="M10.891 31.566c1.921 4.14 7.979 2.849 11.625 3.747 3.913.962 7.214 4.664 7.712 8.665.298 2.401-.074 4.839-.266 7.238-.128 1.606.062 3.683-1.105 4.978-1.875 2.082-5.275 1.004-5.527-1.776-.198-2.183.586-4.366.244-6.569-.294-1.888-1.444-3.654-2.978-4.774-3.551-2.59-8.391-1.078-12.08-3.686-7.625-5.392-4.922-17.277 2.752-21.084 4.175-2.071 9.936-1.649 14.433-2.004 2.363-.186 6.527-.641 5.877 3.144-.72 4.203-7.518 3.476-10.519 3.786-3.764.389-9.015.007-10.369 4.509-.302 1.322-.38 2.575.201 3.826z" />
                   <path d="M3.452 50.261c.862-1.197 2.202-1.445 3.571-1.595 3.165-.349 6.329-.697 9.492-1.046 2.371-.261 6.308-.492 5.438 3.233-.396 1.69-1.688 2.58-3.327 2.862-2.481.428-5.051.557-7.554.833-2.288.252-7.78 1.988-8.321-1.786-.065-.864.194-1.797.701-2.501z" />
                   <path
-                    className={classes.logoPowerRed}
+                    className={classes.logoGoal}
                     d="M33.477 19.264c.153 4.124 6.292 3.424 6.396-.469.114-4.266-6.402-3.645-6.396.469z"
                   />
                   <path
-                    className={classes.logoHeadGreen}
+                    className={classes.logoHead}
                     d="M9.036 12.786c.157 4.124 6.292 3.423 6.396-.469.114-4.268-6.405-3.646-6.396.469z"
                   />
                 </svg>
               </div>
+              <div className={classes.Motto}>Master It, Your Way.</div>
             </div>
             <article className={classes.inspireBoard}>
               <div className={classes.date}>{currentDate}</div>

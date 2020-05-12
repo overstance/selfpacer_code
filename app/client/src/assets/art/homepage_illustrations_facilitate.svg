@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <g fill="#B0F235">
+    <circle cx="672" cy="528" r="180"/>
+    <circle cx="672" cy="258" r="90"/>
+    <circle cx="852" cy="318" r="90"/>
+    <circle cx="972" cy="948" r="60"/>
+    <circle cx="672" cy="528" r="15"/>
+  </g>
+  <g fill="none" stroke="#3726A6" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10">
+    <circle cx="660" cy="540" r="180"/>
+    <circle cx="660" cy="270" r="90"/>
+    <circle cx="840" cy="330" r="90"/>
+    <circle cx="960" cy="960" r="60"/>
+    <circle cx="660" cy="540" r="15"/>
+  </g>
+  <g fill="none" stroke="#4A44F2" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10">
+    <path d="M1020 60L810 240M840 420h180M840 510l150 390M630 720l270 270"/>
+  </g>
+  <g fill="none" stroke="#4A44F2" stroke-width="16" stroke-linecap="round" stroke-miterlimit="10">
+    <path d="M574.444 569.958l56.732-19.534M686.5 553.805c-3.365 6.902-9.363 12.52-17.193 15.215-15.668 5.396-32.736-2.93-38.131-18.596-5.395-15.671 2.931-32.739 18.6-38.134 7.828-2.697 16.013-1.961 22.914 1.406"/>
+  </g>
+  <path fill="none" stroke="#3726A6" stroke-width="60" stroke-linecap="round" stroke-miterlimit="10" d="M360 630l-45 15c-24.75 8.25-61.2 36.6-81 63l-54 72M90 990h150c33 0 40.908-19.092 17.573-42.427L150 840M390 690l61.791 15.448c32.016 8.003 70.284-9.598 85.042-39.114L570 600"/>
+  <circle fill="#4A44F2" cx="405" cy="555" r="45"/>
+  <g fill="none" stroke="#96D926" stroke-width="16" stroke-linecap="round" stroke-miterlimit="10">
+    <path d="M60 270h360M90 270l30 60M389.999 270L360 330"/>
+  </g>
+  <g>
+    <path fill="#EEE" d="M390 228c0 16.5-13.5 30-30 30H120c-16.5 0-30-13.5-30-30V108c0-16.5 13.5-30 30-30h240c16.5 0 30 13.5 30 30v120z"/>
+    <path fill="none" stroke="#96D926" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" d="M390 228c0 16.5-13.5 30-30 30H120c-16.5 0-30-13.5-30-30V108c0-16.5 13.5-30 30-30h240c16.5 0 30 13.5 30 30v120z"/>
+    <path fill="#EEE" d="M300 78H180"/>
+    <path fill="none" stroke="#96D926" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" d="M300 78H180"/>
+    <g>
+      <path fill="#EEE" d="M210 78V63c0-8.25 13.5-15 30-15s30 6.75 30 15v15"/>
+      <path fill="none" stroke="#96D926" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" d="M210 78V63c0-8.25 13.5-15 30-15h0c16.5 0 30 6.75 30 15v15"/>
+    </g>
+    <path fill="#EEE" stroke="#96D926" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" d="M90 108l75 15h150l75-15"/>
+    <g fill="#EEE" stroke="#96D926" stroke-miterlimit="10">
+      <g stroke-width="8" stroke-linecap="round">
+        <path d="M250.606 201.106l-21.212-21.212M218.787 154.289a14.95 14.95 0 0110.606 4.392c5.858 5.858 5.858 15.354 0 21.213-5.859 5.858-15.354 5.858-21.214 0a14.957 14.957 0 01-4.391-10.606M276.211 211.713c0-3.839-1.464-7.679-4.391-10.606-5.859-5.858-15.354-5.858-21.214 0-5.858 5.859-5.858 15.354 0 21.214a14.957 14.957 0 0010.606 4.391"/>
+      </g>
+      <path stroke-width="8" d="M271.819 158.68l-63.639 63.64"/>
+      <path stroke-width="16" stroke-linecap="round" d="M234.484 196.016l-24.267 24.268"/>
+    </g>
+  </g>
+</svg>
