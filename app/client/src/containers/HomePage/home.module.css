@@ -18,7 +18,7 @@
     bottom: 0;
     margin: auto;
     min-height: 100vh;
-    max-width: 600px;
+    max-width:1280px;
     z-index: 650;
     background: linear-gradient(0deg, var(--blue), var(--lightBlue) );
 }
@@ -35,9 +35,10 @@
 }
 
 .header {
-    max-width: 600px;
+    max-width:1280px;
     border-bottom: 2px solid var(--blue);
     background: var(--lightBlue);
+    padding: 0 32px;
     margin: 0 auto;
     height: 100%;
     display: flex;
@@ -55,7 +56,7 @@
 
 .homeIcon svg {
     width: 32px;
-    fill: var(--blue);
+    fill: var(--green);
 }
 
 .helloUser {
@@ -86,7 +87,7 @@
     font-size: 18px;
     font-weight: 700;
     overflow: hidden;
-    color: var(--green);
+    color: var(--blue);
 }
 
 .helloUser h2 {
@@ -157,9 +158,9 @@
 }
 
 .body {
-    max-width: 600px;
+    max-width:1280px;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 48px;
     box-sizing: border-box;
 }
 
@@ -311,12 +312,13 @@
 }
 
 .Motto {
+    font-weight: 700;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
     top: 54px;
-    left: 100px;
+    left: 108px;
     right: 0;
     bottom: 0;
     max-width: 266px;
@@ -335,6 +337,8 @@
 
 .date {
     color: var(--blue);
+    max-width: 600px;
+    margin: auto;
     font-size: 14px;
     font-weight: 700;
     padding-bottom: 8px;
@@ -342,6 +346,8 @@
 }
 
 .inspireText {
+    max-width: 600px;
+    margin: auto;
     color: var(--blue);
     font-size: 18px;
     padding: 16px;
@@ -405,8 +411,8 @@
     background: var(--white);
     border-radius: 16px;
     display: flex;
-    /* flex-flow: row nowrap; */
-    flex-flow: column-reverse nowrap;
+    flex-flow: row-reverse nowrap;
+    /* flex-flow: column-reverse nowrap; */
     border: 2px solid var(--blue);
 }
 
@@ -422,8 +428,7 @@
 .actionText {
     color: var(--blue);
     font-size: 20px;
-    /* margin: 16px 0; */
-    margin: 16px;
+    margin: auto;
     font-weight: 700;
     text-align: left;
 }
@@ -431,13 +436,13 @@
 .actionButton {
     /* text-align: left; */
     text-align: center;
-    margin-top: 16px;
+    margin: 16px 0;
 }
 
 .actionArt {
-    margin-left: 16px;
-    /* width: 120px; */
-    width: 100%;
+    padding-right: 32px;
+    box-sizing: border-box;
+    width: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -449,10 +454,10 @@
 }
 
 .footer {
-    max-width: 600px;
+    max-width:1280px;
     margin: 0 auto;
     box-sizing: border-box;
-    padding: 16px;
+    padding: 16px 48px;
     width: 100%;
     margin-top: 32px;
     border-top: 1px solid var(--lightBlue);
@@ -677,4 +682,49 @@
         opacity: 1;
     }
 
+}
+
+@media(max-width: 900px) {
+    .actionArt {
+        width: 240px;
+    }
+
+    .header {
+        padding: 0 16px;
+    }
+
+    .body {
+        padding: 0 32px;
+    }
+
+    .footer {
+        padding: 16px 32px;
+    }
+}
+
+@media(max-width: 600px) {
+    .header {
+        padding: 0;
+    }
+
+    .body {
+        padding: 0 16px;
+    }
+
+    .footer {
+        padding: 16px;
+    }
+
+    .actionCard {
+        flex-flow: column-reverse;
+    }
+
+    .actionArt {
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .actionText {
+        margin: 16px 0 0 0;
+    }
 }
