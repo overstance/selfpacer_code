@@ -130,6 +130,8 @@ export const fetchUser = () => async dispatch => {
         dispatch(setUserLikeCount(res.data.likeCount));
         dispatch(setUserPinnedCollections(res.data.pinnedCollections));
         dispatch(setUserSavedBlogs(res.data.blogSaves));
+        localStorage.setItem("spec", res.data.specialization);
+        dispatch(dispatchVisitorSpecialization(res.data.specialization));
 
         /* if ( res.data.recentlyViewed.length > 0 ) {
 
