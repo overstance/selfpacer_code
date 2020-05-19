@@ -52,3 +52,54 @@
         ]
     }
 }
+
+/* 
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "prettier"
+    ],
+    "rules": {
+        "no-console": "off",
+        "indent": [
+            "error",
+            2
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "trailingComma": "none",
+                "bracketSpacing": true,
+                "parser": "flow"
+            }
+        ]
+    }
+}
+npm i express
+npm i mongoose passport passport-local passport-local-mongoose cookie-session body-parser
+npm i --save-dev concurrently nodemon
+npm i --save-dev eslint prettier eslint-config-prettier eslint-plugin-prettier
+npx create-react-app client
+npm i react-router-dom prop-types axios redux redux-thunk http-proxy-middleware animejs howler node-sass
+*/

@@ -10,12 +10,11 @@ const middleware = require('../middlewares');
 
 const keys = require('../config/keys');
 
-let emailProtocol = 'http://'
+let emailProtocol = 'http://';
 
 if (process.env.NODE_ENV === 'production') {
   emailProtocol = 'https://';
 }
-
 
 const User = mongoose.model('users');
 
