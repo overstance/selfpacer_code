@@ -97,8 +97,8 @@
     }
 }
 npm i express
-npm i mongoose passport passport-local passport-local-mongoose cookie-session body-parser
-npm i --save-dev concurrently nodemon
+npm i mongoose passport passport-local passport-local-mongoose cookie-session body-parser concurrently nodemon
+
 npm i --save-dev eslint prettier eslint-config-prettier eslint-plugin-prettier
 npx create-react-app client
 npm i react-router-dom prop-types axios redux redux-thunk http-proxy-middleware animejs howler node-sass
