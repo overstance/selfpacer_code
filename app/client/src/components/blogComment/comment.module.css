@@ -160,6 +160,7 @@
 .commentSectionHeader svg {
     height: 36px;
     width: 36px;
+    fill: var(--blue);
 }
 
 .commentSectionHeader div {
@@ -169,6 +170,7 @@
     padding-left: 32px;
     font-family: 'Squada One', Impact, 'Arial Narrow Bold', sans-serif;
     font-size: 24px;
+    color: var(--blue);
 }
 
 .commentAuthRequiredSection {

@@ -715,6 +715,10 @@
         padding: 16px;
     }
 
+    .action {
+        display: block;
+    }
+
     .actionCard {
         flex-flow: column-reverse;
     }
